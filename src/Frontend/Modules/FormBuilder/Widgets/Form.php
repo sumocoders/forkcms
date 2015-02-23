@@ -458,6 +458,7 @@ class Form extends FrontendBaseWidget
                     $variables['sentOn'] = time();
                     $variables['name'] = $this->item['name'];
                     $variables['fields'] = $emailFields;
+                    $mailCopyTo = false;
 
                     // check if we have a replyTo email set
                     $replyTo = null;
