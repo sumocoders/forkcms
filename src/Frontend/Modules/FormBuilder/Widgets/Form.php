@@ -475,8 +475,6 @@ class Form extends FrontendBaseWidget
                     ;
 
                     // check if we have a replyTo email set
-                    $replyTo = null;
-                    $mailCopyTo = null;
                     foreach ($this->item['fields'] as $field) {
                         if (array_key_exists('reply_to', $field['settings']) &&
                             $field['settings']['reply_to'] === true
@@ -486,29 +484,13 @@ class Form extends FrontendBaseWidget
                                 $message->setReplyTo(array($email => $email));
                             }
                         }
-                        if (isset($field['settings']['mailCopyTo']) && $field['settings']['mailCopyTo'] == 'Y') {
-                            $email = $this->frm->getField('field' . $field['id'])->getValue();
-                            if (SpoonFilter::isEmail($email)) {
-                                $mailCopyTo = $email;
-                            }
-                        }
                     }
                     if ($message->getReplyTo() === null) {
                         $replyTo = FrontendModel::getModuleSetting('Core', 'mailer_reply_to');
                         $message->setReplyTo(array($replyTo['email'] => $replyTo['name']));
                     }
 
-                    # Mail copy
-                    if ($mailCopyTo) {
-                        $variables = array_replace($variables, array('mailCopyTo' => true));
-                        FrontendMailer::addEmail(
-                            sprintf(FL::getMessage('FormBuilderSubject'), $this->item['name']),
-                            FRONTEND_MODULES_PATH . '/form_builder/layout/templates/mails/form.tpl',
-                            $variables,
-                            $mailCopyTo,
-                            $this->item['name']
-                        );
-                    }
+                    $this->get('mailer')->send($message);
                 }
 
                 // trigger event
