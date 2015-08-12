@@ -28,6 +28,17 @@ use Symfony\Component\Debug\Debug;
 $env = getenv('FORK_ENV') ? : 'prod';
 $debug = getenv('FORK_DEBUG') === '1';
 
+/**
+ * @remark only for SumoCoders
+ *
+ * Because ENV variables are not passed to CGI due to suExec.
+ * See http://wiki.dreamhost.com/Suexec#Apache_module_mod_env for more
+ * information.
+ */
+if (isset($_SERVER['HTTP_HOST']) && substr_count($_SERVER['HTTP_HOST'], '.sumocoders.eu') >= 1) {
+    $debug = true;
+}
+
 // Fork has not yet been installed
 $parametersFile = dirname(__FILE__) . '/app/config/parameters.yml';
 $request = Request::createFromGlobals();
