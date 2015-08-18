@@ -1,7 +1,6 @@
 set :production_server, "#{production_hostname}"
 set :user, "#{production_account}"
 set :app_path, "apps/#{application}"
-set :deploy_to, "#{app_path}"
 set :document_root, "#{production_document_root}"
 set :branch, "master"
 
@@ -10,3 +9,6 @@ set :branch, "master"
 #set :db_username, ""
 #set :db_password, ""
 #set :db_host, ""
+
+# Uncomment this if you have to deploy to a server with a custom directory structure
+# set :deploy_to, "#{app_path}"
