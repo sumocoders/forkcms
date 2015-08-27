@@ -9,3 +9,6 @@ set :branch, "master"
 #set :db_username, ""
 #set :db_password, ""
 #set :db_host, ""
+
+# Uncomment this if you have to deploy to a server with a custom directory structure
+# set :deploy_to, "#{app_path}"
