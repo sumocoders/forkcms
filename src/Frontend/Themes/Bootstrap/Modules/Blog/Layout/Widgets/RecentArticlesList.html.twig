@@ -4,20 +4,22 @@
 #}
 
 {% if widgetBlogRecentArticlesList %}
-  <section id="blogRecentArticlesListWidget" class="well blog">
-    <header role="banner">
+  <section id="blogRecentArticlesListWidget" class="blog blog-widget">
+    <header class="widget-header">
       <h3>{{ 'lbl.RecentArticles'|trans|capitalize }}</h3>
     </header>
-    <ul>
-      {% for post in widgetBlogRecentArticlesList %}
-        <li><a href="{{ post.full_url }}" title="{{ post.title }}">{{ post.title }}</a></li>
-      {% endfor %}
-    </ul>
-    <footer role="contentinfo">
-      <p class="btn-group">
+    <div class="widget-body">
+      <ul>
+        {% for item in widgetBlogRecentArticlesList %}
+          <li><a href="{{ item.full_url }}" title="{{ item.title }}">{{ item.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <footer class="widget-footer">
+      <div class="btn-group">
         <a class="btn btn-default" href="{{ geturlforblock('Blog') }}">{{ 'lbl.BlogArchive'|trans|capitalize }}</a>
-        <a class="btn btn-default" href="{{ widgetBlogRecentArticlesFullRssLink }}">{{ 'lbl.RSSFeed'|trans|capitalize }}</a>
-      </p>
+        <a class="btn btn-default" href="{{ widgetBlogRecentArticlesFullRssLink }}">{{ 'lbl.SubscribeToTheRSSFeed'|trans|capitalize }}</a>
+      </div>
     </footer>
   </section>
 {% endif %}
