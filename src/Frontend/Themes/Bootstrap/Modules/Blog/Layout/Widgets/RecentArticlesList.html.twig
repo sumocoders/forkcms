@@ -6,7 +6,7 @@
 {% if widgetBlogRecentArticlesList %}
   <section id="blogRecentArticlesListWidget" class="blog blog-widget">
     <header class="widget-header">
-      <h3>{{ 'lbl.RecentArticles'|trans|capitalize }}</h3>
+      <h3>{{ 'lbl.RecentArticles'|trans|ucfirst }}</h3>
     </header>
     <div class="widget-body">
       <ul>
@@ -17,8 +17,8 @@
     </div>
     <footer class="widget-footer">
       <div class="btn-group">
-        <a class="btn btn-default" href="{{ geturlforblock('Blog') }}">{{ 'lbl.BlogArchive'|trans|capitalize }}</a>
-        <a class="btn btn-default" href="{{ widgetBlogRecentArticlesFullRssLink }}">{{ 'lbl.SubscribeToTheRSSFeed'|trans|capitalize }}</a>
+        <a class="btn btn-default" href="{{ geturlforblock('Blog') }}">{{ 'lbl.BlogArchive'|trans|ucfirst }}</a>
+        <a class="btn btn-default" href="{{ widgetBlogRecentArticlesFullRssLink }}">{{ 'lbl.SubscribeToTheRSSFeed'|trans|ucfirst }}</a>
       </div>
     </footer>
   </section>

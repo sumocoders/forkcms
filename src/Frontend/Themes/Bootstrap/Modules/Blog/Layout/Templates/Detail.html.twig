@@ -12,7 +12,7 @@ variables that are available:
     <meta itemprop="author" content="{{ item.user_id|usersetting('nickname' ) }}">
     <header class="module-header">
       <h1 itemprop="name">{{ item.title }}</h1>
-      <span class="sr-only">{{ 'msg.WrittenBy'|trans|capitalize|format('') }} </span>{{ item.user_id|usersetting('nickname' ) }}
+      <span class="sr-only">{{ 'msg.WrittenBy'|trans|ucfirst|format('') }} </span>{{ item.user_id|usersetting('nickname' ) }}
       <span class="sr-only">{{ 'lbl.On'|trans }}</span>
       <time itemprop="datePublished" datetime="{{ item.publish_on|date('Y-m-d\TH,i,s' ) }}">{{ item.publish_on|spoondate(dateFormatLong,LANGUAGE ) }}</time>
 
@@ -21,7 +21,7 @@ variables that are available:
           <span class="sr-only">{{ 'lbl.InThe'|trans }} </span>{{ 'lbl.Category'|trans }}:
           <a itemprop="articleSection" href="{{ item.category_full_url }}">{{ item.category_title }}</a>
           {% if item.tags %}
-            <span class="sr-only">{{ 'lbl.WithThe'|trans }}</span> {{ 'lbl.Tags'|trans|capitalize }}:
+            <span class="sr-only">{{ 'lbl.WithThe'|trans }}</span> {{ 'lbl.Tags'|trans|ucfirst }}:
             <span itemprop="keywords">
               {% for tag in item.tags %}
                 <a class="label label-default" href="{{ tag.full_url }}" rel="tag">{{ tag.name }}</a>{% if not loop.last %}<span class="sr-only">,</span> {% endif %}
@@ -57,7 +57,7 @@ variables that are available:
         <div class="col-xs-12">
           <div class="share-buttons">
             <span class="share-button">
-              {{ 'lbl.Share'|trans|capitalize }}:
+              {{ 'lbl.Share'|trans|ucfirst }}:
             </span>
             <span class="share-button share-button-facebook">
               <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
@@ -69,17 +69,17 @@ variables that are available:
         </div>
       </div>
 
-      <nav aria-label="...">
+      <nav aria-label="page navigation">
         <ul class="pager">
           {% if navigation.previous %}
             <li class="previous">
               <a href="{{ navigation.previous.url }}" rel="prev" title="{{ navigation.previous.title }}">&larr;
-                <span class="sr-only">{{ 'lbl.PreviousArticle'|trans|capitalize }}: </span><span class="title">{{ navigation.previous.title }}</span></a>
+                <span class="sr-only">{{ 'lbl.PreviousArticle'|trans|ucfirst }}: </span><span class="title">{{ navigation.previous.title }}</span></a>
             </li>
           {% endif %}
           {% if navigation.next %}
             <li class="next">
-              <a href="{{ navigation.next.url }}" rel="next" title="{{ navigation.next.title }}"><span class="sr-only">{{ 'lbl.NextArticle'|trans|capitalize }}: </span><span class="title">{{ navigation.next.title }}</span> &rarr;</a>
+              <a href="{{ navigation.next.url }}" rel="next" title="{{ navigation.next.title }}"><span class="sr-only">{{ 'lbl.NextArticle'|trans|ucfirst }}: </span><span class="title">{{ navigation.next.title }}</span> &rarr;</a>
             </li>
           {% endif %}
         </ul>
@@ -91,7 +91,7 @@ variables that are available:
   {% if item.allow_comments %}
     <section id="{{ act.Comments }}" class="comments">
       <header>
-        <h3>{{ 'lbl.Comments'|trans|capitalize }}</h3>
+        <h3>{{ 'lbl.Comments'|trans|ucfirst }}</h3>
       </header>
       {% if not comments %}
         {{ alerts.alert('info', 'msg.BlogNoComments'|trans) }}
@@ -125,7 +125,7 @@ variables that are available:
 
     <section id="{{ act.Comment }}" class="comment-form">
       <header>
-        <h3>{{ 'msg.Comment'|trans|capitalize }}</h3>
+        <h3>{{ 'msg.Comment'|trans|ucfirst }}</h3>
       </header>
       <div class="well">
         {% if commentIsInModeration %}

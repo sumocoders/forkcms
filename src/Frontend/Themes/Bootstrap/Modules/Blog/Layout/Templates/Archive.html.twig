@@ -15,9 +15,9 @@
     <header class="module-header">
       <h3>
       {% if archive.month %}
-        {{ 'msg.ArticlesFor'|trans|capitalize|format(archive.start_date|spoondate('F Y',LANGUAGE) ) }}
+        {{ 'msg.ArticlesFor'|trans|ucfirst|format(archive.start_date|spoondate('F Y',LANGUAGE) ) }}
       {% else %}
-        {{ 'msg.ArticlesFor'|trans|capitalize|format(archive.start_date|date('Y') ) }}
+        {{ 'msg.ArticlesFor'|trans|ucfirst|format(archive.start_date|date('Y') ) }}
       {% endif %}
       </h3>
     </header>
@@ -25,9 +25,9 @@
       <table class="table table-hover" itemscope itemtype="http://schema.org/Blog">
         <thead class="sr-only">
           <tr>
-            <th class="date">{{ 'lbl.Date'|trans|capitalize }}</th>
-            <th class="title">{{ 'lbl.Title'|trans|capitalize }}</th>
-            {% if allowComments %}<th class="comments">{{ 'lbl.Comments'|trans|capitalize }}</th>{% endif %}
+            <th class="date">{{ 'lbl.Date'|trans|ucfirst }}</th>
+            <th class="title">{{ 'lbl.Title'|trans|ucfirst }}</th>
+            {% if allowComments %}<th class="comments">{{ 'lbl.Comments'|trans|ucfirst }}</th>{% endif %}
           </tr>
         </thead>
         <tbody>
