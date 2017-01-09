@@ -126,7 +126,7 @@ gulp.task("build:frontend:fonts:generate-webfonts", function() {
 
 gulp.task("build:frontend:sass:generate-development-css", function() {
   return gulp.plumbedSrc(`${paths.src}/Layout/Sass/*.scss`)
-      .pipe(sourcemaps.init())  // @remark: why do we generate maps in dev?
+      .pipe(sourcemaps.init())
       .pipe(sass({
         includePaths: [
           "./node_modules/bootstrap-sass/assets/stylesheets",
@@ -134,13 +134,17 @@ gulp.task("build:frontend:sass:generate-development-css", function() {
         ]
       }).on("error", sass.logError))
       .pipe(autoprefixer())
-      .pipe(sourcemaps.write())
+      .pipe(sourcemaps.write("./", {
+        includeContent: false,
+        sourceRoot:     `/src/Frontend/Themes/${theme}/src/Layout/Sass`
+      }))
       .pipe(gulp.dest(`${paths.core}/Layout/Css`))
       .pipe(livereload());
 });
 
 gulp.task("build:frontend:sass:generate-production-css", function() {
   return gulp.src(`${paths.src}/Layout/Sass/*.scss`)
+      .pipe(sourcemaps.init())
       .pipe(sass({
         outputStyle:  "compressed",
         includePaths: [
@@ -149,6 +153,10 @@ gulp.task("build:frontend:sass:generate-production-css", function() {
         ]
       }).on("error", sass.logError))
       .pipe(autoprefixer())
+      .pipe(sourcemaps.write("./", {
+        includeContent: false,
+        sourceRoot:     `/src/Frontend/Themes/${theme}/src/Layout/Sass`
+      }))
       .pipe(gulp.dest(`${paths.core}/Layout/Css`));
 });
 
