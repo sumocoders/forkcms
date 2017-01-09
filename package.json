@@ -41,5 +41,8 @@
       "react"
     ]
   },
+  "engines": {
+    "node": "^7.*"
+  },
   "theme": "Bootstrap"
 }
