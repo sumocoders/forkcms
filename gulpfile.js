@@ -70,7 +70,7 @@ const consolidate = require("gulp-consolidate");
 const rename = require("gulp-rename");
 const fontgen = require("gulp-fontgen");
 const autoprefixer = require("gulp-autoprefixer");
-const gulpWebpack = require("webpack-stream");
+const webpackStream = require("webpack-stream");
 const webpack = require("webpack");
 const imagemin = require("gulp-imagemin");
 
@@ -161,11 +161,11 @@ gulp.task("build:frontend:sass:generate-production-css", function() {
 });
 
 var commonWebpackConfig = {
-  output: {
+  output:  {
     filename: "bundle.js"
   },
   devtool: "source-maps",
-  module: {
+  module:  {
     loaders: [
       {
         test:    /.js?$/,
@@ -178,7 +178,7 @@ var commonWebpackConfig = {
 
 gulp.task("build:frontend:webpack:generate-development-js", function() {
   return gulp.plumbedSrc(`${paths.src}/Js/index.js`)
-      .pipe(gulpWebpack(Object.assign({}, commonWebpackConfig, {
+      .pipe(webpackStream(Object.assign({}, commonWebpackConfig, {
         watch: true
       })))
       .pipe(gulp.dest(`${paths.core}/Js`))
@@ -187,7 +187,7 @@ gulp.task("build:frontend:webpack:generate-development-js", function() {
 
 gulp.task("build:frontend:webpack:generate-production-js", function() {
   return gulp.src(`${paths.src}/Js/index.js`)
-      .pipe(gulpWebpack(Object.assign({}, commonWebpackConfig, {
+      .pipe(webpackStream(Object.assign({}, commonWebpackConfig, {
         plugins: [
           new webpack.optimize.UglifyJsPlugin({
             compress: {
