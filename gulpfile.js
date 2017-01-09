@@ -164,6 +164,7 @@ var commonWebpackConfig = {
   output: {
     filename: "bundle.js"
   },
+  devtool: "source-maps",
   module: {
     loaders: [
       {
