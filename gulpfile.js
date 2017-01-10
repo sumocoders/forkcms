@@ -85,7 +85,7 @@ gulp.plumbedSrc = function() {
       .pipe(plumber());
 };
 
-gulp.task("build:frontend:empty-destination-folders", function() {
+gulp.task("build:theme:empty-destination-folders", function() {
   return del([
     `${paths.core}/Layout/Fonts/**/*`,
     `${paths.core}/Layout/Images/**/*`,
@@ -93,7 +93,7 @@ gulp.task("build:frontend:empty-destination-folders", function() {
   ]);
 });
 
-gulp.task("build:frontend:fonts:generate-iconfont", function() {
+gulp.task("build:theme:fonts:generate-iconfont", function() {
   return gulp.plumbedSrc(`${paths.src}/Layout/icon-sources/*.svg`)
       .pipe(iconfont({fontName: "icons"}))
       .on("glyphs", function(glyphs) {
@@ -113,7 +113,7 @@ gulp.task("build:frontend:fonts:generate-iconfont", function() {
       .pipe(livereload());
 });
 
-gulp.task("build:frontend:fonts:generate-webfonts", function() {
+gulp.task("build:theme:fonts:generate-webfonts", function() {
   return gulp.plumbedSrc(`${paths.src}/Layout/Fonts/**/*.{ttf,otf}`)
       .pipe(fontgen({
         options: {
@@ -124,7 +124,7 @@ gulp.task("build:frontend:fonts:generate-webfonts", function() {
       .pipe(livereload());
 });
 
-gulp.task("build:frontend:sass:generate-development-css", function() {
+gulp.task("build:theme:sass:generate-development-css", function() {
   return gulp.plumbedSrc(`${paths.src}/Layout/Sass/*.scss`)
       .pipe(sourcemaps.init())
       .pipe(sass({
@@ -142,7 +142,7 @@ gulp.task("build:frontend:sass:generate-development-css", function() {
       .pipe(livereload());
 });
 
-gulp.task("build:frontend:sass:generate-production-css", function() {
+gulp.task("build:theme:sass:generate-production-css", function() {
   return gulp.src(`${paths.src}/Layout/Sass/*.scss`)
       .pipe(sourcemaps.init())
       .pipe(sass({
@@ -176,7 +176,7 @@ var commonWebpackConfig = {
   }
 };
 
-gulp.task("build:frontend:webpack:generate-development-js", function() {
+gulp.task("build:theme:webpack:generate-development-js", function() {
   return gulp.plumbedSrc(`${paths.src}/Js/index.js`)
       .pipe(webpackStream(Object.assign({}, commonWebpackConfig, {
         watch: true
@@ -185,7 +185,7 @@ gulp.task("build:frontend:webpack:generate-development-js", function() {
       .pipe(livereload());
 });
 
-gulp.task("build:frontend:webpack:generate-production-js", function() {
+gulp.task("build:theme:webpack:generate-production-js", function() {
   return gulp.src(`${paths.src}/Js/index.js`)
       .pipe(webpackStream(Object.assign({}, commonWebpackConfig, {
         plugins: [
@@ -202,38 +202,38 @@ gulp.task("build:frontend:webpack:generate-production-js", function() {
       .pipe(gulp.dest(`${paths.core}/Js`));
 });
 
-gulp.task("build:frontend:assets:copy-templates", function() {
+gulp.task("build:theme:assets:copy-templates", function() {
   return gulp.plumbedSrc(`${paths.src}/Layout/Templates/**/*`)
       .pipe(gulp.dest(`${paths.core}/Layout/Templates`))
       .pipe(livereload());
 });
 
-gulp.task("build:frontend:images:minify-images", function() {
+gulp.task("build:theme:images:minify-images", function() {
   return gulp.plumbedSrc(`${paths.src}/Layout/Images/**/*`)
       .pipe(imagemin())
       .pipe(gulp.dest(`${paths.core}/Layout/Images`))
       .pipe(livereload());
 });
 
-gulp.task("build:frontend", ["build:frontend:empty-destination-folders"], function() {
+gulp.task("build:theme", ["build:theme:empty-destination-folders"], function() {
   gulp.start(
-      "build:frontend:fonts:generate-iconfont",
-      "build:frontend:fonts:generate-webfonts",
-      "build:frontend:sass:generate-production-css",
-      "build:frontend:webpack:generate-production-js",
-      "build:frontend:assets:copy-templates",
-      "build:frontend:images:minify-images"
+      "build:theme:fonts:generate-iconfont",
+      "build:theme:fonts:generate-webfonts",
+      "build:theme:sass:generate-production-css",
+      "build:theme:webpack:generate-production-js",
+      "build:theme:assets:copy-templates",
+      "build:theme:images:minify-images"
   );
 });
 
-gulp.task("serve:frontend", function() {
+gulp.task("serve:theme", function() {
   livereload.listen();
-  gulp.watch(`${paths.src}/Js/**/*.js`, ["build:frontend:webpack:generate-development-js"]);
-  gulp.watch(`${paths.src}/Layout/Sass/**/*.scss`, ["build:frontend:sass:generate-development-css"]);
-  gulp.watch(`${paths.src}/Layout/Templates/**/*`, ["build:frontend:assets:copy-templates"]);
-  gulp.watch(`${paths.src}/Layout/Images/**/*`, ["build:frontend:images:minify-images"]);
-  gulp.watch(`${paths.src}/Layout/icon-sources/*`, ["build:frontend:fonts:generate-iconfont"]);
-  gulp.watch(`${paths.src}/Layout/Fonts/**/*`, ["build:frontend:fonts:generate-webfonts"]);
+  gulp.watch(`${paths.src}/Js/**/*.js`, ["build:theme:webpack:generate-development-js"]);
+  gulp.watch(`${paths.src}/Layout/Sass/**/*.scss`, ["build:theme:sass:generate-development-css"]);
+  gulp.watch(`${paths.src}/Layout/Templates/**/*`, ["build:theme:assets:copy-templates"]);
+  gulp.watch(`${paths.src}/Layout/Images/**/*`, ["build:theme:images:minify-images"]);
+  gulp.watch(`${paths.src}/Layout/icon-sources/*`, ["build:theme:fonts:generate-iconfont"]);
+  gulp.watch(`${paths.src}/Layout/Fonts/**/*`, ["build:theme:fonts:generate-webfonts"]);
 });
 
 // public tasks
@@ -242,12 +242,12 @@ gulp.task("default", function() {
 });
 
 gulp.task("serve", function() {
-  gulp.start("serve:frontend");
+  gulp.start("serve:theme");
 });
 
 gulp.task("build", function() {
   gulp.start(
       "build:backend",
-      "build:frontend" // @remark custom for SumoCoders
+      "build:theme" // @remark custom for SumoCoders
   );
 });
