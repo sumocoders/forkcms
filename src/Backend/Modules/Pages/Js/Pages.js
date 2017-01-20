@@ -24,9 +24,19 @@ jsBackend.pages =
       $('form').submit();
     });
 
-    // do meta
-    if($('#title').length > 0) $('#title').doMeta();
-  }
+        // show / hide the remove from search index checkbox on change
+        $('#authRequired').on('change', function(e)
+        {
+            if($(this).is(':checked')){
+              $('[data-role="remove-from-search-index"]').removeClass('hidden');
+            } else {
+              $('[data-role="remove-from-search-index"]').addClass('hidden');
+            }
+        }).trigger('change');
+
+        // do meta
+        if($('#title').length > 0) $('#title').doMeta();
+    }
 };
 
 /**
