@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c3eafccd48a45583e297a7e91cac8427",
-    "content-hash": "bbdc4ffb94029487421843213406ef1c",
+    "hash": "5a5fca96e88295005dd03b1224ebb30e",
+    "content-hash": "5a8d615d5a789755882b90a7ce47d404",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -926,39 +926,6 @@
                 "orm"
             ],
             "time": "2016-09-10 18:51:13"
-        },
-        {
-            "name": "flippa-official/errbit-php",
-            "version": "dev-master",
-            "target-dir": "Flippa/ErrbitPhp",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/flippa/errbit-php.git",
-                "reference": "b432716d29c2b4ada0f21ccc469ccb046bb60340"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/flippa/errbit-php/zipball/b432716d29c2b4ada0f21ccc469ccb046bb60340",
-                "reference": "b432716d29c2b4ada0f21ccc469ccb046bb60340",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "lib/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Errbit & Airbrake Client for PHP",
-            "homepage": "https://github.com/flippa/errbit-php",
-            "time": "2013-04-01 21:44:38"
         },
         {
             "name": "google/apiclient",
@@ -2384,6 +2351,42 @@
             "description": "A PHP5 library that is fast, easy to learn and fun!",
             "homepage": "http://www.spoon-library.com",
             "time": "2016-09-05 14:43:42"
+        },
+        {
+            "name": "sumocoders/errbit-php",
+            "version": "1.0.3",
+            "target-dir": "Flippa/ErrbitPhp",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sumocoders/errbit-php.git",
+                "reference": "0abf958995c0708a6cab41bd65e75cd5ac207b84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sumocoders/errbit-php/zipball/0abf958995c0708a6cab41bd65e75cd5ac207b84",
+                "reference": "0abf958995c0708a6cab41bd65e75cd5ac207b84",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "replace": {
+                "flippa-official/errbit-php": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Errbit & Airbrake Client for PHP",
+            "homepage": "https://github.com/flippa/errbit-php",
+            "time": "2017-02-22 10:11:28"
         },
         {
             "name": "sumocoders/sumo-fork-class",
@@ -4546,9 +4549,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "flippa-official/errbit-php": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
