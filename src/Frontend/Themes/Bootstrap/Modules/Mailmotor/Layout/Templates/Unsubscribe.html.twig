@@ -1,27 +1,32 @@
 {% import 'Core/Layout/Templates/Alerts.html.twig' as alerts %}
-<div id="mailmotorUnsubscribe">
-  {% if unsubscribeHasFormError %}
+<div id="mailmotorUnsubscribe" class="mailmotor">
+  {% if mailmotorUnsubscribeHasFormError %}
     {{ alerts.alert('danger', 'err.FormError'|trans) }}
   {% endif %}
-  {% if unsubscribeHasError %}
+  {% if mailmotorUnsubscribeHasError %}
     {{ alerts.alert('danger', 'err.UnsubscribeFailed'|trans) }}
   {% endif %}
-  {% if unsubscribeIsSuccess %}
+  {% if mailmotorUnsubscribeIsSuccess %}
     {{ alerts.alert('success', 'msg.UnsubscribeSuccess'|trans) }}
   {% endif %}
 
-  {% if not unsubscribeHideForm %}
-    {% form unsubscribe %}
-      <div class="control-group{% if txtEmailError %} error{% endif %}">
-        <label class="control-label" for="email">{{ 'lbl.Email'|trans|capitalize }}<abbr title="{{ 'lbl.RequiredField'|trans|capitalize }}">*</abbr></label>
-        <div class="controls">
-          {% form_field_error email %} {% form_field email %}
+  <h3>{{ 'lbl.UnsubscribeFromNewsletter'|trans|capitalize }}</h3>
+
+  {% if not mailmotorUnsubscribeHideForm %}
+    <div class="well">
+      {{ form_start(form) }}
+      <div class="form-group">
+        <label for="{{ form.email.vars.id }}" class="control-label">{{ form.email.vars.label|trans|ucfirst }}</label>
+        <div class="input-group">
+          {{ form_widget(form.email) }}
+          <div class="input-group-btn">
+            <button type="submit" id="{{ form.unsubscribe.vars.id }}" class="btn btn-default">{{ form.unsubscribe.vars.label|trans }}</button>
+            {% do form.unsubscribe.setRendered %}
+          </div>
         </div>
       </div>
-
-      <div class="form-actions">
-        <input class="btn-primary btn" type="submit" name="send" value="{{ 'lbl.Send'|trans|capitalize }}" />
-      </div>
-    {% endform %}
+      {{ form_rest(form) }}
+      {{ form_end(form) }}
+    </div>
   {% endif %}
 </div>
