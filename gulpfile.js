@@ -86,6 +86,13 @@ gulp.plumbedSrc = function() {
       .pipe(plumber());
 };
 
+gulp.task("build:assets:copy-images-vendors", function() {
+    return gulp.src([
+        "./node_modules/fancybox/dist/img/*"
+    ])
+        .pipe(gulp.dest("./images/vendors/fancybox"));
+});
+
 gulp.task("build:theme:empty-destination-folders", function() {
   return del([
     `${paths.core}/Layout/Fonts/**/*`,
@@ -218,6 +225,7 @@ gulp.task("build:theme:images:minify-images", function() {
 
 gulp.task("build:theme", ["build:theme:empty-destination-folders"], function() {
   gulp.start(
+      "build:assets:copy-images-vendors",
       "build:theme:fonts:generate-iconfont",
       "build:theme:fonts:generate-webfonts",
       "build:theme:sass:generate-production-css",
