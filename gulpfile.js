@@ -185,7 +185,7 @@ var commonWebpackConfig = {
 };
 
 gulp.task("build:theme:webpack:generate-development-js", function() {
-  return gulp.plumbedSrc(`${paths.src}/Js/index.js`)
+  return gulp.plumbedSrc(`${paths.src}/Js/Index.js`)
       .pipe(webpackStream(Object.assign({}, commonWebpackConfig, {
         watch: true
       })))
@@ -194,7 +194,7 @@ gulp.task("build:theme:webpack:generate-development-js", function() {
 });
 
 gulp.task("build:theme:webpack:generate-production-js", function() {
-  return gulp.src(`${paths.src}/Js/index.js`)
+  return gulp.src(`${paths.src}/Js/Index.js`)
       .pipe(webpackStream(Object.assign({}, commonWebpackConfig, {
         plugins: [
           new webpack.optimize.UglifyJsPlugin({
