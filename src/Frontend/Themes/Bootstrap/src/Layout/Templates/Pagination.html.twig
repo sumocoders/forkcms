@@ -39,7 +39,7 @@
           {% for pagination in pagination.last %}
             <li>
               <a href="{{ pagination.url }}" rel="nofollow" title="{{ 'lbl.GoToPage'|trans|capitalize }}{{ pagination.label }}">
-                {{ pagination.last }}
+                {{ pagination.label }}
               </a>
             </li>
           {% endfor %}
