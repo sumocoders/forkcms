@@ -12,6 +12,8 @@ set :production_hostname, ""                      # eg: "web01.crsolutions.be"
 set :production_document_root, ""                 # eg: "/home/#{production_account}/#{production_url.gsub("http://","")}"
 #set :production_db, ""                           # eg: "client_db"
 set :production_errbit_api_key, ""
+set :fcgi_connection_string, "/var/run/php_fpm_#{production_account}.sock"
+
 
 # repo information
 set :repository, ""                               # eg: "git@github.com:sumocoders/forkcms.git"
@@ -28,3 +30,4 @@ require "forkcms_deploy/defaults"
 
 # compile sass on deploy
 after 'deploy:update_code', 'assets:precompile'
+after 'deploy:create_symlink', 'opcache:phpfpm:reset'
