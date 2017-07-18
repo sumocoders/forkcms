@@ -1,9 +1,7 @@
-<section id="searchFormWidget" class="navbar-form pull-right navbar-left search" role="search">
+<section id="searchFormWidget" class="form-inline search" role="search">
   {% form search %}
-    <label for="qWidget" class="hide">{{ 'lbl.SearchTerm'|trans|capitalize }}<abbr title="{{ 'lbl.RequiredField'|trans|capitalize }}">*</abbr></label>
-    <div class="form-group">
-      {% form_field q_widget %}
-    </div>
-    <input id="submit" class="btn btn-default" type="submit" name="submit" value="{{ 'lbl.Search'|trans|capitalize }}" />
+    <label for="qWidget" class="sr-only">{{ 'lbl.SearchTerm'|trans|capitalize }}<abbr title="{{ 'lbl.RequiredField'|trans|capitalize }}">*</abbr></label>
+    {% form_field q_widget %}
+    <input id="submit" class="btn btn-outline-success" type="submit" name="submit" value="{{ 'lbl.Search'|trans|capitalize }}" />
   {% endform %}
 </section>
