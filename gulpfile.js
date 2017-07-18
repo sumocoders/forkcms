@@ -137,7 +137,6 @@ gulp.task("build:theme:sass:generate-development-css", function() {
       .pipe(sourcemaps.init())
       .pipe(sass({
         includePaths: [
-          "./node_modules/bootstrap-sass/assets/stylesheets",
           "./node_modules"
         ]
       }).on("error", sass.logError))
@@ -156,7 +155,6 @@ gulp.task("build:theme:sass:generate-production-css", function() {
       .pipe(sass({
         outputStyle:  "compressed",
         includePaths: [
-          "./node_modules/bootstrap-sass/assets/stylesheets",
           "./node_modules"
         ]
       }).on("error", sass.logError))
