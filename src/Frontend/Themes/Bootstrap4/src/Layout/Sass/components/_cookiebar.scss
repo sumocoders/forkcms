@@ -4,15 +4,7 @@
   margin-bottom: 0;
 }
 
-.cookiebar-content {
-  float: left;
-}
-
-.cookiebar-buttons {
-  float: right;
-}
-
-@media (max-width: $screen-sm-max) {
+@include media-breakpoint-down(sm) {
   .cookiebar {
     text-align: center;
   }
@@ -31,7 +23,7 @@
   }
 }
 
-@media (max-width: $screen-xs) {
+@include media-breakpoint-down(xs) {
   .cookiebar {
     padding: 25px 15px;
   }
