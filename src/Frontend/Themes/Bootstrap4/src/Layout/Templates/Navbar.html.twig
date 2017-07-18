@@ -1,35 +1,23 @@
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-page-collapse">
-      <span class="sr-only"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" role="navigation">
+  <div class="container">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
-    {% if page.id == 1 %}
-      <h1>
-        <a href="/" class="navbar-brand">
-          {{ siteTitle }}
-        </a>
-      </h1>
-    {% else %}
-      <a href="/" class="navbar-brand">
-        {{ siteTitle }}
-      </a>
-    {% endif %}
-  </div>
 
-  <div class="collapse navbar-collapse navbar-page-collapse">
-    {{ getnavigation('page', 0, 1) }}
+    <a href="/" class="navbar-brand">
+      {{ siteTitle }}
+    </a>
 
-    {# Top positions #}
-    {% for top in positions.top %}
-      {% if top.html %}
-        {{ top.html|raw }}
-      {% endif %}
-    {% endfor %}
+    <div id="navbar-collapse" class="collapse navbar-collapse">
+      {{ getnavigation('page', 0, 1) }}
 
-    {% include 'Core/Layout/Templates/Languages.html.twig' %}
+      {% for top in positions.top %}
+        {% if top.html %}
+          {{ top.html|raw }}
+        {% endif %}
+      {% endfor %}
+
+      {% include 'Core/Layout/Templates/Languages.html.twig' %}
+    </div>
   </div>
 </nav>
-
