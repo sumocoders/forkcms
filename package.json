@@ -12,6 +12,7 @@
     "babel-preset-es2015": "^6.18.0",
     "bootstrap-sass": "~3.3",
     "bootstrap-tagsinput": "~0.7",
+    "bootstrap4": "npm:bootstrap@4.0.0-alpha.6",
     "del": "^2.2.2",
     "fancybox": "^3.0.0",
     "font-awesome": "^4.7.0",
@@ -43,5 +44,5 @@
   "engines": {
     "node": "^7.*"
   },
-  "theme": "Bootstrap"
+  "theme": "Bootstrap4"
 }
