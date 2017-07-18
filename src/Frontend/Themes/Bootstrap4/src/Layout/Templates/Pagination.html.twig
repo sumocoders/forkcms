@@ -21,7 +21,9 @@
               <a class="page-link" href="{{ pagination.url }}" rel="nofollow" title="{{ 'lbl.GoToPage'|trans|capitalize }} {{ pagination.label }}">{{ pagination.label }}</a>
             </li>
           {% endfor %}
-          <li><span>…</span></li>
+          <li class="page-item disabled">
+            <span class="page-link">…</span>
+          </li>
         {% endif %}
 
         {# Middle pages #}
@@ -35,7 +37,9 @@
 
         {# Last page #}
         {% if pagination.last %}
-          <li class="page-item"><span>…</span></li>
+          <li class="page-item disabled">
+            <span class="page-link">…</span>
+          </li>
           {% for pagination in pagination.last %}
             <li class="page-item">
               <a class="page-link" href="{{ pagination.url }}" rel="nofollow" title="{{ 'lbl.GoToPage'|trans|capitalize }} {{ pagination.label }}">
