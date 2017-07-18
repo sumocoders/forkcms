@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <theme>
-	<name>bootstrap</name>
+	<name>bootstrap4</name>
 	<version>1.0.0</version>
 	<requirements>
 		<minimum_version>3.4.0</minimum_version>
