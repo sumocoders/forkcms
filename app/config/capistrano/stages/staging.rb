@@ -1,4 +1,4 @@
-set :branch, "staging"
+set :branch, "5.0.0-dev"
 
 ### DO NOT EDIT BELOW ###
 
