@@ -1,7 +1,5 @@
-set :branch, "5.0.0-dev"
-
 ### DO NOT EDIT BELOW ###
-
+set :branch, "staging"
 set :document_root, "/home/sites/php71/#{fetch :client}/#{fetch :project}"
 set :deploy_to, "/home/sites/apps/#{fetch :client}/#{fetch :project}"
 set :keep_releases,  2

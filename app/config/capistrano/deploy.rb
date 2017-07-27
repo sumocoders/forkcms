@@ -1,7 +1,7 @@
-set :client,  "sumo"
-set :project, "forkcms"
-set :repo_url, "https://github.com/sumocoders/forkcms.git"
-set :production_url, "http://fork.verkoyen.eu"
+set :client,  "$client"
+set :project, "$project"
+set :repo_url, "$repo-url"
+set :production_url, "$production-url"
 
 ### DO NOT EDIT BELOW ###
 set :application, "#{fetch :project}"
