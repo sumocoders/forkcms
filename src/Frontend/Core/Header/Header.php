@@ -352,13 +352,6 @@ class Header extends KernelLoader
             $this->meta->addMetaData(MetaData::forName('robots', 'noindex, nofollow'), true);
         }
 
-        /**
-         * @remark only for SumoCoders
-         *
-         * Because ENV variables are not passed to CGI due to suExec.
-         * See http://wiki.dreamhost.com/Suexec#Apache_module_mod_env for more
-         * information.
-         */
         if (isset($_SERVER['HTTP_HOST']) && substr_count($_SERVER['HTTP_HOST'], '.sumocoders.eu') >= 1) {
             $this->addMetaData(
                 array('name' => 'robots', 'content' => 'noindex, nofollow'),
