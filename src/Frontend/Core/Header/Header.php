@@ -352,13 +352,6 @@ class Header extends KernelLoader
             $this->meta->addMetaData(MetaData::forName('robots', 'noindex, nofollow'), true);
         }
 
-        if (isset($_SERVER['HTTP_HOST']) && substr_count($_SERVER['HTTP_HOST'], '.sumocoders.eu') >= 1) {
-            $this->addMetaData(
-                array('name' => 'robots', 'content' => 'noindex, nofollow'),
-                true
-            );
-        }
-
         $this->template->addGlobal('meta', $this->meta);
         $this->template->addGlobal('metaCustom', $this->getMetaCustom());
         $this->cssFiles->parse($this->template, 'cssFiles');
