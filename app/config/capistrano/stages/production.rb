@@ -3,8 +3,8 @@ server "php71-001.sumohosting.be", user: "$production-user", roles: %w{app db we
 set :document_root, "/home/$production-user/domains/$domain/public_html"
 set :deploy_to, "/home/$production-user/apps/#{fetch :project}"
 
-set :opcache_reset_strategy, "file"
-set :opcache_reset_base_url, "#{fetch :production_url}"
+set :opcache_reset_strategy, "fcgi"
+set :opcache_reset_fcgi_connection_string, "/usr/local/php71/sockets/$production-user.sock"
 
 ### DO NOT EDIT BELOW ###
 set :keep_releases, 3
