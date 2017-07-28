@@ -10,16 +10,14 @@
   3. The new template will now be used on pages where the new extra has been linked to a block.
 #}
 {% if widgetSubpages %}
-  <div id="subpagesBlocks" class="media">
+  <div id="subpagesBlocks" class="list-group">
     {% for page in widgetSubpages %}
-      <div class="media-body">
+      <a class="list-group-item list-group-item-action flex-column align-items-start" href="{{ page.full_url }}">
         <h3>
-          <a href="{{ page.full_url }}">
-            {{ page.title }}
-          </a>
+          {{ page.title }}
         </h3>
         {{ page.description|cleanupplaintext|raw }}
-      </div>
+      </a>
     {% endfor %}
   </div>
 {% endif %}

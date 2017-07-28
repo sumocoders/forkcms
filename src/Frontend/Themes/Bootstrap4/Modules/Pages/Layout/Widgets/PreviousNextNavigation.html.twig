@@ -1,25 +1,28 @@
 <ul class="pager">
-  {% if widgetPagesNavigation.previous %}
-    <li class="previous">
-      <a href="{{ widgetPagesNavigation.previous.url }}" rel="prev">
+
+
+</ul>
+
+<div class="row">
+  <div class="col d-flex justify-content-start">
+    {% if widgetPagesNavigation.previous %}
+      <a class="btn btn-secondary" href="{{ widgetPagesNavigation.previous.url }}" rel="prev">
         ← {{ widgetPagesNavigation.previous.title }}
       </a>
-    </li>
-  {% endif %}
-
-  {% if widgetPagesNavigation.parent %}
-    <li class="parentLink">
-      <a href="{{ widgetPagesNavigation.parent.url }}">
+    {% endif %}
+  </div>
+  <div class="col d-flex justify-content-around">
+    {% if widgetPagesNavigation.parent %}
+      <a class="btn btn-secondary" href="{{ widgetPagesNavigation.parent.url }}">
         ↑ {{ widgetPagesNavigation.parent.title }}
       </a>
-    </li>
-  {% endif %}
-
-  {% if widgetPagesNavigation.next %}
-    <li class="next">
-      <a href="{{ widgetPagesNavigation.next.url }}" rel="next">
+    {% endif %}
+  </div>
+  <div class="col d-flex justify-content-end">
+    {% if widgetPagesNavigation.next %}
+      <a class="btn btn-secondary" href="{{ widgetPagesNavigation.next.url }}" rel="next">
         {{ widgetPagesNavigation.next.title }} ➝
       </a>
-    </li>
-  {% endif %}
-</ul>
+    {% endif %}
+  </div>
+</div>
