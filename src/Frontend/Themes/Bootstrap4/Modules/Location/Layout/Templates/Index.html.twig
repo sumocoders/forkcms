@@ -12,13 +12,13 @@
 
     {% for location in locationItems %}
       {# @remark: do not remove the id #}
-      <div id="markerText{{ location.id }}" class="hide" itemscope itemtype="http://schema.org/Place">
+      <div id="markerText{{ location.id }}" class="hidden-xs-up" itemscope itemtype="http://schema.org/Place">
         <div itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
           <meta itemprop="latitude" content="{{ location.lat }}" />
           <meta itemprop="longitude" content="{{ location.lng }}" />
         </div>
 
-        <div itemprop="name" class="hide"><strong>{{ location.title }}</strong></div>
+        <div itemprop="name"><strong>{{ location.title }}</strong></div>
         <address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
           <span itemprop="streetAddress">{{ location.street }} {{ location.number }}</span><br>
           <span itemprop="postalCode">{{ location.zip }}</span> <span itemprop="addressLocality">{{ location.city }}</span><br>
