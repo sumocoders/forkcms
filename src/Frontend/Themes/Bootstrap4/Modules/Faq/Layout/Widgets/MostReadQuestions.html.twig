@@ -4,16 +4,14 @@
 #}
 
 {% if widgetFaqMostRead %}
-  <section id="faqMostReadWidget" class="faq faq-widget well">
-    <header class="widget-header">
-      <h3>{{ 'lbl.MostReadQuestions'|trans|ucfirst }}</h3>
+  <section id="faqMostReadWidget" class="faq faq-widget card">
+    <header class="card-header">
+      <h3 class="mb-0">{{ 'lbl.MostReadQuestions'|trans|ucfirst }}</h3>
     </header>
-    <div class="widget-body">
-      <ul>
-        {% for question in widgetFaqMostRead %}
-          <li><a href="{{ question.full_url }}">{{ question.question }}</a></li>
-        {% endfor %}
-      </ul>
+    <div class="list-group list-group-flush">
+      {% for question in widgetFaqMostRead %}
+        <a class="list-group-item list-group-item-action" href="{{ question.full_url }}">{{ question.question }}</a>
+      {% endfor %}
     </div>
   </section>
 {% endif %}

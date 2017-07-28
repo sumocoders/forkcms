@@ -17,11 +17,11 @@
         {% endif %}
       </header>
       <div class="module-body">
-        <ul>
+        <div class="list-group">
           {% for question in category.questions %}
-            <li><a href="{{ question.full_url }}">{{ question.question }}</a></li>
+            <a class="list-group-item list-group-item-action" href="{{ question.full_url }}">{{ question.question }}</a>
           {% endfor %}
-        </ul>
+        </div>
       </div>
     {% endfor %}
   {% endif %}
