@@ -3,21 +3,21 @@
   - {{ widgetTagsTagCloud }}: contains an array with the most popular tag
 #}
 {% if widgetTagsTagCloud %}
-  <aside id="tagCloudWidget" class="well tags" role="complementary">
-    <header role="banner">
-      <h3>{{ 'lbl.Tags'|trans|capitalize }}</h3>
+  <aside id="tagCloudWidget" class="card tags" role="complementary">
+    <header class="card-header" role="banner">
+      <h4 class="mb-0">{{ 'lbl.Tags'|trans|capitalize }}</h4>
     </header>
-    <p>
+    <div class="card-block">
+      {% set total = 0 %}
       {% for tag in widgetTagsTagCloud %}
-        <a href="{{ tag.url }}" rel="tag">
-          {% if tag.first %}
-            {{ tag.name|capitalize }}
-          {% else %}
-            {{ tag.name }}
-          {% endif %}
-        </a>
-        <span class="badge hidden-phone">{{ tag.number }}</span>{% if not tag.last %}, {% else %}.{% endif %}
+        {% set total = total + tag.number %}
       {% endfor %}
-    </p>
+      {% for tag in widgetTagsTagCloud %}
+        {% set fontsize = 100 + (tag.number / total) * 100 %}
+        <a href="{{ tag.url }}" rel="tag" style="font-size: {{ fontsize }}%;">
+          {{ tag.name }}
+        </a>
+      {% endfor %}
+    </div>
   </aside>
 {% endif %}
