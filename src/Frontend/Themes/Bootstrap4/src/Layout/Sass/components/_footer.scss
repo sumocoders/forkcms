@@ -22,5 +22,5 @@
   }
 }
 
-// uncomment to make it work and add footer height between brackets
-// @include sticky-footer();
+// set the footer height to use a sticky footer
+@include sticky-footer(40px);
