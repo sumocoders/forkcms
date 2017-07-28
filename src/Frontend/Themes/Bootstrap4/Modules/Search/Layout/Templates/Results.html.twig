@@ -9,8 +9,8 @@
     {% if not searchResults %}
       {{ alerts.alert('info', 'msg.SearchNoItems'|trans) }}
     {% else %}
-      <div class="media">
-        {% for result in searchResults %}
+      {% for result in searchResults %}
+        <div class="media">
           <section class="media-body" >
             <header role="banner">
               <h3 class="media-heading" itemprop="name">
@@ -25,8 +25,8 @@
               <div itemprop="description">{{ result.introduction|raw }}</div>
             {% endif %}
           </section>
-        {% endfor %}
-      </div>
+        </div>
+      {% endfor %}
     {% endif %}
   </section>
 
