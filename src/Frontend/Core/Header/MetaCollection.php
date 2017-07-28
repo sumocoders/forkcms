@@ -10,17 +10,6 @@ final class MetaCollection
     /** @var MetaLink[] */
     private $metaLinks = [];
 
-    public function __construct()
-    {
-        /* @remark Sumocoders staging websites should not be tracked */
-        if (isset($_SERVER['HTTP_HOST']) && substr_count($_SERVER['HTTP_HOST'], '.sumocoders.eu') >= 1) {
-            $this->addMetaData(
-                MetaData::forName('robots', 'noindex, nofollow'),
-                true
-            );
-        }
-    }
-
     public function addMetaData(MetaData $metaData, bool $overwrite = false): void
     {
         if ($overwrite || !array_key_exists($metaData->getUniqueKey(), $this->metaData)) {
@@ -46,6 +35,14 @@ final class MetaCollection
 
     public function __toString(): string
     {
+        /* @remark Sumocoders staging websites should not be tracked */
+        if (isset($_SERVER['HTTP_HOST']) && substr_count($_SERVER['HTTP_HOST'], '.sumocoders.eu') >= 1) {
+            $this->addMetaData(
+                MetaData::forName('robots', 'noindex, nofollow'),
+                true
+            );
+        }
+
         return implode("\n", $this->metaData) . "\n" . implode("\n", $this->metaLinks);
     }
 }
