@@ -8,7 +8,7 @@ variables that are available:
 {% if items %}
   <div id="blogCategory" class="blog blog-category">
     {% for item in items %}
-      {{ articles.articlePreview(item) }}
+      {{ articles.article(item) }}
     {% endfor %}
   </div>
   {% include "Core/Layout/Templates/Pagination.html.twig" %}

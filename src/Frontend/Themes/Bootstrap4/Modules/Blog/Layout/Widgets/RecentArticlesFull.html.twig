@@ -9,13 +9,15 @@
     <header class="widget-header">
       <h2>{{ 'lbl.RecentArticles'|trans|ucfirst }}</h2>
     </header>
-    {% for item in widgetBlogRecentArticlesFull %}
-      {{ articles.articlePreview(item) }}
-    {% endfor %}
-    <footer class="widget-footer">
+    <div class="card-deck">
+      {% for item in widgetBlogRecentArticlesFull %}
+        {{ articles.articleCard(item) }}
+      {% endfor %}
+    </div>
+    <footer class="widget-footer py-2">
       <div class="btn-group">
-        <a class="btn btn-default" href="{{ geturlforblock('Blog') }}">{{ 'lbl.BlogArchive'|trans|ucfirst }}</a>
-        <a class="btn btn-default" href="{{ widgetBlogRecentArticlesFullRssLink }}">{{ 'lbl.SubscribeToTheRSSFeed'|trans|ucfirst }}</a>
+        <a class="btn btn-secondary" href="{{ geturlforblock('Blog') }}">{{ 'lbl.BlogArchive'|trans|ucfirst }}</a>
+        <a class="btn btn-secondary" href="{{ widgetBlogRecentArticlesFullRssLink }}">{{ 'lbl.SubscribeToTheRSSFeed'|trans|ucfirst }}</a>
       </div>
     </footer>
   </section>

@@ -4,22 +4,20 @@
 #}
 
 {% if widgetBlogRecentComments %}
-  <section id="blogRecentCommentsWidget" class="blog blog-widget">
-    <header class="widget-header">
-      <h3>{{ 'lbl.RecentComments'|trans|ucfirst }}</h3>
+  <section id="blogRecentCommentsWidget" class="blog blog-widget card mb-3">
+    <header class="card-header">
+      <h4 class="mb-0">{{ 'lbl.RecentComments'|trans|ucfirst }}</h4>
     </header>
-    <div class="widget-header">
-      <ul>
-        {% for comment in widgetBlogRecentComments %}
-          <li>
-            {% if comment.website %}<a href="{{ comment.website }}" rel="nofollow">{% endif %}
-              {{ comment.author }}
-            {% if comment.website %}</a>{% endif %}
-            {{ 'lbl.CommentedOn'|trans }} <a href="{{ comment.full_url }}">{{ comment.post_title }}</a>
-            <time class="muted" itemprop="commentTime" datetime="{{ comment.created_on|date('Y-m-d\TH,i,s') }}">{{ comment.created_on|timeago|raw }}</time>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
+    <ul class="list-group list-group-flush">
+      {% for comment in widgetBlogRecentComments %}
+        <li class="list-group-item d-block">
+          {% if comment.website %}<a href="{{ comment.website }}" rel="nofollow">{% endif %}
+            {{ comment.author }}
+          {% if comment.website %}</a>{% endif %}
+          {{ 'lbl.CommentedOn'|trans }} <a href="{{ comment.full_url }}">{{ comment.post_title }}</a>
+          <time class="muted" itemprop="commentTime" datetime="{{ comment.created_on|date('Y-m-d\TH,i,s') }}">{{ comment.created_on|timeago|raw }}</time>
+        </li>
+      {% endfor %}
+    </ul>
   </section>
 {% endif %}

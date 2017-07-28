@@ -1,4 +1,4 @@
-{% macro articlePreview(item) %}
+{% macro article(item) %}
 
   <article class="article" itemcope itemtype="http://schema.org/Blog" role="main">
     <meta itemprop="commentCount" content="{{ item.comments_count }}">
@@ -56,6 +56,34 @@
           {{ item.text|raw }}
         {% endif %}
       </div>
+    </div>
+
+  </article>
+
+{% endmacro %}
+
+{% macro articleCard(item) %}
+
+  <article class="card article" itemcope itemtype="http://schema.org/Blog" role="main">
+    <meta itemprop="commentCount" content="{{ item.comments_count }}">
+    <meta itemprop="author" itemprop="creator" content="{{ item.user_id|usersetting('nickname' ) }}">
+
+    {% if item.image %}
+      <img itemprop="image" class="card-img-top" src="{{ FRONTEND_FILES_URL }}/blog/images/source/{{ item.image }}" alt="{{ item.title }}" />
+    {% else %}
+      <img itemprop="image" class="card-img-top" src="https://placehold.it/400x300" alt="{{ item.title }}" />
+    {% endif %}
+
+    <div class="card-block" itemprop="text">
+      <h4 class="card-title" itemprop="name">{{ item.title }}</h4>
+      {% if item.introduction %}
+        {{ item.introduction|raw|truncate(200) }}
+      {% else %}
+        {{ item.text|raw }}
+      {% endif %}
+    </div>
+    <div class="card-footer">
+      <a class="btn btn-primary" href="{{ item.full_url }}" title="{{ item.title }}">{{ 'lbl.ReadMore'|trans }}</a>
     </div>
 
   </article>
