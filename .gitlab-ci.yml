@@ -9,7 +9,7 @@ before_script:
 run_tests:
   image: sumocoders/fork-php71:latest
   services:
-    - mysql:latest
+    - mysql:5.5
   before_script:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install --no-scripts --quiet --ignore-platform-reqs
