@@ -93,6 +93,9 @@ liip_imagine:
             filters:
                 thumbnail: { size : [1600, 500], mode : inbound }
 
+sentry:
+    dsn: "%sentry.dns%"
+
 services:
     form.type.editor:
         class: Backend\Form\Type\EditorType

@@ -37,7 +37,8 @@
         "ramsey/uuid-doctrine": "^1.2",
         "liip/imagine-bundle": "^1.7",
         "swiftmailer/swiftmailer": "^5.4.6",
-        "google/recaptcha": "~1.1"
+        "google/recaptcha": "~1.1",
+        "sentry/sentry-symfony": "^0.8.1"
     },
     "require-dev": {
         "jdorn/sql-formatter": "1.2.17",
