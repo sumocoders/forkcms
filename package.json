@@ -32,6 +32,7 @@
     "jquery-ui-dist": "~1.12",
     "lodash": "^4.17.4",
     "requestanimationframe": "^0.0.23",
+    "standard": "^10.0.2",
     "sweet-scroll": "^2.2.0",
     "webpack": "^1.14.0",
     "webpack-stream": "^3.2.0"
@@ -44,5 +45,15 @@
   "engines": {
     "node": "^7.*"
   },
-  "theme": "Bootstrap4"
+  "theme": "Bootstrap4",
+  "standard": {
+    "globals": [
+      "$",
+      "jQuery",
+      "jsData"
+    ]
+  },
+  "scripts": {
+    "test": "standard src/Frontend/Themes/Bootstrap4/**/*.js"
+  }
 }
