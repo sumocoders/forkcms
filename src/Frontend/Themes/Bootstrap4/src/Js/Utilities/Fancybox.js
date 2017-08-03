@@ -1,12 +1,11 @@
-import 'fancybox/dist/js/jquery.fancybox.pack';
+import 'fancybox/dist/js/jquery.fancybox.pack'
 
 export class Fancybox {
+  constructor () {
+    this.initFancybox()
+  }
 
-    constructor() {
-        this.initFancybox();
-    }
-
-    initFancybox() {
-        $('.fancybox').fancybox();
-    }
+  initFancybox () {
+    $('.fancybox').fancybox()
+  }
 }

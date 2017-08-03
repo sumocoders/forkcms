@@ -1,14 +1,16 @@
 /* Bootstrap imports */
-import Bootstrap from 'bootstrap-sass/assets/javascripts/bootstrap';
+import Bootstrap from 'bootstrap-sass/assets/javascripts/bootstrap'
 
 /* Utilities imports */
-import SweetScroll from "sweet-scroll";
-import ResizeFunction from './Utilities/Resize';
-/*import {Fancybox} from './Utilities/Fancybox';*/
+import SweetScroll from 'sweet-scroll'
+import { Resize } from './Utilities/Resize'
+/* import {Fancybox} from './Utilities/Fancybox' */
 
 /* Theme imports */
-/* eg. import tooltip from './Theme/Tooltip'; */
+/* eg. import tooltip from './Theme/Tooltip' */
 
 /* Renders */
-new SweetScroll();
-new ResizeFunction();
+window.sweetscroll = new SweetScroll()
+window.resizeFunction = new Resize()
+
+window.resizeFunction.resize()

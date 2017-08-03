@@ -1,32 +1,34 @@
-import requestAnimationFrame from 'requestanimationframe';
-import DistributeHeight from './DistributeHeight';
+import requestAnimationFrame from 'requestanimationframe'
+import { DistributeHeight } from './DistributeHeight'
 
-export default class {
+export class Resize {
+  constructor () {
+    this.ticking = false
 
-    constructor() {
-        this.resize();
+    // Create an instance of DistributeHeight for each element
+    $('[data-distribute-height]').each((index, element) => {
+      element.distributeHeight = new DistributeHeight($(element))
+    })
+
+    this.calculate = () => {
+      $('[data-distribute-height]').each((index, element) => {
+        element.distributeHeight.setHeights()
+      })
+
+      this.ticking = false
     }
+  }
 
-    resize() {
-        let calculate,
-            tick,
-            ticking = false;
+  resize () {
+    $(window).on('load resize', () => {
+      this.tick()
+    })
+  }
 
-        calculate = function() {
-            new DistributeHeight();
-            ticking = false;
-        };
-
-        tick = function() {
-            if (!ticking) {
-                requestAnimationFrame(calculate);
-                ticking = true;
-            }
-        };
-        tick();
-
-        $(window).on('load resize', function() {
-            tick();
-        });
+  tick () {
+    if (!this.ticking) {
+      requestAnimationFrame(this.calculate)
+      this.ticking = true
     }
+  }
 }
