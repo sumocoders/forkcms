@@ -51,9 +51,13 @@
       "$",
       "jQuery",
       "jsData"
+    ],
+    "ignore": [
+      "src/Backend/",
+      "src/Frontend/Themes/**/Core/"
     ]
   },
   "scripts": {
-    "test": "standard src/Frontend/Themes/Bootstrap4/**/*.js"
+    "test": "standard src/Frontend/**/*.js"
   }
 }
