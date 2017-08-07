@@ -1,14 +1,14 @@
 {% macro article(item) %}
-
+  {% set nickname = item.user_id|usersetting('nickname' ) %}
   <article class="article" itemcope itemtype="http://schema.org/Blog" role="main">
-    <meta itemprop="commentCount" content="{{ item.comments_count }}">
-    <meta itemprop="author" itemprop="creator" content="{{ item.user_id|usersetting('nickname' ) }}">
+    <meta itemprop="userInteractionCount" content="{{ item.comments_count }}">
+    <meta itemprop="author" itemprop="creator" content="{{ nickname }}">
 
     <header class="module-header">
       <h2 itemprop="name"><a href="{{ item.full_url }}" title="{{ item.title }}">{{ item.title }}</a></h2>
 
       <div class="article-info">
-        <span class="sr-only">{{ 'msg.WrittenBy'|trans|capitalize|format('') }}</span> {{ item.user_id|usersetting('nickname' ) }}
+        {{ 'msg.WrittenBy'|trans|capitalize|format(nickname) }}
         <span class="sr-only">{{ 'lbl.On'|trans }}</span>
         <time itemprop="datePublished" datetime="{{ item.publish_on|date('Y-m-d\TH,i,s' ) }}">{{ item.publish_on|spoondate(dateFormatLong, LANGUAGE) }}</time>
       </div>

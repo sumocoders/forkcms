@@ -10,7 +10,7 @@ variables that are available:
 
 <div id="blogDetail" class="blog blog-detail">
   <article class="article" itemscope itemtype="http://schema.org/Blog" role="main">
-    <meta itemprop="interactionCount" content="UserComments:{{ commentsCount }}">
+    <meta itemprop="userInteractionCount" content="{{ item.comments_count }}">
     <meta itemprop="author" content="{{ nickname }}">
     <header class="module-header mb-4">
       <h1 itemprop="name">{{ item.title }}</h1>
