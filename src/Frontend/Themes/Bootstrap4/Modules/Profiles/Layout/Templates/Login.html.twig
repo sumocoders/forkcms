@@ -1,15 +1,15 @@
 {% import 'Core/Layout/Templates/Alerts.html.twig' as alerts %}
-{# Error #}
-{% if formError %}
-  {% if loginError %}
-    {% set error = loginError %}
-  {% else %}
-    {% set error = 'err.FormError'|trans %}
-  {% endif %}
-  {{ alerts.alert('danger', error) }}
-{% endif %}
 
 <section id="loginForm" class="profiles">
+  {% if formError %}
+    {% if loginError %}
+      {% set error = loginError %}
+    {% else %}
+      {% set error = 'err.FormError'|trans %}
+    {% endif %}
+    {{ alerts.alert('danger', error) }}
+  {% endif %}
+
   {% form login %}
     <fieldset>
       <div class="form-group row{% if txtEmailError %} has-danger{% endif %}">
