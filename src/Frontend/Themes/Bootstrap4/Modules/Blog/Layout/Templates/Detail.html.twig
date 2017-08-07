@@ -6,13 +6,15 @@ variables that are available:
 - {{ navigation }}: contains an array with data for previous and next post
 #}
 {% import 'Core/Layout/Templates/Alerts.html.twig' as alerts %}
+{% set nickname = item.user_id|usersetting('nickname' ) %}
+
 <div id="blogDetail" class="blog blog-detail">
   <article class="article" itemscope itemtype="http://schema.org/Blog" role="main">
-    <meta itemprop="interactionCount" content="UserComments:commentsCount">
-    <meta itemprop="author" content="{{ item.user_id|usersetting('nickname' ) }}">
+    <meta itemprop="interactionCount" content="UserComments:{{ commentsCount }}">
+    <meta itemprop="author" content="{{ nickname }}">
     <header class="module-header mb-4">
       <h1 itemprop="name">{{ item.title }}</h1>
-      {{ 'msg.WrittenBy'|trans|ucfirst|format('') }} {{ item.user_id|usersetting('nickname' ) }}
+      {{ 'msg.WrittenBy'|trans|ucfirst|format(nickname) }}
       {{ 'lbl.On'|trans }}
       <time itemprop="datePublished" datetime="{{ item.publish_on|date('Y-m-d\TH,i,s' ) }}">{{ item.publish_on|spoondate(dateFormatLong,LANGUAGE ) }}</time>
 
