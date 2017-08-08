@@ -65,16 +65,6 @@ if ($debug) {
 
 $kernel = new AppKernel($env, $debug);
 
-/**
- * Here we initialize our Sumo class, which will add some Sumo specific stuff
- * into this Fork instance.
- *
- * @remark only for SumoCoders
- */
-$sumo = new SumoCoders\SumoForkClass\SumoForkClass();
-$sumo->setContainer($kernel->getContainer());
-$sumo->init();
-
 $response = $kernel->handle($request, HttpKernelInterface::MASTER_REQUEST, false);
 if ($response->getCharset() === null && $kernel->getContainer() instanceof ContainerInterface) {
     $response->setCharset(
