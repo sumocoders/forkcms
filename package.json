@@ -24,6 +24,9 @@
     "gulp-imagemin": "^3.1.1",
     "gulp-livereload": "^3.8.1",
     "gulp-plumber": "^1.1.0",
+    "bootstrap-datepicker": "^1.7.0",
+    "cropper": "^3.0.0-rc.2",
+    "fine-uploader": "^5.14.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.0.0",
     "gulp-sourcemaps": "^1.9.1",
@@ -35,7 +38,10 @@
     "standard": "^10.0.2",
     "sweet-scroll": "^2.2.0",
     "webpack": "^1.14.0",
-    "webpack-stream": "^3.2.0"
+    "webpack-stream": "^3.2.0",
+    "photoswipe": "^4.1.1",
+    "simple-ajax-uploader": "^2.5.5",
+    "slick-carousel": "^1.6.0"
   },
   "babel": {
     "presets": [

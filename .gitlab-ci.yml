@@ -9,12 +9,12 @@ before_script:
 run_tests:
   image: sumocoders/fork-php71:latest
   services:
-    - mysql:latest
+    - mysql:5.5
   before_script:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install --no-scripts --quiet --ignore-platform-reqs
     - mysql -h mysql -u root -proot -e "create database ci_test"
-    - mysql -h mysql -u root -proot ci_test < tools/test_db.sql
+    - mysql -h mysql -u root -proot ci_test < tests/data/test_db.sql
     - php ci/generate_parameters_gitlab.php
     - cp app/config/parameters.yml.gitlab app/config/parameters.yml
   script:

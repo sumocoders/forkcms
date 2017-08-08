@@ -8,23 +8,20 @@ use Common\Core\Model;
 use Common\Uri;
 use Backend\Core\Engine\Base\AjaxAction;
 use Backend\Core\Engine\Exception;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @remark This class is SumoCoders specific
- *
  * This action will enable you to upload files trough ajax.
  * It accepts both XmlHttp requests or file uploads using a form.
  *
  * Note that it only accepts single file uploads.
  * The type $_GET parameter will be used to determine which folder to upload in.
- *
- * @author Wouter Sioen <wouter@sumocoders.be>
  */
 class UploadFile extends AjaxAction
 {
-    public function execute()
+    public function execute(): void
     {
-        $request = $this->get('request');
+        $request = $this->getRequest();
 
         $fileName = $this->writeFile(
             $this->getFileContentFromRequest($request),
@@ -32,18 +29,20 @@ class UploadFile extends AjaxAction
             $request->get('type')
         );
 
-        $this->output(self::OK, $fileName);
+        $this->output(Response::HTTP_OK, $fileName);
     }
 
     /**
      * Extracts the uploaded file from a request. It handles both XmlHttpRequest
      * uploads and form uploads (with files in the $_FILES global)
      *
-     * @param  Request $request
-     * @return string The content of the uploaded file
+     * @param Request $request
+     *
      * @throws Exception When no file could be extracted
+     *
+     * @return string The content of the uploaded file
      */
-    private function getFileContentFromRequest(Request $request)
+    private function getFileContentFromRequest(Request $request): string
     {
         // ajax uploaders fallback to submitting a form with the file in the fields.
         $uploadedFiles = $request->files->all();
@@ -60,11 +59,13 @@ class UploadFile extends AjaxAction
      * Extracts the uploaded file name from a request. It handles both XmlHttpRequest
      * uploads and form uploads (with files in the $_FILES global)
      *
-     * @param  Request $request
-     * @return string The content of the uploaded file
+     * @param Request $request
+     *
      * @throws Exception When no file could be extracted
+     *
+     * @return string The content of the uploaded file
      */
-    private function getFileNameFromRequest(Request $request)
+    private function getFileNameFromRequest(Request $request): string
     {
         // ajax uploaders fallback to submitting a form with the file in the fields.
         $uploadedFiles = $request->files->all();
@@ -80,14 +81,15 @@ class UploadFile extends AjaxAction
     /**
      * Writes some content to a file in a given folder
      *
-     * @param  string $content
-     * @param  string $fileName
-     * @param  string $destinationFolder
+     * @param string $content
+     * @param string $fileName
+     * @param string $destinationFolder
+     *
      * @return string The filename of the written file.
      */
-    private function writeFile($content, $fileName, $destinationFolder)
+    private function writeFile(string $content, string $fileName, string $destinationFolder): string
     {
-        $path = FRONTEND_FILES_PATH . '/' . $destinationFolder;
+        $path = FRONTEND_FILES_PATH . '/Pages/' . $destinationFolder;
 
         // create the needed folder if it doesn't exist
         $filesystem = new Filesystem();
@@ -96,7 +98,7 @@ class UploadFile extends AjaxAction
         }
 
         // convert the filename to url friendly version
-        $baseName = Uri::getFilename(pathinfo($fileName, PATHINFO_FILENAME));
+        $baseName = Uri::getUrl(pathinfo($fileName, PATHINFO_FILENAME));
         $extension = pathinfo($fileName, PATHINFO_EXTENSION);
         $fileName = $baseName . '.' . $extension;
 

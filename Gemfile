@@ -1,5 +1,10 @@
+# frozen_string_literal: true
 source 'https://rubygems.org'
 
-gem 'capistrano', '~> 2.15'
-gem 'sumodev_deploy', '~> 0.8'
-gem 'forkcms_deploy', '>= 4.4'
+group :development do
+    gem 'capistrano', '~> 3.8'
+    gem 'capistrano-forkcms', '~> 2.0'
+    gem 'capistrano-cachetool', '~> 1.0.0'
+    gem 'capistrano-deploytags', '~> 1.0'
+    gem 'capistrano-sumo', '~> 1.1'
+end
