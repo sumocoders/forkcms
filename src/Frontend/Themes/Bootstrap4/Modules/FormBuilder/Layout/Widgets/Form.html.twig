@@ -35,7 +35,7 @@
                       {{ field.label|raw }}{% if field.required %}<abbr title="{{ 'lbl.RequiredField'|trans|capitalize }}">*</abbr>{% endif %}
                     </label>
                     {{ field.html|raw }}
-                    {% if field.error %}<span class="text-danger help-inline">{{ field.error }}</span>{% endif %}
+                    {% if field.error %}<span class="form-control-feedback">{{ field.error }}</span>{% endif %}
                   </div>
                 {% endif %}
 
@@ -52,7 +52,7 @@
                         </label>
                       </div>
                     {% endfor %}
-                    {% if field.error %}<span class="text-danger help-inline">{{ field.error }}</span>{% endif %}
+                    {% if field.error %}<span class="form-control-feedback">{{ field.error }}</span>{% endif %}
                   </div>
                 {% endif %}
               </div>
