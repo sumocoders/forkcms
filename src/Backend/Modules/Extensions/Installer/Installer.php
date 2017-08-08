@@ -135,7 +135,7 @@ class Installer extends ModuleInstaller
         // Bootstrap templates
 
         // search will be installed by default; already link it to this template
-        $extras['search_form'] = $this->insertExtra('search', 'widget', 'SearchForm', 'form', null, 'N', 2001);
+        $extras['search_form'] = $this->insertExtra('search', ModuleExtraType::widget(), 'SearchForm', 'form', null, 'N', 2001);
 
         // build templates
         $templates['custom']['default'] = array(
@@ -175,9 +175,9 @@ class Installer extends ModuleInstaller
         );
 
         // insert templates
-        $this->getDB()->insert('themes_templates', $templates['custom']['default']);
-        $this->getDB()->insert('themes_templates', $templates['custom']['home']);
-        $this->getDB()->insert('themes_templates', $templates['custom']['error']);
+        $this->getDatabase()->insert('themes_templates', $templates['custom']['default']);
+        $this->getDatabase()->insert('themes_templates', $templates['custom']['home']);
+        $this->getDatabase()->insert('themes_templates', $templates['custom']['error']);
 
         /*
          * General theme settings
