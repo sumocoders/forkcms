@@ -26,7 +26,6 @@ use ForkCMS\App\AppKernel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 // get environment and debug mode from environment variables
 $env = getenv('FORK_ENV') ?: 'prod';
@@ -64,8 +63,7 @@ if ($debug) {
 }
 
 $kernel = new AppKernel($env, $debug);
-
-$response = $kernel->handle($request, HttpKernelInterface::MASTER_REQUEST, false);
+$response = $kernel->handle($request);
 if ($response->getCharset() === null && $kernel->getContainer() instanceof ContainerInterface) {
     $response->setCharset(
         $kernel->getContainer()->getParameter('kernel.charset')
