@@ -409,7 +409,7 @@ gulp.task("default", function() {
   gulp.start("build");
 });
 
-gulp.task("serve", function() {
+gulp.task("serve:all", function() {
   gulp.start(
       "serve:backend",
       "serve:frontend",
@@ -418,11 +418,23 @@ gulp.task("serve", function() {
   );
 });
 
-gulp.task("build", function() {
+gulp.task("build:all", function() {
   gulp.start(
       "build:backend",
       "build:frontend",
       "build:theme-fork",
+      "build:theme" // @remark custom for SumoCoders
+  );
+});
+
+gulp.task("serve", function() {
+  gulp.start(
+      "serve:theme"
+  );
+});
+
+gulp.task("build", function() {
+  gulp.start(
       "build:theme" // @remark custom for SumoCoders
   );
 });
