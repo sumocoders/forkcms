@@ -1,5 +1,6 @@
 /* Bootstrap imports */
-import Bootstrap from 'bootstrap-sass/assets/javascripts/bootstrap'
+window.Tether = require('tether')
+require('bootstrap4/dist/js/bootstrap')
 
 /* Utilities imports */
 import SweetScroll from 'sweet-scroll'
