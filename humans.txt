@@ -38,6 +38,6 @@
 
 /* SITE */
 	Doctype: HTML5
-	IDE: Coda, PHPStorm, Photoshop
-	Components: jQuery, Compass, Twitter Bootstrap
-	Runs on: Fork CMS, PHP, MySQL
+	IDE: WebStorm, PHPStorm, Photoshop
+	Components: jQuery, Twitter Bootstrap
+	Runs on: Fork CMS, PHP, MySQL, Symfony
