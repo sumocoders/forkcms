@@ -77,13 +77,6 @@ class SaveField extends BackendBaseAJAXAction
         $valueAmount = trim($this->getRequest()->request->get('value_amount'));
         $valueType = trim($this->getRequest()->request->get('value_type'));
 
-        // @remark: custom for Sumocoders
-        // Special field for textbox. Using filter_input instead of SpoonFilter, so we can see if this var is not posted
-        $mailCopyTo = filter_input(INPUT_POST, 'mail_copy_to', FILTER_SANITIZE_STRING);
-        if ($mailCopyTo !== null) {
-            $mailCopyTo = ($mailCopyTo === 'Y' ? 'Y' : 'N');
-        }
-
         // invalid form id
         if (!BackendFormBuilderModel::exists($formId)) {
             $this->output(Response::HTTP_BAD_REQUEST, null, 'form does not exist');
