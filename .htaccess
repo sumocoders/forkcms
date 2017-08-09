@@ -72,7 +72,7 @@ deny from env=stayout
 	RewriteRule docker-compose\.yml - [F]
 	RewriteRule docker-compose\.override\.yml - [F]
 
-    # @remark: custom for Sumocoders
+	# @remark: custom for Sumocoders
 	RewriteRule .*\.rb - [F]
 	RewriteRule Capfile - [F]
 	RewriteRule Gemfile - [F]
