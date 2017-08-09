@@ -138,41 +138,68 @@ class Installer extends ModuleInstaller
         $extras['search_form'] = $this->insertExtra('search', ModuleExtraType::widget(), 'SearchForm', 'form', null, 'N', 2001);
 
         // build templates
-        $templates['custom']['default'] = array(
+        $templates['custom']['default'] = [
             'theme' => 'Custom',
             'label' => 'Default',
             'path' => 'Core/Layout/Templates/Default.html.twig',
             'active' => 'Y',
-            'data' => serialize(array(
+            'data' => serialize(
+                [
                     'format' => '[/,/,/,top,/],[/,main,main,main,/]',
-                    'names' => array('main', 'top'),
-                    'default_extras' => array('top' => array($extras['search_form']))
-                ))
-        );
+                    'names' => [
+                        'main',
+                        'top',
+                    ],
+                    'default_extras' => [
+                        'top' => [
+                            $extras['search_form'],
+                        ],
+                    ],
+                ]
+            ),
+        ];
 
-        $templates['custom']['error'] = array(
+        $templates['custom']['error'] = [
             'theme' => 'Custom',
             'label' => 'Error',
             'path' => 'Core/Layout/Templates/Error.html.twig',
             'active' => 'Y',
-            'data' => serialize(array(
+            'data' => serialize(
+                [
                     'format' => '[/,/,/,top,/],[/,main,main,main,/]',
-                    'names' => array('main', 'top'),
-                    'default_extras' => array('top' => array($extras['search_form']))
-                ))
-        );
+                    'names' => [
+                        'main',
+                        'top',
+                    ],
+                    'default_extras' => [
+                        'top' => [
+                            $extras['search_form'],
+                        ],
+                    ],
+                ]
+            ),
+        ];
 
-        $templates['custom']['home'] = array(
+        $templates['custom']['home'] = [
             'theme' => 'Custom',
             'label' => 'Home',
             'path' => 'Core/Layout/Templates/Home.html.twig',
             'active' => 'Y',
-            'data' => serialize(array(
+            'data' => serialize(
+                [
                     'format' => '[/,/,/,top,/],[/,main,main,main,/]',
-                    'names' => array('main', 'top'),
-                    'default_extras' => array('top' => array($extras['search_form']))
-                ))
-        );
+                    'names' => [
+                        'main',
+                        'top',
+                    ],
+                    'default_extras' => [
+                        'top' => [
+                            $extras['search_form'],
+                        ],
+                    ],
+                ]
+            ),
+        ];
 
         // insert templates
         $this->getDatabase()->insert('themes_templates', $templates['custom']['default']);
