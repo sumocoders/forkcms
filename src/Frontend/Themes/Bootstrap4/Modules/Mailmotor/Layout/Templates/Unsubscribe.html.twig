@@ -10,7 +10,7 @@
     {{ alerts.alert('success', 'msg.UnsubscribeSuccess'|trans) }}
   {% endif %}
 
-  <h3>{{ 'lbl.UnsubscribeFromNewsletter'|trans|capitalize }}</h3>
+  <h3>{{ 'lbl.UnsubscribeFromNewsletter'|trans|ucfirst }}</h3>
 
   {% if not mailmotorUnsubscribeHideForm %}
     {{ form_start(form) }}

@@ -10,11 +10,11 @@
       <div class="col-md-6">
         {# @remark: do not remove the parseMap-class, it is used by JS #}
         <div id="map{{ widgetLocationItem.id }}" class="parseMap" style="height: {{ widgetLocationSettings.height }}px;">
-          <span class="hideText">{{ 'lbl.Loading'|trans|capitalize }}</span>
+          <span class="hideText">{{ 'lbl.Loading'|trans|ucfirst }}</span>
         </div>
         {% if widgetLocationSettings.full_url %}
           <a href="{{ widgetLocationSettings.maps_url }}" class="btn pull-right" target="_blank">
-            <small>{{ 'lbl.ViewLargeMap'|trans|capitalize }}<span class="sr-only"> {{ 'lbl.For'|trans }} {{ widgetLocationItem.title }}</span></small>
+            <small>{{ 'lbl.ViewLargeMap'|trans|ucfirst }}<span class="sr-only"> {{ 'lbl.For'|trans }} {{ widgetLocationItem.title }}</span></small>
           </a>
         {% endif %}
       </div>
@@ -40,19 +40,19 @@
               <h4>{{ 'lbl.GetDirections'|trans }}</h4>
               <div class="form-group">
                 <label class="form-control-label" for="locationSearchAddress{{ widgetLocationItem.id }}">
-                  {{ 'lbl.Start'|trans|capitalize }}<abbr title="{{ 'lbl.RequiredField'|trans|capitalize }}">*</abbr>&nbsp;
+                  {{ 'lbl.Start'|trans|ucfirst }}<abbr title="{{ 'lbl.RequiredField'|trans|ucfirst }}">*</abbr>&nbsp;
                 </label>
                 <div class="input-group">
                   {# @remark: do not remove the id #}
                   <input type="text" id="locationSearchAddress{{ widgetLocationItem.id }}" name="locationSearchAddress" class="form-control" />
                   {# @remark: do not remove the id #}
                   <span class="input-group-btn">
-                    <input type="submit" id="locationSearchRequest{{ widgetLocationItem.id }}" name="locationSearchRequest" class="btn btn-primary" value="{{ 'lbl.ShowDirections'|trans|capitalize }}" />
+                    <input type="submit" id="locationSearchRequest{{ widgetLocationItem.id }}" name="locationSearchRequest" class="btn btn-primary" value="{{ 'lbl.ShowDirections'|trans|ucfirst }}" />
                   </span>
                 </div>
                 {# @remark: do not remove the id #}
                 <span id="locationSearchError{{ widgetLocationItem.id }}" class="has-danger" style="display: none;">
-                  <span class="form-control-feedback">{{ 'err.FieldIsRequired'|trans|capitalize }}</span>
+                  <span class="form-control-feedback">{{ 'err.FieldIsRequired'|trans|ucfirst }}</span>
                 </span>
               </div>
             </form>

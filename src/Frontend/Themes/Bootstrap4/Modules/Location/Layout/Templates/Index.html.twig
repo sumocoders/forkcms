@@ -7,7 +7,7 @@
   <div id="locationIndex" class="location">
     {# @remark: do not remove the parseMap-class, it is used by JS #}
     <div id="map" class="parseMap" style="height: {{ locationSettings.height }}px;">
-      <span class="hideText">{{ 'lbl.Loading'|trans|capitalize }}</span>
+      <span class="hideText">{{ 'lbl.Loading'|trans|ucfirst }}</span>
     </div>
 
     {% for location in locationItems %}
