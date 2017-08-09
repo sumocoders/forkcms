@@ -3,11 +3,11 @@
 	Contact: mathias-is-a-human [at] sumocoders.be
 	Twitter: @mathiashelin
 	Github: https://github.com/mathiashelin
-	From: Belgium, Kortrijk
+	From: Belgium, Ghent
 
-	Frontender: Daan De Deckere
-	Contact: daan-is-a-human [at] sumocoders.be
-	From: Belgium
+	Frontender: Katrien Vanhaute
+	Contact: katrien-is-a-human [at] sumocoders.be
+	From: Belgium, Ghent
 
 	Developer: Jonas De Keukelaere
 	Contact: jonas-is-a-human [at] sumocoders.be
@@ -18,8 +18,16 @@
 	Contact: jelmer-is-a-human [at] sumocoders.be
 	From: Belgium, Ghent
 
-	Developer: Wouter Sioen
-	Contact: Wouter-is-a-human [at] sumocoders.be
+	Developer: Stijn Vrolijk
+	Contact: stijn-is-a-human [at] sumocoders.be
+	From: Belgium, Ghent
+
+	Developer: Bruno Vitorino
+	Contact: bruno-is-a-human [at] sumocoders.be
+	From: Belgium, Ghent
+
+	Developer: Bjorn Van Acker
+	Contact: bjorn-is-a-human [at] sumocoders.be
 	From: Belgium, Ghent
 
 	Developer: Tijs Verkoyen
