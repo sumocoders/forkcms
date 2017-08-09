@@ -224,7 +224,6 @@ gulp.task("serve:theme-fork", function() {
   );
 });
 
-
 // @remark: custom for SumoCoders
 const fs = require("fs");
 const del = require("del");
