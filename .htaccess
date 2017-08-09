@@ -72,22 +72,12 @@ deny from env=stayout
 	RewriteRule docker-compose\.yml - [F]
 	RewriteRule docker-compose\.override\.yml - [F]
 
-	# @remark: custom for Sumocoders
-	RewriteRule .*\.rb - [F]
-	RewriteRule Capfile - [F]
-	RewriteRule Gemfile - [F]
-	RewriteRule Gemfile\.lock - [F]
-	RewriteRule Gruntfile\.coffee - [F]
-	RewriteRule Sumofile - [F]
-	RewriteRule package\.json - [F]
-
     # @remark: custom for Sumocoders
 	RewriteRule .*\.rb - [F]
 	RewriteRule Capfile - [F]
 	RewriteRule Gemfile - [F]
 	RewriteRule Gemfile\.lock - [F]
-	RewriteRule Gruntfile\.coffee - [F]
-	RewriteRule Sumofile - [F]
+	RewriteRule gulpfile\.js - [F]
 	RewriteRule package\.json - [F]
 
 	# redirect all trafic to https
