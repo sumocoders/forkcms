@@ -10,7 +10,7 @@
       <div class="col-md-6">
         {# @remark: do not remove the parseMap-class, it is used by JS #}
         <div id="map{{ widgetLocationItem.id }}" class="parseMap" style="height: {{ widgetLocationSettings.height }}px;">
-          <span class="hideText">{{ 'lbl.Loading'|trans|ucfirst }}</span>
+          <span class="sr-only">{{ 'lbl.Loading'|trans|ucfirst }}</span>
         </div>
         {% if widgetLocationSettings.full_url %}
           <a href="{{ widgetLocationSettings.maps_url }}" class="btn pull-right" target="_blank">
