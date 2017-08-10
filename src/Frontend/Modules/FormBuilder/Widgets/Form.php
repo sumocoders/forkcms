@@ -505,8 +505,8 @@ class Form extends FrontendBaseWidget
                     $fieldData['label'] = $field['settings']['label'];
                     $fieldData['value'] = $this->form->getField('field' . $field['id'])->getValue();
 
-                    if ($field['type'] == 'radiobutton') {
-                        $values = array();
+                    if ($field['type'] === 'radiobutton') {
+                        $values = [];
 
                         foreach ($field['settings']['values'] as $value) {
                             $values[$value['value']] = $value['label'];
