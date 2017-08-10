@@ -12,7 +12,7 @@
 	Developer: Jonas De Keukelaere
 	Contact: jonas-is-a-human [at] sumocoders.be
 	Twitter: @jonasdk89
-	From: Belgium, Aalter
+	From: United Kingdom, London
 
 	Developer: Jelmer Prins
 	Contact: jelmer-is-a-human [at] sumocoders.be
