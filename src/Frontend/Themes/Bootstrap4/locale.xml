@@ -31,6 +31,10 @@
 				<translation language="en"><![CDATA[loading]]></translation>
 				<translation language="nl"><![CDATA[laden]]></translation>
 			</item>
+			<item type="label" name="ReadMore">
+				<translation language="en"><![CDATA[read more]]></translation>
+				<translation language="en"><![CDATA[lees meer]]></translation>
+			</item>
 			<item type="label" name="RSSFeed">
 				<translation language="en"><![CDATA[RSS-feed]]></translation>
 				<translation language="nl"><![CDATA[RSS-feed]]></translation>
