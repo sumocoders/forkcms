@@ -80,7 +80,7 @@ variables that are available:
           {# Do not alter the id! It is used as an anchor #}
           <div id="comment-{{ comment.id }}" class="media mb-4" itemprop="comment" itemscope itemtype="http://schema.org/UserComments">
             <meta itemprop="discusses" content="{{ item.title }}" />
-            <img src="{{ FRONTEND_CORE_URL }}/layout/images/default_author_avatar.gif" alt="{{ comment.author }}" class="d-flex mr-3 img-circle" data-gravatar-id="{{ comment.gravatar_id }}">
+            <img src="{{ FRONTEND_CORE_URL }}/Layout/images/default_author_avatar.gif" alt="{{ comment.author }}" class="d-flex mr-3 img-circle" data-gravatar-id="{{ comment.gravatar_id }}">
             <div class="media-body">
               <time class="text-muted" itemprop="commentTime" datetime="{{ comment.created_on|date('Y-m-d\TH:i:s' ) }}">
                 <small>{{ comment.created_on|timeago|raw }}</small>
