@@ -53,22 +53,6 @@ variables that are available:
     </div>
 
     <footer class="module-footer">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="share-buttons">
-            <span class="share-button">
-              {{ 'lbl.Share'|trans|ucfirst }}:
-            </span>
-            <span class="share-button share-button-facebook">
-              <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
-            </span>
-            <span class="share-button share-button-twitter">
-              <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
-            </span>
-          </div>
-        </div>
-      </div>
-
       <nav class="py-4 clearfix" aria-label="page navigation">
         {% if navigation.previous %}
           <a class="btn btn-secondary pull-left" href="{{ navigation.previous.url }}" rel="prev" title="{{ navigation.previous.title }}">
@@ -81,7 +65,6 @@ variables that are available:
         </a>
         {% endif %}
       </nav>
-
     </footer>
   </article>
 
