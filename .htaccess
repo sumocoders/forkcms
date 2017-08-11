@@ -77,8 +77,7 @@ deny from env=stayout
 	RewriteRule Capfile - [F]
 	RewriteRule Gemfile - [F]
 	RewriteRule Gemfile\.lock - [F]
-	RewriteRule Gruntfile\.coffee - [F]
-	RewriteRule Sumofile - [F]
+	RewriteRule gulpfile\.js - [F]
 	RewriteRule package\.json - [F]
 
 	# redirect all trafic to https

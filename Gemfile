@@ -8,4 +8,3 @@ group :development do
     gem 'capistrano-deploytags', '~> 1.0'
     gem 'capistrano-sumo', '~> 1.1'
 end
-
