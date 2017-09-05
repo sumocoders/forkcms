@@ -14,3 +14,15 @@ server "dev02.sumocoders.eu", user: "sites", roles: %w{app db web}
 
 SSHKit.config.command_map[:composer] = "#{fetch :php_bin} #{shared_path.join("composer.phar")}"
 SSHKit.config.command_map[:php] = fetch(:php_bin)
+
+namespace :composer do
+    desc 'Install the vendors'
+    task :install_vendors do
+        composer.install_composer
+        run %{
+            alias php="~/#{php_bin}" &&
+            cd #{latest_release} &&
+            #{php_bin} -d 'suhosin.executor.include.whitelist = phar' -d 'date.timezone = UTC' #{shared_path}/composer.phar install -o --no-dev
+        }
+    end
+end
