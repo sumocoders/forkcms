@@ -1,0 +1,203 @@
+{
+    "project_logo": null,
+    "project_favicon": "favicon.png",
+    "project_name": null,
+    "project_url": null,
+    "copyright_start_year": null,
+    "client_name": null,
+    "client_url": null,
+    "creators": [
+        {
+            "name": null,
+            "url": null
+        }
+    ],
+    "theme": {
+        "border_color": "#E0E6ED",
+        "highlight_color": "#F9FAFC",
+        "brand_color": "#00585C",
+        "background_color": "#FFFFFF",
+        "code_highlight_theme": "github",
+        "override_code_highlight_bg": "#F9FAFC",
+        "sample_dark_background": "#333333",
+        "show_project_name": true,
+        "show_version": true,
+        "max_width": null,
+        "titles": {
+            "library_title": "Pattern Library",
+            "pages_title": "Overview",
+            "components_title": "Components"
+        }
+    },
+    "assets": {
+        "css": [
+            "../Core/Layout/Css/screen.css"
+        ],
+        "js": [
+            "../Core/Js/bundle.js"
+        ]
+    },
+    "font_libraries": {
+        "typekit_code": null,
+        "typography_web_fonts": null,
+        "google_web_fonts": null
+    },
+    "content": {
+        "show_first_page_on_load": true,
+        "title": "Overview",
+        "pages": [
+            {
+                "name": "introduction",
+                "title": "Introduction",
+                "file": "./pages/intro.md"
+            }
+        ]
+    },
+    "groups": [
+        {
+            "name": "alerts",
+            "title": "Alerts",
+            "components": [
+                {
+                    "name": "types",
+                    "title": "Types",
+                    "options": {},
+                    "group": "alerts"
+                },
+                {
+                    "group": "alerts",
+                    "name": "link-color",
+                    "title": "Link color"
+                }
+            ]
+        },
+        {
+            "name": "breadcrumb",
+            "title": "Breadcrumb",
+            "components": [
+                {
+                    "group": "breadcrumb",
+                    "name": "default",
+                    "title": "Default"
+                }
+            ]
+        },
+        {
+            "name": "buttons",
+            "title": "Buttons",
+            "components": [
+                {
+                    "group": "buttons",
+                    "name": "types",
+                    "title": "Types"
+                },
+                {
+                    "group": "buttons",
+                    "name": "outline-buttons",
+                    "title": "Outline buttons"
+                },
+                {
+                    "group": "buttons",
+                    "name": "sizes",
+                    "title": "Sizes"
+                }
+            ]
+        },
+        {
+            "name": "button-group",
+            "title": "Button group",
+            "components": [
+                {
+                    "group": "button-group",
+                    "name": "basic-example",
+                    "title": "Basic example"
+                }
+            ]
+        },
+        {
+            "name": "cards",
+            "title": "Cards",
+            "components": [
+                {
+                    "group": "cards",
+                    "name": "example",
+                    "title": "Example"
+                },
+                {
+                    "group": "cards",
+                    "name": "titles-text-links",
+                    "title": "Titles, text and links"
+                },
+                {
+                    "group": "cards",
+                    "name": "card-groups",
+                    "title": "Card groups"
+                },
+                {
+                    "group": "cards",
+                    "name": "card-decks",
+                    "title": "Card decks"
+                }
+            ]
+        },
+        {
+            "name": "forms",
+            "title": "Forms",
+            "components": [
+                {
+                    "group": "forms",
+                    "name": "overview",
+                    "title": "Overview"
+                },
+                {
+                    "group": "forms",
+                    "name": "checkboxes",
+                    "title": "Checkboxes"
+                },
+                {
+                    "group": "forms",
+                    "name": "radiobuttons",
+                    "title": "Radiobuttons"
+                },
+                {
+                    "group": "forms",
+                    "name": "in-a-grid",
+                    "title": "In a grid"
+                },
+                {
+                    "group": "forms",
+                    "name": "validation",
+                    "title": "Validation"
+                }
+            ]
+        },
+        {
+            "name": "modal",
+            "title": "Modal",
+            "components": [
+                {
+                    "group": "modal",
+                    "name": "example",
+                    "title": "Example"
+                }
+            ]
+        },
+        {
+            "name": "pagination",
+            "title": "Pagination",
+            "components": [
+                {
+                    "group": "pagination",
+                    "name": "overview",
+                    "title": "Overview"
+                },
+                {
+                    "group": "pagination",
+                    "name": "disabled-and-active-states",
+                    "title": "Disabled and active states"
+                }
+            ]
+        }
+    ],
+    "version": "1.9.5"
+}

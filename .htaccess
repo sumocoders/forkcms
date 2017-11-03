@@ -64,6 +64,8 @@ deny from env=stayout
     RewriteRule composer\.json - [F]
     RewriteRule composer\.lock - [F]
     RewriteRule phpunit\.xml\.dist - [F]
+    # Custom condition for sumocoders to allow the Pattern library to use markdown files
+    RewriteCond %{REQUEST_URI} !^/src/Frontend/Themes/.+?/PatternLibrary
     RewriteRule .*\.md - [F]
     RewriteRule var/logs - [F]
     RewriteRule app/config - [F]
