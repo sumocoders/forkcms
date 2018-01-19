@@ -14,7 +14,7 @@
 
 {% if not cookieBarHide %}
   <div id="cookie-bar" class="cookiebar alert alert-fullwidth">
-    <button type="button" class="close" data-dismiss="alert">×</button>
+    <button type="button" class="close" data-dismiss="alert">× <span class="sr-only">{{ 'lbl.Close'|trans }}</span></button>
     <div class="container">
       <div class="d-flex flex-column flex-lg-row justify-content-between">
         <p class="mb-0"><strong>{{ 'lbl.Warning'|trans|ucfirst }}:</strong> {{ 'msg.Cookies'|trans|raw }}</p>
