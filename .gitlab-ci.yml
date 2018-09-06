@@ -7,7 +7,7 @@ stages:
 ######################################
 check php vendors:
   stage: vulnerabilities
-  image: sumocoders/framework-php72
+  image: sumocoders/fork-php72:latest
   before_script:
     - composer install --no-scripts
   script:
@@ -29,7 +29,7 @@ check npm dependencies:
 ###########################
 run phpunit tests:
   stage: test
-  image: sumocoders/fork-php71:latest
+  image: sumocoders/fork-php72:latest
   services:
     - mysql:5.5
   before_script:
