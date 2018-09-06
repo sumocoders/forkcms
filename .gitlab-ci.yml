@@ -9,7 +9,6 @@ check php vendors:
   stage: vulnerabilities
   image: sumocoders/framework-php72
   before_script:
-    - touch .env
     - composer install --no-scripts
   script:
     - bin/security-checker security:check
