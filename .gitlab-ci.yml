@@ -1,10 +1,47 @@
 stages:
+  - code_quality
   - test
 
 before_script:
   - curl -sS https://getcomposer.org/installer | php
+  - composer global require hirak/prestissimo
   - php composer.phar install --no-scripts --quiet --ignore-platform-reqs
   - cp app/config/parameters.yml.dist app/config/parameters.yml
+
+code_quality:
+  image: sumocoders/fork-php71:latest
+  services:
+    - mysql:5.5
+  script:
+    - curl -sS https://getcomposer.org/installer | php
+    - php composer.phar install --no-scripts --quiet --ignore-platform-reqs
+    - mysql -h mysql -u root -proot -e "create database ci_test"
+    - mysql -h mysql -u root -proot ci_test < tests/data/test_db.sql
+    - php bin/generate-parameters-gitlab
+    - cp app/config/parameters.yml.gitlab app/config/parameters.yml
+    - bin/console c:c --env=dev
+    - composer phpstan > phpstan_results.txt
+  stage: code_quality
+  tags:
+    - php71
+    - docker
+  variables:
+    MYSQL_DATABASE: ci
+    MYSQL_ROOT_PASSWORD: root
+  artifacts:
+    when: always
+    expire_in: 1 month
+    paths:
+      - phpstan_results.txt
+
+code_styles:
+  image: sumocoders/fork-php71:latest
+  script:
+    - bin/phpcs --standard=psr2 --extensions=php --warning-severity=0 --ignore=src/Backend/Core/Js/ckfinder,src/Backend/Cache,src/Frontend/Cache,src/Backend/Core/Js/ckeditor src/
+  stage: code_quality
+  tags:
+    - php71
+    - docker
 
 run_tests:
   image: sumocoders/fork-php71:latest
@@ -26,12 +63,3 @@ run_tests:
   variables:
     MYSQL_DATABASE: ci
     MYSQL_ROOT_PASSWORD: root
-
-code_styles:
-  image: sumocoders/fork-php71:latest
-  script:
-    - bin/phpcs --standard=psr2 --extensions=php --warning-severity=0 --ignore=src/Backend/Core/Js/ckfinder,src/Backend/Cache,src/Frontend/Cache,src/Backend/Core/Js/ckeditor src/
-  stage: test
-  tags:
-    - php71
-    - docker
