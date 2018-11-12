@@ -12,6 +12,11 @@ parameters:
     - %rootDir%/../../../src/Common/WebTestCase.php
   ignoreErrors:
     - '#Function newrelic_name_transaction not found#'
+    - '#Function opcache_reset not found.#'
+    - '#Function sem_get not found.#'
+    - '#Function sem_acquire not found.#'
+    - '#Function sem_release not found.#'
+    - '#Instantiated class SpoonFormException not found.#'
     - '#Service "breadcrumb" is not registered in the container.#'
     - '#Service "header" is not registered in the container.#'
     - '#Service "page" is not registered in the container.#'
