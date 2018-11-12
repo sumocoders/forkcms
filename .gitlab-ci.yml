@@ -43,7 +43,7 @@ code_styles:
     - php71
     - docker
 
-run_tests:
+run_functional_tests:
   image: sumocoders/fork-php71:latest
   services:
     - mysql:5.5
@@ -55,7 +55,28 @@ run_tests:
     - php bin/generate-parameters-gitlab
     - cp app/config/parameters.yml.gitlab app/config/parameters.yml
   script:
-    - SYMFONY_DEPRECATIONS_HELPER=weak bin/simple-phpunit
+    - SYMFONY_DEPRECATIONS_HELPER=weak bin/simple-phpunit -- --testsuite=unit
+  stage: test
+  tags:
+    - php71
+    - docker
+  variables:
+    MYSQL_DATABASE: ci
+    MYSQL_ROOT_PASSWORD: root
+
+run_unit_tests:
+  image: sumocoders/fork-php71:latest
+  services:
+    - mysql:5.5
+  before_script:
+    - curl -sS https://getcomposer.org/installer | php
+    - php composer.phar install --no-scripts --quiet --ignore-platform-reqs
+    - mysql -h mysql -u root -proot -e "create database ci_test"
+    - mysql -h mysql -u root -proot ci_test < tests/data/test_db.sql
+    - php bin/generate-parameters-gitlab
+    - cp app/config/parameters.yml.gitlab app/config/parameters.yml
+  script:
+    - SYMFONY_DEPRECATIONS_HELPER=weak bin/simple-phpunit -- --testsuite=functional
   stage: test
   tags:
     - php71
