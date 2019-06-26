@@ -27,6 +27,8 @@ framework:
                 adapter: cache.app
                 public: true
                 default_lifetime: 3600
+    assets:
+      json_manifest_path: '%kernel.root_dir%/../src/Frontend/Themes/Bootstrap4/dist/manifest.json'
 
 # Assetic Configuration
 assetic:
