@@ -2,15 +2,16 @@
 
 namespace Deployer;
 
-require 'recipe/symfony4.php';
+require 'recipe/symfony3.php';
 require 'recipe/cachetool.php';
 require 'recipe/sentry.php';
 // TODO DB stuff from deployer-sumo
 
 // Define some variables
-set('client', '$client');
-set('project', '$project');
-set('repository', '$repository');
+set('client', 'sumocoders');
+set('project', 'forkdeployer');
+set('repository', 'git@github.com:davysumo/forkcms.git');
+set('release', 'current');
 set('production_url', '$productionUrl');
 set('sentry_organization', '$sentryOrganization');
 set('sentry_project_slug', '$sentryProjectSlug');
@@ -26,6 +27,8 @@ host('dev02.sumocoders.eu')
     ->set('bin/composer', '{{bin/php}} /home/sites/apps/{{client}}/{{project}}/shared/composer.phar')
     ->set('cachetool', '/var/run/php_74_fpm_sites.sock')
     ->set('document_root', '~/php74/{{client}}/{{project}}');
+
+// TODO install composer on staging shared
 
 // Define production
 //host('$host')
@@ -72,6 +75,9 @@ set(
  * Task sections *
  *****************/
 // Build tasks
+
+// TODO gulp build?
+/*
 task(
     'build:assets:npm',
     function () {
@@ -85,9 +91,32 @@ task(
 )
     ->desc('Run the build script which will build our needed assets.')
     ->local();
+*/
+
+/**
+ * Install assets from public dir of bundles
+ * @Override from symfony.php - don't know if we need this for Fork
+ */
+task('deploy:assets:install', function () {
+    // TODO do nothing for now
+})->desc('Install bundle assets');
+
+/**
+ * Migrate database
+ * @Override from symfony.php which executes doctrine:migrations
+ */
+task('database:migrate', function () {
+    /* TODO
+     * - execute update.sql scripts in migrations dir
+     * - add dir name to executed_migrations
+     * - migrate locale (different task?)
+     */
+})->desc('Migrate database');
+
+// TODO Symlinks
 
 // Upload tasks
-task(
+/*task(
     'upload:assets',
     function () {
         upload(__DIR__ . '/public/build', '{{release_path}}/public');
@@ -95,7 +124,7 @@ task(
 )
     ->desc('Uploads the assets')
     ->addBefore('build:assets:npm');
-after('deploy:update_code', 'upload:assets');
+after('deploy:update_code', 'upload:assets');*/
 
 /**********************
  * Flow configuration *
