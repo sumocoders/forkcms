@@ -44,8 +44,8 @@ host('dev02.sumocoders.eu')
 set('use_relative_symlink', false);
 
 // Shared files/dirs between deploys
-add('shared_files', ['.env.local']);
-add('shared_dirs', []);
+add('shared_files', ['.env.local', 'app/config/parameters.yml']);
+add('shared_dirs', ['src/Frontend/Files']);
 
 // Writable dirs by web server
 add('writable_dirs', []);
