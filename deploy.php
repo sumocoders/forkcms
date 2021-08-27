@@ -75,23 +75,41 @@ set(
  * Task sections *
  *****************/
 // Build tasks
-
-// TODO gulp build?
-/*
 task(
-    'build:assets:npm',
+    'gulp:build',
     function () {
-        if (commandExist('nvm')) {
-            run('nvm install');
-            run('nvm exec npm run build');
-        } else {
-            run('npm run build');
-        }
+        run('gulp build');
     }
 )
-    ->desc('Run the build script which will build our needed assets.')
+    ->desc('Run the build script.')
     ->local();
-*/
+after('deploy:update_code', 'gulp:build');
+
+// Upload tasks
+task(
+    'upload:assets',
+    function () {
+        $packageFile = file_get_contents('package.json');
+        $package = json_decode($packageFile, true);
+
+        if (!array_key_exists('theme', $package)) {
+            writeln(
+                [
+                    '<comment>No theme found in package.json</comment>',
+                ]
+            );
+
+            return;
+        }
+
+        $theme = $package['theme'];
+        $remotePath = '{{release_path}}/src/Frontend/Themes/' . $theme;
+
+        upload(__DIR__ . '/src/Frontend/Themes/' . $theme . '/Core', $remotePath);
+    }
+)
+    ->desc('Uploads the assets');
+after('gulp:build', 'upload:assets');
 
 /**
  * Install assets from public dir of bundles
@@ -122,17 +140,6 @@ task(
 )
     ->desc('Clear Fork CMS cache');
 before('deploy:cache:clear', 'fork:cache:clear');
-
-// Upload tasks
-/*task(
-    'upload:assets',
-    function () {
-        upload(__DIR__ . '/public/build', '{{release_path}}/public');
-    }
-)
-    ->desc('Uploads the assets')
-    ->addBefore('build:assets:npm');
-after('deploy:update_code', 'upload:assets');*/
 
 task(
     'sumo:symlink:document-root',
