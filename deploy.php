@@ -117,6 +117,7 @@ task(
     'fork:cache:clear',
     function() {
         run('{{bin/php}} {{bin/console}} fork:cache:clear --env={{symfony_env}}');
+        run('if [ -f {{deploy_path}}/shared/config/parameters.yml ]; then touch {{deploy_path}}/shared/config/parameters.yml; fi');
     }
 )
     ->desc('Clear Fork CMS cache');
