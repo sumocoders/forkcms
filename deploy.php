@@ -74,20 +74,13 @@ set(
 /*****************
  * Task sections *
  *****************/
-// Build tasks
-task(
-    'gulp:build',
-    function () {
-        run('gulp build');
-    }
-)
-    ->desc('Run the build script.')
-    ->local();
-after('deploy:update_code', 'gulp:build');
-
 // Upload tasks
+/**
+ * Install assets from public dir of bundles
+ * @Override from symfony.php - don't know if we need this for Fork
+ */
 task(
-    'upload:assets',
+    'deploy:assets:install',
     function () {
         $packageFile = file_get_contents('package.json');
         $package = json_decode($packageFile, true);
@@ -102,22 +95,15 @@ task(
             return;
         }
 
+        runLocally('gulp build');
+
         $theme = $package['theme'];
-        $remotePath = '{{release_path}}/src/Frontend/Themes/' . $theme;
+        $remotePath = '{{release_path}}/src/Frontend/Themes/' . $theme . '/Core';
 
-        upload(__DIR__ . '/src/Frontend/Themes/' . $theme . '/Core', $remotePath);
+        upload(__DIR__ . '/src/Frontend/Themes/' . $theme . '/Core/', $remotePath);
     }
-)
-    ->desc('Uploads the assets');
-after('gulp:build', 'upload:assets');
-
-/**
- * Install assets from public dir of bundles
- * @Override from symfony.php - don't know if we need this for Fork
- */
-task('deploy:assets:install', function () {
-    // TODO do nothing for now
-})->desc('Install bundle assets');
+)->desc('Generate and upload bundle assets');
+after('deploy:update_code', 'deploy:assets:install');
 
 /**
  * Migrate database
