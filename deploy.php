@@ -113,7 +113,14 @@ task('database:migrate', function () {
      */
 })->desc('Migrate database');
 
-// TODO Symlinks
+task(
+    'fork:cache:clear',
+    function() {
+        run('{{bin/php}} {{bin/console}} fork:cache:clear --env={{symfony_env}}');
+    }
+)
+    ->desc('Clear Fork CMS cache');
+before('deploy:cache:clear', 'fork:cache:clear');
 
 // Upload tasks
 /*task(
