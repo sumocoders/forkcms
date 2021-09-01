@@ -151,7 +151,7 @@ task('database:migrate', function () {
         if (test('[ -f ' . $shortName . '/locale.xml ]')) {
             echo 'Installing locale.xml for ' . $shortName . "\n";
 
-            run('cd {release_path}/tools && php install_locale.php -f ' . $dir . '/locale.xml -o');
+            run('{{bin/php}} {{bin/console}} forkcms:locale:import -f ' . $dir . '/locale.xml --env={{symfony_env}}');
         }
 
         run('echo ' . $shortName . ' | tee -a {{deploy_path}}/shared/executed_migrations');
