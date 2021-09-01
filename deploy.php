@@ -2,6 +2,8 @@
 
 namespace Deployer;
 
+use Symfony\Component\Yaml\Yaml;
+
 require 'recipe/symfony3.php';
 require 'recipe/cachetool.php';
 require 'recipe/sentry.php';
@@ -122,17 +124,38 @@ task('database:migrate', function () {
         run('touch executed_migrations');
     }
 
+    $parameters = Yaml::parse(run('cat app/config/parameters.yml'))['parameters'];
     $executedMigrations = explode("\n", run('cat executed_migrations'));
 
     cd('{{release_path}}/migrations/');
 
     $dirs = explode(',', run('find {{release_path}}/migrations/* -maxdepth 0 -type d | tr "\n" ","'));
-    var_dump($dirs);
+    foreach ($dirs as $dir) {
+        if (empty($dir)) {
+            continue;
+        }
 
-    die;
+        $shortName = basename($dir);
+        if (in_array($shortName, $executedMigrations)) {
+            continue;
+        }
+
+        // TODO should probably back up database
+
+        if (test('[ -f ' . $shortName . '/update.sql ]')) {
+            echo 'Running update.sql for ' . $shortName . "\n";
+
+            run('mysql --default-character-set="utf8" --host=' . $parameters['database.host'] . ' --port=' . $parameters['database.port'] . ' --user=' . $parameters['database.user'] . ' --password=' . $parameters['database.password'] . ' ' . $parameters['database.name'] . ' < ' . $shortName . '/update.sql');
+        }
+
+        if (test('[ -f ' . $shortName . '/locale.xml ]')) {
+
+        }
+
+        run('echo ' . $shortName . ' | tee -a {{deploy_path}}/shared/executed_migrations');
+    }
 })->desc('Migrate database and locale');
-// TODO
-after('deploy:prepare', 'database:migrate');
+// after('deploy:prepare', 'database:migrate');
 
 task(
     'fork:cache:clear',
@@ -195,6 +218,7 @@ after('deploy:symlink', 'sumo:symlink:document-root');
 /**********************
  * Flow configuration *
  **********************/
+before('fork:cache:clear', 'database:migrate');
 // Clear the Opcache
 after('deploy:symlink', 'cachetool:clear:opcache');
 // Unlock the deploy when it failed
