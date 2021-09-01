@@ -113,11 +113,6 @@ after('deploy:update_code', 'deploy:assets:install');
  * @Override from symfony.php which executes doctrine:migrations
  */
 task('database:migrate', function () {
-    /* TODO
-     * - execute update.sql scripts in migrations dir
-     * - add dir name to executed_migrations
-     * - migrate locale (different task?)
-     */
     cd('{{deploy_path}}/shared/');
 
     if (!test('[ -f executed_migrations ]')) {
@@ -157,7 +152,6 @@ task('database:migrate', function () {
         run('echo ' . $shortName . ' | tee -a {{deploy_path}}/shared/executed_migrations');
     }
 })->desc('Migrate database and locale');
-// after('deploy:prepare', 'database:migrate');
 
 task(
     'fork:cache:clear',
@@ -216,6 +210,32 @@ task(
 )
     ->desc('Symlink the document root to the public folder');
 after('deploy:symlink', 'sumo:symlink:document-root');
+
+desc('Enable a redirect page, all traffic will be redirected to this page.');
+task(
+    'sumo:redirect:enable',
+    function () {
+        if (!get('production_url', false)) {
+            throw new \RuntimeException("Set a production url");
+        }
+
+        set('redirect_path', get('deploy_path') . '/redirect');
+
+        run('mkdir -p {{redirect_path}}');
+        run(
+            'wget -qO {{redirect_path}}/index.php http://static.sumocoders.be/redirect2/index.phps'
+        );
+        run(
+            'wget -qO {{redirect_path}}/.htaccess http://static.sumocoders.be/redirect2/htaccess'
+        );
+        run(
+            'sed -i "s|<real-url>|{{production_url}}|" {{redirect_path}}/index.php'
+        );
+
+        run('rm {{document_root}}');
+        run('{{bin/symlink}} {{redirect_path}} {{document_root}}');
+    }
+)->addAfter('cachetool:clear:opcache');
 
 /**********************
  * Flow configuration *
