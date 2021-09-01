@@ -22,7 +22,8 @@ host('dev02.sumocoders.eu')
     ->user('sites')
     ->stage('staging')
     ->set('deploy_path', '~/apps/{{client}}/{{project}}')
-    ->set('branch', 'staging')
+    // ->set('branch', 'staging')
+    ->set('branch', '430-replace-capistrano-with-deployer')
     ->set('bin/php', 'php7.4')
     ->set('bin/composer', '{{bin/php}} /home/sites/apps/{{client}}/{{project}}/shared/composer.phar')
     ->set('cachetool', '/var/run/php_74_fpm_sites.sock')
@@ -115,7 +116,20 @@ task('database:migrate', function () {
      * - add dir name to executed_migrations
      * - migrate locale (different task?)
      */
-})->desc('Migrate database');
+    cd('{{deploy_path}}/shared/');
+
+    if (!test('[ -f executed_migrations ]')) {
+        run('touch executed_migrations');
+    }
+
+    $executedMigrations = explode("\n", run('cat executed_migrations'));
+
+    // var_dump((int) run('find {{release_path}}/migrations/* -maxdepth 0 -type d | wc -l'));
+
+    // die;
+})->desc('Migrate database and locale');
+// TODO
+// after('deploy:prepare', 'database:migrate');
 
 task(
     'fork:cache:clear',
