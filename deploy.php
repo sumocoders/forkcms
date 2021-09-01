@@ -124,12 +124,15 @@ task('database:migrate', function () {
 
     $executedMigrations = explode("\n", run('cat executed_migrations'));
 
-    // var_dump((int) run('find {{release_path}}/migrations/* -maxdepth 0 -type d | wc -l'));
+    cd('{{release_path}}/migrations/');
 
-    // die;
+    $dirs = explode(',', run('find {{release_path}}/migrations/* -maxdepth 0 -type d | tr "\n" ","'));
+    var_dump($dirs);
+
+    die;
 })->desc('Migrate database and locale');
 // TODO
-// after('deploy:prepare', 'database:migrate');
+after('deploy:prepare', 'database:migrate');
 
 task(
     'fork:cache:clear',
