@@ -98,7 +98,12 @@ task(
             return;
         }
 
-        runLocally('gulp build');
+        if (commandExist('nvm')) {
+            runLocally('nvm install');
+            runLocally('nvm exec node_modules/.bin/gulp build');
+        } else {
+            runLocally('node_modules/.bin/gulp build');
+        }
 
         $theme = $package['theme'];
         $remotePath = '{{release_path}}/src/Frontend/Themes/' . $theme . '/Core';
