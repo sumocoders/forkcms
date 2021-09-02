@@ -7,7 +7,6 @@ use Symfony\Component\Yaml\Yaml;
 require 'recipe/symfony3.php';
 require 'recipe/cachetool.php';
 require 'recipe/sentry.php';
-// TODO DB stuff from deployer-sumo
 
 // Define some variables
 set('client', 'sumocoders');
@@ -141,13 +140,13 @@ task('database:migrate', function () {
         }
 
         if (test('[ -f ' . $shortName . '/update.sql ]')) {
-            writeln('Running update.sql for ' . $shortName);
+            writeln('<comment>Running update.sql for ' . $shortName . '</comment>');
 
             run('mysql --default-character-set="utf8" --host=' . $parameters['database.host'] . ' --port=' . $parameters['database.port'] . ' --user=' . $parameters['database.user'] . ' --password=' . $parameters['database.password'] . ' ' . $parameters['database.name'] . ' < ' . $shortName . '/update.sql');
         }
 
         if (test('[ -f ' . $shortName . '/locale.xml ]')) {
-            writeln('Installing locale.xml for ' . $shortName);
+            writeln('<comment>Installing locale.xml for ' . $shortName . '</comment>');
 
             run('{{bin/php}} {{bin/console}} forkcms:locale:import -f ' . $dir . '/locale.xml --env={{symfony_env}}');
         }
@@ -329,10 +328,22 @@ task(
             return;
         }
 
+        // remove some system dirs
+        $directoriesToIgnore = [
+            'var/log',      // this directory may contain useful information
+            'var/sessions', // this directory may contain active sessions
+        ];
+        $sharedDirectories = array_values(array_filter(
+            $sharedDirectories,
+            function ($element) use ($directoriesToIgnore) {
+                return !in_array($element, $directoriesToIgnore);
+            }
+        ));
+
         foreach ($sharedDirectories as $directory) {
             $path = '{{deploy_path}}/shared/' . $directory;
 
-            if (test(sprintf('[ -d %1$s ]', $path))) {
+            if ((int) run('ls {{deploy_path}}/shared/' . $directory . ' | wc -l') > 0) {
                 download($path, $directory . '/../');
             }
         }
@@ -366,7 +377,7 @@ task(
         ));
 
         foreach ($sharedDirectories as $directory) {
-            upload('./' . $directory, '{{deploy_path}}/shared/');
+           upload('./' . $directory . '/', '{{deploy_path}}/shared/' . $directory);
         }
     }
 );
