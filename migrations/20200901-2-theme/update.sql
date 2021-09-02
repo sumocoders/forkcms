@@ -1,1 +1,0 @@
-UPDATE modules_settings SET modules_settings.value = 's:9:"Bootstrap";' WHERE modules_settings.module = 'Core' AND modules_settings.name = 'theme';
