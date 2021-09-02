@@ -140,16 +140,14 @@ task('database:migrate', function () {
             continue;
         }
 
-        // TODO should probably back up database
-
         if (test('[ -f ' . $shortName . '/update.sql ]')) {
-            echo 'Running update.sql for ' . $shortName . "\n";
+            writeln('Running update.sql for ' . $shortName);
 
             run('mysql --default-character-set="utf8" --host=' . $parameters['database.host'] . ' --port=' . $parameters['database.port'] . ' --user=' . $parameters['database.user'] . ' --password=' . $parameters['database.password'] . ' ' . $parameters['database.name'] . ' < ' . $shortName . '/update.sql');
         }
 
         if (test('[ -f ' . $shortName . '/locale.xml ]')) {
-            echo 'Installing locale.xml for ' . $shortName . "\n";
+            writeln('Installing locale.xml for ' . $shortName);
 
             run('{{bin/php}} {{bin/console}} forkcms:locale:import -f ' . $dir . '/locale.xml --env={{symfony_env}}');
         }
@@ -157,6 +155,17 @@ task('database:migrate', function () {
         run('echo ' . $shortName . ' | tee -a {{deploy_path}}/shared/executed_migrations');
     }
 })->desc('Migrate database and locale');
+
+task(
+    'database:backup',
+    function () {
+        cd('{{deploy_path}}/shared/');
+        $parameters = Yaml::parse(run('cat app/config/parameters.yml'))['parameters'];
+
+        run('mysqldump --skip-lock-tables --default-character-set="utf8" --host=' . $parameters['database.host'] . ' --port=' . $parameters['database.port'] . ' --user=' . $parameters['database.user'] . ' --password=' . $parameters['database.password'] . ' ' . $parameters['database.name'] . ' > {{release_path}}/mysql_backup.sql');
+    }
+)->desc('Create a backup of the database');
+before('database:migrate', 'database:backup');
 
 task(
     'fork:cache:clear',
