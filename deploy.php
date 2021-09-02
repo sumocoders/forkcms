@@ -154,6 +154,9 @@ task('database:migrate', function () {
 
         run('echo ' . $shortName . ' | tee -a {{deploy_path}}/shared/executed_migrations');
     }
+
+    // remove DB backup
+    run('rm {{deploy_path}}/mysql_backup.sql');
 })->desc('Migrate database and locale');
 
 task(
@@ -162,10 +165,76 @@ task(
         cd('{{deploy_path}}/shared/');
         $parameters = Yaml::parse(run('cat app/config/parameters.yml'))['parameters'];
 
-        run('mysqldump --skip-lock-tables --default-character-set="utf8" --host=' . $parameters['database.host'] . ' --port=' . $parameters['database.port'] . ' --user=' . $parameters['database.user'] . ' --password=' . $parameters['database.password'] . ' ' . $parameters['database.name'] . ' > {{release_path}}/mysql_backup.sql');
+        run('mysqldump --skip-lock-tables --default-character-set="utf8" --host=' . $parameters['database.host'] . ' --port=' . $parameters['database.port'] . ' --user=' . $parameters['database.user'] . ' --password=' . $parameters['database.password'] . ' ' . $parameters['database.name'] . ' > {{deploy_path}}/mysql_backup.sql');
     }
 )->desc('Create a backup of the database');
 before('database:migrate', 'database:backup');
+
+task(
+    'sumo:db:create',
+    function () {
+        cd('{{deploy_path}}/shared/');
+        $parameters = Yaml::parse(run('cat app/config/parameters.yml'))['parameters'];
+
+        writeln(
+            run('create_db ' . $parameters['database.name'])
+        );
+    }
+)->desc('Create the database if it does not exist yet')
+    ->onStage('staging');
+
+task(
+    'sumo:db:info',
+    function () {
+        cd('{{deploy_path}}/shared/');
+        $parameters = Yaml::parse(run('cat app/config/parameters.yml'))['parameters'];
+
+        writeln(
+            run('info_db ' . $parameters['database.name'])
+        );
+    }
+)->desc('Get info about the database')
+    ->onStage('staging');
+
+task(
+    'sumo:db:get',
+    function () {
+        $localParameters = Yaml::parse(runLocally('cat app/config/parameters.yml'))['parameters'];
+
+        cd('{{deploy_path}}/shared/');
+        $parameters = Yaml::parse(run('cat app/config/parameters.yml'))['parameters'];
+
+        run('mysqldump --skip-lock-tables --default-character-set="utf8" --host=' . $parameters['database.host'] . ' --port=' . $parameters['database.port'] . ' --user=' . $parameters['database.user'] . ' --password=' . $parameters['database.password'] . ' ' . $parameters['database.name'] . ' > {{deploy_path}}/db_download.tmp.sql');
+        download(
+            '{{deploy_path}}/db_download.tmp.sql',
+            './db_download.tmp.sql'
+        );
+        run('rm {{deploy_path}}/db_download.tmp.sql');
+
+        runLocally('mysql --default-character-set="utf8" --host=' . $localParameters['database.host'] . ' --port=' . $localParameters['database.port'] . ' --user=' . $localParameters['database.user'] . ' --password=' . $localParameters['database.password'] . ' ' . $localParameters['database.name'] . ' < ./db_download.tmp.sql');
+        runLocally('rm ./db_download.tmp.sql');
+    }
+)->desc('Replace the local database with the remote database');
+
+task(
+    'sumo:db:put',
+    function () {
+        $localParameters = Yaml::parse(runLocally('cat app/config/parameters.yml'))['parameters'];
+
+        cd('{{deploy_path}}/shared/');
+        $parameters = Yaml::parse(run('cat app/config/parameters.yml'))['parameters'];
+
+        runLocally('mysqldump --column-statistics=0 --lock-tables=false --set-charset --host=' . $localParameters['database.host'] . ' --port=' . $localParameters['database.port'] . ' --user=' . $localParameters['database.user'] . ' --password=' . $localParameters['database.password'] . ' ' . $localParameters['database.name'] . ' > ./db_upload.tmp.sql');
+        upload('./db_upload.tmp.sql', '{{deploy_path}}/db_upload.tmp.sql');
+        runLocally('rm ./db_upload.tmp.sql');
+
+        cd('{{deploy_path}}/');
+
+        run('mysql --default-character-set="utf8" --host=' . $parameters['database.host'] . ' --port=' . $parameters['database.port'] . ' --user=' . $parameters['database.user'] . ' --password=' . $parameters['database.password'] . ' ' . $parameters['database.name'] . ' < db_upload.tmp.sql');
+        run('rm db_upload.tmp.sql');
+    }
+)->desc('Replace the remote database with the local database')
+->addBefore('database:backup');
 
 task(
     'fork:cache:clear',
