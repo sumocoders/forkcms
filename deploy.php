@@ -84,6 +84,13 @@ set(
 task(
     'deploy:assets:install',
     function () {
+        // do nothing
+    }
+)->desc('Generate and upload bundle assets');
+
+task(
+    'deploy:theme:install',
+    function () {
         $packageFile = file_get_contents('package.json');
         $package = json_decode($packageFile, true);
 
@@ -110,21 +117,25 @@ task(
         upload(__DIR__ . '/src/Frontend/Themes/' . $theme . '/Core/', $remotePath);
     }
 )->desc('Generate and upload bundle assets');
-after('deploy:update_code', 'deploy:assets:install');
+after('deploy:update_code', 'deploy:theme:install');
 
 /**
  * Migrate database
  * @Override from symfony.php which executes doctrine:migrations
  */
 task('database:migrate', function () {
+    // do nothing - delete when we start using doctrine:migrations
+})->desc('Migrate database');
+
+task('database:update', function () {
     cd('{{deploy_path}}/shared/');
 
-    if (!test('[ -f executed_migrations ]')) {
-        run('touch executed_migrations');
+    if (!test('[ -f database_migrations ]')) {
+        run('touch database_migrations');
     }
 
     $parameters = Yaml::parse(run('cat app/config/parameters.yml'))['parameters'];
-    $executedMigrations = explode("\n", run('cat executed_migrations'));
+    $executedMigrations = explode("\n", run('cat database_migrations'));
 
     cd('{{release_path}}/migrations/');
 
@@ -145,18 +156,58 @@ task('database:migrate', function () {
             run('mysql --default-character-set="utf8" --host=' . $parameters['database.host'] . ' --port=' . $parameters['database.port'] . ' --user=' . $parameters['database.user'] . ' --password=' . $parameters['database.password'] . ' ' . $parameters['database.name'] . ' < ' . $shortName . '/update.sql');
         }
 
+        if (test('[ -f ' . $shortName . '/update.php ]')) {
+            writeln('<comment>Running update.php for ' . $shortName . '</comment>');
+
+            run('cd {{release_path}} && {{bin/php}} ' . $dir . '/update.php');
+        }
+
+        run('echo ' . $shortName . ' | tee -a {{deploy_path}}/shared/database_migrations');
+    }
+
+    // remove DB backup
+    run('rm {{deploy_path}}/mysql_backup.sql');
+})->desc('Update database');
+
+/**
+ * Migrate database
+ * @Override from symfony.php which executes doctrine:migrations
+ */
+task('locale:update', function () {
+    cd('{{deploy_path}}/shared/');
+
+    if (!test('[ -f locale_migrations ]')) {
+        run('touch locale_migrations');
+    }
+
+    $parameters = Yaml::parse(run('cat app/config/parameters.yml'))['parameters'];
+    $executedMigrations = explode("\n", run('cat locale_migrations'));
+
+    cd('{{release_path}}/migrations/');
+
+    $dirs = explode(',', run('find {{release_path}}/migrations/* -maxdepth 0 -type d | tr "\n" ","'));
+    foreach ($dirs as $dir) {
+        if (empty($dir)) {
+            continue;
+        }
+
+        $shortName = basename($dir);
+        if (in_array($shortName, $executedMigrations)) {
+            continue;
+        }
+
         if (test('[ -f ' . $shortName . '/locale.xml ]')) {
             writeln('<comment>Installing locale.xml for ' . $shortName . '</comment>');
 
             run('{{bin/php}} {{bin/console}} forkcms:locale:import -f ' . $dir . '/locale.xml --env={{symfony_env}}');
         }
 
-        run('echo ' . $shortName . ' | tee -a {{deploy_path}}/shared/executed_migrations');
+        run('echo ' . $shortName . ' | tee -a {{deploy_path}}/shared/locale_migrations');
     }
 
     // remove DB backup
     run('rm {{deploy_path}}/mysql_backup.sql');
-})->desc('Migrate database and locale');
+})->desc('Update locale');
 
 task(
     'database:backup',
@@ -385,7 +436,9 @@ task(
 /**********************
  * Flow configuration *
  **********************/
-before('fork:cache:clear', 'database:migrate');
+before('database:update', 'locale:update');
+
+before('fork:cache:clear', 'database:update');
 // Clear the Opcache
 after('deploy:symlink', 'cachetool:clear:opcache');
 // Unlock the deploy when it failed
