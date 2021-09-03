@@ -204,9 +204,6 @@ task('locale:update', function () {
 
         run('echo ' . $shortName . ' | tee -a {{deploy_path}}/shared/locale_migrations');
     }
-
-    // remove DB backup
-    run('rm {{deploy_path}}/mysql_backup.sql');
 })->desc('Update locale');
 
 task(
@@ -218,7 +215,7 @@ task(
         run('mysqldump --skip-lock-tables --default-character-set="utf8" --host=' . $parameters['database.host'] . ' --port=' . $parameters['database.port'] . ' --user=' . $parameters['database.user'] . ' --password=' . $parameters['database.password'] . ' ' . $parameters['database.name'] . ' > {{deploy_path}}/mysql_backup.sql');
     }
 )->desc('Create a backup of the database');
-before('database:migrate', 'database:backup');
+before('database:update', 'database:backup');
 
 task(
     'sumo:db:create',
@@ -437,7 +434,6 @@ task(
  * Flow configuration *
  **********************/
 before('database:update', 'locale:update');
-
 before('fork:cache:clear', 'database:update');
 // Clear the Opcache
 after('deploy:symlink', 'cachetool:clear:opcache');
