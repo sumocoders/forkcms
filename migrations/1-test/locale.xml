@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<locale>
+  <Backend>
+    <Core>
+      <item type="message" name="CertificateAttachment">
+        <translation language="en"><![CDATA[Gelieve het attest in bijlage ingevuld terug te bezorgen.]]></translation>
+      </item>
+    </Core>
+  </Backend>
+  <Frontend>
+    <Core>
+      <item type="message" name="CertificateAttachment">
+        <translation language="en"><![CDATA[Gelieve het attest in bijlage ingevuld terug te bezorgen.]]></translation>
+      </item>
+    </Core>
+  </Frontend>
+</locale>
