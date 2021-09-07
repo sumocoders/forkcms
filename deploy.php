@@ -9,9 +9,9 @@ require 'recipe/cachetool.php';
 require 'recipe/sentry.php';
 
 // Define some variables
-set('client', 'sumocoders');
-set('project', 'forkdeployer');
-set('repository', 'git@github.com:davysumo/forkcms.git');
+set('client', '$client');
+set('project', '$project');
+set('repository', '$repository');
 set('release', 'current');
 set('production_url', '$productionUrl');
 set('sentry_organization', '$sentryOrganization');
@@ -19,18 +19,15 @@ set('sentry_project_slug', '$sentryProjectSlug');
 set('sentry_token', '$sentryToken');
 
 // Define staging
-host('dev02.sumocoders.eu')
+host('dev03.sumocoders.eu')
     ->user('sites')
     ->stage('staging')
     ->set('deploy_path', '~/apps/{{client}}/{{project}}')
-    // ->set('branch', 'staging')
-    ->set('branch', '430-replace-capistrano-with-deployer')
+    ->set('branch', 'staging')
     ->set('bin/php', 'php7.4')
     ->set('bin/composer', '{{bin/php}} /home/sites/apps/{{client}}/{{project}}/shared/composer.phar')
     ->set('cachetool', '/var/run/php_74_fpm_sites.sock')
     ->set('document_root', '~/php74/{{client}}/{{project}}');
-
-// TODO install composer on staging shared
 
 // Define production
 //host('$host')
@@ -53,7 +50,7 @@ add('shared_files', ['.env.local', 'app/config/parameters.yml']);
 add('shared_dirs', ['src/Frontend/Files']);
 
 // Writable dirs by web server
-add('writable_dirs', []);
+add('writable_dirs', ['src/Frontend/Cache', 'src/Backend/Cache']);
 
 // Disallow stats
 set('allow_anonymous_stats', false);
