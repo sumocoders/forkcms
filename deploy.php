@@ -140,6 +140,10 @@ task('database:migrate', function () {
 })->desc('Migrate database');
 
 task('database:update', function () {
+    if (!test('[ -d {{release_path}}/migrations/')) {
+        return;
+    }
+
     cd('{{deploy_path}}/shared/');
 
     if (!test('[ -f database_migrations ]')) {
@@ -186,13 +190,16 @@ task('database:update', function () {
  * @Override from symfony.php which executes doctrine:migrations
  */
 task('locale:update', function () {
+    if (!test('[ -d {{release_path}}/migrations/')) {
+        return;
+    }
+
     cd('{{deploy_path}}/shared/');
 
     if (!test('[ -f locale_migrations ]')) {
         run('touch locale_migrations');
     }
 
-    $parameters = Yaml::parse(run('cat app/config/parameters.yml'))['parameters'];
     $executedMigrations = explode("\n", run('cat locale_migrations'));
 
     cd('{{release_path}}/migrations/');
