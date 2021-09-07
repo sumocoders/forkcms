@@ -89,6 +89,18 @@ task(
 )->desc('Generate and upload bundle assets');
 
 task(
+    'composer:install',
+    function () {
+        cd('{{deploy_path}}/shared/');
+
+        if (!test('[ -f composer.phar ]')) {
+            run('curl -s https://getcomposer.org/installer | {{bin/php}}');
+        }
+    }
+)->desc('Install composer.phar if it is not already installed');
+after('deploy:shared', 'composer:install');
+
+task(
     'deploy:theme:install',
     function () {
         $packageFile = file_get_contents('package.json');
