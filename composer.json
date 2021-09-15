@@ -60,8 +60,15 @@
         "phpstan/phpstan": "^0.12.52",
         "phpstan/phpstan-symfony": "^0.12.7",
         "deployer/deployer": "^6.8",
-        "deployer/recipes": "^6.2"
+        "deployer/recipes": "^6.2",
+        "tijsverkoyen/deployer-sumo": "dev-master"
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/Users/davy/Sites/sumocoders/deployer-sumo"
+        }
+    ],
     "config": {
         "bin-dir": "bin"
     },

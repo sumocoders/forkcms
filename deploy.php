@@ -7,6 +7,7 @@ use Symfony\Component\Yaml\Yaml;
 require 'recipe/symfony3.php';
 require 'recipe/cachetool.php';
 require 'recipe/sentry.php';
+require __DIR__ . '/vendor/tijsverkoyen/deployer-sumo/sumo.php';
 
 // Define some variables
 set('client', '$client');
@@ -135,6 +136,13 @@ after('deploy:update_code', 'deploy:theme:install');
 task('database:migrate', function () {
     // do nothing - delete when we start using doctrine:migrations
 })->desc('Migrate database');
+
+/**
+ * @Override from deployer-sumo/assets
+ */
+task('sumo:assets:install', function() {
+    // do nothing - no public directory in fork
+})->desc('Install bundle\'s web assets under a public directory');
 
 task('database:update', function () {
     if (!test('[ -d {{release_path}}/migrations/')) {
