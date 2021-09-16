@@ -13,6 +13,7 @@ require __DIR__ . '/vendor/tijsverkoyen/deployer-sumo/sumo.php';
 set('client', '$client');
 set('project', '$project');
 set('repository', '$repository');
+set('user', '$user');
 set('release', 'current');
 set('production_url', '$productionUrl');
 set('sentry_organization', '$sentryOrganization');
@@ -21,7 +22,7 @@ set('sentry_token', '$sentryToken');
 
 // Define staging
 host('dev03.sumocoders.eu')
-    ->user('sites')
+    ->user('{{user}}')
     ->stage('staging')
     ->set('deploy_path', '~/apps/{{client}}/{{project}}')
     ->set('branch', 'staging')
@@ -32,7 +33,7 @@ host('dev03.sumocoders.eu')
 
 // Define production
 //host('$host')
-//    ->user('sites')
+//    ->user('{{user}}')
 //    ->stage('production')
 //    ->set('deploy_path', '~/apps/{{client}}/{{project}}')
 //    ->set('branch', 'master')
