@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f623353aa8055cbbd0ed27b86e9657aa",
+    "content-hash": "bb6c76af0a1f9bf355a4bbff9a1bf2c0",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.193.2",
+            "version": "3.193.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d5080f7a1bb63569c19b8de06f787808eca70cc6"
+                "reference": "758c2225c484088b2118c4e3ff5b37ccfea3948f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d5080f7a1bb63569c19b8de06f787808eca70cc6",
-                "reference": "d5080f7a1bb63569c19b8de06f787808eca70cc6",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/758c2225c484088b2118c4e3ff5b37ccfea3948f",
+                "reference": "758c2225c484088b2118c4e3ff5b37ccfea3948f",
                 "shasum": ""
             },
             "require": {
@@ -143,9 +143,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.193.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.193.4"
             },
-            "time": "2021-09-10T18:21:27+00:00"
+            "time": "2021-09-14T18:19:00+00:00"
         },
         {
             "name": "beberlei/assert",
@@ -385,16 +385,16 @@
         },
         {
             "name": "composer/package-versions-deprecated",
-            "version": "1.11.99.3",
+            "version": "1.11.99.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/package-versions-deprecated.git",
-                "reference": "fff576ac850c045158a250e7e27666e146e78d18"
+                "reference": "b174585d1fe49ceed21928a945138948cb394600"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/fff576ac850c045158a250e7e27666e146e78d18",
-                "reference": "fff576ac850c045158a250e7e27666e146e78d18",
+                "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/b174585d1fe49ceed21928a945138948cb394600",
+                "reference": "b174585d1fe49ceed21928a945138948cb394600",
                 "shasum": ""
             },
             "require": {
@@ -438,7 +438,7 @@
             "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
             "support": {
                 "issues": "https://github.com/composer/package-versions-deprecated/issues",
-                "source": "https://github.com/composer/package-versions-deprecated/tree/1.11.99.3"
+                "source": "https://github.com/composer/package-versions-deprecated/tree/1.11.99.4"
             },
             "funding": [
                 {
@@ -454,7 +454,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-08-17T13:49:14+00:00"
+            "time": "2021-09-13T08:41:34+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -8429,11 +8429,17 @@
         },
         {
             "name": "tijsverkoyen/deployer-sumo",
-            "version": "dev-master",
+            "version": "v1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tijsverkoyen/deployer-sumo.git",
+                "reference": "599a56c8d84585212bcea7410b8163ff13912ad2"
+            },
             "dist": {
-                "type": "path",
-                "url": "/Users/davy/Sites/sumocoders/deployer-sumo",
-                "reference": "b8090f9f5f2afed7fa0a6eeabeebdd09ace571f8"
+                "type": "zip",
+                "url": "https://api.github.com/repos/tijsverkoyen/deployer-sumo/zipball/599a56c8d84585212bcea7410b8163ff13912ad2",
+                "reference": "599a56c8d84585212bcea7410b8163ff13912ad2",
+                "shasum": ""
             },
             "require": {
                 "deployer/deployer": "^6.8",
@@ -8446,6 +8452,7 @@
                     "TijsVerkoyen\\DeployerSumo\\": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -8456,16 +8463,16 @@
                 }
             ],
             "description": "Deployer recipe with SumoCoders specific tasks",
-            "transport-options": {
-                "relative": false
-            }
+            "support": {
+                "issues": "https://github.com/tijsverkoyen/deployer-sumo/issues",
+                "source": "https://github.com/tijsverkoyen/deployer-sumo/tree/v1.6.0"
+            },
+            "time": "2021-09-16T06:48:43+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "tijsverkoyen/deployer-sumo": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
