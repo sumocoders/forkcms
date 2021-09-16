@@ -100,7 +100,7 @@ task(
 after('deploy:shared', 'composer:install');
 
 task(
-    'deploy:theme:install',
+    'deploy:theme:buid',
     function () {
         $packageFile = file_get_contents('package.json');
         $package = json_decode($packageFile, true);
@@ -121,14 +121,33 @@ task(
         } else {
             runLocally('node_modules/.bin/gulp build');
         }
+    }
+)->desc('Generate bundle assets');
+after('deploy:update_code', 'deploy:theme:build');
+
+task(
+    'deploy:theme:upload',
+    function () {
+        $packageFile = file_get_contents('package.json');
+        $package = json_decode($packageFile, true);
+
+        if (!array_key_exists('theme', $package)) {
+            writeln(
+                [
+                    '<comment>No theme found in package.json</comment>',
+                ]
+            );
+
+            return;
+        }
 
         $theme = $package['theme'];
         $remotePath = '{{release_path}}/src/Frontend/Themes/' . $theme . '/Core';
 
         upload(__DIR__ . '/src/Frontend/Themes/' . $theme . '/Core/', $remotePath);
     }
-)->desc('Generate and upload bundle assets');
-after('deploy:update_code', 'deploy:theme:install');
+)->desc('Upload bundle assets');
+after('deploy:theme:build', 'deploy:theme:upload');
 
 /**
  * Migrate database
