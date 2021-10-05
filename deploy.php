@@ -68,7 +68,7 @@ add('shared_files', ['.env.local', 'app/config/parameters.yml']);
 add('shared_dirs', ['src/Frontend/Files']);
 
 // Writable dirs by web server
-add('writable_dirs', ['src/Frontend/Cache', 'src/Backend/Cache']);
+add('writable_dirs', ['src/Frontend/Cache', 'src/Backend/Cache', 'src/Frontend/Files']);
 
 // Disallow stats
 set('allow_anonymous_stats', false);
