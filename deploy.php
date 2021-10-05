@@ -14,7 +14,6 @@ set('client', '$client');
 set('project', '$project');
 set('repository', '$repository');
 set('user', '$user');
-set('release', 'current');
 set('production_url', '$productionUrl');
 set('sentry_organization', '$sentryOrganization');
 set('sentry_project_slug', '$sentryProjectSlug');
