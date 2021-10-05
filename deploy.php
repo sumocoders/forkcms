@@ -248,7 +248,7 @@ task('locale:update', function () {
         if (test('[ -f ' . $shortName . '/locale.xml ]')) {
             writeln('<comment>Installing locale.xml for ' . $shortName . '</comment>');
 
-            run('{{bin/php}} {{bin/console}} forkcms:locale:import -f ' . $dir . '/locale.xml --env={{symfony_env}}');
+            run('{{bin/console}} forkcms:locale:import -f ' . $dir . '/locale.xml --env={{symfony_env}}');
         }
 
         run('echo ' . $shortName . ' | tee -a {{deploy_path}}/shared/locale_migrations');
@@ -335,7 +335,7 @@ task(
 task(
     'fork:cache:clear',
     function() {
-        run('{{bin/php}} {{bin/console}} fork:cache:clear --env={{symfony_env}}');
+        run('{{bin/console}} fork:cache:clear --env={{symfony_env}}');
         run('if [ -f {{deploy_path}}/shared/config/parameters.yml ]; then touch {{deploy_path}}/shared/config/parameters.yml; fi');
     }
 )
