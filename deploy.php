@@ -20,6 +20,24 @@ set('sentry_organization', '$sentryOrganization');
 set('sentry_project_slug', '$sentryProjectSlug');
 set('sentry_token', '$sentryToken');
 
+// Returns Composer binary path in found. Otherwise try to install latest
+// composer version to `.dep/composer.phar`. To use specific composer version
+// download desired phar and place it at `.dep/composer.phar`.
+set('bin/composer', function () {
+    if (test('[ -f {{deploy_path}}/.dep/composer.phar ]')) {
+        return '{{bin/php}} {{deploy_path}}/.dep/composer.phar';
+    }
+
+    if (commandExist('composer')) {
+        return '{{bin/php}} ' . locateBinaryPath('composer');
+    }
+
+    writeln("Composer binary wasn't found. Installing latest composer to \"{{deploy_path}}/.dep/composer.phar\".");
+    run("cd {{deploy_path}} && curl -sS https://getcomposer.org/installer | {{bin/php}}");
+    run('mv {{deploy_path}}/composer.phar {{deploy_path}}/.dep/composer.phar');
+    return '{{bin/php}} {{deploy_path}}/.dep/composer.phar';
+});
+
 // Define staging
 host('dev03.sumocoders.eu')
     ->user('{{user}}')
@@ -27,7 +45,6 @@ host('dev03.sumocoders.eu')
     ->set('deploy_path', '~/apps/{{client}}/{{project}}')
     ->set('branch', 'staging')
     ->set('bin/php', 'php7.4')
-    ->set('bin/composer', '{{bin/php}} /home/sites/apps/{{client}}/{{project}}/shared/composer.phar')
     ->set('cachetool', '/var/run/php_74_fpm_sites.sock')
     ->set('document_root', '~/php74/{{client}}/{{project}}');
 
@@ -86,18 +103,6 @@ task(
         // do nothing
     }
 )->desc('Generate and upload bundle assets');
-
-task(
-    'composer:install',
-    function () {
-        cd('{{deploy_path}}/shared/');
-
-        if (!test('[ -f composer.phar ]')) {
-            run('curl -s https://getcomposer.org/installer | {{bin/php}}');
-        }
-    }
-)->desc('Install composer.phar if it is not already installed');
-after('deploy:shared', 'composer:install');
 
 task(
     'deploy:theme:buid',
