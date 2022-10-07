@@ -268,8 +268,6 @@ gulp.task('serve:theme-fork', function () {
 const fs = require('fs')
 const del = require('del')
 const plumber = require('gulp-plumber')
-const iconfont = require('gulp-iconfont')
-const consolidate = require('gulp-consolidate')
 const webpackStream = require('webpack-stream')
 const webpack = require('webpack')
 const imagemin = require('gulp-imagemin')
@@ -298,26 +296,6 @@ gulp.task('build:theme:empty-destination-folders', function () {
     `${paths.core}/Layout/Images/!**!/!*`,
     `${paths.core}/Layout/Templates/!**/!*`
   ])
-})
-
-gulp.task('build:theme:fonts:generate-iconfont', function () {
-  return gulp.plumbedSrc(`${paths.src}/Layout/icon-sources/*.svg`)
-    .pipe(iconfont({fontName: 'icons'}))
-    .on('glyphs', function (glyphs) {
-      var options = {
-        glyphs: glyphs,
-        fontName: 'icons',
-        fontPath: '../Fonts/',
-        className: 'icon'
-      }
-
-      gulp.src(`${paths.src}/Layout/Sass/_icons-template.scss`)
-        .pipe(consolidate('lodash', options))
-        .pipe(rename({basename: '_icons'}))
-        .pipe(gulp.dest(`${paths.src}/Layout/Sass`))
-    })
-    .pipe(gulp.dest(`${paths.core}/Layout/Fonts`))
-    .pipe(livereload())
 })
 
 gulp.task('build:theme:fonts:copy-fonts', function () {
@@ -394,7 +372,6 @@ const buildTheme = gulp.series(
   'build:theme:empty-destination-folders',
   gulp.parallel(
     'build:assets:copy-images-vendors',
-    'build:theme:fonts:generate-iconfont',
     'build:theme:fonts:copy-fonts',
     'build:theme:sass:generate-production-css',
     'build:theme:webpack:generate-production-js',
