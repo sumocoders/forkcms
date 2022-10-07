@@ -388,8 +388,7 @@ gulp.task('serve:theme', function () {
   gulp.watch(`${paths.src}/Layout/Sass/**/*.scss`, gulp.parallel('build:theme:sass:generate-development-css'))
   gulp.watch(`${paths.src}/Layout/Templates/**/*`, gulp.parallel('build:theme:assets:copy-templates'))
   gulp.watch(`${paths.src}/Layout/Images/**/*`, gulp.parallel('build:theme:images:copy-images'))
-  gulp.watch(`${paths.src}/Layout/icon-sources/*`, gulp.parallel('build:theme:fonts:generate-iconfont'))
-  gulp.watch(`${paths.src}/Layout/Fonts/**/*`, gulp.parallel('build:theme:fonts:generate-webfonts'))
+  gulp.watch(`${paths.src}/Layout/Fonts/**/*`, gulp.parallel('build:theme:fonts:copy-fonts'))
 })
 
 // public tasks
