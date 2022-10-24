@@ -231,10 +231,10 @@ TODOs - check for unfinished code:
 NPM packages - check for vulnerabilities:
     image: sumocoders/cli-tools-php74:latest
     script:
-        - php bin/convert-to-junit-xml convert:npm-audit "$(nvm exec --silent npm audit --json)" > npm-audit-report.xml
+        - php bin/convert-to-junit-xml convert:npm-audit "$(nvm exec --silent npm audit --production --json)" > npm-audit-report.xml
     after_script:
         # Run it again so the output is visible in the job output
-        - nvm exec npm audit
+        - nvm exec npm audit --production
     artifacts:
         expire_in: 1 week
         reports:
