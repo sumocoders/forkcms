@@ -55,7 +55,7 @@
     ]
   },
   "engines": {
-    "node": "lts/erbium"
+    "node": "lts/hydrogen"
   },
   "theme": "Bootstrap",
   "standard": {
@@ -82,5 +82,8 @@
   },
   "resolutions": {
     "graceful-fs": "^4.2.9"
+  },
+  "volta": {
+    "node": "18.13.0"
   }
 }
