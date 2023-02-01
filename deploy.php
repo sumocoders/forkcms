@@ -39,6 +39,16 @@ set('bin/composer', function () {
     return '{{bin/php}} {{deploy_path}}/.dep/composer.phar';
 });
 
+/**
+ * URL to download cachetool from if it is not available
+ *
+ * Fork is currently still on PHP 7.4, so version 7.0.0 of cachetool is required.
+ * Deployer has already moved on to 8+, so we're locking our version of cachetool for now.
+ * 
+ * TODO: either upgrade this URL to the next version or remove it in the future when a new version of Fork is released.
+ */
+set('cachetool_url', 'https://github.com/gordalina/cachetool/releases/download/7.0.0/cachetool.phar');
+
 // Define staging
 host('dev03.sumocoders.eu')
     ->user('sites')
