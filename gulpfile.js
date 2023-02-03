@@ -2,7 +2,8 @@
 'use strict'
 
 const gulp = require('gulp')
-const sass = require('gulp-sass')
+const sass = require('gulp-sass-no-nodesass')
+sass.compiler = require('sass')
 const sourcemaps = require('gulp-sourcemaps')
 const autoprefixer = require('gulp-autoprefixer')
 const rename = require('gulp-rename')
