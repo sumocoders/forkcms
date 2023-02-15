@@ -23,7 +23,6 @@ class ThemesTest extends BackendWebTestCase
                 'Installed themes',
                 'Upload theme',
                 'Find themes',
-                'Not installed themes',
             ]
         );
     }
