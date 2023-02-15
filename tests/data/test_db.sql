@@ -2474,7 +2474,7 @@ VALUES
 	('Core','default_language','s:2:\"en\";'),
 	('Core','interface_languages','a:1:{i:0;s:2:\"en\";}'),
 	('Core','default_interface_language','s:2:\"en\";'),
-	('Core','theme','s:10:\"Bootstrap4\";'),
+	('Core','theme','s:9:\"Bootstrap\";'),
 	('Core','akismet_key','s:0:\"\";'),
 	('Core','google_maps_key','s:0:\"\";'),
 	('Core','max_num_revisions','i:20;'),
@@ -2909,8 +2909,8 @@ VALUES
 	(2,'Core','Home','Core/Layout/Templates/Home.html.twig',1,'a:2:{s:6:\"format\";s:6:\"[main]\";s:5:\"names\";a:1:{i:0;s:4:\"main\";}}'),
 	(3,'Fork','Default','Core/Layout/Templates/Default.html.twig',1,'a:3:{s:6:\"format\";s:91:\"[/,advertisement,advertisement,advertisement],[/,/,top,top],[/,/,/,/],[left,main,main,main]\";s:5:\"names\";a:4:{i:0;s:4:\"main\";i:1;s:4:\"left\";i:2;s:3:\"top\";i:3;s:13:\"advertisement\";}s:14:\"default_extras\";a:1:{s:3:\"top\";a:1:{i:0;i:1;}}}'),
 	(4,'Fork','Home','Core/Layout/Templates/Home.html.twig',1,'a:3:{s:6:\"format\";s:115:\"[/,advertisement,advertisement,advertisement],[/,/,top,top],[/,/,/,/],[main,main,main,main],[left,left,right,right]\";s:5:\"names\";a:5:{i:0;s:4:\"main\";i:1;s:4:\"left\";i:2;s:5:\"right\";i:3;s:3:\"top\";i:4;s:13:\"advertisement\";}s:14:\"default_extras\";a:1:{s:3:\"top\";a:1:{i:0;i:1;}}}'),
-	(5,'Bootstrap4','Default','Core/Layout/Templates/Default.html.twig',1,'a:3:{s:6:\"format\";s:91:\"[/,advertisement,advertisement,advertisement],[/,/,top,top],[/,/,/,/],[left,main,main,main]\";s:5:\"names\";a:4:{i:0;s:4:\"main\";i:1;s:4:\"left\";i:2;s:3:\"top\";i:3;s:13:\"advertisement\";}s:14:\"default_extras\";a:1:{s:3:\"top\";a:1:{i:0;i:1;}}}'),
-	(6,'Bootstrap4','Home','Core/Layout/Templates/Home.html.twig',1,'a:3:{s:6:\"format\";s:115:\"[/,advertisement,advertisement,advertisement],[/,/,top,top],[/,/,/,/],[main,main,main,main],[left,left,right,right]\";s:5:\"names\";a:5:{i:0;s:4:\"main\";i:1;s:4:\"left\";i:2;s:5:\"right\";i:3;s:3:\"top\";i:4;s:13:\"advertisement\";}s:14:\"default_extras\";a:1:{s:3:\"top\";a:1:{i:0;i:1;}}}');
+	(5,'Bootstrap','Default','Core/Layout/Templates/Default.html.twig',1,'a:3:{s:6:\"format\";s:91:\"[/,advertisement,advertisement,advertisement],[/,/,top,top],[/,/,/,/],[left,main,main,main]\";s:5:\"names\";a:4:{i:0;s:4:\"main\";i:1;s:4:\"left\";i:2;s:3:\"top\";i:3;s:13:\"advertisement\";}s:14:\"default_extras\";a:1:{s:3:\"top\";a:1:{i:0;i:1;}}}'),
+	(6,'Bootstrap','Home','Core/Layout/Templates/Home.html.twig',1,'a:3:{s:6:\"format\";s:115:\"[/,advertisement,advertisement,advertisement],[/,/,top,top],[/,/,/,/],[main,main,main,main],[left,left,right,right]\";s:5:\"names\";a:5:{i:0;s:4:\"main\";i:1;s:4:\"left\";i:2;s:5:\"right\";i:3;s:3:\"top\";i:4;s:13:\"advertisement\";}s:14:\"default_extras\";a:1:{s:3:\"top\";a:1:{i:0;i:1;}}}');
 
 /*!40000 ALTER TABLE `themes_templates` ENABLE KEYS */;
 UNLOCK TABLES;
