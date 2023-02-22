@@ -13,11 +13,6 @@ DirectorySlash Off
 # file etags (used when comparing local cached file to server file)
 FileETag MTime Size
 
-########## Begin - Common hacking tools and bandwidth hoggers block
-## By SigSiu.net and @nikosdion.
-# This line also disables Akeeba Remote Control 2.5 and earlier
-SetEnvIf user-agent "Indy Library" stayout=1
-
 # The following rules are for bandwidth-hogging download tools
 SetEnvIf user-agent "libwww-perl" stayout=1
 SetEnvIf user-agent "Download Demon" stayout=1
