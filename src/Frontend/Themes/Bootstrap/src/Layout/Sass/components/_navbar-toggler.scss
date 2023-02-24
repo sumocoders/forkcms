@@ -1,0 +1,76 @@
+$navbar-icon-width: 19px;
+$navbar-icon-line-height: 2px;
+$navbar-icon-color: $body-color;
+$navbar-icon-hover-color: $primary;
+
+.navbar-toggler {
+  background-color: transparent;
+  border: none;
+  color: $dark;
+  z-index: 2000;
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  &:hover, &:focus {
+
+    .navbar-toggler-icon {
+      background-color: $navbar-icon-hover-color;
+
+      &::before,
+      &::after {
+        background-color: $navbar-icon-hover-color;
+      }
+    }
+  }
+
+  .navbar-toggler-icon {
+    background-color: $navbar-icon-color;
+    background-image: none;
+    height: $navbar-icon-line-height;
+    margin: 15px 0;
+    position: relative;
+    transition: background-color 0.20s ease-in-out;
+    width: $navbar-icon-width;
+    filter: drop-shadow(0 0 3px $black);
+
+    &::before,
+    &::after {
+      transition-property: background-color, transform, top, bottom;
+      transition-duration: 0.20s;
+      transition-timing-function: ease-in-out;
+      background-color: $navbar-icon-color;
+      content: '';
+      height: $navbar-icon-line-height;
+      left: 0;
+      position: absolute;
+      width: $navbar-icon-width;
+    }
+
+    &::before {
+      top: -7px;
+    }
+
+    &::after {
+      bottom: -7px;
+    }
+  }
+
+  .modal-open & {
+    .navbar-toggler-icon {
+      background-color: transparent;
+
+      &::before {
+        top: 0;
+        transform: rotate(45deg);
+        width: $navbar-icon-width;
+      }
+
+      &::after {
+        bottom: 0;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
