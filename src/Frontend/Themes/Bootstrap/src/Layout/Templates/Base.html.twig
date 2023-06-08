@@ -115,6 +115,10 @@
     {% include 'Core/Layout/Templates/Footer.html.twig' %}
   {% endblock %}
 
+  {% block privacyConsentDialog %}
+    {% include "Core/Layout/Templates/PrivacyConsentDialog.html.twig" %}
+  {% endblock %}
+
   {# Site wide HTML #}
   {% block htmlFooter %}
     {{ siteHTMLFooter|raw }}
