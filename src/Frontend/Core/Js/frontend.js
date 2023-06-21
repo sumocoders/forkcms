@@ -138,6 +138,27 @@ jsFrontend.consentDialog = {
     // set class on the body to prevent background scrolling when scrolling in the modal
     document.querySelector('body').classList.add('modal-open')
 
+    let showDialogs = document.querySelectorAll('[data-role="show-consent-dialog"]')
+    let $levels = $consentForm.find('input[data-role=privacy-level]')
+    for (let level of $levels) {
+      let name = 'privacy_consent_level_' + level.getAttribute('data-value') + '_agreed'
+      let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      let value = match ? match[2] : 0;
+
+      if (value == 1) {
+        level.checked = true
+      }
+    }
+
+    showDialogs.forEach(showDialog => {
+      showDialog.addEventListener('click', function (e) {
+        e.preventDefault()
+
+        document.cookie = 'privacy_consent_hash=0; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/'
+        window.location.reload()
+      })
+    })
+
     $consentForm.on('click', '*[data-bs-dismiss=modal]', function (e) {
       e.preventDefault()
       $consentDialog.hide()
