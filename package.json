@@ -20,8 +20,11 @@
     "bootstrap-tagsinput": "git+https://github.com/mathiashelin/bootstrap-tagsinput.git",
     "bootstrap5": "npm:bootstrap@^5.2.0",
     "ckeditor": "^4.12.1",
+    "copy-webpack-plugin": "^11.0.0",
     "cropper": "^3.0.0-rc.2",
+    "css-loader": "^6.8.1",
     "del": "^3.0.0",
+    "file-loader": "^6.2.0",
     "fine-uploader": "^5.14.1",
     "font-awesome": "^4.7.0",
     "gulp": "^4.0.2",
@@ -35,20 +38,25 @@
     "jquery-migrate": "~1.4",
     "jquery-ui-dist": "~1.12",
     "lodash": "^4.17.15",
+    "mini-css-extract-plugin": "^2.7.6",
     "photoswipe": "^4.1.3",
     "popper.js": "^1.15.0",
     "requestanimationframe": "^0.0.23",
     "sass": "^1.58.0",
+    "sass-loader": "^13.3.2",
     "simple-ajax-uploader": "^2.5.5",
     "slick-carousel": "^1.6.0",
     "standard": "^17.0.0",
+    "style-loader": "^3.3.3",
     "stylelint": "^13.2.0",
     "stylelint-config-standard": "^20.0.0",
-    "webpack": "^3.5.4",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
     "webpack-stream": "^4.0.0"
   },
   "scripts": {
-    "test": "standard"
+    "test": "standard",
+    "build": "webpack"
   },
   "babel": {
     "presets": [
