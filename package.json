@@ -52,11 +52,13 @@
     "stylelint-config-standard": "^20.0.0",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
+    "webpack-merge": "^5.9.0",
     "webpack-stream": "^4.0.0"
   },
   "scripts": {
     "test": "standard",
-    "build": "webpack"
+    "watch": "webpack --watch --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "babel": {
     "presets": [

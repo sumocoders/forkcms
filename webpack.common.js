@@ -1,16 +1,16 @@
 const path = require("path");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CopyPlugin = require("copy-webpack-plugin");
-
-const isDevelopment = process.env.NODE_ENV === 'development'
+const CopyPlugin = require("copy-webpack-plugin")
+const PACKAGE = require('./package.json')
+const theme = PACKAGE.theme
 
 module.exports = {
   entry: {
-    screen: ['./src/Frontend/Themes/Bootstrap/src/Js/Index.js', './src/Frontend/Themes/Bootstrap/src/Layout/Sass/screen.scss']
+    screen: [`./src/Frontend/Themes/${theme}/src/Js/Index.js`, `./src/Frontend/Themes/${theme}/src/Layout/Sass/screen.scss`]
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'src/Frontend/Themes/Bootstrap/Core'),
+    path: path.resolve(__dirname, `src/Frontend/Themes/${theme}/Core`),
     clean: true,
   },
   mode: "development",
@@ -27,11 +27,11 @@ module.exports = {
       patterns: [
         {
           from: "./Layout/Templates/**/*",
-          context: path.resolve(__dirname, "src", "Frontend", "Themes", "Bootstrap", "src"),
+          context: path.resolve(__dirname, "src", "Frontend", "Themes", theme, "src"),
         },
         {
           from: "./Layout/Images/**/*",
-          context: path.resolve(__dirname, "src", "Frontend", "Themes", "Bootstrap", "src"),
+          context: path.resolve(__dirname, "src", "Frontend", "Themes", theme, "src"),
         }
       ],
     }),
