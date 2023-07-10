@@ -1,6 +1,7 @@
 const path = require("path");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require("copy-webpack-plugin")
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const PACKAGE = require('./package.json')
 const theme = PACKAGE.theme
 
@@ -35,6 +36,11 @@ module.exports = {
         }
       ],
     }),
+    new BrowserSyncPlugin({
+      host: '127.0.0.1',
+      port: 3000,
+      proxy: 'https://127.0.0.1:8000/'
+    })
   ],
   module: {
     rules: [
