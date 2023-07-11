@@ -2,8 +2,8 @@ const path = require("path");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require("copy-webpack-plugin")
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
-const PACKAGE = require('./package.json')
-const theme = PACKAGE.theme
+const Package = require('./package.json')
+const theme = Package.theme
 
 module.exports = {
   entry: {
