@@ -44,7 +44,7 @@ set('bin/composer', function () {
  *
  * Fork is currently still on PHP 7.4, so version 7.0.0 of cachetool is required.
  * Deployer has already moved on to 8+, so we're locking our version of cachetool for now.
- * 
+ *
  * TODO: either upgrade this URL to the next version or remove it in the future when a new version of Fork is released.
  */
 set('cachetool_url', 'https://github.com/gordalina/cachetool/releases/download/7.0.0/cachetool.phar');
@@ -206,9 +206,9 @@ task(
         $nvmPath = trim(shell_exec('echo $HOME/.nvm/nvm.sh'));
 
         if (file_exists($nvmPath)) {
-            runLocally('. ' . $nvmPath . ' && nvm use && nvm exec node_modules/.bin/gulp build');
+            runLocally('. ' . $nvmPath . ' && nvm use && nvm exec node_modules/.bin/gulp build && nvm exec npm run build');
         } else {
-            runLocally('node_modules/.bin/gulp build');
+            runLocally('node_modules/.bin/gulp build && npm run build');
         }
     }
 )->desc('Generate bundle assets');
