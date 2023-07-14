@@ -66,12 +66,19 @@ module.exports = {
             loader: 'css-loader'
           },
           {
+            loader: 'postcss-loader'
+          },
+          {
             loader: 'sass-loader',
             options: {
               sourceMap: true,
             }
           }
         ]
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader']
       },
       {
         test: /\.(woff(2)?|ttf|svg|eot)$/,
