@@ -7,7 +7,10 @@ const theme = PackageJson.theme
 
 module.exports = {
   entry: {
-    screen: [`./src/Frontend/Themes/${theme}/src/Js/Index.js`, `./src/Frontend/Themes/${theme}/src/Layout/Sass/screen.scss`]
+    screen: [
+      `./src/Frontend/Themes/${theme}/src/Js/Index.js`,
+      `./src/Frontend/Themes/${theme}/src/Layout/Sass/screen.scss`
+    ]
   },
   output: {
     filename: 'bundle.js',
