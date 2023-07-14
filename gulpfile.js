@@ -1,3 +1,4 @@
+// Sumocoders theme is built through webpack, run 'npm run watch' for development or 'npm run build' to build for production
 /* jslint node: true */
 'use strict'
 
@@ -265,146 +266,17 @@ gulp.task('serve:theme-fork', function () {
   )
 })
 
-// @remark: custom for SumoCoders
-const fs = require('fs')
-const del = require('del')
-const plumber = require('gulp-plumber')
-const webpackStream = require('webpack-stream')
-const webpack = require('webpack')
-
-const theme = JSON.parse(fs.readFileSync('./package.json')).theme
-const paths = {
-  src: `src/Frontend/Themes/${theme}/src`,
-  core: `src/Frontend/Themes/${theme}/Core`
-}
-
-gulp.plumbedSrc = function () {
-  return gulp.src.apply(gulp, arguments)
-    .pipe(plumber())
-}
-
-gulp.task('build:assets:copy-images-vendors', function () {
-  return gulp.src([
-    './node_modules/fancybox/dist/img/*'
-  ])
-    .pipe(gulp.dest('./images/vendors/fancybox'))
-})
-
-gulp.task('build:theme:empty-destination-folders', function () {
-  return del([
-    `${paths.core}/Layout/Fonts/**/*`,
-    `${paths.core}/Layout/Images/!**!/!*`,
-    `${paths.core}/Layout/Templates/!**/!*`
-  ])
-})
-
-gulp.task('build:theme:fonts:copy-fonts', function () {
-  return gulp.src(`${paths.src}/Layout/Fonts/**/*`)
-      .pipe(gulp.dest(`${paths.core}/Layout/Fonts/`))
-      .pipe(livereload())
-})
-
-gulp.task('build:theme:sass:generate-development-css', function () {
-  return gulp.plumbedSrc(`${paths.src}/Layout/Sass/*.scss`)
-    .pipe(sourcemaps.init())
-    .pipe(sass({
-      includePaths: [
-        './node_modules'
-      ]
-    }).on('error', sass.logError))
-    .pipe(autoprefixer())
-    .pipe(sourcemaps.write('./', {
-      includeContent: false,
-      sourceRoot: `/src/Frontend/Themes/${theme}/src/Layout/Sass`
-    }))
-    .pipe(gulp.dest(`${paths.core}/Layout/Css`))
-    .pipe(livereload())
-})
-
-gulp.task('build:theme:sass:generate-production-css', function () {
-  return gulp.src(`${paths.src}/Layout/Sass/*.scss`)
-    .pipe(sourcemaps.init())
-    .pipe(sass({
-      outputStyle: 'compressed',
-      includePaths: [
-        './node_modules'
-      ]
-    }).on('error', sass.logError))
-    .pipe(autoprefixer())
-    .pipe(sourcemaps.write('./', {
-      includeContent: false,
-      sourceRoot: `/src/Frontend/Themes/${theme}/src/Layout/Sass`
-    }))
-    .pipe(gulp.dest(`${paths.core}/Layout/Css`))
-})
-
-var commonWebpackConfig = require('./webpack.config')
-
-gulp.task('build:theme:webpack:generate-development-js', function () {
-  return gulp.plumbedSrc(`${paths.src}/Js/Index.js`)
-    .pipe(webpackStream(Object.assign({}, commonWebpackConfig, {
-      watch: true
-    })))
-    .pipe(gulp.dest(`${paths.core}/Js`))
-    .pipe(livereload())
-})
-
-gulp.task('build:theme:webpack:generate-production-js', function () {
-  return gulp.src(`${paths.src}/Js/Index.js`)
-    .pipe(webpackStream(commonWebpackConfig, webpack))
-    .pipe(gulp.dest(`${paths.core}/Js`))
-})
-
-gulp.task('build:theme:assets:copy-templates', function () {
-  return gulp.plumbedSrc(`${paths.src}/Layout/Templates/**/*`)
-    .pipe(gulp.dest(`${paths.core}/Layout/Templates`))
-    .pipe(livereload())
-})
-
-gulp.task('build:theme:images:copy-images', function () {
-  return gulp.plumbedSrc(`${paths.src}/Layout/Images/**/*`)
-    .pipe(gulp.dest(`${paths.core}/Layout/Images`))
-    .pipe(livereload())
-})
-
-const buildTheme = gulp.series(
-  'build:theme:empty-destination-folders',
-  gulp.parallel(
-    'build:assets:copy-images-vendors',
-    'build:theme:fonts:copy-fonts',
-    'build:theme:sass:generate-production-css',
-    'build:theme:webpack:generate-production-js',
-    'build:theme:assets:copy-templates',
-    'build:theme:images:copy-images'
-  )
-)
-
-gulp.task('build:theme', gulp.series(
-  buildTheme
-))
-
-gulp.task('serve:theme', function () {
-  livereload.listen()
-  gulp.watch(`${paths.src}/Js/**/*.js`, gulp.parallel('build:theme:webpack:generate-development-js'))
-  gulp.watch(`${paths.src}/Layout/Sass/**/*.scss`, gulp.parallel('build:theme:sass:generate-development-css'))
-  gulp.watch(`${paths.src}/Layout/Templates/**/*`, gulp.parallel('build:theme:assets:copy-templates'))
-  gulp.watch(`${paths.src}/Layout/Images/**/*`, gulp.parallel('build:theme:images:copy-images'))
-  gulp.watch(`${paths.src}/Layout/Fonts/**/*`, gulp.parallel('build:theme:fonts:copy-fonts'))
-})
-
 // public tasks
 gulp.task('serve', gulp.parallel(
   'serve:backend',
   'serve:frontend',
-  'serve:theme-fork',
-  'serve:theme' // @remark custom for SumoCoders
+  'serve:theme-fork'
 ))
 
 gulp.task('build', gulp.series(
   buildBackend,
   buildFrontend,
-  buildThemeFork,
-  buildTheme
+  buildThemeFork
 ))
 
 gulp.task('default', gulp.series('build'))
