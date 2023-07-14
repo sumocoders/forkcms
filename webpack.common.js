@@ -39,6 +39,7 @@ module.exports = {
         }
       ],
     }),
+    // This setup assumes symfony server is running on https://127.0.0.1:8000. If that is not the case, edit "proxy" below.
     new BrowserSyncPlugin({
       host: '127.0.0.1',
       port: 3000,
