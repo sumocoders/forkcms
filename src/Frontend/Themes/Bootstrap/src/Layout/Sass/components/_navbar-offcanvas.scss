@@ -12,17 +12,11 @@
         flex-flow: column nowrap;
       }
 
-      .search {
-        margin-top: auto;
-        width: 100%;
-
-        form {
-          width: 100%;
-        }
-
-        .twitter-typeahead {
-          flex-grow: 1;
-        }
+      .dropdown-menu {
+        position: static;
+        display: block;
+        border: none;
+        padding: 0;
       }
     }
   }

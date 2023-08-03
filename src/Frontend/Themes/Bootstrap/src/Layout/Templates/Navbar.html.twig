@@ -4,6 +4,20 @@
       {{ siteTitle }}
     </a>
 
+    <div class="dropdown d-lg-none ms-auto me-3">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa fa-search"></i>
+        <span class="visually-hidden">{{ 'lbl.Search'|trans }}</span>
+      </button>
+      <ul class="dropdown-menu dropdown-search dropdown-menu-end p-2 border-0 box-shadow mt-2">
+        {% for top in positions.top %}
+          {% if top.html %}
+            {{ top.html|raw }}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
     <button class="btn btn-white navbar-toggler d-lg-none p-0 ms-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon">
@@ -19,11 +33,14 @@
       <div class="offcanvas-body">
         {{ getnavigation('page', 0, 1) }}
 
-        {% for top in positions.top %}
-          {% if top.html %}
-            {{ top.html|raw }}
-          {% endif %}
-        {% endfor %}
+        <div class="d-none d-lg-block">
+          {% for top in positions.top %}
+            {% if top.html %}
+              {{ top.html|raw }}
+            {% endif %}
+          {% endfor %}
+        </div>
+
         {% include 'Core/Layout/Templates/Languages.html.twig' %}
       </div>
     </div>

@@ -119,6 +119,10 @@
     {% include "Core/Layout/Templates/PrivacyConsentDialog.html.twig" %}
   {% endblock %}
 
+  {% block searchModal %}
+    {% include "Core/Layout/Templates/SearchModal.html.twig" %}
+  {% endblock %}
+
   {# Site wide HTML #}
   {% block htmlFooter %}
     {{ siteHTMLFooter|raw }}
