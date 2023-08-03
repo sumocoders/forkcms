@@ -4,20 +4,28 @@
       {{ siteTitle }}
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button class="btn btn-white navbar-toggler d-lg-none p-0 ms-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      {{ getnavigation('page', 0, 1) }}
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" data-bs-backdrop="false">
+      <span class="offcanvas-title visually-hidden" id="offcanvasNavbarLabel">Navigation</span>
+      <div class="offcanvas-body">
+        {{ getnavigation('page', 0, 1) }}
 
-      {% for top in positions.top %}
-        {% if top.html %}
-          {{ top.html|raw }}
-        {% endif %}
-      {% endfor %}
-
-      {% include 'Core/Layout/Templates/Languages.html.twig' %}
+        {% for top in positions.top %}
+          {% if top.html %}
+            {{ top.html|raw }}
+          {% endif %}
+        {% endfor %}
+        {% include 'Core/Layout/Templates/Languages.html.twig' %}
+      </div>
     </div>
   </div>
 </nav>

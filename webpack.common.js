@@ -43,7 +43,8 @@ module.exports = {
     new BrowserSyncPlugin({
       host: '127.0.0.1',
       port: 3000,
-      proxy: 'https://127.0.0.1:8000/'
+      proxy: 'https://127.0.0.1:8000/',
+      notify: false
     })
   ],
   module: {

@@ -1,0 +1,29 @@
+.navbar {
+  @include media-breakpoint-down(lg) {
+    .offcanvas {
+      padding-top: 84px;
+      width: 100vw;
+      max-width: 100vw;
+      border-left: none;
+
+      .offcanvas-body {
+        padding-top: 0;
+        display: flex;
+        flex-flow: column nowrap;
+      }
+
+      .search {
+        margin-top: auto;
+        width: 100%;
+
+        form {
+          width: 100%;
+        }
+
+        .twitter-typeahead {
+          flex-grow: 1;
+        }
+      }
+    }
+  }
+}

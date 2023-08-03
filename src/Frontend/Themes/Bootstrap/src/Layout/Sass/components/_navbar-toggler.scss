@@ -33,7 +33,6 @@ $navbar-icon-hover-color: $primary;
     position: relative;
     transition: background-color 0.20s ease-in-out;
     width: $navbar-icon-width;
-    filter: drop-shadow(0 0 3px $black);
 
     &::before,
     &::after {
@@ -56,21 +55,21 @@ $navbar-icon-hover-color: $primary;
       bottom: -7px;
     }
   }
+}
 
-  .modal-open & {
-    .navbar-toggler-icon {
-      background-color: transparent;
+.nav-expanded {
+  .navbar-toggler-icon {
+    background-color: transparent !important;
 
-      &::before {
-        top: 0;
-        transform: rotate(45deg);
-        width: $navbar-icon-width;
-      }
+    &::before {
+      top: 0;
+      transform: rotate(45deg);
+      width: $navbar-icon-width;
+    }
 
-      &::after {
-        bottom: 0;
-        transform: rotate(-45deg);
-      }
+    &::after {
+      bottom: 0;
+      transform: rotate(-45deg);
     }
   }
 }
