@@ -6,6 +6,7 @@
 // Bootstrap
 @import "bootstrap5/scss/functions";
 @import 'bootstrap5/scss/variables';
+@import 'bootstrap5/scss/variables-dark';
 @import 'bootstrap-variables';
 @import "bootstrap5/scss/maps";
 @import 'bootstrap-imports';
@@ -23,6 +24,7 @@
 @import 'components/forms';
 @import 'components/privacyConsentDialog';
 @import 'components/quote';
+@import 'components/dropdown';
 @import 'components/navbar';
 @import 'components/navbar-toggler';
 @import 'components/navbar-offcanvas';
