@@ -1,10 +1,20 @@
 {% if navigation %}
   <ul class="navbar-nav me-auto">
     {% for nav in navigation %}
-      <li class="nav-item">
-        <a class="nav-link{% if nav.selected %} active{% endif %}" href="{{ nav.link }}" title="{{ nav.navigation_title }}"{% if nav.nofollow %} rel="nofollow"{% endif %}>{{ nav.navigation_title|e('html') }}</a>
-        {% if nav.selected %}{{ nav.children }}{% endif %}
-      </li>
+      {% if nav.has_children and nav.page_id != 1 %}
+        <li class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdown-{{ nav.page_id }}" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            {{ nav.navigation_title|e('html') }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown-{{ nav.page_id }}" >
+            {{ getnavigation('page', nav.page_id, 1, null, '/Core/Layout/Templates/NavigationDropdown.html.twig') }}
+          </ul>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link{% if nav.selected %} active{% endif %}" href="{{ nav.link }}" title="{{ nav.navigation_title }}"{% if nav.nofollow %} rel="nofollow"{% endif %}>{{ nav.navigation_title|e('html') }}</a>
+        </li>
+      {% endif %}
     {% endfor %}
   </ul>
 {% endif %}

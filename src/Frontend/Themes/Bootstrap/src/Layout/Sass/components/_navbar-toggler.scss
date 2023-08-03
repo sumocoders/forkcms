@@ -8,6 +8,8 @@ $navbar-icon-hover-color: $primary;
   border: none;
   color: $dark;
   z-index: 2000;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 
   &:focus {
     box-shadow: none;
