@@ -1,9 +1,21 @@
 {% if languages %}
-  <ul class="navbar-nav ms-auto">
-    {% for language in languages %}
-      <li class="nav-item {% if language.current %} active{% endif %}">
-        <a class="nav-link" href="{{ language.url }}">{{ language.label|uppercase }}</a>
-      </li>
-    {% endfor %}
+  <ul class="navbar-nav ml-lg-auto navbar-language">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+        {% for language in languages %}
+          {% if language.current %}
+            <span>{{ language.label|upper }}</span>
+          {% endif %}
+        {% endfor %}
+      </a>
+
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+        {% for language in languages %}
+          {% if not language.current %}
+            <li><a class="dropdown-item{% if language.current %} active{% endif %}" href="{{ language.url }}">{{ language.label|upper }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </li>
   </ul>
 {% endif %}
