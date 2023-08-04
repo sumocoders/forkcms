@@ -1,0 +1,28 @@
+.splide {
+  margin-bottom: 2rem;
+
+  .splide__slide {
+    > div {
+      height: 100%;
+      width: 100%;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .splide__pagination {
+    bottom: -1.5rem;
+
+    button {
+      border-color: $primary;
+
+      &.is-active {
+        background: $primary;
+      }
+    }
+  }
+}

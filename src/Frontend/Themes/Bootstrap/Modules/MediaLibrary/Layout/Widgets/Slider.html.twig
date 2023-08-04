@@ -1,0 +1,42 @@
+{#
+  Media Slider with BxSlider
+  Variables that are available:
+  - {{ mediaItems }}: Contains the MediaItem items
+  - {{ title }}: A custom optional title that you can give when parsing from Custom module.
+#}
+
+{% if mediaItems %}
+<section class="module-media-library widget-media-library-slider" data-show-controls="true" data-show-pager="true" itemscope itemtype="http://schema.org/ImageGallery">
+  {% block widget_heading %}
+    {% if title %}
+      <header class="widget-heading">
+        <h3>{{ title|ucfirst }}</h3>
+      </header>
+    {% endif %}
+  {% endblock %}
+
+  {% block widget_body %}
+    <div class="widget-body splide" data-role="slider">
+      <div class="splide__track">
+        <ul class="splide__list">
+          {% for mediaItem in mediaItems %}
+            <li class="splide__slide">
+              <div itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                {% if mediaItem.type == 'movie' %}
+                  {{ mediaItem.getIncludeHTML()|raw }}
+                {% else %}
+                  <a href="{{ (mediaItem.getWebPath()) | imagine_filter('media_library_lightbox_large') }}" itemprop="contentUrl" data-size="{{ mediaItem.width }}x{{ mediaItem.height }}" data-fslightbox="{{ title }}-slider-lightbox" data-caption="{{ mediaItem.title }}">
+                    <img itemprop="thumbnail" src="{{ (mediaItem.getWebPath()) | imagine_filter('media_library_lightbox_small') }}" alt="{{ mediaItem.title }}" />
+                  </a>
+                {% endif %}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endblock %}
+
+  {% block widget_footer %}{% endblock %}
+</section>
+{% endif %}
