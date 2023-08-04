@@ -485,7 +485,6 @@ class Installer extends ModuleInstaller
                 ],
                 null,
                 ['html' => __DIR__ . '/Data/' . $language . '/404.txt'],
-                ['extra_id' => $this->getExtraId('sitemap')],
                 ['extra_id' => $this->getExtraId('search_form'), 'position' => 'top']
             );
         }
