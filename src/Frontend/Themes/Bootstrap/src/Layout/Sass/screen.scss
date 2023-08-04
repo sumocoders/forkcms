@@ -13,7 +13,9 @@
 
 // Plugin styling
 // eg. @import '@fancyapps/fancybox/dist/jquery.fancybox';
+@import '@splidejs/splide/dist/css/splide.min';
 @import 'plugins/twitter-typeahead';
+@import 'plugins/splide';
 
 // Base styles
 @import 'base/base';
@@ -30,6 +32,7 @@
 @import 'components/navbar-toggler';
 @import 'components/navbar-offcanvas';
 @import 'components/navbar-languages';
+@import 'components/media-library-lightbox';
 
 // Custom page styling
 // eg. @import 'pages/footer';

@@ -104,5 +104,9 @@
   },
   "volta": {
     "node": "18.13.0"
+  },
+  "dependencies": {
+    "@splidejs/splide": "^4.1.4",
+    "fslightbox": "^3.4.1"
   }
 }

@@ -1,0 +1,35 @@
+{% if mediaItems %}
+  <section class="module-media-library" itemscope itemtype="http://schema.org/ImageGallery">
+    {% block widget_heading %}
+      {#    {% if title %}#}
+      {#      <header class="widget-heading">#}
+      {#        <h3>{{ title|ucfirst }}</h3>#}
+      {#      </header>#}
+      {#    {% endif %}#}
+    {% endblock %}
+    {% block widget_body %}
+      <div class="widget-body">
+        <div class="grid-container grid-masonry">
+          {% for mediaItem in mediaItems %}
+            <div class="grid-item">
+              <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                {% set img = mediaItem.webpath() %}
+                <a href="{{ (mediaItem.getWebPath()) | imagine_filter('media_library_lightbox_large') }}" itemprop="contentUrl" data-size="{{ mediaItem.width }}x{{ mediaItem.height }}" data-fslightbox="gallery-lightbox" data-caption="{{ mediaItem.title }}">
+                  <img itemprop="thumbnail" src="{{ (mediaItem.getWebPath()) | imagine_filter('media_library_lightbox_small') }}" alt="{{ mediaItem.title }}" />
+                </a>
+                {#              <figcaption itemprop="caption description">{% if title %}{{ title }}{% endif %}{% if not title %}{{ mediaItem.title }}{% endif %}</figcaption>#}
+                {% if mediaItem.type == 'movie' %}
+                  <div class="hidden" data-lightbox="html">
+                    {{ mediaItem.getIncludeHTML()|raw }}
+                  </div>
+                {% endif %}
+              </figure>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endblock %}
+
+    {% block widget_footer %}{% endblock %}
+  </section>
+{% endif %}

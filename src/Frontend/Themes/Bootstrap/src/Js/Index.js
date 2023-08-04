@@ -9,7 +9,9 @@ import { Resize } from './Utilities/Resize'
 // /* Theme imports */
 // /* eg. import tooltip from './Theme/Tooltip' */
 import { Pagination } from './Theme/Pagination'
+import { Slider } from './Theme/Slider'
 import NavbarToggler from './Theme/NavbarToggler'
+import * as fslightbox from 'fslightbox/index'
 
 /* Renders */
 window.bootstrap = bootstrap
@@ -17,6 +19,7 @@ window.scrollto = new ScrollTo()
 window.resizeFunction = new Resize()
 window.pagination = new Pagination()
 window.navbarToggler = new NavbarToggler()
+window.slider = new Slider()
 
 window.resizeFunction.resize()
 window.pagination.events()
