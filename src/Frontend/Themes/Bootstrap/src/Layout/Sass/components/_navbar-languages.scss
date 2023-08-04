@@ -1,0 +1,15 @@
+.navbar-language {
+  @include media-breakpoint-down(lg) {
+    .dropdown-toggle {
+      padding: 8px $dropdown-item-padding-x 8px 0;
+    }
+      .dropdown, .dropdown-menu {
+        display: flex !important;
+      }
+
+    .dropdown-item {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+  }
+}

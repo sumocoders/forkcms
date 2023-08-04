@@ -9,12 +9,14 @@ import { Resize } from './Utilities/Resize'
 // /* Theme imports */
 // /* eg. import tooltip from './Theme/Tooltip' */
 import { Pagination } from './Theme/Pagination'
+import NavbarToggler from './Theme/NavbarToggler'
 
 /* Renders */
 window.bootstrap = bootstrap
 window.scrollto = new ScrollTo()
 window.resizeFunction = new Resize()
 window.pagination = new Pagination()
+window.navbarToggler = new NavbarToggler()
 
 window.resizeFunction.resize()
 window.pagination.events()
