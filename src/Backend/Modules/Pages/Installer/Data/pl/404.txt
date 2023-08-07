@@ -1,2 +1,7 @@
-<iframe src="http://notfound-static.fwebservices.be/404/index.html" width="100%" height="650" frameborder="0"></iframe>
-<p>Ta strona nie istnieje lub nie jest dostępna w tym momencie. Zobacz mapę witryny:</p>
+<div class="row justify-content-center text-center" id="error">
+<div class="col-auto">
+<h1 class="mb-4">404</h1>
+<p class="mb-5">Ta strona nie istnieje lub nie jest dostępna w tym momencie.</p>
+<a href="/" class="btn btn-primary">Wróć do strony głównej</a>
+</div>
+</div>

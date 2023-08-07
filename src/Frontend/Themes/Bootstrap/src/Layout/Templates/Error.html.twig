@@ -7,7 +7,6 @@
   </div>
 
   <div class="container">
-    <img src="{{ THEME_URL }}/apple-touch-icon-180.png" class="mb-3">
     {% for block in positions.main %}
       {% if block.html %}
         {{ block.html|raw }}
@@ -16,4 +15,3 @@
   </div>
 
 {% endblock %}
-
