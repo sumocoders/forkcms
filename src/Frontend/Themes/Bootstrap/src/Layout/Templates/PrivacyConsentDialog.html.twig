@@ -6,15 +6,16 @@
     aria-labelledby="privacyConsentDialogTitle"
     data-role="privacy_consent_dialog"
     data-bs-backdrop="false"
+    aria-modal="true"
     {% if privacyConsentDialogHide %}
       style="display: none"
     {% endif %}
   >
-    <div class="modal-dialog"  role="document">
+    <div class="modal-dialog">
       <div class="modal-content">
         <form data-role="privacy_consent_dialog_form">
           <div class="modal-header">
-            <h5 id="privacyConsentDialogTitle" class="modal-title">{{ 'msg.PrivacyConsentDialogTitle'|trans|raw }}</h5>
+            <h2 class="h5 mt-0" id="privacyConsentDialogTitle" class="modal-title">{{ 'msg.PrivacyConsentDialogTitle'|trans|raw }}</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'lbl.Close'|trans }}" title="{{ 'lbl.Close'|trans }}"></button>
           </div>
           <div class="modal-body">
@@ -23,7 +24,7 @@
             <div class="form-group">
               <div class="custom-control custom-checkbox">
                 <input name="privacyConsentLevelFunctionalCheckbox" id="privacyConsentLevelFunctionalCheckbox"
-                  type="checkbox" checked disabled aria-describedby="privacyConsentLevelFunctionalHelpBlock"
+                  type="checkbox" checked disabled
                   data-role="privacy-level"
                   data-value="functional"
                   class="custom-control-input"
@@ -42,7 +43,6 @@
                 <div class="custom-control custom-checkbox">
                   <input name="privacyConsentLevel{{ level|ucfirst }}Checkbox"
                     id="privacyConsentLevel{{ level|ucfirst }}Checkbox" type="checkbox"
-                    aria-describedby="privacyConsentLevel{{ level|ucfirst }}HelpBlock"
                     data-role="privacy-level"
                     data-value="{{ level }}"
                     class="custom-control-input"
