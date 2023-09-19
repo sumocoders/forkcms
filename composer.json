@@ -69,7 +69,7 @@
         "symfony/expression-language": "6.*",
         "symfony/lock": "6.*",
         "tijsverkoyen/convert-to-junit-xml": "^1.10",
-        "sumocoders/deployer-sumo-forkcms": "^0.1.0"
+        "sumocoders/deployer-sumo-forkcms": "^0.2.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "dev-master as 3.6.0",
