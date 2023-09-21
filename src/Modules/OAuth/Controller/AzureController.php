@@ -44,15 +44,18 @@ class AzureController
         );
 
         return $client
-            ->redirect([
+            ->redirect(
+                [
                     "openid",
                     "profile",
                     "email",
                     "offline_access",
-            ]);
+                ],
+                []
+            );
     }
 
-    #[Route('/private/oauth/connect/azure/check', name: 'connect_azure_check', schemes: ['https'])]
+    #[Route('/private/oauth/connect/azure/check', name: 'connect_azure_check', schemes: ['https'])] // @phpstan-ignore-line
     public function connectCheckAction(AzureAuthenticator $authenticator, Request $request)
     {
     }
