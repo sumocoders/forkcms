@@ -29,7 +29,7 @@ class AzureController
     #[Route('/private/oauth/connect/azure', name: 'connect_azure_start')]
     public function connectAction(): RedirectResponse
     {
-        if (!$this->moduleSettings->get(ModuleName::fromString('OAuth'), 'enabled', false)) {
+        if (!$this->moduleSettings->get(ModuleName::fromString('OAuth'), 'azure_enabled', false)) {
             return new RedirectResponse(
                 $this->router->generate(
                     'backend_login',
