@@ -19,7 +19,6 @@ class SettingsType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'lbl.ClientId',
-                    'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
                 ]
             )
             ->add(
@@ -27,7 +26,6 @@ class SettingsType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'lbl.ClientSecret',
-                    'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
                 ]
             )
             ->add(
@@ -35,7 +33,6 @@ class SettingsType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'lbl.Tenant',
-                    'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
                 ]
             )
             ->add(
@@ -43,7 +40,6 @@ class SettingsType extends AbstractType
                 SwitchType::class,
                 [
                     'label' => 'lbl.Enabled',
-                    'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
                     'required' => false,
                 ]
             );
