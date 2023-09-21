@@ -24,7 +24,7 @@ import { Session } from './Components/Session'
 import { Config } from './Components/Config'
 import { PasswordGenerator } from './Components/PasswordGenerator'
 import { PasswordStrenghtMeter } from '../../../../../../Core/assets/js/Components/PasswordStrenghtMeter'
-import ToggleSecret from './Components/ToggleSecret'
+import ToggleSecret from '../../../../../../Core/assets/js/Components/ToggleSecret'
 
 window.bootstrap = bootstrap
 
