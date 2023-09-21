@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @global string $class_name
  * @global string $namespace
@@ -9,12 +10,15 @@
  * @global string $idField
  * @global string[] $useStatements
  */
+
 ?>
 <?= "<?php\n"; ?>
 
 namespace <?= $namespace ?>;
 
-<?php foreach ($useStatements as $useStatement) echo $useStatement.PHP_EOL ?>
+<?php foreach ($useStatements as $useStatement) {
+    echo $useStatement . PHP_EOL;
+} ?>
 use InvalidArgumentException;
 
 final class <?= $class_name ?> implements CommandHandlerInterface
@@ -25,8 +29,11 @@ final class <?= $class_name ?> implements CommandHandlerInterface
 
     public function __invoke(<?= $deleteCommand ?> $<?= lcfirst($deleteCommand) ?>)
     {
-        $<?= lcfirst($entity) ?> = $this-><?= lcfirst($repository) ?>->find($<?= lcfirst($deleteCommand) ?>-><?= $idField ?>)  ?? throw new InvalidArgumentException('Entity not found');
+        <?php // @codingStandardsIgnoreStart ?>
+        $<?= lcfirst($entity) ?> = $this-><?= lcfirst($repository) ?>
+            ->find($<?= lcfirst($deleteCommand) ?>-><?= $idField ?>) ?? throw new InvalidArgumentException('Entity not found');
         $this-><?= lcfirst($repository) ?>->remove($<?= lcfirst($entity) ?>);
         $<?= lcfirst($deleteCommand) ?>->setEntity($<?= lcfirst($entity) ?>);
+        <?php // @codingStandardsIgnoreEnd ?>
     }
 }

@@ -67,7 +67,9 @@
         "scienta/doctrine-json-functions": "^5.0",
         "twig/intl-extra": "^3.3",
         "symfony/expression-language": "6.*",
-        "symfony/lock": "6.*"
+        "symfony/lock": "6.*",
+        "tijsverkoyen/convert-to-junit-xml": "^1.10",
+        "sumocoders/deployer-sumo-forkcms": "^0.2.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "dev-master as 3.6.0",
@@ -81,10 +83,14 @@
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "symfony/stopwatch": "^6.0",
         "symfony/web-profiler-bundle": "^6.0",
-        "symfony/browser-kit": "^6.0"
+        "symfony/browser-kit": "^6.0",
+        "friendsoftwig/twigcs": "^6.2"
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "allow-plugins": {
+            "symfony/flex": true
+        }
     },
     "support": {
         "forum": "https://fork-cms.herokuapp.com",

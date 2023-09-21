@@ -2,6 +2,7 @@
 
 use ForkCMS\Core\Domain\Maker\Util\Entity;
 
+// @codingStandardsIgnoreStart
 /**
  * @global string $namespace
  * @global string $class_name
@@ -9,6 +10,8 @@ use ForkCMS\Core\Domain\Maker\Util\Entity;
  * @global bool $hideFromOverview
  * @global Entity[] $entities
  */
+// @codingStandardsIgnoreEnd
+
 ?>
 <?= "<?php\n"; ?>
 
@@ -20,10 +23,10 @@ use <?= $entity->entityClassNameDetails->getFullName() ?>;
 <?php }; ?>
 final class <?= $class_name; ?> extends ModuleInstaller
 {
-<?php if ($isRequired): ?>
+<?php if ($isRequired) : ?>
     public const IS_REQUIRED = true;
 <?php endif; ?>
-<?php if ($hideFromOverview): ?>
+<?php if ($hideFromOverview) : ?>
     public const IS_VISIBLE_IN_OVERVIEW = false;
 <?php endif; ?>
 
