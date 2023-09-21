@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37c55046a628138f64faf84568e5330b",
+    "content-hash": "f79ce7d7357da96cbe96e918d6b1e746",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -4749,16 +4749,16 @@
         },
         {
             "name": "sumocoders/deployer-sumo-forkcms",
-            "version": "0.1",
+            "version": "0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sumocoders/deployer-sumo-forkcms.git",
-                "reference": "ab67e827693a691bc4e01171cd26e890d67afddd"
+                "reference": "1e69779c04e55e28aa8ad6478388339486b66e6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sumocoders/deployer-sumo-forkcms/zipball/ab67e827693a691bc4e01171cd26e890d67afddd",
-                "reference": "ab67e827693a691bc4e01171cd26e890d67afddd",
+                "url": "https://api.github.com/repos/sumocoders/deployer-sumo-forkcms/zipball/1e69779c04e55e28aa8ad6478388339486b66e6c",
+                "reference": "1e69779c04e55e28aa8ad6478388339486b66e6c",
                 "shasum": ""
             },
             "require": {
@@ -4781,11 +4781,11 @@
                     "email": "deployer-sumo@verkoyen.eu"
                 }
             ],
-            "description": "Deployer recipe with SumoCoders specific tasks",
+            "description": "Deployer recipe with SumoCoders specific tasks for Fork CMS v6",
             "support": {
-                "source": "https://github.com/sumocoders/deployer-sumo-forkcms/tree/0.1"
+                "source": "https://github.com/sumocoders/deployer-sumo-forkcms/tree/0.2"
             },
-            "time": "2023-09-14T18:02:25+00:00"
+            "time": "2023-09-19T06:32:03+00:00"
         },
         {
             "name": "symfony/asset",
@@ -11711,5 +11711,5 @@
         "ext-libxml": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
