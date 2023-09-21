@@ -63,7 +63,7 @@ class LoginController
                     'jsFiles' => [],
                     'use_oauth' => $this->moduleSettings->get(
                         ModuleName::fromString('OAuth'),
-                        'enabled',
+                        'azure_enabled',
                         false,
                     ),
                 ]

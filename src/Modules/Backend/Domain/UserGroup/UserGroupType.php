@@ -48,7 +48,11 @@ final class UserGroupType extends AbstractType
         $actions = $this->getAvailableActions();
         $ajaxActions = $this->getAvailableAjaxActions();
         $widgets = $this->getAvailableWidgets();
-        $oAuthEnabled = $this->moduleSettings->get(ModuleName::fromString('OAuth'), 'enabled', false);
+        $oAuthEnabled = $this->moduleSettings->get(
+            ModuleName::fromString('OAuth'),
+            'azure_enabled',
+            false
+        );
 
         $tabs = [
             'lbl.Name' => static function (FormBuilderInterface $builder) use ($oAuthEnabled): void {
