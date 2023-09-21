@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\User\UserRepository;
+use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupRepository;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -80,7 +82,10 @@ class AzureAuthenticator extends OAuth2Authenticator implements AuthenticationEn
                     return null;
                 }
 
-                /** @var User $existingUser */
+                /**
+                 * @var User|null $existingUser
+                 * @phpstan-ignore-next-line
+                 */
                 $existingUser = $this->userRepository->findOneByEmail($azureUser->claim('email'));
 
                 if ($existingUser) {
@@ -89,7 +94,7 @@ class AzureAuthenticator extends OAuth2Authenticator implements AuthenticationEn
                         $existingUser->addUserGroup($userGroup);
                     }
 
-                    $this->userRepository->save($existingUser, true);
+                    $this->userRepository->save($existingUser);
 
                     return $existingUser;
                 }
@@ -110,6 +115,11 @@ class AzureAuthenticator extends OAuth2Authenticator implements AuthenticationEn
         );
     }
 
+    /**
+     * @param array<string> $roles
+     *
+     * @return array<UserGroup>
+     */
     private function getGroupsFromRoles(array $roles): array
     {
         $userGroups = [];
@@ -134,7 +144,10 @@ class AzureAuthenticator extends OAuth2Authenticator implements AuthenticationEn
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
-        $this->requestStack->getSession()->getFlashBag()->add(
+        /** @var Session $session */
+        $session = $this->requestStack->getSession();
+
+        $session->getFlashBag()->add(
             'error',
             $this->translator->trans('login.error', [], 'azure')
         );

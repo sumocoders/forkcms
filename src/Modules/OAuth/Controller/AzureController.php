@@ -26,8 +26,9 @@ class AzureController
     ) {
     }
 
-    #[Route('/private/connect/azure', name: 'connect_azure_start')]
-    public function connectAction(): RedirectResponse {
+    #[Route('/private/oauth/connect/azure', name: 'connect_azure_start')]
+    public function connectAction(): RedirectResponse
+    {
         if (!$this->moduleSettings->get(ModuleName::fromString('OAuth'), 'enabled', false)) {
             return new RedirectResponse(
                 $this->router->generate(
@@ -43,16 +44,18 @@ class AzureController
         );
 
         return $client
-            ->redirect([
+            ->redirect(
+                [
                     "openid",
                     "profile",
                     "email",
                     "offline_access",
-                ]
+                ],
+                []
             );
     }
 
-    #[Route('/private/connect/azure/check', name: 'connect_azure_check')]
+    #[Route('/private/oauth/connect/azure/check', name: 'connect_azure_check', schemes: ['https'])] // @phpstan-ignore-line
     public function connectCheckAction(AzureAuthenticator $authenticator, Request $request)
     {
     }

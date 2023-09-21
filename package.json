@@ -90,7 +90,7 @@
     ]
   },
   "volta": {
-    "node": "18.17.1"
+    "node": "20.7.0"
   },
   "dependencies": {
     "stylelint": "^15.10.3",
