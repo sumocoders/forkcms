@@ -26,8 +26,8 @@ class AzureProviderFactory
             [
                 'clientId' => $this->moduleSettings->get(ModuleName::fromString('OAuth'), 'client_id'),
                 'clientSecret' => $this->moduleSettings->get(ModuleName::fromString('OAuth'), 'client_secret'),
-                'tenant'=> $this->moduleSettings->get(ModuleName::fromString('OAuth'), 'tenant'),
-                'redirectUri'=> $this->router->generate(
+                'tenant' => $this->moduleSettings->get(ModuleName::fromString('OAuth'), 'tenant'),
+                'redirectUri' => $this->router->generate(
                     'connect_azure_check',
                     [],
                     UrlGeneratorInterface::ABSOLUTE_URL
