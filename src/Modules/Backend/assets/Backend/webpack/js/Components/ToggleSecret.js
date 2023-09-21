@@ -12,7 +12,7 @@ export default class ToggleSecret {
   }
 
   toggle () {
-    const target = $('#' + $(this._element).data('target'));
+    const target = $('#' + $(this._element).data('target'))
 
     if (target.attr('type') === 'password') {
       target.attr('type', 'text')
