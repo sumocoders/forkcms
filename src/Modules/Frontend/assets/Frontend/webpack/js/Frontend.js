@@ -3,7 +3,7 @@ import 'bootstrap'
 
 // component imports
 import { Components } from './_Components'
-import ToggleSecret from '../../../../../../Core/assets/js/Components/ToggleSecret'
+import TogglePasswordInputType from '../../../../../../Core/assets/js/Components/TogglePasswordInputType'
 
 export class Frontend {
   initFrontend () {
@@ -15,7 +15,7 @@ export class Frontend {
 
   static initToggleSecrets () {
     $('[data-role="toggle-visibility"]').each((index, element) => {
-      element.toggleSecret = new ToggleSecret(element)
+      element.toggleSecret = new TogglePasswordInputType(element)
     })
   }
 }
