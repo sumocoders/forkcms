@@ -17,9 +17,6 @@ final class OAuthInstaller extends ModuleInstaller
             $this->getSettingsNavigationItem(),
         );
 
-        $this->setSetting('client_id', null);
-        $this->setSetting('client_secret', null);
-        $this->setSetting('tenant', null);
-        $this->setSetting('enabled', false);
+        $this->setSetting('azure_enabled', false);
     }
 }

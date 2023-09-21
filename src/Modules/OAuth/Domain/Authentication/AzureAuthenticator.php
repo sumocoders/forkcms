@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\OAuth\Domain\Authentication;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
+use ForkCMS\Modules\Backend\Domain\User\Command\ChangeUser;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\User\UserRepository;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
@@ -93,6 +94,14 @@ class AzureAuthenticator extends OAuth2Authenticator implements AuthenticationEn
                     foreach ($userGroups as $userGroup) {
                         $existingUser->addUserGroup($userGroup);
                     }
+
+                    $this->userRepository->save($existingUser);
+
+                    $updateUser = new ChangeUser($existingUser);
+                    $updateUser->displayName = $azureUser->claim('name');
+                    $updateUser->email = $azureUser->claim('email');
+
+                    $existingUser = User::fromDataTransferObject($updateUser);
 
                     $this->userRepository->save($existingUser);
 

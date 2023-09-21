@@ -17,25 +17,25 @@ class UpdateModuleSettingsHandler implements CommandHandlerInterface
     {
         $this->moduleSettings->set(
             ModuleName::fromString('OAuth'),
-            'client_id',
+            'azure_client_id',
             $updateSettings->clientId
         );
 
         $this->moduleSettings->set(
             ModuleName::fromString('OAuth'),
-            'client_secret',
+            'azure_client_secret',
             $updateSettings->clientSecret
         );
 
         $this->moduleSettings->set(
             ModuleName::fromString('OAuth'),
-            'tenant',
+            'azure_tenant',
             $updateSettings->tenant
         );
 
         $this->moduleSettings->set(
             ModuleName::fromString('OAuth'),
-            'enabled',
+            'azure_enabled',
             $updateSettings->enabled
         );
     }

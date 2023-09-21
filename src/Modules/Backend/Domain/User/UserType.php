@@ -31,7 +31,11 @@ final class UserType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $oAuthEnabled = $this->moduleSettings->get(ModuleName::fromString('OAuth'), 'enabled', false);
+        $oAuthEnabled = $this->moduleSettings->get(
+            ModuleName::fromString('OAuth'),
+            'azure_enabled',
+            false
+        );
 
         $builder->add(
             'user',
