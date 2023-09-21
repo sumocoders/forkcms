@@ -28,10 +28,10 @@ class ModuleSettings extends AbstractFormActionController
             request: $request,
             formType: SettingsType::class,
             formData: new UpdateModuleSettings(
-                $this->moduleSettings->get($this->getModuleName(), 'client_id'),
-                $this->moduleSettings->get($this->getModuleName(), 'client_secret'),
-                $this->moduleSettings->get($this->getModuleName(), 'tenant'),
-                $this->moduleSettings->get($this->getModuleName(), 'enabled'),
+                $this->moduleSettings->get($this->getModuleName(), 'azure_client_id'),
+                $this->moduleSettings->get($this->getModuleName(), 'azure_client_secret'),
+                $this->moduleSettings->get($this->getModuleName(), 'azure_tenant'),
+                $this->moduleSettings->get($this->getModuleName(), 'azure_enabled'),
             ),
             redirectResponse: new RedirectResponse(ModuleSettings::getActionSlug()->generateRoute($this->router)),
             flashMessageCallback: static function (FormInterface $form): FlashMessage {
