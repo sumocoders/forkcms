@@ -24,9 +24,9 @@ class AzureProviderFactory
 
         return new Azure(
             [
-                'clientId' => $this->moduleSettings->get(ModuleName::fromString('OAuth'), 'client_id'),
-                'clientSecret' => $this->moduleSettings->get(ModuleName::fromString('OAuth'), 'client_secret'),
-                'tenant' => $this->moduleSettings->get(ModuleName::fromString('OAuth'), 'tenant'),
+                'clientId' => $this->moduleSettings->get(ModuleName::fromString('OAuth'), 'azure_client_id'),
+                'clientSecret' => $this->moduleSettings->get(ModuleName::fromString('OAuth'), 'azure_client_secret'),
+                'tenant' => $this->moduleSettings->get(ModuleName::fromString('OAuth'), 'azure_tenant'),
                 'redirectUri' => $this->router->generate(
                     'connect_azure_check',
                     [],
