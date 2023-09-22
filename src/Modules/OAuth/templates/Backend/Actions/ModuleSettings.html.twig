@@ -11,17 +11,17 @@
   </div>
 
   {{ form_start(backend_form) }}
-  {{ form_row(backend_form.clientId) }}
-  {{ form_label(backend_form.clientSecret) }}
+  {{ form_row(backend_form.clientId, {'row_attr': {'class': 'col-12 col-md-6 mb-3'}}) }}
   <div class="col-12 col-md-6 mb-3">
+    {{ form_label(backend_form.clientSecret) }}
     <div class="input-group">
       {{ form_widget(backend_form.clientSecret, {'attr': {'data-role': 'secret-input'}, 'type': 'password'}) }}
       <button class="btn btn-outline-primary" type="button" data-role="toggle-visibility" data-target="{{ backend_form.clientSecret.vars.id }}">{{ macro.icon('eye') }}</button>
     </div>
   </div>
 
-  {{ form_row(backend_form.tenant) }}
-  {{ form_row(backend_form.enabled) }}
+  {{ form_row(backend_form.tenant, {'row_attr': {'class': 'col-12 col-md-6 mb-3'}}) }}
+  {{ form_row(backend_form.enabled, {'row_attr': {'class': 'col-12 col-md-6 mb-3'}}) }}
   {{ form_errors(backend_form) }}
   {{ form_rest(backend_form) }}
 
