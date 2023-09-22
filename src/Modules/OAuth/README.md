@@ -22,15 +22,17 @@ This module requires the following composer packages:
 * `knpuniversity/oauth2-client-bundle`
 * `thenetworg/oauth2-azure`
 
+You can run the following command:
+
+`symfony composer require knpuniversity/oauth2-client-bundle thenetworg/oauth2-azure`
+
 ### Setup
-After installing the module, it still needs to be setup. got to `https://<your-domain>/private/en/o_auth/module_settings` and add your `client_id`, `secret` and `tenant`.
-To enable the login button on the login page also enable the `enabled` setting.
+Once the configuration is done, you need to enable the login with Microsoft Azure. This is done by switching the `Enabled` setting on.
 
 #### Setup Groups
-The oAuth module needs to know which groups to add users to. To do this go to `https://<your-domain>/en/backend/user_group_index` and edit the groups you want to use.
-When the oAuth module is enabled a new field wil be present on the edit page. This field is called `oAuth role` and should contain the `value` of the group in Azure.
-On login the user will be added to the groups that match the `value` of the group in Azure.
-If no group is found the login will fail.
+Fork CMS uses groups to define access. When you have OAuth enabled the user will be mapped to a group.
+You can define the mapping by editing a group. A extra field `OAuth role` will be available, in this field you can enter the `value` of the group you have created in Microsoft Azure.
+A user will be added/moved to the specified group on login.
 
 #### Setup security.yaml
 Update the following line in `config/packages/security.yaml`. This will allow both off the authenticators to be used.
@@ -46,7 +48,10 @@ custom_authenticators:
 entry_point: ForkCMS\Modules\Backend\Domain\Authentication\BackendAuthenticator
 ```
 #### Setup services.yaml
-Add the following services to `config/services.yaml`. This wil make it possible to install the module at any time without breaking te needed services in the security.yaml file.
+
+Add the following services to config/services.yaml.
+This makes it possible to install the module at any time without breaking the needed services in the security.yaml file.
+
 ```yaml
 ForkCMS\Modules\OAuth\Domain\OAuth\AzureProviderFactory:
   tags:
@@ -62,6 +67,9 @@ TheNetworg\OAuth2\Client\Provider\Azure:
 
 #### Changes to other modules
 To make sure the oAuth module works correctly some changes have been made to other modules.
+
+An example off this can be found [here](https://github.com/sumocoders/forkcms/pull/371)
+
 * src/Modules/Backend/templates/Backend/login.html.twig (added login button)
 * src/Modules/Backend/templates/base/formTheme.html.twig (add additional form fields, disable checkboxes in user groups)
 * src/Modules/Backend/Domain/UserGroup/UserGroup.php (added oAuth role field)
