@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+  <Backend>
+    <item type="label" name="OAuth">
+      <translation locale="nl"><![CDATA[OAuth]]></translation>
+      <translation locale="en"><![CDATA[OAuth]]></translation>
+    </item>
+    <Backend>
+      <item type="label" name="LoginWithMicrosoftAzure">
+        <translation locale="nl"><![CDATA[Login met Microsoft Azure]]></translation>
+        <translation locale="en"><![CDATA[Login with Microsoft Azure]]></translation>
+      </item>
+    </Backend>
+    <OAuth>
+      <item type="message" name="OAuthInfo">
+        <translation locale="nl"><![CDATA[
+         Je zal een app-registratie maken in Azure Active Directory. U kunt de stappen volgen in de officiële documentatie: <a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal">Create a Microsoft Entra application</a>
+         U zal uw toepassing een naam moeten geven. Gebruik iets beschrijvends, bijvoorbeeld het adres van uw website of "Website CMS inloggen"
+         Er moet ook omleidings-URI worden ingesteld. Het type is web en de waarde is `https://<uw-domein>/private/connect/azure/check`. Het zal er dus ongeveer uitzien als `https://www.het-adres-van-uw-website.be/private/connect/azure/check`.
+         Om de applicatie in Fork CMS te kunnen configureren heeft u de volgende gegevens nodig:
+         <ul>
+            <li>Applicatie-(client)-ID</li>
+            <li>Applicatiegeheim</li>
+            <li>Directory-ID (tenant)</li>
+          </ul>
+        ]]></translation>
+        <translation locale="en"><![CDATA[
+         You will need to create an App Registration in Azure Active Directory. You can follows the steps at the official documentation: <a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal">Create a Microsoft Entra application</a>
+         You will need to name your application. Use something descriptive, for instance the address of your website. Or "Website CMS login"
+         A Redirect URI needs to be set. The type is web and the value is `https://<your-domain>/private/connect/azure/check`. So it will look something like `https://www.the-adress-of-your-website.be/private/connect/azure/check`.
+         To be able to configure the application in Fork CMS you need the following data:
+         <ul>
+            <li>Application (client) ID</li>
+            <li>Application secret</li>
+            <li>Directory (tenant) ID</li>
+          </ul>
+        ]]></translation>
+      </item>
+      <item type="message" name="OAuthSettingsUpdated">
+        <translation locale="nl"><![CDATA[OAuth settings zijn aangepast]]></translation>
+        <translation locale="en"><![CDATA[OAuth settings are updated]]></translation>
+      </item>
+      <item type="label" name="ClientId">
+        <translation locale="nl"><![CDATA[Client id]]></translation>
+        <translation locale="en"><![CDATA[Client id]]></translation>
+      </item>
+      <item type="label" name="ClientSecret">
+        <translation locale="nl"><![CDATA[Client secret]]></translation>
+        <translation locale="en"><![CDATA[Client secret]]></translation>
+      </item>
+      <item type="label" name="Tenant">
+        <translation locale="nl"><![CDATA[Tenant]]></translation>
+        <translation locale="en"><![CDATA[Tenant]]></translation>
+      </item>
+      <item type="label" name="Enabled">
+        <translation locale="nl"><![CDATA[Activeer]]></translation>
+        <translation locale="en"><![CDATA[Enabled]]></translation>
+      </item>
+      <item type="label" name="ModuleSettings">
+        <translation locale="nl"><![CDATA[Settings]]></translation>
+        <translation locale="en"><![CDATA[Settings]]></translation>
+      </item>
+    </OAuth>
+  </Backend>
+</translations>

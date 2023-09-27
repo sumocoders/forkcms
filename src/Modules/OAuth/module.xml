@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <name>OAuth</name>
+  <version>1.0.0</version>
+  <requirements>
+    <minimum_version>6.0.0</minimum_version>
+  </requirements>
+  <authors>
+    <author>
+      <name><![CDATA[Bjorn Van Acker]]></name>
+      <url>https://bjornvanacker.be</url>
+    </author>
+  </authors>
+  <description>
+    <![CDATA[
+      This module allows you to authenticate through Microsoft Azure OAuth. So you can log in with your M365 user.
+    ]]>
+  </description>
+</module>
