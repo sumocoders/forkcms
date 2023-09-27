@@ -58,5 +58,6 @@ class AzureController
     #[Route('/private/oauth/connect/azure/check', name: 'connect_azure_check', schemes: ['https'])] // @phpstan-ignore-line
     public function connectCheckAction(AzureAuthenticator $authenticator, Request $request)
     {
+        // Logic is handled by the AzureAuthenticator
     }
 }
