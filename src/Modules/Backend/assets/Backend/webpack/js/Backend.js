@@ -25,6 +25,7 @@ import { Config } from './Components/Config'
 import { PasswordGenerator } from './Components/PasswordGenerator'
 import { PasswordStrenghtMeter } from '../../../../../../Core/assets/js/Components/PasswordStrenghtMeter'
 import TogglePasswordInputType from '../../../../../../Core/assets/js/Components/TogglePasswordInputType'
+import { InitBsToasts } from './Components/InitToasts'
 
 window.bootstrap = bootstrap
 
@@ -50,6 +51,7 @@ export class Backend {
     this.tableSequenceDragAndDrop = new TableSequenceDragAndDrop()
     this.session = new Session()
     this.ajaxContentEditable = new AjaxContentEditable(this.locale)
+    this.initToasts = new InitBsToasts()
 
     Backend.initPasswordGenerators()
     Backend.initPasswordStrenghtMeters()
