@@ -26,7 +26,6 @@ import { PasswordGenerator } from './Components/PasswordGenerator'
 import { PasswordStrenghtMeter } from '../../../../../../Core/assets/js/Components/PasswordStrenghtMeter'
 import TogglePasswordInputType from '../../../../../../Core/assets/js/Components/TogglePasswordInputType'
 import { InitBsToasts } from './Components/InitToasts'
-import ToggleSecret from '../../../../../OAuth/assets/Backend/webpack/js/Components/ToggleSecret'
 
 window.bootstrap = bootstrap
 
