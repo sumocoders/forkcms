@@ -8,6 +8,7 @@ module.exports = {
           warnings: false
         }
       }
-    }
+    },
+    'postcss-easing-gradients': {}
   }
 }

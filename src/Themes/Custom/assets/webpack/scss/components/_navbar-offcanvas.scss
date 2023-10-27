@@ -1,0 +1,41 @@
+.navbar {
+  @include media-breakpoint-down(lg) {
+    .offcanvas {
+      padding-top: 84px;
+      width: 100vw;
+      max-width: 100vw;
+      border-left: none;
+
+      .offcanvas-body {
+        padding-top: 0;
+        display: flex;
+        flex-flow: column nowrap;
+      }
+
+      .nav-item {
+        .nav-link {
+          color: $body-color;
+        }
+
+        &.active {
+          .nav-link {
+            color: $primary;
+          }
+        }
+      }
+
+      .dropdown-menu {
+        position: static;
+        display: block;
+        border: none;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.nav-expanded {
+  .navbar-brand {
+    color: $primary;
+  }
+}

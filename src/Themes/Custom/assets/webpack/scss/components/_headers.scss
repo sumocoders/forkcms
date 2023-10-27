@@ -1,0 +1,40 @@
+.header {
+  background-size: cover;
+  background-position: center;
+  min-height: 250px;
+
+  .page-header {
+    border-bottom: 0;
+    text-align: center;
+    padding: 0;
+
+    h1 {
+      font-size: $h2-font-size;
+      color: $white;
+      -webkit-font-smoothing: antialiased;
+      margin: 0;
+    }
+  }
+
+  &.header-blue {
+    background-color: $blue-dark;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+
+  .header {
+    min-height: 500px;
+
+    .page-header h1 {
+      font-size: $h1-font-size;
+    }
+  }
+}
+
+@include media-breakpoint-up(xl) {
+
+  .header {
+    min-height: 600px;
+  }
+}

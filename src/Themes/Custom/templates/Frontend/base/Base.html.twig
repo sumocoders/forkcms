@@ -1,0 +1,54 @@
+{% include "@Frontend/base/Head.html.twig" %}
+
+<body class="{{ app.request.locale }} d-flex flex-column h-100" itemscope itemtype="http://schema.org/WebPage">
+{# Site wide HTML just after body tag #}
+{{ site_html_start_of_body|raw }}
+
+<main id="root" class="flex-shrink-0 flex-grow-1">
+  {% block privacyConsentDialog %}
+    {% include "@Frontend/base/PrivacyConsentDialog.html.twig" %}
+  {% endblock %}
+
+  {% block navigation %}
+    {% include "@Frontend/base/Navbar.html.twig" %}
+  {% endblock %}
+
+  <div class="header header-blue d-flex align-items-center"{% if page.data.image is defined and page.data.image is not empty %} style="background-image: url('{{ FRONTEND_FILES_URL }}/Pages/images/source/{{ page.data.image }}');"{% endif %}>
+    <div class="container">
+      {% block pageTitle %}
+        {% if not hideContentTitle %}
+          <header class="page-header">
+            <h1>{{ contentTitle }}</h1>
+          </header>
+        {% endif %}
+      {% endblock %}
+    </div>
+  </div>
+
+  <div class="container">
+    {% block breadcrumb %}
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          {% include "@Frontend/base/Breadcrumb.html.twig" %}
+        </div>
+      </div>
+    {% endblock %}
+
+    {% block mainContent %}
+    {% endblock %}
+  </div>
+  <div id="root-footer"></div>
+</main>
+{% block footer %}
+  {% include "@Frontend/base/Footer.html.twig" %}
+{% endblock %}
+
+{# General Javascript #}
+{% for js in jsFiles %}
+  <script src="{{ js }}"></script>
+{% endfor %}
+
+{# Site wide HTML just before closing body tag #}
+{{ site_html_end_of_body|raw }}
+</body>
+</html>

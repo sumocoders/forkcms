@@ -1,0 +1,23 @@
+<footer id="footer" role="contentinfo">
+  <div class="container py-3">
+    <nav>
+      <ul class="nav flex-column flex-md-row">
+        <li class="nav-item me-auto">
+          <span class="nav-link disabled">© <span itemprop="copyrightYear">{{ date().format('Y') }}</span> {{ siteTitle }}</span>
+        </li>
+        {% for footerLink in footerLinks %}
+          <li class="nav-item">
+            <a class="nav-link{% if footerLink.linkClass %} {{ footerLink.linkClass }}{% endif %}" href="{{ footerLink.url }}" title="{{ footerLink.navigationTitle }}"{% if footerLink.rel %} rel="{{ footerLink.rel }}"{% endif %}>
+              {{ footerLink.navigationTitle }}
+            </a>
+          </li>
+        {% endfor %}
+        <li class="nav-item">
+          <a class="nav-link" href="http://www.sumocoders.be/?utm_source={{ siteTitle|urlencode }}&amp;utm_medium=credits&amp;utm_campaign=client_sites" rel="external" target="_blank">
+            SumoCoders
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</footer>

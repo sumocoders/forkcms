@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url('pages__page__1.' ~ app.request.locale) }}">{{ siteTitle }}</a>
+
+    <div class="dropdown d-lg-none ms-auto me-3">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa fa-search"></i>
+        <span class="visually-hidden">{{ 'lbl.Search'|trans }}</span>
+      </button>
+      <ul class="dropdown-menu dropdown-search dropdown-menu-end p-2 border-0 box-shadow mt-2">
+{#        include search widget here#}
+      </ul>
+    </div>
+
+    <button class="btn btn-white navbar-toggler d-lg-none p-0 ms-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+    </button>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" data-bs-backdrop="false">
+      <span class="offcanvas-title visually-hidden" id="offcanvasNavbarLabel">Navigation</span>
+      <div class="offcanvas-body">
+        {{ navigation() }}
+
+        <div class="d-none d-lg-block">
+          {# Top positions #}
+          {% block top %}
+          {% endblock %}
+        </div>
+
+        {% include "@Frontend/base/Locales.html.twig" %}
+      </div>
+    </div>
+  </div>
+</nav>
