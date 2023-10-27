@@ -4,14 +4,11 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/variables-dark";
-@import "~bootstrap/scss/maps";
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/utilities";
-@import "~bootstrap/scss/helpers";
-@import "~bootstrap/scss/utilities/api";
 @import 'bootstrap-variables';
-@import 'bootstrap-imports';
 @import 'overwrite-variables';
+@import "~bootstrap/scss/maps";
+@import 'bootstrap-imports';
+
 
 // Plugins
 
