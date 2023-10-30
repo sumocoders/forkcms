@@ -19,4 +19,12 @@ footer {
   .nav-link, .nav-link.disabled {
     color: $white;
   }
+
+  .nav-link {
+    &:hover,
+    &:focus {
+      color: $white;
+      text-decoration: underline;
+    }
+  }
 }
