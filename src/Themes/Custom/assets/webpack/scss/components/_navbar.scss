@@ -9,14 +9,15 @@
 
       &.active {
         background: transparent !important;
-        color: $primary;
+        .nav-link {
+          color: $primary;
+        }
       }
     }
 
     .nav-link {
       font-weight: 500;
       -webkit-font-smoothing: antialiased;
-      padding: 1rem 0.7rem;
     }
 
     .nav-link:hover,
@@ -24,7 +25,7 @@
     .dropdown-toggle-split:hover + .nav-link,
     .dropdown-toggle-split:focus + .nav-link,
     .nav-item.active {
-      background: $blue-light;
+      color: $primary;
     }
   }
 }
