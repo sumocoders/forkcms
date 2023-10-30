@@ -1,7 +1,10 @@
 .navbar-language {
   @include media-breakpoint-down(lg) {
-    .dropdown-toggle {
-      padding: 8px $dropdown-item-padding-x 8px 0;
+    .nav-item {
+      .nav-link.dropdown-toggle {
+        padding: 8px $dropdown-item-padding-x 8px 0;
+        color: $primary;
+      }
     }
 
     .dropdown, .dropdown-menu {
@@ -17,6 +20,10 @@
   .dropdown-item {
     &:hover, &:focus {
       color: $primary;
+    }
+
+    &:active {
+      background-color: $white;
     }
   }
 }

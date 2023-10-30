@@ -30,6 +30,12 @@
         border: none;
         padding: 0;
       }
+
+      .navbar-language {
+        .dropdown-toggle {
+          color: $primary;
+        }
+      }
     }
   }
 }
