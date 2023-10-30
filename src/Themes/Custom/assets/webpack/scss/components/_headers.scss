@@ -22,9 +22,8 @@
 }
 
 @include media-breakpoint-up(lg) {
-
   .header {
-    min-height: 500px;
+    min-height: 350px;
 
     .page-header h1 {
       font-size: $h1-font-size;
@@ -33,8 +32,7 @@
 }
 
 @include media-breakpoint-up(xl) {
-
   .header {
-    min-height: 600px;
+    min-height: 400px;
   }
 }
