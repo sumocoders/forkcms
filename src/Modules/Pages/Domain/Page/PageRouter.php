@@ -15,7 +15,7 @@ final class PageRouter implements BlockRouterInterface
 {
     public function __construct(
         private readonly RouterInterface $router,
-        private readonly PageRepository $pageRepository
+        private readonly PageRepository $pageRepository,
     ) {
     }
 

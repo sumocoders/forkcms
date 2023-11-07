@@ -2,4 +2,4 @@
 
 /** @var string $entity */ ?>
 {% extends '@Backend/base/crud/add.html.twig' %}
-{% set crudIndexAction = '<?= $entity ?>Index' %}
+{% set crud_index_action = '<?= $entity ?>Index' %}

@@ -42,21 +42,11 @@ class InstallCommand extends Command
     {
         $this
             ->setDescription(
-                'Install fork from the console using the configuration' .
-                ' in the fork-cms-installation-configuration.yaml file'
+                'Install fork from the console using the configuration in' .
+                'the fork-cms-installation-configuration.yaml file'
             )
-            ->addOption(
-                'email',
-                'u',
-                InputOption::VALUE_REQUIRED,
-                'The email address of the backend user'
-            )
-            ->addOption(
-                'password',
-                'p',
-                InputOption::VALUE_REQUIRED,
-                'The password of the backend user'
-            )
+            ->addOption('email', 'u', InputOption::VALUE_REQUIRED, 'The email address of the backend user')
+            ->addOption('password', 'p', InputOption::VALUE_REQUIRED, 'The password of the backend user')
             ->setHidden($this->forkIsInstalled);
     }
 
@@ -122,7 +112,7 @@ class InstallCommand extends Command
 
         if (!$this->configurationParser->configurationFileExists()) {
             $this->formatter->error(
-                'Please add the configuration file created by a previous install named ' .
+                'Please add the configuration file created by a previous install named' .
                 'fork-cms-installation-configuration.yaml before running the command in the root directory.'
             );
 

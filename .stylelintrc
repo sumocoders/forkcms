@@ -1,3 +1,10 @@
 {
-  "extends": "stylelint-config-standard-scss"
+  "extends": "stylelint-config-standard-scss",
+  "rules": {
+    "no-descending-specificity": null
+  },
+  "ignoreFiles": [
+    "src/**/scss/plugins/*.scss",
+    "src/Themes/Fork/assets/webpack/scss/components/_buttons.scss"
+  ]
 }

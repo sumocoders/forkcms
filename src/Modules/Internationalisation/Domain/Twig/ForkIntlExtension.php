@@ -26,8 +26,8 @@ use Twig\Extra\Intl\IntlExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
-// @codingStandardsIgnoreStart
 /**
+ * @codingStandardsIgnoreStart
  * @method string getCountryName(?string $country, string $locale = null)
  * @method string getCurrencyName(?string $currency, string $locale = null)
  * @method string getCurrencySymbol(?string $currency, string $locale = null)
@@ -47,8 +47,8 @@ use Twig\TwigFunction;
  * @method string formatUserDateTime(Environment $env, mixed $date, ?string $dateFormat = 'medium', ?string $timeFormat = 'medium', string $pattern = '', mixed $timezone = null, string $calendar = 'gregorian', string $locale = null)
  * @method string formatUserDate(Environment $env, mixed $date, ?string $dateFormat = 'medium', string $pattern = '', mixed $timezone = null, string $calendar = 'gregorian', string $locale = null)
  * @method string formatUserTime(Environment $env, ?string $timeFormat = 'medium', string $pattern = '', $timezone = null, string $calendar = 'gregorian', string $locale = null)
+ * @codingStandardsIgnoreEnd
  */
-// @codingStandardsIgnoreEnd
 final class ForkIntlExtension extends AbstractExtension implements EventSubscriberInterface
 {
     public function __construct(
@@ -198,7 +198,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
         $numberFormatter = new NumberFormatter(
             $locale->getLocale()->value,
             NumberFormatter::DECIMAL,
-            '#,##0.####################'
+            '#,##0.####################',
         );
         $separatorSymbols = array_map(
             static fn (string $separator): string => str_replace(
@@ -252,9 +252,10 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
     }
 
     /**
+     * @codingStandardsIgnoreStart
      * @param DateTimeInterface|string|null $date A date or null to use the current time
-     * @param DateTimeZone|string|false|null $timezone The target timezone, null to use the default,
-     * false to leave unchanged
+     * @param DateTimeZone|string|false|null $timezone The target timezone, null to use the default, false to leave unchanged
+     * @codingStandardsIgnoreEnd
      */
     public function formatLongDateTime(
         Environment $env,
@@ -282,9 +283,10 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
     }
 
     /**
+     * @codingStandardsIgnoreStart
      * @param DateTimeInterface|string|null $date A date or null to use the current time
-     * @param DateTimeZone|string|false|null $timezone The target timezone, null to use the default,
-     * false to leave unchanged
+     * @param DateTimeZone|string|false|null $timezone The target timezone, null to use the default, false to leave unchanged
+     * @codingStandardsIgnoreEnd
      */
     public function formatLongDate(
         Environment $env,
@@ -310,9 +312,10 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
     }
 
     /**
+     * @codingStandardsIgnoreStart
      * @param DateTimeInterface|string|null $date A date or null to use the current time
-     * @param DateTimeZone|string|false|null $timezone The target timezone, null to use the default,
-     * false to leave unchanged
+     * @param DateTimeZone|string|false|null $timezone The target timezone, null to use the default, false to leave unchanged
+     * @codingStandardsIgnoreEnd
      */
     public function formatUserLongDateTime(
         Environment $env,
@@ -340,9 +343,10 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
     }
 
     /**
+     * @codingStandardsIgnoreStart
      * @param DateTimeInterface|string|null $date A date or null to use the current time
-     * @param DateTimeZone|string|false|null $timezone The target timezone, null to use the default,
-     * false to leave unchanged
+     * @param DateTimeZone|string|false|null $timezone The target timezone, null to use the default, false to leave unchanged
+     * @codingStandardsIgnoreEnd
      */
     public function formatUserLongDate(
         Environment $env,

@@ -93,7 +93,8 @@ class UserGroup
 
     public static function fromDataTransferObject(UserGroupDataTransferObject $userDataTransferObject): self
     {
-        $userGroup = $userDataTransferObject->hasEntity() ?
+        $userGroup = $userDataTransferObject->hasEntity()
+            ?
             $userDataTransferObject->getEntity() : new self($userDataTransferObject->name);
         $userGroup->name = $userDataTransferObject->name;
         $userGroup->oAuthRole = $userDataTransferObject->oAuthRole;

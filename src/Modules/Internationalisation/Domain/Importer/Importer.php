@@ -37,7 +37,7 @@ final class Importer
     public function import(
         string|UploadedFile|File $translationFile,
         bool $overwriteConflicts = false,
-        ?Locale $specificLocale = null
+        ?Locale $specificLocale = null,
     ): ImportResult {
         if (is_string($translationFile)) {
             $translationFile = new File($translationFile);

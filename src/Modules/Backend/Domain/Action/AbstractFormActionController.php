@@ -56,11 +56,13 @@ abstract class AbstractFormActionController extends AbstractActionController
 
     // @codingStandardsIgnoreStart
     /**
+     * @codingStandardsIgnoreStart
      * @param class-string<FormTypeInterface> $formType
      * @param array<string, mixed> $formOptions
      * @param callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null|null $defaultCallback
      * @param callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null|null $validCallback
      * @param callable(FormInterface):FlashMessage|null $flashMessageCallback
+     * @codingStandardsIgnoreEnd
      */
     // @codingStandardsIgnoreEnd
     final protected function handleForm(

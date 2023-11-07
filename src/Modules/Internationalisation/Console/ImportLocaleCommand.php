@@ -82,8 +82,8 @@ class ImportLocaleCommand extends Command
         if ($importResults->getFailedCount() > 0) {
             $formatter->warning(
                 sprintf(
-                    'Failed to import %d translations because they already existed, ' .
-                    'add --overwrite if you want to overwrite them.',
+                    'Failed to import %d translations because they already ' .
+                    'existed, add --overwrite if you want to overwrite them.',
                     $importResults->getFailedCount()
                 )
             );

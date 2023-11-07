@@ -98,6 +98,7 @@ final class RevisionContentType extends AbstractType
                 [
                     'label' => 'lbl.Content',
                     'required' => false
+                ,
                 ]
             ); // TODO: remove this
 //            foreach ($this->getDefaultExtrasForTemplate($selectedTemplate) as $block => $defaults) {

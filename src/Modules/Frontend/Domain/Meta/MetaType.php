@@ -27,7 +27,7 @@ class MetaType extends AbstractType
 
     public function __construct(
         private readonly MetaRepository $metaRepository,
-        private readonly TranslatorInterface $translator
+        private readonly TranslatorInterface $translator,
     ) {
     }
 

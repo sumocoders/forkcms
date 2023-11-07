@@ -1,3 +1,4 @@
+/* stylelint-disable */
 .ce-block__content {
   max-width: 100%;
   width: 100%;
@@ -43,6 +44,7 @@
 .ce-input {
   @extend .form-control;
   @extend .form-control-sm;
+
   margin-bottom: 0.25rem;
 }
 
@@ -50,6 +52,7 @@
 .codex-editor--narrow .ce-toolbar__actions {
   right: 5px;
 }
+
 .ce-toolbar__plus,
 .codex-editor--narrow .ce-toolbar__plus {
   left: 0;
@@ -97,3 +100,4 @@
     right: 10px;
   }
 }
+/* stylelint-enable */

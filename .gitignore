@@ -29,6 +29,8 @@
 /src/Frontend/Core/build
 /src/Frontend/Themes/*/Core/build
 .vscode
+phpcs-report.xml
+twigcs-report.xml
 
 # Docker
 var/docker/db/data/*

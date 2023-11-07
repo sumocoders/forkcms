@@ -45,6 +45,7 @@ final class PageAdd extends AbstractFormActionController
                         $this->router,
                         [
                             'slug' => $form->getData()->page->getId()
+                        ,
                         ]
                     )
                 );

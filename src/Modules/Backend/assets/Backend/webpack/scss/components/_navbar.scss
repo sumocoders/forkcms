@@ -2,8 +2,6 @@
   .js-nav-prev,
   .js-nav-next {
     background-color: $blue-darker;
-    -webkit-box-shadow: -3px 0 4px 0 rgba($black, .3);
-    -moz-box-shadow: -3px 0 4px 0 rgba($black, .3);
     box-shadow: -3px 0 4px 0 rgba($black, .3);
     display: none;
     height: 62px;
@@ -13,6 +11,7 @@
     width: 40px;
     z-index: 10;
 
+    /* stylelint-disable */
     .svg-inline--fa {
       color: $white;
       font-size: $font-size-xs;
@@ -21,27 +20,29 @@
       top: 50%;
     }
   }
+  /* stylelint-enable */
 
   .js-nav-prev {
-    -webkit-box-shadow: 3px 0 4px 0 rgba($black, .3);
-    -moz-box-shadow: 3px 0 4px 0 rgba($black, .3);
     box-shadow: 3px 0 4px 0 rgba($black, .3);
     left: 0;
 
+    /* stylelint-disable */
     .svg-inline--fa {
       margin-right: -3.5px;
       right: 50%;
     }
+    /* stylelint-enable */
   }
 
+  /* stylelint-disable */
   .js-nav-next .svg-inline--fa {
     left: 50%;
     margin-left: -3.5px;
   }
+  /* stylelint-enable */
 }
 
 .navigation-collapsed {
-
   .toggle-nav-collapse {
     cursor: pointer;
     transition: width 250ms;
@@ -158,8 +159,7 @@
   }
 
   .navbar-nav {
-    flex-direction: row;
-    flex-wrap: nowrap;
+    flex-flow: row nowrap;
     height: 62px;
     left: 0;
     position: relative;
@@ -174,11 +174,13 @@
         padding: 30px 20px 10px;
         position: relative;
 
+        /* stylelint-disable */
         .svg-inline--fa {
           left: 50%;
           margin-left: -8px;
           top: 10px;
         }
+        /* stylelint-enable */
       }
 
       &.active .nav-link,
@@ -199,7 +201,6 @@
   width: 100%;
 
   .dropdown {
-
     .dropdown-toggle {
       color: $black;
       text-decoration: none;
@@ -249,19 +250,20 @@
       color: $white;
       padding: 15px 50px;
 
+      /* stylelint-disable */
       .svg-inline--fa {
         color: $white;
         position: absolute;
         font-size: $btn-font-size;
         left: 20px;
       }
+      /* stylelint-enable */
     }
 
     &.active a,
     a:hover,
     a:focus {
-
-      &:before {
+      &::before {
         color: $white;
       }
     }
@@ -271,7 +273,6 @@
     margin-bottom: 20px;
 
     .nav-item {
-
       .nav-link {
         background-color: $white;
         border-color: $gray-200;
@@ -317,7 +318,6 @@
         }
 
         &:last-of-type {
-
           a {
             border-bottom: 0;
           }
@@ -338,7 +338,7 @@
       display: block;
       padding: 0;
 
-      &:after {
+      &::after {
         display: none;
       }
 
@@ -354,7 +354,6 @@
   }
 
   .dropdown {
-
     .dropdown-angle {
       align-items: center;
       background-color: $primary;
@@ -391,7 +390,6 @@
   flex-direction: row;
 
   .dropdown {
-
     a {
       position: relative;
       display: block;
@@ -405,7 +403,7 @@
       font-size: $font-size-sm;
       padding: 0;
 
-      &:after {
+      &::after {
         display: none;
       }
 
@@ -454,15 +452,16 @@
 }
 
 @include media-breakpoint-up(lg) {
-
   .navbar-nav {
     .nav-item {
       float: none;
       width: auto;
 
+      /* stylelint-disable */
       .nav-link .svg-inline--fa {
         left: 16px;
       }
+      /* stylelint-enable */
     }
 
     &.navbar-sidebar {
@@ -471,7 +470,6 @@
   }
 
   .navbar-dark {
-
     .navbar-nav {
       flex-direction: column;
       height: auto;
@@ -487,12 +485,14 @@
           height: auto;
           padding: 15px 50px;
 
+          /* stylelint-disable */
           .svg-inline--fa {
             left: 16px;
             margin-left: 0;
             top: 50%;
             transform: translateY(-50%);
           }
+          /* stylelint-enable */
         }
       }
     }
@@ -505,7 +505,6 @@
   }
 
   .navigation-collapsed .navbar-dark {
-
     .navbar-nav .nav-item .nav-link {
       padding: 15px 0 15px 50px;
     }

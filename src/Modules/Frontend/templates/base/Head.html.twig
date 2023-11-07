@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="Fork CMS" />
-{#  {{ meta|raw }}#}
-{#  {{ metaCustom|raw }}#}
+{# {{ meta|raw }} #}
+{# {{ metaCustom|raw }} #}
 
   <title>{{ page_title|ucfirst }} | {{ siteTitle }}</title>
 
@@ -24,8 +24,8 @@
   {# Site wide HTML in the head tag #}
   {{ site_html_head|raw }}
 
-  {% for cssFile in cssFiles %}
-    <link href="/{{ cssFile }}" rel="stylesheet">
+  {% for css_file in cssFiles %}
+    <link href="/{{ css_file }}" rel="stylesheet">
   {% endfor %}
 
   {% if app.debug %}
