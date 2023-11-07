@@ -39,8 +39,7 @@ trait RepositoryWithMetaTrait
         QueryBuilder $queryBuilder,
         ?object $subject,
         Locale $locale,
-        string $entityAlias
-    ,
+        string $entityAlias,
     ): void;
 
     final protected function addOrIncreaseNumberAtEndOfString(string $string): string
