@@ -1,0 +1,66 @@
+{% extends "@ForkFrontendModules/Blog/Layout/Templates/Detail.html.twig" %}
+
+{% block block_heading %}
+  <header class="block-heading page-header" role="banner">
+    <h1 itemprop="name">
+      {{ item.title }}
+    </h1>
+
+    <div class="d-flex flex-column flex-lg-row justify-content-lg-between">
+      <div>
+        {{ 'msg.WrittenBy'|trans|ucfirst|format(item.user_id|usersetting('nickname')) }}
+        {{ 'lbl.On'|trans }}
+        <time itemprop="datePublished" datetime="{{ item.publish_on|date('Y-m-d\\TH:i:s') }}">
+          {{ item.publish_on|spoondate(dateFormatLong, LANGUAGE) }}
+        </time>
+      </div>
+      <div>
+        {% if item.allow_comments %}
+          <a href="{{ item.full_url }}#{{ 'slg.Comment'|trans }}" itemprop="discussionUrl">
+            {% if not item.comments %}
+              {{ 'msg.BlogNumberOfComments'|trans|format(item.comments_count ) }}
+            {% else %}
+              {% if item.comments_multiple %}
+                {{ 'msg.BlogNumberOfComments'|trans|format(item.comments_count ) }}
+              {% else %}
+                {{ 'msg.BlogOneComment'|trans }}
+              {% endif %}
+            {% endif %}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="d-flex flex-column flex-lg-row justify-content-lg-between">
+      <div>
+        {{ 'lbl.Category'|trans|ucfirst }}
+        <a itemprop="genre" href="{{ item.category_full_url }}" title="{{ item.category_title }}">{{ item.category_title }}</a>
+      </div>
+      <div>
+        {% if item.tags %}
+          {{ 'lbl.Tags'|trans|ucfirst }}:
+          <span itemprop="keywords">
+            {% for tag in item.tags %}
+              <a class="badge badge-primary" href="{{ tag.full_url }}" rel="tag" title="{{ tag.name }}">
+                {{ tag.name }}
+              </a>
+            {% endfor %}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block block_body %}
+  <div class="block-body" itemprop="articleBody">
+    {% if item.image %}
+      <img class="img-responsive" src="{{ FRONTEND_FILES_URL }}/Blog/images/source/{{ item.image }}" alt="{{ item.title }}" itemprop="image" />
+    {% endif %}
+    {{ item.text|parse_blocks }}
+  </div>
+  <div data-v-share-buttons>
+    <p class="mb-2"><strong>{{ 'lbl.Share'|trans|ucfirst }}:</strong></p>
+    <v-share-buttons facebook twitter linkedin></v-share-buttons>
+  </div>
+{% endblock %}

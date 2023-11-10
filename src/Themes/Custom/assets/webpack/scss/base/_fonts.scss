@@ -1,0 +1,19 @@
+@mixin font-import($font-name, $font-file, $style: normal, $weight: 400) {
+
+  @font-face {
+    font-family: "#{$font-name}";
+    src: url("../../fonts/#{$font-file}.eot"); /* IE9 Compat Modes */
+    src: url("../../fonts/#{$font-file}.eot?#iefix") format('embedded-opentype'), /* IE6-IE8 */
+    url("../../fonts/#{$font-file}.woff2") format('woff2'),
+    url("../../fonts/#{$font-file}.woff") format('woff'), /* Modern Browsers */
+    url("../../fonts/#{$font-file}.ttf")  format('truetype'), /* Safari, Android, iOS */
+    url("../../fonts/#{$font-file}.svg") format('svg'); /* Legacy iOS */
+
+    font-style:   $style;
+    font-weight:  $weight;
+  }
+}
+
+@include font-import(Poppins, Poppins-Regular, normal, 400);
+@include font-import(Poppins, Poppins-SemiBold, normal, 600);
+@include font-import(Poppins, Poppins-Bold, normal, 700);

@@ -1,0 +1,9 @@
+// docs: https://github.com/larsenwork/postcss-easing-gradients
+// editor: https://larsenwork.com/easing-gradients/#editor
+
+// standard gradient with easing. See docs for more examples.
+.ease {
+  /* stylelint-disable */
+  background: linear-gradient(green, ease, red);
+  /* stylelint-enable */
+}

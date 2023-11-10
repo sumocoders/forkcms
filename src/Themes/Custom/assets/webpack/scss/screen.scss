@@ -1,19 +1,17 @@
 @charset 'UTF-8';
 
+// import fonts first - remove when using CDN
+@import "base/fonts";
+
 // Bootstrap
 @import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/variables-dark";
 @import 'bootstrap-variables';
 @import 'overwrite-variables';
-@import "~bootstrap/scss/maps";
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/variables-dark';
 @import 'bootstrap-imports';
 
-
-// Plugins
-
-// Base
-@import 'base/type';
+// Base styles
 @import 'base/base';
 
 // Components
@@ -22,17 +20,22 @@
 @import 'components/button';
 @import 'components/button-share';
 @import 'components/cookiebar';
-@import 'components/privacy_dialog';
+@import 'components/dropdown';
+@import 'components/error';
 @import 'components/footer';
 @import 'components/forms';
 @import 'components/headers';
 @import 'components/labels';
 @import 'components/lightbox';
+@import 'components/media-library-lightbox';
 @import 'components/modules';
 @import 'components/navbar';
+@import 'components/navbar-languages';
+@import 'components/navbar-offcanvas';
+@import 'components/navbar-toggler';
+@import 'components/privacy_dialog';
+@import 'components/privacy-consent-dialog';
+@import 'components/quote';
+@import 'components/search';
 @import 'components/sections';
 @import 'components/slider';
-
-// Custom page styling
-// Insert custom page styling here. Put all page styles in the pages/ directory
-// eg. @import 'pages/footer';

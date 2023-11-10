@@ -1,0 +1,15 @@
+.grid-container {
+  &.grid-masonry {
+    columns: 3;
+    column-gap: 1rem;
+
+    .grid-item {
+      display: inline-block;
+      text-align: center;
+    }
+
+    figure {
+      margin-bottom: 1rem;
+    }
+  }
+}

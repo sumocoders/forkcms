@@ -1,0 +1,21 @@
+{% if locales is defined and locales|count > 1 %}
+  <ul class="navbar-nav ml-lg-auto navbar-language">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+        {% for locale in locales %}
+          {% if locale.active %}
+            <span>{{ locale.locale.value|upper }}</span>
+          {% endif %}
+        {% endfor %}
+      </a>
+
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+        {% for locale in locales %}
+          {% if not locale.active %}
+            <li><a class="dropdown-item{% if locale.active %} active{% endif %}" href="{{ locale.url }}" title="{{ locale.locale|trans }}">{{ locale.locale.value|upper }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+{% endif %}

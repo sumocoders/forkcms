@@ -1,0 +1,18 @@
+@include media-breakpoint-down(lg) {
+  .search {
+    width: 100%;
+
+    form {
+      width: 100%;
+    }
+
+    .twitter-typeahead {
+      flex-grow: 1;
+    }
+  }
+
+  .dropdown-menu.dropdown-search {
+    width: 80vw;
+    right: -100%;
+  }
+}
