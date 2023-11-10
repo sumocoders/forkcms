@@ -3,6 +3,8 @@ $navbar-icon-line-height: 2px;
 $navbar-icon-color: $primary;
 $navbar-icon-hover-color: $blue-dark;
 $navbar-icon-open-color: $primary;
+$navbar-icon-margin-x: 15px;
+$navbar-icon-margin-y: 0;
 
 .navbar-toggler {
   background-color: transparent;
@@ -31,7 +33,7 @@ $navbar-icon-open-color: $primary;
     background-color: $navbar-icon-color;
     background-image: none;
     height: $navbar-icon-line-height;
-    margin: 15px 0;
+    margin: $navbar-icon-margin-x $navbar-icon-margin-y;
     position: relative;
     transition: background-color 0.20s ease-in-out;
     width: $navbar-icon-width;

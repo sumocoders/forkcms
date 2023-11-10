@@ -1,7 +1,11 @@
+$section-padding-x: 70px;
+$section-padding-x-sm: 50px;
+
+
 .section-default {
-  padding: 50px 0 70px;
+  padding: $section-padding-x-sm 0 $section-padding-x;
 }
 
 .section-home {
-  padding: 70px 0;
+  padding: $section-padding-x 0;
 }
