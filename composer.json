@@ -81,10 +81,14 @@
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "symfony/stopwatch": "^6.0",
         "symfony/web-profiler-bundle": "^6.0",
-        "symfony/browser-kit": "^6.0"
+        "symfony/browser-kit": "^6.0",
+        "friendsoftwig/twigcs": "*"
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "allow-plugins": {
+            "symfony/flex": true
+        }
     },
     "support": {
         "forum": "https://fork-cms.herokuapp.com",
