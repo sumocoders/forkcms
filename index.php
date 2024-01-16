@@ -53,7 +53,7 @@ if (extension_loaded('newrelic')) {
 }
 
 if ($debug) {
-    Debug::enable();
+    \Symfony\Component\ErrorHandler\Debug::enable();
 }
 
 $kernel = new AppKernel($env, $debug);
