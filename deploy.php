@@ -51,8 +51,9 @@ set('cachetool_url', 'https://github.com/gordalina/cachetool/releases/download/7
 
 // Define staging
 host('dev03.sumocoders.eu')
-    ->user('sites')
-    ->stage('staging')
+    ->setRemoteUser('sites')
+    ->set('labels', ['stage' => 'staging'])
+    ->set('stage', 'staging')
     ->set('deploy_path', '~/apps/{{client}}/{{project}}')
     ->set('branch', 'staging')
     ->set('bin/php', 'php7.4')
@@ -62,9 +63,10 @@ host('dev03.sumocoders.eu')
 
 // Define production
 //host('$host')
-//    ->user('{{user}}')
-//    ->stage('production')
-//    ->port(2244)
+//    ->setRemoteUser('{{user}}')
+//    ->set('labels', ['stage' => 'production'])
+//    ->set('stage', 'production')
+//    ->setPort(2244)
 //    ->set('http_user', '{{user')
 //    ->set('writable_mode', 'chmod')
 //    ->set('deploy_path', '~/wwwroot')
