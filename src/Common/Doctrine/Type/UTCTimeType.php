@@ -24,6 +24,10 @@ class UTCTimeType extends TimeType
      */
     public function convertToDatabaseValue($time, AbstractPlatform $platform): ?string
     {
+        // Reset date part of the time object to 01/01/1970 to keep the timezone consistent
+        // between writing and reading the entity from the database
+        $time->setDate(1970, 1, 1);
+
         if ($time instanceof DateTime) {
             $time->setTimezone(self::getUtc());
         }
@@ -46,6 +50,10 @@ class UTCTimeType extends TimeType
         }
 
         $time = DateTime::createFromFormat($platform->getTimeFormatString(), $timeString, self::getUtc());
+
+        // Reset date part of the time object to 01/01/1970 to keep the timezone consistent
+        // between writing and reading the entity from the database
+        $time->setDate(1970, 1, 1);
 
         if (!$time) {
             throw ConversionException::conversionFailedFormat(
