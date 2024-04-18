@@ -107,6 +107,7 @@ deny from env=stayout
     RewriteRule var/docker/.* - [F]
     RewriteRule var/logs - [F]
     RewriteRule vendor/.* - [F]
+    RewriteRule tests - [F]
 
     # redirect all traffic to https
     # <IfModule headers_module>
