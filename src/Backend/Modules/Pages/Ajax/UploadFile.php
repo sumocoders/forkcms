@@ -118,7 +118,7 @@ class UploadFile extends AjaxAction
         }
 
         // convert the filename to url friendly version
-        $baseName = Uri::getUrl(pathinfo($fileName, PATHINFO_FILENAME));
+        $baseName = Uri::getUrl(pathinfo($fileName, PATHINFO_FILENAME)) . '_' . time();
         $extension = pathinfo($fileName, PATHINFO_EXTENSION);
         if (!in_array(strtolower($extension), self::ALLOWED_EXTENSIONS)) {
             throw new Exception('This is not an image.');
