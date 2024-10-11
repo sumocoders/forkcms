@@ -970,7 +970,7 @@ jsBackend.pages.extras = {
           )
 
           // send a request to remove the old image if the old image doesn't have the same name
-          if (oldImage !== response.data) {
+          if (oldImage && oldImage !== response.data) {
             $.ajax({
               data: {
                 fork: {module: 'Pages', action: 'RemoveUploadedFile'},
@@ -1022,7 +1022,7 @@ jsBackend.pages.extras = {
           )
 
           // send a request to remove the old image if the old image doesn't have the same name
-          if (oldImage !== response.data) {
+          if (oldImage && oldImage !== response.data) {
             $.ajax({
               data: {
                 fork: {module: 'Pages', action: 'RemoveUploadedFile'},
