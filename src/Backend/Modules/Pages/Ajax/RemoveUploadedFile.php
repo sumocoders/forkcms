@@ -25,6 +25,12 @@ class RemoveUploadedFile extends AjaxAction
 
         $path = FRONTEND_FILES_PATH . '/Pages/' . $directory . '/' . $file;
 
+        if (!is_file($path)) {
+            $this->output(Response::HTTP_OK);
+
+            return;
+        }
+
         $filesystem = new Filesystem();
         if ($filesystem->exists($path)) {
             $filesystem->remove($path);
