@@ -6,10 +6,7 @@
     aria-labelledby="privacyConsentDialogTitle"
     data-role="privacy_consent_dialog"
     data-bs-backdrop="false"
-    aria-modal="true"
-    {% if privacyConsentDialogHide %}
-      style="display: none"
-    {% endif %}
+    data-consent-dialog-show="{% if privacyConsentDialogShow %}true{% endif %}"
   >
     <div class="modal-dialog">
       <div class="modal-content">
@@ -23,18 +20,18 @@
 
             <div class="form-group">
               <div class="custom-control custom-checkbox">
-                <input name="privacyConsentLevelFunctionalCheckbox" id="privacyConsentLevelFunctionalCheckbox"
-                  type="checkbox" checked disabled
+                <input name="privacyConsentLevelFunctionalStorageCheckbox" id="privacyConsentLevelFunctionalStorageCheckbox"
+                  type="checkbox" checked disabled aria-describedby="privacyConsentLevelFunctionalStorageHelpBlock"
                   data-role="privacy-level"
-                  data-value="functional"
+                  data-value="functional_storage"
                   class="custom-control-input"
                 >
-                <label id="privacyConsentLevelFunctionalCheckbox" class="custom-control-label">
-                  {{ 'msg.PrivacyConsentLevelFunctionalTitle'|trans|raw }}
+                <label id="privacyConsentLevelFunctionalStorageCheckbox" class="custom-control-label">
+                  {{ 'msg.PrivacyConsentLevelFunctionalStorageTitle'|trans|raw }}
                 </label>
               </div>
-              <small id="privacyConsentLevelFunctionalHelpBlock" class="form-text text-muted">
-                {{ 'msg.PrivacyConsentLevelFunctionalText'|trans|raw }}
+              <small id="privacyConsentLevelFunctionalStorageHelpBlock" class="form-text text-muted">
+                {{ 'msg.PrivacyConsentLevelFunctionalStorageText'|trans|raw }}
               </small>
             </div>
 
@@ -43,6 +40,7 @@
                 <div class="custom-control custom-checkbox">
                   <input name="privacyConsentLevel{{ level|ucfirst }}Checkbox"
                     id="privacyConsentLevel{{ level|ucfirst }}Checkbox" type="checkbox"
+                    aria-describedby="privacyConsentLevel{{ level|ucfirst }}HelpBlock"
                     data-role="privacy-level"
                     data-value="{{ level }}"
                     class="custom-control-input"

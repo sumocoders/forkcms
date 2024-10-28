@@ -129,83 +129,80 @@ jsFrontend.cookieBar = {
  * Handles the privacy consent dialog
  */
 jsFrontend.consentDialog = {
+  _instance: function () {
+    return bootstrap.Modal.getOrCreateInstance('*[data-role=privacy_consent_dialog]')
+  },
+
   init: function () {
     // if there is no consentDialog we shouldn't do anything
     if ($('*[data-role=privacy_consent_dialog]').length === 0) return
 
-    var $consentDialog = $('*[data-role=privacy_consent_dialog]')
-    var $consentForm = $('form[data-role=privacy_consent_dialog_form]')
-    // set class on the body to prevent background scrolling when scrolling in the modal
-    document.querySelector('body').classList.add('modal-open')
+    jsFrontend.consentDialog._pushConsentsToGoogleTagManager()
 
-    let showDialogs = document.querySelectorAll('[data-role="show-consent-dialog"]')
-    let $levels = $consentForm.find('input[data-role=privacy-level]')
-    for (let level of $levels) {
-      let name = 'privacy_consent_level_' + level.getAttribute('data-value') + '_agreed'
-      let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-      let value = match ? match[2] : 0;
+    const $consentDialog = $('*[data-role=privacy_consent_dialog]')
+    const $consentForm = $('form[data-role=privacy_consent_dialog_form]')
 
-      if (value == 1) {
-        level.checked = true
+    // show consent if needed
+    if ($consentDialog.data('consentDialogShow')) {
+      jsFrontend.consentDialog.show()
       }
-    }
-
-    showDialogs.forEach(showDialog => {
-      showDialog.addEventListener('click', function (e) {
-        e.preventDefault()
-
-        document.cookie = 'privacy_consent_hash=0; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/'
-        window.location.reload()
-      })
-    })
 
     $consentForm.on('click', '*[data-bs-dismiss=modal]', function (e) {
       e.preventDefault()
-      $consentDialog.hide()
-      document.querySelector('body').classList.remove('modal-open')
+      jsFrontend.consentDialog.hide()
     })
 
     $consentForm.on('submit', function (e) {
       e.preventDefault()
 
-      var $levels = $consentForm.find('input[data-role=privacy-level]')
-      for (var level of $levels) {
-        var name = $(level).data('value')
-        var isChecked = $(level).is(':checked')
+      const $levels = $consentForm.find('input[data-role=privacy-level]')
+      for (const level of $levels) {
+        const name = $(level).data('value')
+        const isChecked = $(level).is(':checked')
 
         // store in jsData
         jsData.privacyConsent.visitorChoices[name] = isChecked
 
-        // store for Google Tag Manager
-        var niceName = name.charAt(0).toUpperCase() + name.slice(1)
-        if (typeof dataLayer !== 'undefined') {
-          if (isChecked) {
-            var gtmData = {}
-            gtmData['privacyConsentLevel' + niceName + 'Agreed'] = isChecked
-            dataLayer.push(gtmData)
-            dataLayer.push({'event': 'privacyConsentLevel' + niceName + 'Agreed'})
-          }
-        }
-
         // store data in functional cookies for later usage
-        utils.cookies.setCookie('privacy_consent_level_' + name + '_agreed', isChecked ? 1 : 0, 6 * 30)
+        utils.cookies.setCookie('privacy_consent_level_' + name + '_granted', isChecked ? 1 : 0, 6 * 30)
         utils.cookies.setCookie('privacy_consent_hash', jsData.privacyConsent.levelsHash, 6 * 30)
-
-        // trigger events
-        var eventName = 'privacyConsentLevel' + niceName
-        if (isChecked) {
-          eventName += 'Agreed'
-        } else {
-          eventName += 'Disagreed'
-        }
-        $(document).trigger(eventName)
       }
 
       $(document).trigger('privacyConsentChanged')
 
-      $consentDialog.hide()
-      document.querySelector('body').classList.remove('modal-open')
+      jsFrontend.consentDialog._pushConsentsToGoogleTagManager()
+
+      jsFrontend.consentDialog.hide()
     })
+  },
+
+  show: function () {
+    jsFrontend.consentDialog._instance().show()
+
+    // populate the fields with correct data
+    for (const [choice, value] of Object.entries(jsData.privacyConsent.visitorChoices)) {
+      $('input[data-role=privacy-level][data-value=' + choice + ']').prop('checked', value)
+    }
+  },
+
+  hide: function () {
+    jsFrontend.consentDialog._instance().hide()
+  },
+
+  _pushConsentsToGoogleTagManager: function () {
+    // stop if gtag does not exist
+    if (typeof gtag === 'undefined') {
+      return
+    }
+
+    const consents = {}
+    for (const [choice, value] of Object.entries(jsData.privacyConsent.visitorChoices)) {
+      consents[choice] = (value) ? 'granted' : 'denied'
+    }
+    if (consents !== {}) {
+      gtag('consent', 'update', consents)
+      dataLayer.push({ event: 'consentUpdate' })
+    }
   }
 }
 

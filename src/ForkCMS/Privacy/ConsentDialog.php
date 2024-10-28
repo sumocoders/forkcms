@@ -97,11 +97,11 @@ class ConsentDialog
     public function getVisitorChoices(): array
     {
         $choices = [
-            'functional' => true,
+            self::CONSENT_FUNCTIONALITY_STORAGE => true,
         ];
         $levels = $this->getLevels(false);
         foreach ($levels as $level) {
-            $choices[$level] = $this->cookie->get('privacy_consent_level_' . $level . '_agreed', '0') === '1';
+            $choices[$level] = $this->cookie->get('privacy_consent_level_' . $level . '_granted', '0') === '1';
         }
 
         return $choices;
