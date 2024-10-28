@@ -2,6 +2,7 @@
 
 namespace Backend\Modules\Settings\Actions;
 
+use ForkCMS\Privacy\ConsentDialog;
 use ForkCMS\Utility\Akismet;
 use SpoonFilter;
 use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
@@ -325,17 +326,22 @@ class Index extends BackendBaseActionIndex
             'show_consent_dialog',
             $this->get('fork.settings')->get('Core', 'show_consent_dialog', false)
         );
-        $this->form->addText(
-            'privacy_consent_levels',
-            implode(
-                ',',
+
+        foreach (ConsentDialog::getConsentLevels() as $level) {
+            $checkbox = $this->form->addCheckbox(
+                'privacy_consent_level_' . $level,
                 $this->get('fork.settings')->get(
                     'Core',
-                    'privacy_consent_levels',
-                    []
+                    'privacy_consent_level_' . $level,
+                    ($level === ConsentDialog::CONSENT_FUNCTIONALITY_STORAGE)
                 )
-            )
-        );
+            );
+
+            if ($level === ConsentDialog::CONSENT_FUNCTIONALITY_STORAGE) {
+               $checkbox->setAttribute('disabled', 'disabled');
+            }
+        }
+        $this->template->assign('privacy_consent_levels', ConsentDialog::getConsentLevels());
     }
 
     protected function parse(): void
@@ -444,18 +450,6 @@ class Index extends BackendBaseActionIndex
                     'ckfinder_image_max_height'
                 )->isInteger(BL::err('InvalidInteger'));
             }
-
-            $privacyConsentLevelsField = $this->form->getField('privacy_consent_levels');
-            if ($privacyConsentLevelsField->isFilled()) {
-                $levels = explode(',', $privacyConsentLevelsField->getValue());
-                foreach ($levels as $level) {
-                    if (!preg_match('/^[a-z_\x7f-\xff][a-z0-9_\x7f-\xff]*$/i', $level)) {
-                        $privacyConsentLevelsField->setError(sprintf(BL::err('InvalidVariableName'), $level));
-                        break;
-                    }
-                }
-            }
-
 
             // no errors ?
             if ($this->form->isCorrect()) {
@@ -687,15 +681,18 @@ class Index extends BackendBaseActionIndex
                     'show_consent_dialog',
                     $this->form->getField('show_consent_dialog')->getChecked()
                 );
-                $privacyConsentLevels = [];
-                if ($privacyConsentLevelsField->isFilled()) {
-                    $privacyConsentLevels = explode(',', $privacyConsentLevelsField->getValue());
+
+                foreach (ConsentDialog::getConsentLevels() as $level) {
+                    $value = $this->form->getField('privacy_consent_level_' . $level)->getChecked();
+                    if ($level === ConsentDialog::CONSENT_FUNCTIONALITY_STORAGE) {
+                        $value = true;
+                    }
+                    $this->get('fork.settings')->set(
+                        'Core',
+                        'privacy_consent_level_' . $level,
+                        $value
+                    );
                 }
-                $this->get('fork.settings')->set(
-                    'Core',
-                    'privacy_consent_levels',
-                    $privacyConsentLevels
-                );
 
                 // assign report
                 $this->template->assign('report', true);

@@ -7,6 +7,14 @@ use Common\ModulesSettings;
 
 class ConsentDialog
 {
+    const CONSENT_AD_STORAGE = 'ad_storage';
+    const CONSENT_AD_USER_DATA = 'ad_user_data';
+    const CONSENT_AD_PERSONALIZATION = 'ad_personalization';
+    const CONSENT_ANALYTICS_STORAGE = 'analytics_storage';
+    const CONSENT_FUNCTIONALITY_STORAGE = 'functionality_storage';
+    const CONSENT_PERSONALIZATION_STORAGE = 'personalization_storage';
+    const CONSENT_SECURITY_STORAGE = 'security_storage';
+
     /**
      * @var ModulesSettings
      */
@@ -21,6 +29,19 @@ class ConsentDialog
     {
         $this->settings = $settings;
         $this->cookie = $cookie;
+    }
+
+    public static function getConsentLevels(): array
+    {
+        return [
+            self::CONSENT_FUNCTIONALITY_STORAGE,
+            self::CONSENT_AD_STORAGE,
+            self::CONSENT_AD_USER_DATA,
+            self::CONSENT_AD_PERSONALIZATION,
+            self::CONSENT_ANALYTICS_STORAGE,
+            self::CONSENT_PERSONALIZATION_STORAGE,
+            self::CONSENT_SECURITY_STORAGE,
+        ];
     }
 
     public function isDialogEnabled(): bool

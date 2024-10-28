@@ -630,25 +630,65 @@
         <translation language="nl"><![CDATA[Privacy toestemmingen]]></translation>
         <translation language="en"><![CDATA[Privacy consents]]></translation>
       </item>
-      <item type="label" name="TechnicalName">
-        <translation language="nl"><![CDATA[Technische naam]]></translation>
-        <translation language="en"><![CDATA[Technical name]]></translation>
-      </item>
       <item type="message" name="HelpPrivacyConsents">
         <translation language="nl"><![CDATA[De GDPR regelt hoe je als website eigenaar moet omgaan met cookies. Hieronder kan je verschillende niveaus instellen, waarmee je de bezoeker verschillende opties kan bieden.]]></translation>
         <translation language="en"><![CDATA[GDPR defines how you as a website owner may use cookies. Below you are able to define several levels, so the user can choose from them.]]></translation>
       </item>
-      <item type="message" name="NoPrivacyConsentLevels">
-        <translation language="nl"><![CDATA[Je hebt nog geen niveaus ingegeven.]]></translation>
-        <translation language="en"><![CDATA[No levels yet.]]></translation>
+      <item type="message" name="HelpPrivacyConsentLevelAdStorage">
+        <translation language="nl"><![CDATA[Tracking voor advertentiedoeleinden (bijvoorbeeld: Google Ads)]]></translation>
+        <translation language="en"><![CDATA[Tracking for advertisment purposes (e.g.: Google Ads)]]></translation>
       </item>
-      <item type="message" name="HelpPrivacyConsentLevels">
-        <translation language="nl"><![CDATA[Dit zijn de namen van de variabelen die beschikbaar zullen zijn in JavaScript en Google Data Layer. Je kan dus geen spaties gebruiken.]]></translation>
-        <translation language="en"><![CDATA[These are the names of the variable that will be available in JavaScript and Google Data Layer. You can't use spaces or other illegal characters.]]></translation>
+      <item type="label" name="PrivacyConsentLevelNameAdStorage">
+        <translation language="nl"><![CDATA[ad_storage]]></translation>
+        <translation language="en"><![CDATA[ad_storage]]></translation>
       </item>
-      <item type="error" name="InvalidVariableName">
-        <translation language="nl"><![CDATA[<code>%1$s</code> is een ongeldige variabele naam.]]></translation>
-        <translation language="en"><![CDATA[<code>%1$s</code> is an invalid variable name.]]></translation>
+      <item type="message" name="HelpPrivacyConsentLevelAdUserData">
+        <translation language="nl"><![CDATA[Regelt de toestemming voor het delen van advertentiegerelateerde gebruikersdata]]></translation>
+        <translation language="en"><![CDATA[Is used to share advertisment related user data]]></translation>
+      </item>
+      <item type="label" name="PrivacyConsentLevelNameAdUserData">
+        <translation language="nl"><![CDATA[ad_user_data]]></translation>
+        <translation language="en"><![CDATA[ad_user_data]]></translation>
+      </item>
+      <item type="message" name="HelpPrivacyConsentLevelAdPersonalization">
+        <translation language="nl"><![CDATA[Regelt de toestemming voor gepersonaliseerde advertenties]]></translation>
+        <translation language="en"><![CDATA[Permission related to personalised advertisements]]></translation>
+      </item>
+      <item type="label" name="PrivacyConsentLevelNameAdPersonalization">
+        <translation language="nl"><![CDATA[ad_personalization]]></translation>
+        <translation language="en"><![CDATA[ad_personalization]]></translation>
+      </item>
+      <item type="message" name="HelpPrivacyConsentLevelAnalyticsStorage">
+        <translation language="nl"><![CDATA[Tracking voor analytische doeleinden (bijvoorbeeld: Google Analytics)]]></translation>
+        <translation language="en"><![CDATA[Tracking for analytical purposes (e.g.: Google Analytics]]></translation>
+      </item>
+      <item type="label" name="PrivacyConsentLevelNameAnalyticsStorage">
+        <translation language="nl"><![CDATA[analytics_storage]]></translation>
+        <translation language="en"><![CDATA[analytics_storage]]></translation>
+      </item>
+      <item type="message" name="HelpPrivacyConsentLevelFunctionalityStorage">
+        <translation language="nl"><![CDATA[Tracking voor functionele doeleinden (bijvoorbeeld: taalinstellingen)]]></translation>
+        <translation language="en"><![CDATA[Tracking for functional purposes (e.g.: language preferences]]></translation>
+      </item>
+      <item type="label" name="PrivacyConsentLevelNameFunctionalityStorage">
+        <translation language="nl"><![CDATA[functionality_storage]]></translation>
+        <translation language="en"><![CDATA[functionality_storage]]></translation>
+      </item>
+      <item type="message" name="HelpPrivacyConsentLevelPersonalizationStorage">
+        <translation language="nl"><![CDATA[Tracking voor persoonlijke aanbevelingen (bijvoorbeeld: persoonlijke productaanbevelingen)]]></translation>
+        <translation language="en"><![CDATA[Tracking for personalised recommendations (e.g.: personal recommended products]]></translation>
+      </item>
+      <item type="label" name="PrivacyConsentLevelNamePersonalizationStorage">
+        <translation language="nl"><![CDATA[personalization_storage]]></translation>
+        <translation language="en"><![CDATA[personalization_storage]]></translation>
+      </item>
+      <item type="message" name="HelpPrivacyConsentLevelSecurityStorage">
+        <translation language="nl"><![CDATA[Tracking voor beveiligingsdoeleinden (bijvoorbeeld: fraudedetectie)]]></translation>
+        <translation language="en"><![CDATA[Tracking for security purposes (e.g.: fraud detection]]></translation>
+      </item>
+      <item type="label" name="PrivacyConsentLevelNameSecurityStorage">
+        <translation language="nl"><![CDATA[security_storage]]></translation>
+        <translation language="en"><![CDATA[security_storage]]></translation>
       </item>
       <item type="label" name="GoogleRecaptcha">
         <translation language="nl"><![CDATA[Google reCAPTCHA]]></translation>
@@ -670,6 +710,62 @@
         <translation language="nl"><![CDATA[Captcha code is ongeldig.]]></translation>
         <translation language="en"><![CDATA[Captcha code is invalid.]]></translation>
         <translation language="pl"><![CDATA[Błędny kod Captcha.]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelFunctionalStorageTitle">
+        <translation language="nl"><![CDATA[Functionele cookies]]></translation>
+        <translation language="en"><![CDATA[Functional storage]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelFunctionalStorageText">
+        <translation language="nl"><![CDATA[Deze cookies zijn nodig om de website correct te laten werken. Dit is bijvoorbeeld je taalvoorkeur, &hellip;]]></translation>
+        <translation language="en"><![CDATA[These function cookies are required to make the website work correctly. For instance your language preferences is stored.]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelAdStorageTitle">
+        <translation language="nl"><![CDATA[Advertenties]]></translation>
+        <translation language="en"><![CDATA[Ad storage]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelAdStorageText">
+        <translation language="nl"><![CDATA[We houden data bij voor advertentiedoeleinden, deze informatie delen we met bijvoorbeeld Google Ads.]]></translation>
+        <translation language="en"><![CDATA[Tracking for advertisement purposes. E.g.: Google Ads.]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelAdUserDataTitle">
+        <translation language="nl"><![CDATA[Gebruikersdata voor advertenties]]></translation>
+        <translation language="en"><![CDATA[Advertisement user data]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelAdUserDataText">
+        <translation language="nl"><![CDATA[We delen je gebruikersdata met externe partijen die advertenties aanbieden. Bijvoorbeeld Google Ads.]]></translation>
+        <translation language="en"><![CDATA[Sharing your details with external parties who provide advertisements. E.g.: Google Ads]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelAdPersonalizationTitle">
+        <translation language="nl"><![CDATA[Gepersonaliseerde advertenties]]></translation>
+        <translation language="en"><![CDATA[Personalized advertisement]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelAdPersonalizationText">
+        <translation language="nl"><![CDATA[We tonen je graag gepersonaliseerde advertenties. We delen daarom jouw gebruikersdata met partijen die advertenties aanbieden. Bijvoorbeeld Google Ads.]]></translation>
+        <translation language="en"><![CDATA[Sharing your details with external parties who provide advertisements. E.g.: Google Ads]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelAnalyticsStorageTitle">
+        <translation language="nl"><![CDATA[Statistieken]]></translation>
+        <translation language="en"><![CDATA[Analytical]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelAnalyticsStorageText">
+        <translation language="nl"><![CDATA[We gebruiken Google Analytics om de website te optimaliseren. Jouw gegevens (welke pagina's bekijk je, op welke knoppen klik je, ...) houden we beperkt bij. Deze gegevens worden gebruikt om de website te verbeteren voor jou als gebruiker, maar ook voor zoekmachines om beter gevonden te worden.]]></translation>
+        <translation language="en"><![CDATA[We use analytical tools (e.g.: Google Analytics) to improve our website.]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelPersonalizationStorageTitle">
+        <translation language="nl"><![CDATA[Personalisatie]]></translation>
+        <translation language="en"><![CDATA[Personalization]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelPersonalizationStorageText">
+        <translation language="nl"><![CDATA[We gebruiken jouw gegevens om de website en advertenties te personaliseren. We delen deze gegevens met bijvoorbeeld Google Ads.]]></translation>
+        <translation language="en"><![CDATA[We use your data to personalise the website and advertisements.]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelSecurityStorageTitle">
+        <translation language="nl"><![CDATA[Beveiliging]]></translation>
+        <translation language="en"><![CDATA[Security]]></translation>
+      </item>
+      <item type="message" name="PrivacyConsentLevelSecurityStorageText">
+        <translation language="nl"><![CDATA[Tracking voor beveiligingsmaatregelen. Bijvoorbeeld: Fraude detectie.]]></translation>
+        <translation language="en"><![CDATA[Tracking for security purposes. E.g.: Fraud detection.]]></translation>
       </item>
     </Core>
   </Frontend>
