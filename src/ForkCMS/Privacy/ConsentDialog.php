@@ -73,14 +73,15 @@ class ConsentDialog
     public function getLevels(bool $includeFunctional = false): array
     {
         $levels = [];
-        if ($includeFunctional) {
-            $levels = ['functional'];
+        foreach (self::getConsentLevels() as $level) {
+            if ($level === self::CONSENT_FUNCTIONALITY_STORAGE && !$includeFunctional) {
+                continue;
+            }
+            $defaultValue = $level === self::CONSENT_FUNCTIONALITY_STORAGE;
+            if ($this->settings->get('Core', 'privacy_consent_level_' . $level, $defaultValue)) {
+                $levels[] = $level;
         }
-
-        $levels = array_filter(array_merge(
-            $levels,
-            $this->settings->get('Core', 'privacy_consent_levels', [])
-        ));
+        }
 
         return $levels;
     }
