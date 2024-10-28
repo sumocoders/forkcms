@@ -1,8 +1,9 @@
 /**
  * Frontend related objects
  */
-/* global FB, ga, _gaq, twttr, Image, dataLayer, FileReader */
-var jsFrontend = {
+/* global FB, ga, _gaq, twttr, Image, dataLayer, FileReader, bootstrap, gtag */
+/* eslint */
+const jsFrontend = {
   debug: false,
   current: {},
 
@@ -37,7 +38,7 @@ var jsFrontend = {
   },
 
   addModalEvents: function () {
-    var $modals = $('[role=dialog].modal')
+    const $modals = $('[role=dialog].modal')
 
     if ($modals.length === 0) {
       return
@@ -81,14 +82,14 @@ jsFrontend.controls = {
   },
 
   toggleCollapse: function () {
-    var $navToggle = $('.navbar-toggle')
+    const $navToggle = $('.navbar-toggle')
 
     if ($navToggle.length === 0) {
       return
     }
 
     $navToggle.on('click', function () {
-      var $button = $(this)
+      const $button = $(this)
       $button.find('[data-role=label]').text(jsFrontend.locale.lbl($button.hasClass('collapsed') ? 'CloseNavigation' : 'OpenNavigation'))
     }).find('[data-role=label]').text(jsFrontend.locale.lbl($navToggle.hasClass('collapsed') ? 'CloseNavigation' : 'OpenNavigation'))
   }
@@ -102,7 +103,7 @@ jsFrontend.cookieBar = {
     // if there is no cookiebar we shouldn't do anything
     if ($('#cookie-bar').length === 0) return
 
-    var $cookieBar = $('#cookie-bar')
+    const $cookieBar = $('#cookie-bar')
 
     // @remark: as you can see we use PHP-serialized values so we can use them in PHP too.
     // hide the cookieBar if needed
@@ -214,7 +215,7 @@ jsFrontend.data = {
   data: {},
 
   init: function () {
-    // check if var is available
+    // check if variable is available
     if (typeof jsData === 'undefined') throw new Error('jsData is not available')
 
     // populate
@@ -230,9 +231,9 @@ jsFrontend.data = {
     // init if needed
     if (!jsFrontend.data.initialized) jsFrontend.data.init()
 
-    var keys = key.split('.')
-    var data = jsFrontend.data.data
-    for (var i = 0; i < keys.length; i++) {
+    const keys = key.split('.')
+    let data = jsFrontend.data.data
+    for (let i = 0; i < keys.length; i++) {
       data = data[keys[i]]
     }
 
@@ -298,7 +299,7 @@ jsFrontend.forms = {
 
   requiredTooltip: function () {
     $(document).on('focus', '.form-control', function (event) {
-      var id = $(event.currentTarget).attr('id')
+      const id = $(event.currentTarget).attr('id')
 
       // show tooltip
       $('label[for="' + id + '"]').find('abbr').tooltip('show')
@@ -312,13 +313,13 @@ jsFrontend.forms = {
 
   imagePreview: function () {
     $('input[type=file]').on('change', function () {
-      let imageField = $(this).get(0)
+      const imageField = $(this).get(0)
       // make sure we are uploading an image by checking the data attribute
       if (imageField.getAttribute('data-fork-cms-role') === 'image-field' && imageField.files && imageField.files[0]) {
         // get the image preview by matching the image-preview data-id to the ImageField id
-        let $imagePreview = $('[data-fork-cms-role="image-preview"][data-id="' + imageField.id + '"]')
+        const $imagePreview = $('[data-fork-cms-role="image-preview"][data-id="' + imageField.id + '"]')
         // use FileReader to get the url
-        let reader = new FileReader()
+        const reader = new FileReader()
 
         reader.onload = function (event) {
           $imagePreview.attr('src', event.target.result)
@@ -343,7 +344,7 @@ jsFrontend.forms = {
   // initialize the date fields
   datefields: function () {
     // jQuery datapicker fallback for browsers that don't support the HTML5 date type
-    var $inputDateType = $('input.inputDatefield')
+    const $inputDateType = $('input.inputDatefield')
     if ($inputDateType.length) {
       // the browser does not support the HTML5 data type
       if ($inputDateType.get(0).type !== 'date') {
@@ -351,38 +352,38 @@ jsFrontend.forms = {
       }
     }
 
-    var $inputDatefields = $('.inputDatefieldNormal, .inputDatefieldFrom, .inputDatefieldTill, .inputDatefieldRange')
-    var $inputDatefieldNormal = $('.inputDatefieldNormal')
-    var $inputDatefieldFrom = $('.inputDatefieldFrom')
-    var $inputDatefieldTill = $('.inputDatefieldTill')
-    var $inputDatefieldRange = $('.inputDatefieldRange')
+    const $inputDatefields = $('.inputDatefieldNormal, .inputDatefieldFrom, .inputDatefieldTill, .inputDatefieldRange')
+    const $inputDatefieldNormal = $('.inputDatefieldNormal')
+    const $inputDatefieldFrom = $('.inputDatefieldFrom')
+    const $inputDatefieldTill = $('.inputDatefieldTill')
+    const $inputDatefieldRange = $('.inputDatefieldRange')
 
     if ($inputDatefields.length > 0) {
-      var dayNames = [
+      const dayNames = [
         jsFrontend.locale.loc('DayLongSun'), jsFrontend.locale.loc('DayLongMon'), jsFrontend.locale.loc('DayLongTue'),
         jsFrontend.locale.loc('DayLongWed'), jsFrontend.locale.loc('DayLongThu'), jsFrontend.locale.loc('DayLongFri'),
         jsFrontend.locale.loc('DayLongSat')
       ]
-      var dayNamesMin = [
+      const dayNamesMin = [
         jsFrontend.locale.loc('DayShortSun'), jsFrontend.locale.loc('DayShortMon'),
         jsFrontend.locale.loc('DayShortTue'), jsFrontend.locale.loc('DayShortWed'),
         jsFrontend.locale.loc('DayShortThu'), jsFrontend.locale.loc('DayShortFri'),
         jsFrontend.locale.loc('DayShortSat')
       ]
-      var dayNamesShort = [
+      const dayNamesShort = [
         jsFrontend.locale.loc('DayShortSun'), jsFrontend.locale.loc('DayShortMon'),
         jsFrontend.locale.loc('DayShortTue'), jsFrontend.locale.loc('DayShortWed'),
         jsFrontend.locale.loc('DayShortThu'), jsFrontend.locale.loc('DayShortFri'),
         jsFrontend.locale.loc('DayShortSat')
       ]
-      var monthNames = [
+      const monthNames = [
         jsFrontend.locale.loc('MonthLong1'), jsFrontend.locale.loc('MonthLong2'), jsFrontend.locale.loc('MonthLong3'),
         jsFrontend.locale.loc('MonthLong4'), jsFrontend.locale.loc('MonthLong5'), jsFrontend.locale.loc('MonthLong6'),
         jsFrontend.locale.loc('MonthLong7'), jsFrontend.locale.loc('MonthLong8'), jsFrontend.locale.loc('MonthLong9'),
         jsFrontend.locale.loc('MonthLong10'), jsFrontend.locale.loc('MonthLong11'),
         jsFrontend.locale.loc('MonthLong12')
       ]
-      var monthNamesShort = [
+      const monthNamesShort = [
         jsFrontend.locale.loc('MonthShort1'), jsFrontend.locale.loc('MonthShort2'),
         jsFrontend.locale.loc('MonthShort3'), jsFrontend.locale.loc('MonthShort4'),
         jsFrontend.locale.loc('MonthShort5'), jsFrontend.locale.loc('MonthShort6'),
@@ -394,7 +395,7 @@ jsFrontend.forms = {
       if ($.isFunction($.fn.datepicker)) {
         $inputDatefieldNormal.each(function () {
           // Create a hidden clone (before datepicker init!), which will contain the actual value
-          var clone = $(this).clone()
+          const clone = $(this).clone()
           clone.insertAfter(this)
           clone.hide()
 
@@ -411,12 +412,12 @@ jsFrontend.forms = {
         })
 
         $inputDatefields.datepicker({
-          dayNames: dayNames,
-          dayNamesMin: dayNamesMin,
-          dayNamesShort: dayNamesShort,
+          dayNames: dayNames, // eslint-disable-line object-shorthand
+          dayNamesMin: dayNamesMin, // eslint-disable-line object-shorthand
+          dayNamesShort: dayNamesShort, // eslint-disable-line object-shorthand
           hideIfNoPrevNext: true,
-          monthNames: monthNames,
-          monthNamesShort: monthNamesShort,
+          monthNames: monthNames, // eslint-disable-line object-shorthand
+          monthNamesShort: monthNamesShort, // eslint-disable-line object-shorthand
           nextText: jsFrontend.locale.lbl('Next'),
           prevText: jsFrontend.locale.lbl('Previous'),
           showAnim: 'slideDown'
@@ -425,9 +426,9 @@ jsFrontend.forms = {
         // the default, nothing special
         $inputDatefieldNormal.each(function () {
           // get data
-          var data = $(this).data()
-          var phpDate = new Date(data.year, data.month, data.day, 0, 0, 0) // Get date from php in YYYY-MM-DD format
-          var value = ($(this).val() !== '') ? $.datepicker.formatDate(data.mask, phpDate) : '' // Convert the value to the data-mask to display it
+          const data = $(this).data()
+          const phpDate = new Date(data.year, data.month, data.day, 0, 0, 0) // Get date from php in YYYY-MM-DD format
+          const value = ($(this).val() !== '') ? $.datepicker.formatDate(data.mask, phpDate) : '' // Convert the value to the data-mask to display it
 
           // Create the datepicker with the desired display format and alt field
           $(this).datepicker('option', {
@@ -441,8 +442,8 @@ jsFrontend.forms = {
         // date fields that have a certain start date
         $inputDatefieldFrom.each(function () {
           // get data
-          var data = $(this).data()
-          var value = $(this).val()
+          const data = $(this).data()
+          const value = $(this).val()
 
           // set options
           $(this).datepicker('option', {
@@ -455,8 +456,8 @@ jsFrontend.forms = {
         // date fields that have a certain enddate
         $inputDatefieldTill.each(function () {
           // get data
-          var data = $(this).data()
-          var value = $(this).val()
+          const data = $(this).data()
+          const value = $(this).val()
 
           // set options
           $(this).datepicker('option',
@@ -470,8 +471,8 @@ jsFrontend.forms = {
         // date fields that have a certain range
         $inputDatefieldRange.each(function () {
           // get data
-          var data = $(this).data()
-          var value = $(this).val()
+          const data = $(this).data()
+          const value = $(this).val()
 
           // set options
           $(this).datepicker('option',
@@ -488,8 +489,8 @@ jsFrontend.forms = {
 
   validation: function () {
     $('input, textarea, select').each(function () {
-      var $input = $(this)
-      var options = {}
+      const $input = $(this)
+      const options = {}
 
       // Check for custom error messages
       $.each($input.data(), function (key, value) {
@@ -511,7 +512,7 @@ jsFrontend.forms = {
       // bind focus
       $('input[placeholder], textarea[placeholder]').on('focus', function () {
         // grab element
-        var input = $(this)
+        const input = $(this)
 
         // only do something when the current value and the placeholder are the same
         if (input.val() === input.attr('placeholder')) {
@@ -525,7 +526,7 @@ jsFrontend.forms = {
 
       $('input[placeholder], textarea[placeholder]').on('blur', function () {
         // grab element
-        var input = $(this)
+        const input = $(this)
 
         // only do something when the input is empty or the value is the same as the placeholder
         if (input.val() === '' || input.val() === input.attr('placeholder')) {
@@ -545,7 +546,7 @@ jsFrontend.forms = {
         // find elements with placeholders
         $(this).find('input[placeholder]').each(function () {
           // grab element
-          var input = $(this)
+          const input = $(this)
 
           // if the value and the placeholder are the same reset the value
           if (input.val() === input.attr('placeholder')) input.val('')
@@ -571,20 +572,20 @@ jsFrontend.gravatar = {
   // init, something like a constructor
   init: function () {
     $('.replaceWithGravatar').each(function () {
-      var element = $(this)
-      var gravatarId = element.data('gravatarId')
-      var size = element.attr('height')
+      const element = $(this)
+      const gravatarId = element.data('gravatarId')
+      const size = element.attr('height')
 
       // valid gravatar id
       if (gravatarId !== '') {
         // build url
-        var url = 'https://www.gravatar.com/avatar/' + gravatarId + '?r=g&d=' + encodeURI(window.location.origin + '/src/Frontend/Core/Layout/images/default_author_avatar.gif')
+        let url = 'https://www.gravatar.com/avatar/' + gravatarId + '?r=g&d=' + encodeURI(window.location.origin + '/src/Frontend/Core/Layout/images/default_author_avatar.gif')
 
         // add size if set before
         if (size !== '') url += '&s=' + size
 
         // create new image
-        var gravatar = new Image()
+        const gravatar = new Image()
         gravatar.src = url
 
         // reset src
@@ -700,14 +701,14 @@ jsFrontend.statistics = {
       // bind on all links that don't have the class noTracking
       $(document).on('click', 'a:external:not(.noTracking)', function (e) {
         // only simulate direct links
-        var hasTarget = (typeof $(this).attr('target') !== 'undefined')
+        const hasTarget = (typeof $(this).attr('target') !== 'undefined')
         if (!hasTarget) e.preventDefault()
 
-        var link = $(this).attr('href')
+        const link = $(this).attr('href')
 
         // outbound link by default
-        var type = 'Outbound Links'
-        var pageView = '/Outbound Links/' + link
+        let type = 'Outbound Links'
+        let pageView = '/Outbound Links/' + link
 
         // set mailto
         if (link.match(/^mailto:/)) {
@@ -746,8 +747,7 @@ jsFrontend.twitter = {
       twttr.events.on('tweet', function (e) {
         // valid event?
         if (e) {
-          // init var
-          var targetUrl = null
+          let targetUrl = null
 
           // get url
           if (e.target && e.target.nodeName === 'IFRAME') targetUrl = utils.url.extractParamFromUri(e.target.src, 'url')
