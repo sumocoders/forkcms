@@ -52,7 +52,7 @@ class ConsentDialog
     public function shouldDialogBeShown(): bool
     {
         // the cookiebar is hidden within the settings, so don't show it
-        if (!$this->settings->get('Core', 'show_consent_dialog', false)) {
+        if (!$this->isDialogEnabled()) {
             return false;
         }
 
