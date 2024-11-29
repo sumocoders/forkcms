@@ -75,15 +75,16 @@
             "Composer\\Config::disableProcessTimeout",
             "./bin/simple-phpunit"
         ],
+        "auto-scripts": [
+            "@php bin/console forkcms:cache:clear",
+            "@php bin/console cache:clear --no-warmup",
+            "@php bin/console cache:warmup"
+        ],
         "post-install-cmd": [
-            "php bin/console forkcms:cache:clear",
-            "php bin/console cache:clear --no-warmup",
-            "php bin/console cache:warmup"
+            "@auto-scripts"
         ],
         "post-update-cmd": [
-            "php bin/console forkcms:cache:clear",
-            "php bin/console cache:clear --no-warmup",
-            "php bin/console cache:warmup"
+            "@auto-scripts"
         ]
     },
     "autoload": {
