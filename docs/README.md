@@ -83,6 +83,7 @@ Questions? Feel free to discuss on our [Slack channel](https://fork-cms.herokuap
 1. [Implementing Twitter Cards](05.%20module%20guide/26.%20twittercards.md)
 1. [Symfony Form File](05.%20module%20guide/27.%20symfony_form_file.md)
 1. [Symfony Form Image](05.%20module%20guide/28.%20symfony_form_image.md)
+1. [Consent Dialog](05.%20module%20guide/29.%20consent_dialog.md)
 
 ### 6. Contribute
 1. [Introduction](06.%20contribute/01.%20introduction.md)

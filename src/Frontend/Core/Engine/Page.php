@@ -107,12 +107,6 @@ class Page extends KernelLoader
      */
     public function load(): void
     {
-        // @deprecated remove this in Fork 6, the privacy consent dialog should be used
-        if (!$this->getContainer()->get('fork.settings')->get('Core', 'show_consent_dialog', false)) {
-            // set tracking cookie
-            Model::getVisitorId();
-        }
-
         // create header instance
         $this->header = new Header($this->getKernel());
 
@@ -341,7 +335,7 @@ class Page extends KernelLoader
         $consentDialog = $this->get(ConsentDialog::class);
 
         $this->template->assignGlobal('privacyConsentEnabled', $consentDialog->isDialogEnabled());
-        $this->template->assignGlobal('privacyConsentDialogHide', !$consentDialog->shouldDialogBeShown());
+        $this->template->assignGlobal('privacyConsentDialogShow', $consentDialog->shouldDialogBeShown());
         $this->template->assignGlobal('privacyConsentDialogLevels', $consentDialog->getLevels());
     }
 

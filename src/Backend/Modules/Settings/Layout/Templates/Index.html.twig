@@ -364,11 +364,21 @@
               </li>
             </ul>
             <p>{{ 'msg.HelpPrivacyConsents'|trans }}</p>
-            <div class="form-group">
-              <label for="privacyConsentLevels" class="control-label">{{ 'lbl.TechnicalName'|trans|ucfirst }}</label>
-              {% form_field privacy_consent_levels %} {% form_field_error privacy_consent_levels %}
-              <span class="help-block">{{ 'msg.HelpPrivacyConsentLevels'|trans|ucfirst }}</span>
-            </div>
+            <ul class="list-unstyled" style="margin-left: 20px;">
+              {% for level in privacy_consent_levels  %}
+                {% set camelCasedLevel = level|title|replace({'_':''}) %}
+                <li class="checkbox">
+                  <label for="privacyConsentLevels" class="control-label">
+                    {{ attribute(_context, 'chkPrivacyConsentLevel' ~ camelCasedLevel)|raw }}
+                    {{ ('lbl.PrivacyConsentLevelName' ~ camelCasedLevel)|trans }}
+                    <span class="help-block">
+                      {{ ('msg.HelpPrivacyConsentLevel' ~ camelCasedLevel)|trans }}
+                    </span>
+                  </label>
+                  {{ attribute(_context, 'chkPrivacyConsentLevel' ~ camelCasedLevel ~ 'Error')|raw }}
+                </li>
+              {% endfor %}
+            </ul>
           </div>
         </div>
       </div>

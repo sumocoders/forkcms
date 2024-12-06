@@ -27,36 +27,6 @@ class TagManager
         $this->modulesSettings = $modulesSettings;
         $this->dataLayer = $dataLayer;
         $this->consentDialog = $consentDialog;
-
-        $this->addDefaultDataLayerVariables();
-    }
-
-    private function addDefaultDataLayerVariables(): void
-    {
-        $this->dataLayer->set('anonymizeIp', $this->shouldAnonymizeIp());
-
-        // only if the consent dialog is enabled we should extra variables
-        if ($this->modulesSettings->get('Core', 'show_consent_dialog', false)) {
-            foreach ($this->consentDialog->getVisitorChoices() as $level => $choice) {
-                $this->dataLayer->set('privacyConsentLevel' . ucfirst($level) . 'Agreed', $choice);
-            }
-        }
-    }
-
-    private function shouldAnonymizeIp(): bool
-    {
-        // if the consent dialog is disabled we will anonymize by default
-        if (!$this->modulesSettings->get('Core', 'show_consent_dialog', false)) {
-            return true;
-        }
-
-        // the visitor has agreed to be tracked
-        if ($this->consentDialog->hasAgreedTo('statistics')) {
-            return false;
-        }
-
-        // fallback
-        return true;
     }
 
     private function shouldAddCode(): bool
@@ -76,20 +46,59 @@ class TagManager
             return '';
         }
 
-        $codeLines = [
-            '<!-- Google Tag Manager -->',
-            '<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':',
-            'new Date().getTime(),event:\'gtm.js\'});var f=d.getElementsByTagName(s)[0],',
-            'j=d.createElement(s),dl=l!=\'dataLayer\'?\'&l=\'+l:\'\';j.async=true;j.src=',
-            '\'https://www.googletagmanager.com/gtm.js?id=\'+i+dl;f.parentNode.insertBefore(j,f);',
-            '})(window,document,\'script\',\'dataLayer\',\'%1$s\');</script>',
-            '<!-- End Google Tag Manager -->',
-        ];
+        $codeLines = [];
 
-        $code = sprintf(
-            implode("\n", $codeLines) . "\n",
-            $this->modulesSettings->get('Core', 'google_tracking_google_tag_manager_container_id', null)
+        if ($this->modulesSettings->get('Core', 'show_consent_dialog', false)) {
+            // add default consent
+            $codeLines = array_merge(
+                $codeLines,
+                [
+                    '<!-- Set default consent -->',
+                    '<script>',
+                    'window.dataLayer = window.dataLayer || [];',
+                    'function gtag() { dataLayer.push(arguments); }',
+                    '',
+                    'gtag(\'consent\', \'default\', {',
+                ]
+            );
+
+            foreach (ConsentDialog::getConsentLevels() as $level) {
+                $codeLines[] = sprintf(
+                    '  \'%1$s\': \'%2$s\',',
+                    $level,
+                    ($level === ConsentDialog::CONSENT_FUNCTIONALITY_STORAGE) ? 'granted' : 'denied'
+                );
+            }
+
+            $codeLines = array_merge(
+                $codeLines,
+                [
+                    '});',
+                    '</script>',
+                    '<!-- End default consent -->',
+                    '',
+                ]
+            );
+        }
+
+        // add Google Tag Manager
+        $codeLines = array_merge(
+            $codeLines,
+            [
+                '<!-- Google Tag Manager -->',
+                '<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':',
+                'new Date().getTime(),event:\'gtm.js\'});var f=d.getElementsByTagName(s)[0],',
+                'j=d.createElement(s),dl=l!=\'dataLayer\'?\'&l=\'+l:\'\';j.async=true;j.src=',
+                '\'https://www.googletagmanager.com/gtm.js?id=\'+i+dl;f.parentNode.insertBefore(j,f);',
+                sprintf(
+                    '})(window,document,\'script\',\'dataLayer\',\'%1$s\');</script>',
+                    $this->modulesSettings->get('Core', 'google_tracking_google_tag_manager_container_id', null)
+                ),
+                '<!-- End Google Tag Manager -->',
+            ]
         );
+
+        $code = implode("\n", $codeLines) . "\n";
 
         if (!empty($this->dataLayer->all())) {
             $code = $this->dataLayer->generateHeadCode() . "\n" . $code;
@@ -107,7 +116,7 @@ class TagManager
         $codeLines = [
             '<!-- Google Tag Manager (noscript) -->',
             '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=%1$s%2$s" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>',
-            '<!-- End Google Tag Manager (noscript) -->'
+            '<!-- End Google Tag Manager (noscript) -->',
         ];
 
         return sprintf(
