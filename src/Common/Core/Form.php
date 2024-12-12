@@ -331,7 +331,7 @@ class Form extends \SpoonForm
      *
      * @param string $name The name of the element.
      * @param string $value The value inside the element.
-     * @param int $maxLength The maximum length for the value.
+     * @param int|null $maxLength The maximum length for the value.
      * @param string $class Class(es) that will be applied on the element.
      * @param string $classError Class(es) that will be applied on the element when an error occurs.
      * @param bool $HTML Will this element contain HTML?
