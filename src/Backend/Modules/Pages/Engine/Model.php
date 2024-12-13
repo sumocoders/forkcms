@@ -1552,6 +1552,7 @@ class Model
     {
         preg_match('!(http[s]?)://(.*)!i', $redirectUrl, $matches);
         $urlChunks = explode('/', $matches[2]);
+        /** @phpstan-ignore-next-line  */
         if (!empty($urlChunks)) {
             // skip domain name
             $domain = array_shift($urlChunks);

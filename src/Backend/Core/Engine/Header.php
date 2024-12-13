@@ -191,7 +191,7 @@ final class Header extends KernelLoader
 
         $this->jsFiles->add(
             new Asset(
-                $overwritePath ? $file : $this->buildPathForModule($file, $module ?? $this->url->getModule(), 'Js'),
+                $overwritePath ? $file : $this->buildPathForModule($file, $module, 'Js'),
                 $addTimestamp,
                 $priority ?? ($overwritePath ? Priority::standard() : Priority::forModule($module))
             ),

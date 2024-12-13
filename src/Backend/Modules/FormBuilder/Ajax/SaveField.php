@@ -307,7 +307,7 @@ class SaveField extends BackendBaseAJAXAction
         $field = [];
         $field['form_id'] = $formId;
         $field['type'] = $type;
-        $field['settings'] = (!empty($settings) ? serialize($settings) : null);
+        $field['settings'] = serialize($settings);
 
         // existing field
         if ($fieldId !== 0) {

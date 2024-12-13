@@ -32,6 +32,7 @@ doctrine:
             default:
                 connection: default
                 auto_mapping: true
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
                 mappings:
                     common:
                         type: annotation

@@ -42,12 +42,12 @@ set('bin/composer', function () {
 /**
  * URL to download cachetool from if it is not available
  *
- * Fork is currently still on PHP 7.4, so version 7.1.0 of cachetool is required.
+ * Fork is currently still on PHP 8.0, so version 8.6.1 of cachetool is required.
  * Deployer has already moved on to 8+, so we're locking our version of cachetool for now.
  *
  * TODO: either upgrade this URL to the next version or remove it in the future when a new version of Fork is released.
  */
-set('cachetool_url', 'https://github.com/gordalina/cachetool/releases/download/7.1.0/cachetool.phar');
+set('cachetool_url', 'https://github.com/gordalina/cachetool/releases/download/8.6.1/cachetool.phar');
 
 // Define staging
 host('dev03.sumocoders.eu')
@@ -56,9 +56,9 @@ host('dev03.sumocoders.eu')
     ->set('stage', 'staging')
     ->set('deploy_path', '~/apps/{{client}}/{{project}}')
     ->set('branch', 'staging')
-    ->set('bin/php', 'php7.4')
-    ->set('cachetool', '/var/run/php_74_fpm_sites.sock')
-    ->set('document_root', '~/php74/{{client}}/{{project}}')
+    ->set('bin/php', 'php8.0')
+    ->set('cachetool', '/var/run/php_80_fpm_sites.sock')
+    ->set('document_root', '~/php80/{{client}}/{{project}}')
     ->set('keep_releases', 3);
 
 // Define production
@@ -72,7 +72,7 @@ host('dev03.sumocoders.eu')
 //    ->set('deploy_path', '~/wwwroot')
 //    ->set('branch', 'master')
 //    ->set('bin/php', '$phpBinary')
-//    ->set('bin/cachetool', '/data/vhosts/{{user}}/wwwroot/shared/cachetool-7.1.0.phar')
+//    ->set('bin/cachetool', '/data/vhosts/{{user}}/wwwroot/shared/cachetool-8.6.1.phar')
 //    ->set('cachetool', '/data/vhosts/{{user}}/.sock/$sockFile --tmp-dir=/data/vhosts/{{user}}/.temp')
 //    ->set('document_root', '~/wwwroot/www')
 //    ->set('keep_releases', 3);
