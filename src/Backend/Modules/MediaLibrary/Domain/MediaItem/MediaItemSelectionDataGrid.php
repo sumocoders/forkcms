@@ -18,8 +18,8 @@ class MediaItemSelectionDataGrid extends DataGridDatabase
         parent::__construct(
             'SELECT i.url AS directUrl, i.id, i.storageType, i.type, i.url, i.title, i.shardingFolderName,
                 COUNT(gi.mediaItemId) AS num_connected, i.mime, UNIX_TIMESTAMP(i.createdOn) AS createdOn
-             FROM MediaItem AS i
-             LEFT OUTER JOIN MediaGroupMediaItem AS gi ON gi.mediaItemId = i.id
+             FROM media_item AS i
+             LEFT OUTER JOIN media_group_media_item AS gi ON gi.mediaItemId = i.id
              WHERE i.type = ?' . $this->getWhere($folderId) . ' GROUP BY i.id',
             $this->getParameters($type, $folderId)
         );
