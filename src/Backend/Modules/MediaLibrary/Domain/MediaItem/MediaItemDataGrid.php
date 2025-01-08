@@ -18,8 +18,8 @@ class MediaItemDataGrid extends DataGridDatabase
     public function __construct(Type $type, int $folderId = null, string $searchQuery = null)
     {
         parent::__construct(
-            'SELECT i.id, i.storageType, i.type, i.url, i.title, i.shardingFolderName,
-                COUNT(gi.mediaItemId) as num_connected, i.mime, UNIX_TIMESTAMP(i.createdOn) AS createdOn
+            'SELECT i.id, i.storage_type, i.type, i.url, i.title, i.sharding_folder_name,
+                COUNT(gi.mediaItemId) as num_connected, i.mime, UNIX_TIMESTAMP(i.created_on) AS createdOn
              FROM media_item AS i
              LEFT OUTER JOIN media_group_media_item as gi ON gi.mediaItemId = i.id
              WHERE i.type = ?' . $this->getWhere($folderId, $searchQuery) . ' GROUP BY i.id',
