@@ -53,14 +53,14 @@ class MediaItemSelectionDataGrid extends DataGridDatabase
     private function getColumnsThatNeedToBeHidden(Type $type): array
     {
         if ($type->isImage()) {
-            return ['storageType', 'shardingFolderName', 'type', 'mime'];
+            return ['storage_type', 'sharding_folder_name', 'type', 'mime'];
         }
 
         if ($type->isMovie()) {
-            return ['shardingFolderName', 'type', 'mime'];
+            return ['sharding_folder_name', 'type', 'mime'];
         }
 
-        return ['storageType', 'shardingFolderName', 'type', 'mime', 'url'];
+        return ['storage_type', 'sharding_folder_name', 'type', 'mime', 'url'];
     }
 
     public static function getDataGrid(Type $type, int $folderId = null): DataGridDatabase
@@ -115,7 +115,7 @@ class MediaItemSelectionDataGrid extends DataGridDatabase
                     'showImage',
                 ],
                 [
-                    Model::get('media_library.storage.local')->getWebDir() . '/[shardingFolderName]',
+                    Model::get('media_library.storage.local')->getWebDir() . '/[sharding_folder_name]',
                     '[url]',
                     '[url]',
                     null,
