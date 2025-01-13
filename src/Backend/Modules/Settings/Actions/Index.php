@@ -338,7 +338,7 @@ class Index extends BackendBaseActionIndex
             );
 
             if ($level === ConsentDialog::CONSENT_FUNCTIONALITY_STORAGE) {
-               $checkbox->setAttribute('disabled', 'disabled');
+                $checkbox->setAttribute('disabled', 'disabled');
             }
         }
         $this->template->assign('privacy_consent_levels', ConsentDialog::getConsentLevels());

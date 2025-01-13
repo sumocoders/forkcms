@@ -80,7 +80,7 @@ class ConsentDialog
             $defaultValue = $level === self::CONSENT_FUNCTIONALITY_STORAGE;
             if ($this->settings->get('Core', 'privacy_consent_level_' . $level, $defaultValue)) {
                 $levels[] = $level;
-        }
+            }
         }
 
         return $levels;
