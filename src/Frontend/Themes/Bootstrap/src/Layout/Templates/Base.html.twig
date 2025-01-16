@@ -92,6 +92,9 @@
   {% endblock %}
 </head>
 <body class="{{ FRONTEND_LANGUAGE }}" itemscope itemtype="http://schema.org/WebPage">
+{# Site wide HTML just after body tag #}
+{{ siteHTMLStartOfBody|raw }}
+
   <div id="root">
     {% import 'Core/Layout/Templates/Alerts.html.twig' as alerts %}
 
