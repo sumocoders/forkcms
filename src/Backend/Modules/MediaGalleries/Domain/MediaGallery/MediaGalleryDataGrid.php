@@ -17,8 +17,8 @@ class MediaGalleryDataGrid extends DataGridDatabase
     public function __construct()
     {
         parent::__construct(
-            'SELECT i.id, i.title, i.action, UNIX_TIMESTAMP(i.editedOn) AS editedOn
-             FROM MediaGallery AS i'
+            'SELECT i.id, i.title, i.action, UNIX_TIMESTAMP(i.edited_on) AS editedOn
+             FROM media_gallery AS i'
         );
 
         $this->setHeaderLabels(['title' => SpoonFilter::ucfirst(Language::lbl('Title'))]);
