@@ -1,27 +1,37 @@
-const path = require("path");
+const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CopyPlugin = require("copy-webpack-plugin")
+const CopyPlugin = require('copy-webpack-plugin')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const PackageJson = require('./package.json')
 const theme = PackageJson.theme
 
 module.exports = {
   entry: {
+    bundle: [
+      `./src/Frontend/Themes/${theme}/src/Js/Index.js`
+    ],
+    icons: [
+      `./src/Frontend/Themes/${theme}/src/Js/Icons.js`
+    ],
     screen: [
-      `./src/Frontend/Themes/${theme}/src/Js/Index.js`,
       `./src/Frontend/Themes/${theme}/src/Layout/Sass/screen.scss`
+    ],
+    editor_content: [
+      `./src/Frontend/Themes/${theme}/src/Layout/Sass/editor_content.scss`
     ]
   },
   output: {
-    filename: 'bundle.js',
+    chunkFilename: (pathData) => {
+      return pathData.chunk.name === 'bundle' ? 'bundle.js' : '[name].js'
+    },
     path: path.resolve(__dirname, `src/Frontend/Themes/${theme}/Core`),
-    clean: true,
+    clean: true
   },
-  mode: "development",
+  mode: 'development',
   externals: ['jquery'],
   watchOptions: {
     aggregateTimeout: 600,
-    ignored: /node_modules/,
+    ignored: /node_modules/
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -30,16 +40,16 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: "./Layout/Templates/**/*",
-          context: path.resolve(__dirname, "src", "Frontend", "Themes", theme, "src"),
+          from: './Layout/Templates/**/*',
+          context: path.resolve(__dirname, 'src', 'Frontend', 'Themes', theme, 'src')
         },
         {
-          from: "./Layout/Images/**/*",
-          context: path.resolve(__dirname, "src", "Frontend", "Themes", theme, "src"),
+          from: './Layout/Images/**/*',
+          context: path.resolve(__dirname, 'src', 'Frontend', 'Themes', theme, 'src')
         }
-      ],
+      ]
     }),
-    // This setup assumes symfony server is running on https://127.0.0.1:8000. If that is not the case, edit "proxy" below.
+    // This setup assumes symfony server is running on https://127.0.0.1:8000. If that is not the case, edit 'proxy' below.
     new BrowserSyncPlugin({
       host: '127.0.0.1',
       port: 3000,
@@ -72,7 +82,7 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
+              sourceMap: true
             }
           }
         ]
@@ -85,9 +95,9 @@ module.exports = {
         test: /\.(woff(2)?|ttf|svg|eot)$/,
         type: 'asset/resource',
         generator: {
-          filename: './Layout/Fonts/[name][ext]',
-        },
-      },
+          filename: './Layout/Fonts/[name][ext]'
+        }
+      }
     ]
   }
 }
