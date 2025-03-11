@@ -36,7 +36,7 @@ class MediaItemSelectionDataGrid extends DataGridDatabase
     {
         if ($type->isMovie()) {
             return [
-                'storageType' => SpoonFilter::ucfirst(Language::lbl('MediaStorageType')),
+                'storage_type' => SpoonFilter::ucfirst(Language::lbl('MediaStorageType')),
                 'url' => SpoonFilter::ucfirst(Language::lbl('MediaMovieId')),
                 'title' => SpoonFilter::ucfirst(Language::lbl('MediaMovieTitle')),
                 'directUrl' => '',
