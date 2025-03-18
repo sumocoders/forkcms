@@ -6,6 +6,8 @@ use Common\Doctrine\Entity\Meta as MetaEntity;
 use Common\Uri as CommonUri;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Language\Language as BackendLanguage;
+use ForkCMS\Utility\Thumbnails;
+use SpoonFormCheckbox;
 
 /**
  * This class represents a META-object
@@ -255,6 +257,11 @@ class Meta
         return (bool) $this->data['data']['canonical_url_overwrite'];
     }
 
+    public function getOgImage(): ?string
+    {
+        return $this->data['og_image'] ?? null;
+    }
+
     /**
      * If the fields are disabled we don't have any values in the post.
      * When an error occurs in the other fields of the form the meta-fields would be cleared
@@ -367,6 +374,12 @@ class Meta
             $this->form->addTextarea('meta_custom', $this->data['custom'] ?? null);
         }
 
+        // Og:image
+        $this->form->addImage('og_image');
+        if ($this->data['og_image'] ?? null) {
+            $this->form->addCheckbox('og_image_delete');
+        }
+
         $this->form->addHidden('meta_id', $this->id);
         $this->form->addHidden('base_field_name', $this->baseFieldName);
         $this->form->addHidden('custom', $this->custom);
@@ -419,6 +432,8 @@ class Meta
     public function save(bool $update = false): int
     {
         $this->validate();
+
+        $this->data['og_image'] = $this->handleOgImage();
 
         //serialize data for save
         if (!empty($this->data['data'])) {
@@ -563,5 +578,38 @@ class Meta
         $this->validate();
 
         return MetaEntity::fromBackendMeta($this);
+    }
+
+    private function handleOgImage(): ?string
+    {
+        $imagePath = FRONTEND_FILES_PATH . '/Pages/images';
+        /** @var Thumbnails $thumbnails */
+        $thumbnails = BackendModel::getContainer()->get(Thumbnails::class);
+
+        if ($this->form->existsField('og_image_delete')) {
+            /** @var SpoonFormCheckbox $deleteField */
+            $deleteField = $this->form->getField('og_image_delete');
+            if ($deleteField->isChecked()) {
+                $thumbnails->delete($imagePath, $this->data['og_image']);
+                $this->data['og_image'] = null;
+            }
+        }
+
+        /** @var FormImage $imageField */
+        $imageField = $this->form->getField('og_image');
+        if (!$imageField->isFilled()) {
+            return $this->data['og_image'] ?? null;
+        }
+
+        $thumbnails->delete($imagePath, $this->data['og_image']);
+
+        $extension = $imageField->getExtension();
+        $filename = $this->data['title'] . '_og_image_' . time() . '.' . $extension;
+
+        $imageFullPath = $imagePath . '/source/' . $filename;
+        $imageField->moveFile($imageFullPath);
+        $thumbnails->generate($imagePath, $imageFullPath);
+
+        return $filename;
     }
 }

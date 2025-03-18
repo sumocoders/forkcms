@@ -13537,6 +13537,16 @@
         <translation language="nl"><![CDATA[inhoud bewerekn]]></translation>
         <translation language="en"><![CDATA[edit content]]></translation>
       </item>
+      <item type="label" name="OgImage">
+        <translation language="nl"><![CDATA[Og:image]]></translation>
+        <translation language="fr"><![CDATA[Og:image]]></translation>
+        <translation language="en"><![CDATA[Og:image]]></translation>
+      </item>
+      <item type="message" name="HelpOgImage">
+        <translation language="nl"><![CDATA[Voeg een afbeelding toe dom als og:image-tag te gebruiken.]]></translation>
+        <translation language="fr"><![CDATA[Ajoutez une image à utiliser pour la balise og:image.]]></translation>
+        <translation language="en"><![CDATA[Add an image to use for the og:image tag.]]></translation>
+      </item>
     </Core>
   </Backend>
 </locale>

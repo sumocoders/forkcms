@@ -232,13 +232,60 @@ class SeoFormNode extends Node
             ->write('echo \'</div>\';')
             ->write('echo \'</div>\';')
             ->write('echo \'</div>\';')
+            ->write('echo \'</div>\';');
+
+        // Og:image
+        $compiler
+            ->write('echo \'<div class="row">\';')
+            ->write('echo \'<div class="col-md-12">\';')
+            ->write('echo \'<div class="panel panel-default">\';')
+            ->write('echo \'<div class="panel-heading">\';')
+            ->write('echo "<h2 class=\"panel-title\">' . $this->lbl('OgImage') . '</h2>";')
+            ->write('echo \'</div>\';')
+            ->write('echo \'<div class="panel-body">\';');
+
+        $compiler
+            ->write('if (' . $this->hasVariable('og_image') . ') {')
+            ->write('echo \'<img class="img-responsive img-thumbnail" src="/src/Frontend/Files/Pages/images/source/\';')
+            ->write($this->getVariable('og_image'))
+            ->write('echo \'">\';')
+            ->write('}');
+
+        $compiler
+            ->write('if (' . $this->hasField('og_image_delete') . ') {')
+            ->write('echo \'<div class="form-group">\';')
+            ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
+            ->write('echo \'<li class="checkbox">\';')
+            ->write('echo "<p><label for=\"ogImageDelete\">";')
+            ->write($this->getField('og_image_delete'))
+            ->write('echo "' . $this->lbl('Delete') . '</label></p>";')
+            ->write('echo \'</li>\';')
+            ->write('echo \'</ul>\';')
+            ->write('echo \'</div>\';')
+            ->write('}');
+
+        $compiler
+            ->write('echo \'<div class="form-group last">\';')
+            ->write('echo "<label for=\"ogImage\">' . $this->lbl('OgImage') . '</label>";')
+            ->write($this->getError('og_image'))
+            ->write($this->getField('og_image'))
+            ->write('echo "<p class=\"help-block\">' . $this->msg('HelpOgImage') . '</p>";')
+            ->write('echo \'</div>\';');
+
+        $compiler
+            ->write('echo \'</div>\';')
+            ->write('echo \'</div>\';')
+            ->write('echo \'</div>\';')
+            ->write('echo \'</div>\';');
+        // End og:image
+
+        $compiler
             ->write($this->getField('meta_id'))
             ->write($this->getField('base_field_name'))
             ->write($this->getField('custom'))
             ->write($this->getField('class_name'))
             ->write($this->getField('method_name'))
-            ->write($this->getField('parameters'))
-            ->write('echo \'</div>\';');
+            ->write($this->getField('parameters'));
     }
 
     private function lbl(string $label): string
