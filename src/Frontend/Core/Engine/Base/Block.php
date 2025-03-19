@@ -547,6 +547,9 @@ class Block extends KernelLoader
                 true
             );
         }
+        if ($meta->getOgImage()) {
+            $this->header->addOpenGraphImage(FRONTEND_FILES_URL . '/Pages/images/source/' . $meta->getOgImage(), true);
+        }
     }
 
     /**
