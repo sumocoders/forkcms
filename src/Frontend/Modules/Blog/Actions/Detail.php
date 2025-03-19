@@ -142,10 +142,10 @@ class Detail extends FrontendBaseBlock
         // add specified image
         if (isset($this->blogPost['image']) && $this->blogPost['image'] !== '') {
             $this->header->addOpenGraphImage(
-                FRONTEND_FILES_URL . '/Blog/images/source/' . $this->blogPost['image']
+                FRONTEND_FILES_URL . '/Blog/images/source/' . $this->blogPost['image'],
+                true
             );
         }
-        $this->header->extractOpenGraphImages($this->blogPost['text']);
 
         // Open Graph-data: add additional OpenGraph data
         $this->header->addOpenGraphData('title', $this->blogPost['title'], true);

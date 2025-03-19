@@ -644,6 +644,7 @@ class Edit extends BackendBaseActionEdit
 
         // parse some variables
         $this->template->assign('item', $this->record);
+        $this->template->assign('og_image', $this->meta->getOgImage());
         $this->template->assign('isGod', $this->isGod);
         $this->template->assign('templates', $this->templates);
         $this->template->assign('positions', $this->positions);

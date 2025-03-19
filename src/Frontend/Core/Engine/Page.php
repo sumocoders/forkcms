@@ -447,6 +447,11 @@ class Page extends KernelLoader
             $this->record['meta_title_overwrite']
         );
 
+        $themePath = '/src/Frontend/Themes/' . $this->get('fork.settings')->get('Core', 'theme', 'Fork');
+        $this->header->addOpenGraphImage($themePath . '/image.src.png');
+        $this->header->addMetaData(['name' => 'twitter:image', 'content' => $themePath . '/image.src.png']);
+
+
         // set meta-data
         $this->header->addMetaDescription(
             $this->record['meta_description'],
