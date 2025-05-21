@@ -12,7 +12,8 @@
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
         {% for language in languages %}
           {% if not language.current %}
-            <li><a class="dropdown-item{% if language.current %} active{% endif %}" href="{{ language.url }}">{{ language.label|upper }}</a></li>
+            {% set url = language.alternate ?? language.url %}
+            <li><a class="dropdown-item{% if language.current %} active{% endif %}" href="{{ url }}">{{ language.label|upper }}</a></li>
           {% endif %}
         {% endfor %}
       </ul>
