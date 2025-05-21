@@ -5,13 +5,16 @@ namespace Frontend\Core\Engine\Base;
 use Common\Core\Header\Priority;
 use Common\Doctrine\Entity\Meta;
 use Common\Exception\RedirectException;
+use Doctrine\Persistence\ObjectRepository;
 use ForkCMS\App\KernelLoader;
 use Frontend\Core\Engine\Breadcrumb;
 use Frontend\Core\Engine\Exception;
 use Frontend\Core\Engine\Model;
+use Frontend\Core\Engine\Navigation;
 use Frontend\Core\Engine\Url;
 use Frontend\Core\Header\Header;
 use Frontend\Core\Engine\TwigTemplate;
+use Frontend\Core\Language\Language;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -547,6 +550,51 @@ class Block extends KernelLoader
                 true
             );
         }
+    }
+
+    protected function setHrefLang(Meta $meta, ObjectRepository $repository): void
+    {
+        $overrideAlternativeLinks = [];
+        foreach (Language::getActiveLanguages() as $activeLanguage) {
+            $detailUrl = Navigation::getUrlForBlock($this->getModule(), $this->getAction(), $activeLanguage);
+            if ($activeLanguage === FRONTEND_LANGUAGE) {
+                $detailUrl .= '/' . $meta->getUrl();
+
+                $overrideAlternativeLinks[$activeLanguage] = $detailUrl;
+
+                continue;
+            }
+
+            $otherLanguageId = $meta->getData()['hreflang_' . $activeLanguage] ?? null;
+            if (empty($otherLanguageId)) {
+                continue;
+            }
+
+            $otherLanguageEntity = $repository->find($otherLanguageId);
+            if ($otherLanguageEntity::class !== $repository->getClassName()) {
+                continue;
+            }
+            $detailUrl .= '/' . $otherLanguageEntity->getMeta()->getUrl();
+
+            $overrideAlternativeLinks[$activeLanguage] = $detailUrl;
+        }
+
+        foreach ($overrideAlternativeLinks as $language => $url) {
+            if ($url === null) {
+                continue;
+            }
+
+            $this->header->addLink(
+                [
+                    'rel' => 'alternate',
+                    'hreflang' => $language,
+                    'href' => SITE_URL . $url,
+                ],
+                true
+            );
+        }
+
+        $this->template->assignGlobal('overrideAlternativeLinks', $overrideAlternativeLinks);
     }
 
     /**
