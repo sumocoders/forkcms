@@ -2,10 +2,12 @@
 
 namespace Backend\Form\Type;
 
+use Backend\Core\Language\Language;
 use Common\Doctrine\Entity\Meta;
 use Common\Doctrine\Repository\MetaRepository;
 use Common\Doctrine\ValueObject\SEOFollow;
 use Common\Doctrine\ValueObject\SEOIndex;
+use Common\Form\CollectionType;
 use SpoonFilter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -100,6 +102,22 @@ class MetaType extends AbstractType
                 new CallbackTransformer($this->getMetaTransformFunction(), $this->getMetaReverseTransformFunction())
             )
             ->addEventListener(FormEvents::SUBMIT, $this->getSubmitEventFunction($options['base_field_name']));
+
+        if ($options['hreflang_repository_class'] && $options['hreflang_repository_method']) {
+            $builder->add(
+                'hreflang',
+                CollectionType::class,
+                [
+                    'label' => 'lbl.Languages',
+                    'required' => false,
+                    'entry_type' => HreflangType::class,
+                    'entry_options' => [
+                        'repository_class' => $options['hreflang_repository_class'],
+                        'repository_method' => $options['hreflang_repository_method'],
+                    ],
+                ]
+            );
+        }
 
         if ($options['custom_meta_tags']) {
             $builder->add(
@@ -227,13 +245,35 @@ class MetaType extends AbstractType
     {
         return function ($meta) {
             if (!$meta instanceof Meta) {
+                $hreflang = [];
+                foreach (Language::getActiveLanguages() as $activeLanguage) {
+                    if ($activeLanguage !== Language::getWorkingLanguage()) {
+                        $hreflang[$activeLanguage] = [
+                            'language' => $activeLanguage,
+                            'entity' => null,
+                        ];
+                    }
+                }
+
                 return [
                     'SEOIndex' => SEOIndex::none(),
                     'SEOFollow' => SEOFollow::none(),
+                    'hreflang' => $hreflang,
                 ];
             }
 
             $this->meta[$meta->getId()] = $meta;
+            $data = $meta->getData();
+
+            $hreflang = [];
+            foreach (Language::getActiveLanguages() as $activeLanguage) {
+                if ($activeLanguage !== Language::getWorkingLanguage()) {
+                    $hreflang[$activeLanguage] = [
+                        'language' => $activeLanguage,
+                        'entity' => $data['hreflang_' . $activeLanguage] ?? null,
+                    ];
+                }
+            }
 
             return [
                 'id' => $meta->getId(),
@@ -250,6 +290,7 @@ class MetaType extends AbstractType
                 'canonicalUrlOverwrite' => $meta->isCanonicalUrlOverwrite(),
                 'SEOIndex' => $meta->getSEOIndex() ?? SEOIndex::none(),
                 'SEOFollow' => $meta->getSEOFollow() ?? SEOFollow::none(),
+                'hreflang' => $hreflang,
             ];
         };
     }
@@ -258,6 +299,15 @@ class MetaType extends AbstractType
     {
         return function ($metaData) {
             $metaId = $metaData['id'] === null ? null : (int) $metaData['id'];
+
+            $data = [];
+            if (!empty($metaData['hreflang'])) {
+                foreach ($metaData['hreflang'] as $hreflang) {
+                    if ($hreflang['entity'] !== null) {
+                        $data['hreflang_' . $hreflang['language']] = $hreflang['entity'];
+                    }
+                }
+            }
 
             if ($metaId === null || !$this->meta[$metaId] instanceof Meta) {
                 return new Meta(
@@ -274,7 +324,7 @@ class MetaType extends AbstractType
                     $metaData['custom'] ?? null,
                     SEOFollow::fromString((string) $metaData['SEOFollow']),
                     SEOIndex::fromString((string) $metaData['SEOIndex']),
-                    [],
+                    $data,
                     $metaId
                 );
             }
@@ -292,7 +342,8 @@ class MetaType extends AbstractType
                 $metaData['canonicalUrlOverwrite'],
                 array_key_exists('custom', $metaData) ? $metaData['custom'] : null,
                 SEOFollow::fromString((string) $metaData['SEOFollow']),
-                SEOIndex::fromString((string) $metaData['SEOIndex'])
+                SEOIndex::fromString((string) $metaData['SEOIndex']),
+                $data
             );
 
             return $this->meta[$metaId];
@@ -318,6 +369,8 @@ class MetaType extends AbstractType
                 'custom_meta_tags' => false,
                 'generated_url_selector' => '#generatedUrl',
                 'generate_url_callback_parameters' => [],
+                'hreflang_repository_class' => null,
+                'hreflang_repository_method' => null,
             ]
         );
     }
