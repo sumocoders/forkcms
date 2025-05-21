@@ -409,35 +409,13 @@ class Page extends KernelLoader
 
     private function addAlternateLinkForLanguage(string $language): void
     {
-        if ($language === LANGUAGE) {
+        $url = $this->generateAlternativeLinkForLanguage($language);
+
+        if ($url === null) {
             return;
         }
 
-        // Get page data
-        $pageInfo = Model::getPage($this->pageId);
-
-        // Check if hreflang is set for language
-        if (isset($pageInfo['data']['hreflang_' . $language])) {
-            $url = Navigation::getUrl($pageInfo['data']['hreflang_' . $language], $language);
-        } else {
-            $url = Navigation::getUrl($this->pageId, $language);
-        }
-
-        // remove last /
-        $url = rtrim($url, '/\\');
-
-        // Ignore 404 links
-        if ($this->pageId !== Response::HTTP_NOT_FOUND
-            && $url === Navigation::getUrl(Response::HTTP_NOT_FOUND, $language)) {
-            return;
-        }
-
-        // Convert relative to absolute url
-        if (strpos($url, '/') === 0) {
-            $url = SITE_URL . $url;
-        }
-
-        $this->header->addLink(['rel' => 'alternate', 'hreflang' => $language, 'href' => $url]);
+        $this->header->addLink(['rel' => 'alternate', 'hreflang' => $language, 'href' => SITE_URL . $url]);
     }
 
     private function assignPageMeta(): void
