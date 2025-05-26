@@ -54,5 +54,8 @@ class ActionEdit extends Action
         if ($this->form) {
             $this->form->parse($this->template);
         }
+        if ($this->meta instanceof Meta) {
+            $this->template->assign('hreflangFields', $this->meta->getHreflangFields());
+        }
     }
 }
