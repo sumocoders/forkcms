@@ -597,6 +597,51 @@ class Block extends KernelLoader
         $this->template->assignGlobal('overrideAlternativeLinks', $overrideAlternativeLinks);
     }
 
+    protected function setHrefLangLegacy(Meta $meta, string $class, string $method): void
+    {
+        $overrideAlternativeLinks = [];
+        foreach (Language::getActiveLanguages() as $activeLanguage) {
+            $detailUrl = Navigation::getUrlForBlock($this->getModule(), $this->getAction(), $activeLanguage);
+            if ($activeLanguage === FRONTEND_LANGUAGE) {
+                $detailUrl .= '/' . $meta->getUrl();
+
+                $overrideAlternativeLinks[$activeLanguage] = $detailUrl;
+
+                continue;
+            }
+
+            $otherLanguageId = $meta->getData()['hreflang_' . $activeLanguage] ?? null;
+            if (empty($otherLanguageId)) {
+                continue;
+            }
+
+            $otherLanguageMeta = call_user_func([$class, $method], $otherLanguageId, $activeLanguage);
+            if (!$otherLanguageMeta instanceof Meta) {
+                continue;
+            }
+            $detailUrl .= '/' . $otherLanguageMeta->getUrl();
+
+            $overrideAlternativeLinks[$activeLanguage] = $detailUrl;
+        }
+
+        foreach ($overrideAlternativeLinks as $language => $url) {
+            if ($url === null) {
+                continue;
+            }
+
+            $this->header->addLink(
+                [
+                    'rel' => 'alternate',
+                    'hreflang' => $language,
+                    'href' => SITE_URL . $url,
+                ],
+                true
+            );
+        }
+
+        $this->template->assignGlobal('overrideAlternativeLinks', $overrideAlternativeLinks);
+    }
+
     /**
      * Creates and returns a Form instance from the type of the form.
      *
