@@ -216,7 +216,8 @@ class Edit extends BackendBaseActionEdit
         $this->meta = new BackendMeta($this->form, $this->record['meta_id'], 'title', true);
 
         // set callback for generating a unique URL
-        $this->meta->setUrlCallback('Backend\Modules\Blog\Engine\Model', 'getUrl', [$this->record['id']]);
+        $this->meta->setUrlCallback(BackendBlogModel::class, 'getUrl', [$this->record['id']]);
+        $this->meta->setHreflangCallback(BackendBlogModel::class, 'getHrefLangValues');
     }
 
     private function loadRevisionDataGrid(): void

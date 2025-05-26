@@ -114,5 +114,6 @@ class Category extends FrontendBaseBlock
         $this->template->assign('category', $this->category);
         $this->template->assign('items', $this->articles);
         $this->setMeta($this->category['meta']);
+        $this->setHrefLangLegacy($this->category['meta'], FrontendBlogModel::class, 'getMetaByCategoryId');
     }
 }

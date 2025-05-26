@@ -1173,4 +1173,33 @@ class Model
             [$revision_id]
         );
     }
+
+    /**
+     * @return array<string, string>
+     */
+    public static function getHreflangValues(string $language): array
+    {
+        return (array) BackendModel::getContainer()->get('database')->getPairs(
+            'SELECT id, title
+                 FROM blog_posts
+                 WHERE language = ?
+                 AND status = ?
+                 ORDER BY title ASC',
+            [$language, 'active']
+        );
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public static function getHreflangValuesCategories(string $language): array
+    {
+        return (array) BackendModel::getContainer()->get('database')->getPairs(
+            'SELECT id, title
+                 FROM blog_categories
+                 WHERE language = ?
+                 ORDER BY title ASC',
+            [$language]
+        );
+    }
 }
