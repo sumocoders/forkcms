@@ -33,7 +33,7 @@ class ActionAdd extends Action
             $this->form->parse($this->template);
         }
         if ($this->meta instanceof Meta) {
-            $this->template->assign('hreflangFields', $this->meta->getHreflangFields());
+            $this->template->assign('spoonHreflangFields', $this->meta->getHreflangFields());
         }
     }
 }

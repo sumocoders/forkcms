@@ -237,7 +237,7 @@ class SeoFormNode extends Node
             ->write('echo "<h2 class=\"panel-title\">' . $this->lbl('Languages') . '</h2>";')
             ->write('echo \'</div>\';')
             ->write('echo \'<div class="panel-body">\';')
-            ->write($this->loopTroughField('hreflangFields', '$hreflangField'))
+            ->write($this->loopTroughField('spoonHreflangFields', '$hreflangField'))
             ->write('echo \'<div class="form-group">\';')
             ->write('echo "<label for=\"hreflang" . $hreflangField["language"] . "\">" . $hreflangField["label"] . "</label>";')
             ->write('echo $hreflangField["field"];')

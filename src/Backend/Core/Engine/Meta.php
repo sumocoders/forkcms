@@ -73,7 +73,7 @@ class Meta
     /**
      * @var array<string, array<string, string>>
      */
-    private $hreflangFields;
+    private $hreflangFields = [];
 
     /**
      * @param Form $form An instance of Form, the elements will be parsed in here.
