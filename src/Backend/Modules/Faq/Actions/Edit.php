@@ -73,6 +73,7 @@ class Edit extends BackendBaseActionEdit
         );
 
         $this->meta = new BackendMeta($this->form, $this->record['meta_id'], 'title', true);
+        $this->meta->setHreflangCallback('Backend\Modules\Faq\Engine\Model', 'getHrefLangValues');
     }
 
     protected function parse(): void

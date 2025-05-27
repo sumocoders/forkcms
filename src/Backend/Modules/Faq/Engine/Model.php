@@ -443,4 +443,32 @@ class Model
             ]
         );
     }
+
+    /**
+     * @return array<string, string>
+     */
+    public static function getHreflangValues(string $language): array
+    {
+        return (array) BackendModel::getContainer()->get('database')->getPairs(
+            'SELECT id, question
+                 FROM faq_questions
+                 WHERE language = ?
+                 ORDER BY question ASC',
+            [$language]
+        );
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public static function getHreflangValuesCategories(string $language): array
+    {
+        return (array) BackendModel::getContainer()->get('database')->getPairs(
+            'SELECT id, title
+                 FROM faq_categories
+                 WHERE language = ?
+                 ORDER BY title ASC',
+            [$language]
+        );
+    }
 }

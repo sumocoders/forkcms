@@ -73,6 +73,7 @@ class Detail extends FrontendBaseBlock
         $question['full_url'] = $baseQuestionUrl . '/' . $question['url'];
         $question['tags'] = FrontendTagsModel::getForItem($this->getModule(), $question['id']);
         $question['allow_feedback'] = $this->isFeedbackAllowed();
+        $question['meta'] = FrontendModel::get('fork.repository.meta')->find($question['meta_id']);
 
         return $question;
     }
@@ -158,6 +159,8 @@ class Detail extends FrontendBaseBlock
     {
         $this->addBreadcrumbs();
         $this->setPageTitle();
+        $this->setMeta($this->question['meta']);
+        $this->setHrefLangLegacy($this->question['meta'], FrontendFaqModel::class, 'getMetaById');
 
         $this->template->assign('item', $this->question);
         $this->template->assign('inSameCategory', $this->getRelatedQuestionsFromTheSameCategory());
