@@ -77,7 +77,7 @@ final class MetaData
      */
     public function shouldMergeOnDuplicateKey(): bool
     {
-        return in_array($this->uniqueKey, ['description', 'keywords', 'robots'], true);
+        return in_array($this->uniqueKey, ['description', 'keywords', 'robots', 'og:image', 'twitter:image'], true);
     }
 
     public function merge(self $metaData): void

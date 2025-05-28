@@ -287,24 +287,24 @@ class Header extends KernelLoader
             $image = SITE_URL . $image;
         }
 
-        $this->meta->addMetaData(MetaData::forProperty('og:image', $image, ['property', 'content']), $overwrite);
+        $this->meta->addMetaData(MetaData::forProperty('og:image', $image), $overwrite);
         if (SITE_PROTOCOL === 'https') {
             $this->meta->addMetaData(
-                MetaData::forProperty('og:image:secure_url', $image, ['property', 'content']),
+                MetaData::forProperty('og:image:secure_url', $image),
                 $overwrite
             );
         }
 
         if ($width !== 0) {
             $this->meta->addMetaData(
-                MetaData::forProperty('og:image:width', $width, ['property', 'content']),
+                MetaData::forProperty('og:image:width', $width),
                 $overwrite
             );
         }
 
         if ($height !== 0) {
             $this->meta->addMetaData(
-                MetaData::forProperty('og:image:height', $height, ['property', 'content']),
+                MetaData::forProperty('og:image:height', $height),
                 $overwrite
             );
         }

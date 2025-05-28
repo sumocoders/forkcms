@@ -9,11 +9,13 @@ use Common\Doctrine\ValueObject\SEOIndex;
 use SpoonFilter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Exception\InvalidArgumentException;
 use Symfony\Component\Form\Exception\LogicException;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,6 +26,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Validator\Constraints\File;
 
 class MetaType extends AbstractType
 {
@@ -96,6 +99,32 @@ class MetaType extends AbstractType
             )
             ->add('SEOIndex', ChoiceType::class, $this->getSEOIndexChoiceTypeOptions())
             ->add('SEOFollow', ChoiceType::class, $this->getSEOFollowChoiceTypeOptions())
+            ->add(
+                'ogImage',
+                FileType::class,
+                [
+                    'label' => 'lbl.OgImage',
+                    'required' => false,
+                    'attr' => ['accept' => 'image/jpeg, image/gif, image/png'],
+                    'constraints' => [
+                        new File(
+                            [
+                                'maxSize' => '5M',
+                                'mimeTypes' => ['image/jpeg', 'image/gif', 'image/png'],
+                                'mimeTypesMessage' => 'err.JPGGIFAndPNGOnly',
+                            ]
+                        ),
+                    ],
+                ]
+            )
+            ->add(
+                'deleteOgImage',
+                CheckboxType::class,
+                [
+                    'label' => 'lbl.Delete',
+                    'required' => false,
+                ]
+            )
             ->addModelTransformer(
                 new CallbackTransformer($this->getMetaTransformFunction(), $this->getMetaReverseTransformFunction())
             )
@@ -275,6 +304,8 @@ class MetaType extends AbstractType
                     SEOFollow::fromString((string) $metaData['SEOFollow']),
                     SEOIndex::fromString((string) $metaData['SEOIndex']),
                     [],
+                    $metaData['ogImage'],
+                    $metaData['deleteOgImage'],
                     $metaId
                 );
             }
@@ -292,7 +323,10 @@ class MetaType extends AbstractType
                 $metaData['canonicalUrlOverwrite'],
                 array_key_exists('custom', $metaData) ? $metaData['custom'] : null,
                 SEOFollow::fromString((string) $metaData['SEOFollow']),
-                SEOIndex::fromString((string) $metaData['SEOIndex'])
+                SEOIndex::fromString((string) $metaData['SEOIndex']),
+                [],
+                $metaData['ogImage'],
+                $metaData['deleteOgImage']
             );
 
             return $this->meta[$metaId];
