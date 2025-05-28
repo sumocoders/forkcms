@@ -3,9 +3,12 @@
 namespace Common\Doctrine\Entity;
 
 use Backend\Core\Engine\Meta as BackendMeta;
+use Backend\Core\Engine\Model as BackendModel;
 use Common\Doctrine\ValueObject\SEOFollow;
 use Common\Doctrine\ValueObject\SEOIndex;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Utility\Thumbnails;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Table(name="meta", indexes={@ORM\Index(name="idx_url", columns={"url"})})
@@ -114,6 +117,27 @@ class Meta
      */
     private $seoIndex;
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", length=255, name="og_image", nullable=true)
+     */
+    private $ogImage;
+
+    /**
+     * @var string|null
+     */
+    private $oldOgImage;
+
+    /**
+     * @var UploadedFile|null
+     */
+    private $uploadedOgImage;
+    /**
+     * @var bool
+     */
+    private $deleteOgImage = false;
+
     public function __construct(
         string $keywords,
         bool $keywordsOverwrite,
@@ -129,6 +153,8 @@ class Meta
         SEOFollow $seoFollow = null,
         SEOIndex $seoIndex = null,
         array $unserialisedData = [],
+        ?UploadedFile $uploadedOgImage = null,
+        bool $deleteOgImage = false,
         int $id = null
     ) {
         $this->keywords = $keywords;
@@ -143,6 +169,8 @@ class Meta
         $this->unserialisedData = $unserialisedData;
         $this->seoFollow = $seoFollow;
         $this->seoIndex = $seoIndex;
+        $this->uploadedOgImage = $uploadedOgImage;
+        $this->deleteOgImage = $deleteOgImage;
         $this->id = $id;
 
         if ($canonicalUrlOverwrite) {
@@ -168,7 +196,9 @@ class Meta
         string $custom = null,
         SEOFollow $seoFollow = null,
         SEOIndex $seoIndex = null,
-        array $unserialisedData = []
+        array $unserialisedData = [],
+        ?UploadedFile $uploadedOgImage = null,
+        bool $deleteOgImage = false,
     ) {
         $this->keywords = $keywords;
         $this->keywordsOverwrite = $keywordsOverwrite;
@@ -182,6 +212,12 @@ class Meta
         $this->unserialisedData = $unserialisedData;
         $this->seoFollow = $seoFollow;
         $this->seoIndex = $seoIndex;
+        $this->uploadedOgImage = $uploadedOgImage;
+        $this->deleteOgImage = $deleteOgImage;
+        if ($deleteOgImage) {
+            $this->oldOgImage = $this->ogImage;
+            $this->ogImage = null;
+        }
 
         if ($canonicalUrlOverwrite) {
             $this->unserialisedData['canonical_url'] = $canonicalUrl;
@@ -242,7 +278,7 @@ class Meta
             array_key_exists('SEOFollow', $metaData) ? SEOFollow::fromString((string) $metaData['SEOFollow']) : null,
             array_key_exists('SEOIndex', $metaData) ? SEOIndex::fromString((string) $metaData['SEOIndex']) : null,
             $metaData['data'] ?? [],
-            $meta->getId()
+            id: $meta->getId()
         );
     }
 
@@ -269,8 +305,7 @@ class Meta
             $metaData['custom'] ?? null,
             SEOFollow::fromString((string) $metaData['SEOFollow']),
             SEOIndex::fromString((string) $metaData['SEOIndex']),
-            [],
-            (int) $metaData['id']
+            id: (int) $metaData['id']
         );
     }
 
@@ -373,5 +408,76 @@ class Meta
         }
 
         return $this->seoFollow;
+    }
+
+    public function getOgImage(): ?string
+    {
+        return $this->ogImage;
+    }
+
+    public function getUploadedOgImage(): ?UploadedFile
+    {
+        return $this->uploadedOgImage;
+    }
+
+    public function isDeleteOgImage(): bool
+    {
+        return $this->deleteOgImage;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function prepareOgImage(): void
+    {
+        $this->oldOgImage = $this->ogImage;
+
+        if ($this->uploadedOgImage instanceof UploadedFile) {
+            $extension = $this->uploadedOgImage->getClientOriginalExtension();
+            $filename = $this->getTitle() . '_og_image_' . time() . '.' . $extension;
+
+            $this->ogImage = $filename;
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function uploadOgImage(): void
+    {
+        $imagePath = FRONTEND_FILES_PATH . '/Pages/images';
+        /** @var Thumbnails $thumbnails */
+        $thumbnails = BackendModel::getContainer()->get(Thumbnails::class);
+
+        if ($this->deleteOgImage) {
+            $thumbnails->delete($imagePath, $this->oldOgImage);
+        }
+
+        if (!$this->uploadedOgImage instanceof UploadedFile) {
+            return;
+        }
+
+        $thumbnails->delete($imagePath, $this->oldOgImage);
+
+        $filename = $this->ogImage;
+
+        $imageFullPath = $imagePath . '/source/' . $filename;
+
+        $this->uploadedOgImage->move($imagePath . '/source', $filename);
+        $thumbnails->generate($imagePath, $imageFullPath);
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeOgImage(): void
+    {
+        $imagePath = FRONTEND_FILES_PATH . '/Pages/images';
+        /** @var Thumbnails $thumbnails */
+        $thumbnails = BackendModel::getContainer()->get(Thumbnails::class);
+
+        $thumbnails->delete($imagePath, $this->oldOgImage);
     }
 }

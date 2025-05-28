@@ -233,6 +233,20 @@
       </div>
     </div>
   </div>
+  {# og:image #}
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading"><p class="tab-pane-title">{{ 'lbl.OgImage'|trans|ucfirst }}</p></div>
+      <div class="panel-body">
+        {% if form.parent.vars.data.meta.ogImage %}
+          <img class="img-responsive img-thumbnail" src="/src/Frontend/Files/Pages/images/source/{{ form.parent.vars.data.meta.ogImage }}">
+        {% endif %}
+        {{ form_row(form.deleteOgImage, {'row_attr': {class: form.parent.vars.data.meta.ogImage ? '' : 'hidden'}}) }}
+        {{ form_row(form.ogImage) }}
+      </div>
+    </div>
+  </div>
+  {# og:image end #}
   {% if form.hreflang is defined %}
     <div class="col-md-12">
       {{ form_row(form.hreflang) }}
