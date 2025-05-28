@@ -48,6 +48,7 @@ class EditCategory extends BackendBaseActionEdit
         $this->form->addText('title', $this->record['title'])->makeRequired();
 
         $this->meta = new BackendMeta($this->form, $this->record['meta_id'], 'title', true);
+        $this->meta->setHreflangCallback(BackendFaqModel::class, 'getHrefLangValuesCategories');
     }
 
     protected function parse(): void

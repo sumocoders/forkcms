@@ -31,6 +31,13 @@ class Meta
     protected $callback = [];
 
     /**
+     * The hreflang callback method
+     *
+     * @var array
+     */
+    protected $hreflangCallback = [];
+
+    /**
      * Do we need meta custom
      *
      * @var bool
@@ -64,6 +71,11 @@ class Meta
      * @var Url
      */
     protected $url;
+
+    /**
+     * @var array<string, array<string, string>>
+     */
+    private $hreflangFields = [];
 
     /**
      * @param Form $form An instance of Form, the elements will be parsed in here.
@@ -386,6 +398,25 @@ class Meta
         $this->form->addHidden('class_name', $this->callback['class']);
         $this->form->addHidden('method_name', $this->callback['method']);
         $this->form->addHidden('parameters', \SpoonFilter::htmlspecialchars(serialize($this->callback['parameters'])));
+
+        if (!empty($this->hreflangCallback)) {
+            foreach (BackendLanguage::getActiveLanguages() as $language) {
+                if ($language !== BackendLanguage::getWorkingLanguage()) {
+                    $values = $this->getHreflangValues($language);
+                    $field = $this->form->addDropdown(
+                        'hreflang_' . $language,
+                        $values,
+                        $this->data['data']['hreflang_' . $language] ?? null,
+                    );
+                    $field->setDefaultElement('');
+                    $this->hreflangFields[$language] = [
+                        'language' => $language,
+                        'field' => $field->parse(),
+                        'label' => strtoupper($language),
+                    ];
+                }
+            }
+        }
     }
 
     /**
@@ -476,6 +507,18 @@ class Meta
         $this->loadForm();
     }
 
+    public function setHreflangCallback(string $className, string $methodName, array $parameters = []): void
+    {
+        $this->hreflangCallback = [
+            'class' => $className,
+            'method' => $methodName,
+            'parameters' => $parameters,
+        ];
+
+        // re-load the form
+        $this->loadForm();
+    }
+
     /**
      * Validates the form
      * It checks if there is a value when a checkbox is checked
@@ -555,6 +598,17 @@ class Meta
             unset($this->data['data']['canonical_url_overwrite']);
         }
 
+        if (!empty($this->hreflangCallback)) {
+            foreach (BackendLanguage::getActiveLanguages() as $language) {
+                if ($language !== BackendLanguage::getWorkingLanguage()) {
+                    $field = $this->form->getField('hreflang_' . $language);
+                    if ($field->isFilled()) {
+                        $this->data['data']['hreflang_' . $language] = $field->getValue();
+                    }
+                }
+            }
+        }
+
         $this->data['custom'] = $this->custom && $this->form->getField('meta_custom')->isFilled()
             ? $this->form->getField('meta_custom')->getValue() : null;
         $this->data['seo_index'] = $this->form->getField('seo_index')->getValue();
@@ -611,5 +665,39 @@ class Meta
         $thumbnails->generate($imagePath, $imageFullPath);
 
         return $filename;
+    }
+
+    /**
+     * @return array<string, array<string, string>>
+     */
+    public function getHreflangFields(): array
+    {
+        return $this->hreflangFields;
+    }
+
+    /**
+     * @param string $language
+     *
+     * @return array<string, string>
+     */
+    private function getHreflangValues(string $language): array
+    {
+        $class = $this->hreflangCallback['class'];
+        $method = $this->hreflangCallback['method'];
+        $parameters = $this->hreflangCallback['parameters'] ?? [];
+
+        // check if the class is a service
+        if (Model::getContainer()->has($class)) {
+            $class = Model::getContainer()->get($class);
+        }
+
+        // validate (check if the function exists)
+        if (!is_callable([$class, $method])) {
+            throw new Exception('The hreflang callback-method doesn\'t exist.');
+        }
+
+        array_unshift($parameters, $language);
+
+        return call_user_func_array([$class, $method], $parameters);
     }
 }

@@ -323,6 +323,7 @@ class Page extends KernelLoader
                         'label' => $language,
                         'name' => Language::msg(mb_strtoupper($language)),
                         'current' => $language === LANGUAGE,
+                        'alternate' => $this->generateAlternativeLinkForLanguage($language),
                     ];
                 },
                 Language::getActiveLanguages()
@@ -408,35 +409,13 @@ class Page extends KernelLoader
 
     private function addAlternateLinkForLanguage(string $language): void
     {
-        if ($language === LANGUAGE) {
+        $url = $this->generateAlternativeLinkForLanguage($language);
+
+        if ($url === null) {
             return;
         }
 
-        // Get page data
-        $pageInfo = Model::getPage($this->pageId);
-
-        // Check if hreflang is set for language
-        if (isset($pageInfo['data']['hreflang_' . $language])) {
-            $url = Navigation::getUrl($pageInfo['data']['hreflang_' . $language], $language);
-        } else {
-            $url = Navigation::getUrl($this->pageId, $language);
-        }
-
-        // remove last /
-        $url = rtrim($url, '/\\');
-
-        // Ignore 404 links
-        if ($this->pageId !== Response::HTTP_NOT_FOUND
-            && $url === Navigation::getUrl(Response::HTTP_NOT_FOUND, $language)) {
-            return;
-        }
-
-        // Convert relative to absolute url
-        if (strpos($url, '/') === 0) {
-            $url = SITE_URL . $url;
-        }
-
-        $this->header->addLink(['rel' => 'alternate', 'hreflang' => $language, 'href' => $url]);
+        $this->header->addLink(['rel' => 'alternate', 'hreflang' => $language, 'href' => SITE_URL . $url]);
     }
 
     private function assignPageMeta(): void
@@ -556,5 +535,39 @@ class Page extends KernelLoader
     private function redirect(string $url, int $code = RedirectResponse::HTTP_FOUND): void
     {
         throw new RedirectException('Redirect', new RedirectResponse($url, $code));
+    }
+
+    private function generateAlternativeLinkForLanguage(string $language): ?string
+    {
+        // Get page data
+        $pageInfo = Model::getPage($this->pageId);
+
+        $url = null;
+
+        // Check if hreflang is set for language
+        if (isset($pageInfo['data'])) {
+            $alternativeLinkForLanguage = 'hreflang_' . $language;
+            if (isset($pageInfo['data'][$alternativeLinkForLanguage])) {
+                $url = $pageInfo['data'][$alternativeLinkForLanguage];
+                if (is_numeric($url)) {
+                    $url = Navigation::getUrl($url, $language);
+                }
+            } elseif ($language === LANGUAGE) {
+                $url = Navigation::getUrl($this->pageId, $language);
+            }
+        }
+
+        // remove last /
+        if ($url) {
+            $url = rtrim($url, '/\\');
+        }
+
+        // Ignore 404 links
+        if ($this->pageId !== Response::HTTP_NOT_FOUND
+            && $url === Navigation::getUrl(Response::HTTP_NOT_FOUND, $language)) {
+            return null;
+        }
+
+        return $url;
     }
 }

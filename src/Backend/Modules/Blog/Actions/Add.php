@@ -77,6 +77,7 @@ class Add extends BackendBaseActionAdd
 
         // meta
         $this->meta = new BackendMeta($this->form, null, 'title', true);
+        $this->meta->setHreflangCallback(BackendBlogModel::class, 'getHrefLangValues');
     }
 
     protected function parse(): void

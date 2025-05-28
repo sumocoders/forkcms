@@ -45,13 +45,19 @@ class AddMetaSubscriber implements EventSubscriberInterface
      */
     private $moduleForUrl;
 
+    private ?string $hreflangRepositoryClass;
+
+    private ?string $hreflangRepositoryMethod;
+
     public function __construct(
         string $moduleForUrl,
         string $actionForUrl,
         string $generateUrlCallbackClass,
         string $generateUrlCallbackMethod,
         array $generateUrlCallbackParameterMethods,
-        string $baseFieldName = 'title'
+        string $baseFieldName = 'title',
+        ?string $hreflangRepositoryClass = null,
+        ?string $hreflangRepositoryMethod = null
     ) {
         $this->moduleForUrl = $moduleForUrl;
         $this->actionForUrl = $actionForUrl;
@@ -59,6 +65,8 @@ class AddMetaSubscriber implements EventSubscriberInterface
         $this->generateUrlCallbackMethod = $generateUrlCallbackMethod;
         $this->generateUrlCallbackParameterMethods = $generateUrlCallbackParameterMethods;
         $this->baseFieldName = $baseFieldName;
+        $this->hreflangRepositoryClass = $hreflangRepositoryClass;
+        $this->hreflangRepositoryMethod = $hreflangRepositoryMethod;
     }
 
     public static function getSubscribedEvents(): array
@@ -79,6 +87,8 @@ class AddMetaSubscriber implements EventSubscriberInterface
                 'generate_url_callback_class' => $this->generateUrlCallbackClass,
                 'generate_url_callback_method' => $this->generateUrlCallbackMethod,
                 'generate_url_callback_parameters' => $this->buildCallbackParameters($event),
+                'hreflang_repository_class' => $this->hreflangRepositoryClass,
+                'hreflang_repository_method' => $this->hreflangRepositoryMethod,
             ]
         );
     }

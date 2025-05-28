@@ -2,6 +2,8 @@
 
 namespace Frontend\Modules\Blog\Engine;
 
+use Common\Doctrine\Entity\Meta;
+use Common\Doctrine\Repository\MetaRepository;
 use Common\Mailer\Message;
 use ForkCMS\Utility\Thumbnails;
 use Frontend\Core\Language\Language as FL;
@@ -935,5 +937,49 @@ class Model implements FrontendTagsInterface
 
         // return
         return $items;
+    }
+
+    public static function getMetaById(int $id, string $language): ?Meta
+    {
+        $metaId = (int) FrontendModel::getContainer()->get('database')->getVar(
+            'SELECT meta_id
+             FROM blog_posts
+             WHERE id = ?
+             AND status = ?
+             AND language = ?
+             AND hidden = ?
+             AND publish_on <= ?',
+            [
+                $id,
+                'active',
+                $language,
+                false,
+                FrontendModel::getUTCDate('Y-m-d H:i'),
+            ]
+        );
+
+        /** @var MetaRepository $metaRepository */
+        $metaRepository = FrontendModel::get(MetaRepository::class);
+
+        return $metaRepository->find($metaId);
+    }
+
+    public static function getMetaByCategoryId(int $id, string $language): ?Meta
+    {
+        $metaId = (int) FrontendModel::getContainer()->get('database')->getVar(
+            'SELECT meta_id
+             FROM blog_categories
+             WHERE id = ?
+             AND language = ?',
+            [
+                $id,
+                $language,
+            ]
+        );
+
+        /** @var MetaRepository $metaRepository */
+        $metaRepository = FrontendModel::get(MetaRepository::class);
+
+        return $metaRepository->find($metaId);
     }
 }

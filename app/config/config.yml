@@ -276,3 +276,9 @@ services:
         arguments:
             - "@fork.settings"
             - "@fork.cookie"
+
+    Common\Doctrine\Repository\MetaRepository:
+        public: true
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - Common\Doctrine\Entity\Meta

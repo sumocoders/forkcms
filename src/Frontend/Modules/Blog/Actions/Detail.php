@@ -228,6 +228,7 @@ class Detail extends FrontendBaseBlock
         $this->addNewCommentAlerts();
         $this->addNavigation();
         $this->setMeta($this->blogPost['meta']);
+        $this->setHrefLangLegacy($this->blogPost['meta'], FrontendBlogModel::class, 'getMetaById');
         $this->header->setCanonicalUrl($this->blogPost['full_url']);
 
         $this->template->assign('settings', $this->settings);

@@ -45,6 +45,7 @@ class AddCategory extends BackendBaseActionAdd
         $this->form->addText('title')->makeRequired();
 
         $this->meta = new BackendMeta($this->form, null, 'title', true);
+        $this->meta->setHreflangCallback(BackendFaqModel::class, 'getHrefLangValuesCategories');
     }
 
     private function validateForm(): void

@@ -480,5 +480,4 @@ class Meta
 
         $thumbnails->delete($imagePath, $this->oldOgImage);
     }
-
 }

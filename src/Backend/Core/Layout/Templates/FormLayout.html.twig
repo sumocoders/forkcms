@@ -247,6 +247,11 @@
     </div>
   </div>
   {# og:image end #}
+  {% if form.hreflang is defined %}
+    <div class="col-md-12">
+      {{ form_row(form.hreflang) }}
+    </div>
+  {% endif %}
   <input type="hidden" id="{{ customId }}" value="{{ custom_meta_tags ? '1' : '0' }}">
   <input type="hidden" id="{{ classId }}" value="{{ generate_url_callback_class }}">
   <input type="hidden" id="{{ methodId }}" value="{{ generate_url_callback_method }}">

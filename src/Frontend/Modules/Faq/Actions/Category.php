@@ -3,6 +3,7 @@
 namespace Frontend\Modules\Faq\Actions;
 
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
+use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Modules\Faq\Engine\Model as FrontendFaqModel;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -43,6 +44,7 @@ class Category extends FrontendBaseBlock
 
         $category['full_url'] = FrontendNavigation::getUrlForBlock($this->getModule(), $this->getAction())
                                 . '/' . $category['url'];
+        $category['meta'] = FrontendModel::get('fork.repository.meta')->find($category['meta_id']);
 
         return $category;
     }
@@ -57,6 +59,8 @@ class Category extends FrontendBaseBlock
     {
         $this->breadcrumb->addElement($this->category['title']);
         $this->header->setPageTitle($this->category['title']);
+        $this->setMeta($this->category['meta']);
+        $this->setHrefLangLegacy($this->category['meta'], FrontendFaqModel::class, 'getMetaByCategoryId');
 
         $this->template->assign('category', $this->category);
         $this->template->assign('questions', $this->questions);

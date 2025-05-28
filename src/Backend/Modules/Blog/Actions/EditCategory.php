@@ -52,7 +52,8 @@ class EditCategory extends BackendBaseActionEdit
         $this->meta = new BackendMeta($this->form, $this->record['meta_id'], 'title', true);
 
         // set callback for generating a unique URL
-        $this->meta->setUrlCallback('Backend\Modules\Blog\Engine\Model', 'getUrlForCategory', [$this->record['id']]);
+        $this->meta->setUrlCallback(BackendBlogModel::class, 'getUrlForCategory', [$this->record['id']]);
+        $this->meta->setHreflangCallback(BackendBlogModel::class, 'getHrefLangValuesCategories');
     }
 
     protected function parse(): void

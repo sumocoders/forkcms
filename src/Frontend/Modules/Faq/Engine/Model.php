@@ -2,6 +2,8 @@
 
 namespace Frontend\Modules\Faq\Engine;
 
+use Common\Doctrine\Entity\Meta;
+use Common\Doctrine\Repository\MetaRepository;
 use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Core\Engine\Url as FrontendUrl;
@@ -341,5 +343,45 @@ class Model implements FrontendTagsInterface
                 [$id]
             );
         }
+    }
+
+    public static function getMetaById(int $id, string $language): ?Meta
+    {
+        $metaId = (int) FrontendModel::getContainer()->get('database')->getVar(
+            'SELECT meta_id
+             FROM faq_questions
+             WHERE id = ?
+             AND language = ?
+             AND hidden = ?',
+            [
+                $id,
+                $language,
+                false,
+            ]
+        );
+
+        /** @var MetaRepository $metaRepository */
+        $metaRepository = FrontendModel::get(MetaRepository::class);
+
+        return $metaRepository->find($metaId);
+    }
+
+    public static function getMetaByCategoryId(int $id, string $language): ?Meta
+    {
+        $metaId = (int) FrontendModel::getContainer()->get('database')->getVar(
+            'SELECT meta_id
+             FROM faq_categories
+             WHERE id = ?
+             AND language = ?',
+            [
+                $id,
+                $language,
+            ]
+        );
+
+        /** @var MetaRepository $metaRepository */
+        $metaRepository = FrontendModel::get(MetaRepository::class);
+
+        return $metaRepository->find($metaId);
     }
 }
