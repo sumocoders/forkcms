@@ -2304,6 +2304,7 @@ CREATE TABLE `meta` (
   `data` longtext COLLATE utf8mb4_unicode_ci,
   `seo_follow` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '(DC2Type:seo_follow)',
   `seo_index` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '(DC2Type:seo_index)',
+  `og_image` VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_url` (`url`(191))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2584,6 +2585,7 @@ CREATE TABLE `pages` (
   `allow_edit` tinyint(1) NOT NULL DEFAULT '1',
   `allow_delete` tinyint(1) NOT NULL DEFAULT '1',
   `sequence` int(11) NOT NULL,
+  `og_image` VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (`revision_id`),
   KEY `idx_id_status_hidden_language` (`id`,`status`,`hidden`,`language`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
