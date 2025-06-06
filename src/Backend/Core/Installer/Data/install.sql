@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS `meta` (
   `data` longtext COLLATE utf8mb4_unicode_ci,
   `seo_follow` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '(DC2Type:seo_follow)',
   `seo_index` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '(DC2Type:seo_index)',
+  `og_image` VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_url` (`url`(191))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
