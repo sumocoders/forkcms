@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `allow_children` tinyint(1) NOT NULL DEFAULT '1',
   `allow_edit` tinyint(1) NOT NULL DEFAULT '1',
   `allow_delete` tinyint(1) NOT NULL DEFAULT '1',
-  `og_image`` VARCHAR(255) DEFAULT NULL`,
+  `og_image` VARCHAR(255) DEFAULT NULL,
   `sequence` int(11) NOT NULL,
   PRIMARY KEY (`revision_id`),
   KEY `idx_id_status_hidden_language` (`id`,`status`,`hidden`,`language`)
