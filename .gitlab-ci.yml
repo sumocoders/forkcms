@@ -24,11 +24,6 @@ cache: &global_cache
     MYSQL_ROOT_PASSWORD: root
 
 .before_script_test_template: &before_script_test_configuration
-    # disable Xdebug and Blackfire extensions
-    - |
-        mkdir /usr/local/etc/php/conf.d/disabled
-        mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/disabled/docker-php-ext-xdebug.ini
-        mv /usr/local/etc/php/conf.d/blackfire.ini /usr/local/etc/php/conf.d/disabled/blackfire.ini
     # import test DB
     - mysql -h mysql -u root -proot ci_test < tests/data/test_db.sql
     # make sure bundle.js exists
