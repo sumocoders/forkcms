@@ -171,7 +171,13 @@ class Form extends FrontendBaseWidget
                     $item['classname'] .= ' form-select';
 
                     // values and labels are the same
-                    $values = array_combine($values, $values);
+                    $decodedValues = array_map(
+                        static function ($value) {
+                            return html_entity_decode($value, ENT_QUOTES);
+                        },
+                        $values
+                    );
+                    $values = array_combine($values, $decodedValues);
 
                     // get index of selected item
                     $defaultIndex = array_search($defaultValues, $values, true);
@@ -544,6 +550,10 @@ class Form extends FrontendBaseWidget
 
                         $fieldData['value'] = array_key_exists($fieldData['value'], $values)
                             ? $values[$fieldData['value']] : null;
+                    }
+
+                    if ($field['type'] === 'dropdown') {
+                        $fieldData['value'] = html_entity_decode($fieldData['value'], ENT_QUOTES);
                     }
 
                     // clean up
