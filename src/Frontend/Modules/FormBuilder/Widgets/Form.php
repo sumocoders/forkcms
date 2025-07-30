@@ -552,37 +552,19 @@ class Form extends FrontendBaseWidget
                             ? $values[$fieldData['value']] : null;
                     }
 
-                    if ($field['type'] === 'dropdown') {
+                    if (in_array($field['type'], ['dropdown', 'checkbox', 'radiobutton'])) {
                         $possibleValues = [];
                         foreach ($field['settings']['values'] as $value) {
                             $safeValue = str_replace(["'", '"'], '_', html_entity_decode($value, ENT_QUOTES));
                             $possibleValues[$safeValue] = $value;
                         }
 
-                        $fieldData['value'] = html_entity_decode($possibleValues[$fieldData['value']], ENT_QUOTES);
-                    }
-
-                    if ($field['type'] === 'checkbox') {
-                        $possibleValues = [];
-                        foreach ($field['settings']['values'] as $value) {
-                            $safeValue = str_replace(["'", '"'], '_', html_entity_decode($value, ENT_QUOTES));
-                            $possibleValues[$safeValue] = $value;
-                        }
-
-                        foreach ($fieldData['value'] as $key => $value) {
-                            $fieldData['value'][$key] = html_entity_decode($possibleValues[$value] ?? $value, ENT_QUOTES);
-                        }
-                    }
-
-                    if ($field['type'] === 'radiobutton') {
-                        $possibleValues = [];
-                        foreach ($field['settings']['values'] as $value) {
-                            $safeValue = str_replace(["'", '"'], '_', html_entity_decode($value, ENT_QUOTES));
-                            $possibleValues[$safeValue] = $value;
-                        }
-
-                        foreach ($fieldData['value'] as $key => $value) {
-                            $fieldData['value'][$key] = html_entity_decode($possibleValues[$value] ?? $value, ENT_QUOTES);
+                        if (is_array($fieldData['value'])) {
+                            foreach ($fieldData['value'] as $key => $value) {
+                                $fieldData['value'][$key] = html_entity_decode($possibleValues[$value] ?? $value, ENT_QUOTES);
+                            }
+                        } else {
+                            $fieldData['value'] = html_entity_decode($possibleValues[$fieldData['value']] ?? $fieldData['value'], ENT_QUOTES);
                         }
                     }
 
