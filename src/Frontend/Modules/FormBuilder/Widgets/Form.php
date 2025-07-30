@@ -553,7 +553,37 @@ class Form extends FrontendBaseWidget
                     }
 
                     if ($field['type'] === 'dropdown') {
-                        $fieldData['value'] = html_entity_decode($fieldData['value'], ENT_QUOTES);
+                        $possibleValues = [];
+                        foreach ($field['settings']['values'] as $value) {
+                            $safeValue = str_replace(["'", '"'], '_', html_entity_decode($value, ENT_QUOTES));
+                            $possibleValues[$safeValue] = $value;
+                        }
+
+                        $fieldData['value'] = html_entity_decode($possibleValues[$fieldData['value']], ENT_QUOTES);
+                    }
+
+                    if ($field['type'] === 'checkbox') {
+                        $possibleValues = [];
+                        foreach ($field['settings']['values'] as $value) {
+                            $safeValue = str_replace(["'", '"'], '_', html_entity_decode($value, ENT_QUOTES));
+                            $possibleValues[$safeValue] = $value;
+                        }
+
+                        foreach ($fieldData['value'] as $key => $value) {
+                            $fieldData['value'][$key] = html_entity_decode($possibleValues[$value] ?? $value, ENT_QUOTES);
+                        }
+                    }
+
+                    if ($field['type'] === 'radiobutton') {
+                        $possibleValues = [];
+                        foreach ($field['settings']['values'] as $value) {
+                            $safeValue = str_replace(["'", '"'], '_', html_entity_decode($value, ENT_QUOTES));
+                            $possibleValues[$safeValue] = $value;
+                        }
+
+                        foreach ($fieldData['value'] as $key => $value) {
+                            $fieldData['value'][$key] = html_entity_decode($possibleValues[$value] ?? $value, ENT_QUOTES);
+                        }
                     }
 
                     // clean up
