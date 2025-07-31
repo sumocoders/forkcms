@@ -289,11 +289,17 @@ class Model
      */
     public static function formatRecipients(string $string): string
     {
+        if ($string === '') {
+            return '';
+        }
+
+        $unserialized = @unserialize($string, ['allowed_classes' => false]);
+
         return implode(
             ', ',
             (array) array_map(
                 'htmlspecialchars',
-                @unserialize($string, ['allowed_classes' => false])
+                $unserialized
             )
         );
     }
