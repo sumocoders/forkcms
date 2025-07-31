@@ -410,6 +410,18 @@ jsBackend.FormBuilder.Fields = {
                 data.data.field.settings.default_values = ''
               }
 
+              // Reset checkboxes
+              $('#textboxReplyTo').prop('checked', false)
+              $('#textboxMailmotor').prop('checked', false)
+              $('#textboxSendConfirmationMailTo').prop('checked', false)
+              $('#textboxRequired').prop('checked', false)
+              $('#textareaRequired').prop('checked', false)
+              $('#fileRequired').prop('checked', false)
+              $('#datetimeRequired').prop('checked', false)
+              $('#dropdownRequired').prop('checked', false)
+              $('#radiobuttonRequired').prop('checked', false)
+              $('#checkboxRequired').prop('checked', false)
+
               var html = ''
 
               // textbox edit
