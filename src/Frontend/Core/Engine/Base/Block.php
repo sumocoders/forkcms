@@ -574,7 +574,7 @@ class Block extends KernelLoader
             }
 
             $otherLanguageEntity = $repository->find($otherLanguageId);
-            if ($otherLanguageEntity::class !== $repository->getClassName()) {
+            if ($otherLanguageEntity === null || $otherLanguageEntity::class !== $repository->getClassName()) {
                 continue;
             }
             $detailUrl .= '/' . $otherLanguageEntity->getMeta()->getUrl();
