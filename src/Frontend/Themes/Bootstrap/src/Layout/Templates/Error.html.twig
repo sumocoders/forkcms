@@ -6,12 +6,12 @@
     {% include 'Core/Layout/Templates/Breadcrumb.html.twig' %}
   </div>
 
-  <div class="container">
-    {% for block in positions.main %}
-      {% if block.html %}
-        {{ block.html|raw }}
-      {% endif %}
-    {% endfor %}
-  </div>
+  {% for block in positions.main %}
+    {% if block.html %}
+      {% if block.blockIsEditor %}<div class="container"><div class="row"><div class="col-12">{% endif %}
+      {{ block.html|raw }}
+      {% if block.blockIsEditor %}</div></div></div>{% endif %}
+    {% endif %}
+  {% endfor %}
 
 {% endblock %}

@@ -1,32 +1,38 @@
 {#
-  Media Slider with BxSlider
-  Variables that are available:
-  - {{ mediaItem }}: Contains the MediaItem
-  - {{ title }}: A custom optional title that you can give when parsing from Custom module.
+Media Slider with BxSlider
+Variables that are available:
+- {{ mediaItem }}: Contains the MediaItem
+- {{ title }}: A custom optional title that you can give when parsing from Custom module.
 #}
 
 {% if mediaItem %}
   <section class="module-media-library widget-media-library-one-image" itemscope itemtype="http://schema.org/ImageGallery">
-    {% block widget_heading %}
-      {% if title %}
-        <header class="widget-heading">
-          <h3>{{ title|ucfirst }}</h3>
-        </header>
-      {% endif %}
-    {% endblock %}
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          {% block widget_heading %}
+            {% if title %}
+              <header class="widget-heading">
+                <h3>{{ title|ucfirst }}</h3>
+              </header>
+            {% endif %}
+          {% endblock %}
 
-    {% block widget_body %}
-      <div class="widget-body">
-        <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-          {% if mediaItem.type == 'movie' %}
-            {{ mediaItem.getIncludeHTML()|raw }}
-          {% else %}
-            <img itemprop="thumbnail" class="img-polaroid img-responsive" src="{{ (mediaItem.getWebPath('media_library_one_image_large')) }}" alt="{{ mediaItem.title }}" />
-          {% endif %}
-        </figure>
+          {% block widget_body %}
+            <div class="widget-body">
+              <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                {% if mediaItem.type == 'movie' %}
+                  {{ mediaItem.getIncludeHTML()|raw }}
+                {% else %}
+                  <img itemprop="thumbnail" class="img-polaroid img-responsive" src="{{ (mediaItem.getWebPath('media_library_one_image_large')) }}" alt="{{ mediaItem.title }}"/>
+                {% endif %}
+              </figure>
+            </div>
+          {% endblock %}
+
+          {% block widget_footer %}{% endblock %}
+        </div>
       </div>
-    {% endblock %}
-
-    {% block widget_footer %}{% endblock %}
+    </div>
   </section>
 {% endif %}

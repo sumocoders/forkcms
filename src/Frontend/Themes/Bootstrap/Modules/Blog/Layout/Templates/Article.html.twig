@@ -63,7 +63,6 @@
 {% endmacro %}
 
 {% macro articleCard(item) %}
-
   <article class="card article" itemscope itemtype="http://schema.org/Blog">
     <meta itemprop="commentCount" content="{{ item.comments_count }}">
     <meta itemprop="author" content="{{ item.user_id|usersetting('nickname') }}">
@@ -83,9 +82,7 @@
       {% endif %}
     </div>
     <div class="card-footer">
-      <a class="btn btn-primary" href="{{ item.full_url }}" title="{{ item.title }}">{{ 'lbl.ReadMore'|trans }}</a>
+      <a class="btn btn-primary stretched-link" href="{{ item.full_url }}" title="{{ item.title }}">{{ 'lbl.ReadMore'|trans }}</a>
     </div>
-
   </article>
-
 {% endmacro %}
