@@ -7,22 +7,36 @@
 {% if widgetBlogRecentArticlesFull %}
   <section id="blogRecentArticlesFullWidget" class="blog blog-widget">
     <header class="widget-header">
-      <h2>{{ 'lbl.RecentArticles'|trans|ucfirst }}</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="text-center mb-4">{{ 'lbl.RecentArticles'|trans|ucfirst }}</h2>
+          </div>
+        </div>
+      </div>
     </header>
     {% for row in widgetBlogRecentArticlesFull|batch(3) %}
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 mb-3">
-        {% for item in row  %}
-          <div class="col">
-            {{ articles.articleCard(item) }}
-          </div>
-        {% endfor %}
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 mb-4 gy-4">
+          {% for item in row  %}
+            <div class="col">
+              {{ articles.articleCard(item) }}
+            </div>
+          {% endfor %}
+        </div>
       </div>
     {% endfor %}
-    <footer class="widget-footer py-2">
-      <div class="btn-group">
-        <a class="btn btn-secondary" href="{{ geturlforblock('Blog') }}">{{ 'lbl.BlogArchive'|trans|ucfirst }}</a>
-        <a class="btn btn-secondary" href="{{ widgetBlogRecentArticlesFullRssLink }}">{{ 'lbl.SubscribeToTheRSSFeed'|trans|ucfirst }}</a>
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-auto">
+          <footer class="widget-footer py-2">
+            <div class="btn-group">
+              <a class="btn btn-secondary" href="{{ geturlforblock('Blog') }}">{{ 'lbl.BlogArchive'|trans|ucfirst }}</a>
+              <a class="btn btn-secondary" href="{{ widgetBlogRecentArticlesFullRssLink }}">{{ 'lbl.SubscribeToTheRSSFeed'|trans|ucfirst }}</a>
+            </div>
+          </footer>
+        </div>
       </div>
-    </footer>
+    </div>
   </section>
 {% endif %}

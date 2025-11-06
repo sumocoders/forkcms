@@ -491,7 +491,7 @@ class Page extends KernelLoader
                 function (array $block) {
                     if ($block['extra_id'] === null) {
                         return [
-                            'blockIsEditor' => true,
+                            'blockIsEditor' => $block['extra_type'] === 'rich_text',
                             'blockContent' => $block['html'],
                         ];
                     }

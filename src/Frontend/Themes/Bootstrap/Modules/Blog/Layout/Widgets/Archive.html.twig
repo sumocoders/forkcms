@@ -1,38 +1,49 @@
 {#
-  variables that are available:
-  - {{ widgetBlogArchive }}:
+variables that are available:
+- {{ widgetBlogArchive }}:
 #}
 
 {% if widgetBlogArchive %}
   <section id="blogArchiveWidget" class="blog blog-widget card mb-3">
     <header class="card-header">
-      <h4 class="mb-0">{{ 'lbl.Archive'|trans|ucfirst }}</h4>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h4 class="mb-0">{{ 'lbl.Archive'|trans|ucfirst }}</h4>
+          </div>
+        </div>
+      </div>
     </header>
-    <ul class="list-group list-group-flush">
-      {% for item in widgetBlogArchive %}
-        <li class="list-group-item">
-          {% if item.url %}
-          <a class="d-flex align-self-start" href="{{ item.url }}">{% endif %}
-            {{ item.label }}
-            {% if item.url %}</a>{% endif %}
-          <span class="badge">{{ item.total }}</span>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <ul class="list-group list-group-flush">
+            {% for item in widgetBlogArchive %}
+              <li class="list-group-item">
+                {% if item.url %}
+                <a class="d-flex align-self-start" href="{{ item.url }}">{% endif %}
+                  {{ item.label }}
+                  {% if item.url %}</a>{% endif %}
+                <span class="badge">{{ item.total }}</span>
 
-          {% if item.months %}
-            <ul>
-              {% for month in item.months %}
-                <li>
-                  {% if month.url %}
-                  <a href="{{ month.url }}">{% endif %}
-                    {{ month.label|spoondate('F',LANGUAGE ) }}
-                    {% if month.url %}</a>{% endif %}
-                  <span class="badge">{{ month.total }}</span>
-                </li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
+                {% if item.months %}
+                  <ul>
+                    {% for month in item.months %}
+                      <li>
+                        {% if month.url %}
+                        <a href="{{ month.url }}">{% endif %}
+                          {{ month.label|spoondate('F',LANGUAGE ) }}
+                          {% if month.url %}</a>{% endif %}
+                        <span class="badge">{{ month.total }}</span>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 {% endif %}
-

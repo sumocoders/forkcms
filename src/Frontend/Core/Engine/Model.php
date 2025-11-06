@@ -207,7 +207,7 @@ class Model extends \Common\Core\Model
         // get blocks
         $blocks = (array) self::getContainer()->get('database')->getRecords(
             'SELECT pe.id AS extra_id, pb.html, pb.position,
-             pe.module AS extra_module, pe.type AS extra_type, pe.action AS extra_action, pe.data AS extra_data
+             pe.module AS extra_module, IFNULL(pb.extra_type, pe.type) AS extra_type, pe.action AS extra_action, pe.data AS extra_data
              FROM pages_blocks AS pb
              INNER JOIN pages AS p ON p.revision_id = pb.revision_id
              LEFT OUTER JOIN modules_extras AS pe ON pb.extra_id = pe.id AND pe.hidden = ?

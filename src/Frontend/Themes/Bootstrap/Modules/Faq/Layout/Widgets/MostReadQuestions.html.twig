@@ -4,6 +4,9 @@
 #}
 
 {% if widgetFaqMostRead %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
   <section id="faqMostReadWidget" class="faq faq-widget card">
     <header class="card-header">
       <h3 class="mb-0">{{ 'lbl.MostReadQuestions'|trans|ucfirst }}</h3>
@@ -14,4 +17,7 @@
       {% endfor %}
     </div>
   </section>
+    </div>
+  </div>
+</div>
 {% endif %}

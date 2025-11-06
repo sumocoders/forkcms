@@ -6,16 +6,22 @@ variables that are available:
 
 {% import 'Modules/Blog/Layout/Templates/Article.html.twig' as articles %}
 {% if items %}
-  <div id="blogCategory" class="blog blog-category">
-    {% for row in items|batch(3) %}
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 mb-3">
-        {% for item in row  %}
-          <div class="col">
-            {{ articles.articleCard(item) }}
-          </div>
-        {% endfor %}
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div id="blogCategory" class="blog blog-category">
+          {% for row in items|batch(3) %}
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 mb-3">
+              {% for item in row %}
+                <div class="col">
+                  {{ articles.articleCard(item) }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+        {% include "Core/Layout/Templates/Pagination.html.twig" %}
       </div>
-    {% endfor %}
+    </div>
   </div>
-  {% include "Core/Layout/Templates/Pagination.html.twig" %}
 {% endif %}
