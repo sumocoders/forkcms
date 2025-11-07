@@ -776,7 +776,7 @@ class Add extends BackendBaseActionAdd
                         continue;
                     }
 
-                    if (strpos($imagePath, 'http') === 0) {
+                    if (filter_var($imagePath, FILTER_VALIDATE_URL)) {
                         continue;
                     }
 
