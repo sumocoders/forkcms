@@ -19,7 +19,7 @@ class DatabaseDataCollector extends DataCollector
         $this->database = $database;
     }
 
-    public function collect(Request $request, Response $response, \Exception $exception = null): void
+    public function collect(Request $request, Response $response, \Throwable $exception = null): void
     {
         $this->data = [
             'queries' => array_map(
