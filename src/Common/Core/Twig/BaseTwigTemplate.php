@@ -6,15 +6,16 @@ use Common\Core\Form;
 use Common\Core\Model;
 use Common\ModulesSettings;
 use SpoonForm;
-use Symfony\Bundle\TwigBundle\TwigEngine;
 use Twig\Environment;
 
 /**
  * This is a twig template wrapper
  * that glues spoon libraries and code standards with twig.
  */
-abstract class BaseTwigTemplate extends TwigEngine
+abstract class BaseTwigTemplate
 {
+    protected Environment $environment;
+
     /**
      * @var string
      */

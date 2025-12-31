@@ -35,11 +35,7 @@ class TwigTemplate extends BaseTwigTemplate
         $container = Model::getContainer();
         $this->debugMode = $container->getParameter('kernel.debug');
 
-        parent::__construct(
-            $this->buildTwigEnvironmentForTheBackend(),
-            $container->get('templating.name_parser.public'),
-            new TemplateLocator($container->get('file_locator.public'), $container->getParameter('kernel.cache_dir'))
-        );
+        $this->environment = $this->buildTwigEnvironmentForTheBackend();
 
         if ($addToReference) {
             $container->set('template', $this);

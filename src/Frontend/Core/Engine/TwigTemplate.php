@@ -6,11 +6,9 @@ use Frontend\Core\Language\Locale;
 use Common\Core\Twig\BaseTwigTemplate;
 use Common\Core\Twig\Extensions\TwigFilters;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
-use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Bridge\Twig\Extension\FormExtension as SymfonyFormExtension;
 use Symfony\Component\Form\FormRenderer;
-use Symfony\Component\Templating\TemplateNameParserInterface;
 use Twig\Environment;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
@@ -29,14 +27,12 @@ class TwigTemplate extends BaseTwigTemplate
 
     public function __construct(
         Environment $environment,
-        TemplateNameParserInterface $parser,
-        FileLocatorInterface $locator
     ) {
         $container = Model::getContainer();
         $this->forkSettings = $container->get('fork.settings');
         $this->language = Locale::frontendLanguage();
 
-        parent::__construct($environment, $parser, $locator);
+        $this->environment = $environment;
 
         $this->debugMode = $container->getParameter('kernel.debug');
         if ($this->debugMode) {

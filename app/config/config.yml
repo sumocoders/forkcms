@@ -125,9 +125,6 @@ liip_imagine:
                 thumbnail: { size : [1600, 500], mode : inbound }
 
 services:
-    templating.name_parser.public:
-        alias: templating.name_parser
-        public: true
     file_locator.public:
         alias: file_locator
         public: true
@@ -247,8 +244,6 @@ services:
         public: true
         arguments:
             - "@twig"
-            - "@templating.name_parser"
-            - "@templating.locator"
 
     translator:
         class: Common\Language
