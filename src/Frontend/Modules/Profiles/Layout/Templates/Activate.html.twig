@@ -6,6 +6,10 @@
       {% if activationSuccess %}
         {{ alerts.alert('success', 'msg.ActivationIsSuccess'|trans) }}
       {% endif %}
+
+      {% if activationKeyUsed %}
+        {{ alerts.alert('warning', 'msg.ActivationKeyAlreadyUsed'|trans|format(geturlforblock('Profiles', 'Login'))|raw) }}
+      {% endif %}
     </div>
   {% endblock %}
 </section>

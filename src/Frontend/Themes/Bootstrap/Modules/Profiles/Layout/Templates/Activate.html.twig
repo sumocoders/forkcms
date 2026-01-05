@@ -3,3 +3,7 @@
   <h1>{{ 'lbl.ActivateProfile'|trans|ucfirst }}</h1>
   {{ alerts.alert('success', 'msg.ActivationIsSuccess'|trans) }}
 {% endif %}
+{% if activationKeyUsed %}
+  <h1>{{ 'lbl.ActivateProfile'|trans|ucfirst }}</h1>
+  {{ alerts.alert('warning', 'msg.ActivationKeyAlreadyUsed'|trans|format(geturlforblock('Profiles', 'Login'))|raw) }}
+{% endif %}
