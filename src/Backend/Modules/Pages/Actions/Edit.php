@@ -11,6 +11,7 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Meta as BackendMeta;
 use Backend\Core\Engine\Model as BackendModel;
+use Backend\Core\Language\Locale;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
 use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
@@ -565,12 +566,24 @@ class Edit extends BackendBaseActionEdit
         $this->meta = new BackendMeta($this->form, $this->record['meta_id'], 'title', true);
         $this->oldUrl = $this->meta->getUrl();
 
-        $this->template->assign(
-            'detailURL',
-            SITE_URL .
-            BackendPagesModel::getFullUrl($this->record['parent_id'])
-        );
 
+        $parentId = (int) $this->record['parent_id'];
+
+        // only assign detail url if parent is not homepage or root
+        if (!in_array($parentId, [0, 1], true)) {
+            $this->template->assign(
+                'detailURL',
+                SITE_URL .
+                BackendPagesModel::getFullUrl($this->record['parent_id'])
+            );
+        } elseif (count(BL::getWorkingLanguages()) > 1) {
+            $this->template->assign(
+                'detailURL',
+                SITE_URL .
+                '/' .
+                Locale::workingLocale()->getLocale()
+            );
+        }
         // set callback for generating an unique URL
         $this->meta->setUrlCallback(
             'Backend\Modules\Pages\Engine\Model',
