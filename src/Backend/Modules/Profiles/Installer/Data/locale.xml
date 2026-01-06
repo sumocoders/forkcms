@@ -1033,6 +1033,14 @@
         <translation language="pl">
           <![CDATA[Witamy! W mniej niż dziesięć minut otrzymasz mail aktywacyjny.]]></translation>
       </item>
+      <item type="message" name="ActivationKeyAlreadyUsed">
+        <translation language="nl">
+          <![CDATA[<p>Deze activatielink werkt niet:</p><ul><li>ofwel is jouw profiel al geactiveerd, dan kan je <a href="%1$s">inloggen</a>.</li><li>ofwel is de activatielink ongeldig.</li></ul>]]></translation>
+        <translation language="en">
+          <![CDATA[<p>This activation link doesn't work:</p><ul><li>either your profile is already activated, in which case you can <a href="%1$s">log in</a>.</li><li>or the activation link is invalid.</li></ul>]]></translation>
+        <translation language="fr">
+          <![CDATA[<p>Ce lien d'activation ne fonctionne pas:</p><ul><li>soit votre profil est déjà activé, auquel cas vous pouvez <a href="%1$s">vous connecter</a>.</li><li>soit le lien d'activation est invalide.</li></ul>]]></translation>
+      </item>
       <item type="label" name="ActivateProfile">
         <translation language="nl"><![CDATA[activeer je profiel]]></translation>
         <translation language="en"><![CDATA[activate your profile]]></translation>
