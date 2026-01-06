@@ -566,7 +566,6 @@ class Edit extends BackendBaseActionEdit
         $this->meta = new BackendMeta($this->form, $this->record['meta_id'], 'title', true);
         $this->oldUrl = $this->meta->getUrl();
 
-
         $parentId = (int) $this->record['parent_id'];
 
         // only assign detail url if parent is not homepage or root
