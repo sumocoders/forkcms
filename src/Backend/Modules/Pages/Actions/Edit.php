@@ -565,6 +565,12 @@ class Edit extends BackendBaseActionEdit
         $this->meta = new BackendMeta($this->form, $this->record['meta_id'], 'title', true);
         $this->oldUrl = $this->meta->getUrl();
 
+        $this->template->assign(
+            'detailURL',
+            SITE_URL .
+            BackendPagesModel::getFullUrl($this->record['parent_id'])
+        );
+
         // set callback for generating an unique URL
         $this->meta->setUrlCallback(
             'Backend\Modules\Pages\Engine\Model',
