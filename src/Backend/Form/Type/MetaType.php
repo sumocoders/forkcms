@@ -394,6 +394,7 @@ class MetaType extends AbstractType
                 'generate_url_callback_method',
                 'generate_url_callback_parameters',
                 'detail_url',
+                'base_url'
             ]
         );
         $resolver->setDefaults(
@@ -431,6 +432,7 @@ class MetaType extends AbstractType
         $view->vars['generated_url_selector'] = $options['generated_url_selector'];
         $view->vars['generate_url_callback_parameters'] = serialize($options['generate_url_callback_parameters']);
         $view->vars['detail_url'] = $options['detail_url'];
+        $view->vars['base_url'] = $options['base_url'];
     }
 
     private static function stripNumberAddedByTheUrlGeneration(string $string): string

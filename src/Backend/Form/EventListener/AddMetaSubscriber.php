@@ -83,6 +83,7 @@ class AddMetaSubscriber implements EventSubscriberInterface
             MetaType::class,
             [
                 'base_field_name' => $this->baseFieldName,
+                'base_url' => SITE_URL,
                 'detail_url' => Model::getUrlForBlock($this->moduleForUrl, $this->actionForUrl),
                 'generate_url_callback_class' => $this->generateUrlCallbackClass,
                 'generate_url_callback_method' => $this->generateUrlCallbackMethod,
