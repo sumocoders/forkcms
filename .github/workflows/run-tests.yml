@@ -13,7 +13,7 @@ jobs:
         strategy:
             fail-fast: true
             matrix:
-                php: [8.3]
+                php: [8.4]
                 testsuite: ["functional", "unit", "installer"]
         name: PHPUnit - ${{ matrix.testsuite }} (PHP ${{ matrix.php }})
         services:
@@ -79,7 +79,7 @@ jobs:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.3
+                  php-version: 8.4
                   extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, bcmath, intl, gd, exif, iconv, imagick
                   coverage: none
 
@@ -113,7 +113,7 @@ jobs:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.3
+                  php-version: 8.4
                   extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, bcmath, intl, gd, exif, iconv, imagick
                   coverage: none
 
@@ -152,7 +152,7 @@ jobs:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.3
+                  php-version: 8.4
                   extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, bcmath, intl, gd, exif, iconv, imagick
                   coverage: none
 
