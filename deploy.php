@@ -46,9 +46,9 @@ host('dev03.sumocoders.eu')
     ->set('stage', 'staging')
     ->set('deploy_path', '~/apps/{{client}}/{{project}}')
     ->set('branch', 'staging')
-    ->set('bin/php', 'php8.2')
-    ->set('cachetool', '/var/run/php_82_fpm_sites.sock')
-    ->set('document_root', '~/php82/{{client}}/{{project}}')
+    ->set('bin/php', 'php8.3')
+    ->set('cachetool', '/var/run/php_83_fpm_sites.sock')
+    ->set('document_root', '~/php83/{{client}}/{{project}}')
     ->set('keep_releases', 3);
 
 // Define production
