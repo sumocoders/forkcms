@@ -15,4 +15,14 @@ final class Locale extends CommonLocale
     {
         return Language::getWorkingLanguages();
     }
+
+    public function __serialize(): array
+    {
+        return [$this->serialize()];
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->unserialize($data[0]);
+    }
 }

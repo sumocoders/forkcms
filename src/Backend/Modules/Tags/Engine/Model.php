@@ -326,7 +326,7 @@ class Model
             }
 
             // insert the rows at once if there are items to insert
-            if (!empty($rowsToInsert)) {
+            if (!empty($rowsToInsert)) { // @phpstan-ignore-line empty.variable
                 $database->insert('modules_tags', $rowsToInsert);
             }
         }

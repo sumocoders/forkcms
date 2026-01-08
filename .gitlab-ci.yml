@@ -42,7 +42,7 @@ cache: &global_cache
 
 # Build section
 Install dependencies and build assets:
-    image: sumocoders/cli-tools-php80:latest
+    image: sumocoders/cli-tools-php81:latest
     script:
         - COMPOSER_MEMORY_LIMIT=-1 composer install --no-scripts --no-progress
         - cp app/config/parameters.yml.dist app/config/parameters.yml
@@ -61,7 +61,7 @@ Install dependencies and build assets:
 
 # Code Quality section
 PHP_CodeSniffer - check code styling:
-    image: sumocoders/fork-php80:latest
+    image: sumocoders/fork-php81:latest
     services:
         - mysql:5.7
     before_script:
@@ -81,7 +81,7 @@ PHP_CodeSniffer - check code styling:
     allow_failure: true
 
 PHPStan - check for bugs:
-    image: sumocoders/fork-php80:latest
+    image: sumocoders/fork-php81:latest
     services:
         - mysql:5.7
     before_script:
@@ -105,7 +105,7 @@ PHPStan - check for bugs:
     allow_failure: true
 
 StandardJS - check code styling:
-    image: sumocoders/cli-tools-php80:latest
+    image: sumocoders/cli-tools-php81:latest
     script:
         - php bin/convert-to-junit-xml convert:standardjs "$(node_modules/.bin/standard)" > standardjs-report.xml
     after_script:
@@ -124,7 +124,7 @@ StandardJS - check code styling:
 
 # Dependency Scanning section
 NPM packages - check for vulnerabilities:
-    image: sumocoders/cli-tools-php80:latest
+    image: sumocoders/cli-tools-php81:latest
     script:
         - php bin/convert-to-junit-xml convert:npm-audit "$(npm audit --production --json)" > npm-audit-report.xml
     after_script:
@@ -141,7 +141,7 @@ NPM packages - check for vulnerabilities:
     allow_failure: true
 
 PHP packages - composer outdated:
-    image: sumocoders/cli-tools-php80:latest
+    image: sumocoders/cli-tools-php81:latest
     script:
         - composer outdated --ansi --no-interaction
     stage: dependency scanning
@@ -153,7 +153,7 @@ PHP packages - composer outdated:
 
 # Test section
 PHPUnit - Run unit tests:
-    image: sumocoders/fork-php80:latest
+    image: sumocoders/fork-php81:latest
     services:
         - mysql:5.7
     before_script:
