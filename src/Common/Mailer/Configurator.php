@@ -4,9 +4,9 @@ namespace Common\Mailer;
 
 use PDOException;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Common\ModulesSettings;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class Configurator
 {
@@ -26,7 +26,7 @@ class Configurator
         $this->container = $container;
     }
 
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         $this->configureMail();
     }

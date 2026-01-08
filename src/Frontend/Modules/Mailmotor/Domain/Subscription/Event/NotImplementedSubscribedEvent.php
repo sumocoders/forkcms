@@ -3,7 +3,7 @@
 namespace Frontend\Modules\Mailmotor\Domain\Subscription\Event;
 
 use Frontend\Modules\Mailmotor\Domain\Subscription\Command\Subscription;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 final class NotImplementedSubscribedEvent extends Event
 {

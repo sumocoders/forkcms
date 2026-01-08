@@ -57,7 +57,6 @@ class Subscribe extends FrontendBaseBlock
         } catch (NotImplementedException $e) {
             // fallback for when no mail-engine is chosen in the Backend
             $this->get('event_dispatcher')->dispatch(
-                NotImplementedSubscribedEvent::EVENT_NAME,
                 new NotImplementedSubscribedEvent($subscription)
             );
 

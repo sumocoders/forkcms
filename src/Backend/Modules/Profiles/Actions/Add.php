@@ -7,7 +7,7 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
-use Symfony\Component\Intl\Intl as Intl;
+use Symfony\Component\Intl\Countries;
 
 /**
  * This is the add-action, it will display a form to add a new profile.
@@ -111,7 +111,7 @@ class Add extends BackendBaseActionAdd
             ->addDropdown('year', array_combine($years, $years))
         ;
         $this->form
-            ->addDropdown('country', Intl::getRegionBundle()->getCountryNames(BL::getInterfaceLanguage()))
+            ->addDropdown('country', Countries::getNames(BL::getInterfaceLanguage()))
         ;
         $this->form->addTextarea('about');
 

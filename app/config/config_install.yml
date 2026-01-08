@@ -11,8 +11,6 @@ framework:
         strict_requirements: ~
     form: ~
     csrf_protection: ~
-    templating:
-        engines: ['twig']
     session:
         handler_id: ~
     validation:

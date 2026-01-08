@@ -3,7 +3,7 @@
 namespace Backend\Core\Tests;
 
 use Common\WebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 abstract class BackendWebTestCase extends WebTestCase
@@ -14,7 +14,7 @@ abstract class BackendWebTestCase extends WebTestCase
     protected function tearDown(): void
     {
         $client = $this->getProvidedData()[0] ?? null;
-        if ($client instanceof Client) {
+        if ($client instanceof KernelBrowser) {
             $this->logout($client);
         }
     }
@@ -28,7 +28,7 @@ abstract class BackendWebTestCase extends WebTestCase
         }
     }
 
-    protected function assertAuthenticationIsNeeded(Client $client, string $url, string $method = 'GET'): void
+    protected function assertAuthenticationIsNeeded(KernelBrowser $client, string $url, string $method = 'GET'): void
     {
         // make sure we aren't logged in with the client
         $this->logout($client);
@@ -41,7 +41,7 @@ abstract class BackendWebTestCase extends WebTestCase
         );
     }
 
-    protected function appendCsrfTokenToUrl(Client $client, string $url): string
+    protected function appendCsrfTokenToUrl(KernelBrowser $client, string $url): string
     {
         $connectionSymbol = (strpos($url, '?') !== false) ? '&' : '?';
 

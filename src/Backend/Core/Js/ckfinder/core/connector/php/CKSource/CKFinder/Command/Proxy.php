@@ -16,8 +16,6 @@ namespace CKSource\CKFinder\Command;
 
 use CKSource\CKFinder\Acl\Permission;
 use CKSource\CKFinder\Config;
-use CKSource\CKFinder\Event\CKFinderEvent;
-use CKSource\CKFinder\Event\DownloadFileEvent;
 use CKSource\CKFinder\Event\ProxyDownloadEvent;
 use CKSource\CKFinder\Exception\AccessDeniedException;
 use CKSource\CKFinder\Exception\FileNotFoundException;
@@ -75,7 +73,7 @@ class Proxy extends CommandAbstract
 
         $proxyDownload = new ProxyDownloadEvent($this->app, $file);
 
-        $dispatcher->dispatch(CKFinderEvent::PROXY_DOWNLOAD, $proxyDownload);
+        $dispatcher->dispatch($proxyDownload);
 
         if ($proxyDownload->isPropagationStopped()) {
             throw new AccessDeniedException();

@@ -5,13 +5,12 @@ namespace Frontend\Modules\Profiles\Actions;
 use ForkCMS\Utility\Thumbnails;
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
 use Frontend\Core\Engine\Form as FrontendForm;
-use Frontend\Core\Engine\Model;
 use Frontend\Core\Language\Language as FL;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Modules\Profiles\Engine\Authentication as FrontendProfilesAuthentication;
 use Frontend\Modules\Profiles\Engine\Model as FrontendProfilesModel;
 use Frontend\Modules\Profiles\Engine\Profile;
-use Symfony\Component\Intl\Intl;
+use Symfony\Component\Intl\Countries;
 use Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException;
 
 class Settings extends FrontendBaseBlock
@@ -96,7 +95,7 @@ class Settings extends FrontendBaseBlock
         $this->form
             ->addDropdown(
                 'country',
-                Intl::getRegionBundle()->getCountryNames(LANGUAGE),
+                Countries::getNames(LANGUAGE),
                 $this->profile->getSetting('country')
             )
             ->setDefaultElement('')

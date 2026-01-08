@@ -5,16 +5,16 @@ namespace Backend\Modules\Blog\Tests\Action;
 use Backend\Core\Tests\BackendWebTestCase;
 use Backend\Modules\Blog\DataFixtures\LoadBlogCategories;
 use Backend\Modules\Blog\DataFixtures\LoadBlogPosts;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class IndexTest extends BackendWebTestCase
 {
-    public function testAuthenticationIsNeeded(Client $client): void
+    public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
         self::assertAuthenticationIsNeeded($client, '/private/en/blog/index');
     }
 
-    public function testIndexContainsBlogPosts(Client $client): void
+    public function testIndexContainsBlogPosts(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,

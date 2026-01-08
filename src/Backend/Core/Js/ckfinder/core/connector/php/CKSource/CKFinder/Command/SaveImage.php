@@ -19,7 +19,6 @@ use CKSource\CKFinder\Acl\Permission;
 use CKSource\CKFinder\Cache\CacheManager;
 use CKSource\CKFinder\Config;
 use CKSource\CKFinder\Error;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Event\EditFileEvent;
 use CKSource\CKFinder\Exception\AccessDeniedException;
 use CKSource\CKFinder\Exception\InvalidExtensionException;
@@ -114,7 +113,7 @@ class SaveImage extends CommandAbstract
             $uploadedImage->getInfo()
         );
 
-        $dispatcher->dispatch(CKFinderEvent::SAVE_IMAGE, $editFileEvent);
+        $dispatcher->dispatch($editFileEvent);
 
         $saved = false;
 

@@ -33,7 +33,6 @@ class Add extends BackendBaseActionAdd
         $createContentBlock = $this->createContentBlock($form);
 
         $this->get('event_dispatcher')->dispatch(
-            ContentBlockCreated::EVENT_NAME,
             new ContentBlockCreated($createContentBlock->getContentBlockEntity())
         );
 

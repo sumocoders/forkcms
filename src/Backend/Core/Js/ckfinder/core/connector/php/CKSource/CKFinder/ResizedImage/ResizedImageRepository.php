@@ -18,7 +18,6 @@ use CKSource\CKFinder\Acl\Acl;
 use CKSource\CKFinder\Acl\Permission;
 use CKSource\CKFinder\CKFinder;
 use CKSource\CKFinder\Config;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Event\ResizeImageEvent;
 use CKSource\CKFinder\Exception\FileNotFoundException;
 use CKSource\CKFinder\Exception\UnauthorizedException;
@@ -104,7 +103,7 @@ class ResizedImageRepository
             $resizedImage->create();
 
             $resizeImageEvent = new ResizeImageEvent($this->app, $resizedImage);
-            $this->dispatcher->dispatch(CKFinderEvent::CREATE_RESIZED_IMAGE, $resizeImageEvent);
+            $this->dispatcher->dispatch($resizeImageEvent);
 
             if (!$resizeImageEvent->isPropagationStopped()) {
                 $resizedImage = $resizeImageEvent->getResizedImage();

@@ -17,7 +17,6 @@ namespace CKSource\CKFinder\Command;
 use CKSource\CKFinder\Acl\Acl;
 use CKSource\CKFinder\Acl\Permission;
 use CKSource\CKFinder\Error;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Event\MoveFileEvent;
 use CKSource\CKFinder\Exception\InvalidRequestException;
 use CKSource\CKFinder\Exception\UnauthorizedException;
@@ -75,7 +74,7 @@ class MoveFiles extends CommandAbstract
 
             if ($movedFile->isValid()) {
                 $moveFileEvent = new MoveFileEvent($this->app, $movedFile);
-                $dispatcher->dispatch(CKFinderEvent::MOVE_FILE, $moveFileEvent);
+                $dispatcher->dispatch($moveFileEvent);
 
                 if (!$moveFileEvent->isPropagationStopped()) {
                     if ($movedFile->doMove()) {

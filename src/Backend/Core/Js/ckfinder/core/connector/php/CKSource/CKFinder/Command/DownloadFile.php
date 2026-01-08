@@ -15,7 +15,6 @@
 namespace CKSource\CKFinder\Command;
 
 use CKSource\CKFinder\Acl\Permission;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Event\DownloadFileEvent;
 use CKSource\CKFinder\Exception\AccessDeniedException;
 use CKSource\CKFinder\Filesystem\File\DownloadedFile;
@@ -38,7 +37,7 @@ class DownloadFile extends CommandAbstract
 
         $downloadedFileEvent = new DownloadFileEvent($this->app, $downloadedFile);
 
-        $dispatcher->dispatch(CKFinderEvent::DOWNLOAD_FILE, $downloadedFileEvent);
+        $dispatcher->dispatch($downloadedFileEvent);
 
         if ($downloadedFileEvent->isPropagationStopped()) {
             throw new AccessDeniedException();

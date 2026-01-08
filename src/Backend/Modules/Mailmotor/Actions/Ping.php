@@ -72,7 +72,6 @@ final class Ping extends ActionIndex
         $this->get('command_bus')->handle($saveSettings);
 
         $this->get('event_dispatcher')->dispatch(
-            SettingsSavedEvent::EVENT_NAME,
             new SettingsSavedEvent($saveSettings)
         );
     }

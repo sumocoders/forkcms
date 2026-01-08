@@ -15,7 +15,6 @@
 namespace CKSource\CKFinder\Command;
 
 use CKSource\CKFinder\Acl\Permission;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Event\DeleteFolderEvent;
 use CKSource\CKFinder\Exception\AccessDeniedException;
 use CKSource\CKFinder\Exception\InvalidRequestException;
@@ -38,7 +37,7 @@ class DeleteFolder extends CommandAbstract
 
         $deleteFolderEvent = new DeleteFolderEvent($this->app, $workingFolder);
 
-        $dispatcher->dispatch(CKFinderEvent::DELETE_FOLDER, $deleteFolderEvent);
+        $dispatcher->dispatch($deleteFolderEvent);
 
         $deleted = false;
 

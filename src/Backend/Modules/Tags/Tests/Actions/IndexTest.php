@@ -5,7 +5,7 @@ namespace Backend\Modules\Tags\Tests\Action;
 use Backend\Modules\Tags\DataFixtures\LoadTagsModulesTags;
 use Backend\Modules\Tags\DataFixtures\LoadTagsTags;
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class IndexTest extends BackendWebTestCase
 {
@@ -22,12 +22,12 @@ class IndexTest extends BackendWebTestCase
         );
     }
 
-    public function testAuthenticationIsNeeded(Client $client): void
+    public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
         self::assertAuthenticationIsNeeded($client, '/private/en/tags/index');
     }
 
-    public function testIndexContainsTags(Client $client): void
+    public function testIndexContainsTags(KernelBrowser $client): void
     {
         $this->login($client);
 

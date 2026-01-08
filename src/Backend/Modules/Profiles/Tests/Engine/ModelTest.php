@@ -7,7 +7,7 @@ use Backend\Modules\Profiles\DataFixtures\LoadProfilesGroupData;
 use Backend\Modules\Profiles\DataFixtures\LoadProfilesProfile;
 use Backend\Modules\Profiles\Engine\Model;
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 final class ModelTest extends BackendWebTestCase
 {
@@ -41,7 +41,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertEquals($profileData['url'], $addedProfileByEmail['url']);
     }
 
-    public function testGettingUrl(Client $client): void
+    public function testGettingUrl(KernelBrowser $client): void
     {
         $firstUrl = Model::getUrl(LoadProfilesProfile::PROFILES_ACTIVE_PROFILE_DISPLAY_NAME);
         self::assertEquals(LoadProfilesProfile::PROFILES_ACTIVE_PROFILE_URL, $firstUrl);
@@ -52,7 +52,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertEquals(LoadProfilesProfile::PROFILES_ACTIVE_PROFILE_URL . '-2', $secondUrl);
     }
 
-    public function testIfProfileExists(Client $client): void
+    public function testIfProfileExists(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesProfile::class]);
 
@@ -61,7 +61,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertTrue(Model::existsDisplayName(LoadProfilesProfile::PROFILES_ACTIVE_PROFILE_DISPLAY_NAME));
     }
 
-    public function testUpdatingProfile(Client $client): void
+    public function testUpdatingProfile(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesProfile::class]);
 
@@ -87,7 +87,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertEquals($updatedProfileData['url'], $updatedProfile['url']);
     }
 
-    public function testDeletingProfile(Client $client): void
+    public function testDeletingProfile(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesProfile::class]);
         Model::delete(LoadProfilesProfile::getProfileActiveId());
@@ -96,7 +96,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertEquals('deleted', $deletedProfile['status']);
     }
 
-    public function testSettingSettings(Client $client): void
+    public function testSettingSettings(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesProfile::class]);
         $profileId = LoadProfilesProfile::getProfileActiveId();
@@ -108,7 +108,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertEquals('My updated value', Model::getSetting($profileId, 'my_setting'));
     }
 
-    public function testInsertingGroup(Client $client): void
+    public function testInsertingGroup(KernelBrowser $client): void
     {
         $groupData = LoadProfilesGroup::PROFILES_GROUP_DATA;
         $groupId = Model::insertGroup($groupData);
@@ -123,7 +123,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertContains($groupData['name'], $groups);
     }
 
-    public function testUpdatingGroup(Client $client): void
+    public function testUpdatingGroup(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesGroup::class]);
         $updatedGroupData = [
@@ -138,14 +138,14 @@ final class ModelTest extends BackendWebTestCase
         self::assertEquals($updatedGroupData['name'], $updatedGroup['name']);
     }
 
-    public function testIfGroupExists(Client $client): void
+    public function testIfGroupExists(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesGroup::class]);
         self::assertTrue(Model::existsGroup(LoadProfilesGroup::getGroupId()));
         self::assertTrue(Model::existsGroupName(LoadProfilesGroup::PROFILES_GROUP_NAME));
     }
 
-    public function testDeletingGroup(Client $client): void
+    public function testDeletingGroup(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -165,7 +165,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertEmpty(Model::getProfileGroup(LoadProfilesGroupData::getId()));
     }
 
-    public function testInsertingProfileGroup(Client $client): void
+    public function testInsertingProfileGroup(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -201,7 +201,7 @@ final class ModelTest extends BackendWebTestCase
         );
     }
 
-    public function testUpdatingProfileGroup(Client $client): void
+    public function testUpdatingProfileGroup(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -231,7 +231,7 @@ final class ModelTest extends BackendWebTestCase
         );
     }
 
-    public function testIfProfileGroupExists(Client $client): void
+    public function testIfProfileGroupExists(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -245,7 +245,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertTrue(Model::existsProfileGroup(LoadProfilesGroupData::getId()));
     }
 
-    public function testDeletingProfileGroup(Client $client): void
+    public function testDeletingProfileGroup(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,

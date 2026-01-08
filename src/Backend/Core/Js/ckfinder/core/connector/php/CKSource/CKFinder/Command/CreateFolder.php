@@ -15,7 +15,6 @@
 namespace CKSource\CKFinder\Command;
 
 use CKSource\CKFinder\Acl\Permission;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Event\CreateFolderEvent;
 use CKSource\CKFinder\Filesystem\Folder\WorkingFolder;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -33,7 +32,7 @@ class CreateFolder extends CommandAbstract
 
         $createFolderEvent = new CreateFolderEvent($this->app, $workingFolder, $newFolderName);
 
-        $dispatcher->dispatch(CKFinderEvent::CREATE_FOLDER, $createFolderEvent);
+        $dispatcher->dispatch($createFolderEvent);
 
         $created = false;
 

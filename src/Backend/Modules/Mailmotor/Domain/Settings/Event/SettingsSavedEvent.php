@@ -3,7 +3,7 @@
 namespace Backend\Modules\Mailmotor\Domain\Settings\Event;
 
 use Backend\Modules\Mailmotor\Domain\Settings\Command\SaveSettings;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Mailmotor settings saved Event

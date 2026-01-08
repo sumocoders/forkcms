@@ -588,7 +588,6 @@ class Form extends FrontendBaseWidget
                 }
 
                 $this->get('event_dispatcher')->dispatch(
-                    FormBuilderEvents::FORM_SUBMITTED,
                     new FormBuilderSubmittedEvent($this->item, $fields, $dataId)
                 );
 

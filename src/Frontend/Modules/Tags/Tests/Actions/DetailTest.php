@@ -5,11 +5,11 @@ namespace Frontend\Modules\Tags\Actions;
 use Backend\Modules\Tags\DataFixtures\LoadTagsModulesTags;
 use Backend\Modules\Tags\DataFixtures\LoadTagsTags;
 use Frontend\Core\Tests\FrontendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class DetailTest extends FrontendWebTestCase
 {
-    public function testTagsHaveDetailPage(Client $client): void
+    public function testTagsHaveDetailPage(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -34,7 +34,7 @@ class DetailTest extends FrontendWebTestCase
         self::assertCurrentUrlEndsWith($client, '/en/tags/detail/most-used');
     }
 
-    public function testNonExistingFaqGives404(Client $client): void
+    public function testNonExistingFaqGives404(KernelBrowser $client): void
     {
         self::assertHttpStatusCode404($client, '/en/faq/detail/non-existing');
     }

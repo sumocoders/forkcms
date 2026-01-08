@@ -17,7 +17,6 @@ namespace CKSource\CKFinder\Command;
 use CKSource\CKFinder\Acl\Acl;
 use CKSource\CKFinder\Acl\Permission;
 use CKSource\CKFinder\Error;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Event\DeleteFileEvent;
 use CKSource\CKFinder\Exception\InvalidRequestException;
 use CKSource\CKFinder\Exception\UnauthorizedException;
@@ -68,7 +67,7 @@ class DeleteFiles extends CommandAbstract
 
             if ($deletedFile->isValid()) {
                 $deleteFileEvent = new DeleteFileEvent($this->app, $deletedFile);
-                $dispatcher->dispatch(CKFinderEvent::DELETE_FILE, $deleteFileEvent);
+                $dispatcher->dispatch($deleteFileEvent);
 
                 if (!$deleteFileEvent->isPropagationStopped()) {
                     if ($deletedFile->doDelete()) {

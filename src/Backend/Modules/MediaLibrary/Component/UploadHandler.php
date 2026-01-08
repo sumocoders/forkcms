@@ -4,9 +4,9 @@ namespace Backend\Modules\MediaLibrary\Component;
 
 use Backend\Modules\MediaLibrary\Manager\FileManager;
 use Exception;
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeExtensionGuesser;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mime\MimeTypes;
 
 class UploadHandler
 {
@@ -269,7 +269,7 @@ class UploadHandler
                 DIRECTORY_SEPARATOR,
                 [$uploadDirectory, basename($this->request->request->get('qquuid')), $name]
             );
-            $mimeType = (new MimeTypeExtensionGuesser())->guess($uploadedPath);
+            $mimeType = (new MimeTypes())->guessMimeType($uploadedPath);
 
             return new UploadedFile($uploadedPath, $name, $mimeType, filesize($uploadedPath));
         }
@@ -301,7 +301,7 @@ class UploadHandler
 
     private function getSize(UploadedFile $file): int
     {
-        $size = (int) $this->request->request->get('qqtotalfilesize', $file->getClientSize());
+        $size = (int) $this->request->request->get('qqtotalfilesize', $file->getSize());
 
         // Validate file size
         if ($size === 0) {

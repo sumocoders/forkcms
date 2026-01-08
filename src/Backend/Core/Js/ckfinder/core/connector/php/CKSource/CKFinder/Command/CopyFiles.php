@@ -17,7 +17,6 @@ namespace CKSource\CKFinder\Command;
 use CKSource\CKFinder\Acl\Acl;
 use CKSource\CKFinder\Acl\Permission;
 use CKSource\CKFinder\Error;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Event\CopyFileEvent;
 use CKSource\CKFinder\Exception\InvalidRequestException;
 use CKSource\CKFinder\Exception\UnauthorizedException;
@@ -75,7 +74,7 @@ class CopyFiles extends CommandAbstract
 
             if ($copiedFile->isValid()) {
                 $copyFileEvent = new CopyFileEvent($this->app, $copiedFile);
-                $dispatcher->dispatch(CKFinderEvent::COPY_FILE, $copyFileEvent);
+                $dispatcher->dispatch($copyFileEvent);
 
                 if (!$copyFileEvent->isPropagationStopped()) {
                     if ($copiedFile->doCopy()) {

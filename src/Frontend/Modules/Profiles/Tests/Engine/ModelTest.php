@@ -5,7 +5,7 @@ namespace Frontend\Modules\Profiles\Tests\Engine;
 use Backend\Modules\Profiles\DataFixtures\LoadProfilesProfile;
 use Frontend\Modules\Profiles\Engine\Model;
 use Frontend\Core\Tests\FrontendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 final class ModelTest extends FrontendWebTestCase
 {
@@ -24,7 +24,7 @@ final class ModelTest extends FrontendWebTestCase
         self::assertEquals($profileId, Model::getIdByEmail($profileData['email']));
     }
 
-    public function testUpdatingProfile(Client $client): void
+    public function testUpdatingProfile(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesProfile::class]);
         $profileId = LoadProfilesProfile::getProfileActiveId();
@@ -53,7 +53,7 @@ final class ModelTest extends FrontendWebTestCase
         self::assertEquals($profileId, Model::getIdByEmail($updatedProfileData['email']));
     }
 
-    public function testProfileExists(Client $client): void
+    public function testProfileExists(KernelBrowser $client): void
     {
         self::assertFalse(Model::existsDisplayName(LoadProfilesProfile::PROFILES_ACTIVE_PROFILE_DISPLAY_NAME));
         self::assertFalse(Model::existsByEmail(LoadProfilesProfile::PROFILES_ACTIVE_PROFILE_EMAIL));
@@ -71,7 +71,7 @@ final class ModelTest extends FrontendWebTestCase
         self::assertTrue(password_verify(LoadProfilesProfile::PROFILES_PROFILE_PASSWORD, $encryptedPassword));
     }
 
-    public function testGettingEncryptedPassword(Client $client): void
+    public function testGettingEncryptedPassword(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesProfile::class]);
 
@@ -83,7 +83,7 @@ final class ModelTest extends FrontendWebTestCase
         );
     }
 
-    public function testVerifyingPassword(Client $client): void
+    public function testVerifyingPassword(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesProfile::class]);
 
@@ -95,7 +95,7 @@ final class ModelTest extends FrontendWebTestCase
         );
     }
 
-    public function testSettingSettings(Client $client): void
+    public function testSettingSettings(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesProfile::class]);
         $id = LoadProfilesProfile::getProfileActiveId();
@@ -118,7 +118,7 @@ final class ModelTest extends FrontendWebTestCase
         self::assertEquals('A new value', Model::getSetting($id, 'my_other_setting'));
     }
 
-    public function testGettingSettings(Client $client): void
+    public function testGettingSettings(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesProfile::class]);
 
@@ -136,7 +136,7 @@ final class ModelTest extends FrontendWebTestCase
         self::assertNotContains('Someone else\'s setting\'s value', $settings);
     }
 
-    public function testDeletingSetting(Client $client): void
+    public function testDeletingSetting(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesProfile::class]);
         $activeId = LoadProfilesProfile::getProfileActiveId();
@@ -148,7 +148,7 @@ final class ModelTest extends FrontendWebTestCase
         self::assertEquals('', Model::getSetting($activeId, 'my_setting'));
     }
 
-    public function testGettingId(Client $client): void
+    public function testGettingId(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesProfile::class]);
         $activeId = LoadProfilesProfile::getProfileActiveId();
@@ -215,7 +215,7 @@ final class ModelTest extends FrontendWebTestCase
         );
     }
 
-    public function testGettingUrl(Client $client): void
+    public function testGettingUrl(KernelBrowser $client): void
     {
         $firstUrl = Model::getUrl(LoadProfilesProfile::PROFILES_ACTIVE_PROFILE_DISPLAY_NAME);
         self::assertEquals(LoadProfilesProfile::PROFILES_ACTIVE_PROFILE_URL, $firstUrl);

@@ -3,7 +3,7 @@
 namespace Backend\Modules\ContentBlocks\Domain\ContentBlock\Event;
 
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 abstract class ContentBlockEvent extends Event
 {

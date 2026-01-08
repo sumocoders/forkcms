@@ -1,5 +1,7 @@
 services:
     media_library.console.cache_clear:
         class: Backend\Modules\MediaLibrary\Console\CacheClearCommand
+        arguments:
+            - '@media_library.manager.file'
         tags:
             -  { name: console.command }

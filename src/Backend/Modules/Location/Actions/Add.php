@@ -8,7 +8,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Location\Engine\Model as BackendLocationModel;
 use ForkCMS\Utility\Geolocation;
-use Symfony\Component\Intl\Intl as Intl;
+use Symfony\Component\Intl\Countries;
 
 /**
  * This is the add-action, it will display a form to create a new item
@@ -32,7 +32,7 @@ class Add extends BackendBaseActionAdd
         $this->form->addText('number')->makeRequired();
         $this->form->addText('zip')->makeRequired();
         $this->form->addText('city')->makeRequired();
-        $this->form->addDropdown('country', Intl::getRegionBundle()->getCountryNames(BL::getInterfaceLanguage()), 'BE')->makeRequired();
+        $this->form->addDropdown('country', Countries::getNames(BL::getInterfaceLanguage()), 'BE')->makeRequired();
     }
 
     private function validateForm(): void

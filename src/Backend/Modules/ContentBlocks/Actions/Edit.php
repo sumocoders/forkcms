@@ -52,7 +52,6 @@ class Edit extends BackendBaseActionEdit
         $updateContentBlock = $this->updateContentBlock($form);
 
         $this->get('event_dispatcher')->dispatch(
-            ContentBlockUpdated::EVENT_NAME,
             new ContentBlockUpdated($updateContentBlock->getContentBlockEntity())
         );
 

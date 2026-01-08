@@ -6,7 +6,7 @@ use Backend\Modules\Location\DataFixtures\LoadLocation;
 use Backend\Modules\Location\DataFixtures\LoadLocationSettings;
 use Backend\Modules\Location\Engine\Model;
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class ModelTest extends BackendWebTestCase
 {
@@ -30,7 +30,7 @@ class ModelTest extends BackendWebTestCase
         self::assertEquals($locationArray['show_overview'], $addedLocation['show_overview']);
     }
 
-    public function testInsertingLocationSetting(Client $client): void
+    public function testInsertingLocationSetting(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -72,7 +72,7 @@ class ModelTest extends BackendWebTestCase
         );
     }
 
-    public function testEditingLocationSetting(Client $client): void
+    public function testEditingLocationSetting(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -105,7 +105,7 @@ class ModelTest extends BackendWebTestCase
         self::assertEquals($newValue2, Model::getMapSetting($locationId, LoadLocationSettings::SETTING_NAME_2));
     }
 
-    public function testGettingAllLocationSettings(Client $client): void
+    public function testGettingAllLocationSettings(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -122,7 +122,7 @@ class ModelTest extends BackendWebTestCase
         self::assertEquals(LoadLocationSettings::SETTING_VALUE_2, $settings[LoadLocationSettings::SETTING_NAME_2]);
     }
 
-    public function testGettingNonExistentSettingReturnsFalse(Client $client): void
+    public function testGettingNonExistentSettingReturnsFalse(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -136,7 +136,7 @@ class ModelTest extends BackendWebTestCase
         self::assertFalse(Model::getMapSetting(9000, 'the-location-also-doesnt-exist'));
     }
 
-    public function testLocationExists(Client $client): void
+    public function testLocationExists(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -149,7 +149,7 @@ class ModelTest extends BackendWebTestCase
         self::assertFalse(Model::exists(2));
     }
 
-    public function testGettingAllLocations(Client $client): void
+    public function testGettingAllLocations(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -178,7 +178,7 @@ class ModelTest extends BackendWebTestCase
         self::assertEquals($locationArray['show_overview'], $firstLocation['show_overview']);
     }
 
-    public function testEditingLocation(Client $client): void
+    public function testEditingLocation(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -231,7 +231,7 @@ class ModelTest extends BackendWebTestCase
         self::assertEquals($locationArray['show_overview'], $editedLocation['show_overview']);
     }
 
-    public function testDeletingLocation(Client $client): void
+    public function testDeletingLocation(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,

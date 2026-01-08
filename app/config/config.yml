@@ -16,8 +16,6 @@ framework:
     validation:
         enable_annotations: true
     csrf_protection: ~
-    templating:
-        engines: ['twig']
     session:
         handler_id: ~
         cookie_secure: '%session.cookie_secure%'
@@ -248,8 +246,6 @@ services:
     translator:
         class: Common\Language
         public: true
-        arguments:
-            - "@translator.selector"
 
     Common\Core\Twig\Extensions\IncludeOnceExtension:
         public: false

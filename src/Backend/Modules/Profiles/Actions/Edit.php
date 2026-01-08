@@ -11,7 +11,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
-use Symfony\Component\Intl\Intl as Intl;
+use Symfony\Component\Intl\Countries;
 
 /**
  * This is the edit-action, it will display a form to edit an existing profile.
@@ -139,7 +139,7 @@ class Edit extends BackendBaseActionEdit
         $this->form
             ->addDropdown(
                 'country',
-                Intl::getRegionBundle()->getCountryNames(BL::getInterfaceLanguage()),
+                Countries::getNames(BL::getInterfaceLanguage()),
                 BackendProfilesModel::getSetting($this->id, 'country')
             )
             ->setAttribute('autocomplete', 'country-name')

@@ -3,8 +3,8 @@
 namespace Backend\Modules\Extensions\Tests\Actions;
 
 use Backend\Core\Tests\BackendWebTestCase;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
-use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\Filesystem\Filesystem;
 use ZipArchive;
 
@@ -19,12 +19,12 @@ class UploadThemeTest extends BackendWebTestCase
      */
     private $fileName;
 
-    public function testAuthenticationIsNeeded(Client $client): void
+    public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
         self::assertAuthenticationIsNeeded($client, self::URL_UPLOAD_THEME);
     }
 
-    public function testUploadPage(Client $client): void
+    public function testUploadPage(KernelBrowser $client): void
     {
         $this->login($client);
 
@@ -41,7 +41,7 @@ class UploadThemeTest extends BackendWebTestCase
     /**
      * Test that we cannot upload a theme without info.xml file
      */
-    public function testUploadThemeZipWithoutInfoFile(Client $client): void
+    public function testUploadThemeZipWithoutInfoFile(KernelBrowser $client): void
     {
         // Generate zip with no info.xml
         $archive = $this->createZip();
@@ -57,7 +57,7 @@ class UploadThemeTest extends BackendWebTestCase
     /**
      * Test if we can upload a theme with a zip that contains a subfolder containing the themefiles.
      */
-    public function testUploadThemeZipGithub(Client $client): void
+    public function testUploadThemeZipGithub(KernelBrowser $client): void
     {
         $archive = $this->createZip();
         $archive->addFromString(self::THEME_NAME . '/info.xml', $this->getSampleInfoXmlContents(self::THEME_NAME));
@@ -74,7 +74,7 @@ class UploadThemeTest extends BackendWebTestCase
     /**
      * Test if we can upload a theme with a zip that contains only the files (not wrapped in a parent folder).
      */
-    public function testUploadThemeNoParentFolder(Client $client): void
+    public function testUploadThemeNoParentFolder(KernelBrowser $client): void
     {
         $archive = $this->createZip();
         $archive->addFromString('info.xml', $this->getSampleInfoXmlContents(self::THEME_NAME));
@@ -117,7 +117,7 @@ class UploadThemeTest extends BackendWebTestCase
         return '<?xml version="1.0" encoding="UTF-8"?><theme><name>' . $themeName . '</name><version>1.0.0</version><requirements><minimum_version>4.0.0</minimum_version></requirements><thumbnail>thumbnail.png</thumbnail><description><![CDATA[Fork CMS Test]]></description><authors><author><name>Fork CMS</name><url>http://www.fork-cms.com</url></author></authors><metanavigation supported="false" /><templates></templates></theme>';
     }
 
-    private function submitThemeUploadForm(Client $client): void
+    private function submitThemeUploadForm(KernelBrowser $client): void
     {
         $this->login($client);
         $client->request('GET', self::URL_UPLOAD_THEME);

@@ -44,6 +44,11 @@ class Authentication
     private static $alreadyLoggedOut = false;
 
     /**
+     * Cached value for is logged in check
+     */
+    private static bool $isLoggedIn = false;
+
+    /**
      * Check the strength of the password
      *
      * @param string $password The password.
@@ -264,8 +269,8 @@ class Authentication
      */
     public static function isLoggedIn(): bool
     {
-        if (BackendModel::getContainer()->has('logged_in')) {
-            return (bool) BackendModel::getContainer()->get('logged_in');
+        if (self::$isLoggedIn) {
+            return true;
         }
 
         // check if all needed values are set in the session
@@ -301,7 +306,7 @@ class Authentication
             self::$user = new User($sessionData['user_id']);
 
             // the user is logged on
-            BackendModel::getContainer()->set('logged_in', true);
+            self::$isLoggedIn = true;
 
             return true;
         }
@@ -379,12 +384,11 @@ class Authentication
 
         // trigger changed session ID
         BackendModel::get('event_dispatcher')->dispatch(
-            ForkEvents::FORK_EVENTS_SESSION_ID_CHANGED,
             new ForkSessionIdChangedEvent($oldSession, $session->getId())
         );
 
-        // update/instantiate the value for the logged_in container.
-        BackendModel::getContainer()->set('logged_in', true);
+        // set logged_in to true in the session
+        Authentication::$isLoggedIn = true;
         self::$user = new User($userId);
 
         return true;
@@ -419,7 +423,6 @@ class Authentication
 
         // trigger changed session ID
         BackendModel::get('event_dispatcher')->dispatch(
-            ForkEvents::FORK_EVENTS_SESSION_ID_CHANGED,
             new ForkSessionIdChangedEvent($oldSession, $session->getId())
         );
 

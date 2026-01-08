@@ -5,11 +5,11 @@ namespace Frontend\Modules\Faq\Tests\Actions;
 use Frontend\Core\Tests\FrontendWebTestCase;
 use Backend\Modules\Faq\DataFixtures\LoadFaqCategories;
 use Backend\Modules\Faq\DataFixtures\LoadFaqQuestions;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class IndexTest extends FrontendWebTestCase
 {
-    public function testFaqIndexContainsCategories(Client $client): void
+    public function testFaqIndexContainsCategories(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -26,7 +26,7 @@ class IndexTest extends FrontendWebTestCase
         );
     }
 
-    public function testFaqIndexContainsQuestions(Client $client): void
+    public function testFaqIndexContainsQuestions(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,

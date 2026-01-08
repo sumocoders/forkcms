@@ -7,7 +7,7 @@ use Backend\Modules\Tags\DataFixtures\LoadTagsModulesTags;
 use Backend\Modules\Tags\DataFixtures\LoadTagsTags;
 use Backend\Modules\Tags\Engine\Model as TagsModel;
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 final class ModelTest extends BackendWebTestCase
 {
@@ -45,7 +45,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertFalse(TagsModel::existsTag('non-existing'));
     }
 
-    public function testInsertWithDefaultLanguage(Client $client): void
+    public function testInsertWithDefaultLanguage(KernelBrowser $client): void
     {
         $name = 'inserted';
         $tagId = TagsModel::insert($name);
@@ -59,7 +59,7 @@ final class ModelTest extends BackendWebTestCase
         );
     }
 
-    public function testInsertWithSpecificLanguage(Client $client): void
+    public function testInsertWithSpecificLanguage(KernelBrowser $client): void
     {
         $name = 'inserted';
         $language = 'nl';
@@ -128,7 +128,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertSame(implode(',', ['concat', LoadTagsTags::TAGS_TAG_1_NAME]), TagsModel::getTags('Pages', 1));
     }
 
-    public function testSaveTagsUpdatesTheUsedCount(Client $client): void
+    public function testSaveTagsUpdatesTheUsedCount(KernelBrowser $client): void
     {
         $database = $client->getContainer()->get('database');
         $tagCount = static function (int $id) use ($database): int {

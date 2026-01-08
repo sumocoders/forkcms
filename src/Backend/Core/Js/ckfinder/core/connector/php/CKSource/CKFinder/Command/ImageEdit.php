@@ -17,7 +17,6 @@ namespace CKSource\CKFinder\Command;
 use CKSource\CKFinder\Acl\Acl;
 use CKSource\CKFinder\Acl\Permission;
 use CKSource\CKFinder\Config;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Event\EditFileEvent;
 use CKSource\CKFinder\Exception\InvalidExtensionException;
 use CKSource\CKFinder\Exception\InvalidRequestException;
@@ -131,7 +130,7 @@ class ImageEdit extends CommandAbstract
             throw new InvalidUploadException('Invalid file provided');
         }
 
-        $dispatcher->dispatch(CKFinderEvent::EDIT_IMAGE, $editFileEvent);
+        $dispatcher->dispatch($editFileEvent);
 
         $saved = false;
 
