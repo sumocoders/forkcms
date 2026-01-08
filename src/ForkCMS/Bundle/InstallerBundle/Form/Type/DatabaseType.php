@@ -57,7 +57,7 @@ class DatabaseType extends AbstractType
         // make sure the default data is set
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) {
+            function (FormEvent $event): void {
                 $data = $event->getData();
 
                 $databaseHostname = $data->getDatabaseHostname();

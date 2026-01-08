@@ -137,7 +137,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
         }
         array_walk(
             $identifiers,
-            function (&$id, $field) {
+            function (&$id, $field): void {
                 if (!\is_object($id) || $id instanceof \DateTimeInterface) {
                     $idAsString = $this->formatValue($id, self::PRETTY_DATE);
                 } else {

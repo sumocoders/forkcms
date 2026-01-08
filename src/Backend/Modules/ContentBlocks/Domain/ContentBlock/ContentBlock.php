@@ -241,7 +241,7 @@ class ContentBlock
             'edit_url' => $editUrl,
         ];
         if (isset($extra['data'])) {
-            $data = $data + (array) $extra['data'];
+            $data += (array) $extra['data'];
         }
         $data['custom_template'] = $this->template;
         $data['extra_label'] = $this->title;

@@ -53,7 +53,7 @@ class FileType extends AbstractType
         $builder
             ->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use ($options) {
+                function (FormEvent $event) use ($options): void {
                     $fileIsEmpty = ($event->getData() === null || empty($event->getData()->getFileName()));
                     $required = $fileIsEmpty && $options['required'];
                     $fileFieldOptions = [
@@ -177,7 +177,7 @@ class FileType extends AbstractType
             $view->vars['preview_url'] = $form->getData()->getWebPath();
         }
         array_map(
-            function ($optionName) use ($options, &$view) {
+            function ($optionName) use ($options, &$view): void {
                 if (array_key_exists($optionName, $options) && !empty($options[$optionName])) {
                     $view->vars[$optionName] = $options[$optionName];
                 }

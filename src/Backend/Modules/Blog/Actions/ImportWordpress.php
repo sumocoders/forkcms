@@ -333,7 +333,7 @@ class ImportWordpress extends BackendBaseActionEdit
 
         if (isset($matchesImages[1]) && !empty($matchesImages[1])) {
             // Walk through image links
-            foreach ($matchesImages[1] as $key => $file) {
+            foreach ($matchesImages[1] as $file) {
                 // Should we bother looking at this file?
                 if (!empty($filter) && !mb_stristr($file, $filter)) {
                     continue;
@@ -354,7 +354,7 @@ class ImportWordpress extends BackendBaseActionEdit
 
         if (isset($matchesLinks[1]) && !empty($matchesLinks[1])) {
             // Walk through links
-            foreach ($matchesLinks[1] as $key => $link) {
+            foreach ($matchesLinks[1] as $link) {
                 // Should we bother looking at this file?
                 if (!empty($filter) && !mb_stristr($link, $filter)) {
                     continue;

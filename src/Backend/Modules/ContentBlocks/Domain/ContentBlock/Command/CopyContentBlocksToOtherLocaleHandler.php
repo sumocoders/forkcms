@@ -25,7 +25,7 @@ final class CopyContentBlocksToOtherLocaleHandler
         $id = $this->contentBlockRepository->getNextIdForLanguage($copyContentBlocksToOtherLocale->toLocale);
 
         array_map(
-            function (ContentBlock $contentBlock) use ($copyContentBlocksToOtherLocale, &$id) {
+            function (ContentBlock $contentBlock) use ($copyContentBlocksToOtherLocale, &$id): void {
                 $copyContentBlocksToOtherLocale->extraIdMap[$contentBlock->getExtraId()] = $this->getNewExtraId();
                 $dataTransferObject = $contentBlock->getDataTransferObject();
 

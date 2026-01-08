@@ -58,7 +58,7 @@ class Breadcrumb extends KernelLoader
         krsort($breadcrumbs);
 
         array_map(
-            function (array $breadcrumb) {
+            function (array $breadcrumb): void {
                 $this->addElement($breadcrumb['title'], $breadcrumb['url']);
             },
             $breadcrumbs

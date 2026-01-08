@@ -35,7 +35,7 @@ final class SubscriptionHandler
             if ($this->modulesSettings->get('Mailmotor', 'overwrite_interests', true)) {
                 $possibleInterests = $this->subscriber->getInterests($languageSpecificListId);
 
-                foreach ($possibleInterests as $categoryId => $categoryInterest) {
+                foreach ($possibleInterests as $categoryInterest) {
                     foreach ($categoryInterest['children'] as $categoryChildId => $categoryChildTitle) {
                         $interests[$categoryChildId] = in_array($categoryChildId, $subscription->interests);
                     }

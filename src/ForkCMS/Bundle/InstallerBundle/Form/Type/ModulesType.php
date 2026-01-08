@@ -60,7 +60,7 @@ class ModulesType extends AbstractType
         // make sure the required modules are selected when submitting
         $builder->addEventListener(
             FormEvents::PRE_SUBMIT,
-            function (FormEvent $event) {
+            function (FormEvent $event): void {
                 $data = $event->getData();
 
                 // add the modules array if it doesn't exit

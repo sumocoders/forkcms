@@ -63,7 +63,7 @@ class Writer
     private function getStreamedResponse(Csv $writer, string $filename): StreamedResponse
     {
         $response = new StreamedResponse(
-            function () use ($writer) {
+            function () use ($writer): void {
                 $writer->save('php://output');
             }
         );

@@ -257,7 +257,7 @@ class OperationManager
      */
     public function addInfoToResponse()
     {
-        $this->app->on(KernelEvents::RESPONSE, function (FilterResponseEvent $event) {
+        $this->app->on(KernelEvents::RESPONSE, function (FilterResponseEvent $event): void {
             $response = $event->getResponse();
 
             if ($response instanceof JsonResponse) {

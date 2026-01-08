@@ -214,7 +214,7 @@ class MetaType extends AbstractType
 
     private function getSubmitEventFunction(string $baseFieldName): callable
     {
-        return function (FormEvent $event) use ($baseFieldName) {
+        return function (FormEvent $event) use ($baseFieldName): void {
             $metaForm = $event->getForm();
             $metaData = $event->getData();
             $parentForm = $metaForm->getParent();
@@ -233,7 +233,7 @@ class MetaType extends AbstractType
             $overwritableFields = $this->getOverwritableFields();
             array_walk(
                 $overwritableFields,
-                function ($fieldName) use ($metaForm, $defaultValue, &$metaData) {
+                function ($fieldName) use ($metaForm, $defaultValue, &$metaData): void {
                     if ($metaForm->get($fieldName . 'Overwrite')->getData()) {
                         // we are overwriting it so we don't need to set the fallback
                         return;

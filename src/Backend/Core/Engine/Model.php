@@ -639,7 +639,7 @@ class Model extends \Common\Core\Model
         $filesystem = new Filesystem();
         array_walk(
             $fileSizes,
-            function (string $sizeDirectory) use ($baseDirectory, $filename, $filesystem) {
+            function (string $sizeDirectory) use ($baseDirectory, $filename, $filesystem): void {
                 $fullPath = $baseDirectory . basename($sizeDirectory) . '/' . $filename;
                 if (is_file($fullPath)) {
                     $filesystem->remove($fullPath);

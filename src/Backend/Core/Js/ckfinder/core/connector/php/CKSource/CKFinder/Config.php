@@ -282,7 +282,7 @@ class Config
      */
     protected function validate()
     {
-        $checkMissingNodes = function (array $required, array $actual, $prefix = '') {
+        $checkMissingNodes = function (array $required, array $actual, $prefix = ''): void {
             $missing = array_keys(array_diff_key(array_flip($required), $actual));
 
             if (!empty($missing)) {
@@ -428,7 +428,7 @@ class Config
             $hideFilesConfig = $this->options['hideFiles'];
 
             if ($hideFilesConfig && is_array($hideFilesConfig)) {
-                $hideFilesRegex = join("|", $hideFilesConfig);
+                $hideFilesRegex = implode("|", $hideFilesConfig);
                 $hideFilesRegex = strtr($hideFilesRegex, array("?" => "__QMK__", "*" => "__AST__", "|" => "__PIP__"));
                 $hideFilesRegex = preg_quote($hideFilesRegex, "/");
                 $hideFilesRegex = strtr($hideFilesRegex, array("__QMK__" => ".", "__AST__" => ".*", "__PIP__" => "|"));
@@ -453,7 +453,7 @@ class Config
             $hideFoldersConfig = $this->options['hideFolders'];
 
             if ($hideFoldersConfig && is_array($hideFoldersConfig)) {
-                $hideFoldersRegex = join("|", $hideFoldersConfig);
+                $hideFoldersRegex = implode("|", $hideFoldersConfig);
                 $hideFoldersRegex = strtr($hideFoldersRegex, array("?" => "__QMK__", "*" => "__AST__", "|" => "__PIP__"));
                 $hideFoldersRegex = preg_quote($hideFoldersRegex, "/");
                 $hideFoldersRegex = strtr($hideFoldersRegex, array("__QMK__" => ".", "__AST__" => ".*", "__PIP__" => "|"));

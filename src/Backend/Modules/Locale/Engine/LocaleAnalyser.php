@@ -32,7 +32,7 @@ final class LocaleAnalyser
 
         $nonExisting = [];
         foreach ($locale as $moduleName => $module) {
-            foreach ($module as $filename => $file) {
+            foreach ($module as $file) {
                 $file['locale'] = $this->localeArrayDiff($file['locale'], $existingLocale, $moduleName);
 
                 foreach ($file['locale'] as $type => $modules) {

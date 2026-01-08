@@ -48,7 +48,7 @@ class FileUpload extends CommandAbstract
             );
 
             foreach ($uploadEvents as $eventName) {
-                $dispatcher->addListener($eventName, function (AfterCommandEvent $event) {
+                $dispatcher->addListener($eventName, function (AfterCommandEvent $event): void {
                     $response = $event->getResponse();
                     $response->headers->set('Content-Type', 'text/plain');
                 });

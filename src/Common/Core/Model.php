@@ -351,7 +351,7 @@ class Model extends BaseModel
     {
         array_walk_recursive(
             $data,
-            static function (&$value) {
+            static function (&$value): void {
                 if (is_string($value)) {
                     $value = htmlspecialchars($value);
                 }

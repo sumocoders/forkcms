@@ -111,7 +111,7 @@ class SubscribeType extends AbstractType
                 return $interests;
             }
 
-            foreach ($mailMotorInterests as $categoryId => $categoryInterest) {
+            foreach ($mailMotorInterests as $categoryInterest) {
                 if (empty($categoryInterest['children']) || !is_array($categoryInterest['children'])) {
                     continue;
                 }

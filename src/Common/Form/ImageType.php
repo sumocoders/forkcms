@@ -53,7 +53,7 @@ class ImageType extends AbstractType
         $builder
             ->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use ($options) {
+                function (FormEvent $event) use ($options): void {
                     $imageIsEmpty = ($event->getData() === null || empty($event->getData()->getFileName()));
                     $required = $imageIsEmpty && $options['required'];
                     $fileFieldOptions = [
@@ -183,7 +183,7 @@ class ImageType extends AbstractType
         }
 
         array_map(
-            function ($optionName) use ($options, &$view) {
+            function ($optionName) use ($options, &$view): void {
                 if (array_key_exists($optionName, $options) && !empty($options[$optionName])) {
                     $view->vars[$optionName] = $options[$optionName];
                 }

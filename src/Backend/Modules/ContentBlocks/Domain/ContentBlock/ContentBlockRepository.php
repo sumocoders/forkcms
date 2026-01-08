@@ -13,7 +13,7 @@ class ContentBlockRepository extends EntityRepository
         // make sure the other revisions are archived
         if ($contentBlock->getStatus()->isActive() && $contentBlock->getId() !== null) {
             array_map(
-                function (ContentBlock $contentBlock) {
+                function (ContentBlock $contentBlock): void {
                     $contentBlock->archive();
                 },
                 (array) $this->findBy(['id' => $contentBlock->getId(), 'locale' => $contentBlock->getLocale()])
@@ -74,7 +74,7 @@ class ContentBlockRepository extends EntityRepository
     {
         // We don't flush here, see http://disq.us/p/okjc6b
         array_map(
-            function (ContentBlock $contentBlock) {
+            function (ContentBlock $contentBlock): void {
                 $this->getEntityManager()->remove($contentBlock);
             },
             (array) $this->findBy(['id' => $id, 'locale' => $locale])

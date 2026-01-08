@@ -67,7 +67,7 @@ class Csv extends \SpoonFileCSV
         $writer->setLineEnding(self::getLineEnding());
 
         $response = new StreamedResponse(
-            function () use ($writer) {
+            function () use ($writer): void {
                 $writer->save('php://output');
             }
         );
