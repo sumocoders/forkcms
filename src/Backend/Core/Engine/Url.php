@@ -74,7 +74,7 @@ class Url extends KernelLoader
 
     private function getLanguageFromUrl(): string
     {
-        if (!array_key_exists(BackendModel::getRequest()->attributes->get('_locale'), BackendLanguage::getWorkingLanguages())) {
+        if (!array_key_exists((string) BackendModel::getRequest()->attributes->get('_locale'), BackendLanguage::getWorkingLanguages())) {
             $url = $this->getBaseUrlForLanguage($this->getContainer()->getParameter('site.default_language'));
             $url .= '/' . BackendModel::getRequest()->attributes->get('module') . '/' . BackendModel::getRequest()->attributes->get('action');
 

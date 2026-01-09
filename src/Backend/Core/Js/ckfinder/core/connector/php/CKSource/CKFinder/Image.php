@@ -365,14 +365,12 @@ class Image
             $temp = imagecreatetruecolor($dstW + 1, $dstH + 1);
             imagecopyresized($temp, $srcImage, $dstX, $dstY, $srcX, $srcY, $dstW + 1, $dstH + 1, $srcW, $srcH);
             imagecopyresized($dstImage, $temp, 0, 0, 0, 0, $dstW, $dstH, $dstW, $dstH);
-            imagedestroy($temp);
         } elseif ($quality < 5 && (($dstW * $quality) < $srcW || ($dstH * $quality) < $srcH)) {
             $tmpW = $dstW * $quality;
             $tmpH = $dstH * $quality;
             $temp = imagecreatetruecolor($tmpW + 1, $tmpH + 1);
             imagecopyresized($temp, $srcImage, 0, 0, $srcX, $srcY, $tmpW + 1, $tmpH + 1, $srcW, $srcH);
             imagecopyresampled($dstImage, $temp, $dstX, $dstY, 0, 0, $dstW, $dstH, $tmpW, $tmpH);
-            imagedestroy($temp);
         } else {
             imagecopyresampled($dstImage, $srcImage, $dstX, $dstY, $srcX, $srcY, $dstW, $dstH, $srcW, $srcH);
         }
@@ -553,8 +551,6 @@ class Image
 
         $this->fastCopyResampled($targetImage, $this->gdImage, 0, 0, 0, 0, $targetWidth, $targetHeight,
                                  $this->width, $this->height, (int)max(floor($quality / 20), 6));
-
-        imagedestroy($this->gdImage);
         $this->gdImage = $targetImage;
         $this->width = $targetWidth;
         $this->height = $targetHeight;
@@ -661,8 +657,6 @@ class Image
         }
 
         imagecopy($targetImage, $this->gdImage, 0, 0, $x, $y, $width, $height);
-
-        imagedestroy($this->gdImage);
         $this->gdImage = $targetImage;
         $this->width = $width;
         $this->height = $height;
@@ -698,7 +692,6 @@ class Image
     public function __destruct()
     {
         if (is_resource($this->gdImage)) {
-            imagedestroy($this->gdImage);
         }
     }
 }

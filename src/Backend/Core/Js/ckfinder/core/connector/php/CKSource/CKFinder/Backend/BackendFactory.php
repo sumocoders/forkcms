@@ -186,7 +186,7 @@ class BackendFactory
 
         $cachedAdapter = new CachedAdapter($adapter, $cache);
 
-        if (array_key_exists($backendConfig['adapter'], static::$trackedOperations)) {
+        if (array_key_exists((string) $backendConfig['adapter'], static::$trackedOperations)) {
             $backendConfig['trackedOperations'] = static::$trackedOperations[$backendConfig['adapter']];
         }
 

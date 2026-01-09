@@ -332,7 +332,7 @@ class Index extends BackendBaseActionIndex
         $this->filter['type'] = array_filter(
             $this->filter['type'],
             fn($type) => array_key_exists(
-                $type,
+                (string) $type,
                 BackendLocaleModel::getTypesForMultiCheckbox()
             )
         );
@@ -342,7 +342,7 @@ class Index extends BackendBaseActionIndex
         $this->filter['language'] = array_filter(
             $this->filter['language'],
             fn($language) => array_key_exists(
-                $language,
+                (string) $language,
                 BackendLocaleModel::getLanguagesForMultiCheckbox($isGod)
             )
         );

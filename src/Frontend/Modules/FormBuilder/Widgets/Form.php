@@ -546,7 +546,7 @@ class Form extends FrontendBaseWidget
                             $values[$value['value']] = $value['label'];
                         }
 
-                        $fieldData['value'] = array_key_exists($fieldData['value'], $values)
+                        $fieldData['value'] = array_key_exists((string) $fieldData['value'], $values)
                             ? $values[$fieldData['value']] : null;
                     }
 
