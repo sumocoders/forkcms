@@ -170,14 +170,7 @@ class Model
     public static function isUserInGroup(int $userId, int $groupId): bool
     {
         $groupsByUser = static::getGroupsByUser($userId);
-
-        foreach ($groupsByUser as $group) {
-            if ((int) $group['id'] === $groupId) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any($groupsByUser, fn($group) => (int) $group['id'] === $groupId);
     }
 
     public static function getModulePermissions(int $groupId): array

@@ -9,28 +9,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class MediaFolderCache
 {
-    const CACHE_KEY = 'media_library_media_folders';
-
-    /**
-     * @var CacheItemPoolInterface|stdClass
-     */
-    protected $cache;
-
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
+    const string CACHE_KEY = 'media_library_media_folders';
 
     /**
      * @param CacheItemPoolInterface|stdClass $cache
      * @param ContainerInterface $container - We must inject the container, because otherwise we get a "circular reference exception"
      */
-    public function __construct(
-        $cache,
-        ContainerInterface $container
-    ) {
-        $this->cache = $cache;
-        $this->container = $container;
+    public function __construct(protected $cache, protected ContainerInterface $container)
+    {
     }
 
     public function delete()
@@ -57,7 +43,7 @@ final class MediaFolderCache
         return $navigation;
     }
 
-    private function buildCacheTree(MediaFolder $parent = null, string $parentSlug = null): array
+    private function buildCacheTree(?MediaFolder $parent = null, ?string $parentSlug = null): array
     {
         $navigationItems = $this->getMediaFoldersForParent($parent);
         $numberOfItemsForCurrentParent = count($navigationItems);
@@ -67,14 +53,12 @@ final class MediaFolderCache
         }
 
         return array_map(
-            function (MediaFolder $navigationItem) use ($parentSlug) {
-                return $this->buildCacheItem($navigationItem, $parentSlug);
-            },
+            fn(MediaFolder $navigationItem) => $this->buildCacheItem($navigationItem, $parentSlug),
             $navigationItems
         );
     }
 
-    private function buildCacheItem(MediaFolder $mediaFolder, string $parentSlug = null): MediaFolderCacheItem
+    private function buildCacheItem(MediaFolder $mediaFolder, ?string $parentSlug = null): MediaFolderCacheItem
     {
         $cacheItem = new MediaFolderCacheItem($mediaFolder, $parentSlug);
 
@@ -86,7 +70,7 @@ final class MediaFolderCache
         return $cacheItem;
     }
 
-    private function getMediaFoldersForParent(MediaFolder $parent = null): array
+    private function getMediaFoldersForParent(?MediaFolder $parent = null): array
     {
         return (array) $this->container->get('media_library.repository.folder')->findBy(
             ['parent' => $parent],

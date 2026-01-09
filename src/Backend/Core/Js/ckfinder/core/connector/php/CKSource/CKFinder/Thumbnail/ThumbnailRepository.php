@@ -17,7 +17,6 @@ namespace CKSource\CKFinder\Thumbnail;
 use CKSource\CKFinder\Backend\Backend;
 use CKSource\CKFinder\CKFinder;
 use CKSource\CKFinder\Config;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Event\ResizeImageEvent;
 use CKSource\CKFinder\Filesystem\Path;
 use CKSource\CKFinder\ResourceType\ResourceType;
@@ -142,7 +141,7 @@ class ThumbnailRepository
             $thumbnail->create();
 
             $createThumbnailEvent = new ResizeImageEvent($this->app, $thumbnail);
-            $this->dispatcher->dispatch(CKFinderEvent::CREATE_THUMBNAIL, $createThumbnailEvent);
+            $this->dispatcher->dispatch($createThumbnailEvent);
 
             if (!$createThumbnailEvent->isPropagationStopped()) {
                 $thumbnail = $createThumbnailEvent->getResizedImage();

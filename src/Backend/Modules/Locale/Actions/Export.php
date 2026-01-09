@@ -178,7 +178,7 @@ class Export extends BackendBaseActionIndex
      */
     private function setItems(): void
     {
-        list($query, $parameters) = $this->buildQuery();
+        [$query, $parameters] = $this->buildQuery();
 
         // get locale from the database
         $items = (array) $this->get('database')->getRecords($query, $parameters);

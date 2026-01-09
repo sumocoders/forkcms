@@ -3,11 +3,11 @@
 namespace Backend\Modules\ContentBlocks\Tests\Action;
 
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class EditThemeTemplateTest extends BackendWebTestCase
 {
-    public function testAuthenticationIsNeeded(Client $client): void
+    public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
         self::assertAuthenticationIsNeeded(
             $client,
@@ -15,7 +15,7 @@ class EditThemeTemplateTest extends BackendWebTestCase
         );
     }
 
-    public function testFormIsDisplayed(Client $client): void
+    public function testFormIsDisplayed(KernelBrowser $client): void
     {
         $this->login($client);
 

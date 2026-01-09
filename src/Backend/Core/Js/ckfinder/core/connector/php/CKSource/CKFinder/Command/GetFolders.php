@@ -20,31 +20,29 @@ use CKSource\CKFinder\Filesystem\Path;
 
 class GetFolders extends CommandAbstract
 {
-    protected $requires = array(Permission::FOLDER_VIEW);
+    protected $requires = [Permission::FOLDER_VIEW];
 
     public function execute(WorkingFolder $workingFolder)
     {
         $directories = $workingFolder->listDirectories();
 
         $data = new \stdClass();
-        $data->folders = array();
+        $data->folders = [];
 
         $backend = $workingFolder->getBackend();
 
         $resourceType = $workingFolder->getResourceType();
 
         foreach ($directories as $directory) {
-            $data->folders[] = array(
+            $data->folders[] = [
                 'name'        => $directory['basename'],
                 'hasChildren' => $backend->containsDirectories($resourceType, Path::combine($workingFolder->getClientCurrentFolder(), $directory['basename'])),
                 'acl'         => $directory['acl']
-            );
+            ];
         }
 
         // Sort folders
-        usort($data->folders, function ($a, $b) {
-            return strnatcasecmp($a['name'], $b['name']);
-        });
+        usort($data->folders, fn($a, $b) => strnatcasecmp((string) $a['name'], (string) $b['name']));
 
         return $data;
     }

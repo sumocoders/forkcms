@@ -90,22 +90,21 @@ class Model
     /**
      * Get coordinates latitude/longitude
      *
-     * @deprecated
      *
      * @param string $street
      * @param string $streetNumber
      * @param string $city
      * @param string $zip
      * @param string $country
-     *
      * @return array  Contains 'latitude' and 'longitude' as variables
      */
+    #[\Deprecated]
     public static function getCoordinates(
-        string $street = null,
-        string $streetNumber = null,
-        string $city = null,
-        string $zip = null,
-        string $country = null
+        ?string $street = null,
+        ?string $streetNumber = null,
+        ?string $city = null,
+        ?string $zip = null,
+        ?string $country = null
     ): array {
         return BackendModel::get(Geolocation::class)->getCoordinates(
             $street,

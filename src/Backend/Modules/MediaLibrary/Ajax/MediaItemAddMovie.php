@@ -95,7 +95,7 @@ class MediaItemAddMovie extends BackendBaseAJAXAction
         try {
             /** @var MediaFolder */
             return $this->get('media_library.repository.folder')->findOneById($id);
-        } catch (MediaFolderNotFound $mediaFolderNotFound) {
+        } catch (MediaFolderNotFound) {
             throw new AjaxExitException(Language::err('ParentNotExists'));
         }
     }
@@ -114,7 +114,7 @@ class MediaItemAddMovie extends BackendBaseAJAXAction
 
         try {
             return StorageType::fromString($movieStorageType);
-        } catch (InvalidArgumentException $invalidArgumentException) {
+        } catch (InvalidArgumentException) {
             throw new AjaxExitException(Language::err('MovieStorageTypeNotExists'));
         }
     }

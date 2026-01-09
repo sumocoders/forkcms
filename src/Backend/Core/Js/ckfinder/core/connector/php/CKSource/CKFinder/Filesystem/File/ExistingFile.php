@@ -38,18 +38,11 @@ abstract class ExistingFile extends File
     protected $resourceType;
 
     /**
-     * Resource type relative folder.
-     *
-     * @var string $folder
-     */
-    protected $folder;
-
-    /**
      * Array for errors that may occur during file processing.
      *
      * @var array $errors
      */
-    protected $errors = array();
+    protected $errors = [];
 
     /**
      * File metadata.
@@ -58,17 +51,12 @@ abstract class ExistingFile extends File
      */
     protected $metadata;
 
-    /**
-     * Constructor.
-     *
-     * @param string       $fileName
-     * @param string       $folder
-     * @param ResourceType $resourceType
-     * @param CKFinder     $app
-     */
-    public function __construct($fileName, $folder, ResourceType $resourceType, CKFinder $app)
-    {
-        $this->folder = $folder;
+    public function __construct(
+        string $fileName,
+        protected string $folder,
+        ResourceType $resourceType,
+        CKFinder $app,
+    ) {
         $this->resourceType = $resourceType;
 
         parent::__construct($fileName, $app);
@@ -121,7 +109,7 @@ abstract class ExistingFile extends File
      */
     public function hasAllowedExtension()
     {
-        if (strpos($this->getFilename(), '.') === false) {
+        if (!str_contains($this->getFilename(), '.')) {
             return true;
         }
 
@@ -233,12 +221,12 @@ abstract class ExistingFile extends File
      */
     public function addError($number)
     {
-        $this->errors[] = array(
+        $this->errors[] = [
             'number' => $number,
             'name'   => $this->getFilename(),
             'type'   => $this->resourceType->getName(),
             'folder' => $this->folder
-        );
+        ];
     }
 
     /**
@@ -334,7 +322,7 @@ abstract class ExistingFile extends File
         if (null === $this->metadata) {
             $filePath = $this->getFilePath();
 
-            $this->metadata = $this->resourceType->getBackend()->getWithMetadata($filePath, array('mimetype', 'timestamp'));
+            $this->metadata = $this->resourceType->getBackend()->getWithMetadata($filePath, ['mimetype', 'timestamp']);
         }
 
         return $this->metadata;

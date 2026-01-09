@@ -79,7 +79,7 @@ class KernelLoader
     /**
      * @param KernelInterface $kernel
      */
-    public function setKernel(KernelInterface $kernel = null)
+    public function setKernel(?KernelInterface $kernel = null)
     {
         $this->kernel = $kernel;
     }

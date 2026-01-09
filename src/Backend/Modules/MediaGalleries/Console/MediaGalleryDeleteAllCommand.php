@@ -3,7 +3,9 @@
 namespace Backend\Modules\MediaGalleries\Console;
 
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\DeleteMediaGallery;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
+use SimpleBus\SymfonyBridge\Bus\CommandBus;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -13,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Example: "bin/console media_galleries:delete:galleries", will delete all galleries
  * Example: "bin/console media_galleries:delete:galleries --delete-media-items", will delete all galleries and all MediaItem entities
  */
-class MediaGalleryDeleteAllCommand extends ContainerAwareCommand
+class MediaGalleryDeleteAllCommand extends Command
 {
     /**
      * The MediaGroupMediaItem connections are always deleted,
@@ -22,6 +24,13 @@ class MediaGalleryDeleteAllCommand extends ContainerAwareCommand
      * @var bool
      */
     protected $deleteMediaItems = false;
+
+    public function __construct(
+        private readonly MediaGalleryRepository $mediaGalleryRepository,
+        private readonly CommandBus $commandBus,
+    ) {
+        parent::__construct();
+    }
 
     protected function configure(): void
     {
@@ -56,7 +65,7 @@ class MediaGalleryDeleteAllCommand extends ContainerAwareCommand
     private function deleteMediaGalleries(): void
     {
         /** @var array $mediaGalleries */
-        $mediaGalleries = $this->getContainer()->get('media_galleries.repository.gallery')->findAll();
+        $mediaGalleries = $this->mediaGalleryRepository->findAll();
 
         if (empty($mediaGalleries)) {
             return;
@@ -64,9 +73,8 @@ class MediaGalleryDeleteAllCommand extends ContainerAwareCommand
 
         // Loop all media galleries
         foreach ($mediaGalleries as $mediaGallery) {
-            $this->getContainer()->get('command_bus')->handle(
+            $this->commandBus->handle(
                 new DeleteMediaGallery($mediaGallery),
-                $this->deleteMediaItems
             );
         }
     }

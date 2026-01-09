@@ -8,16 +8,10 @@ use Symfony\Component\Filesystem\Filesystem;
 /**
  * Settings saved listener
  */
-final class SettingsSavedListener
+final readonly class SettingsSavedListener
 {
-    /**
-     * @var string
-     */
-    private $cacheDirectory;
-
-    public function __construct(string $cacheDirectory)
+    public function __construct(private string $cacheDirectory)
     {
-        $this->cacheDirectory = $cacheDirectory;
     }
 
     public function onSettingsSavedEvent(): void

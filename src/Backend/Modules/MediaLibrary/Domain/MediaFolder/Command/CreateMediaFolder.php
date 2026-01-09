@@ -7,7 +7,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderDataTransferObjec
 
 final class CreateMediaFolder extends MediaFolderDataTransferObject
 {
-    public function __construct(string $name, int $userId, MediaFolder $parent = null)
+    public function __construct(string $name, int $userId, ?MediaFolder $parent = null)
     {
         parent::__construct();
 

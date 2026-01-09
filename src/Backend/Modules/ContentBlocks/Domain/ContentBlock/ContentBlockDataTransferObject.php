@@ -68,7 +68,7 @@ class ContentBlockDataTransferObject
      */
     public $status;
 
-    public function __construct(ContentBlock $contentBlock = null)
+    public function __construct(?ContentBlock $contentBlock = null)
     {
         $this->contentBlockEntity = $contentBlock;
 

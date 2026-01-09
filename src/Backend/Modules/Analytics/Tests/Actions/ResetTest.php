@@ -3,16 +3,16 @@
 namespace Backend\Modules\Analytics\Tests\Action;
 
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class ResetTest extends BackendWebTestCase
 {
-    public function testAuthenticationIsNeeded(Client $client): void
+    public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
         self::assertAuthenticationIsNeeded($client, '/private/en/analytics/reset');
     }
 
-    public function testAfterResetRedirectToSettings(Client $client): void
+    public function testAfterResetRedirectToSettings(KernelBrowser $client): void
     {
         $this->login($client);
 

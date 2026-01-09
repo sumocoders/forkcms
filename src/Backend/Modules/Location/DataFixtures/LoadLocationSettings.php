@@ -6,10 +6,10 @@ use SpoonDatabase;
 
 final class LoadLocationSettings
 {
-    public const SETTING_NAME_1 = 'foo';
-    public const SETTING_VALUE_1 = 'bar';
-    public const SETTING_NAME_2 = 'ping';
-    public const SETTING_VALUE_2 = 'pong';
+    public const string SETTING_NAME_1 = 'foo';
+    public const string SETTING_VALUE_1 = 'bar';
+    public const string SETTING_NAME_2 = 'ping';
+    public const string SETTING_VALUE_2 = 'pong';
 
     public function load(SpoonDatabase $database): void
     {

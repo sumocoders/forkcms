@@ -5,22 +5,13 @@ namespace Backend\Modules\Locale\Engine;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
-final class LocaleAnalyser
+final readonly class LocaleAnalyser
 {
-    /** @var string */
-    private $application;
-
-    /** @var array */
-    private $paths;
-
-    /** @var array */
-    private $installedModules;
-
-    public function __construct(string $application, array $paths, array $installedModules)
-    {
-        $this->application = $application;
-        $this->paths = $paths;
-        $this->installedModules = $installedModules;
+    public function __construct(
+        private string $application,
+        private array $paths,
+        private array $installedModules,
+    ) {
     }
 
     public function findMissingLocale(string $language): array
@@ -32,7 +23,7 @@ final class LocaleAnalyser
 
         $nonExisting = [];
         foreach ($locale as $moduleName => $module) {
-            foreach ($module as $filename => $file) {
+            foreach ($module as $file) {
                 $file['locale'] = $this->localeArrayDiff($file['locale'], $existingLocale, $moduleName);
 
                 foreach ($file['locale'] as $type => $modules) {
@@ -79,8 +70,8 @@ final class LocaleAnalyser
         foreach ($finder->files()->in($this->paths)->getIterator() as $file) {
             $module = $this->getInBetweenStrings('Modules/', '/', $file->getPath());
             if (!in_array($module, $this->installedModules, true)) {
-                if (strpos($file->getPath(), $this->application . '/Core') === false &&
-                    strpos($file->getPath(), 'Themes') === false) {
+                if (!str_contains($file->getPath(), $this->application . '/Core') &&
+                    !str_contains($file->getPath(), 'Themes')) {
                     continue;
                 }
 

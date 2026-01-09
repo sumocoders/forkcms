@@ -83,7 +83,7 @@ class DetailModule extends BackendBaseActionIndex
         // fetch the module information
         $moduleInformation = BackendExtensionsModel::getModuleInformation($this->currentModule);
         $this->information = $moduleInformation['data'];
-        $this->warnings = $this->warnings + $moduleInformation['warnings'];
+        $this->warnings += $moduleInformation['warnings'];
     }
 
     private function loadDataGridEvents(): void

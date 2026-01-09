@@ -2,7 +2,7 @@
 
 namespace Common\Events;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class ForkSessionIdChangedEvent extends Event
 {

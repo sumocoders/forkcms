@@ -7,12 +7,8 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 
 final class CreateMediaItemFromMovieUrlHandler
 {
-    /** @var MediaItemRepository */
-    protected $mediaItemRepository;
-
-    public function __construct(MediaItemRepository $mediaItemRepository)
+    public function __construct(protected MediaItemRepository $mediaItemRepository)
     {
-        $this->mediaItemRepository = $mediaItemRepository;
     }
 
     public function handle(CreateMediaItemFromMovieUrl $createMediaItemFromMovieUrl): void

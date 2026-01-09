@@ -38,34 +38,6 @@ abstract class ResizedImageAbstract
     protected $backend;
 
     /**
-     * The source file directory path.
-     *
-     * @var string $sourceFileDir
-     */
-    protected $sourceFileDir;
-
-    /**
-     * The source file name.
-     *
-     * @var string $sourceFileName
-     */
-    protected $sourceFileName;
-
-    /**
-     * The width requested for this resized image.
-     *
-     * @var int $requestedWidth
-     */
-    protected $requestedWidth;
-
-    /**
-     * The height requested for this resized image.
-     *
-     * @var int $requestedHeight
-     */
-    protected $requestedHeight;
-
-    /**
      * Thumbnail file name. For example the name of the resized image generated
      * for a file `example.jpg` may look like `example__300x300.jpg`.
      *
@@ -100,20 +72,14 @@ abstract class ResizedImageAbstract
      */
     protected $timestamp;
 
-    /**
-     * @param ResourceType $sourceFileResourceType
-     * @param string       $sourceFileDir
-     * @param string       $sourceFileName
-     * @param int          $requestedWidth
-     * @param int          $requestedHeight
-     */
-    public function __construct(ResourceType $sourceFileResourceType, $sourceFileDir, $sourceFileName, $requestedWidth, $requestedHeight)
-    {
+    public function __construct(
+        ResourceType $sourceFileResourceType,
+        protected string $sourceFileDir,
+        protected string $sourceFileName,
+        protected int $requestedWidth,
+        protected int $requestedHeight
+    ) {
         $this->sourceFileResourceType = $sourceFileResourceType;
-        $this->sourceFileDir = $sourceFileDir;
-        $this->sourceFileName = $sourceFileName;
-        $this->requestedWidth = $requestedWidth;
-        $this->requestedHeight = $requestedHeight;
 
         $this->backend = $sourceFileResourceType->getBackend();
     }
@@ -225,7 +191,7 @@ abstract class ResizedImageAbstract
             $this->backend->createDir($this->getDirectory());
         }
 
-        $saved = $this->backend->put($this->getFilePath(), $this->resizedImageData, array('mimetype' => $this->getMimeType()));
+        $saved = $this->backend->put($this->getFilePath(), $this->resizedImageData, ['mimetype' => $this->getMimeType()]);
 
         if ($saved) {
             $this->timestamp = time();
@@ -239,7 +205,7 @@ abstract class ResizedImageAbstract
      */
     public function load()
     {
-        $thumbnailMetadata = $this->backend->getWithMetadata($this->getFilePath(), array('mimetype', 'timestamp'));
+        $thumbnailMetadata = $this->backend->getWithMetadata($this->getFilePath(), ['mimetype', 'timestamp']);
         $this->timestamp = $thumbnailMetadata['timestamp'];
         $this->resizedImageSize = $thumbnailMetadata['size'];
         $this->resizedImageMimeType = $thumbnailMetadata['mimetype'];

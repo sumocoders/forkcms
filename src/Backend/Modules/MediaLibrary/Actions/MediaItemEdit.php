@@ -91,7 +91,7 @@ class MediaItemEdit extends BackendBaseActionEdit
             return $this->get('media_library.repository.item')->findOneById(
                 $this->getRequest()->query->get('id')
             );
-        } catch (MediaItemNotFound $mediaItemNotFound) {
+        } catch (MediaItemNotFound) {
             $this->redirect(
                 $this->getBackLink(
                     [

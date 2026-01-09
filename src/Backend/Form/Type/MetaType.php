@@ -11,7 +11,6 @@ use Common\Form\CollectionType;
 use SpoonFilter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Exception\InvalidArgumentException;
 use Symfony\Component\Form\Exception\LogicException;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -27,24 +26,18 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MetaType extends AbstractType
 {
-    /** @var MetaRepository */
-    private $metaRepository;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
     /** @var Meta[] */
     private $meta;
 
-    public function __construct(MetaRepository $metaRepository, TranslatorInterface $translator)
-    {
-        $this->metaRepository = $metaRepository;
-        $this->translator = $translator;
+    public function __construct(
+        private readonly MetaRepository $metaRepository,
+        private readonly TranslatorInterface $translator,
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -163,14 +156,10 @@ class MetaType extends AbstractType
             'expanded' => true,
             'multiple' => false,
             'choices' => array_map(
-                function ($SEOIndex) {
-                    return SEOIndex::fromString($SEOIndex);
-                },
+                SEOIndex::fromString(...),
                 SEOIndex::POSSIBLE_VALUES
             ),
-            'choice_value' => function (SEOIndex $SEOIndex = null) {
-                return (string) $SEOIndex;
-            },
+            'choice_value' => fn(?SEOIndex $SEOIndex = null) => (string) $SEOIndex,
             'choice_label' => function ($SEOIndex) {
                 if ($SEOIndex->isNone()) {
                     return 'lbl.' . ucfirst($SEOIndex);
@@ -191,14 +180,10 @@ class MetaType extends AbstractType
             'expanded' => true,
             'multiple' => false,
             'choices' => array_map(
-                function ($SEOFollow) {
-                    return SEOFollow::fromString($SEOFollow);
-                },
+                SEOFollow::fromString(...),
                 SEOFollow::POSSIBLE_VALUES
             ),
-            'choice_value' => function (SEOFollow $SEOFollow = null) {
-                return (string) $SEOFollow;
-            },
+            'choice_value' => fn(?SEOFollow $SEOFollow = null) => (string) $SEOFollow,
             'choice_label' => function ($SEOFollow) {
                 if ($SEOFollow->isNone()) {
                     return 'lbl.' . ucfirst($SEOFollow);
@@ -215,7 +200,7 @@ class MetaType extends AbstractType
 
     private function getSubmitEventFunction(string $baseFieldName): callable
     {
-        return function (FormEvent $event) use ($baseFieldName) {
+        return function (FormEvent $event) use ($baseFieldName): void {
             $metaForm = $event->getForm();
             $metaData = $event->getData();
             $parentForm = $metaForm->getParent();
@@ -234,7 +219,7 @@ class MetaType extends AbstractType
             $overwritableFields = $this->getOverwritableFields();
             array_walk(
                 $overwritableFields,
-                function ($fieldName) use ($metaForm, $defaultValue, &$metaData) {
+                function ($fieldName) use ($metaForm, $defaultValue, &$metaData): void {
                     if ($metaForm->get($fieldName . 'Overwrite')->getData()) {
                         // we are overwriting it so we don't need to set the fallback
                         return;
@@ -453,7 +438,7 @@ class MetaType extends AbstractType
     {
         $baseGeneratedUrl = self::stripNumberAddedByTheUrlGeneration($generatedUrl);
 
-        if ($baseGeneratedUrl !== $generatedUrl && strpos($generatedUrl, $baseGeneratedUrl) === 0) {
+        if ($baseGeneratedUrl !== $generatedUrl && str_starts_with($generatedUrl, $baseGeneratedUrl)) {
             return 'err.URLAlreadyExists';
         }
 

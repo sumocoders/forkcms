@@ -42,7 +42,7 @@ class Categories extends BackendBaseActionIndex
 
         // convert the count into a readable and clickable one
         $this->dataGrid->setColumnFunction(
-            [__CLASS__, 'setClickableCount'],
+            [self::class, 'setClickableCount'],
             ['[num_items]', BackendModel::createUrlForAction('Index') . '&amp;category=[id]'],
             'num_items',
             true

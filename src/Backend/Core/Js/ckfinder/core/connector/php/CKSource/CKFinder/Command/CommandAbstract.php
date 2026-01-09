@@ -44,7 +44,7 @@ abstract class CommandAbstract
      *
      * @var array $requires
      */
-    protected $requires = array();
+    protected $requires = [];
 
     /**
      * Constructor.

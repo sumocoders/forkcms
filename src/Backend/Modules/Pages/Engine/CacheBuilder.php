@@ -123,7 +123,7 @@ class CacheBuilder
         // init URLs
         $hasMultiLanguages = BackendModel::getContainer()->getParameter('site.multilanguage');
         $languageUrl = ($hasMultiLanguages) ? '/' . $language . '/' : '/';
-        $url = (isset($keys[$parentID])) ? $keys[$parentID] : '';
+        $url = $keys[$parentID] ?? '';
 
         // home is special
         if ($page['id'] == BackendModel::HOME_PAGE_ID) {
@@ -172,8 +172,8 @@ class CacheBuilder
         } elseif ($page['id'] == BackendModel::ERROR_PAGE_ID) {
             $treeType = 'error';
         } elseif ($page['id'] < BackendModel::ERROR_PAGE_ID
-                  && mb_substr_count($page['extra_ids'], $this->getSitemapId()) > 0) {
-            $extraIDs = explode(',', $page['extra_ids']);
+                  && mb_substr_count((string) $page['extra_ids'], $this->getSitemapId()) > 0) {
+            $extraIDs = explode(',', (string) $page['extra_ids']);
 
             // loop extras
             foreach ($extraIDs as $id) {
@@ -355,7 +355,7 @@ class CacheBuilder
                     $title = \SpoonFilter::htmlspecialcharsDecode($cachedTitles[$pageId]);
 
                     // split into chunks
-                    $urlChunks = explode('/', $url);
+                    $urlChunks = explode('/', (string) $url);
 
                     // remove the language chunk
                     $hasMultiLanguages = BackendModel::getContainer()->getParameter('site.multilanguage');

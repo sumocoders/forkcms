@@ -4,7 +4,7 @@ namespace Backend\Modules\MediaLibrary\ValueObject;
 
 use Symfony\Component\Finder\Finder;
 
-final class MediaWidget
+final class MediaWidget implements \Stringable
 {
     /** @var string */
     private $mediaWidget;

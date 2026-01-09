@@ -257,12 +257,12 @@ class OperationManager
      */
     public function addInfoToResponse()
     {
-        $this->app->on(KernelEvents::RESPONSE, function (FilterResponseEvent $event) {
+        $this->app->on(KernelEvents::RESPONSE, function (FilterResponseEvent $event): void {
             $response = $event->getResponse();
 
             if ($response instanceof JsonResponse) {
                 $responseData = (array) $response->getData();
-                $responseData = array('aborted' => $this->isAborted()) + $responseData;
+                $responseData = ['aborted' => $this->isAborted()] + $responseData;
                 $response->setData($responseData);
             }
         }, 512);
@@ -275,10 +275,10 @@ class OperationManager
     {
         if ($this->startedOperationId) {
             $directoryPath = $this->getFilePath($this->startedOperationId, null);
-            $toRemove = array(
+            $toRemove = [
                 $statusFilePath = Path::combine($directoryPath, 'status'),
                 $abortFilePath = Path::combine($directoryPath, 'abort')
-            );
+            ];
 
             foreach ($toRemove as $filePath) {
                 if (file_exists($filePath)) {

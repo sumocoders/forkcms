@@ -15,7 +15,6 @@
 namespace CKSource\CKFinder\Command;
 
 use CKSource\CKFinder\Acl\Permission;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Event\DownloadFileEvent;
 use CKSource\CKFinder\Exception\AccessDeniedException;
 use CKSource\CKFinder\Filesystem\File\DownloadedFile;
@@ -26,7 +25,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DownloadFile extends CommandAbstract
 {
-    protected $requires = array(Permission::FILE_VIEW);
+    protected $requires = [Permission::FILE_VIEW];
 
     public function execute(Request $request, WorkingFolder $workingFolder, EventDispatcher $dispatcher)
     {
@@ -38,7 +37,7 @@ class DownloadFile extends CommandAbstract
 
         $downloadedFileEvent = new DownloadFileEvent($this->app, $downloadedFile);
 
-        $dispatcher->dispatch(CKFinderEvent::DOWNLOAD_FILE, $downloadedFileEvent);
+        $dispatcher->dispatch($downloadedFileEvent);
 
         if ($downloadedFileEvent->isPropagationStopped()) {
             throw new AccessDeniedException();
@@ -55,8 +54,8 @@ class DownloadFile extends CommandAbstract
         } else {
             $userAgent = !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
             $encodedName = str_replace("\"", "\\\"", $fileName);
-            if (strpos($userAgent, 'MSIE') !== false) {
-                $encodedName = str_replace(array("+", "%2E"), array(" ", "."), urlencode($encodedName));
+            if (str_contains((string) $userAgent, 'MSIE')) {
+                $encodedName = str_replace(["+", "%2E"], [" ", "."], urlencode($encodedName));
             }
             $response->headers->set('Content-Type', 'application/octet-stream; name="' . $fileName . '"');
             $response->headers->set('Content-Disposition', 'attachment; filename="' . $encodedName. '"');

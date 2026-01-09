@@ -40,8 +40,8 @@ class ContentBlockRevisionDataGrid extends DataGridDatabase
         );
 
         // set column-functions
-        $this->setColumnFunction([DataGridFunctions::class, 'getUser'], ['[user_id]'], 'user_id');
-        $this->setColumnFunction([DataGridFunctions::class, 'getTimeAgo'], ['[edited_on]'], 'edited_on');
+        $this->setColumnFunction(DataGridFunctions::getUser(...), ['[user_id]'], 'user_id');
+        $this->setColumnFunction(DataGridFunctions::getTimeAgo(...), ['[edited_on]'], 'edited_on');
         $this->setColumnFunction('htmlspecialchars', ['[title]'], 'title', false);
 
         // check if this action is allowed
@@ -69,6 +69,6 @@ class ContentBlockRevisionDataGrid extends DataGridDatabase
 
     public static function getHtml(ContentBlock $contentBlock, Locale $locale): string
     {
-        return (new self($contentBlock, $locale))->getContent();
+        return new self($contentBlock, $locale)->getContent();
     }
 }

@@ -86,7 +86,7 @@ class DownloadedFile extends ExistingFile
      */
     public function hasAllowedExtension()
     {
-        if (strpos($this->fileName, '.') === false) {
+        if (!str_contains($this->fileName, '.')) {
             return true;
         }
 

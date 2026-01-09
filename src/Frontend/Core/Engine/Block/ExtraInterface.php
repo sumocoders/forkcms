@@ -86,7 +86,7 @@ class ExtraInterface extends KernelLoader implements ModuleExtraInterface
      */
     protected $url;
 
-    public function __construct(KernelInterface $kernel, string $module, string $action = null, $data = null)
+    public function __construct(KernelInterface $kernel, string $module, ?string $action = null, $data = null)
     {
         parent::__construct($kernel);
 
@@ -260,7 +260,7 @@ class ExtraInterface extends KernelLoader implements ModuleExtraInterface
     {
         $configClass = 'Frontend\\Modules\\' . $this->getModule() . '\\Config';
         if ($this->getModule() === 'Core') {
-            $configClass = 'Frontend\\Core\\Config';
+            $configClass = \Frontend\Core\Config::class;
         }
 
         // validate if class exists (aka has correct name)
@@ -272,7 +272,7 @@ class ExtraInterface extends KernelLoader implements ModuleExtraInterface
         $this->config = new $configClass($this->getKernel(), $this->getModule());
     }
 
-    private function setAction(string $action = null): void
+    private function setAction(?string $action = null): void
     {
         $this->action = $action;
     }

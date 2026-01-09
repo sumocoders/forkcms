@@ -36,7 +36,7 @@ class AccessDeniedException extends CKFinderException
      * @param array      $parameters the parameters passed for translation
      * @param \Exception $previous   the previous exception
      */
-    public function __construct($message = 'Access denied', $parameters = array(), \Exception $previous = null)
+    public function __construct($message = 'Access denied', $parameters = [], ?\Exception $previous = null)
     {
         parent::__construct($message, Error::ACCESS_DENIED, $parameters, $previous);
     }

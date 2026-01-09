@@ -21,19 +21,14 @@ use CKSource\CKFinder\Thumbnail\ThumbnailRepository;
 class ResourceType
 {
     protected $app;
-    protected $name;
-    protected $backend;
-    protected $configNode;
-    protected $thumbnailRepository;
-    protected $resizedImageRepository;
 
-    public function __construct($name, array $configNode, Backend $backend, ThumbnailRepository $thumbnailRepository, ResizedImageRepository $resizedImageRepository)
-    {
-        $this->name = $name;
-        $this->configNode = $configNode;
-        $this->backend = $backend;
-        $this->thumbnailRepository = $thumbnailRepository;
-        $this->resizedImageRepository = $resizedImageRepository;
+    public function __construct(
+        protected $name,
+        protected array $configNode,
+        protected Backend $backend,
+        protected ThumbnailRepository $thumbnailRepository,
+        protected ResizedImageRepository $resizedImageRepository,
+    ) {
     }
 
     public function getName()
@@ -78,7 +73,7 @@ class ResourceType
 
     public function getLabel()
     {
-        return isset($this->configNode['label']) ? $this->configNode['label'] : null;
+        return $this->configNode['label'] ?? null;
     }
 
     public function isLazyLoaded()
@@ -88,7 +83,7 @@ class ResourceType
 
     public function isAllowedExtension($extension)
     {
-        $extension = strtolower(ltrim($extension, '.'));
+        $extension = strtolower(ltrim((string) $extension, '.'));
 
         $allowed = $this->configNode['allowedExtensions'];
         $denied = $this->configNode['deniedExtensions'];

@@ -26,7 +26,7 @@ class MediaItemDataTransferObject
     /** @var int */
     public $userId;
 
-    public function __construct(MediaItem $mediaItem = null)
+    public function __construct(?MediaItem $mediaItem = null)
     {
         $this->mediaItemEntity = $mediaItem;
 

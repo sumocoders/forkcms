@@ -29,16 +29,16 @@ class FormDate extends SpoonFormDate
         $data = $this->getMethod(true);
 
         $year = (mb_strpos($longMask, 'yyyy') !== false) ? mb_substr(
-            $data[$this->attributes['name']],
+            (string) $data[$this->attributes['name']],
             mb_strpos($longMask, 'yyyy'),
             4
-        ) : mb_substr($data[$this->attributes['name']], mb_strpos($longMask, 'yy'), 2);
-        $month = mb_substr($data[$this->attributes['name']], mb_strpos($longMask, 'mm'), 2);
-        $day = mb_substr($data[$this->attributes['name']], mb_strpos($longMask, 'dd'), 2);
+        ) : mb_substr((string) $data[$this->attributes['name']], mb_strpos($longMask, 'yy'), 2);
+        $month = mb_substr((string) $data[$this->attributes['name']], mb_strpos($longMask, 'mm'), 2);
+        $day = mb_substr((string) $data[$this->attributes['name']], mb_strpos($longMask, 'dd'), 2);
 
         // validate datefields that have a from-date set
-        if (mb_strpos($this->attributes['class'], 'inputDatefieldFrom') !== false) {
-            $fromDateChunks = explode('-', $this->attributes['data-startdate']);
+        if (mb_strpos((string) $this->attributes['class'], 'inputDatefieldFrom') !== false) {
+            $fromDateChunks = explode('-', (string) $this->attributes['data-startdate']);
             $fromDateTimestamp = mktime(12, 00, 00, $fromDateChunks[1], $fromDateChunks[2], $fromDateChunks[0]);
 
             $givenDateTimestamp = mktime(12, 00, 00, $month, $day, $year);
@@ -50,8 +50,8 @@ class FormDate extends SpoonFormDate
 
                 return false;
             }
-        } elseif (mb_strpos($this->attributes['class'], 'inputDatefieldTill') !== false) {
-            $tillDateChunks = explode('-', $this->attributes['data-enddate']);
+        } elseif (mb_strpos((string) $this->attributes['class'], 'inputDatefieldTill') !== false) {
+            $tillDateChunks = explode('-', (string) $this->attributes['data-enddate']);
             $tillDateTimestamp = mktime(12, 00, 00, $tillDateChunks[1], $tillDateChunks[2], $tillDateChunks[0]);
 
             $givenDateTimestamp = mktime(12, 00, 00, $month, $day, $year);
@@ -63,11 +63,11 @@ class FormDate extends SpoonFormDate
 
                 return false;
             }
-        } elseif (mb_strpos($this->attributes['class'], 'inputDatefieldRange') !== false) {
-            $fromDateChunks = explode('-', $this->attributes['data-startdate']);
+        } elseif (mb_strpos((string) $this->attributes['class'], 'inputDatefieldRange') !== false) {
+            $fromDateChunks = explode('-', (string) $this->attributes['data-startdate']);
             $fromDateTimestamp = mktime(12, 00, 00, $fromDateChunks[1], $fromDateChunks[2], $fromDateChunks[0]);
 
-            $tillDateChunks = explode('-', $this->attributes['data-enddate']);
+            $tillDateChunks = explode('-', (string) $this->attributes['data-enddate']);
             $tillDateTimestamp = mktime(12, 00, 00, $tillDateChunks[1], $tillDateChunks[2], $tillDateChunks[0]);
 
             $givenDateTimestamp = mktime(12, 00, 00, $month, $day, $year);

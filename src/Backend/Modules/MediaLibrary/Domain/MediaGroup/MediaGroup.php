@@ -22,21 +22,6 @@ use Ramsey\Uuid\UuidInterface;
 class MediaGroup implements JsonSerializable, Countable
 {
     /**
-     * @var UuidInterface
-     *
-     * @ORM\Id
-     * @ORM\Column(type="uuid")
-     */
-    private $id;
-
-    /**
-     * @var Type
-     *
-     * @ORM\Column(type="media_group_type")
-     */
-    protected $type;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
@@ -64,11 +49,17 @@ class MediaGroup implements JsonSerializable, Countable
     protected $numberOfConnectedItems;
 
     private function __construct(
-        UuidInterface $id,
-        Type $type
+        /**
+         *
+         * @ORM\Id
+         * @ORM\Column(type="uuid")
+         */
+        private UuidInterface $id,
+        /**
+         * @ORM\Column(type="media_group_type")
+         */
+        protected Type $type,
     ) {
-        $this->id = $id;
-        $this->type = $type;
         $this->connectedItems = new ArrayCollection();
     }
 
@@ -155,9 +146,7 @@ class MediaGroup implements JsonSerializable, Countable
     public function getConnectedMediaItems(): Collection
     {
         return $this->connectedItems->map(
-            function (MediaGroupMediaItem $connectedItem): MediaItem {
-                return $connectedItem->getItem();
-            }
+            fn(MediaGroupMediaItem $connectedItem): MediaItem => $connectedItem->getItem()
         );
     }
 
@@ -218,9 +207,7 @@ class MediaGroup implements JsonSerializable, Countable
     public function getIdsForConnectedItems(): array
     {
         return array_map(
-            function ($connectedItem) {
-                return $connectedItem->getItem()->getId();
-            },
+            fn($connectedItem) => $connectedItem->getItem()->getId(),
             $this->connectedItems->toArray()
         );
     }

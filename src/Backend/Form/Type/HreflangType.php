@@ -29,7 +29,7 @@ final class HreflangType extends AbstractType
 
         $builder->addEventListener(
             FormEvents::POST_SET_DATA,
-            function (FormEvent $event) use ($repository, $method) {
+            function (FormEvent $event) use ($repository, $method): void {
                 $language = $event->getData()['language'];
                 $choices = $repository->$method(Locale::fromString($language));
 

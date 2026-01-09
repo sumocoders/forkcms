@@ -6,22 +6,13 @@ use Common\Core\Cookie;
 use Common\ModulesSettings;
 use ForkCMS\Privacy\ConsentDialog;
 
-final class GoogleAnalytics
+final readonly class GoogleAnalytics implements \Stringable
 {
-    /** @var ModulesSettings */
-    private $modulesSettings;
-
-    /** @var Cookie */
-    private $cookie;
-
-    /** @var ConsentDialog */
-    private $consentDialog;
-
-    public function __construct(ModulesSettings $modulesSettings, ConsentDialog $consentDialog, Cookie $cookie)
-    {
-        $this->modulesSettings = $modulesSettings;
-        $this->consentDialog = $consentDialog;
-        $this->cookie = $cookie;
+    public function __construct(
+        private ModulesSettings $modulesSettings,
+        private ConsentDialog $consentDialog,
+        private Cookie $cookie,
+    ) {
     }
 
     private function shouldAddGoogleAnalyticsHtml(): bool

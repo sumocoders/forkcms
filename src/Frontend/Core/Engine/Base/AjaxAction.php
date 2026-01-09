@@ -83,7 +83,7 @@ class AjaxAction extends KernelLoader
      * @param mixed $data The data to be returned (will be encoded as JSON).
      * @param string $message A text-message.
      */
-    public function output(int $statusCode, $data = null, string $message = null): void
+    public function output(int $statusCode, $data = null, ?string $message = null): void
     {
         $this->content = ['code' => $statusCode, 'data' => $data, 'message' => $message];
     }

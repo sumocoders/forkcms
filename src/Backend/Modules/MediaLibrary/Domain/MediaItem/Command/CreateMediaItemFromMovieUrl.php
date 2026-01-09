@@ -8,36 +8,15 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\StorageType;
 
 final class CreateMediaItemFromMovieUrl
 {
-    /** @var string */
-    public $movieId;
-
-    /** @var string */
-    public $movieTitle;
-
-    /** @var MediaFolder */
-    public $mediaFolder;
-
-    /** @var MediaItem */
-    private $mediaItem;
-
-    /** @var int */
-    public $userId;
-
-    /** @var StorageType */
-    public $source;
+    private ?MediaItem $mediaItem = null;
 
     public function __construct(
-        StorageType $source,
-        string $movieId,
-        string $movieTitle,
-        MediaFolder $mediaFolder,
-        int $userId
+        public StorageType $source,
+        public string $movieId,
+        public string $movieTitle,
+        public MediaFolder $mediaFolder,
+        public int $userId,
     ) {
-        $this->source = $source;
-        $this->movieTitle = $movieTitle;
-        $this->movieId = $movieId;
-        $this->mediaFolder = $mediaFolder;
-        $this->userId = $userId;
     }
 
     public function getMediaItem(): MediaItem

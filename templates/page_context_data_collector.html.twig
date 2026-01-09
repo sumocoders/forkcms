@@ -1,9 +1,9 @@
-{% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
 
 {% block toolbar %}
   {% if collector.hasData %}
     {% set icon %}
-      {{ include('views/Icon/context.svg') }}
+      {{ include('Icon/context.svg') }}
       <span class="sf-toolbar-value sf-toolbar-info-piece-additional">{{ collector.pageTitle }}</span>
     {% endset %}
     {% set text %}
@@ -36,14 +36,14 @@
         </div>
       {% endif %}
     {% endset %}
-    {% include 'WebProfilerBundle:Profiler:toolbar_item.html.twig' with { 'link': profiler_url } %}
+    {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': profiler_url } %}
   {% endif %}
 {% endblock %}
 
 {% block menu %}
   <span class="label{% if not collector.hasData %} disabled{% endif %}">
     <span class="icon">
-      {{ include('views/Icon/context.svg') }}
+      {{ include('Icon/context.svg') }}
     </span>
     <strong>Page Context</strong>
   </span>

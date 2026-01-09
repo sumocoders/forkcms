@@ -71,7 +71,7 @@ class Widget extends KernelLoader implements ModuleExtraInterface
      */
     protected $url;
 
-    public function __construct(KernelInterface $kernel, string $module, string $action = null, $data = null)
+    public function __construct(KernelInterface $kernel, string $module, ?string $action = null, $data = null)
     {
         parent::__construct($kernel);
 
@@ -141,7 +141,7 @@ class Widget extends KernelLoader implements ModuleExtraInterface
      *
      * @return string
      */
-    public function render(string $template = null): string
+    public function render(?string $template = null): string
     {
         // set path to template if the widget didn't return any data
         if ($this->output === null) {
@@ -197,7 +197,7 @@ class Widget extends KernelLoader implements ModuleExtraInterface
     {
         $configClass = 'Frontend\\Modules\\' . $this->getModule() . '\\Config';
         if ($this->getModule() === 'Core') {
-            $configClass = 'Frontend\\Core\\Config';
+            $configClass = \Frontend\Core\Config::class;
         }
 
         // validate if class exists (aka has correct name)
@@ -209,7 +209,7 @@ class Widget extends KernelLoader implements ModuleExtraInterface
         $this->config = new $configClass($this->getKernel(), $this->getModule());
     }
 
-    private function setAction(string $action = null): void
+    private function setAction(?string $action = null): void
     {
         $this->action = $action;
     }
@@ -237,7 +237,7 @@ class Widget extends KernelLoader implements ModuleExtraInterface
      *
      * @return self
      */
-    public static function getForId(KernelInterface $kernel, string $module, string $action, int $id = null): self
+    public static function getForId(KernelInterface $kernel, string $module, string $action, ?int $id = null): self
     {
         $query = 'SELECT data FROM modules_extras WHERE type = :widget AND module = :module AND action = :action';
         $parameters = [

@@ -64,47 +64,47 @@ class Model extends \Common\Core\Model
 
         // remove the head-, style- and script-tags and all their contents
         $text = preg_replace('|\<head[^>]*\>(.*\n*)\</head\>|isU', '', $text);
-        $text = preg_replace('|\<style[^>]*\>(.*\n*)\</style\>|isU', '', $text);
-        $text = preg_replace('|\<script[^>]*\>(.*\n*)\</script\>|isU', '', $text);
+        $text = preg_replace('|\<style[^>]*\>(.*\n*)\</style\>|isU', '', (string) $text);
+        $text = preg_replace('|\<script[^>]*\>(.*\n*)\</script\>|isU', '', (string) $text);
 
         // put back some new lines where needed
         $text = preg_replace(
             '#(\<(h1|h2|h3|h4|h5|h6|p|ul|ol)[^\>]*\>.*\</(h1|h2|h3|h4|h5|h6|p|ul|ol)\>)#isU',
             "\n$1",
-            $text
+            (string) $text
         );
 
         // replace br tags with newlines
-        $text = preg_replace('#(\<br[^\>]*\>)#isU', "\n", $text);
+        $text = preg_replace('#(\<br[^\>]*\>)#isU', "\n", (string) $text);
 
         // replace links with the inner html of the link with the url between ()
         // eg.: <a href="http://site.domain.com">My site</a> => My site (http://site.domain.com)
         if ($includeAHrefs) {
-            $text = preg_replace('|<a.*href="(.*)".*>(.*)</a>|isU', '$2 ($1)', $text);
+            $text = preg_replace('|<a.*href="(.*)".*>(.*)</a>|isU', '$2 ($1)', (string) $text);
         }
 
         // replace images with their alternative content
         // eg. <img src="path/to/the/image.jpg" alt="My image" /> => My image
         if ($includeImgAlts) {
-            $text = preg_replace('|\<img[^>]*alt="(.*)".*/\>|isU', '$1', $text);
+            $text = preg_replace('|\<img[^>]*alt="(.*)".*/\>|isU', '$1', (string) $text);
         }
 
         // decode html entities
-        $text = html_entity_decode($text, ENT_QUOTES, 'ISO-8859-15');
+        $text = html_entity_decode((string) $text, ENT_QUOTES, 'ISO-8859-15');
 
         // remove space characters at the beginning and end of each line and clear lines with nothing but spaces
         $text = preg_replace('/^\s*|\s*$|^\s*$/m', '', $text);
 
         // strip tags
-        $text = strip_tags($text, '<h1><h2><h3><h4><h5><h6><p><li>');
+        $text = strip_tags((string) $text, '<h1><h2><h3><h4><h5><h6><p><li>');
 
         // format heading, paragraphs and list items
         $text = preg_replace('|\<h[123456]([^\>]*)\>(.*)\</h[123456]\>|isU', "\n** $2 **\n", $text);
-        $text = preg_replace('|\<p([^\>]*)\>(.*)\</p\>|isU', "$2\n", $text);
-        $text = preg_replace('|\<li([^\>]*)\>\n*(.*)\n*\</li\>|isU', "- $2\n", $text);
+        $text = preg_replace('|\<p([^\>]*)\>(.*)\</p\>|isU', "$2\n", (string) $text);
+        $text = preg_replace('|\<li([^\>]*)\>\n*(.*)\n*\</li\>|isU', "- $2\n", (string) $text);
 
         // replace 3 and more line breaks in a row by 2 line breaks
-        $text = preg_replace('/\n{3,}/', "\n\n", $text);
+        $text = preg_replace('/\n{3,}/', "\n\n", (string) $text);
 
         // use php constant for new lines
         $text = str_replace("\n", PHP_EOL, $text);
@@ -242,14 +242,14 @@ class Model extends \Common\Core\Model
     public static function isSpam(
         string $content,
         string $permaLink,
-        string $author = null,
-        string $email = null,
-        string $url = null,
+        ?string $author = null,
+        ?string $email = null,
+        ?string $url = null,
         string $type = 'comment'
     ) {
         try {
             $akismet = self::getAkismet();
-        } catch (InvalidArgumentException $invalidArgumentException) {
+        } catch (InvalidArgumentException) {
             return false;
         }
 

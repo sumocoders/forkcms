@@ -13,7 +13,7 @@ interface ModuleExtraInterface
      * @param string $action|null The action to load.
      * @param mixed $data The data that was passed from the database.
      */
-    public function __construct(KernelInterface $kernel, string $module, string $action = null, $data = null);
+    public function __construct(KernelInterface $kernel, string $module, ?string $action = null, $data = null);
 
     /**
      * Execute the extra

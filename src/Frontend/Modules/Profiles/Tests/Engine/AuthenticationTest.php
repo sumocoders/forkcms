@@ -7,7 +7,7 @@ use Frontend\Core\Tests\FrontendWebTestCase;
 use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Modules\Profiles\Engine\Authentication;
 use SpoonDatabase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -18,7 +18,7 @@ final class AuthenticationTest extends FrontendWebTestCase
     private $session;
 
     /** @var string */
-    private const SECRET_COOKIE_KEY = 'NotSoSecret';
+    private const string SECRET_COOKIE_KEY = 'NotSoSecret';
 
     protected function setUp(): void
     {
@@ -38,7 +38,7 @@ final class AuthenticationTest extends FrontendWebTestCase
         $client->getContainer()->set('request_stack', $requestStack);
     }
 
-    public function testOldSessionCleanUp(Client $client): void
+    public function testOldSessionCleanUp(KernelBrowser $client): void
     {
         $database = $this->getDatabase($client);
 
@@ -118,7 +118,7 @@ final class AuthenticationTest extends FrontendWebTestCase
         self::assertTrue(Authentication::isLoggedIn());
     }
 
-    public function testLoggingInCleansUpOldSessions(Client $client): void
+    public function testLoggingInCleansUpOldSessions(KernelBrowser $client): void
     {
         $database = $this->getDatabase($client);
 
@@ -144,7 +144,7 @@ final class AuthenticationTest extends FrontendWebTestCase
         self::assertTrue(FrontendModel::getSession()->get('frontend_profile_logged_in'));
     }
 
-    public function testLoggingInAddsASessionToTheDatabase(Client $client): void
+    public function testLoggingInAddsASessionToTheDatabase(KernelBrowser $client): void
     {
         $database = $this->getDatabase($client);
 
@@ -171,7 +171,7 @@ final class AuthenticationTest extends FrontendWebTestCase
         );
     }
 
-    public function testProfileLastLoginGetsUpdatedWhenLoggingIn(Client $client): void
+    public function testProfileLastLoginGetsUpdatedWhenLoggingIn(KernelBrowser $client): void
     {
         $database = $this->getDatabase($client);
 
@@ -185,7 +185,7 @@ final class AuthenticationTest extends FrontendWebTestCase
         self::assertLessThan($newLastLogin, $initialLastLogin);
     }
 
-    public function testLogoutDeletesSessionFromDatabase(Client $client): void
+    public function testLogoutDeletesSessionFromDatabase(KernelBrowser $client): void
     {
         $database = $this->getDatabase($client);
 
@@ -226,7 +226,7 @@ final class AuthenticationTest extends FrontendWebTestCase
         self::assertFalse($this->session->get('frontend_profile_logged_in'));
     }
 
-    public function testLogoutDeletesSecretKeyCookie(Client $client): void
+    public function testLogoutDeletesSecretKeyCookie(KernelBrowser $client): void
     {
         $cookie = $client->getContainer()->get('fork.cookie');
 
@@ -239,7 +239,7 @@ final class AuthenticationTest extends FrontendWebTestCase
         self::assertNotEquals(self::SECRET_COOKIE_KEY, $cookie->get('frontend_profile_secret_key'));
     }
 
-    private function getDatabase(Client $client): SpoonDatabase
+    private function getDatabase(KernelBrowser $client): SpoonDatabase
     {
         return $client->getContainer()->get('database');
     }

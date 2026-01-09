@@ -4,12 +4,12 @@ namespace Common;
 
 use Common\Exception\InvalidModuleExtraType;
 
-final class ModuleExtraType
+final class ModuleExtraType implements \Stringable
 {
-    private const BLOCK = 'block';
-    private const HOMEPAGE = 'homepage';
-    private const WIDGET = 'widget';
-    public const POSSIBLE_TYPES = [
+    private const string BLOCK = 'block';
+    private const string HOMEPAGE = 'homepage';
+    private const string WIDGET = 'widget';
+    public const array POSSIBLE_TYPES = [
         self::BLOCK,
         self::HOMEPAGE,
         self::WIDGET,

@@ -275,7 +275,7 @@ class ImportWordpress extends BackendBaseActionEdit
                 $imagesPath . '/' . $destinationFile,
                 file_get_contents($file)
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             // Ignore
         }
 
@@ -303,7 +303,7 @@ class ImportWordpress extends BackendBaseActionEdit
         $database = BackendModel::getContainer()->get('database');
         $id = (int) $database->getVar(
             'SELECT id FROM users WHERE email=? AND active=? AND deleted=?',
-            [mb_strtolower($this->authors[(string) $username]['email']), true, false]
+            [mb_strtolower((string) $this->authors[(string) $username]['email']), true, false]
         );
 
         // We found an id!
@@ -333,7 +333,7 @@ class ImportWordpress extends BackendBaseActionEdit
 
         if (isset($matchesImages[1]) && !empty($matchesImages[1])) {
             // Walk through image links
-            foreach ($matchesImages[1] as $key => $file) {
+            foreach ($matchesImages[1] as $file) {
                 // Should we bother looking at this file?
                 if (!empty($filter) && !mb_stristr($file, $filter)) {
                     continue;
@@ -343,8 +343,8 @@ class ImportWordpress extends BackendBaseActionEdit
 
                 if (isset($this->attachments[mb_strtolower($file)])) {
                     $text = str_replace($file, $this->attachments[mb_strtolower($file)], $text);
-                } elseif (isset($this->attachments[mb_strtolower($noSize)])) {
-                    $text = str_replace($file, $this->attachments[mb_strtolower($noSize)], $text);
+                } elseif (isset($this->attachments[mb_strtolower((string) $noSize)])) {
+                    $text = str_replace($file, $this->attachments[mb_strtolower((string) $noSize)], $text);
                 }
             }
         }
@@ -354,7 +354,7 @@ class ImportWordpress extends BackendBaseActionEdit
 
         if (isset($matchesLinks[1]) && !empty($matchesLinks[1])) {
             // Walk through links
-            foreach ($matchesLinks[1] as $key => $link) {
+            foreach ($matchesLinks[1] as $link) {
                 // Should we bother looking at this file?
                 if (!empty($filter) && !mb_stristr($link, $filter)) {
                     continue;
@@ -364,8 +364,8 @@ class ImportWordpress extends BackendBaseActionEdit
 
                 if (isset($this->attachments[mb_strtolower($link)])) {
                     $text = str_replace($link, $this->attachments[mb_strtolower($link)], $text);
-                } elseif (isset($this->attachments[mb_strtolower($noSize)])) {
-                    $text = str_replace($link, $this->attachments[mb_strtolower($noSize)], $text);
+                } elseif (isset($this->attachments[mb_strtolower((string) $noSize)])) {
+                    $text = str_replace($link, $this->attachments[mb_strtolower((string) $noSize)], $text);
                 }
             }
         }

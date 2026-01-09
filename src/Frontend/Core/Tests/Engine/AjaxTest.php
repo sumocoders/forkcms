@@ -3,12 +3,12 @@
 namespace Frontend\Core\Tests\Engine;
 
 use Frontend\Core\Tests\FrontendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Response;
 
 class AjaxTest extends FrontendWebTestCase
 {
-    public function testAjaxWithoutModuleAndAction(Client $client): void
+    public function testAjaxWithoutModuleAndAction(KernelBrowser $client): void
     {
         self::assertPageLoadedCorrectly(
             $client,
@@ -18,7 +18,7 @@ class AjaxTest extends FrontendWebTestCase
         );
     }
 
-    public function testAjaxWithoutModule(Client $client): void
+    public function testAjaxWithoutModule(KernelBrowser $client): void
     {
         self::assertPageLoadedCorrectly(
             $client,
@@ -28,7 +28,7 @@ class AjaxTest extends FrontendWebTestCase
         );
     }
 
-    public function testAjaxWithInvalidModule(Client $client): void
+    public function testAjaxWithInvalidModule(KernelBrowser $client): void
     {
         self::assertPageLoadedCorrectly(
             $client,
@@ -38,7 +38,7 @@ class AjaxTest extends FrontendWebTestCase
         );
     }
 
-    public function testAjaxWithoutAction(Client $client): void
+    public function testAjaxWithoutAction(KernelBrowser $client): void
     {
         self::assertPageLoadedCorrectly(
             $client,
@@ -48,7 +48,7 @@ class AjaxTest extends FrontendWebTestCase
         );
     }
 
-    public function testAjaxWithInvalidAction(Client $client): void
+    public function testAjaxWithInvalidAction(KernelBrowser $client): void
     {
         self::assertPageLoadedCorrectly(
             $client,
@@ -58,7 +58,7 @@ class AjaxTest extends FrontendWebTestCase
         );
     }
 
-    public function testAjaxWithValidAction(Client $client): void
+    public function testAjaxWithValidAction(KernelBrowser $client): void
     {
         self::assertPageLoadedCorrectly(
             $client,

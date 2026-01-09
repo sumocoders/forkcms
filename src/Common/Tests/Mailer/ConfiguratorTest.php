@@ -39,7 +39,7 @@ class ConfiguratorTest extends TestCase
             )
         ;
 
-        $configurator->onKernelRequest($this->getGetResponseEventMock());
+        $configurator->onKernelRequest($this->getRequestEventMock());
     }
 
     public function testConfiguratorSetsSmtpTransport(): void
@@ -76,25 +76,25 @@ class ConfiguratorTest extends TestCase
             )
         ;
 
-        $configurator->onKernelRequest($this->getGetResponseEventMock());
+        $configurator->onKernelRequest($this->getRequestEventMock());
     }
 
     private function getModulesSettingsMock(): MockObject
     {
-        return $this->createMock('Common\ModulesSettings');
+        return $this->createMock(\Common\ModulesSettings::class);
     }
 
     private function getContainerMock(): MockObject
     {
-        return $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')
+        return $this->getMockBuilder(\Symfony\Component\DependencyInjection\ContainerInterface::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
     }
 
-    private function getGetResponseEventMock(): MockObject
+    private function getRequestEventMock(): MockObject
     {
-        return $this->getMockBuilder('Symfony\Component\HttpKernel\Event\GetResponseEvent')
+        return $this->getMockBuilder(\Symfony\Component\HttpKernel\Event\RequestEvent::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;

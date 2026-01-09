@@ -16,5 +16,5 @@ final class FormBuilderEvents
      *
      * @var string
      */
-    const FORM_SUBMITTED = 'form.submitted';
+    const string FORM_SUBMITTED = 'form.submitted';
 }

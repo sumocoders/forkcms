@@ -11,45 +11,45 @@ use Backend\Core\Language\Language;
  */
 final class Autocomplete
 {
-    const NAME = 'name';
-    const HONORIFIC_PREFIX = 'honorific-prefix';
-    const GIVEN_NAME = 'given-name';
-    const ADDITIONAL_NAME = 'additional-name';
-    const FAMILY_NAME = 'family-name';
-    const NICKNAME = 'nickname';
-    const EMAIL = 'email';
-    const USERNAME = 'username';
-    const NEW_PASSWORD = 'new-password';
-    const CURRENT_PASSWORD = 'current-password';
-    const ORGANIZATION_TITLE = 'organization-title';
-    const ORGANIZATION = 'organization';
-    const STREET_ADDRESS = 'street-address';
-    const COUNTRY = 'country';
-    const COUNTRY_NAME = 'country-name';
-    const POSTAL_CODE = 'postal-code';
-    const CC_NAME = 'cc-name';
-    const CC_GIVEN_NAME = 'cc-given-name';
-    const CC_ADDITIONAL_NAME = 'cc-additional-name';
-    const CC_FAMILY_NAME = 'cc-family-name';
-    const CC_NUMBER = 'cc-number';
-    const CC_EXP = 'cc-exp';
-    const CC_EXP_MONTH = 'cc-exp-month';
-    const CC_EXP_YEAR = 'cc-exp-year';
-    const CC_CSC = 'cc-csc';
-    const CC_TYPE = 'cc-type';
-    const TRANSACTION_CURRENCY = 'transaction-currency';
-    const TRANSACTION_AMOUNT = 'transaction-amount';
-    const LANGUAGE = 'language';
-    const BDAY = 'bday';
-    const BDAY_DAY = 'bday-day';
-    const BDAY_MONTH = 'bday-month';
-    const BDAY_YEAR = 'bday-year';
-    const SEX = 'sex';
-    const TEL = 'tel';
-    const URL = 'url';
-    const PHOTO = 'photo';
+    const string NAME = 'name';
+    const string HONORIFIC_PREFIX = 'honorific-prefix';
+    const string GIVEN_NAME = 'given-name';
+    const string ADDITIONAL_NAME = 'additional-name';
+    const string FAMILY_NAME = 'family-name';
+    const string NICKNAME = 'nickname';
+    const string EMAIL = 'email';
+    const string USERNAME = 'username';
+    const string NEW_PASSWORD = 'new-password';
+    const string CURRENT_PASSWORD = 'current-password';
+    const string ORGANIZATION_TITLE = 'organization-title';
+    const string ORGANIZATION = 'organization';
+    const string STREET_ADDRESS = 'street-address';
+    const string COUNTRY = 'country';
+    const string COUNTRY_NAME = 'country-name';
+    const string POSTAL_CODE = 'postal-code';
+    const string CC_NAME = 'cc-name';
+    const string CC_GIVEN_NAME = 'cc-given-name';
+    const string CC_ADDITIONAL_NAME = 'cc-additional-name';
+    const string CC_FAMILY_NAME = 'cc-family-name';
+    const string CC_NUMBER = 'cc-number';
+    const string CC_EXP = 'cc-exp';
+    const string CC_EXP_MONTH = 'cc-exp-month';
+    const string CC_EXP_YEAR = 'cc-exp-year';
+    const string CC_CSC = 'cc-csc';
+    const string CC_TYPE = 'cc-type';
+    const string TRANSACTION_CURRENCY = 'transaction-currency';
+    const string TRANSACTION_AMOUNT = 'transaction-amount';
+    const string LANGUAGE = 'language';
+    const string BDAY = 'bday';
+    const string BDAY_DAY = 'bday-day';
+    const string BDAY_MONTH = 'bday-month';
+    const string BDAY_YEAR = 'bday-year';
+    const string SEX = 'sex';
+    const string TEL = 'tel';
+    const string URL = 'url';
+    const string PHOTO = 'photo';
 
-    const POSSIBLE_VALUES = [
+    const array POSSIBLE_VALUES = [
         self::NAME,
         self::HONORIFIC_PREFIX,
         self::GIVEN_NAME,
@@ -94,9 +94,7 @@ final class Autocomplete
         // map the values to replace them with the backend translations
         // use array combine to set the keys as the autocomplete values instead of key values
         return array_map(
-            function (string $value): string {
-                return $value . ' (' . Language::getLabel('Autocomplete_' . str_replace('-', '_', $value)) . ')';
-            },
+            fn(string $value): string => $value . ' (' . Language::getLabel('Autocomplete_' . str_replace('-', '_', $value)) . ')',
             array_combine(
                 Autocomplete::POSSIBLE_VALUES,
                 Autocomplete::POSSIBLE_VALUES

@@ -33,7 +33,6 @@ class Delete extends BackendBaseActionDelete
         $this->get('command_bus')->handle(new DeleteContentBlock($contentBlock));
 
         $this->get('event_dispatcher')->dispatch(
-            ContentBlockDeleted::EVENT_NAME,
             new ContentBlockDeleted($contentBlock)
         );
 
@@ -57,7 +56,7 @@ class Delete extends BackendBaseActionDelete
                 $id,
                 Locale::workingLocale()
             );
-        } catch (ContentBlockNotFound $e) {
+        } catch (ContentBlockNotFound) {
             $this->redirect($this->getBackLink(['error' => 'non-existing']));
         }
     }

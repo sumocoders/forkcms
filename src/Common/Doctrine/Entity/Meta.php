@@ -18,83 +18,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class Meta
 {
     /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $keywords;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean", name="keywords_overwrite", options={"default" = false})
-     */
-    private $keywordsOverwrite;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $description;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean", name="description_overwrite", options={"default" = false})
-     */
-    private $descriptionOverwrite;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean", name="title_overwrite", options={"default" = false})
-     */
-    private $titleOverwrite;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $url;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean", name="url_overwrite", options={"default" = false})
-     */
-    private $urlOverwrite;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $custom;
-
-    /**
-     * @var array
-     */
-    private $unserialisedData;
-
-    /**
      * @var string|null
      *
      * Only can be string during persisting or updating in the database as it then contains the serialised value
@@ -102,20 +25,6 @@ class Meta
      * @ORM\Column(type="text", nullable=true)
      */
     private $data;
-
-    /**
-     * @var SEOFollow|null
-     *
-     * @ORM\Column(type="seo_follow", name="seo_follow", nullable=true)
-     */
-    private $seoFollow;
-
-    /**
-     * @var SEOIndex|null
-     *
-     * @ORM\Column(type="seo_index", name="seo_index", nullable=true)
-     */
-    private $seoIndex;
 
     /**
      * @var string|null
@@ -129,50 +38,64 @@ class Meta
      */
     private $oldOgImage;
 
-    /**
-     * @var UploadedFile|null
-     */
-    private $uploadedOgImage;
-    /**
-     * @var bool
-     */
-    private $deleteOgImage = false;
-
     public function __construct(
-        string $keywords,
-        bool $keywordsOverwrite,
-        string $description,
-        bool $descriptionOverwrite,
-        string $title,
-        bool $titleOverwrite,
-        string $url,
-        bool $urlOverwrite,
+        /**
+         * @ORM\Column(type="string", length=255)
+         */
+        private string $keywords,
+        /**
+         * @ORM\Column(type="boolean", name="keywords_overwrite", options={"default" = false})
+         */
+        private bool $keywordsOverwrite,
+        /**
+         * @ORM\Column(type="string", length=255)
+         */
+        private string $description,
+        /**
+         * @ORM\Column(type="boolean", name="description_overwrite", options={"default" = false})
+         */
+        private bool $descriptionOverwrite,
+        /**
+         * @ORM\Column(type="string", length=255)
+         */
+        private string $title,
+        /**
+         * @ORM\Column(type="boolean", name="title_overwrite", options={"default" = false})
+         */
+        private bool $titleOverwrite,
+        /**
+         * @ORM\Column(type="string", length=255)
+         */
+        private string $url,
+        /**
+         * @ORM\Column(type="boolean", name="url_overwrite", options={"default" = false})
+         */
+        private bool $urlOverwrite,
         ?string $canonicalUrl,
         bool $canonicalUrlOverwrite,
-        string $custom = null,
-        SEOFollow $seoFollow = null,
-        SEOIndex $seoIndex = null,
-        array $unserialisedData = [],
-        ?UploadedFile $uploadedOgImage = null,
-        bool $deleteOgImage = false,
-        int $id = null
+        /**
+         * @ORM\Column(type="text", nullable=true)
+         */
+        private ?string $custom = null,
+        /**
+         * @ORM\Column(type="seo_follow", name="seo_follow", nullable=true)
+         */
+        private ?SEOFollow $seoFollow = null,
+        /**
+         * @ORM\Column(type="seo_index", name="seo_index", nullable=true)
+         */
+        private ?SEOIndex $seoIndex = null,
+        private array $unserialisedData = [],
+        private ?UploadedFile $uploadedOgImage = null,
+        private bool $deleteOgImage = false,
+        /**
+         *
+         * @ORM\Id
+         * @ORM\GeneratedValue(strategy="AUTO")
+         * @ORM\Column(type="integer")
+         */
+        private ?int $id = null,
     ) {
-        $this->keywords = $keywords;
-        $this->keywordsOverwrite = $keywordsOverwrite;
-        $this->description = $description;
-        $this->descriptionOverwrite = $descriptionOverwrite;
-        $this->title = $title;
-        $this->titleOverwrite = $titleOverwrite;
-        $this->url = $url;
-        $this->urlOverwrite = $urlOverwrite;
-        $this->custom = $custom;
-        $this->unserialisedData = $unserialisedData;
-        $this->seoFollow = $seoFollow;
-        $this->seoIndex = $seoIndex;
-        $this->uploadedOgImage = $uploadedOgImage;
-        $this->deleteOgImage = $deleteOgImage;
-        $this->id = $id;
-
         if ($canonicalUrlOverwrite) {
             $this->unserialisedData['canonical_url'] = $canonicalUrl;
             $this->unserialisedData['canonical_url_overwrite'] = $canonicalUrlOverwrite;
@@ -193,9 +116,9 @@ class Meta
         bool $urlOverwrite,
         ?string $canonicalUrl = null,
         bool $canonicalUrlOverwrite = false,
-        string $custom = null,
-        SEOFollow $seoFollow = null,
-        SEOIndex $seoIndex = null,
+        ?string $custom = null,
+        ?SEOFollow $seoFollow = null,
+        ?SEOIndex $seoIndex = null,
         array $unserialisedData = [],
         ?UploadedFile $uploadedOgImage = null,
         bool $deleteOgImage = false,

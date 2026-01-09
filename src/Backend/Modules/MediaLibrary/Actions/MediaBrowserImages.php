@@ -10,7 +10,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\Type;
 
 class MediaBrowserImages extends MediaBrowser
 {
-    public function display(string $template = null): void
+    public function display(?string $template = null): void
     {
         parent::display($template ?? '/' . $this->getModule() . '/Layout/Templates/MediaBrowser.html.twig');
     }
@@ -31,7 +31,7 @@ class MediaBrowserImages extends MediaBrowser
         $this->header->addJsData('MediaLibrary', 'openedFolderId', $mediaFolderId);
     }
 
-    protected function getDataGrids(MediaFolder $mediaFolder = null): array
+    protected function getDataGrids(?MediaFolder $mediaFolder = null): array
     {
         return array_map(
             function ($type) use ($mediaFolder) {

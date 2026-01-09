@@ -16,63 +16,39 @@ namespace CKSource\CKFinder;
 
 use CKSource\CKFinder\Exception\CKFinderException;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Debug;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use CKSource\CKFinder\Response\JsonResponse;
 use \Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * The exception handler class.
- * 
+ *
  * All errors are resolved here and passed to the response.
- * 
+ *
  * @copyright 2016 CKSource - Frederico Knabben
  */
 class ExceptionHandler implements EventSubscriberInterface
 {
-    /**
-     * Flag used to enable the debug mode.
-     *
-     * @var bool $debug
-     */
-    protected $debug;
-
-    /**
-     * LoggerInterface
-     *
-     * @var LoggerInterface $logger
-     */
-    protected $logger;
-
-    protected $translator;
-
-    /**
-     * Constructor.
-     *
-     * @param Translator      $translator translator object
-     * @param bool            $debug      `true` if debug mode is enabled
-     * @param LoggerInterface $logger     logger
-     */
-    public function __construct(Translator $translator, $debug = false, LoggerInterface $logger = null)
+    public function __construct(
+        protected Translator $translator,
+        protected bool $debug = false,
+        protected ?LoggerInterface $logger = null,
+    )
     {
-        $this->translator = $translator;
-        $this->debug = $debug;
-        $this->logger = $logger;
-
-        if ($debug) {
-            set_error_handler(array($this, 'errorHandler'));
+        if ($this->debug) {
+            set_error_handler($this->errorHandler(...));
         }
     }
 
-    public function onCKFinderError(GetResponseForExceptionEvent $event)
+    public function onCKFinderError(ExceptionEvent $event)
     {
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
 
         $exceptionCode = $exception->getCode() ?: Error::UNKNOWN;
 
-        $replacements = array();
+        $replacements = [];
 
         $httpStatusCode = 200;
 
@@ -123,13 +99,13 @@ class ExceptionHandler implements EventSubscriberInterface
 
     /**
      * Returns all events and callbacks.
-     * 
+     *
      * @see <a href="http://api.symfony.com/2.5/Symfony/Component/EventDispatcher/EventSubscriberInterface.html">EventSubscriberInterface</a>
-     * 
+     *
      * @return array
      */
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::EXCEPTION => array('onCKFinderError', -255));
+        return [KernelEvents::EXCEPTION => ['onCKFinderError', -255]];
     }
 }

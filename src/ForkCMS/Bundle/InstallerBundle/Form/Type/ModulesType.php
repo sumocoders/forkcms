@@ -60,7 +60,7 @@ class ModulesType extends AbstractType
         // make sure the required modules are selected when submitting
         $builder->addEventListener(
             FormEvents::PRE_SUBMIT,
-            function (FormEvent $event) {
+            function (FormEvent $event): void {
                 $data = $event->getData();
 
                 // add the modules array if it doesn't exit
@@ -81,7 +81,7 @@ class ModulesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => 'ForkCMS\Bundle\InstallerBundle\Entity\InstallationData',
+            'data_class' => \ForkCMS\Bundle\InstallerBundle\Entity\InstallationData::class,
         ]);
     }
 

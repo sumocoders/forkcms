@@ -125,7 +125,7 @@ class Action extends KernelLoader
      *
      * @param string $template The template to use, if not provided it will be based on the action.
      */
-    public function display(string $template = null): void
+    public function display(?string $template = null): void
     {
         // parse header
         $this->header->parse();
@@ -163,7 +163,7 @@ class Action extends KernelLoader
         if ($var === '') {
             $var = [];
         }
-        $var = array_map('strip_tags', (array) $var);
+        $var = array_map(strip_tags(...), (array) $var);
 
         // is there a report to show?
         if ($this->getRequest()->query->get('report', '') !== '') {

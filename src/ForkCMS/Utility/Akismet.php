@@ -252,11 +252,11 @@ class Akismet
      */
     public function isSpam(
         string $content,
-        string $author = null,
-        string $email = null,
-        string $url = null,
-        string $permalink = null,
-        string $type = null
+        ?string $author = null,
+        ?string $email = null,
+        ?string $url = null,
+        ?string $permalink = null,
+        ?string $type = null
     ): bool {
         // possible answers
         $possibleResponses = ['true', 'false'];
@@ -373,12 +373,12 @@ class Akismet
         string $userIp,
         string $userAgent,
         string $content,
-        string $author = null,
-        string $email = null,
-        string $url = null,
-        string $permalink = null,
-        string $type = null,
-        string $referrer = null,
+        ?string $author = null,
+        ?string $email = null,
+        ?string $url = null,
+        ?string $permalink = null,
+        ?string $type = null,
+        ?string $referrer = null,
         array  $others = []
     ): bool {
         // possible answers
@@ -456,12 +456,12 @@ class Akismet
         string $userIp,
         string $userAgent,
         string $content,
-        string $author = null,
-        string $email = null,
-        string $url = null,
-        string $permalink = null,
-        string $type = null,
-        string $referrer = null,
+        ?string $author = null,
+        ?string $email = null,
+        ?string $url = null,
+        ?string $permalink = null,
+        ?string $type = null,
+        ?string $referrer = null,
         array  $others = []
     ): bool {
         // possible answers

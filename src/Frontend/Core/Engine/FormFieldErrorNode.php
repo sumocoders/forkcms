@@ -11,24 +11,18 @@ use Twig\Node\Node;
 class FormFieldErrorNode extends Node
 {
     /**
-     * Name of the template var holding the form this field error belongs to.
-     *
-     * @var string
+     * @param string $form Name of the template var holding the form this field error belongs to.
+     * @param string $field Name of the field of which we need to render the error.
+     * @param int $lineNumber
+     * @param string $tag
      */
-    private $form;
-
-    /**
-     * Name of the field of which we need to render the error.
-     *
-     * @var string
-     */
-    private $field;
-
-    public function __construct(string $form, string $field, int $lineNumber, string $tag)
-    {
+    public function __construct(
+        private readonly string $form,
+        private readonly string $field,
+        int $lineNumber,
+        string $tag,
+    ) {
         parent::__construct([], [], $lineNumber, $tag);
-        $this->form = $form;
-        $this->field = $field;
     }
 
     public function compile(Compiler $compiler): void

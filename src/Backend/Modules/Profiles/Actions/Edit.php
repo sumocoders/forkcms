@@ -11,7 +11,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
-use Symfony\Component\Intl\Intl as Intl;
+use Symfony\Component\Intl\Countries;
 
 /**
  * This is the edit-action, it will display a form to edit an existing profile.
@@ -86,7 +86,7 @@ class Edit extends BackendBaseActionEdit
 
         // get day, month and year
         if ($birthDate) {
-            list($birthYear, $birthMonth, $birthDay) = explode('-', $birthDate);
+            [$birthYear, $birthMonth, $birthDay] = explode('-', $birthDate);
         } else {
             // no birth date setting
             $birthDay = '';
@@ -139,7 +139,7 @@ class Edit extends BackendBaseActionEdit
         $this->form
             ->addDropdown(
                 'country',
-                Intl::getRegionBundle()->getCountryNames(BL::getInterfaceLanguage()),
+                Countries::getNames(BL::getInterfaceLanguage()),
                 BackendProfilesModel::getSetting($this->id, 'country')
             )
             ->setAttribute('autocomplete', 'country-name')
@@ -325,8 +325,8 @@ class Edit extends BackendBaseActionEdit
                 if ($ddmYear->isFilled()) {
                     // mysql format
                     $birthDate = $ddmYear->getValue() . '-';
-                    $birthDate .= str_pad($ddmMonth->getValue(), 2, '0', STR_PAD_LEFT) . '-';
-                    $birthDate .= str_pad($ddmDay->getValue(), 2, '0', STR_PAD_LEFT);
+                    $birthDate .= str_pad((string) $ddmMonth->getValue(), 2, '0', STR_PAD_LEFT) . '-';
+                    $birthDate .= str_pad((string) $ddmDay->getValue(), 2, '0', STR_PAD_LEFT);
                 } else {
                     $birthDate = null;
                 }
@@ -343,9 +343,9 @@ class Edit extends BackendBaseActionEdit
                 $displayName = $values['display_name'] ?? $this->profile['display_name'];
 
                 $redirectUrl = BackendModel::createUrlForAction('Index') .
-                               '&var=' . rawurlencode($values['email']) .
+                               '&var=' . rawurlencode((string) $values['email']) .
                     '&highlight=row-' . $this->id .
-                    '&var=' . rawurlencode($displayName) .
+                    '&var=' . rawurlencode((string) $displayName) .
                     '&report='
                 ;
 

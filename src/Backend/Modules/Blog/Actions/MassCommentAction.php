@@ -66,7 +66,7 @@ class MassCommentAction extends BackendBaseAction
                     $author = $row['author'];
                     $email = $row['email'];
                     $url = (isset($row['website']) && $row['website'] != '') ? $row['website'] : null;
-                    $referrer = (isset($row['data']['server']['HTTP_REFERER'])) ? $row['data']['server']['HTTP_REFERER'] : null;
+                    $referrer = $row['data']['server']['HTTP_REFERER'] ?? null;
                     $others = $row['data']['server'];
 
                     // submit as spam
@@ -106,7 +106,7 @@ class MassCommentAction extends BackendBaseAction
                             $author = $row['author'];
                             $email = $row['email'];
                             $url = (isset($row['website']) && $row['website'] != '') ? $row['website'] : null;
-                            $referrer = (isset($row['data']['server']['HTTP_REFERER'])) ? $row['data']['server']['HTTP_REFERER'] : null;
+                            $referrer = $row['data']['server']['HTTP_REFERER'] ?? null;
                             $others = $row['data']['server'];
 
                             // submit as spam

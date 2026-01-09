@@ -3,12 +3,12 @@
 namespace Backend\Modules\Error\Tests\Action;
 
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Response;
 
 class IndexTest extends BackendWebTestCase
 {
-    public function testAuthenticationIsNotNeeded(Client $client): void
+    public function testAuthenticationIsNotNeeded(KernelBrowser $client): void
     {
         $this->logout($client);
 
@@ -16,7 +16,7 @@ class IndexTest extends BackendWebTestCase
         self::assertCurrentUrlEndsWith($client, '/private/en/error/index');
     }
 
-    public function testModuleNotAllowed(Client $client): void
+    public function testModuleNotAllowed(KernelBrowser $client): void
     {
         self::assertPageLoadedCorrectly(
             $client,
@@ -28,7 +28,7 @@ class IndexTest extends BackendWebTestCase
         );
     }
 
-    public function testActionNotAllowed(Client $client): void
+    public function testActionNotAllowed(KernelBrowser $client): void
     {
         self::assertPageLoadedCorrectly(
             $client,
@@ -40,7 +40,7 @@ class IndexTest extends BackendWebTestCase
         );
     }
 
-    public function testNotFound(Client $client): void
+    public function testNotFound(KernelBrowser $client): void
     {
         self::assertPageLoadedCorrectly(
             $client,

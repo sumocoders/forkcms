@@ -19,74 +19,11 @@ class ContentBlock
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
-     * @var int
-     *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer", name="revision_id")
      */
     private $revisionId;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", name="user_id")
-     */
-    private $userId;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", name="extra_id")
-     */
-    private $extraId;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, options={"default" = "Default.html.twig"})
-     */
-    private $template;
-
-    /**
-     * @var Locale
-     *
-     * @ORM\Column(type="locale", name="language")
-     */
-    private $locale;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $text;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean", name="hidden", options={"default" = false})
-     */
-    private $isHidden;
-
-    /**
-     * @var Status
-     *
-     * @ORM\Column(type="content_blocks_status", options={"default" = "active"})
-     */
-    private $status;
 
     /**
      * @var DateTime
@@ -103,25 +40,43 @@ class ContentBlock
     private $editedOn;
 
     private function __construct(
-        int $id,
-        int $userId,
-        int $extraId,
-        string $template,
-        Locale $locale,
-        string $title,
-        string $text,
-        bool $isHidden,
-        Status $status
+        /**
+         * @ORM\Column(type="integer")
+         */
+        private int $id,
+        /**
+         * @ORM\Column(type="integer", name="user_id")
+         */
+        private int $userId,
+        /**
+         * @ORM\Column(type="integer", name="extra_id")
+         */
+        private int $extraId,
+        /**
+         * @ORM\Column(type="string", length=255, options={"default" = "Default.html.twig"})
+         */
+        private string $template,
+        /**
+         * @ORM\Column(type="locale", name="language")
+         */
+        private Locale $locale,
+        /**
+         * @ORM\Column(type="string", length=255)
+         */
+        private string $title,
+        /**
+         * @ORM\Column(type="text", nullable=true)
+         */
+        private string $text,
+        /**
+         * @ORM\Column(type="boolean", name="hidden", options={"default" = false})
+         */
+        private bool $isHidden,
+        /**
+         * @ORM\Column(type="content_blocks_status", options={"default" = "active"})
+         */
+        private Status $status,
     ) {
-        $this->id = $id;
-        $this->userId = $userId;
-        $this->extraId = $extraId;
-        $this->template = $template;
-        $this->locale = $locale;
-        $this->title = $title;
-        $this->text = $text;
-        $this->isHidden = $isHidden;
-        $this->status = $status;
     }
 
     public static function fromDataTransferObject(ContentBlockDataTransferObject $dataTransferObject)
@@ -241,7 +196,7 @@ class ContentBlock
             'edit_url' => $editUrl,
         ];
         if (isset($extra['data'])) {
-            $data = $data + (array) $extra['data'];
+            $data += (array) $extra['data'];
         }
         $data['custom_template'] = $this->template;
         $data['extra_label'] = $this->title;

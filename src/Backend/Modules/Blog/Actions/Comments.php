@@ -99,7 +99,7 @@ class Comments extends BackendBaseActionIndex
             true
         );
         $this->dgPublished->setColumnFunction(
-            [__CLASS__, 'addPostData'],
+            [self::class, 'addPostData'],
             ['[text]', '[post_title]', '[post_url]', '[id]'],
             'text',
             true
@@ -195,7 +195,7 @@ class Comments extends BackendBaseActionIndex
             true
         );
         $this->dgModeration->setColumnFunction(
-            [__CLASS__, 'addPostData'],
+            [self::class, 'addPostData'],
             ['[text]', '[post_title]', '[post_url]', '[id]'],
             'text',
             true
@@ -289,7 +289,7 @@ class Comments extends BackendBaseActionIndex
             true
         );
         $this->dgSpam->setColumnFunction(
-            [__CLASS__, 'addPostData'],
+            [self::class, 'addPostData'],
             ['[text]', '[post_title]', '[post_url]', '[id]'],
             'text',
             true

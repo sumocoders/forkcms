@@ -17,14 +17,8 @@ use Doctrine\ORM\Events;
  */
 final class MediaFolderInvalidateBackendCacheSubscriber implements EventSubscriber
 {
-    /**
-     * @var MediaFolderCache
-     */
-    protected $mediaFolderCache;
-
-    public function __construct(MediaFolderCache $mediaFolderCache)
+    public function __construct(protected MediaFolderCache $mediaFolderCache)
     {
-        $this->mediaFolderCache = $mediaFolderCache;
     }
 
     public function getSubscribedEvents(): array

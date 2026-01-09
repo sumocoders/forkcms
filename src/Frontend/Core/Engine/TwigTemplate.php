@@ -6,11 +6,9 @@ use Frontend\Core\Language\Locale;
 use Common\Core\Twig\BaseTwigTemplate;
 use Common\Core\Twig\Extensions\TwigFilters;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
-use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Bridge\Twig\Extension\FormExtension as SymfonyFormExtension;
 use Symfony\Component\Form\FormRenderer;
-use Symfony\Component\Templating\TemplateNameParserInterface;
 use Twig\Environment;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
@@ -29,14 +27,12 @@ class TwigTemplate extends BaseTwigTemplate
 
     public function __construct(
         Environment $environment,
-        TemplateNameParserInterface $parser,
-        FileLocatorInterface $locator
     ) {
         $container = Model::getContainer();
         $this->forkSettings = $container->get('fork.settings');
         $this->language = Locale::frontendLanguage();
 
-        parent::__construct($environment, $parser, $locator);
+        $this->environment = $environment;
 
         $this->debugMode = $container->getParameter('kernel.debug');
         if ($this->debugMode) {
@@ -73,9 +69,7 @@ class TwigTemplate extends BaseTwigTemplate
         $this->environment->addRuntimeLoader(
             new FactoryRuntimeLoader(
                 [
-                    FormRenderer::class => function () use ($rendererEngine, $csrfTokenManager): FormRenderer {
-                        return new FormRenderer($rendererEngine, $csrfTokenManager);
-                    },
+                    FormRenderer::class => fn(): FormRenderer => new FormRenderer($rendererEngine, $csrfTokenManager),
                 ]
             )
         );
@@ -94,7 +88,7 @@ class TwigTemplate extends BaseTwigTemplate
      */
     public function getPath(string $template): string
     {
-        if (strpos($template, FRONTEND_MODULES_PATH) !== false) {
+        if (str_contains($template, FRONTEND_MODULES_PATH)) {
             return str_replace(FRONTEND_MODULES_PATH . '/', '', $template);
         }
 
@@ -151,9 +145,7 @@ class TwigTemplate extends BaseTwigTemplate
 
         return array_filter(
             $files,
-            function ($folder) use ($filesystem) {
-                return $filesystem->exists($folder);
-            }
+            $filesystem->exists(...)
         );
     }
 }

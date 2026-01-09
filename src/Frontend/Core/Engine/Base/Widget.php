@@ -76,7 +76,7 @@ class Widget extends KernelLoader
      * @param string $action The action to use.
      * @param string $data The data that should be available.
      */
-    public function __construct(KernelInterface $kernel, string $module, string $action, string $data = null)
+    public function __construct(KernelInterface $kernel, string $module, string $action, ?string $data = null)
     {
         parent::__construct($kernel);
 
@@ -195,7 +195,7 @@ class Widget extends KernelLoader
      *
      * @return string
      */
-    public function getContent(string $template = null): string
+    public function getContent(?string $template = null): string
     {
         if ($template !== null) {
             return $this->template->getContent($template);
@@ -214,7 +214,7 @@ class Widget extends KernelLoader
         return $this->template;
     }
 
-    protected function loadTemplate(string $path = null): void
+    protected function loadTemplate(?string $path = null): void
     {
         // no template given, so we should build the path
         if ($path === null) {
@@ -234,7 +234,7 @@ class Widget extends KernelLoader
         $this->action = $action;
     }
 
-    private function setData(string $data = null): void
+    private function setData(?string $data = null): void
     {
         // data given?
         if ($data === null) {

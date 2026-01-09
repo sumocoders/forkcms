@@ -2,17 +2,17 @@
 
 namespace Backend\Modules\MediaLibrary\Domain\MediaGroup;
 
-final class Type
+final class Type implements \Stringable
 {
     // Possible MediaGroup types
-    const ALL = 'all';
-    const AUDIO = 'audio';
-    const FILE = 'file';
-    const IMAGE = 'image';
-    const IMAGE_FILE = 'image-file';
-    const IMAGE_MOVIE = 'image-movie';
-    const MOVIE = 'movie';
-    const POSSIBLE_VALUES = [
+    const string ALL = 'all';
+    const string AUDIO = 'audio';
+    const string FILE = 'file';
+    const string IMAGE = 'image';
+    const string IMAGE_FILE = 'image-file';
+    const string IMAGE_MOVIE = 'image-movie';
+    const string MOVIE = 'movie';
+    const array POSSIBLE_VALUES = [
         self::ALL,
         self::AUDIO,
         self::FILE,

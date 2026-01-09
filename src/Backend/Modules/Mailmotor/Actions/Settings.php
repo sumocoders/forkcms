@@ -41,7 +41,6 @@ final class Settings extends ActionIndex
         $this->get('command_bus')->handle($settings);
 
         $this->get('event_dispatcher')->dispatch(
-            SettingsSavedEvent::EVENT_NAME,
             new SettingsSavedEvent($settings)
         );
 

@@ -53,7 +53,7 @@ class Local extends \League\Flysystem\Adapter\Local
 
         if (!isset($backendConfig['root']) || empty($backendConfig['root'])) {
             $baseUrl = $backendConfig['baseUrl'];
-            $baseUrl = preg_replace("|^http(s)?://[^/]+|i", "", $baseUrl);
+            $baseUrl = preg_replace("|^http(s)?://[^/]+|i", "", (string) $baseUrl);
             $backendConfig['root'] = Path::combine(Utils::getRootPath(), Utils::decodeURLParts($baseUrl));
         }
 
@@ -90,7 +90,7 @@ class Local extends \League\Flysystem\Adapter\Local
         if (!is_dir($location) && !mkdir($location, $chmodFolders, true)) {
             $return = false;
         } else {
-            $return = array('path' => $dirname, 'type' => 'dir');
+            $return = ['path' => $dirname, 'type' => 'dir'];
         }
 
         umask($umask);
@@ -197,7 +197,7 @@ class Local extends \League\Flysystem\Adapter\Local
 
         if (!function_exists("iconv")) {
             if (strcasecmp($encoding, "ISO-8859-1") == 0 || strcasecmp($encoding, "ISO8859-1") == 0 || strcasecmp($encoding, "Latin1") == 0) {
-                return str_replace("\0", "_", utf8_decode($fileName));
+                return str_replace("\0", "_", mb_convert_encoding($fileName, 'ISO-8859-1'));
             } elseif (function_exists('mb_convert_encoding')) {
                 /**
                  * @todo check whether charset is supported - mb_list_encodings

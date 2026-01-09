@@ -90,14 +90,11 @@ class Detail extends FrontendBaseBlock
 
     private function getStatus(): ?string
     {
-        switch ($this->url->getParameter(2)) {
-            case FL::getAction('Success'):
-                return 'success';
-            case FL::getAction('Spam'):
-                return 'spam';
-            default:
-                return null;
-        }
+        return match ($this->url->getParameter(2)) {
+            FL::getAction('Success') => 'success',
+            FL::getAction('Spam') => 'spam',
+            default => null,
+        };
     }
 
     private function buildForm(): void

@@ -40,11 +40,6 @@ class EditedFile extends ExistingFile
     protected $workingFolder;
 
     /**
-     * @var string
-     */
-    protected $newFileName;
-
-    /**
      * @var bool
      */
     protected $saveAsNew = false;
@@ -56,15 +51,12 @@ class EditedFile extends ExistingFile
      */
     protected $newContents;
 
-    /**
-     * @param string   $fileName
-     * @param CKFinder $app
-     * @param null     $newFileName
-     */
-    public function __construct($fileName, CKFinder $app, $newFileName = null)
-    {
+    public function __construct(
+        string $fileName,
+        CKFinder $app,
+        protected ?string $newFileName = null,
+    ) {
         $this->workingFolder = $app['working_folder'];
-        $this->newFileName = $newFileName;
 
         parent::__construct($fileName, $this->workingFolder->getClientCurrentFolder(), $this->workingFolder->getResourceType(), $app);
     }

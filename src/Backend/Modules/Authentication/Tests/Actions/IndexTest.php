@@ -3,17 +3,17 @@
 namespace Backend\Modules\Authentication\Tests\Action;
 
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Response;
 
 class IndexTest extends BackendWebTestCase
 {
-    public function testPrivateRedirectsToAuthentication(Client $client): void
+    public function testPrivateRedirectsToAuthentication(KernelBrowser $client): void
     {
         self::assertAuthenticationIsNeeded($client, '/private');
     }
 
-    public function testAuthenticationIndexWorks(Client $client): void
+    public function testAuthenticationIndexWorks(KernelBrowser $client): void
     {
         self::assertPageLoadedCorrectly(
             $client,
@@ -22,7 +22,7 @@ class IndexTest extends BackendWebTestCase
         );
     }
 
-    public function testPrivateContainsRobotsTag(Client $client): void
+    public function testPrivateContainsRobotsTag(KernelBrowser $client): void
     {
         self::assertPageLoadedCorrectly(
             $client,
@@ -33,6 +33,7 @@ class IndexTest extends BackendWebTestCase
 
     public function testAuthenticationWithWrongCredentials(): void
     {
+        self::ensureKernelShutdown();
         $client = static::createClient();
 
         self::assertHttpStatusCode200($client, '/private/en/authentication');
@@ -42,7 +43,7 @@ class IndexTest extends BackendWebTestCase
         self::assertResponseHasContent($response, 'Your e-mail and password combination is incorrect.');
     }
 
-    public function testAuthenticationWithCorrectCredentials(Client $client): void
+    public function testAuthenticationWithCorrectCredentials(KernelBrowser $client): void
     {
         $client->setMaxRedirects(2);
 
@@ -56,7 +57,7 @@ class IndexTest extends BackendWebTestCase
      * Login as a pages user.
      * This user has the rights to access only the pages module.
      */
-    public function testPagesUserWithCorrectCredentials(Client $client): void
+    public function testPagesUserWithCorrectCredentials(KernelBrowser $client): void
     {
         $client->setMaxRedirects(2);
 
@@ -71,7 +72,7 @@ class IndexTest extends BackendWebTestCase
      * This user only has the rights to access the users edit action.
      * It should enable the user to edit his own user-account.
      */
-    public function testUsersUserWithCorrectCredentials(Client $client): void
+    public function testUsersUserWithCorrectCredentials(KernelBrowser $client): void
     {
         $client->setMaxRedirects(2);
 
@@ -81,7 +82,7 @@ class IndexTest extends BackendWebTestCase
         self::assertResponseHasContent($response, 'Edit profile');
     }
 
-    private function submitLoginForm(Client $client, string $email, string $password = 'fork'): Response
+    private function submitLoginForm(KernelBrowser $client, string $email, string $password = 'fork'): Response
     {
         $form = $this->getFormForSubmitButton($client, 'Log in');
         $this->submitForm(

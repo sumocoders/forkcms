@@ -8,14 +8,8 @@ use Twig\TwigFunction;
 
 class FrontendHelperExtensions extends AbstractExtension
 {
-    /**
-     * @var FrontendHelper
-     */
-    private $frontendHelper;
-
-    public function __construct(FrontendHelper $frontendHelper)
+    public function __construct(private readonly FrontendHelper $frontendHelper)
     {
-        $this->frontendHelper = $frontendHelper;
     }
 
     public function getFunctions(): array
@@ -23,7 +17,7 @@ class FrontendHelperExtensions extends AbstractExtension
         return [
             new TwigFunction(
                 'media_library_widget',
-                [$this, 'parseWidget'],
+                $this->parseWidget(...),
                 ['is_safe' => ['html']]
             ),
         ];
@@ -42,8 +36,8 @@ class FrontendHelperExtensions extends AbstractExtension
     public function parseWidget(
         string $mediaWidgetAction,
         string $mediaGroupId,
-        string $title = null,
-        string $module = null
+        ?string $title = null,
+        ?string $module = null
     ): string {
         return $this->frontendHelper->parseWidget(
             $mediaWidgetAction,

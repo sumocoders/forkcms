@@ -152,7 +152,7 @@ class Model
     public static function deleteData(array $ids): void
     {
         $database = BackendModel::getContainer()->get('database');
-        $ids = array_map('intval', $ids);
+        $ids = array_map(intval(...), $ids);
 
         $database->delete('forms_data', 'id IN(' . implode(',', $ids) . ')');
         $database->delete('forms_data_fields', 'data_id IN(' . implode(',', $ids) . ')');
@@ -226,7 +226,7 @@ class Model
      *
      * @return bool
      */
-    public static function existsField(int $id, int $formId = null): bool
+    public static function existsField(int $id, ?int $formId = null): bool
     {
         // exists
         if ($formId === null) {
@@ -257,7 +257,7 @@ class Model
      *
      * @return bool
      */
-    public static function existsIdentifier(string $identifier, int $ignoreId = null): bool
+    public static function existsIdentifier(string $identifier, ?int $ignoreId = null): bool
     {
         // exists
         if ($ignoreId === null) {
@@ -298,7 +298,7 @@ class Model
         return implode(
             ', ',
             (array) array_map(
-                'htmlspecialchars',
+                htmlspecialchars(...),
                 $unserialized
             )
         );
@@ -369,7 +369,7 @@ class Model
      *
      * @return mixed
      */
-    public static function getErrors(string $type = null)
+    public static function getErrors(?string $type = null)
     {
         $errors = [];
         $errors['required'] = FL::getError('FieldIsRequired');

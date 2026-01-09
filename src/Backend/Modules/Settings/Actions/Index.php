@@ -158,7 +158,7 @@ class Index extends BackendBaseActionIndex
         // twitter settings
         $this->form->addText(
             'twitter_site_name',
-            ltrim($this->get('fork.settings')->get('Core', 'twitter_site_name', null), '@')
+            ltrim((string) $this->get('fork.settings')->get('Core', 'twitter_site_name', null), '@')
         );
 
         // ckfinder
@@ -235,7 +235,7 @@ class Index extends BackendBaseActionIndex
             $redirectAttributes['id'] = 'redirect_language_' . $abbreviation;
 
             // fetch label
-            $label = BL::lbl(mb_strtoupper($abbreviation), 'Core');
+            $label = BL::lbl(mb_strtoupper((string) $abbreviation), 'Core');
 
             // default may not be unselected
             if ($defaultLanguage) {
@@ -422,7 +422,7 @@ class Index extends BackendBaseActionIndex
             // domains filled in
             if ($this->form->getField('site_domains')->isFilled()) {
                 // split on newlines
-                $domains = explode("\n", trim($this->form->getField('site_domains')->getValue()));
+                $domains = explode("\n", trim((string) $this->form->getField('site_domains')->getValue()));
 
                 // loop domains
                 foreach ($domains as $domain) {
@@ -540,7 +540,7 @@ class Index extends BackendBaseActionIndex
                     $this->get('fork.settings')->set(
                         'Core',
                         'twitter_site_name',
-                        '@' . ltrim($txtTwitterSiteName->getValue(), '@')
+                        '@' . ltrim((string) $txtTwitterSiteName->getValue(), '@')
                     );
                 }
 
@@ -655,7 +655,7 @@ class Index extends BackendBaseActionIndex
                 // domains filled in
                 if ($this->form->getField('site_domains')->isFilled()) {
                     // split on newlines
-                    $domains = explode("\n", trim($this->form->getField('site_domains')->getValue()));
+                    $domains = explode("\n", trim((string) $this->form->getField('site_domains')->getValue()));
 
                     // loop domains
                     foreach ($domains as $domain) {

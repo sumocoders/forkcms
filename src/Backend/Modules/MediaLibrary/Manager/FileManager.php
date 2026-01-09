@@ -7,22 +7,12 @@ use Common\ModulesSettings;
 use Common\Uri;
 use Backend\Core\Engine\Model as BackendModel;
 
-final class FileManager
+final readonly class FileManager
 {
-    /** @var Filesystem */
-    private $filesystem;
+    private Filesystem $filesystem;
 
-    /** @var ModulesSettings|\stdClass */
-    private $settings;
-
-    /**
-     * FileManager constructor.
-     *
-     * @param ModulesSettings|\stdClass $settings
-     */
-    public function __construct($settings)
+    public function __construct(private ModulesSettings $settings)
     {
-        $this->settings = $settings;
         $this->filesystem = new Filesystem();
     }
 

@@ -22,26 +22,10 @@ use CKSource\CKFinder\Filesystem\Path;
  */
 class BackendAdapter implements AdapterInterface
 {
-    /**
-     * @var Backend
-     */
-    protected $backend;
-
-    /**
-     * @var string
-     */
-    protected $cachePath;
-
-    /**
-     * Constructor.
-     *
-     * @param Backend     $backend
-     * @param string|null $path
-     */
-    public function __construct(Backend $backend, $path = null)
-    {
-        $this->backend = $backend;
-        $this->cachePath = $path;
+    public function __construct(
+        protected Backend $backend,
+        protected ?string $cachePath = null,
+    ) {
     }
 
     /**

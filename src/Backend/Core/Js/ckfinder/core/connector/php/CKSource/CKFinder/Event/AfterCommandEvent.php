@@ -22,32 +22,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AfterCommandEvent extends CKFinderEvent
 {
-    /**
-     * The command name.
-     *
-     * @var string $commandObject
-     */
-    protected $commandName;
-
-    /**
-     * The response object received from the command.
-     *
-     * @var Response $response
-     */
-    protected $response;
-
-    /**
-     * Constructor.
-     *
-     * @param CKFinder $app
-     * @param string   $commandName
-     * @param Response $response
-     */
-    public function __construct(CKFinder $app, $commandName, Response $response)
-    {
-        $this->commandName = $commandName;
-        $this->response = $response;
-
+    public function __construct(
+        CKFinder $app,
+        protected string $commandName,
+        protected Response $response,
+    ) {
         parent::__construct($app);
     }
 

@@ -75,7 +75,7 @@ class DataDetails extends BackendBaseActionIndex
                 $field['value'] = implode(', ', $field['value']);
             } else {
                 // new lines to line breaks
-                $field['value'] = nl2br($field['value']);
+                $field['value'] = nl2br((string) $field['value']);
             }
 
             // add to data

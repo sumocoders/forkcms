@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraint;
  */
 final class UniqueDataTransferObject extends Constraint
 {
-    const NOT_UNIQUE_ERROR = '23bd9dbf-6b9b-41cd-a99e-4844bcf3077f';
+    const string NOT_UNIQUE_ERROR = '23bd9dbf-6b9b-41cd-a99e-4844bcf3077f';
 
     /** @var string */
     public $message = 'err.NotUnique';

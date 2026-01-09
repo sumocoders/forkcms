@@ -37,12 +37,12 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ImagePreview extends CommandAbstract
 {
-    protected $requires = array(Permission::FILE_VIEW);
+    protected $requires = [Permission::FILE_VIEW];
 
     public function execute(Request $request, Config $config, WorkingFolder $workingFolder, ResizedImageRepository $resizedImageRepository, CacheManager $cache)
     {
         $fileName = (string) $request->query->get('fileName');
-        list($requestedWidth, $requestedHeight) = Image::parseSize((string) $request->get('size'));
+        [$requestedWidth, $requestedHeight] = Image::parseSize((string) $request->get('size'));
 
         $downloadedFile = new DownloadedFile($fileName, $this->app);
         $downloadedFile->isValid();
@@ -111,7 +111,7 @@ class ImagePreview extends CommandAbstract
 
         $mimeType = $resultImage->getMimeType();
 
-        if (in_array($mimeType, array('image/bmp', 'image/x-ms-bmp'))) {
+        if (in_array($mimeType, ['image/bmp', 'image/x-ms-bmp'])) {
             $mimeType = 'image/jpeg'; // Image::getData() by default converts resized images to JPG
         }
 

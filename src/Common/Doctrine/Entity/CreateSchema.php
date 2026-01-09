@@ -8,15 +8,11 @@ use Doctrine\ORM\Tools\ToolsException;
 
 class CreateSchema
 {
-    /** @var EntityManager */
-    private $entityManager;
-
     /**
      * @param EntityManager $entityManager
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(private readonly EntityManager $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     /**
@@ -42,7 +38,7 @@ class CreateSchema
 
         $schemaTool->updateSchema(
             array_map(
-                [$this->entityManager, 'getClassMetadata'],
+                $this->entityManager->getClassMetadata(...),
                 $entityClasses
             ),
             true

@@ -64,7 +64,7 @@ class Translator
      *
      * @return string
      */
-    public function translateErrorMessage($errorNumber, $replacements = array())
+    public function translateErrorMessage($errorNumber, $replacements = [])
     {
         $errorMessage = '';
 

@@ -15,12 +15,8 @@ use Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem;
  */
 final class MediaItemDeletedReSequenceMediaGroupMediaItemListener
 {
-    /** @var MessageBus */
-    protected $commandBus;
-
-    public function __construct(MessageBus $commandBus)
+    public function __construct(protected MessageBus $commandBus)
     {
-        $this->commandBus = $commandBus;
     }
 
     public function postRemove(LifecycleEventArgs $eventArgs): void

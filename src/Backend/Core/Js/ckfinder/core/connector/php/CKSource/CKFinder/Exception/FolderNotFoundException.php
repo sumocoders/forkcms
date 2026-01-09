@@ -28,15 +28,11 @@ class FolderNotFoundException extends CKFinderException
 {
     protected $httpStatusCode = Response::HTTP_NOT_FOUND;
 
-    /**
-     * Constructor.
-     *
-     * @param string     $message    the exception message
-     * @param array      $parameters the parameters passed for translation
-     * @param \Exception $previous   the previous exception
-     */
-    public function __construct($message = 'Folder not found', $parameters = array(), \Exception $previous = null)
-    {
+    public function __construct(
+        string $message = 'Folder not found',
+        array $parameters = [],
+        ?\Exception $previous = null,
+    ) {
         parent::__construct($message, Error::FOLDER_NOT_FOUND, $parameters, $previous);
     }
 }

@@ -3,11 +3,11 @@
 namespace Backend\Modules\Authentication\Tests\Action;
 
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class LogoutTest extends BackendWebTestCase
 {
-    public function testLogoutActionRedirectsYouToLoginAfterLoggingOut(Client $client): void
+    public function testLogoutActionRedirectsYouToLoginAfterLoggingOut(KernelBrowser $client): void
     {
         $this->login($client);
 

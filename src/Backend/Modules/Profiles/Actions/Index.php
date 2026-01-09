@@ -95,7 +95,7 @@ class Index extends BackendBaseActionIndex
     private function loadDataGrid(): void
     {
         // fetch query and parameters
-        list($query, $parameters) = $this->buildQuery();
+        [$query, $parameters] = $this->buildQuery();
 
         // create datagrid
         $this->dgProfiles = new BackendDataGridDatabase($query, $parameters);

@@ -22,14 +22,9 @@ class CheckRequirementsCommand extends Command
     /** @var SymfonyStyle */
     private $formatter;
 
-    /** @var RequirementsChecker */
-    private $requirementsChecker;
-
-    public function __construct(RequirementsChecker $requirementsChecker)
+    public function __construct(private readonly RequirementsChecker $requirementsChecker)
     {
         parent::__construct();
-
-        $this->requirementsChecker = $requirementsChecker;
     }
 
     protected function configure(): void
@@ -79,7 +74,7 @@ class CheckRequirementsCommand extends Command
     {
         $this->formatter->section('Warnings');
         array_map(
-            function (RequirementCategory $requirementCategory) {
+            function (RequirementCategory $requirementCategory): void {
                 if (!$requirementCategory->hasWarnings()) {
                     return;
                 }
@@ -87,7 +82,7 @@ class CheckRequirementsCommand extends Command
                 $this->formatter->title($requirementCategory->getName());
 
                 array_map(
-                    function (Requirement $requirement) {
+                    function (Requirement $requirement): void {
                         $this->formatter->warning($requirement->getName());
                         $this->formatter->block($this->formatRequirementMessageForCLI($requirement->getMessage()));
                     },
@@ -102,7 +97,7 @@ class CheckRequirementsCommand extends Command
     {
         $this->formatter->section('Errors');
         array_map(
-            function (RequirementCategory $requirementCategory) {
+            function (RequirementCategory $requirementCategory): void {
                 if (!$requirementCategory->hasErrors()) {
                     return;
                 }
@@ -110,7 +105,7 @@ class CheckRequirementsCommand extends Command
                 $this->formatter->title($requirementCategory->getName());
 
                 array_map(
-                    function (Requirement $requirement) {
+                    function (Requirement $requirement): void {
                         $this->formatter->error($requirement->getName());
                         $this->formatter->block($this->formatRequirementMessageForCLI($requirement->getMessage()));
                     },

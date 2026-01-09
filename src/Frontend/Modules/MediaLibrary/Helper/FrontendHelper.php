@@ -172,8 +172,8 @@ class FrontendHelper
     public function parseWidget(
         string $mediaWidgetAction,
         string $mediaGroupId,
-        string $title = null,
-        string $module = null
+        ?string $title = null,
+        ?string $module = null
     ) {
         if ($module === null) {
             $module = 'MediaLibrary';

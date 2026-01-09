@@ -7,26 +7,11 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 
 final class CreateMediaItemFromLocalStorageType
 {
-    /** @var string */
-    public $path;
-
-    /** @var MediaFolder */
-    public $mediaFolder;
-
-    /** @var int */
-    public $userId;
-
     /** @var MediaItem */
     private $mediaItem;
 
-    public function __construct(
-        string $path,
-        MediaFolder $mediaFolder,
-        int $userId = 0
-    ) {
-        $this->path = $path;
-        $this->mediaFolder = $mediaFolder;
-        $this->userId = $userId;
+    public function __construct(public string $path, public MediaFolder $mediaFolder, public int $userId = 0)
+    {
     }
 
     public function getMediaItem(): MediaItem

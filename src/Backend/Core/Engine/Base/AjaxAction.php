@@ -51,7 +51,7 @@ class AjaxAction extends KernelLoader
      * @param mixed $data The data to output.
      * @param string $message The text-message to send.
      */
-    public function output(int $statusCode, $data = null, string $message = null): void
+    public function output(int $statusCode, $data = null, ?string $message = null): void
     {
         $this->content = ['code' => $statusCode, 'data' => $data, 'message' => $message];
     }

@@ -8,7 +8,7 @@ use Doctrine\DBAL\Types\StringType;
 
 final class SEOFollowType extends StringType
 {
-    const SEO_FOLLOW = 'seo_follow';
+    const string SEO_FOLLOW = 'seo_follow';
 
     /**
      * @param SEOFollow $seoFollow

@@ -7,7 +7,7 @@ use Common\ModulesSettings;
 use JeroenDesloovere\Geolocation\Geolocation as API;
 use JeroenDesloovere\Geolocation\Result\Coordinates;
 use JeroenDesloovere\Geolocation\Exception;
-use Symfony\Component\Intl\Intl;
+use Symfony\Component\Intl\Countries;
 
 class Geolocation
 {
@@ -28,14 +28,14 @@ class Geolocation
      * @return array - Example: ['latitude' => 50.8864, 'longitude' => 3.42928]
      */
     public function getCoordinates(
-        string $street = null,
-        string $streetNumber = null,
-        string $city = null,
-        string $zip = null,
-        string $country = null
+        ?string $street = null,
+        ?string $streetNumber = null,
+        ?string $city = null,
+        ?string $zip = null,
+        ?string $country = null
     ): array {
         if (!empty($country)) {
-            $country = Intl::getRegionBundle()->getCountryName($country, Language::getInterfaceLanguage());
+            $country =  Countries::getName($country, Language::getInterfaceLanguage());
         }
 
         try {
@@ -47,7 +47,7 @@ class Geolocation
                 $zip,
                 $country
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             $coordinates = null;
         }
 

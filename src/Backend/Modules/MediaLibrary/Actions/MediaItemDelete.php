@@ -46,7 +46,7 @@ class MediaItemDelete extends BackendBaseActionDelete
         try {
             // Define MediaItem from repository
             return $this->get('media_library.repository.item')->findOneById($id);
-        } catch (MediaItemNotFound $mediaItemNotFound) {
+        } catch (MediaItemNotFound) {
             $this->redirect(
                 $this->getBackLink(
                     [

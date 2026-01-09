@@ -24,7 +24,7 @@ class Model
             // model class
             $class = 'Backend\\Modules\\' . $module . '\\Engine\\Model';
             if ($module === 'Core') {
-                $class = 'Backend\\Core\\Engine\\Model';
+                $class = \Backend\Core\Engine\Model::class;
             }
 
             // method exists

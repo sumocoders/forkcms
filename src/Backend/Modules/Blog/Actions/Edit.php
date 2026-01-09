@@ -392,7 +392,7 @@ class Edit extends BackendBaseActionEdit
                         $regex = '/(.*)-[a-z]{2}-[0-9]+\.(.*)/';
 
                         // only copy if the new name differs from the old filename
-                        if (preg_replace($regex, '$1', $newName) != preg_replace($regex, '$1', $item['image'])) {
+                        if (preg_replace($regex, '$1', $newName) != preg_replace($regex, '$1', (string) $item['image'])) {
                             // loop folders
                             foreach ($this->get(Thumbnails::class)->getFolders($imagePath, true) as $folder) {
                                 $filesystem->copy($folder['path'] . '/' . $item['image'], $folder['path'] . '/' . $newName);

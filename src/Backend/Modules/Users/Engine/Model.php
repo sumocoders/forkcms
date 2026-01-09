@@ -107,7 +107,7 @@ class Model
      *
      * @return bool
      */
-    public static function existsEmail(string $email, int $id = null): bool
+    public static function existsEmail(string $email, ?int $id = null): bool
     {
         // get database
         $database = BackendModel::getContainer()->get('database');

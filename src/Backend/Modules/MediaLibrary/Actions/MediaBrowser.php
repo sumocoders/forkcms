@@ -32,7 +32,7 @@ class MediaBrowser extends BackendBaseAction
 
         try {
             return $this->get('media_library.repository.folder')->findOneById($id);
-        } catch (MediaFolderNotFound $mediaFolderNotFound) {
+        } catch (MediaFolderNotFound) {
             return null;
         }
     }
@@ -60,7 +60,7 @@ class MediaBrowser extends BackendBaseAction
         $this->header->addJS('MediaLibraryHelper.js', 'MediaLibrary');
     }
 
-    protected function parseDataGrids(MediaFolder $mediaFolder = null): void
+    protected function parseDataGrids(?MediaFolder $mediaFolder = null): void
     {
         $dataGrids = $this->getDataGrids($mediaFolder);
 
@@ -68,7 +68,7 @@ class MediaBrowser extends BackendBaseAction
         $this->template->assign('hasResults', $this->hasResults($dataGrids));
     }
 
-    protected function getDataGrids(MediaFolder $mediaFolder = null): array
+    protected function getDataGrids(?MediaFolder $mediaFolder = null): array
     {
         return array_map(
             function ($type) use ($mediaFolder) {
@@ -93,9 +93,7 @@ class MediaBrowser extends BackendBaseAction
     {
         $totalResultCount = array_sum(
             array_map(
-                function ($dataGrid) {
-                    return $dataGrid['numberOfResults'];
-                },
+                fn($dataGrid) => $dataGrid['numberOfResults'],
                 $dataGrids
             )
         );

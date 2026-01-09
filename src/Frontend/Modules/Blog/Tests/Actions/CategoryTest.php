@@ -6,11 +6,11 @@ use Backend\Modules\Blog\DataFixtures\LoadBlogCategories;
 use Backend\Modules\Blog\DataFixtures\LoadBlogPosts;
 use Frontend\Core\Language\Language;
 use Frontend\Core\Tests\FrontendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class CategoryTest extends FrontendWebTestCase
 {
-    public function testCategoryHasPage(Client $client): void
+    public function testCategoryHasPage(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -23,12 +23,12 @@ class CategoryTest extends FrontendWebTestCase
         self::assertPageLoadedCorrectly($client, '/en/blog/category/' . LoadBlogCategories::BLOG_CATEGORY_SLUG, [LoadBlogCategories::BLOG_CATEGORY_TITLE]);
     }
 
-    public function testNonExistingCategoryPostGives404(Client $client): void
+    public function testNonExistingCategoryPostGives404(KernelBrowser $client): void
     {
         self::assertHttpStatusCode404($client, '/en/blog/category/non-existing');
     }
 
-    public function testCategoryPageContainsBlogPost(Client $client): void
+    public function testCategoryPageContainsBlogPost(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -43,7 +43,7 @@ class CategoryTest extends FrontendWebTestCase
         self::assertCurrentUrlEndsWith($client, '/en/blog/detail/' . LoadBlogPosts::BLOG_POST_SLUG);
     }
 
-    public function testNonExistingPageGives404(Client $client): void
+    public function testNonExistingPageGives404(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,

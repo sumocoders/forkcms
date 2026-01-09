@@ -178,7 +178,7 @@ class Model
      *
      * @return string $avatar            The absolute path to the avatar.
      */
-    public static function getAvatar(int $profileId, string $email = null): string
+    public static function getAvatar(int $profileId, ?string $email = null): string
     {
         // return avatar from cache
         if (isset(self::$avatars[$profileId])) {
@@ -290,7 +290,7 @@ class Model
      *
      * @return array
      */
-    public static function getGroupsForDropDown(int $profileId, int $includeId = null): array
+    public static function getGroupsForDropDown(int $profileId, ?int $includeId = null): array
     {
         // init database
         $database = BackendModel::getContainer()->get('database');
@@ -440,7 +440,7 @@ class Model
      *
      * @return string
      */
-    public static function getUrl(string $displayName, int $excludedProfileId = null): string
+    public static function getUrl(string $displayName, ?int $excludedProfileId = null): string
     {
         // decode specialchars
         $displayName = \SpoonFilter::htmlspecialcharsDecode((string) $displayName);
@@ -544,7 +544,6 @@ class Model
     /**
      * Import CSV data
      *
-     * @deprecated remove this in Fork 6, use Backend\Modules\Profiles\Engine::importFromArray
      *
      * @param array $data The array from the .csv file
      * @param int|null $groupId $groupId Adding these profiles to a group
@@ -553,10 +552,10 @@ class Model
      * @throws BackendException
      *
      * @return array array('count' => array('exists' => 0, 'inserted' => 0));
-     *
      * @internal param $bool [optional] $overwriteExisting If set to true, this will overwrite existing profiles
      */
-    public static function importCsv(array $data, int $groupId = null, bool $overwriteExisting = false): array
+    #[\Deprecated(message: 'remove this in Fork 6, use Backend\Modules\Profiles\Engine::importFromArray')]
+    public static function importCsv(array $data, ?int $groupId = null, bool $overwriteExisting = false): array
     {
         // init statistics
         $statistics = ['count' => ['exists' => 0, 'inserted' => 0]];
@@ -642,7 +641,7 @@ class Model
      *
      * @return array array('count' => array('exists' => 0, 'inserted' => 0));
      */
-    public static function importFromArray(array $data, int $groupId = null, bool $overwriteExisting = false): array
+    public static function importFromArray(array $data, ?int $groupId = null, bool $overwriteExisting = false): array
     {
         $statistics = ['count' => ['exists' => 0, 'inserted' => 0]];
 
@@ -726,7 +725,7 @@ class Model
      * @param array $values
      * @param string $templatePath
      */
-    public static function notifyAdmin(array $values, string $templatePath = null): void
+    public static function notifyAdmin(array $values, ?string $templatePath = null): void
     {
         // to email
         $toEmail = BackendModel::get('fork.settings')->get('Profiles', 'profile_notification_email', null);
@@ -777,7 +776,7 @@ class Model
     public static function notifyProfile(
         array $values,
         bool $forUpdate = false,
-        string $templatePath = null
+        ?string $templatePath = null
     ): void {
         // set variables
         $variables = [
@@ -818,7 +817,7 @@ class Model
         ?string $templatePath,
         array $variables,
         string $toEmail,
-        string $toDisplayName = null
+        ?string $toDisplayName = null
     ): void {
         if (empty($templatePath)) {
             $templatePath = FRONTEND_CORE_PATH . '/Layout/Templates/Mails/Notification.html.twig';

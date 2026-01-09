@@ -4,9 +4,9 @@ namespace Backend\Core\Engine;
 
 final class PasswordStrengthChecker
 {
-    private const WEAK = 'weak';
-    private const AVERAGE = 'average';
-    private const STRONG = 'strong';
+    private const string WEAK = 'weak';
+    private const string AVERAGE = 'average';
+    private const string STRONG = 'strong';
 
     /** @var int */
     private $score;
@@ -60,14 +60,11 @@ final class PasswordStrengthChecker
     {
         $checker = new self($password);
 
-        switch (true) {
-            case $checker->score >= 6:
-                return self::STRONG;
-            case $checker->score >= 2:
-                return self::AVERAGE;
-            default:
-                return self::WEAK;
-        }
+        return match (true) {
+            $checker->score >= 6 => self::STRONG,
+            $checker->score >= 2 => self::AVERAGE,
+            default => self::WEAK,
+        };
     }
 
     private function passwordIsTooShort(string $password): bool

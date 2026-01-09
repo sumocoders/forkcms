@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use JsonSerializable;
 use Serializable;
 
-abstract class Locale implements Serializable, JsonSerializable
+abstract class Locale implements Serializable, JsonSerializable, \Stringable
 {
     /**
      * @var string

@@ -3,16 +3,16 @@
 namespace Backend\Modules\ContentBlocks\Tests\Action;
 
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class ModulesTest extends BackendWebTestCase
 {
-    public function testAuthenticationIsNeeded(Client $client): void
+    public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
         self::assertAuthenticationIsNeeded($client, '/private/en/extensions/modules');
     }
 
-    public function testIndexHasModules(Client $client): void
+    public function testIndexHasModules(KernelBrowser $client): void
     {
         $this->login($client);
 

@@ -117,7 +117,7 @@ class Edit extends BackendBaseActionEdit
                 // allowed regex (a-z and 0-9)
                 if ($txtName->isValidAgainstRegexp('|^([a-z0-9])+$|i', BL::err('AlphaNumericCharactersOnly'))) {
                     // first letter does not seem to be a capital one
-                    if (!in_array(mb_substr($txtName->getValue(), 0, 1), range('A', 'Z'))) {
+                    if (!in_array(mb_substr((string) $txtName->getValue(), 0, 1), range('A', 'Z'))) {
                         $txtName->setError(BL::err('FirstLetterMustBeACapitalLetter'));
                     } else {
                         // check if exists
@@ -132,7 +132,7 @@ class Edit extends BackendBaseActionEdit
             if ($txtValue->isFilled(BL::err('FieldIsRequired'))) {
                 // in case this is a 'act' type, there are special rules concerning possible values
                 if ($this->form->getField('type')->getValue() == 'act') {
-                    if (rawurlencode($txtValue->getValue()) != CommonUri::getUrl($txtValue->getValue())) {
+                    if (rawurlencode((string) $txtValue->getValue()) != CommonUri::getUrl($txtValue->getValue())) {
                         $txtValue->addError(BL::err('InvalidValue'));
                     }
                 }
@@ -160,7 +160,7 @@ class Edit extends BackendBaseActionEdit
                 BackendLocaleModel::update($item);
 
                 // everything is saved, so redirect to the overview
-                $this->redirect(BackendModel::createUrlForAction('Index', null, null, null) . '&report=edited&var=' . rawurlencode($item['name']) . '&highlight=row-' . $item['id'] . $this->filterQuery);
+                $this->redirect(BackendModel::createUrlForAction('Index', null, null, null) . '&report=edited&var=' . rawurlencode((string) $item['name']) . '&highlight=row-' . $item['id'] . $this->filterQuery);
             }
         }
     }

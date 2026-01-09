@@ -40,7 +40,7 @@ class Dropbox extends \League\Flysystem\Dropbox\DropboxAdapter
     {
         $this->backendConfig = $backendConfig;
 
-        parent::__construct($client, isset($backendConfig['root']) ? $backendConfig['root'] : null);
+        parent::__construct($client, $backendConfig['root'] ?? null);
     }
 
     /**
@@ -54,8 +54,8 @@ class Dropbox extends \League\Flysystem\Dropbox\DropboxAdapter
     {
         $shareableLink = $this->client->createShareableLink($this->applyPathPrefix($path));
 
-        if (substr($shareableLink, -5) === '?dl=0') {
-            $shareableLink[strlen($shareableLink)-1] = '1';
+        if (str_ends_with((string) $shareableLink, '?dl=0')) {
+            $shareableLink[strlen((string) $shareableLink)-1] = '1';
         }
 
         return $shareableLink;

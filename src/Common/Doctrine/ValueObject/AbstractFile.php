@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * upload for PostPersist() and PostUpdate()
  * remove for PostRemove()
  */
-abstract class AbstractFile
+abstract class AbstractFile implements \Stringable
 {
     /**
      * @var string
@@ -81,7 +81,7 @@ abstract class AbstractFile
      */
     abstract protected function getUploadDir(): string;
 
-    public function setFile(UploadedFile $file = null): self
+    public function setFile(?UploadedFile $file = null): self
     {
         if ($file === null) {
             return $this;
@@ -107,7 +107,7 @@ abstract class AbstractFile
      *
      * @return self
      */
-    public static function fromUploadedFile(UploadedFile $uploadedFile = null, string $namePrefix = null): self
+    public static function fromUploadedFile(?UploadedFile $uploadedFile = null, ?string $namePrefix = null): self
     {
         $file = new static(null);
         $file->setFile($uploadedFile);

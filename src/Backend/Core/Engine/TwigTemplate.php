@@ -35,11 +35,7 @@ class TwigTemplate extends BaseTwigTemplate
         $container = Model::getContainer();
         $this->debugMode = $container->getParameter('kernel.debug');
 
-        parent::__construct(
-            $this->buildTwigEnvironmentForTheBackend(),
-            $container->get('templating.name_parser.public'),
-            new TemplateLocator($container->get('file_locator.public'), $container->getParameter('kernel.cache_dir'))
-        );
+        $this->environment = $this->buildTwigEnvironmentForTheBackend();
 
         if ($addToReference) {
             $container->set('template', $this);
@@ -119,9 +115,7 @@ class TwigTemplate extends BaseTwigTemplate
         $this->environment->addRuntimeLoader(
             new FactoryRuntimeLoader(
                 [
-                    FormRenderer::class => function () use ($rendererEngine, $csrfTokenManager): FormRenderer {
-                        return new FormRenderer($rendererEngine, $csrfTokenManager);
-                    },
+                    FormRenderer::class => fn(): FormRenderer => new FormRenderer($rendererEngine, $csrfTokenManager),
                 ]
             )
         );
@@ -227,9 +221,7 @@ class TwigTemplate extends BaseTwigTemplate
         }
     }
 
-    /**
-     * @deprecated This is a very inaccurate way since it doesn't include the goduser permissions and the always allowed settings into account
-     */
+    #[\Deprecated(message: "This is a very inaccurate way since it doesn't include the goduser permissions and the always allowed settings into account")]
     private function parseAuthenticationSettingsForTheAuthenticatedUser(): void
     {
         // loop actions and assign to template
@@ -268,7 +260,7 @@ class TwigTemplate extends BaseTwigTemplate
         }
 
         if ($this->addSlashes) {
-            $realLabels = array_map('addslashes', $realLabels);
+            $realLabels = array_map(addslashes(...), $realLabels);
         }
 
         // just so the dump is nicely sorted
@@ -281,9 +273,7 @@ class TwigTemplate extends BaseTwigTemplate
     {
         return array_combine(
             array_map(
-                function ($key) use ($prefix) {
-                    return $prefix . \SpoonFilter::ucfirst($key);
-                },
+                fn($key) => $prefix . \SpoonFilter::ucfirst($key),
                 array_keys($array)
             ),
             $array

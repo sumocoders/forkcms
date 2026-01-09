@@ -69,7 +69,7 @@ class TemplateModifiers extends BaseTwigModifiers
         $format = Authentication::getUser()->getSetting('number_format', 'dot_nothing');
 
         // get separators
-        $separators = explode('_', $format);
+        $separators = explode('_', (string) $format);
         $separatorSymbols = ['comma' => ',', 'dot' => '.', 'space' => ' ', 'nothing' => ''];
         $decimalSeparator = isset($separators[0], $separatorSymbols[$separators[0]])
             ? $separatorSymbols[$separators[0]] : null;
@@ -89,7 +89,7 @@ class TemplateModifiers extends BaseTwigModifiers
      *
      * @return string
      */
-    public static function formatNumber(float $number, int $decimals = null): string
+    public static function formatNumber(float $number, ?int $decimals = null): string
     {
         // get setting
         $format = Authentication::getUser()->getSetting('number_format', 'dot_nothing');
@@ -100,7 +100,7 @@ class TemplateModifiers extends BaseTwigModifiers
         }
 
         // get separators
-        $separators = explode('_', $format);
+        $separators = explode('_', (string) $format);
         $separatorSymbols = ['comma' => ',', 'dot' => '.', 'space' => ' ', 'nothing' => ''];
         $decimalSeparator = isset($separators[0], $separatorSymbols[$separators[0]])
             ? $separatorSymbols[$separators[0]] : null;
@@ -144,12 +144,12 @@ class TemplateModifiers extends BaseTwigModifiers
      * @return string
      */
     public static function getUrl(
-        string $action = null,
-        string $module = null,
-        string $suffix = null,
-        string $language = null
+        ?string $action = null,
+        ?string $module = null,
+        ?string $suffix = null,
+        ?string $language = null
     ): string {
-        if (!array_key_exists($language, BackendLanguage::getWorkingLanguages())) {
+        if (!array_key_exists((string) $language, BackendLanguage::getWorkingLanguages())) {
             $language = BackendLanguage::getWorkingLanguage();
         }
 

@@ -74,7 +74,7 @@ class Url extends KernelLoader
 
     private function getLanguageFromUrl(): string
     {
-        if (!array_key_exists(BackendModel::getRequest()->attributes->get('_locale'), BackendLanguage::getWorkingLanguages())) {
+        if (!array_key_exists((string) BackendModel::getRequest()->attributes->get('_locale'), BackendLanguage::getWorkingLanguages())) {
             $url = $this->getBaseUrlForLanguage($this->getContainer()->getParameter('site.default_language'));
             $url .= '/' . BackendModel::getRequest()->attributes->get('module') . '/' . BackendModel::getRequest()->attributes->get('action');
 
@@ -108,7 +108,7 @@ class Url extends KernelLoader
         return $this->getDefaultActionForModule($module, $language);
     }
 
-    final public function getDefaultActionForCurrentModule(string $language = null): string
+    final public function getDefaultActionForCurrentModule(?string $language = null): string
     {
         return $this->getDefaultActionForModule($this->module, $language ?? $this->getLanguageFromUrl());
     }
@@ -287,7 +287,7 @@ class Url extends KernelLoader
     private function redirectToFistAvailableLink(string $language, array $navigation): void
     {
         foreach ($navigation as $navigationItem) {
-            list($module, $action) = explode('/', $navigationItem['url']);
+            [$module, $action] = explode('/', (string) $navigationItem['url']);
             $module = \SpoonFilter::toCamelCase($module);
             $action = \SpoonFilter::toCamelCase($action);
 
@@ -345,7 +345,7 @@ class Url extends KernelLoader
         return $this->module;
     }
 
-    private function setAction(string $action, string $module = null): void
+    private function setAction(string $action, ?string $module = null): void
     {
         // set module
         if ($module !== null) {

@@ -31,7 +31,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Thumbnail extends CommandAbstract
 {
-    protected $requires = array(Permission::FILE_VIEW);
+    protected $requires = [Permission::FILE_VIEW];
 
     public function execute(Request $request, WorkingFolder $workingFolder, Config $config, ThumbnailRepository $thumbnailRepository)
     {
@@ -55,7 +55,7 @@ class Thumbnail extends CommandAbstract
             throw new FileNotFoundException();
         }
 
-        list($requestedWidth, $requestedHeight) = Image::parseSize((string) $request->get('size'));
+        [$requestedWidth, $requestedHeight] = Image::parseSize((string) $request->get('size'));
 
         $thumbnail = $thumbnailRepository->getThumbnail($workingFolder->getResourceType(),
             $workingFolder->getClientCurrentFolder(), $fileName, $requestedWidth, $requestedHeight);

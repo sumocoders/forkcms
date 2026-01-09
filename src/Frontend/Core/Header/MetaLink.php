@@ -4,7 +4,7 @@ namespace Frontend\Core\Header;
 
 use InvalidArgumentException;
 
-final class MetaLink
+final class MetaLink implements \Stringable
 {
     /** @var array */
     private $attributes;
@@ -44,9 +44,7 @@ final class MetaLink
             '|',
             array_filter(
                 array_map(
-                    function (string $attributeKey) {
-                        return $this->attributes[$attributeKey] ?? '';
-                    },
+                    fn(string $attributeKey) => $this->attributes[$attributeKey] ?? '',
                     $uniqueAttributeKeys
                 )
             )
@@ -109,9 +107,7 @@ final class MetaLink
         $html .= implode(
             ' ',
             array_map(
-                function (string $parameterKey, string $parameterValue) {
-                    return $parameterKey . '="' . htmlspecialchars($parameterValue) . '"';
-                },
+                fn(string $parameterKey, string $parameterValue) => $parameterKey . '="' . htmlspecialchars($parameterValue) . '"',
                 array_keys($this->attributes),
                 $this->attributes
             )

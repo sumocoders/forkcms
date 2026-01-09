@@ -5,15 +5,10 @@ namespace Backend\Modules\MediaGalleries\Domain\MediaGallery\Command;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGallery;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
 
-final class CreateMediaGalleryHandler
+final readonly class CreateMediaGalleryHandler
 {
-    /** @var MediaGalleryRepository */
-    private $mediaGalleryRepository;
-
-    public function __construct(
-        MediaGalleryRepository $mediaGalleryRepository
-    ) {
-        $this->mediaGalleryRepository = $mediaGalleryRepository;
+    public function __construct(private MediaGalleryRepository $mediaGalleryRepository)
+    {
     }
 
     public function handle(CreateMediaGallery $createMediaGallery): void

@@ -31,7 +31,7 @@ class Statistics extends Action
         $dataGrid->setHeaderLabels(['time' => \SpoonFilter::ucfirst(BL::lbl('SearchedOn'))]);
 
         // set column function
-        $dataGrid->setColumnFunction([__CLASS__, 'parseRefererInDataGrid'], '[data]', 'referrer');
+        $dataGrid->setColumnFunction([self::class, 'parseRefererInDataGrid'], '[data]', 'referrer');
         $dataGrid->setColumnFunction(
             [new BackendDataGridFunctions(), 'getLongDate'],
             ['[time]'],
@@ -52,8 +52,8 @@ class Statistics extends Action
 
         if (isset($data['server']['HTTP_REFERER'])) {
             $referrer = $data['server']['HTTP_REFERER'];
-            if (preg_match('/^(http|https):\/\//', $referrer)) {
-                $referrer = htmlspecialchars($referrer);
+            if (preg_match('/^(http|https):\/\//', (string) $referrer)) {
+                $referrer = htmlspecialchars((string) $referrer);
                 return '<a href="' . $referrer . '">' . $referrer . '</a>';
             }
         }

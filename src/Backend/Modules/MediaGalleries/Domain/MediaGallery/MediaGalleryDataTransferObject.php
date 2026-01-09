@@ -8,11 +8,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class MediaGalleryDataTransferObject
 {
     /**
-     * @var MediaGallery
-     */
-    private $mediaGalleryEntity;
-
-    /**
      * @var Status
      */
     public $status;
@@ -44,10 +39,8 @@ class MediaGalleryDataTransferObject
      */
     public $mediaGroup;
 
-    public function __construct(MediaGallery $mediaGallery = null)
+    public function __construct(private ?MediaGallery $mediaGalleryEntity = null)
     {
-        $this->mediaGalleryEntity = $mediaGallery;
-
         if (!$this->hasExistingMediaGallery()) {
             $this->status = Status::active();
 

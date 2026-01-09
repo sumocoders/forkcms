@@ -104,10 +104,10 @@ class Index extends BackendBaseActionIndex
         }
 
         // create datagrids
-        $this->dgLabels = new BackendDataGridArray(isset($translations['lbl']) ? $translations['lbl'] : []);
-        $this->dgMessages = new BackendDataGridArray(isset($translations['msg']) ? $translations['msg'] : []);
-        $this->dgErrors = new BackendDataGridArray(isset($translations['err']) ? $translations['err'] : []);
-        $this->dgActions = new BackendDataGridArray(isset($translations['act']) ? $translations['act'] : []);
+        $this->dgLabels = new BackendDataGridArray($translations['lbl'] ?? []);
+        $this->dgMessages = new BackendDataGridArray($translations['msg'] ?? []);
+        $this->dgErrors = new BackendDataGridArray($translations['err'] ?? []);
+        $this->dgActions = new BackendDataGridArray($translations['act'] ?? []);
 
         // put the datagrids (references) in an array so we can loop them
         $dataGrids = [
@@ -163,7 +163,7 @@ class Index extends BackendBaseActionIndex
                 }
 
                 // set header labels
-                $dataGrid->setHeaderLabels([$lang => \SpoonFilter::ucfirst(BL::lbl(mb_strtoupper($lang)))]);
+                $dataGrid->setHeaderLabels([$lang => \SpoonFilter::ucfirst(BL::lbl(mb_strtoupper((string) $lang)))]);
 
                 // only 1 language selected?
                 if (count($this->filter['language']) == 1) {
@@ -331,24 +331,20 @@ class Index extends BackendBaseActionIndex
         // only allow values from our types checkboxes to be set
         $this->filter['type'] = array_filter(
             $this->filter['type'],
-            function ($type) {
-                return array_key_exists(
-                    $type,
-                    BackendLocaleModel::getTypesForMultiCheckbox()
-                );
-            }
+            fn($type) => array_key_exists(
+                (string) $type,
+                BackendLocaleModel::getTypesForMultiCheckbox()
+            )
         );
 
         // only allow languages from our language checkboxes to be set
         $isGod = $this->isGod;
         $this->filter['language'] = array_filter(
             $this->filter['language'],
-            function ($language) use ($isGod) {
-                return array_key_exists(
-                    $language,
-                    BackendLocaleModel::getLanguagesForMultiCheckbox($isGod)
-                );
-            }
+            fn($language) => array_key_exists(
+                (string) $language,
+                BackendLocaleModel::getLanguagesForMultiCheckbox($isGod)
+            )
         );
 
         // build query for filter

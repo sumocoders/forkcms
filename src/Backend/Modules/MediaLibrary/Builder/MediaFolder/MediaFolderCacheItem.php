@@ -13,7 +13,7 @@ class MediaFolderCacheItem
     public $numberOfChildren = 0;
     public $numberOfMediaItems = 0;
 
-    public function __construct(MediaFolder $mediaFolder, string $parentSlug = null)
+    public function __construct(MediaFolder $mediaFolder, ?string $parentSlug = null)
     {
         $this->id = $mediaFolder->getId();
         $this->name = $mediaFolder->getName();

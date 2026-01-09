@@ -7,26 +7,11 @@ use ForkCMS\Privacy\ConsentDialog;
 
 class TagManager
 {
-    /**
-     * @var ModulesSettings
-     */
-    private $modulesSettings;
-
-    /**
-     * @var DataLayer
-     */
-    private $dataLayer;
-
-    /**
-     * @var ConsentDialog
-     */
-    private $consentDialog;
-
-    public function __construct(ModulesSettings $modulesSettings, DataLayer $dataLayer, ConsentDialog $consentDialog)
-    {
-        $this->modulesSettings = $modulesSettings;
-        $this->dataLayer = $dataLayer;
-        $this->consentDialog = $consentDialog;
+    public function __construct(
+        private readonly ModulesSettings $modulesSettings,
+        private readonly DataLayer $dataLayer,
+        private readonly ConsentDialog $consentDialog
+    ) {
     }
 
     private function shouldAddCode(): bool

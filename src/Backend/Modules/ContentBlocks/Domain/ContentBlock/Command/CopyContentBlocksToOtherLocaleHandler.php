@@ -9,14 +9,10 @@ use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\Status;
 use Common\ModuleExtraType;
 
-final class CopyContentBlocksToOtherLocaleHandler
+final readonly class CopyContentBlocksToOtherLocaleHandler
 {
-    /** @var ContentBlockRepository */
-    private $contentBlockRepository;
-
-    public function __construct(ContentBlockRepository $contentBlockRepository)
+    public function __construct(private ContentBlockRepository $contentBlockRepository)
     {
-        $this->contentBlockRepository = $contentBlockRepository;
     }
 
     public function handle(CopyContentBlocksToOtherLocale $copyContentBlocksToOtherLocale): void
@@ -25,7 +21,7 @@ final class CopyContentBlocksToOtherLocaleHandler
         $id = $this->contentBlockRepository->getNextIdForLanguage($copyContentBlocksToOtherLocale->toLocale);
 
         array_map(
-            function (ContentBlock $contentBlock) use ($copyContentBlocksToOtherLocale, &$id) {
+            function (ContentBlock $contentBlock) use ($copyContentBlocksToOtherLocale, &$id): void {
                 $copyContentBlocksToOtherLocale->extraIdMap[$contentBlock->getExtraId()] = $this->getNewExtraId();
                 $dataTransferObject = $contentBlock->getDataTransferObject();
 

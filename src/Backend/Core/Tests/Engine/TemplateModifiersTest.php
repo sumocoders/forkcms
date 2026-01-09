@@ -29,7 +29,7 @@ class TemplateModifiersTest extends TestCase
     public function testTruncate(): void
     {
         $containerMock = $this
-            ->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')
+            ->getMockBuilder(\Symfony\Component\DependencyInjection\ContainerInterface::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;

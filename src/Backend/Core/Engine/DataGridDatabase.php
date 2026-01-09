@@ -18,7 +18,7 @@ class DataGridDatabase extends DataGrid
     public function __construct(
         string $query,
         array $parameters = [],
-        string $resultsQuery = null,
+        ?string $resultsQuery = null,
         array $resultsParameters = []
     ) {
         parent::__construct(

@@ -26,7 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class GetResizedImages extends CommandAbstract
 {
-    protected $requires = array(Permission::FILE_VIEW);
+    protected $requires = [Permission::FILE_VIEW];
 
     public function execute(Request $request, WorkingFolder $workingFolder, ResizedImageRepository $resizedImageRepository, Config $config, CacheManager $cache)
     {
@@ -46,7 +46,7 @@ class GetResizedImages extends CommandAbstract
             }
         }
 
-        $data = array();
+        $data = [];
 
         $cachedInfo = $cache->get(
             Path::combine(
@@ -64,7 +64,7 @@ class GetResizedImages extends CommandAbstract
             $workingFolder->getResourceType(),
             $workingFolder->getClientCurrentFolder(),
             $fileName,
-            $sizes ?: array()
+            $sizes ?: []
         );
 
         $data['resized'] = $resizedImages;

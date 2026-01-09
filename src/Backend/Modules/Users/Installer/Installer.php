@@ -66,12 +66,12 @@ class Installer extends ModuleInstaller
         $uniqueChars = [];
 
         // less then 4 chars is just a weak password
-        if (mb_strlen($password) <= 4) {
+        if (mb_strlen((string) $password) <= 4) {
             return 'weak';
         }
 
         // loop chars and add unique chars
-        $passwordChars = str_split($password);
+        $passwordChars = str_split((string) $password);
         foreach ($passwordChars as $char) {
             $uniqueChars[$char] = $char;
         }
@@ -82,28 +82,28 @@ class Installer extends ModuleInstaller
         }
 
         // more then 6 chars is good
-        if (mb_strlen($password) >= 6) {
+        if (mb_strlen((string) $password) >= 6) {
             ++$score;
         }
 
         // more then 8 is better
-        if (mb_strlen($password) >= 8) {
+        if (mb_strlen((string) $password) >= 8) {
             ++$score;
         }
 
         // @todo
         // upper and lowercase?
-        if (preg_match('/[a-z]/', $password) && preg_match('/[A-Z]/', $password)) {
+        if (preg_match('/[a-z]/', (string) $password) && preg_match('/[A-Z]/', (string) $password)) {
             $score += 2;
         }
 
         // number?
-        if (preg_match('/\d+/', $password)) {
+        if (preg_match('/\d+/', (string) $password)) {
             ++$score;
         }
 
         // special char?
-        if (preg_match('/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/', $password)) {
+        if (preg_match('/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/', (string) $password)) {
             ++$score;
         }
 

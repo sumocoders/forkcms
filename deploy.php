@@ -39,16 +39,6 @@ set('bin/composer', function () {
     return '{{bin/php}} {{deploy_path}}/.dep/composer.phar';
 });
 
-/**
- * URL to download cachetool from if it is not available
- *
- * Fork is currently still on PHP 8.0, so version 8.6.1 of cachetool is required.
- * Deployer has already moved on to 8+, so we're locking our version of cachetool for now.
- *
- * TODO: either upgrade this URL to the next version or remove it in the future when a new version of Fork is released.
- */
-set('cachetool_url', 'https://github.com/gordalina/cachetool/releases/download/8.6.1/cachetool.phar');
-
 // Define staging
 host('dev03.sumocoders.eu')
     ->setRemoteUser('sites')
@@ -56,9 +46,9 @@ host('dev03.sumocoders.eu')
     ->set('stage', 'staging')
     ->set('deploy_path', '~/apps/{{client}}/{{project}}')
     ->set('branch', 'staging')
-    ->set('bin/php', 'php8.0')
-    ->set('cachetool', '/var/run/php_80_fpm_sites.sock')
-    ->set('document_root', '~/php80/{{client}}/{{project}}')
+    ->set('bin/php', 'php8.5')
+    ->set('cachetool', '/var/run/php_85_fpm_sites.sock')
+    ->set('document_root', '~/php85/{{client}}/{{project}}')
     ->set('keep_releases', 3);
 
 // Define production
@@ -153,7 +143,7 @@ task('database:migrate', function () {
 /**
  * @Override from deployer-sumo/assets
  */
-task('sumo:assets:install', function() {
+task('sumo:assets:install', function () {
     // do nothing - no public directory in fork
 })->desc('Install bundle\'s web assets under a public directory');
 
@@ -235,13 +225,13 @@ task(
         $remotePath = '{{release_path}}/src/Frontend/Themes/' . $theme . '/Core';
 
         upload(__DIR__ . '/src/Frontend/Themes/' . $theme . '/Core/', $remotePath);
-     }
+    }
 )->desc('Upload bundle assets');
 after('deploy:theme:build', 'deploy:theme:upload');
 
 task(
     'fork:cache:clear',
-    function() {
+    function () {
         run('{{bin/console}} fork:cache:clear --env={{symfony_env}}');
         run('if [ -f {{deploy_path}}/shared/config/parameters.yml ]; then touch {{deploy_path}}/shared/config/parameters.yml; fi');
     }

@@ -84,7 +84,7 @@ class Model
         return $cacheBuilder;
     }
 
-    public static function buildCache(string $language = null): void
+    public static function buildCache(?string $language = null): void
     {
         $cacheBuilder = static::getCacheBuilder();
         $cacheBuilder->buildCache($language ?? BL::getWorkingLanguage());
@@ -323,9 +323,7 @@ class Model
         self::buildCache($toLanguage);
     }
 
-    /**
-     * @deprecated Will become private since it is only used in this class
-     */
+    #[\Deprecated(message: 'Will become private since it is only used in this class')]
     public static function createHtml(
         string $navigationType = 'page',
         int $depth = 0,
@@ -342,7 +340,7 @@ class Model
             // loop elements
             foreach ($navigation[$navigationType][$depth][$parentId] as $key => $aValue) {
                 $html .= "\t<li>" . "\n";
-                $html .= "\t\t" . '<a href="#">' . htmlspecialchars($aValue['navigation_title']) . '</a>' . "\n";
+                $html .= "\t\t" . '<a href="#">' . htmlspecialchars((string) $aValue['navigation_title']) . '</a>' . "\n";
 
                 // insert recursive here!
                 if (isset($navigation[$navigationType][$depth + 1][$key])) {
@@ -374,9 +372,9 @@ class Model
      *
      * @return bool
      */
-    public static function delete(int $id, string $language = null, int $revisionId = null): bool
+    public static function delete(int $id, ?string $language = null, ?int $revisionId = null): bool
     {
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // get database
         $database = BackendModel::getContainer()->get('database');
@@ -450,7 +448,7 @@ class Model
      *
      * @return mixed False if the record can't be found, otherwise an array with all data.
      */
-    public static function get(int $pageId, int $revisionId = null, string $language = null)
+    public static function get(int $pageId, ?int $revisionId = null, ?string $language = null)
     {
         // fetch revision if not specified
         if ($revisionId === null) {
@@ -458,7 +456,7 @@ class Model
         }
 
         // redefine
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // get page (active version)
         $return = (array) BackendModel::getContainer()->get('database')->getRecord(
@@ -523,7 +521,7 @@ class Model
         return $pageId === BackendModel::ERROR_PAGE_ID;
     }
 
-    public static function getBlocks(int $pageId, int $revisionId = null, string $language = null): array
+    public static function getBlocks(int $pageId, ?int $revisionId = null, ?string $language = null): array
     {
         // fetch revision if not specified
         if ($revisionId === null) {
@@ -531,7 +529,7 @@ class Model
         }
 
         // redefine
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // get page (active version)
         return (array) BackendModel::getContainer()->get('database')->getRecords(
@@ -634,9 +632,9 @@ class Model
         return urldecode($url);
     }
 
-    public static function getLatestRevision(int $id, string $language = null): int
+    public static function getLatestRevision(int $id, ?string $language = null): int
     {
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         return (int) BackendModel::getContainer()->get('database')->getVar(
             'SELECT revision_id
@@ -655,7 +653,7 @@ class Model
 
     public static function getMaximumPageId($language = null): int
     {
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // get the maximum id
         $maximumMenuId = (int) BackendModel::getContainer()->get('database')->getVar(
@@ -673,9 +671,9 @@ class Model
         return $maximumMenuId;
     }
 
-    public static function getMaximumSequence(int $parentId, string $language = null): int
+    public static function getMaximumSequence(int $parentId, ?string $language = null): int
     {
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // get the maximum sequence inside a certain leaf
         return (int) BackendModel::getContainer()->get('database')->getVar(
@@ -686,9 +684,9 @@ class Model
         );
     }
 
-    public static function getPagesForDropdown(string $language = null): array
+    public static function getPagesForDropdown(?string $language = null): array
     {
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
         $titles = [];
         $sequences = [
             'pages' => [],
@@ -751,7 +749,7 @@ class Model
         return $tree;
     }
 
-    private static function mergeTreeForDropdownArrays(array $tree, array $subTree, string $treeLabel = null): array
+    private static function mergeTreeForDropdownArrays(array $tree, array $subTree, ?string $treeLabel = null): array
     {
         if (empty($subTree)) {
             return $tree;
@@ -818,9 +816,9 @@ class Model
         );
     }
 
-    public static function getMoveTreeForDropdown(int $currentPageId, string $language = null): array
+    public static function getMoveTreeForDropdown(int $currentPageId, ?string $language = null): array
     {
-        $navigation = static::getCacheBuilder()->getNavigation($language = $language ?? BL::getWorkingLanguage());
+        $navigation = static::getCacheBuilder()->getNavigation($language ??= BL::getWorkingLanguage());
 
         $tree = self::addMainPageToTreeForDropdown(
             self::getEmptyTreeArray(),
@@ -876,7 +874,7 @@ class Model
                     null,
                     null,
                     ['id' => $page['page_id']]
-                ) . '"><ins>&#160;</ins>' . htmlspecialchars($page['navigation_title']) . '</a>' . "\n";
+                ) . '"><ins>&#160;</ins>' . htmlspecialchars((string) $page['navigation_title']) . '</a>' . "\n";
 
                 // get childs
                 $html .= self::getSubtree($navigation, $page['page_id']);
@@ -903,9 +901,9 @@ class Model
      *
      * @return array
      */
-    public static function getTree(array $ids, array $data = null, int $level = 1, string $language = null): array
+    public static function getTree(array $ids, ?array $data = null, int $level = 1, ?string $language = null): array
     {
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // get data
         $data[$level] = (array) BackendModel::getContainer()->get('database')->getRecords(
@@ -973,7 +971,7 @@ class Model
             null,
             null,
             ['id' => BackendModel::HOME_PAGE_ID]
-        ) . '"><ins>&#160;</ins>' . htmlentities($homePage['title']) . '</a>' . "\n";
+        ) . '"><ins>&#160;</ins>' . htmlentities((string) $homePage['title']) . '</a>' . "\n";
 
         // add subpages
         $html .= self::getSubtree($navigation, BackendModel::HOME_PAGE_ID);
@@ -1003,7 +1001,7 @@ class Model
                         null,
                         null,
                         ['id' => $page['page_id']]
-                    ) . '"><ins>&#160;</ins>' . htmlspecialchars($page['navigation_title']) . '</a>' . "\n";
+                    ) . '"><ins>&#160;</ins>' . htmlspecialchars((string) $page['navigation_title']) . '</a>' . "\n";
 
                     // insert subtree
                     $html .= self::getSubtree($navigation, $page['page_id']);
@@ -1038,7 +1036,7 @@ class Model
                     null,
                     null,
                     ['id' => $page['page_id']]
-                ) . '"><ins>&#160;</ins>' . htmlspecialchars($page['navigation_title']) . '</a>' . "\n";
+                ) . '"><ins>&#160;</ins>' . htmlspecialchars((string) $page['navigation_title']) . '</a>' . "\n";
 
                 // insert subtree
                 $html .= self::getSubtree($navigation, $page['page_id']);
@@ -1072,7 +1070,7 @@ class Model
                     null,
                     null,
                     ['id' => $page['page_id']]
-                ) . '"><ins>&#160;</ins>' . htmlspecialchars($page['navigation_title']) . '</a>' . "\n";
+                ) . '"><ins>&#160;</ins>' . htmlspecialchars((string) $page['navigation_title']) . '</a>' . "\n";
 
                 // insert subtree
                 $html .= self::getSubtree($navigation, $page['page_id']);
@@ -1146,7 +1144,7 @@ class Model
         ];
     }
 
-    public static function getUrl(string $url, int $id = null, int $parentId = null, bool $isAction = false): string
+    public static function getUrl(string $url, ?int $id = null, ?int $parentId = null, bool $isAction = false): string
     {
         $parentIds = [$parentId ?? self::NO_PARENT_PAGE_ID];
 
@@ -1325,11 +1323,11 @@ class Model
         int $droppedOnPageId,
         string $typeOfDrop,
         string $tree,
-        string $language = null
+        ?string $language = null
     ): bool {
         $typeOfDrop = SpoonFilter::getValue($typeOfDrop, self::POSSIBLE_TYPES_OF_DROP, self::TYPE_OF_DROP_INSIDE);
         $tree = SpoonFilter::getValue($tree, ['main', 'meta', 'footer', 'root'], 'root');
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // When dropping on the main navigation it should be added as a child of the home page
         if ($tree === 'main' && $droppedOnPageId === 0) {
@@ -1355,7 +1353,7 @@ class Model
 
         try {
             $newParent = self::getNewParent($droppedOnPageId, $typeOfDrop, $droppedOnPage);
-        } catch (InvalidArgumentException $invalidArgumentException) {
+        } catch (InvalidArgumentException) {
             // parent doesn't allow children
             return false;
         }
@@ -1705,7 +1703,7 @@ class Model
         $newImagePath = $imagePath . '/source/' . $imageFilename;
 
         // make sure we have a separate image for the copy in case the original image gets removed
-        (new Filesystem())->copy($originalImagePath, $newImagePath);
+        new Filesystem()->copy($originalImagePath, $newImagePath);
         BackendModel::get(Thumbnails::class)->generate($imagePath, $newImagePath);
 
         return $imageFilename;

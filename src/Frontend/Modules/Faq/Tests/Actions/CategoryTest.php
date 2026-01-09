@@ -5,11 +5,11 @@ namespace Frontend\Modules\Faq\Actions;
 use Backend\Modules\Faq\DataFixtures\LoadFaqCategories;
 use Backend\Modules\Faq\DataFixtures\LoadFaqQuestions;
 use Frontend\Core\Tests\FrontendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class CategoryTest extends FrontendWebTestCase
 {
-    public function testCategoryHasPage(Client $client): void
+    public function testCategoryHasPage(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -28,12 +28,12 @@ class CategoryTest extends FrontendWebTestCase
         );
     }
 
-    public function testNonExistingCategoryPostGives404(Client $client): void
+    public function testNonExistingCategoryPostGives404(KernelBrowser $client): void
     {
         self::assertHttpStatusCode404($client, '/en/faq/category/non-existing');
     }
 
-    public function testCategoryPageContainsQuestion(Client $client): void
+    public function testCategoryPageContainsQuestion(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,

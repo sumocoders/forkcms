@@ -2,7 +2,7 @@
 
 namespace Frontend\Modules\FormBuilder\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * This class is in fact an immutable event class holding all the data

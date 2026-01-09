@@ -57,9 +57,7 @@ class AwsS3 extends AwsS3Adapter implements ContainerAwareInterface, EmulateRena
             'Prefix' => $sourcePath,
         ]);
 
-        $objects = array_filter(iterator_to_array($objectsIterator), function ($v) {
-            return isset($v['Key']);
-        });
+        $objects = array_filter(iterator_to_array($objectsIterator), fn($v) => isset($v['Key']));
 
         if (!empty($objects)) {
 
@@ -72,11 +70,11 @@ class AwsS3 extends AwsS3Adapter implements ContainerAwareInterface, EmulateRena
             $current = 0;
 
             foreach ($objects as $entry) {
-                $this->client->copyObject(array(
+                $this->client->copyObject([
                     'Bucket'     => $this->bucket,
                     'Key'        => $this->replacePath($entry['Key'], $path, $newPath),
                     'CopySource' => urlencode($this->bucket . '/' . $entry['Key']),
-                ));
+                ]);
 
                 if ($operation->isAborted()) {
                     // Delete target folder in case if operation was aborted
@@ -87,7 +85,7 @@ class AwsS3 extends AwsS3Adapter implements ContainerAwareInterface, EmulateRena
                     return true;
                 }
 
-                $operation->updateStatus(array('total' => $total, 'current' => ++$current));
+                $operation->updateStatus(['total' => $total, 'current' => ++$current]);
             }
 
             $this->client->deleteMatchingObjects($this->bucket, $sourcePath);
@@ -141,6 +139,6 @@ class AwsS3 extends AwsS3Adapter implements ContainerAwareInterface, EmulateRena
 
         $mimeType = MimeType::detectByFileExtension($ext);
 
-        return $mimeType ? array('mimetype' => $mimeType) : parent::getMimetype($path);
+        return $mimeType ? ['mimetype' => $mimeType] : parent::getMimetype($path);
     }
 }

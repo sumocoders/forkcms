@@ -16,28 +16,21 @@ namespace CKSource\CKFinder\Acl\User;
 
 /**
  * The SessionRoleContext class.
- * 
+ *
  * SessionRoleContext is used to get the user role from the defined $_SESSION field.
- * 
+ *
  * @copyright 2016 CKSource - Frederico Knabben
  */
 class SessionRoleContext implements RoleContextInterface
 {
     /**
-     * The $_SESSION field name to use.
-     * 
-     * @var string $sessionRoleField
-     */
-    protected $sessionRoleField;
-
-    /**
      * Sets the $_SESSION field name to use.
-     * 
+     *
      * @param string $sessionRoleField
      */
-    public function __construct($sessionRoleField)
-    {
-        $this->sessionRoleField = $sessionRoleField;
+    public function __construct(
+        protected string $sessionRoleField,
+    ) {
     }
 
     /**

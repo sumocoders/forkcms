@@ -14,7 +14,7 @@ use ForkCMS\App\AppKernel;
 use ForkCMS\App\BaseModel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Debug\Debug;
+use Symfony\Component\ErrorHandler\Debug;
 use Backend\Init as BackendInit;
 
 $input = new ArgvInput();

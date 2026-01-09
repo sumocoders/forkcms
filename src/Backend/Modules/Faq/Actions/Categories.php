@@ -53,7 +53,7 @@ class Categories extends BackendBaseActionIndex
         // check if this action is allowed
         if (BackendAuthentication::isAllowedAction('Index')) {
             $this->dataGrid->setColumnFunction(
-                [__CLASS__, 'setClickableCount'],
+                [self::class, 'setClickableCount'],
                 ['[num_items]', BackendModel::createUrlForAction('Index') . '&amp;category=[id]'],
                 'num_items',
                 true

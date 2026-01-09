@@ -57,7 +57,7 @@ class MediaFolderAdd extends BackendBaseAJAXAction
         return $createMediaFolder;
     }
 
-    protected function getFolderName(MediaFolder $parent = null): string
+    protected function getFolderName(?MediaFolder $parent = null): string
     {
         // Define name
         $name = $this->getRequest()->request->get('name');
@@ -86,7 +86,7 @@ class MediaFolderAdd extends BackendBaseAJAXAction
 
         try {
             return $this->get('media_library.repository.folder')->findOneById($parentId);
-        } catch (MediaFolderNotFound $mediaFolderNotFound) {
+        } catch (MediaFolderNotFound) {
             throw new AjaxExitException(Language::err('ParentNotExists'));
         }
     }

@@ -19,7 +19,7 @@ class CacheClearCommand extends Command
             ->setDescription('Clear the cache');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
@@ -41,6 +41,8 @@ class CacheClearCommand extends Command
         clearstatcache();
 
         $io->success('Cache is cleared');
+
+        return Command::SUCCESS;
     }
 
     /**

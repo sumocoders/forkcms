@@ -103,7 +103,7 @@ class Block extends KernelLoader
      * @param string $action The name of the action.
      * @param string $data The data that should be available in this block.
      */
-    public function __construct(KernelInterface $kernel, string $module, string $action, string $data = null)
+    public function __construct(KernelInterface $kernel, string $module, string $action, ?string $data = null)
     {
         parent::__construct($kernel);
 
@@ -269,7 +269,7 @@ class Block extends KernelLoader
      * @param string $path The path for the template to use.
      * @param bool $overwrite Should the template overwrite the default?
      */
-    protected function loadTemplate(string $path = null, bool $overwrite = false): void
+    protected function loadTemplate(?string $path = null, bool $overwrite = false): void
     {
         // no template given, so we should build the path
         if ($path === null) {
@@ -492,7 +492,7 @@ class Block extends KernelLoader
         $this->action = $action;
     }
 
-    private function setData(string $data = null): void
+    private function setData(?string $data = null): void
     {
         // data given?
         if ($data === null) {

@@ -20,9 +20,9 @@ class BaseTwigModifiers
      *
      * @return string
      */
-    public static function formatCurrency(float $number, string $currency = 'EUR', int $decimals = null): string
+    public static function formatCurrency(float $number, string $currency = 'EUR', ?int $decimals = null): string
     {
-        $decimals = $decimals === null ? 2 : $decimals;
+        $decimals ??= 2;
 
         // @later get settings from backend
         switch ($currency) {
@@ -43,7 +43,7 @@ class BaseTwigModifiers
      *
      * @return string
      */
-    public static function formatNumber(float $number, int $decimals = null): string
+    public static function formatNumber(float $number, ?int $decimals = null): string
     {
         if ($decimals === null) {
             $decimals = 2;
@@ -146,7 +146,7 @@ class BaseTwigModifiers
      */
     public static function snakeCase(string $string): string
     {
-        return ltrim(strtolower(preg_replace('/[A-Z]/', '_$0', $string)), '_');
+        return ltrim(strtolower((string) preg_replace('/[A-Z]/', '_$0', $string)), '_');
     }
 
     /**
@@ -163,7 +163,7 @@ class BaseTwigModifiers
     {
         // non-alpha and non-numeric characters become spaces
         $string = preg_replace('/[^a-z0-9' . implode('', []) . ']+/i', ' ', $string);
-        $string = trim($string);
+        $string = trim((string) $string);
         // uppercase the first character of each word
         $string = ucwords($string);
         $string = str_replace(' ', '', $string);

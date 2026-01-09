@@ -30,7 +30,7 @@ class MediaItemUpload extends BackendBaseActionAdd
 
         try {
             return $this->get('media_library.repository.folder')->findOneById($id);
-        } catch (MediaFolderNotFound $mediaFolderNotFound) {
+        } catch (MediaFolderNotFound) {
             return null;
         }
     }

@@ -153,7 +153,7 @@ class DataGridFunctions
 
             // get settings
             $avatar = $user->getSetting('avatar', 'no-avatar.gif');
-            $nickname = htmlentities($user->getSetting('nickname'));
+            $nickname = htmlentities((string) $user->getSetting('nickname'));
             $allowed = Authentication::isAllowedAction('Edit', 'Users');
 
             // build html
@@ -245,10 +245,10 @@ class DataGridFunctions
         string $path,
         string $image,
         string $title = '',
-        string $url = null,
-        int $width = null,
-        int $height = null,
-        string $filter = null
+        ?string $url = null,
+        ?int $width = null,
+        ?int $height = null,
+        ?string $filter = null
     ): string {
         if ($width === 0 || $height === 0) {
             throw new \Exception('An image must not have a width or height equal to 0, because the image will not be visible.');

@@ -3,16 +3,16 @@
 namespace Backend\Modules\ContentBlocks\Tests\Action;
 
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class ThemeTemplatesTest extends BackendWebTestCase
 {
-    public function testAuthenticationIsNeeded(Client $client): void
+    public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
         self::assertAuthenticationIsNeeded($client, '/private/en/extensions/theme_templates');
     }
 
-    public function testIndexHasTemplates(Client $client): void
+    public function testIndexHasTemplates(KernelBrowser $client): void
     {
         $this->login($client);
 

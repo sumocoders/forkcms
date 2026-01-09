@@ -3,16 +3,16 @@
 namespace Backend\Modules\ContentBlocks\Tests\Action;
 
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class ExportThemeTemplatesTest extends BackendWebTestCase
 {
-    public function testAuthenticationIsNeeded(Client $client): void
+    public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
         self::assertAuthenticationIsNeeded($client, '/private/en/extensions/export_theme_templates');
     }
 
-    public function testExportIsReturned(Client $client): void
+    public function testExportIsReturned(KernelBrowser $client): void
     {
         $this->login($client);
 

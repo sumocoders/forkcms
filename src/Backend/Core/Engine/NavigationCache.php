@@ -7,22 +7,12 @@ use SpoonDatabase;
 
 final class NavigationCache
 {
-    const CACHE_KEY = 'backend_navigation';
+    const string CACHE_KEY = 'backend_navigation';
 
-    /**
-     * @var SpoonDatabase
-     */
-    protected $database;
-
-    /**
-     * @var CacheItemPoolInterface
-     */
-    protected $cache;
-
-    public function __construct(SpoonDatabase $database, CacheItemPoolInterface $cache)
-    {
-        $this->database = $database;
-        $this->cache = $cache;
+    public function __construct(
+        protected SpoonDatabase $database,
+        protected CacheItemPoolInterface $cache,
+    ) {
     }
 
     public function delete(): void
@@ -54,9 +44,7 @@ final class NavigationCache
         }
 
         return array_map(
-            function (array $navigationItem) {
-                return $this->buildNavigationItem($navigationItem);
-            },
+            $this->buildNavigationItem(...),
             $navigationItems
         );
     }

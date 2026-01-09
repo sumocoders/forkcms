@@ -25,7 +25,7 @@ final class MediaItemRepository extends EntityRepository
         return $mediaItem !== null;
     }
 
-    public function findOneById(string $id = null): MediaItem
+    public function findOneById(?string $id = null): MediaItem
     {
         if ($id === null) {
             throw MediaItemNotFound::forEmptyId();

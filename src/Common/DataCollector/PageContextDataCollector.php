@@ -34,7 +34,7 @@ class PageContextDataCollector extends DataCollector
         $this->sitePath = $container->getParameter('site.path_www');
     }
 
-    public function collect(Request $request, Response $response, \Exception $exception = null): void
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
         if ($this->page === null) {
             return;
@@ -53,7 +53,7 @@ class PageContextDataCollector extends DataCollector
                 'block' => $this->collectBlock($this->page->getExtras()),
                 'theme' => $this->theme,
             ];
-        } catch (Throwable $throwable) {
+        } catch (Throwable) {
             // do nothing
         }
     }
@@ -62,13 +62,11 @@ class PageContextDataCollector extends DataCollector
     {
         $pageContextDataCollector = $this;
         $widgets = array_map(
-            function (Widget $widget) use ($pageContextDataCollector) {
-                return [
-                    'action' => $widget->getAction(),
-                    'module' => $widget->getModule(),
-                    'template' => $pageContextDataCollector->getFullTemplatePath($widget->getTemplatePath()),
-                ];
-            },
+            fn(Widget $widget) => [
+                'action' => $widget->getAction(),
+                'module' => $widget->getModule(),
+                'template' => $pageContextDataCollector->getFullTemplatePath($widget->getTemplatePath()),
+            ],
             $this->getClassInstances(Widget::class, $pageExtras)
         );
 
@@ -95,9 +93,7 @@ class PageContextDataCollector extends DataCollector
     {
         return array_filter(
             $classes,
-            function (ModuleExtraInterface $class) use ($className) {
-                return get_class($class) === $className;
-            }
+            fn(ModuleExtraInterface $class) => $class::class === $className
         );
     }
 

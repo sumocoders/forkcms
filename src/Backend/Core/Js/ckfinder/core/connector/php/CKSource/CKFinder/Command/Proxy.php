@@ -16,8 +16,6 @@ namespace CKSource\CKFinder\Command;
 
 use CKSource\CKFinder\Acl\Permission;
 use CKSource\CKFinder\Config;
-use CKSource\CKFinder\Event\CKFinderEvent;
-use CKSource\CKFinder\Event\DownloadFileEvent;
 use CKSource\CKFinder\Event\ProxyDownloadEvent;
 use CKSource\CKFinder\Exception\AccessDeniedException;
 use CKSource\CKFinder\Exception\FileNotFoundException;
@@ -33,7 +31,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class Proxy extends CommandAbstract
 {
-    protected $requires = array(Permission::FILE_VIEW);
+    protected $requires = [Permission::FILE_VIEW];
 
     public function execute(Request $request, WorkingFolder $workingFolder, EventDispatcher $dispatcher, Config $config)
     {
@@ -75,7 +73,7 @@ class Proxy extends CommandAbstract
 
         $proxyDownload = new ProxyDownloadEvent($this->app, $file);
 
-        $dispatcher->dispatch(CKFinderEvent::PROXY_DOWNLOAD, $proxyDownload);
+        $dispatcher->dispatch($proxyDownload);
 
         if ($proxyDownload->isPropagationStopped()) {
             throw new AccessDeniedException();

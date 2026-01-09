@@ -57,7 +57,7 @@ class AddSynonym extends BackendBaseActionAdd
 
         $this->redirect(
             BackendModel::createUrlForAction('Synonyms') . '&report=added-synonym&var=' . rawurlencode(
-                $synonym['term']
+                (string) $synonym['term']
             ) . '&highlight=row-' . $id
         );
     }

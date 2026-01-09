@@ -29,7 +29,7 @@ class MediaItemTypeManager
     public function getAll(): array
     {
         $values = [];
-        foreach ($this->values as $key => $items) {
+        foreach ($this->values as $items) {
             $values = array_merge($values, $items);
         }
 

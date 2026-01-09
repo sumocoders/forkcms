@@ -15,22 +15,12 @@ use Common\ModulesSettings;
  * to let them know that they have to manually subscribe a person.
  * Because the mail engine is "not_implemented".
  */
-final class NewNotImplementedMailingListSubscription
+final readonly class NewNotImplementedMailingListSubscription
 {
-    /**
-     * @var ModulesSettings
-     */
-    private $modulesSettings;
-
-    /**
-     * @var Swift_Mailer
-     */
-    private $mailer;
-
-    public function __construct(Swift_Mailer $mailer, ModulesSettings $modulesSettings)
-    {
-        $this->mailer = $mailer;
-        $this->modulesSettings = $modulesSettings;
+    public function __construct(
+        private Swift_Mailer $mailer,
+        private ModulesSettings $modulesSettings,
+    ) {
     }
 
     public function onNotImplementedSubscribedEvent(NotImplementedSubscribedEvent $event): void

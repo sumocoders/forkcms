@@ -75,7 +75,7 @@ class LocalStorageProvider implements LocalStorageProviderInterface
         return $this->getWebPath($mediaItem);
     }
 
-    public function getWebPathWithFilter(MediaItem $mediaItem, string $liipImagineBundleFilter = null): string
+    public function getWebPathWithFilter(MediaItem $mediaItem, ?string $liipImagineBundleFilter = null): string
     {
         $webPath = $this->getWebPath($mediaItem);
 

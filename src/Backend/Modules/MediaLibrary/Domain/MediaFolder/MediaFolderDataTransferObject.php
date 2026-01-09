@@ -16,7 +16,7 @@ class MediaFolderDataTransferObject
     /** @var int */
     public $userId;
 
-    public function __construct(MediaFolder $mediaFolder = null)
+    public function __construct(?MediaFolder $mediaFolder = null)
     {
         $this->mediaFolderEntity = $mediaFolder;
 

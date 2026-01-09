@@ -70,14 +70,15 @@ class Footer extends KernelLoader
 
     /**
      * Builds the HTML needed for Facebook to be initialized
-     * @deprecated remove this in Fork 6, Facebook should be added with respect
-     *             to the given consent. In essence: add Facebook yourself if
-     *             needed.
      *
      * @param string $facebookAppId The application id used to interact with FB
-     *
      * @return string  HTML and JS needed to initialize FB JavaScript
      */
+    #[\Deprecated(message: <<<'TXT'
+      remove this in Fork 6, Facebook should be added with respect
+      to the given consent. In essence: add Facebook yourself if
+      needed.
+    TXT)]
     protected function getFacebookHtml(string $facebookAppId): string
     {
         // add the fb-root div
@@ -110,11 +111,11 @@ class Footer extends KernelLoader
         return $facebookHtml;
     }
 
-    /**
-     * @deprecated remove this in Fork 6, Facebook should be added with respect
-     *             to the given consent. In essence: add Facebook yourself if
-     *             needed.
-     */
+    #[\Deprecated(message: <<<'TXT'
+      remove this in Fork 6, Facebook should be added with respect
+      to the given consent. In essence: add Facebook yourself if
+      needed.
+    TXT)]
     private function getFacebookLocale(): string
     {
         $specialCases = [

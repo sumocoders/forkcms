@@ -53,9 +53,7 @@ class Index extends BackendBaseActionIndex
         $hiddenWidgets = array_count_values($hiddenWidgets);
         $hiddenWidgets = array_filter(
             $hiddenWidgets,
-            function ($hiddenCount) use ($groupCount) {
-                return $hiddenCount === $groupCount;
-            }
+            fn($hiddenCount) => $hiddenCount === $groupCount
         );
 
         // loop all modules
@@ -109,7 +107,7 @@ class Index extends BackendBaseActionIndex
                     }
 
                     $templating = $this->get('template');
-                    $content = trim($templating->getContent($templatePath));
+                    $content = trim((string) $templating->getContent($templatePath));
 
                     if (empty($content)) {
                         continue;

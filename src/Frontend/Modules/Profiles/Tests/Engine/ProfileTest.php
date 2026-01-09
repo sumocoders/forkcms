@@ -5,7 +5,7 @@ namespace Frontend\Modules\Profiles\Tests\Engine;
 use Backend\Modules\Profiles\DataFixtures\LoadProfilesProfile;
 use Frontend\Core\Tests\FrontendWebTestCase;
 use Frontend\Modules\Profiles\Engine\Profile;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 final class ProfileTest extends FrontendWebTestCase
 {
@@ -53,7 +53,7 @@ final class ProfileTest extends FrontendWebTestCase
         self::assertEquals(LoadProfilesProfile::getDateOverAMonthAgo()->getTimestamp(), $profileArray['registered_on']);
     }
 
-    public function testLoadingOfProfile(Client $client): void
+    public function testLoadingOfProfile(KernelBrowser $client): void
     {
         $this->loadFixtures($client, [LoadProfilesProfile::class]);
 

@@ -18,14 +18,14 @@ final class MediaGalleryRepository extends EntityRepository
         $this->getEntityManager()->persist($mediaGallery);
     }
 
-    public function existsByTitle(string $title, string $ignoreMediaGalleryId = null): bool
+    public function existsByTitle(string $title, ?string $ignoreMediaGalleryId = null): bool
     {
         $mediaGallery = $this->findOneByTitle($title);
 
         return ($mediaGallery instanceof MediaGallery) ? ($mediaGallery->getId() !== $ignoreMediaGalleryId) : false;
     }
 
-    public function findOneById(string $id = null): MediaGallery
+    public function findOneById(?string $id = null): MediaGallery
     {
         if ($id === null) {
             throw MediaGalleryNotFound::forEmptyId();

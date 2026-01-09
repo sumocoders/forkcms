@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\StringType;
 
 final class StorageTypeDBALType extends StringType
 {
-    const NAME = 'media_item_storage_type';
+    const string NAME = 'media_item_storage_type';
 
     public function getName(): string
     {

@@ -2,22 +2,13 @@
 
 namespace ForkCMS\Bundle\InstallerBundle\Requirement;
 
-final class Requirement
+final readonly class Requirement
 {
-    /** @var string */
-    private $name;
-
-    /** @var RequirementStatus */
-    private $status;
-
-    /** @var string */
-    private $message;
-
-    private function __construct(string $name, RequirementStatus $status, string $message)
-    {
-        $this->name = $name;
-        $this->status = $status;
-        $this->message = $message;
+    private function __construct(
+        private string $name,
+        private RequirementStatus $status,
+        private string $message,
+    ) {
     }
 
     public static function check(

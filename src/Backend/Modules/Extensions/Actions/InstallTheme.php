@@ -42,7 +42,7 @@ class InstallTheme extends BackendBaseActionIndex
 
                 // redirect to index with a success message
                 $this->redirect(BackendModel::createUrlForAction('Themes') . '&report=theme-installed&var=' . $this->currentTheme);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // redirect to index with a success message
                 $this->redirect(BackendModel::createUrlForAction('Themes') . '&report=information-file-is-empty&var=' . $this->currentTheme);
             }

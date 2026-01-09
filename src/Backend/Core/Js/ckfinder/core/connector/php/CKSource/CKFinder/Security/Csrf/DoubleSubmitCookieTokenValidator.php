@@ -26,37 +26,17 @@ use Symfony\Component\HttpFoundation\Request;
 class DoubleSubmitCookieTokenValidator implements TokenValidatorInterface
 {
     /**
-     * The name of the request parameter that should contain the token.
-     *
-     * @var string
-     */
-    protected $tokenParamName;
-
-    /**
-     * The name of the cookie key that should contain the token.
-     * @var string
-     */
-    protected $tokenCookieName;
-
-    /**
-     * The minimal length ot the token.
-     *
-     * @var int
-     */
-    protected $minTokenLength;
-
-    /**
      * DoubleSubmitCookieTokenValidator constructor.
      *
-     * @param string $tokenParamName
-     * @param string $tokenCookieName
-     * @param int    $minTokenLength
+     * @param string $tokenParamName The name of the request parameter that should contain the token.
+     * @param string $tokenCookieName The name of the cookie key that should contain the token.
+     * @param int    $minTokenLength The minimal length ot the token.
      */
-    public function __construct($tokenParamName = 'ckCsrfToken', $tokenCookieName = 'ckCsrfToken', $minTokenLength = 32)
-    {
-        $this->tokenParamName = $tokenParamName;
-        $this->tokenCookieName = $tokenCookieName;
-        $this->minTokenLength = $minTokenLength;
+    public function __construct(
+        protected string $tokenParamName = 'ckCsrfToken',
+        protected string $tokenCookieName = 'ckCsrfToken',
+        protected int $minTokenLength = 32,
+    ) {
     }
 
     /**

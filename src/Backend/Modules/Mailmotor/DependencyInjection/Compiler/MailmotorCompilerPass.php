@@ -33,7 +33,7 @@ class MailmotorCompilerPass implements CompilerPassInterface
                 $container->setParameter('mailmotor.api_key', null);
                 $container->setParameter('mailmotor.list_id', null);
             }
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             // this might fail in the test so we have this as fallback
             // we must set these parameters to be usable
             $container->setParameter('mailmotor.mail_engine', 'not_implemented');

@@ -79,7 +79,7 @@ class Templates extends AjaxAction
             if (isset($template['image'])) {
                 // we have to remove the first slash, because that is set in the wrapper.
                 // Otherwise the images don't work
-                $image = ltrim($template['image'], '/');
+                $image = ltrim((string) $template['image'], '/');
             }
 
             // add the template

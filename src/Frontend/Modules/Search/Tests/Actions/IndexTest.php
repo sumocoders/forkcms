@@ -6,23 +6,23 @@ use Backend\Modules\Blog\DataFixtures\LoadBlogPostComments;
 use Frontend\Core\Tests\FrontendWebTestCase;
 use Backend\Modules\Blog\DataFixtures\LoadBlogCategories;
 use Backend\Modules\Blog\DataFixtures\LoadBlogPosts;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class IndexTest extends FrontendWebTestCase
 {
-    public function testSearchIndexWorks(Client $client): void
+    public function testSearchIndexWorks(KernelBrowser $client): void
     {
         self::assertPageLoadedCorrectly(
             $client,
             '/en/search',
             [
                 'Searchterm',
-                'type="submit" name="submit" value="Search" />',
+                'type="submit" name="submit" value="Search"/>',
             ]
         );
     }
 
-    public function testNotSubmittedSearchIndexDoesNotContainData(Client $client): void
+    public function testNotSubmittedSearchIndexDoesNotContainData(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -37,7 +37,7 @@ class IndexTest extends FrontendWebTestCase
         self::assertResponseDoesNotHaveContent($client->getResponse(), LoadBlogPosts::BLOG_POST_TITLE);
     }
 
-    public function testSubmittedSearchValidatesData(Client $client): void
+    public function testSubmittedSearchValidatesData(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -59,7 +59,7 @@ class IndexTest extends FrontendWebTestCase
         self::assertResponseHasContent($client->getResponse(), 'The searchterm is required.');
     }
 
-    public function testSubmittedSearchIndexContainsData(Client $client): void
+    public function testSubmittedSearchIndexContainsData(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,

@@ -5,7 +5,7 @@ namespace Backend\Modules\Tags\Tests\Action;
 use Backend\Modules\Tags\DataFixtures\LoadTagsModulesTags;
 use Backend\Modules\Tags\DataFixtures\LoadTagsTags;
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class MassActionTest extends BackendWebTestCase
 {
@@ -22,7 +22,7 @@ class MassActionTest extends BackendWebTestCase
         );
     }
 
-    public function testAuthenticationIsNeeded(Client $client): void
+    public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
         self::assertAuthenticationIsNeeded(
             $client,
@@ -30,7 +30,7 @@ class MassActionTest extends BackendWebTestCase
         );
     }
 
-    public function testActionIsRequired(Client $client): void
+    public function testActionIsRequired(KernelBrowser $client): void
     {
         $this->login($client);
 
@@ -39,7 +39,7 @@ class MassActionTest extends BackendWebTestCase
         self::assertCurrentUrlEndsWith($client, '&error=no-action-selected');
     }
 
-    public function testIdsAreRequired(Client $client): void
+    public function testIdsAreRequired(KernelBrowser $client): void
     {
         $this->login($client);
 
@@ -51,7 +51,7 @@ class MassActionTest extends BackendWebTestCase
         self::assertCurrentUrlEndsWith($client, '&error=no-selection');
     }
 
-    public function testDeletingOneTag(Client $client): void
+    public function testDeletingOneTag(KernelBrowser $client): void
     {
         $this->login($client);
 
@@ -72,7 +72,7 @@ class MassActionTest extends BackendWebTestCase
         );
     }
 
-    public function testDeletingAllTags(Client $client): void
+    public function testDeletingAllTags(KernelBrowser $client): void
     {
         $this->login($client);
 

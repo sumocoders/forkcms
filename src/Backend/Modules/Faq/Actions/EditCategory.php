@@ -78,7 +78,7 @@ class EditCategory extends BackendBaseActionEdit
     {
         if ($this->form->isSubmitted()) {
             $this->meta->setUrlCallback(
-                'Backend\Modules\Faq\Engine\Model',
+                \Backend\Modules\Faq\Engine\Model::class,
                 'getUrlForCategory',
                 [$this->record['id']]
             );
@@ -104,7 +104,7 @@ class EditCategory extends BackendBaseActionEdit
                 // everything is saved, so redirect to the overview
                 $this->redirect(
                     BackendModel::createUrlForAction('Categories') . '&report=edited-category&var=' .
-                    rawurlencode($item['title']) . '&highlight=row-' . $item['id']
+                    rawurlencode((string) $item['title']) . '&highlight=row-' . $item['id']
                 );
             }
         }

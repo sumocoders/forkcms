@@ -6,15 +6,11 @@ use Common\Core\Twig\BaseTwigTemplate;
 
 final class AssetCollection
 {
-    /** @var Minifier */
-    private $minifier;
-
     /** @var Asset[] */
     private $assets = [];
 
-    public function __construct(Minifier $minifier)
+    public function __construct(private readonly Minifier $minifier)
     {
-        $this->minifier = $minifier;
     }
 
     public function add(Asset $asset, bool $minify = true): void
@@ -49,9 +45,7 @@ final class AssetCollection
     {
         usort(
             $this->assets,
-            function (Asset $asset1, Asset $asset2) {
-                return $asset1->compare($asset2);
-            }
+            fn(Asset $asset1, Asset $asset2) => $asset1->compare($asset2)
         );
     }
 

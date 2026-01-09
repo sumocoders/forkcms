@@ -15,22 +15,8 @@ use Swift_Mime_SimpleMessage;
  */
 final class FormBuilderSubmittedMailSubscriber
 {
-    /**
-     * @var ModulesSettings
-     */
-    protected $modulesSettings;
-
-    /**
-     * @var Swift_Mailer
-     */
-    protected $mailer;
-
-    public function __construct(
-        Swift_Mailer $mailer,
-        ModulesSettings $modulesSettings
-    ) {
-        $this->mailer = $mailer;
-        $this->modulesSettings = $modulesSettings;
+    public function __construct(protected Swift_Mailer $mailer, protected ModulesSettings $modulesSettings)
+    {
     }
 
     public function onFormSubmitted(FormBuilderSubmittedEvent $event): void
@@ -78,7 +64,7 @@ final class FormBuilderSubmittedMailSubscriber
     private function getMessage(
         array $form,
         array $fieldData,
-        string $subject = null,
+        ?string $subject = null,
         $to = null,
         bool $isConfirmationMail = false
     ) : Swift_Mime_SimpleMessage {
@@ -97,7 +83,7 @@ final class FormBuilderSubmittedMailSubscriber
                     'name' => $form['name'],
                     'fields' => array_map(
                         function (array $field) : array {
-                            $field['value'] = html_entity_decode($field['value']);
+                            $field['value'] = html_entity_decode((string) $field['value']);
 
                             return $field;
                         },
@@ -107,7 +93,7 @@ final class FormBuilderSubmittedMailSubscriber
                 ],
                 true
             )
-            ->setTo(($to === null) ? $form['email'] : $to)
+            ->setTo($to ?? $form['email'])
             ->setFrom([$from['email'] => $from['name']])
         ;
 

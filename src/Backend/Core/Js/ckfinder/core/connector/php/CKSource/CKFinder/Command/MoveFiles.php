@@ -17,7 +17,6 @@ namespace CKSource\CKFinder\Command;
 use CKSource\CKFinder\Acl\Acl;
 use CKSource\CKFinder\Acl\Permission;
 use CKSource\CKFinder\Error;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Event\MoveFileEvent;
 use CKSource\CKFinder\Exception\InvalidRequestException;
 use CKSource\CKFinder\Exception\UnauthorizedException;
@@ -30,11 +29,11 @@ class MoveFiles extends CommandAbstract
 {
     protected $requestMethod = Request::METHOD_POST;
 
-    protected $requires = array(
+    protected $requires = [
         Permission::FILE_RENAME,
         Permission::FILE_CREATE,
         Permission::FILE_DELETE
-    );
+    ];
 
     public function execute(Request $request, ResourceTypeFactory $resourceTypeFactory, Acl $acl, EventDispatcher $dispatcher)
     {
@@ -42,7 +41,7 @@ class MoveFiles extends CommandAbstract
 
         $moved = 0;
 
-        $errors = array();
+        $errors = [];
 
         // Initial validation
         foreach ($movedFiles as $arr) {
@@ -68,14 +67,14 @@ class MoveFiles extends CommandAbstract
 
             $movedFile = new MovedFile($name, $folder, $resourceType, $this->app);
 
-            $options = isset($arr['options']) ? $arr['options'] : '';
+            $options = $arr['options'] ?? '';
 
             $movedFile->setCopyOptions($options);
 
 
             if ($movedFile->isValid()) {
                 $moveFileEvent = new MoveFileEvent($this->app, $movedFile);
-                $dispatcher->dispatch(CKFinderEvent::MOVE_FILE, $moveFileEvent);
+                $dispatcher->dispatch($moveFileEvent);
 
                 if (!$moveFileEvent->isPropagationStopped()) {
                     if ($movedFile->doMove()) {
@@ -87,13 +86,13 @@ class MoveFiles extends CommandAbstract
             $errors = array_merge($errors, $movedFile->getErrors());
         }
 
-        $data = array('moved' => $moved);
+        $data = ['moved' => $moved];
 
         if (!empty($errors)) {
-            $data['error'] = array(
+            $data['error'] = [
                 'number' => Error::MOVE_FAILED,
                 'errors' => $errors
-            );
+            ];
         }
 
         return $data;

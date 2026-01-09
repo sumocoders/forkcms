@@ -36,19 +36,19 @@ class FileUpload extends CommandAbstract
 {
     protected $requestMethod = Request::METHOD_POST;
 
-    protected $requires = array(Permission::FILE_CREATE);
+    protected $requires = [Permission::FILE_CREATE];
 
     public function execute(Request $request, WorkingFolder $workingFolder, EventDispatcher $dispatcher, Config $config, CacheManager $cache, ThumbnailRepository $thumbsRepository)
     {
         // #111 IE9 download JSON issue workaround
         if ($request->get('asPlainText')) {
-            $uploadEvents = array(
+            $uploadEvents = [
                 CKFinderEvent::AFTER_COMMAND_FILE_UPLOAD,
                 CKFinderEvent::AFTER_COMMAND_QUICK_UPLOAD
-            );
+            ];
 
             foreach ($uploadEvents as $eventName) {
-                $dispatcher->addListener($eventName, function (AfterCommandEvent $event) {
+                $dispatcher->addListener($eventName, function (AfterCommandEvent $event): void {
                     $response = $event->getResponse();
                     $response->headers->set('Content-Type', 'text/plain');
                 });
@@ -155,17 +155,17 @@ class FileUpload extends CommandAbstract
             }
         }
 
-        $responseData = array(
+        $responseData = [
             'fileName' => $fileName,
             'uploaded' => $uploaded
-        );
+        ];
 
         if ($warningErrorCode) {
-            $errorMessage = $this->app['translator']->translateErrorMessage($warningErrorCode, array('name' => $fileName));
-            $responseData['error'] = array(
+            $errorMessage = $this->app['translator']->translateErrorMessage($warningErrorCode, ['name' => $fileName]);
+            $responseData['error'] = [
                 'number'  => $warningErrorCode,
                 'message' => $errorMessage
-            );
+            ];
         }
 
         return $responseData;

@@ -5,35 +5,15 @@ namespace Common\Core\Header;
 use Common\Core\Model;
 use MatthiasMullie\Minify;
 
-final class Minifier
+final readonly class Minifier
 {
-    /** @var Minify\Minify */
-    private $minifyClass;
-
-    /** @var string */
-    private $basePath;
-
-    /** @var string */
-    private $cacheFileExtension;
-
-    /** @var string */
-    private $baseCacheUrl;
-
-    /** @var string */
-    private $baseCachePath;
-
     public function __construct(
-        Minify\Minify $minifyClass,
-        string $basePath,
-        string $cacheFileExtension,
-        string $baseCacheUrl,
-        string $baseCachePath
+        private Minify\Minify $minifyClass,
+        private string $basePath,
+        private string $cacheFileExtension,
+        private string $baseCacheUrl,
+        private string $baseCachePath,
     ) {
-        $this->minifyClass = $minifyClass;
-        $this->basePath = $basePath;
-        $this->cacheFileExtension = $cacheFileExtension;
-        $this->baseCacheUrl = $baseCacheUrl;
-        $this->baseCachePath = $baseCachePath;
     }
 
     public static function css(string $basePath, string $baseCacheUrl, string $baseCachePath): self

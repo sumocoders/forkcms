@@ -6,9 +6,6 @@ use Ramsey\Uuid\Uuid;
 
 class MediaGroupDataTransferObject
 {
-    /** @var MediaGroup */
-    private $mediaGroupEntity;
-
     /**
      * You can give an id
      *
@@ -25,10 +22,8 @@ class MediaGroupDataTransferObject
     /** @var bool */
     public $removeAllPreviousConnectedMediaItems = true;
 
-    public function __construct(MediaGroup $mediaGroup = null)
+    public function __construct(private readonly ?MediaGroup $mediaGroupEntity = null)
     {
-        $this->mediaGroupEntity = $mediaGroup;
-
         if ($this->hasExistingMediaGroup()) {
             $this->id = $this->mediaGroupEntity->getId();
             $this->type = $this->mediaGroupEntity->getType();

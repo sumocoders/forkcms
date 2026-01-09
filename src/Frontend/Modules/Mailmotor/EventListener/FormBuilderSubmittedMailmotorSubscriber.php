@@ -3,8 +3,6 @@
 namespace Frontend\Modules\Mailmotor\EventListener;
 
 use Frontend\Core\Language\Locale;
-use MailMotor\Bundle\MailMotorBundle\Factory\MailMotorFactory;
-use MailMotor\Bundle\MailMotorBundle\Gateway\SubscriberGateway;
 use Common\ModulesSettings;
 use Frontend\Modules\FormBuilder\Event\FormBuilderSubmittedEvent;
 use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
@@ -12,22 +10,12 @@ use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
 /**
  * A Formbuilder submitted event subscriber that will subscribe the email when the checkbox is checked
  */
-final class FormBuilderSubmittedMailmotorSubscriber
+final readonly class FormBuilderSubmittedMailmotorSubscriber
 {
-    /**
-     * @var ModulesSettings
-     */
-    private $modulesSettings;
-
-    /**
-     * @var Subscriber
-     */
-    private $mailmotorSubscriber;
-
-    public function __construct(ModulesSettings $modulesSettings, Subscriber $mailmotorSubscriber)
-    {
-        $this->modulesSettings = $modulesSettings;
-        $this->mailmotorSubscriber = $mailmotorSubscriber;
+    public function __construct(
+        private ModulesSettings $modulesSettings,
+        private Subscriber $mailmotorSubscriber,
+    ) {
     }
 
     public function onFormSubmitted(FormBuilderSubmittedEvent $event): void
@@ -59,21 +47,15 @@ final class FormBuilderSubmittedMailmotorSubscriber
         $fieldIds = array_keys(
             array_filter(
                 $formFields,
-                function (array $formField): bool {
-                    return $formField['settings']['use_to_subscribe_with_mailmotor'] ?? false;
-                }
+                fn(array $formField): bool => $formField['settings']['use_to_subscribe_with_mailmotor'] ?? false
             )
         );
 
         return array_map(
-            function (array $fieldData) {
-                return unserialize($fieldData['value'], ['allowed_classes' => false]);
-            },
+            fn(array $fieldData) => unserialize($fieldData['value'], ['allowed_classes' => false]),
             array_filter(
                 $formData,
-                function ($key) use ($fieldIds) {
-                    return in_array($key, $fieldIds, true);
-                },
+                fn($key) => in_array($key, $fieldIds, true),
                 ARRAY_FILTER_USE_KEY
             )
         );

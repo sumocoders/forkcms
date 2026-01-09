@@ -58,7 +58,7 @@ class Breadcrumb extends KernelLoader
         krsort($breadcrumbs);
 
         array_map(
-            function (array $breadcrumb) {
+            function (array $breadcrumb): void {
                 $this->addElement($breadcrumb['title'], $breadcrumb['url']);
             },
             $breadcrumbs
@@ -104,7 +104,7 @@ class Breadcrumb extends KernelLoader
      * @param string $title The label that will be used in the breadcrumb.
      * @param string $url The URL for this item.
      */
-    public function addElement(string $title, string $url = null): void
+    public function addElement(string $title, ?string $url = null): void
     {
         $this->items[] = ['title' => $title, 'url' => $url];
     }
@@ -115,7 +115,7 @@ class Breadcrumb extends KernelLoader
      * @param int|null $key If the key is provided it will be removed from the array,
      *                 otherwise the whole array will be cleared.
      */
-    public function clear(int $key = null): void
+    public function clear(?int $key = null): void
     {
         // clear all
         if ($key === null) {
