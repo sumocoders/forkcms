@@ -42,7 +42,7 @@ class Model
         );
     }
 
-    public static function existsSynonymByTerm(string $searchTerm, int $excludedId = null): bool
+    public static function existsSynonymByTerm(string $searchTerm, ?int $excludedId = null): bool
     {
         if ($excludedId === null) {
             return (bool) BackendModel::getContainer()->get('database')->getVar(
@@ -134,7 +134,7 @@ class Model
      * @param int $otherId The id of the record.
      * @param string $language The language to use.
      */
-    public static function removeIndex(string $module, int $otherId, string $language = null): void
+    public static function removeIndex(string $module, int $otherId, ?string $language = null): void
     {
         if (!BackendModel::isModuleInstalled('Search')) {
             return;
@@ -157,7 +157,7 @@ class Model
      * @param array $fields A key/value pair of fields to index.
      * @param string $language The frontend language for this entry.
      */
-    public static function saveIndex(string $module, int $otherId, array $fields, string $language = null): void
+    public static function saveIndex(string $module, int $otherId, array $fields, ?string $language = null): void
     {
         if (!BackendModel::isModuleInstalled('Search')) {
             return;

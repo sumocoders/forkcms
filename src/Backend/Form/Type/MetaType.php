@@ -159,7 +159,7 @@ class MetaType extends AbstractType
                 SEOIndex::fromString(...),
                 SEOIndex::POSSIBLE_VALUES
             ),
-            'choice_value' => fn(SEOIndex $SEOIndex = null) => (string) $SEOIndex,
+            'choice_value' => fn(?SEOIndex $SEOIndex = null) => (string) $SEOIndex,
             'choice_label' => function ($SEOIndex) {
                 if ($SEOIndex->isNone()) {
                     return 'lbl.' . ucfirst($SEOIndex);
@@ -183,7 +183,7 @@ class MetaType extends AbstractType
                 SEOFollow::fromString(...),
                 SEOFollow::POSSIBLE_VALUES
             ),
-            'choice_value' => fn(SEOFollow $SEOFollow = null) => (string) $SEOFollow,
+            'choice_value' => fn(?SEOFollow $SEOFollow = null) => (string) $SEOFollow,
             'choice_label' => function ($SEOFollow) {
                 if ($SEOFollow->isNone()) {
                     return 'lbl.' . ucfirst($SEOFollow);

@@ -47,7 +47,7 @@ class Model
         );
     }
 
-    public static function existsByEmail(string $email, int $excludedId = null): bool
+    public static function existsByEmail(string $email, ?int $excludedId = null): bool
     {
         $where = 'p.email = :email';
         $parameters = ['email' => $email];
@@ -65,7 +65,7 @@ class Model
         );
     }
 
-    public static function existsDisplayName(string $displayName, int $excludedId = null): bool
+    public static function existsDisplayName(string $displayName, ?int $excludedId = null): bool
     {
         $where = 'p.display_name = :displayName';
         $parameters = ['displayName' => $displayName];
@@ -95,7 +95,7 @@ class Model
      *
      * @return string $avatar The absolute path to the avatar.
      */
-    public static function getAvatar(int $id, string $email = null, string $size = '240x240'): string
+    public static function getAvatar(int $id, ?string $email = null, string $size = '240x240'): string
     {
         // return avatar from cache
         if (isset(self::$avatars[$id])) {
@@ -298,7 +298,7 @@ class Model
      *
      * @return string
      */
-    public static function getUrl(string $displayName, int $excludedId = null): string
+    public static function getUrl(string $displayName, ?int $excludedId = null): string
     {
         // decode special chars
         $displayName = \SpoonFilter::htmlspecialcharsDecode($displayName);

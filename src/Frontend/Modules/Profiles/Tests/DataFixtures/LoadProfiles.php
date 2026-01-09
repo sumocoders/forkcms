@@ -12,6 +12,6 @@ class LoadProfiles
 {
     public function load(SpoonDatabase $database): void
     {
-        (new LoadProfilesProfile())->load($database);
+        new LoadProfilesProfile()->load($database);
     }
 }

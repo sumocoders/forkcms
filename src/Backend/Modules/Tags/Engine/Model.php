@@ -64,7 +64,7 @@ class Model
         );
     }
 
-    public static function getAll(string $language = null): array
+    public static function getAll(?string $language = null): array
     {
         return (array) BackendModel::getContainer()->get('database')->getRecords(
             'SELECT i.tag AS name
@@ -74,7 +74,7 @@ class Model
         );
     }
 
-    public static function getTagNames(string $language = null): array
+    public static function getTagNames(?string $language = null): array
     {
         return (array) BackendModel::getContainer()->get('database')->getColumn(
             'SELECT tag
@@ -92,7 +92,7 @@ class Model
      *
      * @return array
      */
-    public static function getStartsWith(string $term, string $language = null): array
+    public static function getStartsWith(string $term, ?string $language = null): array
     {
         return (array) BackendModel::getContainer()->get('database')->getRecords(
             'SELECT i.tag AS name, i.tag AS value
@@ -113,7 +113,7 @@ class Model
      *
      * @return mixed
      */
-    public static function getTags(string $module, int $otherId, string $type = 'string', string $language = null)
+    public static function getTags(string $module, int $otherId, string $type = 'string', ?string $language = null)
     {
         $type = (string) \SpoonFilter::getValue($type, ['string', 'array'], 'string');
 
@@ -144,7 +144,7 @@ class Model
      *
      * @return string
      */
-    public static function getUrl(string $url, int $id = null): string
+    public static function getUrl(string $url, ?int $id = null): string
     {
         $url = CommonUri::getUrl($url);
         $language = BL::getWorkingLanguage();
@@ -204,7 +204,7 @@ class Model
      *
      * @return int
      */
-    public static function insert(string $tag, string $language = null): int
+    public static function insert(string $tag, ?string $language = null): int
     {
         return (int) BackendModel::getContainer()->get('database')->insert(
             'tags',
@@ -226,7 +226,7 @@ class Model
      * @param string|null $language The language wherein the tags will be inserted,
      *                         if not provided the workinglanguage will be used.
      */
-    public static function saveTags(int $otherId, $tags, string $module, string $language = null)
+    public static function saveTags(int $otherId, $tags, string $module, ?string $language = null)
     {
         $language ??= BL::getWorkingLanguage();
 

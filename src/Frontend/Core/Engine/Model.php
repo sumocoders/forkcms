@@ -242,9 +242,9 @@ class Model extends \Common\Core\Model
     public static function isSpam(
         string $content,
         string $permaLink,
-        string $author = null,
-        string $email = null,
-        string $url = null,
+        ?string $author = null,
+        ?string $email = null,
+        ?string $url = null,
         string $type = 'comment'
     ) {
         try {

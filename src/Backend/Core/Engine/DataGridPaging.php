@@ -40,14 +40,14 @@ final class DataGridPaging implements iSpoonDatagridPaging
         $debug = true,
         $compileDirectory = null
     ) {
-        return (new self(
+        return new self(
             $baseUrl,
             $offset,
             $orderByColumn,
             $sortingDirection,
             $totalNumberOfResults,
             $resultsPerPage
-        ))->getHtml($debug, $compileDirectory);
+        )->getHtml($debug, $compileDirectory);
     }
 
     private function __construct(
@@ -68,7 +68,7 @@ final class DataGridPaging implements iSpoonDatagridPaging
      *
      * @return string
      */
-    public function getHtml($debug = true, string $compileDirectory = null)
+    public function getHtml($debug = true, ?string $compileDirectory = null)
     {
         // if there is just one page we don't need paging
         if ($this->totalNumberOfResults < $this->resultsPerPage) {

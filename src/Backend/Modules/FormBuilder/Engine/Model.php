@@ -226,7 +226,7 @@ class Model
      *
      * @return bool
      */
-    public static function existsField(int $id, int $formId = null): bool
+    public static function existsField(int $id, ?int $formId = null): bool
     {
         // exists
         if ($formId === null) {
@@ -257,7 +257,7 @@ class Model
      *
      * @return bool
      */
-    public static function existsIdentifier(string $identifier, int $ignoreId = null): bool
+    public static function existsIdentifier(string $identifier, ?int $ignoreId = null): bool
     {
         // exists
         if ($ignoreId === null) {
@@ -369,7 +369,7 @@ class Model
      *
      * @return mixed
      */
-    public static function getErrors(string $type = null)
+    public static function getErrors(?string $type = null)
     {
         $errors = [];
         $errors['required'] = FL::getError('FieldIsRequired');

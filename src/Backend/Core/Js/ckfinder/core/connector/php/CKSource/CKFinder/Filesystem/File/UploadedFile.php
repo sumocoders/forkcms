@@ -138,7 +138,7 @@ class UploadedFile extends File
     /**
      * @copydoc File::autorename()
      */
-    public function autorename(Backend $backend = null, $path = '')
+    public function autorename(?Backend $backend = null, $path = '')
     {
         return parent::autorename($this->workingFolder->getBackend(), $this->workingFolder->getPath());
     }

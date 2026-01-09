@@ -12,7 +12,7 @@ final class Asset implements \Stringable
     /** @var DateTimeImmutable */
     private $createdOn;
 
-    public function __construct(private string $file, private bool $addTimestamp = true, Priority $priority = null)
+    public function __construct(private string $file, private bool $addTimestamp = true, ?Priority $priority = null)
     {
         $this->priority = $priority ?? Priority::standard();
         $this->createdOn = new DateTimeImmutable();

@@ -127,7 +127,7 @@ class CopiedFile extends ExistingFile
     /**
      * @copydoc File::autorename()
      */
-    public function autorename(Backend $backend = null, $path = '')
+    public function autorename(?Backend $backend = null, $path = '')
     {
         return parent::autorename($this->targetFolder->getBackend(), $this->targetFolder->getPath());
     }

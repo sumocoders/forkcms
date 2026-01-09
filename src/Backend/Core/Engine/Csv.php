@@ -16,20 +16,19 @@ class Csv extends \SpoonFileCSV
     /**
      * Output a CSV-file as a download
      *
-     * @deprecated remove this in Fork 6, just use ForkCMS\Utility\Csv\Writer->output()
      *
      * @param string $filename       The name of the file.
      * @param array  $array          The array to convert.
      * @param array  $columns        The column names you want to use.
      * @param array  $excludeColumns The columns you want to exclude.
-     *
      * @throws RedirectException
      */
+    #[\Deprecated(message: 'remove this in Fork 6, just use ForkCMS\Utility\Csv\Writer->output()')]
     public static function outputCSV(
         string $filename,
         array $array,
-        array $columns = null,
-        array $excludeColumns = null
+        ?array $columns = null,
+        ?array $excludeColumns = null
     ) {
         $headers = $columns;
         $data = $array;
@@ -81,9 +80,7 @@ class Csv extends \SpoonFileCSV
         );
     }
 
-    /**
-     * @deprecated remove this in Fork 6, you should not rely on this.
-     */
+    #[\Deprecated(message: 'remove this in Fork 6, you should not rely on this.')]
     private static function getLineEnding(): string
     {
         $lineEnding = Authentication::getUser()->getSetting('csv_line_ending');

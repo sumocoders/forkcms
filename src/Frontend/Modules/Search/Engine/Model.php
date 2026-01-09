@@ -201,7 +201,7 @@ class Model
      *
      * @return array
      */
-    public static function getStartsWith(string $term, string $language = null, int $limit = 10): array
+    public static function getStartsWith(string $term, ?string $language = null, int $limit = 10): array
     {
         $parameters = ['term' => $term . '%', 'limit' => $limit];
         if (!empty($language)) {

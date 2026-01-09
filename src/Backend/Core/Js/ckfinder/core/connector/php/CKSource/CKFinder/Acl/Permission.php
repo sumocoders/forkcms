@@ -34,9 +34,7 @@ class Permission
     const IMAGE_RESIZE        = 256;
     const IMAGE_RESIZE_CUSTOM = 512;
 
-    /**
-     * @deprecated Use FILE_CREATE instead.
-     */
+    #[\Deprecated(message: 'Use FILE_CREATE instead.')]
     const FILE_UPLOAD         = 32;
 
     /**

@@ -81,7 +81,7 @@ abstract class AbstractFile implements \Stringable
      */
     abstract protected function getUploadDir(): string;
 
-    public function setFile(UploadedFile $file = null): self
+    public function setFile(?UploadedFile $file = null): self
     {
         if ($file === null) {
             return $this;
@@ -107,7 +107,7 @@ abstract class AbstractFile implements \Stringable
      *
      * @return self
      */
-    public static function fromUploadedFile(UploadedFile $uploadedFile = null, string $namePrefix = null): self
+    public static function fromUploadedFile(?UploadedFile $uploadedFile = null, ?string $namePrefix = null): self
     {
         $file = new static(null);
         $file->setFile($uploadedFile);

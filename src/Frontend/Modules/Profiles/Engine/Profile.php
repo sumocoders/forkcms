@@ -67,7 +67,7 @@ class Profile
      */
     private $url;
 
-    public function __construct(int $profileId = null)
+    public function __construct(?int $profileId = null)
     {
         if ($profileId !== null) {
             $this->loadProfile($profileId);

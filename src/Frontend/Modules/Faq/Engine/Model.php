@@ -36,7 +36,7 @@ class Model implements FrontendTagsInterface
      *
      * @return array
      */
-    public static function getAllForCategory(int $categoryId, int $limit = null, $excludeIds = null): array
+    public static function getAllForCategory(int $categoryId, ?int $limit = null, $excludeIds = null): array
     {
         $excludeIds = empty($excludeIds) ? [0] : (array) $excludeIds;
 
@@ -301,7 +301,7 @@ class Model implements FrontendTagsInterface
      * @param bool $useful
      * @param bool|null $previousFeedback
      */
-    public static function updateFeedback(int $id, bool $useful, bool $previousFeedback = null): void
+    public static function updateFeedback(int $id, bool $useful, ?bool $previousFeedback = null): void
     {
         // feedback hasn't changed so don't update the counters
         if ($previousFeedback !== null && $useful == $previousFeedback) {

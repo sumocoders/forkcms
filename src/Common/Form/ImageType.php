@@ -70,7 +70,7 @@ class ImageType extends AbstractType
             )
             ->addModelTransformer(
                 new CallbackTransformer(
-                    fn(AbstractImage $image = null) => $image,
+                    fn(?AbstractImage $image = null) => $image,
                     function ($image) use ($options) {
                         if (!$image instanceof AbstractImage && !$image instanceof stdClass) {
                             throw new TransformationFailedException('Invalid class for the image');

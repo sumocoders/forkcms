@@ -42,7 +42,7 @@ class Model
         );
     }
 
-    public static function get(string $url, Locale $locale = null): array
+    public static function get(string $url, ?Locale $locale = null): array
     {
         return (array) FrontendModel::getContainer()->get('database')->getRecord(
             'SELECT id, language, tag AS name, number, url
@@ -87,7 +87,7 @@ class Model
      *
      * @return array
      */
-    public static function getForItem(string $module, int $otherId, Locale $locale = null): array
+    public static function getForItem(string $module, int $otherId, ?Locale $locale = null): array
     {
         $return = [];
 
@@ -130,7 +130,7 @@ class Model
      *
      * @return array
      */
-    public static function getForMultipleItems(string $module, array $otherIds, Locale $locale = null): array
+    public static function getForMultipleItems(string $module, array $otherIds, ?Locale $locale = null): array
     {
         $database = FrontendModel::getContainer()->get('database');
 
@@ -223,7 +223,7 @@ class Model
         );
     }
 
-    public static function getAllForTag(string $tag, Locale $locale = null): array
+    public static function getAllForTag(string $tag, ?Locale $locale = null): array
     {
         return (array) FrontendModel::getContainer()->get('database')->getRecords(
             'SELECT mt.*

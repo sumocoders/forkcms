@@ -72,9 +72,9 @@ class MediaItemMassAction extends BackendBaseAction
     }
 
     private function getBackLink(
-        MediaFolder $mediaFolder = null,
+        ?MediaFolder $mediaFolder = null,
         array $parameters = [],
-        Type $selectedType = null
+        ?Type $selectedType = null
     ): string {
         if ($mediaFolder instanceof MediaFolder) {
             $parameters['folder'] = $mediaFolder->getId();

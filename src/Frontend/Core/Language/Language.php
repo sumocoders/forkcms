@@ -309,7 +309,7 @@ class Language
      *
      * @throws Exception
      */
-    public static function setLocale(string $language = null, bool $force = false): void
+    public static function setLocale(?string $language = null, bool $force = false): void
     {
         if ($language === null) {
             $language = LANGUAGE;

@@ -56,7 +56,7 @@ class MediaItemUpload extends BackendBaseAJAXAction
     /** @var string */
     private $uploadDirectory;
 
-    public function setKernel(KernelInterface $kernel = null): void
+    public function setKernel(?KernelInterface $kernel = null): void
     {
         parent::setKernel($kernel);
 

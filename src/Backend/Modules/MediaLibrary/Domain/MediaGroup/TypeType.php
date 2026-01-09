@@ -20,7 +20,7 @@ class TypeType extends AbstractType
                     'choices' => $this->getTypeChoices(),
                     'choice_label' => fn(Type $type) => Language::lbl('MediaLibraryGroupType' . \SpoonFilter::toCamelCase($type, '-'), 'Core'),
                     'choice_translation_domain' => false,
-                    'choice_value' => fn(Type $type = null) => (string) $type,
+                    'choice_value' => fn(?Type $type = null) => (string) $type,
                     'data' => Type::fromString('image'),
                 ]
             );

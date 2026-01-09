@@ -221,9 +221,7 @@ class TwigTemplate extends BaseTwigTemplate
         }
     }
 
-    /**
-     * @deprecated This is a very inaccurate way since it doesn't include the goduser permissions and the always allowed settings into account
-     */
+    #[\Deprecated(message: "This is a very inaccurate way since it doesn't include the goduser permissions and the always allowed settings into account")]
     private function parseAuthenticationSettingsForTheAuthenticatedUser(): void
     {
         // loop actions and assign to template

@@ -22,8 +22,8 @@ class Form extends \Common\Core\Form
      * @param bool   $useGlobalError Should we automagically show a global error?
      */
     public function __construct(
-        string $name = null,
-        string $action = null,
+        ?string $name = null,
+        ?string $action = null,
         ?string $method = 'post',
         bool $useToken = true,
         private readonly bool $useGlobalError = true,

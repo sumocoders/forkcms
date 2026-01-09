@@ -32,7 +32,7 @@ class BaseModel
         return self::$container->has($serviceId);
     }
 
-    public static function setContainer(ContainerInterface $container = null): void
+    public static function setContainer(?ContainerInterface $container = null): void
     {
         self::$container = $container;
     }

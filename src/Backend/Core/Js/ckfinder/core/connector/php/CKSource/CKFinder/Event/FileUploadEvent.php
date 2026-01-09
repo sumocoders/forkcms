@@ -44,9 +44,8 @@ class FileUploadEvent extends CKFinderEvent
      * Returns the uploaded file object.
      *
      * @return UploadedFile
-     *
-     * @deprecated Please use getFile() instead.
      */
+    #[\Deprecated(message: 'Please use getFile() instead.')]
     public function getUploadedFile()
     {
         return $this->uploadedFile;

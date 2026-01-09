@@ -34,7 +34,7 @@ class PageContextDataCollector extends DataCollector
         $this->sitePath = $container->getParameter('site.path_www');
     }
 
-    public function collect(Request $request, Response $response, \Throwable $exception = null): void
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
         if ($this->page === null) {
             return;

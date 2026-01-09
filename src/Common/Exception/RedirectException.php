@@ -15,7 +15,7 @@ class RedirectException extends Exception
      */
     protected $response;
 
-    public function __construct(string $message, Response $response, Exception $previous = null)
+    public function __construct(string $message, Response $response, ?Exception $previous = null)
     {
         $this->response = $response;
         $code = $response->getStatusCode();

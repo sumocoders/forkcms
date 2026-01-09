@@ -78,7 +78,7 @@ class PrepareForReinstallCommand extends Command
 
     private function clearCache(OutputInterface $output, SymfonyStyle $io): void
     {
-        $command = (new Application($this->kernel))->find('forkcms:cache:clear');
+        $command = new Application($this->kernel)->find('forkcms:cache:clear');
         $command->run(
             new ArrayInput(
                 [

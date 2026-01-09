@@ -123,7 +123,7 @@ abstract class File
      *
      * @return bool `true` if file was renamed.
      */
-    public function autorename(Backend $backend = null, $path = '')
+    public function autorename(?Backend $backend = null, $path = '')
     {
         $filePath = Path::combine($path, $this->fileName);
 

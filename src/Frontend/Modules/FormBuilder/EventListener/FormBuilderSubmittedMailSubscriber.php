@@ -64,7 +64,7 @@ final class FormBuilderSubmittedMailSubscriber
     private function getMessage(
         array $form,
         array $fieldData,
-        string $subject = null,
+        ?string $subject = null,
         $to = null,
         bool $isConfirmationMail = false
     ) : Swift_Mime_SimpleMessage {

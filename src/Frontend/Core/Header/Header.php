@@ -156,7 +156,7 @@ class Header extends KernelLoader
         string $file,
         bool $minify = true,
         bool $addTimestamp = true,
-        Priority $priority = null
+        ?Priority $priority = null
     ): void {
         $isExternalUrl = $this->get('fork.validator.url')->isExternalUrl($file);
         $file = $isExternalUrl ? $file : Theme::getPath($file);
@@ -177,7 +177,7 @@ class Header extends KernelLoader
         string $file,
         bool $minify = true,
         bool $addTimestamp = true,
-        Priority $priority = null
+        ?Priority $priority = null
     ): void {
         $isExternalUrl = $this->get('fork.validator.url')->isExternalUrl($file);
         $file = $isExternalUrl ? $file : Theme::getPath($file);
@@ -227,7 +227,7 @@ class Header extends KernelLoader
         array $attributes,
         bool $overwrite = false,
         array $uniqueAttributeKeys = ['name'],
-        string $uniqueKeySuffix = null
+        ?string $uniqueKeySuffix = null
     ): void {
         if (!isset($attributes['content']) || $attributes['content'] === '') {
             return;
@@ -474,7 +474,7 @@ class Header extends KernelLoader
         $this->canonical = $canonicalUrl;
     }
 
-    public function setMetaCustom(string $meta = null): void
+    public function setMetaCustom(?string $meta = null): void
     {
         $this->metaCustom = $meta;
     }
@@ -534,8 +534,8 @@ class Header extends KernelLoader
         string $description,
         string $imageUrl,
         string $cardType = 'summary',
-        string $siteHandle = null,
-        string $creatorHandle = null
+        ?string $siteHandle = null,
+        ?string $creatorHandle = null
     ): void {
         $this->meta->addMetaData(MetaData::forName('twitter:card', $cardType));
         $this->meta->addMetaData(MetaData::forName('twitter:title', $title));

@@ -40,6 +40,6 @@ class ContentBlockDataGrid extends DataGridDatabase
 
     public static function getHtml(Locale $locale): string
     {
-        return (new self($locale))->getContent();
+        return new self($locale)->getContent();
     }
 }

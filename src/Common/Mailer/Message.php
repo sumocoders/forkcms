@@ -13,10 +13,10 @@ use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 class Message extends \Swift_Message
 {
     public function __construct(
-        string $subject = null,
-        string $body = null,
-        string $contentType = null,
-        string $charset = null
+        ?string $subject = null,
+        ?string $body = null,
+        ?string $contentType = null,
+        ?string $charset = null
     ) {
         parent::__construct($subject, $body, $contentType, $charset);
     }
@@ -140,7 +140,7 @@ class Message extends \Swift_Message
      *
      * @return string
      */
-    private function getTemplateContent(string $template, array $variables = null): string
+    private function getTemplateContent(string $template, ?array $variables = null): string
     {
         // with the strpos we check if it is a frontend template, in that case we use the frontend template to prevent
         // errors that the template could not be found. This way we don't have a backwards compatibility break.

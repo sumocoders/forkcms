@@ -77,7 +77,7 @@ abstract class BaseTwigTemplate
      * @param array $variables This array with keys and values will be used to search and replace in the template file.
      * @param string|null $index
      */
-    public function assignArray(array $variables, string $index = null): void
+    public function assignArray(array $variables, ?string $index = null): void
     {
         // artifacts?
         if (!empty($index) && isset($variables['Core'])) {

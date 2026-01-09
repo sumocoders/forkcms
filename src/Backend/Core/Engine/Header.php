@@ -141,11 +141,11 @@ final class Header extends KernelLoader
      */
     public function addCSS(
         string $file,
-        string $module = null,
+        ?string $module = null,
         bool $overwritePath = false,
         bool $minify = true,
         bool $addTimestamp = true,
-        Priority $priority = null
+        ?Priority $priority = null
     ): void {
         $module ??= $this->url->getModule();
         $isExternalUrl = $this->get('fork.validator.url')->isExternalUrl($file);
@@ -178,11 +178,11 @@ final class Header extends KernelLoader
      */
     public function addJS(
         string $file,
-        string $module = null,
+        ?string $module = null,
         bool $minify = true,
         bool $overwritePath = false,
         bool $addTimestamp = true,
-        Priority $priority = null
+        ?Priority $priority = null
     ): void {
         $module ??= $this->url->getModule();
         $isExternalUrl = $this->get('fork.validator.url')->isExternalUrl($file);

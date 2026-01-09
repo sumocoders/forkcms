@@ -125,7 +125,7 @@ class Action extends KernelLoader
      *
      * @param string $template The template to use, if not provided it will be based on the action.
      */
-    public function display(string $template = null): void
+    public function display(?string $template = null): void
     {
         // parse header
         $this->header->parse();

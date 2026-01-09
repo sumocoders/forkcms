@@ -60,7 +60,7 @@ class MediaBrowser extends BackendBaseAction
         $this->header->addJS('MediaLibraryHelper.js', 'MediaLibrary');
     }
 
-    protected function parseDataGrids(MediaFolder $mediaFolder = null): void
+    protected function parseDataGrids(?MediaFolder $mediaFolder = null): void
     {
         $dataGrids = $this->getDataGrids($mediaFolder);
 
@@ -68,7 +68,7 @@ class MediaBrowser extends BackendBaseAction
         $this->template->assign('hasResults', $this->hasResults($dataGrids));
     }
 
-    protected function getDataGrids(MediaFolder $mediaFolder = null): array
+    protected function getDataGrids(?MediaFolder $mediaFolder = null): array
     {
         return array_map(
             function ($type) use ($mediaFolder) {

@@ -13,7 +13,7 @@ use SpoonFilter;
  */
 class MediaItemSelectionDataGrid extends DataGridDatabase
 {
-    public function __construct(Type $type, int $folderId = null)
+    public function __construct(Type $type, ?int $folderId = null)
     {
         parent::__construct(
             'SELECT i.url AS directUrl, i.id, i.storage_type, i.type, i.url, i.title, i.sharding_folder_name,
@@ -63,17 +63,17 @@ class MediaItemSelectionDataGrid extends DataGridDatabase
         return ['storage_type', 'sharding_folder_name', 'type', 'mime', 'url'];
     }
 
-    public static function getDataGrid(Type $type, int $folderId = null): DataGridDatabase
+    public static function getDataGrid(Type $type, ?int $folderId = null): DataGridDatabase
     {
         return new self($type, $folderId);
     }
 
-    public static function getHtml(Type $type, int $folderId = null): string
+    public static function getHtml(Type $type, ?int $folderId = null): string
     {
-        return (string) (new self($type, $folderId))->getContent();
+        return (string) new self($type, $folderId)->getContent();
     }
 
-    private function getParameters(Type $type, int $folderId = null): array
+    private function getParameters(Type $type, ?int $folderId = null): array
     {
         $parameters = [(string) $type];
 
@@ -84,7 +84,7 @@ class MediaItemSelectionDataGrid extends DataGridDatabase
         return $parameters;
     }
 
-    private function getWhere(int $folderId = null): string
+    private function getWhere(?int $folderId = null): string
     {
         return ($folderId !== null) ? ' AND i.mediaFolderId = ?' : '';
     }

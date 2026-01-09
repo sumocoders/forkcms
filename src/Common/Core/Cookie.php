@@ -35,11 +35,11 @@ final class Cookie
      */
     public function set(
         string $name,
-        string $value = null,
+        ?string $value = null,
         int $expire = 2592000,
         string $path = '/',
-        string $domain = null,
-        bool $secure = null,
+        ?string $domain = null,
+        ?bool $secure = null,
         bool $httpOnly = true,
         bool $raw = false,
         string $sameSite = SymfonyCookie::SAMESITE_LAX
@@ -67,8 +67,8 @@ final class Cookie
     public function delete(
         string $name,
         string $path = '/',
-        string $domain = null,
-        bool $secure = null,
+        ?string $domain = null,
+        ?bool $secure = null,
         bool $httpOnly = true
     ): void {
         // remove from the new cookies array
@@ -88,7 +88,7 @@ final class Cookie
         Model::getRequest()->cookies->remove($name);
     }
 
-    public function get(string $name, string $default = null): ?string
+    public function get(string $name, ?string $default = null): ?string
     {
         return Model::getRequest()->cookies->get($name, $default);
     }
@@ -110,7 +110,7 @@ final class Cookie
      *
      * @return bool
      */
-    private function normalizeSecure(bool $secure = null): bool
+    private function normalizeSecure(?bool $secure = null): bool
     {
         if ($secure !== null) {
             return $secure;
@@ -126,7 +126,7 @@ final class Cookie
      *
      * @return string|null
      */
-    private function normalizeDomain(string $domain = null): ?string
+    private function normalizeDomain(?string $domain = null): ?string
     {
         if ($domain !== null) {
             return $domain;
@@ -141,10 +141,10 @@ final class Cookie
 
     /**
      * Has the visitor allowed cookies?
-     * @deprecated remove this in Fork 6, the privacy consent dialog should be used
      *
      * @return bool
      */
+    #[\Deprecated(message: 'remove this in Fork 6, the privacy consent dialog should be used')]
     public function hasAllowedCookies(): bool
     {
         return $this->get('cookie_bar_agree', 'N') === 'Y';
@@ -152,10 +152,10 @@ final class Cookie
 
     /**
      * Has the cookiebar been hidden by the visitor
-     * @deprecated remove this in Fork 6, the privacy consent dialog should be used
      *
      * @return bool
      */
+    #[\Deprecated(message: 'remove this in Fork 6, the privacy consent dialog should be used')]
     public function hasHiddenCookieBar(): bool
     {
         return $this->get('cookie_bar_hide', 'N') === 'Y';

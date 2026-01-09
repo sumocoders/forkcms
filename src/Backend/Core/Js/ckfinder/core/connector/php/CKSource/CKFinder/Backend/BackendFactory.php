@@ -170,8 +170,12 @@ class BackendFactory
      *
      * @return Backend
      */
-    public function createBackend(array $backendConfig, AdapterInterface $adapter, array $filesystemConfig = null, CacheInterface $cache = null)
-    {
+    public function createBackend(
+        array $backendConfig,
+        AdapterInterface $adapter,
+        ?array $filesystemConfig = null,
+        ?CacheInterface $cache = null,
+    ) {
         if ($adapter instanceof ContainerAwareInterface) {
             $adapter->setContainer($this->app);
         }

@@ -65,7 +65,7 @@ class Authentication
      */
     public static function cleanupOldSessions(): void
     {
-        $deleteIfOlderThan = (new DateTime('- 30 minutes', new DateTimeZone('UTC')))->format('Y-m-d H:i:s');
+        $deleteIfOlderThan = new DateTime('- 30 minutes', new DateTimeZone('UTC'))->format('Y-m-d H:i:s');
         BackendModel::get('database')->delete('users_sessions', 'date <= ?', [$deleteIfOlderThan]);
     }
 
@@ -105,7 +105,7 @@ class Authentication
      *
      * @return string
      */
-    public static function getEncryptedString(string $string, string $salt = null): string
+    public static function getEncryptedString(string $string, ?string $salt = null): string
     {
         return (string) sha1(md5((string) $salt) . md5($string));
     }
@@ -125,9 +125,7 @@ class Authentication
         return self::$user;
     }
 
-    /**
-     * @deprecated this will become a private method in Fork 6
-     */
+    #[\Deprecated(message: 'this will become a private method in Fork 6')]
     public static function getAllowedActions(): array
     {
         if (!empty(self::$allowedActions)) {
@@ -165,7 +163,7 @@ class Authentication
      *
      * @return bool
      */
-    public static function isAllowedAction(string $action = null, string $module = null): bool
+    public static function isAllowedAction(?string $action = null, ?string $module = null): bool
     {
         $alwaysAllowed = self::getAlwaysAllowed();
 

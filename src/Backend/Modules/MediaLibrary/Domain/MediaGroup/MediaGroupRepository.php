@@ -13,7 +13,7 @@ final class MediaGroupRepository extends EntityRepository
         $this->getEntityManager()->persist($mediaGroup);
     }
 
-    public function findOneById(string $id = null): MediaGroup
+    public function findOneById(?string $id = null): MediaGroup
     {
         if ($id === null) {
             throw MediaGroupNotFound::forEmptyId();

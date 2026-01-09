@@ -83,7 +83,7 @@ class TemplateModifiers extends BaseTwigModifiers
      *
      * @return string
      */
-    public static function formatNumber(float $number, int $decimals = null): string
+    public static function formatNumber(float $number, ?int $decimals = null): string
     {
         // get setting
         $format = FrontendModel::get('fork.settings')->get('Core', 'number_format');
@@ -141,8 +141,8 @@ class TemplateModifiers extends BaseTwigModifiers
     public static function getNavigation(
         string $type = 'page',
         int $parentId = 0,
-        int $depth = null,
-        string $excludeIds = null,
+        ?int $depth = null,
+        ?string $excludeIds = null,
         string $template = 'Core/Layout/Templates/Navigation.html.twig'
     ): string {
         // build excludeIds
@@ -254,8 +254,8 @@ class TemplateModifiers extends BaseTwigModifiers
         string $type = 'page',
         int $pageId = 0,
         int $startDepth = 1,
-        int $endDepth = null,
-        string $excludeIds = null,
+        ?int $endDepth = null,
+        ?string $excludeIds = null,
         string $template = 'Core/Layout/Templates/Navigation.html.twig'
     ): string {
         // build excludeIds
@@ -317,7 +317,7 @@ class TemplateModifiers extends BaseTwigModifiers
      *
      * @return string
      */
-    public static function getUrl(int $pageId, string $language = null): string
+    public static function getUrl(int $pageId, ?string $language = null): string
     {
         return Navigation::getUrl($pageId, $language);
     }
@@ -336,9 +336,9 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function getUrlForBlock(
         string $module,
-        string $action = null,
-        string $language = null,
-        array $data = null
+        ?string $action = null,
+        ?string $language = null,
+        ?array $data = null
     ): string {
         return Navigation::getUrlForBlock($module, $action, $language, $data);
     }
@@ -352,7 +352,7 @@ class TemplateModifiers extends BaseTwigModifiers
      *
      * @return string
      */
-    public static function getUrlForExtraId(int $extraId, string $language = null): string
+    public static function getUrlForExtraId(int $extraId, ?string $language = null): string
     {
         return Navigation::getUrlForExtraId($extraId, $language);
     }
@@ -373,7 +373,7 @@ class TemplateModifiers extends BaseTwigModifiers
      *
      * @return string
      */
-    public static function parseWidget(string $module, string $action, string $id = null): string
+    public static function parseWidget(string $module, string $action, ?string $id = null): string
     {
         // create new widget instance and return parsed content
         $extra = FrontendBlockWidget::getForId(
@@ -440,7 +440,7 @@ class TemplateModifiers extends BaseTwigModifiers
      *
      * @return string
      */
-    public static function userSetting($string, string $setting, int $userId = null)
+    public static function userSetting($string, string $setting, ?int $userId = null)
     {
         $userId = ($string !== null) ? (int) $string : $userId;
 

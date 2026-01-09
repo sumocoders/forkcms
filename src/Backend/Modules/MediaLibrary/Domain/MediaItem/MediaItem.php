@@ -501,7 +501,7 @@ class MediaItem implements JsonSerializable
         return $this->aspectRatio;
     }
 
-    public function getWebPath(string $liipImagineBundleFilter = null): string
+    public function getWebPath(?string $liipImagineBundleFilter = null): string
     {
         /** @var StorageProviderInterface $storage */
         $storage = Model::get('media_library.manager.storage')->getStorageProvider($this->getStorageType());
@@ -513,7 +513,7 @@ class MediaItem implements JsonSerializable
         return $storage->getWebPathWithFilter($this, $liipImagineBundleFilter);
     }
 
-    public function getThumbnail(string $liipImagineBundleFilter = null): string
+    public function getThumbnail(?string $liipImagineBundleFilter = null): string
     {
         /** @var StorageProviderInterface $storage */
         $storage = Model::get('media_library.manager.storage')->getStorageProvider($this->getStorageType());

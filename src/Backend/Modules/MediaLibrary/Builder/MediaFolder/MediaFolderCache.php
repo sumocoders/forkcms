@@ -43,7 +43,7 @@ final class MediaFolderCache
         return $navigation;
     }
 
-    private function buildCacheTree(MediaFolder $parent = null, string $parentSlug = null): array
+    private function buildCacheTree(?MediaFolder $parent = null, ?string $parentSlug = null): array
     {
         $navigationItems = $this->getMediaFoldersForParent($parent);
         $numberOfItemsForCurrentParent = count($navigationItems);
@@ -58,7 +58,7 @@ final class MediaFolderCache
         );
     }
 
-    private function buildCacheItem(MediaFolder $mediaFolder, string $parentSlug = null): MediaFolderCacheItem
+    private function buildCacheItem(MediaFolder $mediaFolder, ?string $parentSlug = null): MediaFolderCacheItem
     {
         $cacheItem = new MediaFolderCacheItem($mediaFolder, $parentSlug);
 
@@ -70,7 +70,7 @@ final class MediaFolderCache
         return $cacheItem;
     }
 
-    private function getMediaFoldersForParent(MediaFolder $parent = null): array
+    private function getMediaFoldersForParent(?MediaFolder $parent = null): array
     {
         return (array) $this->container->get('media_library.repository.folder')->findBy(
             ['parent' => $parent],

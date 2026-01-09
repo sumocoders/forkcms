@@ -67,7 +67,7 @@ class FileType extends AbstractType
             )
             ->addModelTransformer(
                 new CallbackTransformer(
-                    fn(AbstractFile $file = null) => $file,
+                    fn(?AbstractFile $file = null) => $file,
                     function ($file) use ($options) {
                         if (!$file instanceof AbstractFile && !$file instanceof stdClass) {
                             throw new TransformationFailedException('Invalid class for the file');

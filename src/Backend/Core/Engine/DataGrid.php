@@ -184,13 +184,13 @@ class DataGrid extends \SpoonDataGrid
      */
     public function addColumnAction(
         string $name,
-        string $label = null,
-        string $value = null,
-        string $url = null,
-        string $title = null,
-        array $anchorAttributes = null,
-        string $image = null,
-        int $sequence = null
+        ?string $label = null,
+        ?string $value = null,
+        ?string $url = null,
+        ?string $title = null,
+        ?array $anchorAttributes = null,
+        ?string $image = null,
+        ?int $sequence = null
     ) {
         // reserve var for attributes
         $attributes = '';
@@ -514,8 +514,8 @@ class DataGrid extends \SpoonDataGrid
     public function setMassActionCheckboxes(
         string $column,
         string $value,
-        array $excludedValues = null,
-        array $checkedValues = null
+        ?array $excludedValues = null,
+        ?array $checkedValues = null
     ): void {
         // build label and value
         $label = '<input type="checkbox" name="toggleChecks" value="toggleChecks" />';

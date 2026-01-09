@@ -69,6 +69,6 @@ class ContentBlockRevisionDataGrid extends DataGridDatabase
 
     public static function getHtml(ContentBlock $contentBlock, Locale $locale): string
     {
-        return (new self($contentBlock, $locale))->getContent();
+        return new self($contentBlock, $locale)->getContent();
     }
 }

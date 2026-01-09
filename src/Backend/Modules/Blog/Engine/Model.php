@@ -454,7 +454,7 @@ class Model
      *
      * @return int
      */
-    public static function getCategoryId(string $title, string $language = null): int
+    public static function getCategoryId(string $title, ?string $language = null): int
     {
         $title = (string) $title;
         $language = ($language !== null) ? (string) $language : BL::getWorkingLanguage();
@@ -591,7 +591,7 @@ class Model
      *
      * @return string
      */
-    public static function getUrl(string $url, int $id = null): string
+    public static function getUrl(string $url, ?int $id = null): string
     {
         $url = (string) $url;
 
@@ -642,7 +642,7 @@ class Model
      *
      * @return string
      */
-    public static function getUrlForCategory($url, int $id = null): string
+    public static function getUrlForCategory($url, ?int $id = null): string
     {
         // redefine URL
         $url = (string) $url;
@@ -856,7 +856,7 @@ class Model
      *
      * @return int
      */
-    public static function insertCategory(array $item, array $meta = null): int
+    public static function insertCategory(array $item, ?array $meta = null): int
     {
         // get database
         $database = BackendModel::getContainer()->get('database');
@@ -1073,7 +1073,7 @@ class Model
      *
      * @return int
      */
-    public static function updateCategory(array $item, array $meta = null): int
+    public static function updateCategory(array $item, ?array $meta = null): int
     {
         // get database
         $database = BackendModel::getContainer()->get('database');

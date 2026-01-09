@@ -54,7 +54,7 @@ class ImportLocaleCommand extends Command
         string $localePath,
         bool $overwrite,
         OutputInterface $output,
-        string $specificLocale = null
+        ?string $specificLocale = null
     ): void {
         // Load the xml from the file
         $xmlData = @simplexml_load_file($localePath);

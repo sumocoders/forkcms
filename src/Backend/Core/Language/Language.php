@@ -110,7 +110,7 @@ class Language
         return 'Core';
     }
 
-    public static function getError(string $key, string $module = null): string
+    public static function getError(string $key, ?string $module = null): string
     {
         $module ??= self::getCurrentModule();
 
@@ -151,7 +151,7 @@ class Language
         return $languages;
     }
 
-    public static function getLabel(string $key, string $module = null): string
+    public static function getLabel(string $key, ?string $module = null): string
     {
         $module ??= self::getCurrentModule();
 
@@ -166,7 +166,7 @@ class Language
         return self::$lbl;
     }
 
-    public static function getMessage(string $key, string $module = null): string
+    public static function getMessage(string $key, ?string $module = null): string
     {
         $key = \SpoonFilter::toCamelCase((string) $key);
         $module ??= self::getCurrentModule();
@@ -282,17 +282,17 @@ class Language
         self::$currentWorkingLanguage = $language;
     }
 
-    public static function err(string $key, string $module = null): string
+    public static function err(string $key, ?string $module = null): string
     {
         return self::getError($key, $module);
     }
 
-    public static function lbl(string $key, string $module = null): string
+    public static function lbl(string $key, ?string $module = null): string
     {
         return self::getLabel($key, $module);
     }
 
-    public static function msg(string $key, string $module = null): string
+    public static function msg(string $key, ?string $module = null): string
     {
         return self::getMessage($key, $module);
     }

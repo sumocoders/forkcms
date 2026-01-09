@@ -274,7 +274,7 @@ class ModuleInstaller
      *
      * @return int
      */
-    protected function getTemplateId(string $template, string $theme = null): int
+    protected function getTemplateId(string $template, ?string $theme = null): int
     {
         // no theme set = default theme
         if ($theme === null) {
@@ -452,10 +452,10 @@ class ModuleInstaller
         string $module,
         ModuleExtraType $type,
         string $label,
-        string $action = null,
-        array $data = null,
+        ?string $action = null,
+        ?array $data = null,
         bool $hidden = false,
-        int $sequence = null
+        ?int $sequence = null
     ): int {
         $extraId = $this->findModuleExtraId($module, $type, $label, $data);
         if ($extraId !== 0) {
@@ -481,7 +481,7 @@ class ModuleInstaller
      *
      * @return int
      */
-    private function findModuleExtraId(string $module, ModuleExtraType $type, string $label, array $data = null): int
+    private function findModuleExtraId(string $module, ModuleExtraType $type, string $label, ?array $data = null): int
     {
         // build query
         $query = 'SELECT id FROM modules_extras WHERE module = ? AND type = ? AND label = ?';
@@ -527,10 +527,10 @@ class ModuleInstaller
         bool $descriptionOverwrite = false,
         bool $titleOverwrite = false,
         bool $urlOverwrite = false,
-        string $custom = null,
-        string $seoFollow = null,
-        string $seoIndex = null,
-        array $data = null
+        ?string $custom = null,
+        ?string $seoFollow = null,
+        ?string $seoIndex = null,
+        ?array $data = null
     ): int {
         return (int) $this->getDatabase()->insert(
             'meta',
@@ -686,7 +686,7 @@ class ModuleInstaller
      *
      * @return int
      */
-    protected function insertPage(array $revision, array $meta = null, array ...$blocks): int
+    protected function insertPage(array $revision, ?array $meta = null, array ...$blocks): int
     {
         // build revision
         if (!isset($revision['language'])) {
@@ -867,9 +867,9 @@ class ModuleInstaller
     protected function setNavigation(
         $parentId,
         string $label,
-        string $url = null,
-        array $selectedFor = null,
-        int $sequence = null
+        ?string $url = null,
+        ?array $selectedFor = null,
+        ?int $sequence = null
     ): int {
         // if it is null we should cast it to int so we get a 0
         $parentId = (int) $parentId;

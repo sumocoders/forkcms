@@ -81,7 +81,7 @@ class Widget extends KernelLoader
      *
      * @param string $template The template to use.
      */
-    protected function display(string $template = null): void
+    protected function display(?string $template = null): void
     {
         if ($template !== null) {
             $this->templatePath = (string) $template;

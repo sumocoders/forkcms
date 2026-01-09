@@ -697,7 +697,7 @@ class Add extends BackendBaseActionAdd
             $newImagePath = $imagePath . '/source/' . $imageFilename;
 
             // make sure we have a separate image for the copy in case the original image gets removed
-            (new Filesystem())->copy($originalImagePath, $newImagePath);
+            new Filesystem()->copy($originalImagePath, $newImagePath);
             $this->get(Thumbnails::class)->generate($imagePath, $newImagePath);
 
             return $imageFilename;

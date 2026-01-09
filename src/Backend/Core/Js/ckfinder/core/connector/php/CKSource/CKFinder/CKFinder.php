@@ -270,7 +270,7 @@ class CKFinder extends Container implements HttpKernelInterface
      *
      * @param Request $request request object
      */
-    public function run(Request $request = null)
+    public function run(?Request $request = null)
     {
         $request ??= Request::createFromGlobals();
 

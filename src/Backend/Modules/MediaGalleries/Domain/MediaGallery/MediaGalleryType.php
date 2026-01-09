@@ -60,7 +60,7 @@ class MediaGalleryType extends AbstractType
                     ),
                     'choice_label' => TemplateModifiers::toLabel(...),
                     'choice_translation_domain' => false,
-                    'choice_value' => fn(Status $status = null) => (string) $status,
+                    'choice_value' => fn(?Status $status = null) => (string) $status,
                     'expanded' => true,
                 ]
             )

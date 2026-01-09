@@ -153,9 +153,8 @@ class Model extends BaseModel
      *
      * @param string $path The path wherein the thumbnail-folders will be stored.
      * @param string $sourceFile The location of the source file
-     *
-     * @deprecated Please use the service `ForkCMS\Utility\Thumbnails` instead.
      */
+    #[\Deprecated(message: 'Please use the service `ForkCMS\Utility\Thumbnails` instead.')]
     public static function generateThumbnails(string $path, string $sourceFile): void
     {
         self::get(Thumbnails::class)->generate($path, $sourceFile);
@@ -166,9 +165,8 @@ class Model extends BaseModel
      *
      * @param string $path The path wherein the thumbnail-folders exist.
      * @param string|null $thumbnail The filename to be deleted.
-     *
-     * @deprecated Please use the service `ForkCMS\Utility\Thumbnails` instead.
      */
+    #[\Deprecated(message: 'Please use the service `ForkCMS\Utility\Thumbnails` instead.')]
     public static function deleteThumbnails(string $path, ?string $thumbnail): void
     {
         self::get(Thumbnails::class)->delete($path, $thumbnail);
@@ -181,9 +179,8 @@ class Model extends BaseModel
      * @param bool $includeSource Should the source-folder be included in the return-array.
      *
      * @return array
-     *
-     * @deprecated Please use the service `ForkCMS\Utility\Thumbnails` instead.
      */
+    #[\Deprecated(message: 'Please use the service `ForkCMS\Utility\Thumbnails` instead.')]
     public static function getThumbnailFolders(string $path, bool $includeSource = false): array
     {
         return self::get(Thumbnails::class)->getFolders($path, $includeSource);
@@ -197,7 +194,7 @@ class Model extends BaseModel
      *
      * @return string
      */
-    public static function getUTCDate(string $format = null, int $timestamp = null): string
+    public static function getUTCDate(?string $format = null, ?int $timestamp = null): string
     {
         $format = ($format !== null) ? (string) $format : 'Y-m-d H:i:s';
         if ($timestamp === null) {
@@ -217,7 +214,7 @@ class Model extends BaseModel
      *
      * @return int
      */
-    public static function getUTCTimestamp(\SpoonFormDate $date, \SpoonFormTime $time = null): int
+    public static function getUTCTimestamp(\SpoonFormDate $date, ?\SpoonFormTime $time = null): int
     {
         // validate date/time object
         if (!$date->isValid() || ($time !== null && !$time->isValid())
@@ -311,10 +308,10 @@ class Model extends BaseModel
      * This method will return a mock session that will be only available while the code is running.
      * It is used for instance in the console
      *
-     * @deprecated This has been added to fix an issue but should be fixed properly in fork 6.0.0
      *
      * @return Session
      */
+    #[\Deprecated(message: 'This has been added to fix an issue but should be fixed properly in fork 6.0.0')]
     private static function getMockSession(): Session
     {
         if (!self::getContainer()->has('fork.mock.session')) {

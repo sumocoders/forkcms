@@ -20,7 +20,7 @@ class BaseTwigModifiers
      *
      * @return string
      */
-    public static function formatCurrency(float $number, string $currency = 'EUR', int $decimals = null): string
+    public static function formatCurrency(float $number, string $currency = 'EUR', ?int $decimals = null): string
     {
         $decimals ??= 2;
 
@@ -43,7 +43,7 @@ class BaseTwigModifiers
      *
      * @return string
      */
-    public static function formatNumber(float $number, int $decimals = null): string
+    public static function formatNumber(float $number, ?int $decimals = null): string
     {
         if ($decimals === null) {
             $decimals = 2;

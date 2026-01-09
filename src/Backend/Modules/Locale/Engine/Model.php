@@ -140,7 +140,7 @@ class Model
         string $module,
         string $language,
         string $application,
-        int $excludedId = null
+        ?int $excludedId = null
     ): bool {
         // get database
         $database = BackendModel::getContainer()->get('database');
@@ -408,10 +408,10 @@ class Model
     public static function importXML(
         \SimpleXMLElement $xml,
         bool $overwriteConflicts = false,
-        array $frontendLanguages = null,
-        array $backendLanguages = null,
-        int $userId = null,
-        string $date = null
+        ?array $frontendLanguages = null,
+        ?array $backendLanguages = null,
+        ?int $userId = null,
+        ?string $date = null
     ): array {
         $statistics = [
             'total' => 0,

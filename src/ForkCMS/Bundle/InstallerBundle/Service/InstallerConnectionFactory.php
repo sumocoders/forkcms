@@ -16,8 +16,8 @@ class InstallerConnectionFactory extends ConnectionFactory
 {
     public function createConnection(
         array $params,
-        Configuration $config = null,
-        EventManager $eventManager = null,
+        ?Configuration $config = null,
+        ?EventManager $eventManager = null,
         array $mappingTypes = []
     ): Connection {
         try {
@@ -50,8 +50,8 @@ class InstallerConnectionFactory extends ConnectionFactory
 
     private function getInstallerConnection(
         array $params,
-        Configuration $config = null,
-        EventManager $eventManager = null
+        ?Configuration $config = null,
+        ?EventManager $eventManager = null
     ): Connection {
         $normalConnection = DriverManager::getConnection($params, $config, $eventManager);
 

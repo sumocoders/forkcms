@@ -534,7 +534,7 @@ class Model
         );
     }
 
-    public static function getTemplates(string $theme = null): array
+    public static function getTemplates(?string $theme = null): array
     {
         $database = BackendModel::getContainer()->get('database');
         $theme = \SpoonFilter::getValue(

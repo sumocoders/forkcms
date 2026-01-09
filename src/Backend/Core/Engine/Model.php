@@ -54,10 +54,10 @@ class Model extends \Common\Core\Model
      * @return string
      */
     public static function createUrlForAction(
-        string $action = null,
-        string $module = null,
-        string $language = null,
-        array $parameters = null,
+        ?string $action = null,
+        ?string $module = null,
+        ?string $language = null,
+        ?array $parameters = null,
         bool $encodeSquareBrackets = true
     ): string {
         $language ??= BackendLanguage::getWorkingLanguage();
@@ -127,7 +127,7 @@ class Model extends \Common\Core\Model
      * @param string $type The type of extra, possible values are block, homepage, widget.
      * @param array $data Extra data that exists.
      */
-    public static function deleteExtra(string $module = null, string $type = null, array $data = null): void
+    public static function deleteExtra(?string $module = null, ?string $type = null, ?array $data = null): void
     {
         // init
         $query = 'SELECT i.id, i.data FROM modules_extras AS i WHERE 1';
@@ -206,7 +206,7 @@ class Model extends \Common\Core\Model
         string $module,
         string $field,
         string $value,
-        string $action = null
+        ?string $action = null
     ): void {
         $ids = self::getExtrasForData($module, $field, $value, $action);
 
@@ -337,7 +337,7 @@ class Model extends \Common\Core\Model
      *
      * @return array The ids for the extras.
      */
-    public static function getExtrasForData(string $module, string $key, string $value, string $action = null): array
+    public static function getExtrasForData(string $module, string $key, string $value, ?string $action = null): array
     {
         $query = 'SELECT i.id, i.data
                  FROM modules_extras AS i
@@ -376,7 +376,7 @@ class Model extends \Common\Core\Model
      *
      * @return array
      */
-    public static function getKeys(string $language = null): array
+    public static function getKeys(?string $language = null): array
     {
         if ($language === null) {
             $language = BackendLanguage::getWorkingLanguage();
@@ -431,7 +431,7 @@ class Model extends \Common\Core\Model
      *
      * @return array
      */
-    public static function getNavigation(string $language = null): array
+    public static function getNavigation(?string $language = null): array
     {
         if ($language === null) {
             $language = BackendLanguage::getWorkingLanguage();
@@ -494,7 +494,7 @@ class Model extends \Common\Core\Model
      *
      * @return string
      */
-    public static function getUrl(int $pageId, string $language = null): string
+    public static function getUrl(int $pageId, ?string $language = null): string
     {
         if ($language === null) {
             $language = BackendLanguage::getWorkingLanguage();
@@ -529,9 +529,9 @@ class Model extends \Common\Core\Model
      */
     public static function getUrlForBlock(
         string $module,
-        string $action = null,
-        string $language = null,
-        array $data = null
+        ?string $action = null,
+        ?string $language = null,
+        ?array $data = null
     ): string {
         if ($language === null) {
             $language = BackendLanguage::getWorkingLanguage();
@@ -625,7 +625,7 @@ class Model extends \Common\Core\Model
         string $module,
         string $filename,
         string $subDirectory = '',
-        array $fileSizes = null
+        ?array $fileSizes = null
     ): void {
         if (empty($fileSizes)) {
             $model = get_class_vars('Backend' . \SpoonFilter::toCamelCase($module) . 'Model');
@@ -666,11 +666,11 @@ class Model extends \Common\Core\Model
     public static function insertExtra(
         ModuleExtraType $type,
         string $module,
-        string $action = null,
-        string $label = null,
-        array $data = null,
+        ?string $action = null,
+        ?string $label = null,
+        ?array $data = null,
         bool $hidden = false,
-        int $sequence = null
+        ?int $sequence = null
     ): int {
         // return id for inserted extra
         return self::get('database')->insert(
@@ -762,13 +762,13 @@ class Model extends \Common\Core\Model
         string $userIp,
         string $userAgent,
         string $content,
-        string $author = null,
-        string $email = null,
-        string $url = null,
-        string $permalink = null,
-        string $type = null,
-        string $referrer = null,
-        array $others = null
+        ?string $author = null,
+        ?string $email = null,
+        ?string $url = null,
+        ?string $permalink = null,
+        ?string $type = null,
+        ?string $referrer = null,
+        ?array $others = null
     ): bool {
         try {
             $akismet = self::getAkismet();
@@ -822,13 +822,13 @@ class Model extends \Common\Core\Model
         string $userIp,
         string $userAgent,
         string $content,
-        string $author = null,
-        string $email = null,
-        string $url = null,
-        string $permalink = null,
-        string $type = null,
-        string $referrer = null,
-        array $others = null
+        ?string $author = null,
+        ?string $email = null,
+        ?string $url = null,
+        ?string $permalink = null,
+        ?string $type = null,
+        ?string $referrer = null,
+        ?array $others = null
     ): bool {
         try {
             $akismet = self::getAkismet();
