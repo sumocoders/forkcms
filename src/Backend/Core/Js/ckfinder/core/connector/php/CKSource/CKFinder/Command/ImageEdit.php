@@ -49,7 +49,7 @@ class ImageEdit extends CommandAbstract
 
     protected $requestMethod = Request::METHOD_POST;
 
-    protected $requires = array(Permission::FILE_CREATE);
+    protected $requires = [Permission::FILE_CREATE];
 
     public function execute(Request $request, WorkingFolder $workingFolder, EventDispatcher $dispatcher, Acl $acl, ResizedImageRepository $resizedImageRepository, ThumbnailRepository $thumbnailRepository, Config $config)
     {
@@ -88,7 +88,7 @@ class ImageEdit extends CommandAbstract
 
             switch ($actionInfo['action']) {
                 case self::OPERATION_CROP:
-                    if (!Utils::arrayContainsKeys($actionInfo, array('x', 'y', 'width', 'height'))) {
+                    if (!Utils::arrayContainsKeys($actionInfo, ['x', 'y', 'width', 'height'])) {
                         throw new InvalidRequestException();
                     }
                     $x = $actionInfo['x'];
@@ -103,12 +103,12 @@ class ImageEdit extends CommandAbstract
                         throw new InvalidRequestException();
                     }
                     $degrees = $actionInfo['angle'];
-                    $bgcolor = isset($actionInfo['bgcolor']) ? $actionInfo['bgcolor'] : 0;
+                    $bgcolor = $actionInfo['bgcolor'] ?? 0;
                     $image->rotate($degrees, $bgcolor);
                     break;
 
                 case self::OPERATION_RESIZE:
-                    if (!Utils::arrayContainsKeys($actionInfo, array('width', 'height'))) {
+                    if (!Utils::arrayContainsKeys($actionInfo, ['width', 'height'])) {
                         throw new InvalidRequestException();
                     }
 
@@ -144,9 +144,9 @@ class ImageEdit extends CommandAbstract
             }
         }
 
-        return array(
+        return [
             'saved' => (int) $saved,
             'date'  => Utils::formatDate(time())
-        );
+        ];
     }
 }

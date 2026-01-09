@@ -33,12 +33,9 @@ class ForkController extends AbstractController
         'backend' => 'Backend',
     ];
 
-    private KernelInterface $kernel;
-
     public function __construct(
-        KernelInterface $kernel,
+        private KernelInterface $kernel,
     ) {
-        $this->kernel = $kernel;
     }
 
     /**

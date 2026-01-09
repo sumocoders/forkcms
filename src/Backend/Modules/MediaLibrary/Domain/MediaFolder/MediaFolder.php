@@ -14,7 +14,7 @@ use JsonSerializable;
  * @ORM\Entity(repositoryClass="Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class MediaFolder implements JsonSerializable
+class MediaFolder implements JsonSerializable, \Stringable
 {
     /**
      * @var int

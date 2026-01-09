@@ -7,20 +7,8 @@ use Symfony\Component\Finder\SplFileInfo;
 
 final class LocaleAnalyser
 {
-    /** @var string */
-    private $application;
-
-    /** @var array */
-    private $paths;
-
-    /** @var array */
-    private $installedModules;
-
-    public function __construct(string $application, array $paths, array $installedModules)
+    public function __construct(private string $application, private array $paths, private array $installedModules)
     {
-        $this->application = $application;
-        $this->paths = $paths;
-        $this->installedModules = $installedModules;
     }
 
     public function findMissingLocale(string $language): array
@@ -79,8 +67,8 @@ final class LocaleAnalyser
         foreach ($finder->files()->in($this->paths)->getIterator() as $file) {
             $module = $this->getInBetweenStrings('Modules/', '/', $file->getPath());
             if (!in_array($module, $this->installedModules, true)) {
-                if (strpos($file->getPath(), $this->application . '/Core') === false &&
-                    strpos($file->getPath(), 'Themes') === false) {
+                if (!str_contains($file->getPath(), $this->application . '/Core') &&
+                    !str_contains($file->getPath(), 'Themes')) {
                     continue;
                 }
 

@@ -69,9 +69,7 @@ class Path
 
         $result = array_shift($args);
 
-        $isDirSeparator = function ($char) {
-            return $char === '/' || $char === '\\';
-        };
+        $isDirSeparator = (fn($char) => $char === '/' || $char === '\\');
 
         $argsCount = count($args);
 
@@ -97,7 +95,7 @@ class Path
             } else {
                 $_firstCharP2 = substr($path2, 0, 1);
                 if (strlen($path1)) {
-                    if (strpos($path2, $path1) === 0) {
+                    if (str_starts_with($path2, $path1)) {
                         $result = $path2;
                         continue;
                     }

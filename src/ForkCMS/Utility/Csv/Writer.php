@@ -12,11 +12,8 @@ use ZipStream\Stream;
 
 class Writer
 {
-    private $charset;
-
-    public function __construct(string $charset)
+    public function __construct(private string $charset)
     {
-        $this->charset = $charset;
     }
 
     private function getDefaultOptions(): array

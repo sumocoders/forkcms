@@ -131,9 +131,7 @@ final class ModelTest extends BackendWebTestCase
     public function testSaveTagsUpdatesTheUsedCount(KernelBrowser $client): void
     {
         $database = $client->getContainer()->get('database');
-        $tagCount = static function (int $id) use ($database): int {
-            return $database->getVar('SELECT number FROM tags WHERE id = ?', $id);
-        };
+        $tagCount = (static fn(int $id): int => $database->getVar('SELECT number FROM tags WHERE id = ?', $id));
         $originalCountTag1 = $tagCount(LoadTagsTags::TAGS_TAG_1_ID);
         $originalCountTag2 = $tagCount(LoadTagsTags::TAGS_TAG_2_ID);
         TagsModel::saveTags(2, [LoadTagsTags::TAGS_TAG_1_NAME], 'Pages');

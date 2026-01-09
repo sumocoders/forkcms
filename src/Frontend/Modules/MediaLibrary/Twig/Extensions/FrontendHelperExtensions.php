@@ -8,14 +8,8 @@ use Twig\TwigFunction;
 
 class FrontendHelperExtensions extends AbstractExtension
 {
-    /**
-     * @var FrontendHelper
-     */
-    private $frontendHelper;
-
-    public function __construct(FrontendHelper $frontendHelper)
+    public function __construct(private FrontendHelper $frontendHelper)
     {
-        $this->frontendHelper = $frontendHelper;
     }
 
     public function getFunctions(): array

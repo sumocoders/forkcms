@@ -34,7 +34,7 @@ class InstallerConnectionFactory extends ConnectionFactory
 
             //continue with regular connection creation using new params
             return parent::createConnection($params, $config, $eventManager, $mappingTypes);
-        } catch (ConnectionException | DBALException $e) {
+        } catch (ConnectionException | DBALException) {
             return $this->getInstallerConnection($params, $config, $eventManager);
         }
     }

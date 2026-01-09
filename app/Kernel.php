@@ -185,9 +185,9 @@ abstract class Kernel extends BaseKernel
                 $moduleNames,
                 (array) $containerBuilder->get('database')->getColumn('SELECT name FROM modules')
             );
-        } catch (SpoonDatabaseException $e) {
+        } catch (SpoonDatabaseException) {
             $moduleNames = [];
-        } catch (PDOException $e) {
+        } catch (PDOException) {
             // fork is probably not installed yet
             $moduleNames = [];
         }

@@ -147,7 +147,7 @@ final class Header extends KernelLoader
         bool $addTimestamp = true,
         Priority $priority = null
     ): void {
-        $module = $module ?? $this->url->getModule();
+        $module ??= $this->url->getModule();
         $isExternalUrl = $this->get('fork.validator.url')->isExternalUrl($file);
         $overwritePath = $overwritePath || $isExternalUrl; // external urls always overwrite the path
         $minify = $minify && !$isExternalUrl;
@@ -184,7 +184,7 @@ final class Header extends KernelLoader
         bool $addTimestamp = true,
         Priority $priority = null
     ): void {
-        $module = $module ?? $this->url->getModule();
+        $module ??= $this->url->getModule();
         $isExternalUrl = $this->get('fork.validator.url')->isExternalUrl($file);
         $overwritePath = $overwritePath || $isExternalUrl; // external urls always overwrite the path
         $minify = $minify && !$isExternalUrl;

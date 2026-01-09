@@ -90,7 +90,7 @@ class MediaFolderDelete extends BackendBaseActionDelete
             return $this->get('media_library.repository.folder')->findOneById(
                 $this->getRequest()->query->getInt('id')
             );
-        } catch (MediaFolderNotFound $mediaFolderNotFound) {
+        } catch (MediaFolderNotFound) {
             $this->redirect(
                 $this->getBackLink(
                     [

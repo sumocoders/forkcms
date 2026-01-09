@@ -9,18 +9,8 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 
 final class DeleteMediaGalleryHandler
 {
-    /** @var MediaGalleryRepository */
-    private $mediaGalleryRepository;
-
-    /** @var MediaItemRepository */
-    private $mediaItemRepository;
-
-    public function __construct(
-        MediaGalleryRepository $mediaGalleryRepository,
-        MediaItemRepository $mediaItemRepository
-    ) {
-        $this->mediaGalleryRepository = $mediaGalleryRepository;
-        $this->mediaItemRepository = $mediaItemRepository;
+    public function __construct(private MediaGalleryRepository $mediaGalleryRepository, private MediaItemRepository $mediaItemRepository)
+    {
     }
 
     public function handle(DeleteMediaGallery $deleteMediaGallery): void

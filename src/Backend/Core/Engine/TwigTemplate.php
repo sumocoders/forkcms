@@ -115,9 +115,7 @@ class TwigTemplate extends BaseTwigTemplate
         $this->environment->addRuntimeLoader(
             new FactoryRuntimeLoader(
                 [
-                    FormRenderer::class => function () use ($rendererEngine, $csrfTokenManager): FormRenderer {
-                        return new FormRenderer($rendererEngine, $csrfTokenManager);
-                    },
+                    FormRenderer::class => fn(): FormRenderer => new FormRenderer($rendererEngine, $csrfTokenManager),
                 ]
             )
         );
@@ -277,9 +275,7 @@ class TwigTemplate extends BaseTwigTemplate
     {
         return array_combine(
             array_map(
-                function ($key) use ($prefix) {
-                    return $prefix . \SpoonFilter::ucfirst($key);
-                },
+                fn($key) => $prefix . \SpoonFilter::ucfirst($key),
                 array_keys($array)
             ),
             $array

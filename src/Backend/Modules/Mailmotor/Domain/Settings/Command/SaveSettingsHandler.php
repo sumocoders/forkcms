@@ -9,15 +9,8 @@ final class SaveSettingsHandler
 {
     private const MODULE_NAME = 'Mailmotor';
 
-    /**
-     * @var ModulesSettings
-     */
-    private $modulesSettings;
-
-    public function __construct(
-        ModulesSettings $modulesSettings
-    ) {
-        $this->modulesSettings = $modulesSettings;
+    public function __construct(private ModulesSettings $modulesSettings)
+    {
     }
 
     public function handle(SaveSettings $settings): void

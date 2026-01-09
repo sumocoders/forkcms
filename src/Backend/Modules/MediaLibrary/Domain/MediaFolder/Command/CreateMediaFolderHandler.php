@@ -7,12 +7,8 @@ use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
 
 final class CreateMediaFolderHandler
 {
-    /** @var MediaFolderRepository */
-    protected $mediaFolderRepository;
-
-    public function __construct(MediaFolderRepository $mediaFolderRepository)
+    public function __construct(protected MediaFolderRepository $mediaFolderRepository)
     {
-        $this->mediaFolderRepository = $mediaFolderRepository;
     }
 
     public function handle(CreateMediaFolder $createMediaFolder): void

@@ -172,9 +172,7 @@ class Form extends FrontendBaseWidget
 
                     // values and labels are the same
                     $decodedValues = array_map(
-                        static function ($value) {
-                            return html_entity_decode($value, ENT_QUOTES);
-                        },
+                        static fn($value) => html_entity_decode($value, ENT_QUOTES),
                         $values
                     );
                     $values = array_combine($values, $decodedValues);

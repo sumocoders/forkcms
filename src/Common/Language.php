@@ -124,7 +124,7 @@ final class Language extends IdentityTranslator
             return parent::trans($id, $parameters, $domain, $locale);
         }
 
-        list($action, $string) = explode('.', $id, 2);
+        [$action, $string] = explode('.', $id, 2);
 
         if (!in_array($action, $possibleActions)) {
             return parent::trans($id, $parameters, $domain, $locale);

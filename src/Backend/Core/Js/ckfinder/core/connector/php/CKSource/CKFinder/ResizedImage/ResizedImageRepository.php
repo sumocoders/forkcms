@@ -311,13 +311,13 @@ class ResizedImageRepository
      *
      * @return array
      */
-    public function getResizedImagesList(ResourceType $sourceFileResourceType, $sourceFilePath, $sourceFileName, $filterSizes = array())
+    public function getResizedImagesList(ResourceType $sourceFileResourceType, $sourceFilePath, $sourceFileName, $filterSizes = [])
     {
         $resizedImagesPath = Path::combine($sourceFileResourceType->getDirectory(), $sourceFilePath, ResizedImage::DIR, $sourceFileName);
 
         $backend = $sourceFileResourceType->getBackend();
 
-        $resizedImages = array();
+        $resizedImages = [];
 
         if (!$backend->hasDirectory($resizedImagesPath)) {
             return $resizedImages;
@@ -325,9 +325,7 @@ class ResizedImageRepository
 
         $resizedImagesFiles = array_filter(
             $backend->listContents($resizedImagesPath),
-            function ($v) {
-                return isset($v['type']) && $v['type'] === 'file';
-            }
+            fn($v) => isset($v['type']) && $v['type'] === 'file'
         );
 
         foreach ($resizedImagesFiles as $resizedImage) {
@@ -342,7 +340,7 @@ class ResizedImageRepository
 
             if (empty($filterSizes)) {
                 if (!isset($resizedImages['__custom'])) {
-                    $resizedImages['__custom'] = array();
+                    $resizedImages['__custom'] = [];
                 }
 
                 $resizedImages['__custom'][] = $this->createNodeValue($resizedImage);
@@ -355,10 +353,10 @@ class ResizedImageRepository
     protected function createNodeValue($resizedImage)
     {
         if (isset($resizedImage['url'])) {
-            return array(
+            return [
                 'name' => $resizedImage['basename'],
                 'url'  => $resizedImage['url']
-            );
+            ];
         }
 
         return $resizedImage['basename'];
@@ -385,9 +383,7 @@ class ResizedImageRepository
 
         $resizedImagesFiles = array_filter(
             $backend->listContents($resizedImagesPath),
-            function ($v) {
-                return isset($v['type']) && $v['type'] === 'file';
-            }
+            fn($v) => isset($v['type']) && $v['type'] === 'file'
         );
 
         $thresholdPixels = $this->config->get('images.threshold.pixels');

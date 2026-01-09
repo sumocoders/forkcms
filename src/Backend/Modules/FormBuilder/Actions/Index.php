@@ -41,7 +41,7 @@ class Index extends BackendBaseActionIndex
             'email'
         );
         $this->dataGrid->setColumnFunction(
-            [__CLASS__, 'parseNumForms'],
+            [self::class, 'parseNumForms'],
             ['[id]', '[sent_forms]', '[method]'],
             'sent_forms'
         );

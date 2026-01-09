@@ -377,7 +377,7 @@ class Edit extends BackendBaseActionEdit
             $this->form->addMultiCheckbox('allow', $values, $checked);
 
             // css link class
-            $page['link_class'] = $this->form->addText('link_class', isset($this->record['data']['link_class']) ? $this->record['data']['link_class'] : null);
+            $page['link_class'] = $this->form->addText('link_class', $this->record['data']['link_class'] ?? null);
         }
 
         // build prototype block
@@ -567,7 +567,7 @@ class Edit extends BackendBaseActionEdit
 
         // set callback for generating an unique URL
         $this->meta->setUrlCallback(
-            'Backend\Modules\Pages\Engine\Model',
+            \Backend\Modules\Pages\Engine\Model::class,
             'getUrl',
             [$this->record['id'], $this->record['parent_id'], $isAction]
         );

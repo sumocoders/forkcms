@@ -29,7 +29,7 @@ class ImageResize extends CommandAbstract
 {
     protected $requestMethod = Request::METHOD_POST;
 
-    protected $requires = array(Permission::FILE_VIEW, Permission::IMAGE_RESIZE);
+    protected $requires = [Permission::FILE_VIEW, Permission::IMAGE_RESIZE];
 
     public function execute(Request $request, WorkingFolder $workingFolder, Config $config, ResizedImageRepository $resizedImageRepository)
     {
@@ -49,7 +49,7 @@ class ImageResize extends CommandAbstract
             throw new FileNotFoundException();
         }
 
-        list($requestedWidth, $requestedHeight) = Image::parseSize((string) $request->query->get('size'));
+        [$requestedWidth, $requestedHeight] = Image::parseSize((string) $request->query->get('size'));
 
         $resizedImage = $resizedImageRepository->getResizedImage(
             $workingFolder->getResourceType(),
@@ -59,6 +59,6 @@ class ImageResize extends CommandAbstract
             $requestedHeight
         );
 
-        return array('url' => $resizedImage->getUrl());
+        return ['url' => $resizedImage->getUrl()];
     }
 }

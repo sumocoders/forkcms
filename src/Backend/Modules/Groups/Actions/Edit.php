@@ -181,9 +181,7 @@ class Edit extends BackendBaseActionEdit
                 'value' => $module,
             ];
 
-            usort($this->actions[$module], function ($a, $b) {
-                return strcmp($a["label"], $b["label"]);
-            });
+            usort($this->actions[$module], fn($a, $b) => strcmp($a["label"], $b["label"]));
         }
     }
 
@@ -317,7 +315,7 @@ class Edit extends BackendBaseActionEdit
                     }
 
                     // add widget checkboxes
-                    $widgetBoxes[$j]['check'] = '<span>' . $this->form->addCheckbox('widgets_' . $widget['checkbox_name'], isset($selectedWidgets[$j]) ? $selectedWidgets[$j] : null)->parse() . '</span>';
+                    $widgetBoxes[$j]['check'] = '<span>' . $this->form->addCheckbox('widgets_' . $widget['checkbox_name'], $selectedWidgets[$j] ?? null)->parse() . '</span>';
                     $widgetBoxes[$j]['module'] = \SpoonFilter::ucfirst(BL::lbl($widget['module_name']));
                     $widgetBoxes[$j]['widget'] = '<label for="widgets' . \SpoonFilter::toCamelCase($widget['checkbox_name']) . '">' . $widget['label'] . '</label>';
                     $widgetBoxes[$j]['description'] = $widget['description'];

@@ -25,7 +25,7 @@ use CKSource\CKFinder\Exception\CKFinderException;
  */
 class Image
 {
-    protected static $supportedExtensions = array('jpg', 'jpeg', 'gif', 'png');
+    protected static $supportedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
 
     /**
      * Image width.
@@ -102,7 +102,7 @@ class Image
     {
         $sizeParts = explode('x', trim($size));
 
-        return count($sizeParts) === 2 ? array_map('intval', $sizeParts) : array(0, 0);
+        return count($sizeParts) === 2 ? array_map('intval', $sizeParts) : [0, 0];
     }
 
     /**
@@ -133,14 +133,14 @@ class Image
      */
     public static function mimeTypeFromExtension($extension)
     {
-        $extensionMimeTypeMap = array(
+        $extensionMimeTypeMap = [
             'gif'  => 'image/gif',
             'jpg'  => 'image/jpeg',
             'jpeg' => 'image/jpeg',
             'bmp'  => 'image/bmp',
             'png'  => 'image/png',
             'wbmp' => 'image/wbmp'
-        );
+        ];
 
         $extension = strtolower($extension);
 
@@ -168,11 +168,11 @@ class Image
             throw new CKFinderException('Unsupported image type');
         }
 
-        $this->width    = isset($imgInfo[0])          ? $imgInfo[0]          : 0;
-        $this->height   = isset($imgInfo[1])          ? $imgInfo[1]          : 0;
-        $this->mime     = isset($imgInfo['mime'])     ? $imgInfo['mime']     : '';
-        $this->bits     = isset($imgInfo['bits'])     ? $imgInfo['bits']     : 8;
-        $this->channels = isset($imgInfo['channels']) ? $imgInfo['channels'] : 3;
+        $this->width    = $imgInfo[0] ?? 0;
+        $this->height   = $imgInfo[1] ?? 0;
+        $this->mime     = $imgInfo['mime'] ?? '';
+        $this->bits     = $imgInfo['bits'] ?? 8;
+        $this->channels = $imgInfo['channels'] ?? 3;
         $this->dataSize = strlen($imageData);
 
         if (!$this->width || !$this->height || !$this->mime) {
@@ -183,14 +183,14 @@ class Image
 
         $gdSupportedTypes = @imagetypes();
 
-        $supportedFormats = array(
+        $supportedFormats = [
             'image/gif'      => $gdSupportedTypes & IMG_GIF,
             'image/jpeg'     => $gdSupportedTypes & IMG_JPG,
             'image/png'      => $gdSupportedTypes & IMG_PNG,
             'image/wbmp'     => $gdSupportedTypes & IMG_WBMP,
             'image/bmp'      => $bmpSupport && ($gdSupportedTypes & IMG_JPG),
             'image/x-ms-bmp' => $bmpSupport && ($gdSupportedTypes & IMG_JPG)
-        );
+        ];
 
         if (!array_key_exists($this->mime, $supportedFormats) || !$supportedFormats[$this->mime]) {
             throw new CKFinderException('Unsupported image type: ' . $this->mime);
@@ -233,7 +233,7 @@ class Image
      */
     public static function calculateAspectRatio($maxWidth, $maxHeight, $actualWidth, $actualHeight, $useHigherFactor = false)
     {
-        $oSize = array('width' => $maxWidth, 'height' => $maxHeight);
+        $oSize = ['width' => $maxWidth, 'height' => $maxHeight];
 
         // Calculates the X and Y resize factors
         $iFactorX = (float) $maxWidth / (float) $actualWidth;
@@ -410,7 +410,7 @@ class Image
             '/Vcompression/Vsize_bitmap/Vhoriz_resolution' .
             '/Vvert_resolution/Vcolors_used/Vcolors_important', fread($stream, 40));
 
-        $BMP['colors'] = pow(2, $BMP['bits_per_pixel']);
+        $BMP['colors'] = 2 ** $BMP['bits_per_pixel'];
 
         if ($BMP['size_bitmap'] == 0) {
             $BMP['size_bitmap'] = $FILE['file_size'] - $FILE['bitmap_offset'];
@@ -426,7 +426,7 @@ class Image
             $BMP['decal'] = 0;
         }
 
-        $PALETTE = array();
+        $PALETTE = [];
         if ($BMP['colors'] < 16777216) {
             $PALETTE = unpack('V' . $BMP['colors'], fread($stream, $BMP['colors'] * 4));
         }
@@ -686,11 +686,11 @@ class Image
 
     public function getInfo()
     {
-        $info = array(
+        $info = [
             'width'  => $this->getWidth(),
             'height' => $this->getHeight(),
             'size'   => $this->getDataSize()
-        );
+        ];
 
         return $info;
     }

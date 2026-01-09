@@ -26,18 +26,8 @@ use Backend\Modules\MediaLibrary\Domain\MediaGroup\Command\SaveMediaGroup;
 
 class MediaGroupType extends AbstractType
 {
-    /** @var MessageBusSupportingMiddleware */
-    private $commandBus;
-
-    /** @var MediaGroupRepository */
-    private $mediaGroupRepository;
-
-    public function __construct(
-        MediaGroupRepository $mediaGroupRepository,
-        MessageBusSupportingMiddleware $commandBus
-    ) {
-        $this->mediaGroupRepository = $mediaGroupRepository;
-        $this->commandBus = $commandBus;
+    public function __construct(private MediaGroupRepository $mediaGroupRepository, private MessageBusSupportingMiddleware $commandBus)
+    {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -164,12 +154,10 @@ class MediaGroupType extends AbstractType
 
     private function getMediaGroupReverseTransformFunction(): callable
     {
-        return function (array $mediaGroupData): MediaGroup {
-            return $this->saveMediaGroup(
-                $this->getMediaGroupFromMediaGroupData($mediaGroupData),
-                $this->getMediaItemIdsFromMediaGroupData($mediaGroupData)
-            )->getMediaGroup();
-        };
+        return fn(array $mediaGroupData): MediaGroup => $this->saveMediaGroup(
+            $this->getMediaGroupFromMediaGroupData($mediaGroupData),
+            $this->getMediaItemIdsFromMediaGroupData($mediaGroupData)
+        )->getMediaGroup();
     }
 
     private function getMediaGroupFromMediaGroupData(array $mediaGroupData): MediaGroup
@@ -180,7 +168,7 @@ class MediaGroupType extends AbstractType
         try {
             /** @var MediaGroup $mediaGroup */
             $mediaGroup = $this->mediaGroupRepository->findOneById($mediaGroupId);
-        } catch (MediaGroupNotFound $mediaGroupNotFound) {
+        } catch (MediaGroupNotFound) {
             $mediaGroup = MediaGroup::createFromId(
                 Uuid::fromString($mediaGroupId),
                 MediaGroupPossibleType::fromString($mediaGroupData['type'])
@@ -192,14 +180,12 @@ class MediaGroupType extends AbstractType
 
     private function getMediaGroupTransformFunction(): callable
     {
-        return static function (MediaGroup $mediaGroup) {
-            return [
-                'id' => $mediaGroup->getId(),
-                'type' => $mediaGroup->getType(),
-                'mediaIds' => implode(',', $mediaGroup->getIdsForConnectedItems()),
-                'mediaGroup' => $mediaGroup,
-            ];
-        };
+        return static fn(MediaGroup $mediaGroup) => [
+            'id' => $mediaGroup->getId(),
+            'type' => $mediaGroup->getType(),
+            'mediaIds' => implode(',', $mediaGroup->getIdsForConnectedItems()),
+            'mediaGroup' => $mediaGroup,
+        ];
     }
 
     private function getMediaItemIdsFromMediaGroupData(array $mediaGroupData): array

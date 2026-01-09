@@ -4,7 +4,7 @@ namespace Common;
 
 use Common\Exception\InvalidModuleExtraType;
 
-final class ModuleExtraType
+final class ModuleExtraType implements \Stringable
 {
     private const BLOCK = 'block';
     private const HOMEPAGE = 'homepage';

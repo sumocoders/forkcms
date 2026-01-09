@@ -11,14 +11,16 @@ use Twig\Node\Node;
 class FormNode extends Node
 {
     /**
-     * @var string Template variable holding the form.
+     * @param string $form Template variable holding the form.
+     * @param int $lineNumber
+     * @param string $tag
      */
-    private $form;
-
-    public function __construct(string $form, int $lineNumber, string $tag)
-    {
+    public function __construct(
+        private string $form,
+        int $lineNumber,
+        string $tag,
+    ) {
         parent::__construct([], [], $lineNumber, $tag);
-        $this->form = $form;
     }
 
     public function compile(Compiler $compiler): void

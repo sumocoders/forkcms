@@ -74,7 +74,7 @@ class MediaItemFindAll extends BackendBaseAJAXAction
         try {
             /** @var MediaFolder */
             return $this->get('media_library.repository.folder')->findOneById($id);
-        } catch (MediaFolderNotFound $mediaFolderNotFound) {
+        } catch (MediaFolderNotFound) {
             throw new AjaxExitException(Language::err('NonExistingMediaFolder'));
         }
     }
@@ -120,7 +120,7 @@ class MediaItemFindAll extends BackendBaseAJAXAction
         try {
             /** @var MediaGroup */
             return $this->get('media_library.repository.group')->findOneById($id);
-        } catch (MediaGroupNotFound $mediaGroupNotFound) {
+        } catch (MediaGroupNotFound) {
             return null;
         }
     }

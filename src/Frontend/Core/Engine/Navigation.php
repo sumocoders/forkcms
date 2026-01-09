@@ -72,7 +72,7 @@ class Navigation extends KernelLoader
         array $parameters = null,
         bool $urlencode = true
     ): string {
-        $language = $language ?? LANGUAGE;
+        $language ??= LANGUAGE;
 
         // add at least one parameter
         if (empty($parameters)) {
@@ -158,7 +158,7 @@ class Navigation extends KernelLoader
                 'title' => $data['title'],
                 'navigation_title' => $data['navigation_title'],
                 'selected' => in_array($id, self::$selectedPageIds, true),
-                'link_class' => (isset($data['data']['link_class'])) ? $data['data']['link_class'] : null,
+                'link_class' => $data['data']['link_class'] ?? null,
             ];
         }
 
@@ -457,7 +457,7 @@ class Navigation extends KernelLoader
      */
     public static function getUrl(int $pageId, string $language = null): string
     {
-        $language = $language ?? LANGUAGE;
+        $language ??= LANGUAGE;
 
         // init URL
         $url = FrontendModel::getContainer()->getParameter('site.multilanguage') ? '/' . $language . '/' : '/';
@@ -496,7 +496,7 @@ class Navigation extends KernelLoader
         string $language = null,
         array $data = null
     ): string {
-        $language = $language ?? LANGUAGE;
+        $language ??= LANGUAGE;
         // init var
         $pageIdForUrl = null;
 
@@ -583,7 +583,7 @@ class Navigation extends KernelLoader
      */
     public static function getUrlForExtraId(int $id, string $language = null): string
     {
-        $language = $language ?? LANGUAGE;
+        $language ??= LANGUAGE;
         // get the menuItems
         $navigation = self::getNavigation($language);
 

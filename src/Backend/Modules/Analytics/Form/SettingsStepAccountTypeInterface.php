@@ -17,23 +17,15 @@ final class SettingsStepAccountTypeInterface implements SettingsStepTypeInterfac
     /** @var Form */
     private $form;
 
-    /** @var ModulesSettings */
-    private $settings;
-
-    /** Google_Service_Analytics $googleServiceAnalytics */
-    private $googleServiceAnalytics;
-
     /** @var bool */
     private $hasAccounts;
 
     public function __construct(
         string $name,
-        ModulesSettings $settings,
-        Google_Service_Analytics $googleServiceAnalytics
+        private ModulesSettings $settings,
+        private Google_Service_Analytics $googleServiceAnalytics,
     ) {
         $this->form = new Form($name);
-        $this->settings = $settings;
-        $this->googleServiceAnalytics = $googleServiceAnalytics;
 
         $this->build();
     }
@@ -69,7 +61,7 @@ final class SettingsStepAccountTypeInterface implements SettingsStepTypeInterfac
     {
         try {
             $accounts = $this->googleServiceAnalytics->management_accounts->listManagementAccounts();
-        } catch (Google_Service_Exception $e) {
+        } catch (Google_Service_Exception) {
             $this->hasAccounts = false;
 
             return;

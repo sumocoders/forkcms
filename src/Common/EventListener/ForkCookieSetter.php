@@ -7,12 +7,8 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class ForkCookieSetter
 {
-    /** @var Cookie */
-    private $cookie;
-
-    public function __construct(Cookie $cookie)
+    public function __construct(private Cookie $cookie)
     {
-        $this->cookie = $cookie;
     }
 
     /**

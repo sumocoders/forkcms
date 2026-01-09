@@ -29,15 +29,11 @@ class UnauthorizedException extends CKFinderException
 {
     protected $httpStatusCode = Response::HTTP_UNAUTHORIZED;
 
-    /**
-     * Constructor.
-     *
-     * @param string     $message    the exception message
-     * @param array      $parameters the parameters passed for translation
-     * @param \Exception $previous   the previous exception
-     */
-    public function __construct($message = 'Unauthorized', $parameters = array(), \Exception $previous = null)
-    {
+    public function __construct(
+        string $message = 'Unauthorized',
+        array $parameters = [],
+        ?\Exception $previous = null,
+    ) {
         parent::__construct($message, Error::UNAUTHORIZED, $parameters, $previous);
     }
 }

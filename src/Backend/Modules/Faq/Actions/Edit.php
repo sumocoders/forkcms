@@ -73,7 +73,7 @@ class Edit extends BackendBaseActionEdit
         );
 
         $this->meta = new BackendMeta($this->form, $this->record['meta_id'], 'title', true);
-        $this->meta->setHreflangCallback('Backend\Modules\Faq\Engine\Model', 'getHrefLangValues');
+        $this->meta->setHreflangCallback(\Backend\Modules\Faq\Engine\Model::class, 'getHrefLangValues');
     }
 
     protected function parse(): void
@@ -97,7 +97,7 @@ class Edit extends BackendBaseActionEdit
     private function validateForm(): void
     {
         if ($this->form->isSubmitted()) {
-            $this->meta->setUrlCallback('Backend\Modules\Faq\Engine\Model', 'getUrl', [$this->record['id']]);
+            $this->meta->setUrlCallback(\Backend\Modules\Faq\Engine\Model::class, 'getUrl', [$this->record['id']]);
 
             $this->form->cleanupFields();
 

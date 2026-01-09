@@ -318,7 +318,7 @@ class MediaItem implements JsonSerializable
         try {
             // Define file from path
             $file = new File($path);
-        } catch (FileNotFoundException $e) {
+        } catch (FileNotFoundException) {
             throw new Exception(
                 'This is not a valid file: "' . $path . '".'
             );
@@ -345,7 +345,7 @@ class MediaItem implements JsonSerializable
 
         try {
             $mimeTypeType = Type::fromMimeType($file->getMimeType());
-        } catch (Exception $exception) {
+        } catch (Exception) {
             return $extensionType;
         }
 

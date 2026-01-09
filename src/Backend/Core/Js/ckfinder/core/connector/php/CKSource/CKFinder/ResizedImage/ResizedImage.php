@@ -141,10 +141,10 @@ class ResizedImage extends ResizedImageAbstract
         preg_match('/^.*__(\d+)x(\d+)$/', $pathInfo['filename'], $matches);
 
         if (count($matches) === 3) {
-            return array(
+            return [
                 'width'  => (int) $matches[1],
                 'height' => (int) $matches[2]
-            );
+            ];
         }
 
         return null;

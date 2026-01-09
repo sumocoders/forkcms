@@ -81,18 +81,18 @@ class UploadedFile extends File
             switch ($uploadedFile->getError()) {
                 case UPLOAD_ERR_INI_SIZE:
                 case UPLOAD_ERR_FORM_SIZE:
-                    throw new InvalidUploadException($errorMessage, Error::UPLOADED_TOO_BIG, array(), $e);
+                    throw new InvalidUploadException($errorMessage, Error::UPLOADED_TOO_BIG, [], $e);
 
                 case UPLOAD_ERR_PARTIAL:
                 case UPLOAD_ERR_NO_FILE:
-                    throw new InvalidUploadException($errorMessage, Error::UPLOADED_CORRUPT, array(), $e);
+                    throw new InvalidUploadException($errorMessage, Error::UPLOADED_CORRUPT, [], $e);
 
                 case UPLOAD_ERR_NO_TMP_DIR:
-                    throw new InvalidUploadException($errorMessage, Error::UPLOADED_NO_TMP_DIR, array(), $e);
+                    throw new InvalidUploadException($errorMessage, Error::UPLOADED_NO_TMP_DIR, [], $e);
 
                 case UPLOAD_ERR_CANT_WRITE:
                 case UPLOAD_ERR_EXTENSION:
-                    throw new AccessDeniedException($errorMessage, array(), $e);
+                    throw new AccessDeniedException($errorMessage, [], $e);
             }
         }
     }
@@ -128,7 +128,7 @@ class UploadedFile extends File
      */
     public function hasAllowedExtension()
     {
-        if (strpos($this->fileName, '.') === false) {
+        if (!str_contains($this->fileName, '.')) {
             return true;
         }
 

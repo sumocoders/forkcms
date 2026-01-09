@@ -4,7 +4,7 @@ namespace Common\Core\Header;
 
 use InvalidArgumentException;
 
-final class Priority
+final class Priority implements \Stringable
 {
     private const CORE = 0;
     private const STANDARD = 1;

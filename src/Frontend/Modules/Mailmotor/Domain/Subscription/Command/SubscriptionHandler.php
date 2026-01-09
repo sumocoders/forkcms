@@ -9,20 +9,8 @@ use MailMotor\Bundle\MailMotorBundle\Exception\NotImplementedException;
 
 final class SubscriptionHandler
 {
-    /**
-     * @var ModulesSettings
-     */
-    private $modulesSettings;
-
-    /**
-     * @var Subscriber
-     */
-    private $subscriber;
-
-    public function __construct(Subscriber $subscriber, ModulesSettings $modulesSettings)
+    public function __construct(private Subscriber $subscriber, private ModulesSettings $modulesSettings)
     {
-        $this->subscriber = $subscriber;
-        $this->modulesSettings = $modulesSettings;
     }
 
     public function handle(Subscription $subscription): void
@@ -45,7 +33,7 @@ final class SubscriptionHandler
                     $interests[$checkedInterestId] = true;
                 }
             }
-        } catch (NotImplementedException $e) {
+        } catch (NotImplementedException) {
             // Fallback for when no mail-engine is chosen in the Backend
         }
 

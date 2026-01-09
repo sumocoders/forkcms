@@ -112,9 +112,9 @@ class Page extends KernelLoader
 
         try {
             $this->handlePage(Navigation::getPageId(implode('/', $this->url->getPages())));
-        } catch (NotFoundHttpException $notFoundHttpException) {
+        } catch (NotFoundHttpException) {
             $this->handlePage(Response::HTTP_NOT_FOUND);
-        } catch (InsufficientAuthenticationException $insufficientAuthenticationException) {
+        } catch (InsufficientAuthenticationException) {
             $this->redirectToLogin();
         }
     }
@@ -215,11 +215,11 @@ class Page extends KernelLoader
                 $this->template->getContent($this->templatePath),
                 $this->statusCode
             );
-        } catch (NotFoundHttpException $notFoundHttpException) {
+        } catch (NotFoundHttpException) {
             $this->handlePage(Response::HTTP_NOT_FOUND);
 
             return $this->display();
-        } catch (InsufficientAuthenticationException $insufficientAuthenticationException) {
+        } catch (InsufficientAuthenticationException) {
             $this->redirectToLogin();
         }
     }
@@ -317,15 +317,13 @@ class Page extends KernelLoader
         $this->template->assignGlobal(
             'languages',
             array_map(
-                function (string $language) {
-                    return [
-                        'url' => '/' . $language,
-                        'label' => $language,
-                        'name' => Language::msg(mb_strtoupper($language)),
-                        'current' => $language === LANGUAGE,
-                        'alternate' => $this->generateAlternativeLinkForLanguage($language),
-                    ];
-                },
+                fn(string $language) => [
+                    'url' => '/' . $language,
+                    'label' => $language,
+                    'name' => Language::msg(mb_strtoupper($language)),
+                    'current' => $language === LANGUAGE,
+                    'alternate' => $this->generateAlternativeLinkForLanguage($language),
+                ],
                 Language::getActiveLanguages()
             )
         );
@@ -388,7 +386,7 @@ class Page extends KernelLoader
     protected function processExtra(ModuleExtraInterface $extra): void
     {
         $this->getContainer()->get('logger.public')->info(
-            'Executing ' . get_class($extra) . " '{$extra->getAction()}' for module '{$extra->getModule()}'."
+            'Executing ' . $extra::class . " '{$extra->getAction()}' for module '{$extra->getModule()}'."
         );
 
         // overwrite the template

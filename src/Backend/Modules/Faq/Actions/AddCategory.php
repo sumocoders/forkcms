@@ -51,7 +51,7 @@ class AddCategory extends BackendBaseActionAdd
     private function validateForm(): void
     {
         if ($this->form->isSubmitted()) {
-            $this->meta->setUrlCallback('Backend\Modules\Faq\Engine\Model', 'getUrlForCategory');
+            $this->meta->setUrlCallback(\Backend\Modules\Faq\Engine\Model::class, 'getUrlForCategory');
 
             $this->form->cleanupFields();
 

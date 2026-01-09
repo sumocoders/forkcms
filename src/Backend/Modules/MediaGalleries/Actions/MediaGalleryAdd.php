@@ -79,7 +79,7 @@ class MediaGalleryAdd extends ActionAdd
     {
         try {
             return Type::fromString($this->getRequest()->query->get('media_group_type')['type']);
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             $this->redirect(
                 $this->getBackLink(
                     [

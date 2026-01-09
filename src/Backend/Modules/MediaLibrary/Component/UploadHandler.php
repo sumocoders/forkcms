@@ -205,7 +205,7 @@ class UploadHandler
             throw new Exception('No files were uploaded.');
         }
 
-        if (strpos(strtolower($type), 'multipart/') !== 0 && !$this->request->query->has('done')) {
+        if (!str_starts_with(strtolower($type), 'multipart/') && !$this->request->query->has('done')) {
             throw new Exception(
                 'Server error. Not a multipart request. Please set forceMultipart to default value (true).'
             );
@@ -337,15 +337,11 @@ class UploadHandler
         }
 
         $val = (int) substr($str, 0, -1);
-        switch (strtoupper($unit)) {
-            case 'G':
-                return $val * 1073741824;
-            case 'M':
-                return $val * 1048576;
-            case 'K':
-                return $val * 1024;
-            default:
-                return $val;
-        }
+        return match (strtoupper($unit)) {
+            'G' => $val * 1073741824,
+            'M' => $val * 1048576,
+            'K' => $val * 1024,
+            default => $val,
+        };
     }
 }

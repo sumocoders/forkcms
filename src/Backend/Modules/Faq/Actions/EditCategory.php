@@ -78,7 +78,7 @@ class EditCategory extends BackendBaseActionEdit
     {
         if ($this->form->isSubmitted()) {
             $this->meta->setUrlCallback(
-                'Backend\Modules\Faq\Engine\Model',
+                \Backend\Modules\Faq\Engine\Model::class,
                 'getUrlForCategory',
                 [$this->record['id']]
             );

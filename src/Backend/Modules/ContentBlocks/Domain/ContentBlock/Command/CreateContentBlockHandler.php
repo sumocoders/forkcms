@@ -9,12 +9,8 @@ use Common\ModuleExtraType;
 
 final class CreateContentBlockHandler
 {
-    /** @var ContentBlockRepository */
-    private $contentBlockRepository;
-
-    public function __construct(ContentBlockRepository $contentBlockRepository)
+    public function __construct(private ContentBlockRepository $contentBlockRepository)
     {
-        $this->contentBlockRepository = $contentBlockRepository;
     }
 
     public function handle(CreateContentBlock $createContentBlock): void

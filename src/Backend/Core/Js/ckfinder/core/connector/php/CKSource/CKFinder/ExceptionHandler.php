@@ -31,37 +31,14 @@ use \Symfony\Component\HttpKernel\Exception\HttpException;
  */
 class ExceptionHandler implements EventSubscriberInterface
 {
-    /**
-     * Flag used to enable the debug mode.
-     *
-     * @var bool $debug
-     */
-    protected $debug;
-
-    /**
-     * LoggerInterface
-     *
-     * @var LoggerInterface $logger
-     */
-    protected $logger;
-
-    protected $translator;
-
-    /**
-     * Constructor.
-     *
-     * @param Translator      $translator translator object
-     * @param bool            $debug      `true` if debug mode is enabled
-     * @param LoggerInterface $logger     logger
-     */
-    public function __construct(Translator $translator, $debug = false, LoggerInterface $logger = null)
+    public function __construct(
+        protected Translator $translator,
+        protected bool $debug = false,
+        protected ?LoggerInterface $logger = null,
+    )
     {
-        $this->translator = $translator;
-        $this->debug = $debug;
-        $this->logger = $logger;
-
-        if ($debug) {
-            set_error_handler(array($this, 'errorHandler'));
+        if ($this->debug) {
+            set_error_handler([$this, 'errorHandler']);
         }
     }
 
@@ -71,7 +48,7 @@ class ExceptionHandler implements EventSubscriberInterface
 
         $exceptionCode = $exception->getCode() ?: Error::UNKNOWN;
 
-        $replacements = array();
+        $replacements = [];
 
         $httpStatusCode = 200;
 
@@ -129,6 +106,6 @@ class ExceptionHandler implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::EXCEPTION => array('onCKFinderError', -255));
+        return [KernelEvents::EXCEPTION => ['onCKFinderError', -255]];
     }
 }

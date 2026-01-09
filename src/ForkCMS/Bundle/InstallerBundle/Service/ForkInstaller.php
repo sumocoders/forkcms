@@ -18,13 +18,6 @@ use ForkCMS\Bundle\InstallerBundle\Entity\InstallationData;
 class ForkInstaller
 {
     /**
-     * The Dependency injection container
-     *
-     * @var Container
-     */
-    private $container;
-
-    /**
      * @var array
      */
     private $defaultExtras = [];
@@ -35,11 +28,9 @@ class ForkInstaller
      *
      * @param Container $container
      */
-    public function __construct(Container $container)
+    public function __construct(private Container $container)
     {
-        $this->container = $container;
-
-        Model::setContainer($container);
+        Model::setContainer($this->container);
     }
 
     /**

@@ -4,24 +4,16 @@ namespace Common\Core\Header;
 
 use DateTimeImmutable;
 
-final class Asset
+final class Asset implements \Stringable
 {
-    /** @var string */
-    private $file;
-
     /** @var Priority */
     private $priority;
-
-    /** @var bool */
-    private $addTimestamp;
 
     /** @var DateTimeImmutable */
     private $createdOn;
 
-    public function __construct(string $file, bool $addTimestamp = true, Priority $priority = null)
+    public function __construct(private string $file, private bool $addTimestamp = true, Priority $priority = null)
     {
-        $this->file = $file;
-        $this->addTimestamp = $addTimestamp;
         $this->priority = $priority ?? Priority::standard();
         $this->createdOn = new DateTimeImmutable();
     }

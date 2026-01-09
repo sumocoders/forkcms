@@ -47,7 +47,7 @@ class Permission
      */
     public static function getAll()
     {
-        $ref = new \ReflectionClass(__CLASS__);
+        $ref = new \ReflectionClass(self::class);
 
         return $ref->getConstants();
     }

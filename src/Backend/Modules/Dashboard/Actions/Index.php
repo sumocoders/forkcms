@@ -53,9 +53,7 @@ class Index extends BackendBaseActionIndex
         $hiddenWidgets = array_count_values($hiddenWidgets);
         $hiddenWidgets = array_filter(
             $hiddenWidgets,
-            function ($hiddenCount) use ($groupCount) {
-                return $hiddenCount === $groupCount;
-            }
+            fn($hiddenCount) => $hiddenCount === $groupCount
         );
 
         // loop all modules

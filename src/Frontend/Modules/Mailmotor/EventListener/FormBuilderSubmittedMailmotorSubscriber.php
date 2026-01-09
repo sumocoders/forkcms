@@ -14,20 +14,8 @@ use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
  */
 final class FormBuilderSubmittedMailmotorSubscriber
 {
-    /**
-     * @var ModulesSettings
-     */
-    private $modulesSettings;
-
-    /**
-     * @var Subscriber
-     */
-    private $mailmotorSubscriber;
-
-    public function __construct(ModulesSettings $modulesSettings, Subscriber $mailmotorSubscriber)
+    public function __construct(private ModulesSettings $modulesSettings, private Subscriber $mailmotorSubscriber)
     {
-        $this->modulesSettings = $modulesSettings;
-        $this->mailmotorSubscriber = $mailmotorSubscriber;
     }
 
     public function onFormSubmitted(FormBuilderSubmittedEvent $event): void
@@ -59,21 +47,15 @@ final class FormBuilderSubmittedMailmotorSubscriber
         $fieldIds = array_keys(
             array_filter(
                 $formFields,
-                function (array $formField): bool {
-                    return $formField['settings']['use_to_subscribe_with_mailmotor'] ?? false;
-                }
+                fn(array $formField): bool => $formField['settings']['use_to_subscribe_with_mailmotor'] ?? false
             )
         );
 
         return array_map(
-            function (array $fieldData) {
-                return unserialize($fieldData['value'], ['allowed_classes' => false]);
-            },
+            fn(array $fieldData) => unserialize($fieldData['value'], ['allowed_classes' => false]),
             array_filter(
                 $formData,
-                function ($key) use ($fieldIds) {
-                    return in_array($key, $fieldIds, true);
-                },
+                fn($key) => in_array($key, $fieldIds, true),
                 ARRAY_FILTER_USE_KEY
             )
         );

@@ -355,20 +355,13 @@ class Model
     public static function getTypeName(string $type): string
     {
         // get full type name
-        switch ($type) {
-            case 'act':
-                $type = 'action';
-                break;
-            case 'err':
-                $type = 'error';
-                break;
-            case 'lbl':
-                $type = 'label';
-                break;
-            case 'msg':
-                $type = 'message';
-                break;
-        }
+        $type = match ($type) {
+            'act' => 'action',
+            'err' => 'error',
+            'lbl' => 'label',
+            'msg' => 'message',
+            default => $type,
+        };
 
         return $type;
     }

@@ -31,19 +31,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MetaType extends AbstractType
 {
-    /** @var MetaRepository */
-    private $metaRepository;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
     /** @var Meta[] */
     private $meta;
 
-    public function __construct(MetaRepository $metaRepository, TranslatorInterface $translator)
+    public function __construct(private MetaRepository $metaRepository, private TranslatorInterface $translator)
     {
-        $this->metaRepository = $metaRepository;
-        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -162,14 +154,10 @@ class MetaType extends AbstractType
             'expanded' => true,
             'multiple' => false,
             'choices' => array_map(
-                function ($SEOIndex) {
-                    return SEOIndex::fromString($SEOIndex);
-                },
+                fn($SEOIndex) => SEOIndex::fromString($SEOIndex),
                 SEOIndex::POSSIBLE_VALUES
             ),
-            'choice_value' => function (SEOIndex $SEOIndex = null) {
-                return (string) $SEOIndex;
-            },
+            'choice_value' => fn(SEOIndex $SEOIndex = null) => (string) $SEOIndex,
             'choice_label' => function ($SEOIndex) {
                 if ($SEOIndex->isNone()) {
                     return 'lbl.' . ucfirst($SEOIndex);
@@ -190,14 +178,10 @@ class MetaType extends AbstractType
             'expanded' => true,
             'multiple' => false,
             'choices' => array_map(
-                function ($SEOFollow) {
-                    return SEOFollow::fromString($SEOFollow);
-                },
+                fn($SEOFollow) => SEOFollow::fromString($SEOFollow),
                 SEOFollow::POSSIBLE_VALUES
             ),
-            'choice_value' => function (SEOFollow $SEOFollow = null) {
-                return (string) $SEOFollow;
-            },
+            'choice_value' => fn(SEOFollow $SEOFollow = null) => (string) $SEOFollow,
             'choice_label' => function ($SEOFollow) {
                 if ($SEOFollow->isNone()) {
                     return 'lbl.' . ucfirst($SEOFollow);
@@ -450,7 +434,7 @@ class MetaType extends AbstractType
     {
         $baseGeneratedUrl = self::stripNumberAddedByTheUrlGeneration($generatedUrl);
 
-        if ($baseGeneratedUrl !== $generatedUrl && strpos($generatedUrl, $baseGeneratedUrl) === 0) {
+        if ($baseGeneratedUrl !== $generatedUrl && str_starts_with($generatedUrl, $baseGeneratedUrl)) {
             return 'err.URLAlreadyExists';
         }
 

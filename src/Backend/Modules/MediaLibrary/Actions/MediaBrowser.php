@@ -32,7 +32,7 @@ class MediaBrowser extends BackendBaseAction
 
         try {
             return $this->get('media_library.repository.folder')->findOneById($id);
-        } catch (MediaFolderNotFound $mediaFolderNotFound) {
+        } catch (MediaFolderNotFound) {
             return null;
         }
     }
@@ -93,9 +93,7 @@ class MediaBrowser extends BackendBaseAction
     {
         $totalResultCount = array_sum(
             array_map(
-                function ($dataGrid) {
-                    return $dataGrid['numberOfResults'];
-                },
+                fn($dataGrid) => $dataGrid['numberOfResults'],
                 $dataGrids
             )
         );

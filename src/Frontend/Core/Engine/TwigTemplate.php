@@ -69,9 +69,7 @@ class TwigTemplate extends BaseTwigTemplate
         $this->environment->addRuntimeLoader(
             new FactoryRuntimeLoader(
                 [
-                    FormRenderer::class => function () use ($rendererEngine, $csrfTokenManager): FormRenderer {
-                        return new FormRenderer($rendererEngine, $csrfTokenManager);
-                    },
+                    FormRenderer::class => fn(): FormRenderer => new FormRenderer($rendererEngine, $csrfTokenManager),
                 ]
             )
         );
@@ -90,7 +88,7 @@ class TwigTemplate extends BaseTwigTemplate
      */
     public function getPath(string $template): string
     {
-        if (strpos($template, FRONTEND_MODULES_PATH) !== false) {
+        if (str_contains($template, FRONTEND_MODULES_PATH)) {
             return str_replace(FRONTEND_MODULES_PATH . '/', '', $template);
         }
 
@@ -147,9 +145,7 @@ class TwigTemplate extends BaseTwigTemplate
 
         return array_filter(
             $files,
-            function ($folder) use ($filesystem) {
-                return $filesystem->exists($folder);
-            }
+            fn($folder) => $filesystem->exists($folder)
         );
     }
 }

@@ -26,7 +26,7 @@ class RenameFile extends CommandAbstract
 {
     protected $requestMethod = Request::METHOD_POST;
 
-    protected $requires = array(Permission::FILE_RENAME);
+    protected $requires = [Permission::FILE_RENAME];
 
     public function execute(Request $request, WorkingFolder $workingFolder, EventDispatcher $dispatcher)
     {
@@ -57,10 +57,10 @@ class RenameFile extends CommandAbstract
             }
         }
 
-        return array(
+        return [
             'name'    => $fileName,
             'newName' => $renamedFile->getNewFileName(),
             'renamed' => (int) $renamed
-        );
+        ];
     }
 }

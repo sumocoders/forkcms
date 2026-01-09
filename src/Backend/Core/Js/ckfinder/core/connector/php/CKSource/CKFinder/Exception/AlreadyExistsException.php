@@ -32,7 +32,7 @@ class AlreadyExistsException extends CKFinderException
      * @param array      $parameters the parameters passed for translation
      * @param \Exception $previous   the previous exception
      */
-    public function __construct($message = null, $parameters = array(), \Exception $previous = null)
+    public function __construct($message = null, $parameters = [], \Exception $previous = null)
     {
         parent::__construct($message, Error::ALREADY_EXIST, $parameters, $previous);
     }

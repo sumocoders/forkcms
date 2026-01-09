@@ -37,9 +37,7 @@ class PriorityTest extends TestCase
 
         usort(
             $priorities,
-            function (Priority $priority1, Priority $priority2) {
-                return $priority1->compare($priority2);
-            }
+            fn(Priority $priority1, Priority $priority2) => $priority1->compare($priority2)
         );
 
         foreach ($sortedPriorities as $key => $priority) {

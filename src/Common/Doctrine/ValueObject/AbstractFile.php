@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * upload for PostPersist() and PostUpdate()
  * remove for PostRemove()
  */
-abstract class AbstractFile
+abstract class AbstractFile implements \Stringable
 {
     /**
      * @var string

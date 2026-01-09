@@ -94,10 +94,6 @@ class ImportLocaleCommand extends Command
 
     private function getLocalePath(?string $fileOption, ?string $moduleOption): string
     {
-        if (isset($fileOption)) {
-            return $fileOption;
-        }
-
-        return __DIR__ . '/../../..' . '/src/Backend/Modules/' . ucfirst($moduleOption) . '/Installer/Data/locale.xml';
+        return $fileOption ?? __DIR__ . '/../../..' . '/src/Backend/Modules/' . ucfirst($moduleOption) . '/Installer/Data/locale.xml';
     }
 }

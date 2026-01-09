@@ -112,22 +112,12 @@ class Language
 
     public static function getError(string $key, string $module = null): string
     {
-        $module = $module ?? self::getCurrentModule();
+        $module ??= self::getCurrentModule();
 
         $key = \SpoonFilter::toCamelCase($key);
 
-        // check if the error exists
-        if (isset(self::$err[$module][$key])) {
-            return self::$err[$module][$key];
-        }
-
-        // check if the error exists in the Core
-        if (isset(self::$err['Core'][$key])) {
-            return self::$err['Core'][$key];
-        }
-
         // otherwise return the key in label-format
-        return '{$err' . \SpoonFilter::toCamelCase($module) . $key . '}';
+        return self::$err[$module][$key] ?? self::$err['Core'][$key] ?? '{$err' . \SpoonFilter::toCamelCase($module) . $key . '}';
     }
 
     public static function getErrors(): array
@@ -163,22 +153,12 @@ class Language
 
     public static function getLabel(string $key, string $module = null): string
     {
-        $module = $module ?? self::getCurrentModule();
+        $module ??= self::getCurrentModule();
 
         $key = \SpoonFilter::toCamelCase($key);
 
-        // check if the label exists
-        if (isset(self::$lbl[$module][$key])) {
-            return self::$lbl[$module][$key];
-        }
-
-        // check if the label exists in the Core
-        if (isset(self::$lbl['Core'][$key])) {
-            return self::$lbl['Core'][$key];
-        }
-
         // otherwise return the key in label-format
-        return '{$lbl' . \SpoonFilter::toCamelCase($module) . $key . '}';
+        return self::$lbl[$module][$key] ?? self::$lbl['Core'][$key] ?? '{$lbl' . \SpoonFilter::toCamelCase($module) . $key . '}';
     }
 
     public static function getLabels(): array
@@ -189,20 +169,10 @@ class Language
     public static function getMessage(string $key, string $module = null): string
     {
         $key = \SpoonFilter::toCamelCase((string) $key);
-        $module = $module ?? self::getCurrentModule();
-
-        // check if the message exists
-        if (isset(self::$msg[$module][$key])) {
-            return self::$msg[$module][$key];
-        }
-
-        // check if the message exists in the Core
-        if (isset(self::$msg['Core'][$key])) {
-            return self::$msg['Core'][$key];
-        }
+        $module ??= self::getCurrentModule();
 
         // otherwise return the key in label-format
-        return '{$msg' . \SpoonFilter::toCamelCase($module) . $key . '}';
+        return self::$msg[$module][$key] ?? self::$msg['Core'][$key] ?? '{$msg' . \SpoonFilter::toCamelCase($module) . $key . '}';
     }
 
     public static function getMessages(): array
@@ -263,7 +233,7 @@ class Language
             if (defined('APPLICATION') && APPLICATION !== 'Console') {
                 Model::getContainer()->get('fork.cookie')->set('interface_language', $language);
             }
-        } catch (RuntimeException|ServiceNotFoundException $e) {
+        } catch (RuntimeException|ServiceNotFoundException) {
             // settings cookies isn't allowed, because this isn't a real problem we ignore the exception
         }
 

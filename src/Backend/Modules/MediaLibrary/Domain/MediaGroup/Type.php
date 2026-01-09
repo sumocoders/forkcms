@@ -2,7 +2,7 @@
 
 namespace Backend\Modules\MediaLibrary\Domain\MediaGroup;
 
-final class Type
+final class Type implements \Stringable
 {
     // Possible MediaGroup types
     const ALL = 'all';

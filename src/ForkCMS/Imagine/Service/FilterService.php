@@ -14,48 +14,21 @@ use Psr\Log\NullLogger;
 class FilterService
 {
     /**
-     * @var DataManager
-     */
-    private $dataManager;
-
-    /**
-     * @var FilterManager
-     */
-    private $filterManager;
-
-    /**
-     * @var CacheManager
-     */
-    private $cacheManager;
-
-    /**
      * @var LoggerInterface
      */
     private $logger;
 
-    /**
-     * @var bool
-     */
-    private $webpGenerate;
-
-    /**
-     * @var mixed[]
-     */
-    private $webpOptions;
-
     public function __construct(
-        DataManager $dataManager,
-        FilterManager $filterManager,
-        CacheManager $cacheManager,
-        bool $webpGenerate,
-        array $webpOptions,
+        private DataManager $dataManager,
+        private FilterManager $filterManager,
+        private CacheManager $cacheManager,
+        private bool $webpGenerate,
+        /**
+         * @var mixed[]
+         */
+        private array $webpOptions,
         ?LoggerInterface $logger = null
     ) {
-        $this->dataManager = $dataManager;
-        $this->filterManager = $filterManager;
-        $this->cacheManager = $cacheManager;
-        $this->webpGenerate = $webpGenerate;
-        $this->webpOptions = $webpOptions;
         $this->logger = $logger ?: new NullLogger();
     }
 

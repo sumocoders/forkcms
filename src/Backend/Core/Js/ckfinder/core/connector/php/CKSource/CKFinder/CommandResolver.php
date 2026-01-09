@@ -130,7 +130,7 @@ class CommandResolver implements ControllerResolverInterface
         }
 
         if (!$commandObject instanceof CommandAbstract) {
-            throw new InvalidCommandException(sprintf("CKFinder command must be a subclass of CommandAbstract (%s given)", get_class($commandObject)));
+            throw new InvalidCommandException(sprintf("CKFinder command must be a subclass of CommandAbstract (%s given)", $commandObject::class));
         }
 
         if (!method_exists($commandObject, self::COMMAND_EXECUTE_METHOD)) {
@@ -153,7 +153,7 @@ class CommandResolver implements ControllerResolverInterface
 
         $commandObject->checkPermissions();
 
-        return array($commandObject, self::COMMAND_EXECUTE_METHOD);
+        return [$commandObject, self::COMMAND_EXECUTE_METHOD];
     }
 
     /**
@@ -181,7 +181,7 @@ class CommandResolver implements ControllerResolverInterface
 
         $parameters = $r->getParameters();
 
-        $arguments = array();
+        $arguments = [];
 
         foreach ($parameters as $param) {
             /* @var $param \ReflectionParameter */

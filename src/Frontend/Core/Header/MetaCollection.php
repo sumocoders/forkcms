@@ -2,7 +2,7 @@
 
 namespace Frontend\Core\Header;
 
-final class MetaCollection
+final class MetaCollection implements \Stringable
 {
     /** @var MetaData[] */
     private $metaData = [];

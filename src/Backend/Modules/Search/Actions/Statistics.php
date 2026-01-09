@@ -31,7 +31,7 @@ class Statistics extends Action
         $dataGrid->setHeaderLabels(['time' => \SpoonFilter::ucfirst(BL::lbl('SearchedOn'))]);
 
         // set column function
-        $dataGrid->setColumnFunction([__CLASS__, 'parseRefererInDataGrid'], '[data]', 'referrer');
+        $dataGrid->setColumnFunction([self::class, 'parseRefererInDataGrid'], '[data]', 'referrer');
         $dataGrid->setColumnFunction(
             [new BackendDataGridFunctions(), 'getLongDate'],
             ['[time]'],

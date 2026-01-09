@@ -94,9 +94,7 @@ final class Autocomplete
         // map the values to replace them with the backend translations
         // use array combine to set the keys as the autocomplete values instead of key values
         return array_map(
-            function (string $value): string {
-                return $value . ' (' . Language::getLabel('Autocomplete_' . str_replace('-', '_', $value)) . ')';
-            },
+            fn(string $value): string => $value . ' (' . Language::getLabel('Autocomplete_' . str_replace('-', '_', $value)) . ')',
             array_combine(
                 Autocomplete::POSSIBLE_VALUES,
                 Autocomplete::POSSIBLE_VALUES

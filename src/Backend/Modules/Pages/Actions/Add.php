@@ -758,7 +758,7 @@ class Add extends BackendBaseActionAdd
                 }
 
                 // Only usertemplates with image
-                if (strpos($block['html'], 'data-ft-type="image"') === false) {
+                if (!str_contains($block['html'], 'data-ft-type="image"')) {
                     return $block;
                 }
 

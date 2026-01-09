@@ -18,13 +18,6 @@ use Common\ModuleExtraType;
 class ModuleInstaller
 {
     /**
-     * Database connection instance
-     *
-     * @var SpoonDatabase
-     */
-    private $database;
-
-    /**
      * The module name.
      *
      * @var string
@@ -39,39 +32,11 @@ class ModuleInstaller
     private $defaultExtras = [];
 
     /**
-     * The frontend language(s)
-     *
-     * @var array
-     */
-    private $languages = [];
-
-    /**
-     * The backend language(s)
-     *
-     * @var array
-     */
-    private $interfaceLanguages = [];
-
-    /**
      * Cached modules
      *
      * @var array
      */
     private static $modules = [];
-
-    /**
-     * The variables passed by the installer
-     *
-     * @var array
-     */
-    private $variables = [];
-
-    /**
-     * Should example data be installed.
-     *
-     * @var bool
-     */
-    private $example;
 
     /**
      * @param SpoonDatabase $database The database-connection.
@@ -81,17 +46,12 @@ class ModuleInstaller
      * @param array $variables The passed variables.
      */
     public function __construct(
-        SpoonDatabase $database,
-        array $languages,
-        array $interfaceLanguages,
-        bool $example = false,
-        array $variables = []
+        private SpoonDatabase $database,
+        private array $languages,
+        private array $interfaceLanguages,
+        private bool $example = false,
+        private array $variables = [],
     ) {
-        $this->database = $database;
-        $this->languages = $languages;
-        $this->interfaceLanguages = $interfaceLanguages;
-        $this->example = $example;
-        $this->variables = $variables;
     }
 
     /**
@@ -233,7 +193,7 @@ class ModuleInstaller
                  ORDER BY id ASC',
                 [true, true, false]
             );
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return 1;
         }
     }
@@ -638,18 +598,18 @@ class ModuleInstaller
      */
     private function completeMetaRecord(array $meta, string $defaultValue): array
     {
-        $meta['keywords'] = $meta['keywords'] ?? $defaultValue;
-        $meta['keywords_overwrite'] = $meta['keywords_overwrite'] ?? false;
-        $meta['description'] = $meta['description'] ?? $defaultValue;
-        $meta['description_overwrite'] = $meta['description_overwrite'] ?? false;
-        $meta['title'] = $meta['title'] ?? $defaultValue;
-        $meta['title_overwrite'] = $meta['title_overwrite'] ?? false;
-        $meta['url'] = $meta['url'] ?? $defaultValue;
-        $meta['url_overwrite'] = $meta['url_overwrite'] ?? false;
-        $meta['custom'] = $meta['custom'] ?? null;
-        $meta['seo_follow'] = $meta['seo_follow'] ?? null;
-        $meta['seo_index'] = $meta['seo_index'] ?? null;
-        $meta['data'] = $meta['data'] ?? null;
+        $meta['keywords'] ??= $defaultValue;
+        $meta['keywords_overwrite'] ??= false;
+        $meta['description'] ??= $defaultValue;
+        $meta['description_overwrite'] ??= false;
+        $meta['title'] ??= $defaultValue;
+        $meta['title_overwrite'] ??= false;
+        $meta['url'] ??= $defaultValue;
+        $meta['url_overwrite'] ??= false;
+        $meta['custom'] ??= null;
+        $meta['seo_follow'] ??= null;
+        $meta['seo_index'] ??= null;
+        $meta['data'] ??= null;
 
         return $meta;
     }
@@ -676,31 +636,29 @@ class ModuleInstaller
 
     private function completePageRevisionRecord(array $revision, array $meta = []): array
     {
-        $revision['id'] = $revision['id'] ?? $this->getNextPageIdForLanguage($revision['language']);
-        $revision['user_id'] = $revision['user_id'] ?? $this->getDefaultUserID();
-        $revision['template_id'] = $revision['template_id'] ?? $this->getTemplateId('Default');
-        $revision['type'] = $revision['type'] ?? 'page';
-        $revision['parent_id'] = $revision['parent_id'] ?? (
-            $revision['type'] === 'page' ? Model::HOME_PAGE_ID : BackendPagesModel::NO_PARENT_PAGE_ID
-        );
-        $revision['navigation_title'] = $revision['navigation_title'] ?? $revision['title'];
-        $revision['navigation_title_overwrite'] = $revision['navigation_title_overwrite'] ?? false;
-        $revision['hidden'] = $revision['hidden'] ?? false;
-        $revision['status'] = $revision['status'] ?? 'active';
-        $revision['publish_on'] = $revision['publish_on'] ?? gmdate('Y-m-d H:i:s');
-        $revision['created_on'] = $revision['created_on'] ?? gmdate('Y-m-d H:i:s');
-        $revision['edited_on'] = $revision['edited_on'] ?? gmdate('Y-m-d H:i:s');
-        $revision['data'] = $revision['data'] ?? null;
-        $revision['allow_move'] = $revision['allow_move'] ?? true;
-        $revision['allow_children'] = $revision['allow_children'] ?? true;
-        $revision['allow_edit'] = $revision['allow_edit'] ?? true;
-        $revision['allow_delete'] = $revision['allow_delete'] ?? true;
-        $revision['sequence'] = $revision['sequence'] ?? $this->getNextPageSequence(
+        $revision['id'] ??= $this->getNextPageIdForLanguage($revision['language']);
+        $revision['user_id'] ??= $this->getDefaultUserID();
+        $revision['template_id'] ??= $this->getTemplateId('Default');
+        $revision['type'] ??= 'page';
+        $revision['parent_id'] ??= $revision['type'] === 'page' ? Model::HOME_PAGE_ID : BackendPagesModel::NO_PARENT_PAGE_ID;
+        $revision['navigation_title'] ??= $revision['title'];
+        $revision['navigation_title_overwrite'] ??= false;
+        $revision['hidden'] ??= false;
+        $revision['status'] ??= 'active';
+        $revision['publish_on'] ??= gmdate('Y-m-d H:i:s');
+        $revision['created_on'] ??= gmdate('Y-m-d H:i:s');
+        $revision['edited_on'] ??= gmdate('Y-m-d H:i:s');
+        $revision['data'] ??= null;
+        $revision['allow_move'] ??= true;
+        $revision['allow_children'] ??= true;
+        $revision['allow_edit'] ??= true;
+        $revision['allow_delete'] ??= true;
+        $revision['sequence'] ??= $this->getNextPageSequence(
             $revision['language'],
             $revision['parent_id'],
             $revision['type']
         );
-        $revision['meta_id'] = $revision['meta_id'] ?? $this->getNewMetaId($meta, $revision['title']);
+        $revision['meta_id'] ??= $this->getNewMetaId($meta, $revision['title']);
         foreach ($this->getLanguages() as $language) {
             if ($language !== $revision['language']) {
                 $revision['data']['hreflang_' . $language] = $revision['id'];
@@ -767,15 +725,15 @@ class ModuleInstaller
 
         return array_map(
             function (array $block) use (&$positions, $defaultRevisionId) {
-                $block['position'] = $block['position'] ?? 'main';
+                $block['position'] ??= 'main';
                 $positions[$block['position']][] = $block;
-                $block['revision_id'] = $block['revision_id'] ?? $defaultRevisionId;
-                $block['created_on'] = $block['created_on'] ?? gmdate('Y-m-d H:i:s');
-                $block['edited_on'] = $block['edited_on'] ?? gmdate('Y-m-d H:i:s');
-                $block['extra_id'] = $block['extra_id'] ?? null;
-                $block['visible'] = $block['visible'] ?? true;
-                $block['sequence'] = $block['sequence'] ?? count($positions[$block['position']]) - 1;
-                $block['html'] = $block['html'] ?? '';
+                $block['revision_id'] ??= $defaultRevisionId;
+                $block['created_on'] ??= gmdate('Y-m-d H:i:s');
+                $block['edited_on'] ??= gmdate('Y-m-d H:i:s');
+                $block['extra_id'] ??= null;
+                $block['visible'] ??= true;
+                $block['sequence'] ??= count($positions[$block['position']]) - 1;
+                $block['html'] ??= '';
 
                 // get the html from the template file if it is defined
                 if (!empty($block['html'])) {
@@ -916,7 +874,7 @@ class ModuleInstaller
         // if it is null we should cast it to int so we get a 0
         $parentId = (int) $parentId;
 
-        $sequence = $sequence ?? $this->getNextBackendNavigationSequence($parentId);
+        $sequence ??= $this->getNextBackendNavigationSequence($parentId);
 
         // get the id for this url
         $id = (int) $this->getDatabase()->getVar(

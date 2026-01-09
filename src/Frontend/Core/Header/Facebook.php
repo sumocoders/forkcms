@@ -7,12 +7,8 @@ use Frontend\Core\Engine\Theme;
 
 final class Facebook
 {
-    /** @var ModulesSettings */
-    private $modulesSettings;
-
-    public function __construct(ModulesSettings $modulesSettings)
+    public function __construct(private ModulesSettings $modulesSettings)
     {
-        $this->modulesSettings = $modulesSettings;
     }
 
     public function addOpenGraphMeta(Header $header): void

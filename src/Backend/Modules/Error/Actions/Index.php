@@ -30,19 +30,11 @@ class Index extends BackendBaseActionIndex
         $errorType = $this->getRequest()->query->get('type');
 
         // set correct headers
-        switch ($errorType) {
-            case 'module-not-allowed':
-            case 'action-not-allowed':
-                $this->statusCode = Response::HTTP_FORBIDDEN;
-                break;
-
-            case 'not-found':
-                $this->statusCode = Response::HTTP_NOT_FOUND;
-                break;
-            default:
-                $this->statusCode = Response::HTTP_BAD_REQUEST;
-                break;
-        }
+        $this->statusCode = match ($errorType) {
+            'module-not-allowed', 'action-not-allowed' => Response::HTTP_FORBIDDEN,
+            'not-found' => Response::HTTP_NOT_FOUND,
+            default => Response::HTTP_BAD_REQUEST,
+        };
 
         // querystring provided?
         if ($this->getRequest()->query->get('querystring', '') !== '') {

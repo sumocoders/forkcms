@@ -16,64 +16,32 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class AddMetaSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var string - The URL shown in the backend will need this "action" to be generated.
+     * @param string $moduleForUrl The URL shown in the backend will need this "module" to be generated.
+     * @param string $actionForUrl The URL shown in the backend will need this "action" to be generated.
+     * @param string $generateUrlCallbackClass Name of the class or the container service id, f.e.: 'moduleForUrl.repository.item',
+     * @param string $generateUrlCallbackMethod Name of the public method which returns you the URL, f.e.: "getUrl"
+     * @param array $generateUrlCallbackParameterMethods Extra parameters you want to include in the AJAX call to get the URL, f.e.: ["getData.getLocale", "getForm.getParent.getParent.getData.getMenuEntityId"]
+     * @param string $baseFieldName The field in the form where the URL should be generated for.
+     * @param string|null $hreflangRepositoryClass
+     * @param string|null $hreflangRepositoryMethod
      */
-    private $actionForUrl;
-
-    /**
-     * @var string - The field in the form where the URL should be generated for.
-     */
-    private $baseFieldName;
-
-    /**
-     * @var string - Name of the class or the container service id, f.e.: 'moduleForUrl.repository.item',
-     */
-    private $generateUrlCallbackClass;
-
-    /**
-     * @var string - Name of the public method which returns you the URL, f.e.: "getUrl"
-     */
-    private $generateUrlCallbackMethod;
-
-    /**
-     * @var array - Extra parameters you want to include in the AJAX call to get the URL, f.e.: ["getData.getLocale", "getForm.getParent.getParent.getData.getMenuEntityId"]
-     */
-    private $generateUrlCallbackParameterMethods;
-
-    /**
-     * @var string - The URL shown in the backend will need this "module" to be generated.
-     */
-    private $moduleForUrl;
-
-    private ?string $hreflangRepositoryClass;
-
-    private ?string $hreflangRepositoryMethod;
-
     public function __construct(
-        string $moduleForUrl,
-        string $actionForUrl,
-        string $generateUrlCallbackClass,
-        string $generateUrlCallbackMethod,
-        array $generateUrlCallbackParameterMethods,
-        string $baseFieldName = 'title',
-        ?string $hreflangRepositoryClass = null,
-        ?string $hreflangRepositoryMethod = null
+        private string $moduleForUrl,
+        private string $actionForUrl,
+        private string $generateUrlCallbackClass,
+        private string $generateUrlCallbackMethod,
+        private array $generateUrlCallbackParameterMethods,
+        private string $baseFieldName = 'title',
+        private ?string $hreflangRepositoryClass = null,
+        private ?string $hreflangRepositoryMethod = null,
     ) {
-        $this->moduleForUrl = $moduleForUrl;
-        $this->actionForUrl = $actionForUrl;
-        $this->generateUrlCallbackClass = $generateUrlCallbackClass;
-        $this->generateUrlCallbackMethod = $generateUrlCallbackMethod;
-        $this->generateUrlCallbackParameterMethods = $generateUrlCallbackParameterMethods;
-        $this->baseFieldName = $baseFieldName;
-        $this->hreflangRepositoryClass = $hreflangRepositoryClass;
-        $this->hreflangRepositoryMethod = $hreflangRepositoryMethod;
     }
 
     public static function getSubscribedEvents(): array
     {
         // Tells the dispatcher that you want to listen on the form.pre_set_data
         // event and that the preSetData method should be called.
-        return array(FormEvents::PRE_SET_DATA => 'preSetData');
+        return [FormEvents::PRE_SET_DATA => 'preSetData'];
     }
 
     public function preSetData(FormEvent $event)

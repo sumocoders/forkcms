@@ -275,7 +275,7 @@ class ImportWordpress extends BackendBaseActionEdit
                 $imagesPath . '/' . $destinationFile,
                 file_get_contents($file)
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             // Ignore
         }
 

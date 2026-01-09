@@ -32,7 +32,7 @@ class QuickUpload extends FileUpload
     {
         parent::__construct($app);
 
-        $app->on(KernelEvents::RESPONSE, array($this, 'onQuickUploadResponse'));
+        $app->on(KernelEvents::RESPONSE, [$this, 'onQuickUploadResponse']);
     }
 
     public function execute(Request $request, WorkingFolder $workingFolder, EventDispatcher $dispatcher, Config $config, CacheManager $cache, ThumbnailRepository $thumbsRepository)
@@ -66,8 +66,8 @@ class QuickUpload extends FileUpload
         if ($response instanceof JsonResponse) {
             $responseData = $response->getData();
 
-            $fileUrl = isset($responseData['url']) ? $responseData['url'] : '';
-            $errorMessage = isset($responseData['error']['message']) ? $responseData['error']['message'] : '';
+            $fileUrl = $responseData['url'] ?? '';
+            $errorMessage = $responseData['error']['message'] ?? '';
 
             ob_start();
             ?>

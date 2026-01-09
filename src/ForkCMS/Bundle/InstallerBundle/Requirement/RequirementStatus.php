@@ -4,7 +4,7 @@ namespace ForkCMS\Bundle\InstallerBundle\Requirement;
 
 use InvalidArgumentException;
 
-final class RequirementStatus
+final class RequirementStatus implements \Stringable
 {
     const SUCCESS = 'success';
     const WARNING = 'warning';

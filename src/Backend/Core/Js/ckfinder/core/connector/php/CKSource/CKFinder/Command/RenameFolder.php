@@ -25,7 +25,7 @@ class RenameFolder extends CommandAbstract
 {
     protected $requestMethod = Request::METHOD_POST;
 
-    protected $requires = array(Permission::FOLDER_RENAME);
+    protected $requires = [Permission::FOLDER_RENAME];
 
     public function execute(Request $request, WorkingFolder $workingFolder, EventDispatcher $dispatcher)
     {
@@ -46,6 +46,6 @@ class RenameFolder extends CommandAbstract
             return $workingFolder->rename($newFolderName);
         }
 
-        return array('renamed' => 0);
+        return ['renamed' => 0];
     }
 }

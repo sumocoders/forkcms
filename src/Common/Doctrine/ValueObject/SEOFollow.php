@@ -2,7 +2,7 @@
 
 namespace Common\Doctrine\ValueObject;
 
-final class SEOFollow
+final class SEOFollow implements \Stringable
 {
     private const NONE = 'none';
     private const FOLLOW = 'follow';

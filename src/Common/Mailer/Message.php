@@ -144,7 +144,7 @@ class Message extends \Swift_Message
     {
         // with the strpos we check if it is a frontend template, in that case we use the frontend template to prevent
         // errors that the template could not be found. This way we don't have a backwards compatibility break.
-        if (APPLICATION !== 'Backend' || strpos($template, FRONTEND_CORE_PATH) !== false) {
+        if (APPLICATION !== 'Backend' || str_contains($template, FRONTEND_CORE_PATH)) {
             return Model::get('templating')->render(
                 $template,
                 $variables

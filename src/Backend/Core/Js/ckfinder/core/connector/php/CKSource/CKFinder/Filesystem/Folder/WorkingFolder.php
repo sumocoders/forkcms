@@ -123,7 +123,7 @@ class WorkingFolder extends Folder implements EventSubscriberInterface
 
         // Check if resource type folder exists - if not then create it
         $currentCommand = (string) $request->query->get('command');
-        $omitForCommands = array('Thumbnail');
+        $omitForCommands = ['Thumbnail'];
 
         if (!in_array($currentCommand, $omitForCommands) &&
             !empty($resourceTypeDirectory) &&
@@ -319,7 +319,7 @@ class WorkingFolder extends Folder implements EventSubscriberInterface
             $mimeType = MimeType::detectByFileExtension($ext);
         }
 
-        $options = $mimeType ? array('mimetype' => $mimeType) : array();
+        $options = $mimeType ? ['mimetype' => $mimeType] : [];
 
         return $backend->putStream($filePath, $resource, $options);
     }
@@ -428,7 +428,7 @@ class WorkingFolder extends Folder implements EventSubscriberInterface
 
         if ($currentRequestOperation->isAborted()) {
             // Don't continue in this case, no need to touch thumbs and cache entries
-            return array('aborted' => true);
+            return ['aborted' => true];
         }
 
         // Delete related thumbs path
@@ -438,11 +438,11 @@ class WorkingFolder extends Folder implements EventSubscriberInterface
             Path::combine($this->resourceType->getName(), $this->getClientCurrentFolder()),
             Path::combine($this->resourceType->getName(), $newClientPath));
 
-        return array(
+        return [
             'newName' => $newName,
             'newPath' => $newClientPath,
             'renamed' => 1
-        );
+        ];
     }
 
     /**
@@ -518,13 +518,13 @@ class WorkingFolder extends Folder implements EventSubscriberInterface
         if ($response instanceof JsonResponse) {
             $responseData = (array) $response->getData();
 
-            $responseData = array(
+            $responseData = [
                     'resourceType' => $this->getResourceTypeName(),
-                    'currentFolder' => array(
+                    'currentFolder' => [
                         'path' => $this->getClientCurrentFolder(),
                         'acl' => $this->getAclMask()
-                    )
-                ) + $responseData;
+                    ]
+                ] + $responseData;
 
             $baseUrl = $this->backend->getBaseUrl();
 
@@ -544,6 +544,6 @@ class WorkingFolder extends Folder implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::RESPONSE => array('addCurrentFolderInfo', 512));
+        return [KernelEvents::RESPONSE => ['addCurrentFolderInfo', 512]];
     }
 }

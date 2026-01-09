@@ -134,14 +134,11 @@ class Config extends KernelLoader
 
     private function isActionDisabled(string $actionType, string $action): bool
     {
-        switch ($actionType) {
-            case 'actions':
-                return in_array($action, $this->disabledActions, true);
-            case 'ajax':
-                return in_array($action, $this->disabledAJAXActions, true);
-        }
-
-        throw new InvalidArgumentException($actionType . ' is not a valid action type');
+        return match ($actionType) {
+            'actions' => in_array($action, $this->disabledActions, true),
+            'ajax' => in_array($action, $this->disabledAJAXActions, true),
+            default => throw new InvalidArgumentException($actionType . ' is not a valid action type'),
+        };
     }
 
     private function actionClassExists(string $actionType, string $action): bool

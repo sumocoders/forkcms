@@ -81,7 +81,7 @@ class ModulesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => 'ForkCMS\Bundle\InstallerBundle\Entity\InstallationData',
+            'data_class' => \ForkCMS\Bundle\InstallerBundle\Entity\InstallationData::class,
         ]);
     }
 

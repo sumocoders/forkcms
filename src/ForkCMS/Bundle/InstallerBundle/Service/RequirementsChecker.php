@@ -12,20 +12,12 @@ use ForkCMS\Bundle\InstallerBundle\Requirement\RequirementStatus;
 final class RequirementsChecker
 {
     /**
-     * The root dir of our project
-     *
-     * @var string
-     */
-    private $rootDir;
-
-    /**
      * @var RequirementCategory[]
      */
     private $requirementCategories;
 
-    public function __construct(string $rootDir)
+    public function __construct(private string $rootDir)
     {
-        $this->rootDir = $rootDir;
     }
 
     /**
@@ -66,9 +58,7 @@ final class RequirementsChecker
         return in_array(
             true,
             array_map(
-                function (RequirementCategory $requirementCategory) {
-                    return $requirementCategory->hasErrors();
-                },
+                fn(RequirementCategory $requirementCategory) => $requirementCategory->hasErrors(),
                 $this->requirementCategories
             ),
             true
@@ -89,9 +79,7 @@ final class RequirementsChecker
         return in_array(
             true,
             array_map(
-                function (RequirementCategory $requirementCategory) {
-                    return $requirementCategory->hasWarnings();
-                },
+                fn(RequirementCategory $requirementCategory) => $requirementCategory->hasWarnings(),
                 $this->requirementCategories
             ),
             true
@@ -158,15 +146,13 @@ final class RequirementsChecker
         return new RequirementCategory(
             'PHP extensions',
             ...array_map(
-                function (array $extension) {
-                    return Requirement::check(
-                        $extension['name'],
-                        $extension['check'],
-                        $extension['message'],
-                        $extension['message'],
-                        RequirementStatus::error()
-                    );
-                },
+                fn(array $extension) => Requirement::check(
+                    $extension['name'],
+                    $extension['check'],
+                    $extension['message'],
+                    $extension['message'],
+                    RequirementStatus::error()
+                ),
                 [
                     [
                         'name' => 'cURL',

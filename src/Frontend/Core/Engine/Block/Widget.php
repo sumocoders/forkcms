@@ -197,7 +197,7 @@ class Widget extends KernelLoader implements ModuleExtraInterface
     {
         $configClass = 'Frontend\\Modules\\' . $this->getModule() . '\\Config';
         if ($this->getModule() === 'Core') {
-            $configClass = 'Frontend\\Core\\Config';
+            $configClass = \Frontend\Core\Config::class;
         }
 
         // validate if class exists (aka has correct name)

@@ -25,7 +25,7 @@ class JsonResponse extends HttpFoundation\JsonResponse
 {
     protected $rawData;
 
-    public function __construct($data = null, $status = 200, $headers = array())
+    public function __construct($data = null, $status = 200, $headers = [])
     {
         if (null === $data) {
             $data = new \stdClass();
@@ -41,7 +41,7 @@ class JsonResponse extends HttpFoundation\JsonResponse
         return $this->rawData;
     }
 
-    public function setData($data = array())
+    public function setData($data = [])
     {
         $this->rawData = $data;
 
@@ -50,7 +50,7 @@ class JsonResponse extends HttpFoundation\JsonResponse
 
     public function withError($errorNumber, $errorMessage = null)
     {
-        $errorData = array('number' => $errorNumber);
+        $errorData = ['number' => $errorNumber];
 
         if ($errorMessage) {
             $errorData['message'] = $errorMessage;
@@ -58,7 +58,7 @@ class JsonResponse extends HttpFoundation\JsonResponse
 
         $data = (array) $this->rawData;
 
-        $data = array('error' => $errorData) + $data;
+        $data = ['error' => $errorData] + $data;
 
         $this->setData($data);
 

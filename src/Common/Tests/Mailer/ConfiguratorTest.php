@@ -81,12 +81,12 @@ class ConfiguratorTest extends TestCase
 
     private function getModulesSettingsMock(): MockObject
     {
-        return $this->createMock('Common\ModulesSettings');
+        return $this->createMock(\Common\ModulesSettings::class);
     }
 
     private function getContainerMock(): MockObject
     {
-        return $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')
+        return $this->getMockBuilder(\Symfony\Component\DependencyInjection\ContainerInterface::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -94,7 +94,7 @@ class ConfiguratorTest extends TestCase
 
     private function getRequestEventMock(): MockObject
     {
-        return $this->getMockBuilder('Symfony\Component\HttpKernel\Event\RequestEvent')
+        return $this->getMockBuilder(\Symfony\Component\HttpKernel\Event\RequestEvent::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;

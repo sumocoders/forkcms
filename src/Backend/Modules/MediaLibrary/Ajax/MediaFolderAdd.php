@@ -86,7 +86,7 @@ class MediaFolderAdd extends BackendBaseAJAXAction
 
         try {
             return $this->get('media_library.repository.folder')->findOneById($parentId);
-        } catch (MediaFolderNotFound $mediaFolderNotFound) {
+        } catch (MediaFolderNotFound) {
             throw new AjaxExitException(Language::err('ParentNotExists'));
         }
     }

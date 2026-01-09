@@ -9,14 +9,8 @@ final class NotImplementedSubscribedEvent extends Event
 {
     const EVENT_NAME = 'mailmotor.event.not_implemented.subscribed';
 
-    /**
-     * @var Subscription
-     */
-    private $subscription;
-
-    public function __construct(Subscription $subscription)
+    public function __construct(private Subscription $subscription)
     {
-        $this->subscription = $subscription;
     }
 
     public function getSubscription(): Subscription

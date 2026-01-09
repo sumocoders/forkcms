@@ -11,26 +11,11 @@ use SpoonDatabase;
  */
 class ModulesSettings
 {
-    /**
-     * @var SpoonDatabase
-     */
-    private $database;
-
-    /**
-     * @var CacheItemPoolInterface
-     */
-    private $cache;
-
-    /**
-     * @var bool
-     */
-    private $forkIsInstalled;
-
-    public function __construct(SpoonDatabase $database, CacheItemPoolInterface $cache, bool $forkIsInstalled = true)
-    {
-        $this->database = $database;
-        $this->cache = $cache;
-        $this->forkIsInstalled = $forkIsInstalled;
+    public function __construct(
+        private SpoonDatabase $database,
+        private CacheItemPoolInterface $cache,
+        private bool $forkIsInstalled = true,
+    ) {
     }
 
     /**
@@ -46,11 +31,7 @@ class ModulesSettings
     {
         $settings = $this->getSettings();
 
-        if (isset($settings[$module][$key])) {
-            return $settings[$module][$key];
-        }
-
-        return $defaultValue;
+        return $settings[$module][$key] ?? $defaultValue;
     }
 
     /**
@@ -140,11 +121,7 @@ class ModulesSettings
 
         $settings = $this->getSettings();
 
-        if (isset($settings[$module])) {
-            return $settings[$module];
-        }
-
-        return [];
+        return $settings[$module] ?? [];
     }
 
     /**

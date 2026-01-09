@@ -38,7 +38,7 @@ class SaveImage extends CommandAbstract
 {
     protected $requestMethod = Request::METHOD_POST;
 
-    protected $requires = array(Permission::FILE_CREATE);
+    protected $requires = [Permission::FILE_CREATE];
 
     public function execute(Request $request, WorkingFolder $workingFolder, EventDispatcher $dispatcher, CacheManager $cache, ResizedImageRepository $resizedImageRepository, ThumbnailRepository $thumbnailRepository, Acl $acl, Config $config)
     {
@@ -69,7 +69,7 @@ class SaveImage extends CommandAbstract
 
         $uploadedData = (string) $request->request->get('content');
 
-        if (null === $uploadedData || strpos($uploadedData, 'data:image/png;base64,') !== 0) {
+        if (null === $uploadedData || !str_starts_with($uploadedData, 'data:image/png;base64,')) {
             throw new InvalidUploadException('Invalid upload. Expected base64 encoded PNG image.');
         }
 
@@ -84,7 +84,7 @@ class SaveImage extends CommandAbstract
             $uploadedImage = Image::create($data);
         } catch (\Exception $e) {
             // No need to check if secureImageUploads is enabled - image must be valid here
-            throw new InvalidUploadException('Invalid upload: corrupted image', Error::UPLOADED_CORRUPT, array(), $e);
+            throw new InvalidUploadException('Invalid upload: corrupted image', Error::UPLOADED_CORRUPT, [], $e);
         }
 
         $imagesConfig = $config->get('images');
@@ -132,10 +132,10 @@ class SaveImage extends CommandAbstract
             }
         }
 
-        return array(
+        return [
             'saved' => (int) $saved,
             'date'  => Utils::formatDate(time()),
             'size'  => Utils::formatSize($imageInfo['size'])
-        );
+        ];
     }
 }

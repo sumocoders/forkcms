@@ -38,17 +38,13 @@ class Csv extends \SpoonFileCSV
         if (!empty($excludeColumns)) {
             $headers = array_filter(
                 $columns,
-                function ($column) use ($excludeColumns) {
-                    return !in_array($column, $excludeColumns);
-                }
+                fn($column) => !in_array($column, $excludeColumns)
             );
 
             foreach ($array as $rowNumber => $row) {
                 $data[$rowNumber] = array_filter(
                     $row,
-                    function ($key) use ($excludeColumns) {
-                        return !in_array($key, $excludeColumns);
-                    },
+                    fn($key) => !in_array($key, $excludeColumns),
                     ARRAY_FILTER_USE_KEY
                 );
             }

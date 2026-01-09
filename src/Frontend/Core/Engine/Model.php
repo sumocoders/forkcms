@@ -249,7 +249,7 @@ class Model extends \Common\Core\Model
     ) {
         try {
             $akismet = self::getAkismet();
-        } catch (InvalidArgumentException $invalidArgumentException) {
+        } catch (InvalidArgumentException) {
             return false;
         }
 

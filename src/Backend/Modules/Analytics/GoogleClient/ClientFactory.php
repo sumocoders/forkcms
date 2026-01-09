@@ -14,20 +14,8 @@ use Common\ModulesSettings;
  */
 class ClientFactory
 {
-    /**
-     * @var ModulesSettings
-     */
-    private $settings;
-
-    /**
-     * @var string
-     */
-    private $cacheDir;
-
-    public function __construct(ModulesSettings $modulesSettings, string $cacheDir)
+    public function __construct(private ModulesSettings $settings, private string $cacheDir)
     {
-        $this->settings = $modulesSettings;
-        $this->cacheDir = $cacheDir;
     }
 
     public function createClient(): Google_Client

@@ -53,7 +53,7 @@ class MediaGalleryDelete extends BackendBaseActionDelete
         try {
             /** @var MediaGallery|null $mediaGallery */
             return $this->get('media_galleries.repository.gallery')->findOneById($id);
-        } catch (MediaGalleryNotFound $mediaGalleryNotFound) {
+        } catch (MediaGalleryNotFound) {
             $this->redirect(
                 $this->getBackLink(
                     [

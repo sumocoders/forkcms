@@ -79,7 +79,7 @@ class Groups extends BackendBaseActionIndex
     private function loadDataGrid(): void
     {
         // fetch query and parameters
-        list($query, $parameters) = $this->buildQuery();
+        [$query, $parameters] = $this->buildQuery();
 
         // create datagrid
         $this->dgGroups = new BackendDataGridDatabase($query, $parameters);
@@ -106,7 +106,7 @@ class Groups extends BackendBaseActionIndex
 
         // set the amount of profiles
         $this->dgGroups->setColumnFunction(
-            [__CLASS__, 'parseNumProfilesInDataGrid'],
+            [self::class, 'parseNumProfilesInDataGrid'],
             ['[id]', '[members_count]'],
             'members_count'
         );

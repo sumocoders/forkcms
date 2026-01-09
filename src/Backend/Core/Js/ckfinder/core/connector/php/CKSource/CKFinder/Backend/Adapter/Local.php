@@ -90,7 +90,7 @@ class Local extends \League\Flysystem\Adapter\Local
         if (!is_dir($location) && !mkdir($location, $chmodFolders, true)) {
             $return = false;
         } else {
-            $return = array('path' => $dirname, 'type' => 'dir');
+            $return = ['path' => $dirname, 'type' => 'dir'];
         }
 
         umask($umask);

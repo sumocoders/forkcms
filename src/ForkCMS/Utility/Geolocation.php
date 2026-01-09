@@ -47,7 +47,7 @@ class Geolocation
                 $zip,
                 $country
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             $coordinates = null;
         }
 

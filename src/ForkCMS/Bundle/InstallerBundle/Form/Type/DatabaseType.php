@@ -117,14 +117,14 @@ class DatabaseType extends AbstractType
 
                                     // drop table
                                     $database->drop($table);
-                                } catch (\Exception $e) {
+                                } catch (\Exception) {
                                     $context->addViolation('Problem with database credentials');
                                 }
                             },
                         ]
                     ),
                 ],
-                'data_class' => 'ForkCMS\Bundle\InstallerBundle\Entity\InstallationData',
+                'data_class' => \ForkCMS\Bundle\InstallerBundle\Entity\InstallationData::class,
             ]
         );
     }

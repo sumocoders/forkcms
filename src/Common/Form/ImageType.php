@@ -26,14 +26,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ImageType extends AbstractType
 {
-    /**
-     * @var ValidatorInterface
-     */
-    private $validator;
-
-    public function __construct(ValidatorInterface $validator)
+    public function __construct(private ValidatorInterface $validator)
     {
-        $this->validator = $validator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -76,9 +70,7 @@ class ImageType extends AbstractType
             )
             ->addModelTransformer(
                 new CallbackTransformer(
-                    function (AbstractImage $image = null) {
-                        return $image;
-                    },
+                    fn(AbstractImage $image = null) => $image,
                     function ($image) use ($options) {
                         if (!$image instanceof AbstractImage && !$image instanceof stdClass) {
                             throw new TransformationFailedException('Invalid class for the image');
@@ -114,34 +106,29 @@ class ImageType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => AbstractImage::class,
-                'empty_data' => function () {
-                    return new class extends stdClass {
-                        /** @var UploadedFile */
-                        protected $file;
+                'empty_data' => fn() => new class extends stdClass {
+                    protected ?UploadedFile $file = null;
+                    protected bool $pendingDeletion = false;
 
-                        /** @var bool */
-                        protected $pendingDeletion = false;
+                    public function setFile(?UploadedFile $file = null)
+                    {
+                        $this->file = $file;
+                    }
 
-                        public function setFile(UploadedFile $file = null)
-                        {
-                            $this->file = $file;
-                        }
+                    public function getFile(): ?UploadedFile
+                    {
+                        return $this->file;
+                    }
 
-                        public function getFile(): ?UploadedFile
-                        {
-                            return $this->file;
-                        }
+                    public function getPendingDeletion(): bool
+                    {
+                        return $this->pendingDeletion;
+                    }
 
-                        public function getPendingDeletion(): bool
-                        {
-                            return $this->pendingDeletion;
-                        }
-
-                        public function setPendingDeletion(bool $pendingDeletion)
-                        {
-                            $this->pendingDeletion = $pendingDeletion;
-                        }
-                    };
+                    public function setPendingDeletion(bool $pendingDeletion)
+                    {
+                        $this->pendingDeletion = $pendingDeletion;
+                    }
                 },
                 'preview_class' => 'img-thumbnail img-responsive',
                 'show_preview' => true,
@@ -153,9 +140,7 @@ class ImageType extends AbstractType
                 'constraints' => [new Valid()],
                 'error_bubbling' => false,
                 'help_text_message' => 'msg.HelpImageFieldWithMaxFileSize',
-                'help_text_argument' => function (Options $options) {
-                    return $this->getUploadMaxFileSize($options['image_class']);
-                },
+                'help_text_argument' => fn(Options $options) => $this->getUploadMaxFileSize($options['image_class']),
             ]
         );
     }

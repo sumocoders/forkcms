@@ -15,14 +15,8 @@ final class SettingsSavedEvent extends Event
      */
     const EVENT_NAME = 'mailmotor.event.settings_saved';
 
-    /**
-     * @var SaveSettings
-     */
-    protected $settings;
-
-    public function __construct(SaveSettings $settings)
+    public function __construct(protected SaveSettings $settings)
     {
-        $this->settings = $settings;
     }
 
     public function getSettings(): SaveSettings

@@ -24,7 +24,7 @@ class CreateFolder extends CommandAbstract
 {
     protected $requestMethod = Request::METHOD_POST;
 
-    protected $requires = array(Permission::FOLDER_CREATE);
+    protected $requires = [Permission::FOLDER_CREATE];
 
     public function execute(Request $request, WorkingFolder $workingFolder, EventDispatcher $dispatcher)
     {
@@ -41,6 +41,6 @@ class CreateFolder extends CommandAbstract
             $created = $workingFolder->createDir($newFolderName);
         }
 
-        return array('newFolder' => $newFolderName, 'created' => (int) $created);
+        return ['newFolder' => $newFolderName, 'created' => (int) $created];
     }
 }

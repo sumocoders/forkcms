@@ -179,9 +179,7 @@ class Add extends BackendBaseActionAdd
                 'value' => $module,
             ];
 
-            usort($this->actions[$module], function ($a, $b) {
-                return strcmp($a["label"], $b["label"]);
-            });
+            usort($this->actions[$module], fn($a, $b) => strcmp($a["label"], $b["label"]));
         }
     }
 

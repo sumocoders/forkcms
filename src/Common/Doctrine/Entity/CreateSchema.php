@@ -8,15 +8,11 @@ use Doctrine\ORM\Tools\ToolsException;
 
 class CreateSchema
 {
-    /** @var EntityManager */
-    private $entityManager;
-
     /**
      * @param EntityManager $entityManager
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(private EntityManager $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     /**

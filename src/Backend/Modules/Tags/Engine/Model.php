@@ -228,7 +228,7 @@ class Model
      */
     public static function saveTags(int $otherId, $tags, string $module, string $language = null)
     {
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // redefine the tags as an array
         if (!is_array($tags)) {
@@ -241,9 +241,7 @@ class Model
                 $tags,
                 array_unique(
                     array_map(
-                        static function (string $tag): string {
-                            return strtolower(trim($tag));
-                        },
+                        static fn(string $tag): string => strtolower(trim($tag)),
                         $tags
                     )
                 )

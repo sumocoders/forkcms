@@ -12,29 +12,11 @@ use Psr\Cache\CacheItemPoolInterface;
  */
 final class Connector
 {
-    /**
-     * @var Google_Service_Analytics
-     */
-    private $analytics;
-
-    /**
-     * @var CacheItemPoolInterface
-     */
-    private $cache;
-
-    /**
-     * @var ModulesSettings
-     */
-    private $settings;
-
     public function __construct(
-        Google_Service_Analytics $analytics,
-        CacheItemPoolInterface $cache,
-        ModulesSettings $settings
+        private Google_Service_Analytics $analytics,
+        private CacheItemPoolInterface $cache,
+        private ModulesSettings $settings,
     ) {
-        $this->analytics = $analytics;
-        $this->cache = $cache;
-        $this->settings = $settings;
     }
 
     /**

@@ -5,7 +5,6 @@ namespace Backend\Modules\MediaLibrary\EventListener;
 use Backend\Modules\MediaLibrary\Manager\FileManager;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Events;
@@ -17,23 +16,11 @@ use SimpleBus\Message\Bus\MessageBus;
  */
 final class MediaItemSubscriber implements EventSubscriber
 {
-    /** @var CacheManager */
-    protected $cacheManager;
-
-    /** @var MessageBus */
-    protected $commandBus;
-
-    /** @var FileManager */
-    protected $fileManager;
-
     public function __construct(
-        FileManager $fileManager,
-        CacheManager $cacheManager,
-        MessageBus $commandBus
+        protected FileManager $fileManager,
+        protected CacheManager $cacheManager,
+        protected MessageBus $commandBus,
     ) {
-        $this->fileManager = $fileManager;
-        $this->cacheManager = $cacheManager;
-        $this->commandBus = $commandBus;
     }
 
     public function getSubscribedEvents(): array

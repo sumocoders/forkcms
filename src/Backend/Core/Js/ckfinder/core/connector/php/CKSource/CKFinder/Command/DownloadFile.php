@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DownloadFile extends CommandAbstract
 {
-    protected $requires = array(Permission::FILE_VIEW);
+    protected $requires = [Permission::FILE_VIEW];
 
     public function execute(Request $request, WorkingFolder $workingFolder, EventDispatcher $dispatcher)
     {
@@ -54,8 +54,8 @@ class DownloadFile extends CommandAbstract
         } else {
             $userAgent = !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
             $encodedName = str_replace("\"", "\\\"", $fileName);
-            if (strpos($userAgent, 'MSIE') !== false) {
-                $encodedName = str_replace(array("+", "%2E"), array(" ", "."), urlencode($encodedName));
+            if (str_contains($userAgent, 'MSIE')) {
+                $encodedName = str_replace(["+", "%2E"], [" ", "."], urlencode($encodedName));
             }
             $response->headers->set('Content-Type', 'application/octet-stream; name="' . $fileName . '"');
             $response->headers->set('Content-Disposition', 'attachment; filename="' . $encodedName. '"');

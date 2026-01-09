@@ -467,7 +467,7 @@ class Header extends KernelLoader
 
     public function setCanonicalUrl(string $canonicalUrl): void
     {
-        if (strpos($canonicalUrl, '/') === 0) {
+        if (str_starts_with($canonicalUrl, '/')) {
             $canonicalUrl = SITE_URL . $canonicalUrl;
         }
 

@@ -376,7 +376,7 @@ class Model
      */
     public static function delete(int $id, string $language = null, int $revisionId = null): bool
     {
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // get database
         $database = BackendModel::getContainer()->get('database');
@@ -458,7 +458,7 @@ class Model
         }
 
         // redefine
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // get page (active version)
         $return = (array) BackendModel::getContainer()->get('database')->getRecord(
@@ -531,7 +531,7 @@ class Model
         }
 
         // redefine
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // get page (active version)
         return (array) BackendModel::getContainer()->get('database')->getRecords(
@@ -636,7 +636,7 @@ class Model
 
     public static function getLatestRevision(int $id, string $language = null): int
     {
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         return (int) BackendModel::getContainer()->get('database')->getVar(
             'SELECT revision_id
@@ -655,7 +655,7 @@ class Model
 
     public static function getMaximumPageId($language = null): int
     {
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // get the maximum id
         $maximumMenuId = (int) BackendModel::getContainer()->get('database')->getVar(
@@ -675,7 +675,7 @@ class Model
 
     public static function getMaximumSequence(int $parentId, string $language = null): int
     {
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // get the maximum sequence inside a certain leaf
         return (int) BackendModel::getContainer()->get('database')->getVar(
@@ -688,7 +688,7 @@ class Model
 
     public static function getPagesForDropdown(string $language = null): array
     {
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
         $titles = [];
         $sequences = [
             'pages' => [],
@@ -820,7 +820,7 @@ class Model
 
     public static function getMoveTreeForDropdown(int $currentPageId, string $language = null): array
     {
-        $navigation = static::getCacheBuilder()->getNavigation($language = $language ?? BL::getWorkingLanguage());
+        $navigation = static::getCacheBuilder()->getNavigation($language ??= BL::getWorkingLanguage());
 
         $tree = self::addMainPageToTreeForDropdown(
             self::getEmptyTreeArray(),
@@ -905,7 +905,7 @@ class Model
      */
     public static function getTree(array $ids, array $data = null, int $level = 1, string $language = null): array
     {
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // get data
         $data[$level] = (array) BackendModel::getContainer()->get('database')->getRecords(
@@ -1329,7 +1329,7 @@ class Model
     ): bool {
         $typeOfDrop = SpoonFilter::getValue($typeOfDrop, self::POSSIBLE_TYPES_OF_DROP, self::TYPE_OF_DROP_INSIDE);
         $tree = SpoonFilter::getValue($tree, ['main', 'meta', 'footer', 'root'], 'root');
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // When dropping on the main navigation it should be added as a child of the home page
         if ($tree === 'main' && $droppedOnPageId === 0) {
@@ -1355,7 +1355,7 @@ class Model
 
         try {
             $newParent = self::getNewParent($droppedOnPageId, $typeOfDrop, $droppedOnPage);
-        } catch (InvalidArgumentException $invalidArgumentException) {
+        } catch (InvalidArgumentException) {
             // parent doesn't allow children
             return false;
         }

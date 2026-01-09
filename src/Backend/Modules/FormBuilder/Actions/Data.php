@@ -114,7 +114,7 @@ class Data extends BackendBaseActionIndex
 
     private function loadDataGrid(): void
     {
-        list($query, $parameters) = $this->buildQuery();
+        [$query, $parameters] = $this->buildQuery();
 
         // create datagrid
         $this->dataGrid = new BackendDataGridDatabase($query, $parameters);

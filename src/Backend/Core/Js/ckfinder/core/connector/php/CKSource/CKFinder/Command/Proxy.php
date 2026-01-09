@@ -31,7 +31,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class Proxy extends CommandAbstract
 {
-    protected $requires = array(Permission::FILE_VIEW);
+    protected $requires = [Permission::FILE_VIEW];
 
     public function execute(Request $request, WorkingFolder $workingFolder, EventDispatcher $dispatcher, Config $config)
     {

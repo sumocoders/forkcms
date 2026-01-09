@@ -15,20 +15,8 @@ class ConsentDialog
     const CONSENT_PERSONALIZATION_STORAGE = 'personalization_storage';
     const CONSENT_SECURITY_STORAGE = 'security_storage';
 
-    /**
-     * @var ModulesSettings
-     */
-    private $settings;
-
-    /**
-     * @var Cookie
-     */
-    private $cookie;
-
-    public function __construct(ModulesSettings $settings, Cookie $cookie)
+    public function __construct(private ModulesSettings $settings, private Cookie $cookie)
     {
-        $this->settings = $settings;
-        $this->cookie = $cookie;
     }
 
     public static function getConsentLevels(): array

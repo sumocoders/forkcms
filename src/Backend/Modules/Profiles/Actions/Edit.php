@@ -86,7 +86,7 @@ class Edit extends BackendBaseActionEdit
 
         // get day, month and year
         if ($birthDate) {
-            list($birthYear, $birthMonth, $birthDay) = explode('-', $birthDate);
+            [$birthYear, $birthMonth, $birthDay] = explode('-', $birthDate);
         } else {
             // no birth date setting
             $birthDay = '';

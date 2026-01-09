@@ -43,7 +43,7 @@ abstract class BackendWebTestCase extends WebTestCase
 
     protected function appendCsrfTokenToUrl(KernelBrowser $client, string $url): string
     {
-        $connectionSymbol = (strpos($url, '?') !== false) ? '&' : '?';
+        $connectionSymbol = (str_contains($url, '?')) ? '&' : '?';
 
         $session = $client->getContainer()->get('session');
 

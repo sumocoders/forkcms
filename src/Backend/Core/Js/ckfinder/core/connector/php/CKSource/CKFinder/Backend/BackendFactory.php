@@ -47,23 +47,23 @@ class BackendFactory
      *
      * @var array
      */
-    protected $backends = array();
+    protected $backends = [];
 
     /**
      * Registered adapter types.
      *
      * @var array
      */
-    protected $registeredAdapters = array();
+    protected $registeredAdapters = [];
 
     /**
      * The list of operations that should be tracked for a given backend type.
      *
      * @var array
      */
-    protected static $trackedOperations = array(
-        's3' => array('RenameFolder')
-    );
+    protected static $trackedOperations = [
+        's3' => ['RenameFolder']
+    ];
 
     /**
      * The CKFinder application container.
@@ -102,13 +102,11 @@ class BackendFactory
 
     protected function registerDefaultAdapters()
     {
-        $this->registerAdapter('local', function ($backendConfig) {
-            return $this->createBackend($backendConfig, new LocalFilesystemAdapter($backendConfig));
-        });
+        $this->registerAdapter('local', fn($backendConfig) => $this->createBackend($backendConfig, new LocalFilesystemAdapter($backendConfig)));
 
         $this->registerAdapter('ftp', function ($backendConfig) {
 
-            $configurable = array('host', 'port', 'username', 'password', 'ssl', 'timeout', 'root', 'permPrivate', 'permPublic', 'passive');
+            $configurable = ['host', 'port', 'username', 'password', 'ssl', 'timeout', 'root', 'permPrivate', 'permPublic', 'passive'];
 
             $config = array_intersect_key($backendConfig, array_flip($configurable));
 
@@ -123,10 +121,10 @@ class BackendFactory
         });
 
         $this->registerAdapter('s3', function ($backendConfig) {
-            $clientConfig = array(
+            $clientConfig = [
                 'key'    => $backendConfig['key'],
                 'secret' => $backendConfig['secret'],
-            );
+            ];
 
             if (isset($backendConfig['region'])) {
                 $clientConfig['region'] = $backendConfig['region'];
@@ -134,9 +132,9 @@ class BackendFactory
 
             $client = S3Client::factory($clientConfig);
 
-            $filesystemConfig = array(
-                'visibility' => isset($backendConfig['visibility']) ? $backendConfig['visibility'] : 'private'
-            );
+            $filesystemConfig = [
+                'visibility' => $backendConfig['visibility'] ?? 'private'
+            ];
 
             $prefix = isset($backendConfig['root']) ? trim($backendConfig['root'], '/ ') : null;
 

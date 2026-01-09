@@ -26,9 +26,6 @@ class EnableLocaleCommand extends Command
     /** @var SymfonyStyle */
     private $formatter;
 
-    /** @var ModulesSettings */
-    private $settings;
-
     /** @var string */
     private $workingLocale;
 
@@ -53,26 +50,18 @@ class EnableLocaleCommand extends Command
     /** @var array */
     private $installedModules;
 
-    /** @var bool */
-    private $multiLanguageIsEnabled;
-
     public function __construct(
-        ModulesSettings $settings,
+        private ModulesSettings $settings,
         array $installedModules,
-        bool $multiLanguageIsEnabled,
-        string $name = null
+        private bool $multiLanguageIsEnabled,
+        ?string $name = null,
     ) {
         parent::__construct($name);
-
-        $this->settings = $settings;
-        $this->multiLanguageIsEnabled = $multiLanguageIsEnabled;
 
         // some core modules don't have locale so we remove them to prevent showing errors we know of
         $this->installedModules = array_filter(
             $installedModules,
-            function ($installedModule) {
-                return !in_array($installedModule, ['Error', 'Core', 'Authentication']);
-            }
+            fn($installedModule) => !in_array($installedModule, ['Error', 'Core', 'Authentication'])
         );
     }
 

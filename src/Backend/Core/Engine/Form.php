@@ -4,7 +4,6 @@ namespace Backend\Core\Engine;
 
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Language\Language as BackendLanguage;
-use SpoonFormButton;
 use SpoonFormFile;
 use SpoonFormTextarea;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
@@ -14,13 +13,6 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
  */
 class Form extends \Common\Core\Form
 {
-    /**
-     * Show the global error
-     *
-     * @var bool
-     */
-    private $useGlobalError;
-
     /**
      * @param string $name           Name of the form.
      * @param string $action         The action (URL) whereto the form will be submitted, if not provided it
@@ -34,9 +26,8 @@ class Form extends \Common\Core\Form
         string $action = null,
         ?string $method = 'post',
         bool $useToken = true,
-        bool $useGlobalError = true
+        private bool $useGlobalError = true,
     ) {
-        $this->useGlobalError = $useGlobalError;
         $url = BackendModel::getContainer()->get('url');
 
         parent::__construct(

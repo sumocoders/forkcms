@@ -83,71 +83,69 @@ class Config
      */
     protected function mergeDefaultOptions($options)
     {
-        $defaults = array(
-            'authentication' => function () {
-                return false;
-            },
+        $defaults = [
+            'authentication' => fn() => false,
             'licenseName' => '',
             'licenseKey'  => '',
-            'privateDir'  => array(
+            'privateDir'  => [
                 'backend' => 'default',
                 'tags'    => '.ckfinder/tags',
                 'logs'    => '.ckfinder/logs',
                 'cache'   => '.ckfinder/cache',
                 'thumbs'  => '.ckfinder/cache/thumbs'
-            ),
-            'images' => array(
+            ],
+            'images' => [
                 'maxWidth'  => 500,
                 'maxHeight' => 400,
                 'quality'   => 80,
-                'sizes' => array(
-                    'small'  => array('width' => 480, 'height' => 320, 'quality' => 80),
-                    'medium' => array('width' => 600, 'height' => 480, 'quality' => 80),
-                    'large'  => array('width' => 800, 'height' => 600, 'quality' => 80)
-                ),
-                'threshold' => array('pixels'=> 80, 'percent' => 10)
-            ),
-            'thumbnails' => array(
+                'sizes' => [
+                    'small'  => ['width' => 480, 'height' => 320, 'quality' => 80],
+                    'medium' => ['width' => 600, 'height' => 480, 'quality' => 80],
+                    'large'  => ['width' => 800, 'height' => 600, 'quality' => 80]
+                ],
+                'threshold' => ['pixels'=> 80, 'percent' => 10]
+            ],
+            'thumbnails' => [
                 'enabled' => true,
-                'sizes' => array(
-                    array('width' => '150', 'height' => '150', 'quality' => 80),
-                    array('width' => '300', 'height' => '300', 'quality' => 80),
-                    array('width' => '500', 'height' => '500', 'quality' => 80),
-                ),
+                'sizes' => [
+                    ['width' => '150', 'height' => '150', 'quality' => 80],
+                    ['width' => '300', 'height' => '300', 'quality' => 80],
+                    ['width' => '500', 'height' => '500', 'quality' => 80],
+                ],
                 'bmpSupported' => true,
-            ),
-            'backends' => array(
-                array(
+            ],
+            'backends' => [
+                [
                     'name'               => 'default',
                     'adapter'            => 'local',
                     'baseUrl'            => '/userfiles/',
                     'chmodFiles'         => 0777,
                     'chmodFolders'       => 0777,
                     'filesystemEncoding' => 'UTF-8'
-                ),
-            ),
+                ],
+            ],
             'defaultResourceTypes' => '',
-            'resourceTypes' =>array(
-                array(
+            'resourceTypes' =>[
+                [
                     'name'              => 'Files',
                     'directory'         => 'files',
                     'maxSize'           => 0,
                     'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip',
                     'deniedExtensions'  => '',
                     'backend'           => 'default'
-                ),
-                array(
+                ],
+                [
                     'name'              => 'Images',
                     'directory'         => 'images',
                     'maxSize'           => 0,
                     'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
                     'deniedExtensions'  => '',
                     'backend'           => 'default'
-                )
-            ),
+                ]
+            ],
             'roleSessionVar' => 'CKFinder_UserRole',
-            'accessControl' => array(
-                array(
+            'accessControl' => [
+                [
                     'role'          => '*',
                     'resourceType'  => '*',
                     'folder'        => '/',
@@ -164,51 +162,51 @@ class Config
 
                     'IMAGE_RESIZE'        => true,
                     'IMAGE_RESIZE_CUSTOM' => true
-                ),
-            ),
+                ],
+            ],
             'overwriteOnUpload'        => false,
             'checkDoubleExtension'     => true,
             'disallowUnsafeCharacters' => false,
             'secureImageUploads'       => true,
             'checkSizeAfterScaling'    => true,
-            'htmlExtensions'           => array('html', 'htm', 'xml', 'js'),
-            'hideFolders'              => array(".*", "CVS", "__thumbs"),
-            'hideFiles'                => array(".*"),
+            'htmlExtensions'           => ['html', 'htm', 'xml', 'js'],
+            'hideFolders'              => [".*", "CVS", "__thumbs"],
+            'hideFiles'                => [".*"],
             'forceAscii'               => false,
             'xSendfile'                => false,
             'debug'                    => false,
             'pluginsDirectory'         => __DIR__ . '/plugins',
-            'plugins'                  => array(),
-            'debugLoggers'            => array('ckfinder_log', 'error_log', 'firephp'),
+            'plugins'                  => [],
+            'debugLoggers'            => ['ckfinder_log', 'error_log', 'firephp'],
             'tempDirectory' => sys_get_temp_dir(),
             'sessionWriteClose' => true,
             'csrfProtection' => true
-        );
+        ];
 
         $options = array_merge($defaults, $options);
 
-        foreach (array('privateDir', 'images', 'thumbnails') as $key) {
+        foreach (['privateDir', 'images', 'thumbnails'] as $key) {
             $options[$key] = array_merge($defaults[$key], $options[$key]);
         }
 
-        $resourceTypeDefaults = array(
+        $resourceTypeDefaults = [
             'name'              => '',
             'directory'         => '',
             'maxSize'           => 0,
             'allowedExtensions' => '',
             'deniedExtensions'  => '',
             'backend'           => 'default'
-        );
+        ];
 
         foreach ($options['resourceTypes'] as &$resourceType) {
             $resourceType = array_merge($resourceTypeDefaults, $resourceType);
         }
 
-        $localBackendDefaults = array(
+        $localBackendDefaults = [
             'chmodFiles'   => 0755,
             'chmodFolders' => 0755,
             'filesystemEncoding' => 'UTF-8'
-        );
+        ];
 
         foreach ($options['backends'] as &$backend) {
             if ($backend['adapter'] === 'local') {
@@ -216,13 +214,13 @@ class Config
             }
         }
 
-        $cacheDefaults = array(
+        $cacheDefaults = [
             'imagePreview' => 24 * 3600,
             'thumbnails'   => 24 * 3600 * 365,
             'proxyCommand' => 0
-        );
+        ];
 
-        $options['cache'] = array_replace($cacheDefaults, isset($options['cache']) ? $options['cache'] : array());
+        $options['cache'] = array_replace($cacheDefaults, $options['cache'] ?? []);
 
         // #205 Backward compatibility for old debug_loggers option
         if (isset($options['debug_loggers'])) {
@@ -293,24 +291,24 @@ class Config
             }
         };
 
-        $requiredRootNodes = array('authentication', 'licenseName', 'licenseKey', 'privateDir', 'images',
+        $requiredRootNodes = ['authentication', 'licenseName', 'licenseKey', 'privateDir', 'images',
             'backends', 'defaultResourceTypes', 'resourceTypes', 'roleSessionVar', 'accessControl',
             'checkDoubleExtension', 'disallowUnsafeCharacters', 'secureImageUploads', 'checkSizeAfterScaling',
-            'htmlExtensions', 'hideFolders', 'hideFiles', 'forceAscii', 'xSendfile', 'debug', 'pluginsDirectory', 'plugins');
+            'htmlExtensions', 'hideFolders', 'hideFiles', 'forceAscii', 'xSendfile', 'debug', 'pluginsDirectory', 'plugins'];
 
         $checkMissingNodes($requiredRootNodes, $this->options);
-        $checkMissingNodes(array('backend', 'tags', 'logs', 'cache', 'thumbs'), $this->options['privateDir'], '[privateDir]');
-        $checkMissingNodes(array('maxWidth', 'maxHeight', 'quality'), $this->options['images'], '[images]');
+        $checkMissingNodes(['backend', 'tags', 'logs', 'cache', 'thumbs'], $this->options['privateDir'], '[privateDir]');
+        $checkMissingNodes(['maxWidth', 'maxHeight', 'quality'], $this->options['images'], '[images]');
 
-        $backends = array();
+        $backends = [];
 
         foreach ($this->options['backends'] as $i => $backendConfig) {
-            $checkMissingNodes(array('name', 'adapter'), $backendConfig, "[backends][{$i}]");
+            $checkMissingNodes(['name', 'adapter'], $backendConfig, "[backends][{$i}]");
             $backends[] = $backendConfig['name'];
         }
 
         foreach ($this->options['resourceTypes'] as $i => $resourceTypeConfig) {
-            $checkMissingNodes(array('name', 'directory', 'maxSize', 'allowedExtensions', 'deniedExtensions', 'backend'),
+            $checkMissingNodes(['name', 'directory', 'maxSize', 'allowedExtensions', 'deniedExtensions', 'backend'],
                 $resourceTypeConfig, "[resourceTypes][{$i}]");
 
             if (!in_array($resourceTypeConfig['backend'], $backends)) {
@@ -319,7 +317,7 @@ class Config
         }
 
         foreach ($this->options['accessControl'] as $i => $aclConfig) {
-            $checkMissingNodes(array('role', 'resourceType', 'folder'), $aclConfig, "[accessControl][{$i}]");
+            $checkMissingNodes(['role', 'resourceType', 'folder'], $aclConfig, "[accessControl][{$i}]");
         }
 
         if (!is_callable($this->options['authentication'])) {
@@ -429,9 +427,9 @@ class Config
 
             if ($hideFilesConfig && is_array($hideFilesConfig)) {
                 $hideFilesRegex = implode("|", $hideFilesConfig);
-                $hideFilesRegex = strtr($hideFilesRegex, array("?" => "__QMK__", "*" => "__AST__", "|" => "__PIP__"));
+                $hideFilesRegex = strtr($hideFilesRegex, ["?" => "__QMK__", "*" => "__AST__", "|" => "__PIP__"]);
                 $hideFilesRegex = preg_quote($hideFilesRegex, "/");
-                $hideFilesRegex = strtr($hideFilesRegex, array("__QMK__" => ".", "__AST__" => ".*", "__PIP__" => "|"));
+                $hideFilesRegex = strtr($hideFilesRegex, ["__QMK__" => ".", "__AST__" => ".*", "__PIP__" => "|"]);
                 $hideFilesRegex = "/^(?:" . $hideFilesRegex . ")$/uim";
             } else {
                 $hideFilesRegex = "";
@@ -454,9 +452,9 @@ class Config
 
             if ($hideFoldersConfig && is_array($hideFoldersConfig)) {
                 $hideFoldersRegex = implode("|", $hideFoldersConfig);
-                $hideFoldersRegex = strtr($hideFoldersRegex, array("?" => "__QMK__", "*" => "__AST__", "|" => "__PIP__"));
+                $hideFoldersRegex = strtr($hideFoldersRegex, ["?" => "__QMK__", "*" => "__AST__", "|" => "__PIP__"]);
                 $hideFoldersRegex = preg_quote($hideFoldersRegex, "/");
-                $hideFoldersRegex = strtr($hideFoldersRegex, array("__QMK__" => ".", "__AST__" => ".*", "__PIP__" => "|"));
+                $hideFoldersRegex = strtr($hideFoldersRegex, ["__QMK__" => ".", "__AST__" => ".*", "__PIP__" => "|"]);
                 $hideFoldersRegex = "/^(?:" . $hideFoldersRegex . ")$/uim";
             } else {
                 $hideFoldersRegex = "";

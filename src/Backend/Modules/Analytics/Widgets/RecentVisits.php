@@ -27,9 +27,9 @@ class RecentVisits extends Widget
             $this->header->addJS('highcharts.js', 'Core', false);
             $this->header->addJS('Analytics.js', 'Analytics');
             $this->display();
-        } catch (Google_Auth_Exception $e) {
+        } catch (Google_Auth_Exception) {
             // do nothing, analyticis is probably not set up yet.
-        } catch (Google_IO_Exception $e) {
+        } catch (Google_IO_Exception) {
             // do nothing, probably no internet connection.
         }
     }

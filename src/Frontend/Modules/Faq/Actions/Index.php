@@ -39,9 +39,7 @@ class Index extends FrontendBaseBlock
 
         $this->categories = array_filter(
             $categoriesWithQuestions,
-            function (array $category) {
-                return !empty($category['questions']);
-            }
+            fn(array $category) => !empty($category['questions'])
         );
     }
 

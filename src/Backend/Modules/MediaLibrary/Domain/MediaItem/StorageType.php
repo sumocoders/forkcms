@@ -4,7 +4,7 @@ namespace Backend\Modules\MediaLibrary\Domain\MediaItem;
 
 use InvalidArgumentException;
 
-final class StorageType
+final class StorageType implements \Stringable
 {
     // Possible MediaItem types
     const EXTERNAL = 'external';

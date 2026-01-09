@@ -60,14 +60,11 @@ final class PasswordStrengthChecker
     {
         $checker = new self($password);
 
-        switch (true) {
-            case $checker->score >= 6:
-                return self::STRONG;
-            case $checker->score >= 2:
-                return self::AVERAGE;
-            default:
-                return self::WEAK;
-        }
+        return match (true) {
+            $checker->score >= 6 => self::STRONG,
+            $checker->score >= 2 => self::AVERAGE,
+            default => self::WEAK,
+        };
     }
 
     private function passwordIsTooShort(string $password): bool

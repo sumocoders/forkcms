@@ -13,16 +13,8 @@ use SpoonFilter;
  */
 final class TreeManager
 {
-    /** @var MediaFolderCache */
-    protected $mediaFolderCache;
-
-    /** @var string */
-    private $itemAction;
-
-    public function __construct(MediaFolderCache $mediaFolderCache, string $itemAction)
+    public function __construct(protected MediaFolderCache $mediaFolderCache, private string $itemAction)
     {
-        $this->mediaFolderCache = $mediaFolderCache;
-        $this->itemAction = $itemAction;
     }
 
     public function getHTML(): string

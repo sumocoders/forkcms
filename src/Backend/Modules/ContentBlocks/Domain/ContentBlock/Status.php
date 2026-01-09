@@ -4,7 +4,7 @@ namespace Backend\Modules\ContentBlocks\Domain\ContentBlock;
 
 use InvalidArgumentException;
 
-final class Status
+final class Status implements \Stringable
 {
     private const STATUS_ARCHIVED = 'archived';
     private const STATUS_ACTIVE = 'active';

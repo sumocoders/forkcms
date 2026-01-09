@@ -233,7 +233,7 @@ class Model extends BaseModel
 
         if ($time !== null) {
             // define hour & minute
-            list($hour, $minute) = explode(':', $time->getValue());
+            [$hour, $minute] = explode(':', $time->getValue());
         }
 
         // make and return timestamp

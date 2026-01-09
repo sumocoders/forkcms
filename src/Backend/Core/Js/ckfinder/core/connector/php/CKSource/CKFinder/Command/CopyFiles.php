@@ -29,11 +29,11 @@ class CopyFiles extends CommandAbstract
 {
     protected $requestMethod = Request::METHOD_POST;
 
-    protected $requires = array(
+    protected $requires = [
         Permission::FILE_RENAME,
         Permission::FILE_CREATE,
         Permission::FILE_DELETE
-    );
+    ];
 
     public function execute(Request $request, ResourceTypeFactory $resourceTypeFactory, Acl $acl, EventDispatcher $dispatcher)
     {
@@ -41,7 +41,7 @@ class CopyFiles extends CommandAbstract
 
         $copied = 0;
 
-        $errors = array();
+        $errors = [];
 
         // Initial validation
         foreach ($copiedFiles as $arr) {
@@ -67,7 +67,7 @@ class CopyFiles extends CommandAbstract
 
             $copiedFile = new CopiedFile($name, $folder, $resourceType, $this->app);
 
-            $options = isset($arr['options']) ? $arr['options'] : '';
+            $options = $arr['options'] ?? '';
 
             $copiedFile->setCopyOptions($options);
 
@@ -86,13 +86,13 @@ class CopyFiles extends CommandAbstract
             $errors = array_merge($errors, $copiedFile->getErrors());
         }
 
-        $data = array('copied' => $copied);
+        $data = ['copied' => $copied];
 
         if (!empty($errors)) {
-            $data['error'] = array(
+            $data['error'] = [
                 'number' => Error::COPY_FAILED,
                 'errors' => $errors
-            );
+            ];
         }
 
         return $data;

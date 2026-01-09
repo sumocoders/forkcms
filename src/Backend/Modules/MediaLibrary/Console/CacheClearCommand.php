@@ -84,9 +84,7 @@ class CacheClearCommand extends Command
         }
 
         return array_map(
-            function ($folder) {
-                return $folder->getPathname();
-            },
+            fn($folder) => $folder->getPathname(),
             iterator_to_array($results)
         );
     }

@@ -2,7 +2,7 @@
 
 namespace Common\Doctrine\ValueObject;
 
-final class SEOIndex
+final class SEOIndex implements \Stringable
 {
     private const NONE = 'none';
     private const INDEX = 'index';

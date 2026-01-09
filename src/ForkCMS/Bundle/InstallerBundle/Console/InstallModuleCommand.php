@@ -32,14 +32,10 @@ class InstallModuleCommand extends Command
     /** @var Connection */
     private $dbConnection;
 
-    /** @var KernelInterface */
-    private $kernel;
-
-    public function __construct(EntityManager $em, KernelInterface $kernel)
+    public function __construct(EntityManager $em, private KernelInterface $kernel)
     {
         parent::__construct();
         $this->dbConnection = $em->getConnection();
-        $this->kernel = $kernel;
     }
 
     protected function configure(): void

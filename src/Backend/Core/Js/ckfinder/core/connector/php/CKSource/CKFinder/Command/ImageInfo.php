@@ -29,9 +29,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ImageInfo extends CommandAbstract
 {
-    protected $requires = array(
+    protected $requires = [
         Permission::FILE_VIEW
-    );
+    ];
 
     public function execute(Request $request, WorkingFolder $workingFolder, Config $config, CacheManager $cache)
     {
@@ -55,7 +55,7 @@ class ImageInfo extends CommandAbstract
             $fileName
         );
 
-        $imageInfo = array();
+        $imageInfo = [];
 
         $cachedInfo = $cache->get($cachePath);
 

@@ -29,9 +29,9 @@ class DeleteFiles extends CommandAbstract
 {
     protected $requestMethod = Request::METHOD_POST;
 
-    protected $requires = array(
+    protected $requires = [
         Permission::FILE_DELETE
-    );
+    ];
 
     public function execute(Request $request, ResourceTypeFactory $resourceTypeFactory, Acl $acl, EventDispatcher $dispatcher)
     {
@@ -39,7 +39,7 @@ class DeleteFiles extends CommandAbstract
 
         $deleted = 0;
 
-        $errors = array();
+        $errors = [];
 
         // Initial validation
         foreach ($deletedFiles as $arr) {
@@ -79,13 +79,13 @@ class DeleteFiles extends CommandAbstract
             $errors = array_merge($errors, $deletedFile->getErrors());
         }
 
-        $data = array('deleted' => $deleted);
+        $data = ['deleted' => $deleted];
 
         if (!empty($errors)) {
-            $data['error'] = array(
+            $data['error'] = [
                 'number' => Error::DELETE_FAILED,
                 'errors' => $errors
-            );
+            ];
         }
 
         return $data;

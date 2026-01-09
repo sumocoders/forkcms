@@ -16,24 +16,6 @@ final class DataGridPaging implements iSpoonDatagridPaging
     /** @var int */
     private $totalNumberOfPages;
 
-    /** @var string */
-    private $baseUrl;
-
-    /** @var string */
-    private $orderByColumn;
-
-    /** @var string */
-    private $sortingDirection;
-
-    /** @var int */
-    private $resultsPerPage;
-
-    /** @var int */
-    private $totalNumberOfResults;
-
-    /** @var int */
-    private $offset;
-
     /**
      * Builds & returns the pagination
      *
@@ -68,30 +50,16 @@ final class DataGridPaging implements iSpoonDatagridPaging
         ))->getHtml($debug, $compileDirectory);
     }
 
-    /**
-     * @param string $baseUrl
-     * @param int $offset
-     * @param string|null $orderByColumn The name of the column to sort on.
-     * @param string $sortingDirection The sorting method, possible values are: asc, desc.
-     * @param int $totalNumberOfResults
-     * @param int $resultsPerPage The items per page.
-     */
     private function __construct(
-        string $baseUrl,
-        int $offset,
-        $orderByColumn,
-        string $sortingDirection,
-        int $totalNumberOfResults,
-        int $resultsPerPage
+        private string $baseUrl,
+        private int $offset,
+        private ?string $orderByColumn,
+        private string $sortingDirection,
+        private int $totalNumberOfResults,
+        private int $resultsPerPage
     ) {
-        $this->baseUrl = $baseUrl;
-        $this->offset = $offset;
-        $this->orderByColumn = $orderByColumn;
-        $this->sortingDirection = $sortingDirection;
-        $this->resultsPerPage = $resultsPerPage;
-        $this->totalNumberOfResults = $totalNumberOfResults;
-        $this->currentPage = (int) ceil($offset / $resultsPerPage) + 1;
-        $this->totalNumberOfPages = (int) ceil($totalNumberOfResults / $resultsPerPage);
+        $this->currentPage = (int) ceil($this->offset / $this->resultsPerPage) + 1;
+        $this->totalNumberOfPages = (int) ceil($this->totalNumberOfResults / $this->resultsPerPage);
     }
 
     /**

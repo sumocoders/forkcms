@@ -153,7 +153,7 @@ class TemplateModifiers extends BaseTwigModifiers
         // get HTML
         try {
             $return = (string) Navigation::getNavigationHTML($type, $parentId, $depth, (array) $excludeIds, $template);
-        } catch (Exception $e) {
+        } catch (Exception) {
             // if something goes wrong just return as fallback
             return '';
         }
@@ -301,7 +301,7 @@ class TemplateModifiers extends BaseTwigModifiers
                 (array) $excludeIds,
                 (string) $template
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             return '';
         }
 
@@ -424,11 +424,8 @@ class TemplateModifiers extends BaseTwigModifiers
         if (in_array($name, ['display_name', 'registered_on', 'full_url']) && isset($profile[$name])) {
             return $profile[$name];
         }
-        if (isset($profile['settings'][$name])) {
-            return $profile['settings'][$name];
-        }
 
-        return '';
+        return $profile['settings'][$name] ?? '';
     }
 
     /**

@@ -10,20 +10,8 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class Configurator
 {
-    /**
-     * @var ModulesSettings
-     */
-    private $modulesSettings;
-
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    public function __construct(ModulesSettings $modulesSettings, ContainerInterface $container)
+    public function __construct(private ModulesSettings $modulesSettings, private ContainerInterface $container)
     {
-        $this->modulesSettings = $modulesSettings;
-        $this->container = $container;
     }
 
     public function onKernelRequest(RequestEvent $event): void
@@ -55,7 +43,7 @@ class Configurator
                 'swiftmailer.transport',
                 $transport
             );
-        } catch (PDOException $e) {
+        } catch (PDOException) {
             // we'll just use the mail transport thats pre-configured
         }
     }

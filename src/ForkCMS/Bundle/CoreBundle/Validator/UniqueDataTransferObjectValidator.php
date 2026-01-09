@@ -16,12 +16,8 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 final class UniqueDataTransferObjectValidator extends ConstraintValidator
 {
-    /** @var ManagerRegistry */
-    private $registry;
-
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(private ManagerRegistry $registry)
     {
-        $this->registry = $registry;
     }
 
     /**
@@ -50,7 +46,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
             return;
         }
         $om = $this->getObjectManager($dataTransferObject, $constraint);
-        $class = $om->getClassMetadata($constraint->entityClass ?? \get_class($dataTransferObject->getEntity()));
+        $class = $om->getClassMetadata($constraint->entityClass ?? $dataTransferObject->getEntity()::class);
         $criteria = [];
         $hasNullValue = false;
         foreach ($fields as $fieldName) {
@@ -130,7 +126,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
         if (!\is_object($value) || $value instanceof \DateTimeInterface) {
             return $this->formatValue($value, self::PRETTY_DATE);
         }
-        $idClass = \get_class($value);
+        $idClass = $value::class;
         $identifiers = $this->getIdentifiers($em, $class, $value, $idClass);
         if (!$identifiers) {
             return sprintf('object("%s")', $idClass);
@@ -141,7 +137,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
                 if (!\is_object($id) || $id instanceof \DateTimeInterface) {
                     $idAsString = $this->formatValue($id, self::PRETTY_DATE);
                 } else {
-                    $idAsString = sprintf('object("%s")', \get_class($id));
+                    $idAsString = sprintf('object("%s")', $id::class);
                 }
                 $id = sprintf('%s => %s', $field, $idAsString);
             }
@@ -171,7 +167,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
         ClassMetadata $class
     ): ObjectRepository {
         if ($constraint->entityClass === null) {
-            return $om->getRepository(\get_class($dataTransferObject->getEntity()));
+            return $om->getRepository($dataTransferObject->getEntity()::class);
         }
         /* Retrieve repository from given entity name.
          * We ensure the retrieved repository can handle the entity
@@ -208,7 +204,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
         }
 
         $om = $this->registry->getManagerForClass(
-            $constraint->entityClass ?? \get_class($dataTransferObject->getEntity())
+            $constraint->entityClass ?? $dataTransferObject->getEntity()::class
         );
 
         if (!$om) {

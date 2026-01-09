@@ -26,7 +26,7 @@ class DeleteFolder extends CommandAbstract
 {
     protected $requestMethod = Request::METHOD_POST;
 
-    protected $requires = array(Permission::FOLDER_DELETE);
+    protected $requires = [Permission::FOLDER_DELETE];
 
     public function execute(WorkingFolder $workingFolder, EventDispatcher $dispatcher)
     {
@@ -49,6 +49,6 @@ class DeleteFolder extends CommandAbstract
             throw new AccessDeniedException();
         }
 
-        return array('deleted' => (int) $deleted);
+        return ['deleted' => (int) $deleted];
     }
 }

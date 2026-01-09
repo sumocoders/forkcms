@@ -7,12 +7,8 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 abstract class ContentBlockEvent extends Event
 {
-    /** @var ContentBlock */
-    private $contentBlock;
-
-    public function __construct(ContentBlock $contentBlock)
+    public function __construct(private ContentBlock $contentBlock)
     {
-        $this->contentBlock = $contentBlock;
     }
 
     public function getContentBlock(): ContentBlock

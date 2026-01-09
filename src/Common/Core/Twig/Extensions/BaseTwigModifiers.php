@@ -22,7 +22,7 @@ class BaseTwigModifiers
      */
     public static function formatCurrency(float $number, string $currency = 'EUR', int $decimals = null): string
     {
-        $decimals = $decimals === null ? 2 : $decimals;
+        $decimals ??= 2;
 
         // @later get settings from backend
         switch ($currency) {

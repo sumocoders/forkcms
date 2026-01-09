@@ -42,9 +42,7 @@ class MediaGalleryType extends AbstractType
                 [
                     'label' => 'lbl.WidgetView',
                     'choices' => MediaWidget::getPossibleValues(),
-                    'choice_label' => function ($possibleWidget) {
-                        return $possibleWidget;
-                    },
+                    'choice_label' => fn($possibleWidget) => $possibleWidget,
                     'choice_translation_domain' => false,
                 ]
             );
@@ -57,18 +55,12 @@ class MediaGalleryType extends AbstractType
                 [
                     'label' => 'lbl.Status',
                     'choices' => array_map(
-                        function ($status) {
-                            return Status::fromString($status);
-                        },
+                        fn($status) => Status::fromString($status),
                         Status::POSSIBLE_VALUES
                     ),
-                    'choice_label' => function (Status $type) {
-                        return TemplateModifiers::toLabel($type);
-                    },
+                    'choice_label' => fn(Status $type) => TemplateModifiers::toLabel($type),
                     'choice_translation_domain' => false,
-                    'choice_value' => function (Status $status = null) {
-                        return (string) $status;
-                    },
+                    'choice_value' => fn(Status $status = null) => (string) $status,
                     'expanded' => true,
                 ]
             )

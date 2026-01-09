@@ -12,25 +12,11 @@ final class MediaFolderCache
     const CACHE_KEY = 'media_library_media_folders';
 
     /**
-     * @var CacheItemPoolInterface|stdClass
-     */
-    protected $cache;
-
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    /**
      * @param CacheItemPoolInterface|stdClass $cache
      * @param ContainerInterface $container - We must inject the container, because otherwise we get a "circular reference exception"
      */
-    public function __construct(
-        $cache,
-        ContainerInterface $container
-    ) {
-        $this->cache = $cache;
-        $this->container = $container;
+    public function __construct(protected $cache, protected ContainerInterface $container)
+    {
     }
 
     public function delete()
@@ -67,9 +53,7 @@ final class MediaFolderCache
         }
 
         return array_map(
-            function (MediaFolder $navigationItem) use ($parentSlug) {
-                return $this->buildCacheItem($navigationItem, $parentSlug);
-            },
+            fn(MediaFolder $navigationItem) => $this->buildCacheItem($navigationItem, $parentSlug),
             $navigationItems
         );
     }

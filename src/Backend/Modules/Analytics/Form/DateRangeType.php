@@ -16,13 +16,9 @@ final class DateRangeType
     /** @var Form */
     private $form;
 
-    /** @var DateRange $dateRange */
-    private $dateRange;
-
-    public function __construct(string $name, DateRange $dateRange)
+    public function __construct(string $name, private DateRange $dateRange)
     {
         $this->form = new Form($name);
-        $this->dateRange = $dateRange;
 
         $this->build();
     }

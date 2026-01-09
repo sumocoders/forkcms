@@ -29,20 +29,12 @@ class Model
         $url .= '&z=' . $settings['zoom_level'];
 
         // set the map type
-        switch (mb_strtolower($settings['map_type'])) {
-            case 'roadmap':
-                $url .= '&t=m';
-                break;
-            case 'hybrid':
-                $url .= '&t=h';
-                break;
-            case 'terrain':
-                $url .= '&t=p';
-                break;
-            default:
-                $url .= '&t=k';
-                break;
-        }
+        match (mb_strtolower($settings['map_type'])) {
+            'roadmap' => $url .= '&t=m',
+            'hybrid' => $url .= '&t=h',
+            'terrain' => $url .= '&t=p',
+            default => $url .= '&t=k',
+        };
 
         $pointers = [];
         // add the markers to the url

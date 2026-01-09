@@ -5,7 +5,7 @@ namespace Backend\Modules\MediaLibrary\Domain\MediaItem;
 use Backend\Core\Engine\Model;
 use InvalidArgumentException;
 
-final class Type
+final class Type implements \Stringable
 {
     // Possible MediaItem types
     public const AUDIO = 'audio';

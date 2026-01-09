@@ -22,32 +22,11 @@ use CKSource\CKFinder\Command\CommandAbstract;
  */
 class BeforeCommandEvent extends CKFinderEvent
 {
-    /**
-     * The command name.
-     *
-     * @var string $commandObject
-     */
-    protected $commandName;
-
-    /**
-     * The object of the command to be executed.
-     *
-     * @var CommandAbstract $commandObject
-     */
-    protected $commandObject;
-
-    /**
-     * Constructor.
-     *
-     * @param CKFinder        $app
-     * @param string          $commandName
-     * @param CommandAbstract $commandObject
-     */
-    public function __construct(CKFinder $app, $commandName, CommandAbstract $commandObject)
-    {
-        $this->commandName = $commandName;
-        $this->commandObject = $commandObject;
-
+    public function __construct(
+        CKFinder $app,
+        protected string $commandName,
+        protected CommandAbstract $commandObject,
+    ) {
         parent::__construct($app);
     }
 

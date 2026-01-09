@@ -55,7 +55,7 @@ class MediaItemIndex extends BackendBaseActionIndex
         try {
             /** @var MediaFolder mediaFolder */
             return $this->get('media_library.repository.folder')->findOneById($id);
-        } catch (MediaFolderNotFound $mediaFolderNotFound) {
+        } catch (MediaFolderNotFound) {
             return null;
         }
     }
@@ -107,9 +107,7 @@ class MediaItemIndex extends BackendBaseActionIndex
     {
         $totalResultCount = array_sum(
             array_map(
-                function ($dataGrid) {
-                    return $dataGrid['numberOfResults'];
-                },
+                fn($dataGrid) => $dataGrid['numberOfResults'],
                 $dataGrids
             )
         );

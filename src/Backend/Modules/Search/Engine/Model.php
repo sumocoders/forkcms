@@ -168,7 +168,7 @@ class Model
             return;
         }
 
-        $language = $language ?? BL::getWorkingLanguage();
+        $language ??= BL::getWorkingLanguage();
 
         // get database
         $database = BackendModel::getContainer()->get('database');

@@ -24,30 +24,17 @@ use Symfony\Component\HttpFoundation\Response;
 class CKFinderException extends \Exception
 {
     /**
-     * An array of parameters passed for replacements used in translation.
-     *
-     * @var array $parameters
-     */
-    protected $parameters;
-
-    /**
      * HTTP response status code.
      * @var int
      */
     protected $httpStatusCode = Response::HTTP_BAD_REQUEST;
 
-    /**
-     * Constructor.
-     *
-     * @param string     $message    the exception message
-     * @param int        $code       the exception code
-     * @param array      $parameters the parameters passed for translation
-     * @param \Exception $previous   the previous exception
-     */
-    public function __construct($message = null, $code = 0, $parameters = array(), \Exception $previous = null)
-    {
-        $this->parameters = $parameters;
-
+    public function __construct(
+        ?string $message = null,
+        int $code = 0,
+        protected array $parameters = [],
+        ?\Exception $previous = null,
+    ) {
         parent::__construct($message, $code, $previous);
     }
 

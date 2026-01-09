@@ -60,14 +60,14 @@ class Model extends \Common\Core\Model
         array $parameters = null,
         bool $encodeSquareBrackets = true
     ): string {
-        $language = $language ?? BackendLanguage::getWorkingLanguage();
+        $language ??= BackendLanguage::getWorkingLanguage();
 
         // checking if we have an url, because in a cronjob we don't have one
         if (self::getContainer()->has('url')) {
             // grab the URL from the reference
             $url = self::getContainer()->get('url');
-            $action = $action ?? $url->getAction();
-            $module = $module ?? $url->getModule();
+            $action ??= $url->getAction();
+            $module ??= $url->getModule();
         }
 
         // error checking
@@ -772,7 +772,7 @@ class Model extends \Common\Core\Model
     ): bool {
         try {
             $akismet = self::getAkismet();
-        } catch (InvalidArgumentException $invalidArgumentException) {
+        } catch (InvalidArgumentException) {
             return false;
         }
 
@@ -832,7 +832,7 @@ class Model extends \Common\Core\Model
     ): bool {
         try {
             $akismet = self::getAkismet();
-        } catch (InvalidArgumentException $invalidArgumentException) {
+        } catch (InvalidArgumentException) {
             return false;
         }
 

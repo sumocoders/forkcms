@@ -175,7 +175,7 @@ class ExportData extends BackendBaseAction
         $this->columnHeaders = [$lblSessionId, $lblSentOn];
 
         // fetch query and parameters
-        list($query, $parameters) = $this->buildQuery();
+        [$query, $parameters] = $this->buildQuery();
 
         // get the data
         $records = (array) $this->get('database')->getRecords($query, $parameters);

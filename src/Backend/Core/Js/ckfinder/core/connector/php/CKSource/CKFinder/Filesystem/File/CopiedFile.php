@@ -42,28 +42,15 @@ class CopiedFile extends ExistingFile
      */
     protected $copyOptions;
 
-    /**
-     * File name of the source file.
-     *
-     * @var string
-     */
-    protected $sourceFileName;
-
-    /**
-     * Constructor.
-     *
-     * @param string       $fileName     source file name
-     * @param string       $folder       copied source file resource type relative path
-     * @param ResourceType $resourceType source file resource type
-     * @param CKFinder     $app          CKFinder
-     */
-    public function __construct($fileName, $folder, ResourceType $resourceType, CKFinder $app)
-    {
+    public function __construct(
+        protected string $sourceFileName,
+        string $folder,
+        ResourceType $resourceType,
+        CKFinder $app,
+    ) {
         $this->targetFolder = $app['working_folder'];
 
-        $this->sourceFileName = $fileName;
-
-        parent::__construct($fileName, $folder, $resourceType, $app);
+        parent::__construct($this->sourceFileName, $folder, $resourceType, $app);
     }
 
     /**
@@ -100,7 +87,7 @@ class CopiedFile extends ExistingFile
      */
     public function hasAllowedExtension()
     {
-        if (strpos($this->fileName, '.') === false) {
+        if (!str_contains($this->fileName, '.')) {
             return true;
         }
 
@@ -166,7 +153,7 @@ class CopiedFile extends ExistingFile
 
         $targetFilename = $this->getTargetFilename();
 
-        if ($this->targetFolder->containsFile($targetFilename) && strpos($this->copyOptions, 'overwrite') === false) {
+        if ($this->targetFolder->containsFile($targetFilename) && !str_contains($this->copyOptions, 'overwrite')) {
             $this->addError(Error::ALREADY_EXIST);
 
             return false;
@@ -200,8 +187,8 @@ class CopiedFile extends ExistingFile
     public function getTargetFilename()
     {
         if ($this->targetFolder->containsFile($this->getFilename()) &&
-            strpos($this->copyOptions, 'overwrite') === false &&
-            strpos($this->copyOptions, 'autorename') !== false) {
+            !str_contains($this->copyOptions, 'overwrite') &&
+            str_contains($this->copyOptions, 'autorename')) {
             $this->autorename();
         }
 

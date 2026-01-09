@@ -135,7 +135,7 @@ class UploadTheme extends BackendBaseActionAdd
 
                         // Define the theme name, based on the info.xml file.
                         $this->themeName = $this->info['name'];
-                    } catch (Exception $e) {
+                    } catch (Exception) {
                         // Warning that the information file is corrupt
                         $fileFile->addError(BL::getMessage('InformationFileCouldNotBeLoaded'));
 
