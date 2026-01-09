@@ -6,12 +6,12 @@ use Common\Core\Cookie;
 use Common\ModulesSettings;
 use ForkCMS\Privacy\ConsentDialog;
 
-final class GoogleAnalytics implements \Stringable
+final readonly class GoogleAnalytics implements \Stringable
 {
     public function __construct(
-        private readonly ModulesSettings $modulesSettings,
-        private readonly ConsentDialog $consentDialog,
-        private readonly Cookie $cookie,
+        private ModulesSettings $modulesSettings,
+        private ConsentDialog $consentDialog,
+        private Cookie $cookie,
     ) {
     }
 

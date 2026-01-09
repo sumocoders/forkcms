@@ -197,7 +197,7 @@ class Local extends \League\Flysystem\Adapter\Local
 
         if (!function_exists("iconv")) {
             if (strcasecmp($encoding, "ISO-8859-1") == 0 || strcasecmp($encoding, "ISO8859-1") == 0 || strcasecmp($encoding, "Latin1") == 0) {
-                return str_replace("\0", "_", utf8_decode($fileName));
+                return str_replace("\0", "_", mb_convert_encoding($fileName, 'ISO-8859-1'));
             } elseif (function_exists('mb_convert_encoding')) {
                 /**
                  * @todo check whether charset is supported - mb_list_encodings

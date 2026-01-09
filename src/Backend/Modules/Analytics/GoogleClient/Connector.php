@@ -10,12 +10,12 @@ use Psr\Cache\CacheItemPoolInterface;
 /**
  * The class that will do query's on the google analytics API
  */
-final class Connector
+final readonly class Connector
 {
     public function __construct(
-        private readonly Google_Service_Analytics $analytics,
-        private readonly CacheItemPoolInterface $cache,
-        private readonly ModulesSettings $settings,
+        private Google_Service_Analytics $analytics,
+        private CacheItemPoolInterface $cache,
+        private ModulesSettings $settings,
     ) {
     }
 

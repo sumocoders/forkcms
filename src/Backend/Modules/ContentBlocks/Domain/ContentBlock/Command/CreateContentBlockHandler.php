@@ -7,9 +7,9 @@ use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 use Common\ModuleExtraType;
 
-final class CreateContentBlockHandler
+final readonly class CreateContentBlockHandler
 {
-    public function __construct(private readonly ContentBlockRepository $contentBlockRepository)
+    public function __construct(private ContentBlockRepository $contentBlockRepository)
     {
     }
 

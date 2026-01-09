@@ -15,11 +15,11 @@ use Common\ModulesSettings;
  * to let them know that they have to manually unsubscribe a person.
  * Because the mail engine is "not_implemented".
  */
-final class NewNotImplementedMailingListUnsubscription
+final readonly class NewNotImplementedMailingListUnsubscription
 {
     public function __construct(
-        private readonly Swift_Mailer $mailer,
-        private readonly ModulesSettings $modulesSettings,
+        private Swift_Mailer $mailer,
+        private ModulesSettings $modulesSettings,
     ) {
     }
 

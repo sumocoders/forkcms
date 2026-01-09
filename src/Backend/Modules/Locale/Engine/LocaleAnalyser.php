@@ -5,12 +5,12 @@ namespace Backend\Modules\Locale\Engine;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
-final class LocaleAnalyser
+final readonly class LocaleAnalyser
 {
     public function __construct(
-        private readonly string $application,
-        private readonly array $paths,
-        private readonly array $installedModules,
+        private string $application,
+        private array $paths,
+        private array $installedModules,
     ) {
     }
 

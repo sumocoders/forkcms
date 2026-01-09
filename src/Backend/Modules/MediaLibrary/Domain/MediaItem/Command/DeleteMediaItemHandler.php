@@ -4,9 +4,9 @@ namespace Backend\Modules\MediaLibrary\Domain\MediaItem\Command;
 
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 
-final class DeleteMediaItemHandler
+final readonly class DeleteMediaItemHandler
 {
-    public function __construct(private readonly MediaItemRepository $mediaItemRepository)
+    public function __construct(private MediaItemRepository $mediaItemRepository)
     {
     }
 

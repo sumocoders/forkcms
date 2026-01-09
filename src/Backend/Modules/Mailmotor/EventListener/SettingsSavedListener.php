@@ -8,9 +8,9 @@ use Symfony\Component\Filesystem\Filesystem;
 /**
  * Settings saved listener
  */
-final class SettingsSavedListener
+final readonly class SettingsSavedListener
 {
-    public function __construct(private readonly string $cacheDirectory)
+    public function __construct(private string $cacheDirectory)
     {
     }
 

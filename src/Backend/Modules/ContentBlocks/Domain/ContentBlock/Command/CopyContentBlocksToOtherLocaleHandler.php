@@ -9,9 +9,9 @@ use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\Status;
 use Common\ModuleExtraType;
 
-final class CopyContentBlocksToOtherLocaleHandler
+final readonly class CopyContentBlocksToOtherLocaleHandler
 {
-    public function __construct(private readonly ContentBlockRepository $contentBlockRepository)
+    public function __construct(private ContentBlockRepository $contentBlockRepository)
     {
     }
 

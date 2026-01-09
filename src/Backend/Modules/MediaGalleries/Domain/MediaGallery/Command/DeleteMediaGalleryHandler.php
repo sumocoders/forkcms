@@ -7,11 +7,11 @@ use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
 use Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 
-final class DeleteMediaGalleryHandler
+final readonly class DeleteMediaGalleryHandler
 {
     public function __construct(
-        private readonly MediaGalleryRepository $mediaGalleryRepository,
-        private readonly MediaItemRepository $mediaItemRepository,
+        private MediaGalleryRepository $mediaGalleryRepository,
+        private MediaItemRepository $mediaItemRepository,
     ) {
     }
 

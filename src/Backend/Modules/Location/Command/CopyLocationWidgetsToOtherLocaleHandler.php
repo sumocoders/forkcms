@@ -5,9 +5,9 @@ namespace Backend\Modules\Location\Command;
 use Common\ModuleExtraType;
 use SpoonDatabase;
 
-final class CopyLocationWidgetsToOtherLocaleHandler
+final readonly class CopyLocationWidgetsToOtherLocaleHandler
 {
-    public function __construct(private readonly SpoonDatabase $database)
+    public function __construct(private SpoonDatabase $database)
     {
     }
 

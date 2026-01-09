@@ -5,14 +5,14 @@ namespace Common\Core\Header;
 use Common\Core\Model;
 use MatthiasMullie\Minify;
 
-final class Minifier
+final readonly class Minifier
 {
     public function __construct(
-        private readonly Minify\Minify $minifyClass,
-        private readonly string $basePath,
-        private readonly string $cacheFileExtension,
-        private readonly string $baseCacheUrl,
-        private readonly string $baseCachePath,
+        private Minify\Minify $minifyClass,
+        private string $basePath,
+        private string $cacheFileExtension,
+        private string $baseCacheUrl,
+        private string $baseCachePath,
     ) {
     }
 

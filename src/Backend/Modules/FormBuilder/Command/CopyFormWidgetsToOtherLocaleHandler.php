@@ -6,9 +6,9 @@ use Backend\Core\Engine\Model as BackendModel;
 use Common\ModuleExtraType;
 use SpoonDatabase;
 
-final class CopyFormWidgetsToOtherLocaleHandler
+final readonly class CopyFormWidgetsToOtherLocaleHandler
 {
-    public function __construct(private readonly SpoonDatabase $database)
+    public function __construct(private SpoonDatabase $database)
     {
     }
 

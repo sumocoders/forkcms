@@ -10,11 +10,11 @@ use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
 /**
  * A Formbuilder submitted event subscriber that will subscribe the email when the checkbox is checked
  */
-final class FormBuilderSubmittedMailmotorSubscriber
+final readonly class FormBuilderSubmittedMailmotorSubscriber
 {
     public function __construct(
-        private readonly ModulesSettings $modulesSettings,
-        private readonly Subscriber $mailmotorSubscriber,
+        private ModulesSettings $modulesSettings,
+        private Subscriber $mailmotorSubscriber,
     ) {
     }
 

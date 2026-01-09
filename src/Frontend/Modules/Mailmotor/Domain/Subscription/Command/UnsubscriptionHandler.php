@@ -6,11 +6,11 @@ use Common\ModulesSettings;
 use Frontend\Core\Language\Locale;
 use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
 
-final class UnsubscriptionHandler
+final readonly class UnsubscriptionHandler
 {
     public function __construct(
-        private readonly Subscriber $subscriber,
-        private readonly ModulesSettings $modulesSettings,
+        private Subscriber $subscriber,
+        private ModulesSettings $modulesSettings,
     ) {
     }
 

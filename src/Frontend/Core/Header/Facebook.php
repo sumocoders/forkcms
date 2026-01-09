@@ -5,9 +5,9 @@ namespace Frontend\Core\Header;
 use Common\ModulesSettings;
 use Frontend\Core\Engine\Theme;
 
-final class Facebook
+final readonly class Facebook
 {
-    public function __construct(private readonly ModulesSettings $modulesSettings)
+    public function __construct(private ModulesSettings $modulesSettings)
     {
     }
 

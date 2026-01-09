@@ -5,9 +5,9 @@ namespace Backend\Modules\MediaGalleries\Domain\MediaGallery\Command;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGallery;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
 
-final class CreateMediaGalleryHandler
+final readonly class CreateMediaGalleryHandler
 {
-    public function __construct(private readonly MediaGalleryRepository $mediaGalleryRepository)
+    public function __construct(private MediaGalleryRepository $mediaGalleryRepository)
     {
     }
 

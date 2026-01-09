@@ -7,11 +7,11 @@ use Frontend\Core\Language\Locale;
 use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
 use MailMotor\Bundle\MailMotorBundle\Exception\NotImplementedException;
 
-final class SubscriptionHandler
+final readonly class SubscriptionHandler
 {
     public function __construct(
-        private readonly Subscriber $subscriber,
-        private readonly ModulesSettings $modulesSettings,
+        private Subscriber $subscriber,
+        private ModulesSettings $modulesSettings,
     ) {
     }
 
