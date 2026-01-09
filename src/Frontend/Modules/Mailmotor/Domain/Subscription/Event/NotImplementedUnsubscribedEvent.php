@@ -7,7 +7,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class NotImplementedUnsubscribedEvent extends Event
 {
-    const EVENT_NAME = 'mailmotor.event.not_implemented.unsubscribed';
+    const string EVENT_NAME = 'mailmotor.event.not_implemented.unsubscribed';
 
     public function __construct(private readonly Unsubscription $unsubscription)
     {

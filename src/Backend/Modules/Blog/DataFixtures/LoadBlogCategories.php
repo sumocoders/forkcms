@@ -6,13 +6,13 @@ use SpoonDatabase;
 
 final class LoadBlogCategories
 {
-    public const BLOG_CATEGORY_TITLE = 'Blog Category for tests';
-    public const BLOG_CATEGORY_SLUG = 'blog-category-for-tests';
-    public const BLOG_CATEGORY_DATA = [
+    public const string BLOG_CATEGORY_TITLE = 'Blog Category for tests';
+    public const string BLOG_CATEGORY_SLUG = 'blog-category-for-tests';
+    public const array BLOG_CATEGORY_DATA = [
         'language' => 'en',
         'title' => self::BLOG_CATEGORY_TITLE,
     ];
-    public const BLOG_CATEGORY_META_DATA = [
+    public const array BLOG_CATEGORY_META_DATA = [
         'keywords' => self::BLOG_CATEGORY_TITLE,
         'description' => self::BLOG_CATEGORY_TITLE,
         'title' => self::BLOG_CATEGORY_TITLE,

@@ -4,10 +4,10 @@ namespace Common\Doctrine\ValueObject;
 
 final class SEOIndex implements \Stringable
 {
-    private const NONE = 'none';
-    private const INDEX = 'index';
-    private const NOINDEX = 'noindex';
-    public const POSSIBLE_VALUES = [
+    private const string NONE = 'none';
+    private const string INDEX = 'index';
+    private const string NOINDEX = 'noindex';
+    public const array POSSIBLE_VALUES = [
         self::NONE,
         self::INDEX,
         self::NOINDEX,

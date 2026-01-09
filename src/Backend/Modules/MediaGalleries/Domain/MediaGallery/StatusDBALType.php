@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\StringType;
 
 final class StatusDBALType extends StringType
 {
-    public const NAME = 'media_gallery_status';
+    public const string NAME = 'media_gallery_status';
 
     public function getName(): string
     {

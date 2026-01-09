@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\StringType;
 
 final class TypeDBALType extends StringType
 {
-    const NAME = 'media_item_type';
+    const string NAME = 'media_item_type';
 
     /**
      * @return string

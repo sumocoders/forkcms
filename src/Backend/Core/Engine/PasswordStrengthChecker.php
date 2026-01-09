@@ -4,9 +4,9 @@ namespace Backend\Core\Engine;
 
 final class PasswordStrengthChecker
 {
-    private const WEAK = 'weak';
-    private const AVERAGE = 'average';
-    private const STRONG = 'strong';
+    private const string WEAK = 'weak';
+    private const string AVERAGE = 'average';
+    private const string STRONG = 'strong';
 
     /** @var int */
     private $score;

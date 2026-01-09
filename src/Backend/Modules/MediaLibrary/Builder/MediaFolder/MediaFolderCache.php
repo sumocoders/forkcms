@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class MediaFolderCache
 {
-    const CACHE_KEY = 'media_library_media_folders';
+    const string CACHE_KEY = 'media_library_media_folders';
 
     /**
      * @param CacheItemPoolInterface|stdClass $cache

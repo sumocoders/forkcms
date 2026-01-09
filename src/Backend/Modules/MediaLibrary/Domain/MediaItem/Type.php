@@ -8,11 +8,11 @@ use InvalidArgumentException;
 final class Type implements \Stringable
 {
     // Possible MediaItem types
-    public const AUDIO = 'audio';
-    public const FILE = 'file';
-    public const IMAGE = 'image';
-    public const MOVIE = 'movie';
-    public const POSSIBLE_VALUES = [
+    public const string AUDIO = 'audio';
+    public const string FILE = 'file';
+    public const string IMAGE = 'image';
+    public const string MOVIE = 'movie';
+    public const array POSSIBLE_VALUES = [
         self::IMAGE,
         self::FILE,
         self::MOVIE,

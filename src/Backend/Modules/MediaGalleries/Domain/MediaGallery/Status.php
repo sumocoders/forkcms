@@ -6,9 +6,9 @@ use InvalidArgumentException;
 
 final class Status implements \Stringable
 {
-    private const ACTIVE = 'active';
-    private const HIDDEN = 'hidden';
-    public const POSSIBLE_VALUES = [
+    private const string ACTIVE = 'active';
+    private const string HIDDEN = 'hidden';
+    public const array POSSIBLE_VALUES = [
         self::ACTIVE,
         self::HIDDEN,
     ];

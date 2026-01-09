@@ -7,17 +7,17 @@ use InvalidArgumentException;
 final class StorageType implements \Stringable
 {
     // Possible MediaItem types
-    const EXTERNAL = 'external';
-    const LOCAL = 'local';
-    const YOUTUBE = 'youtube';
-    const VIMEO = 'vimeo';
-    const POSSIBLE_VALUES = [
+    const string EXTERNAL = 'external';
+    const string LOCAL = 'local';
+    const string YOUTUBE = 'youtube';
+    const string VIMEO = 'vimeo';
+    const array POSSIBLE_VALUES = [
         self::EXTERNAL,
         self::LOCAL,
         self::YOUTUBE,
         self::VIMEO,
     ];
-    const POSSIBLE_VALUES_FOR_MOVIE = [
+    const array POSSIBLE_VALUES_FOR_MOVIE = [
         self::YOUTUBE,
         self::VIMEO,
     ];

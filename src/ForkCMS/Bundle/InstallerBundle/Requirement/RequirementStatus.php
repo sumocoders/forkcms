@@ -6,10 +6,10 @@ use InvalidArgumentException;
 
 final class RequirementStatus implements \Stringable
 {
-    const SUCCESS = 'success';
-    const WARNING = 'warning';
-    const ERROR = 'danger';
-    const POSSIBLE_VALUES = [
+    const string SUCCESS = 'success';
+    const string WARNING = 'warning';
+    const string ERROR = 'danger';
+    const array POSSIBLE_VALUES = [
         self::SUCCESS,
         self::WARNING,
         self::ERROR,

@@ -6,8 +6,8 @@ use InvalidArgumentException;
 
 final class Status implements \Stringable
 {
-    private const STATUS_ARCHIVED = 'archived';
-    private const STATUS_ACTIVE = 'active';
+    private const string STATUS_ARCHIVED = 'archived';
+    private const string STATUS_ACTIVE = 'active';
 
     /** @var string */
     private $status;

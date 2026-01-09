@@ -8,39 +8,39 @@ use SpoonDatabase;
 
 final class LoadProfilesProfile
 {
-    public const PROFILES_OLD_SESSION_ID = 1234567890;
-    public const PROFILES_PROFILE_PASSWORD = 'forkcms';
-    public const PROFILES_ACTIVE_PROFILE_EMAIL = 'test-active@fork-cms.com';
-    public const PROFILES_ACTIVE_PROFILE_DISPLAY_NAME = 'active Fork CMS profile';
-    public const PROFILES_ACTIVE_PROFILE_URL = 'active-fork-cms-profile';
-    public const PROFILES_ACTIVE_PROFILE_DATA = [
+    public const int PROFILES_OLD_SESSION_ID = 1234567890;
+    public const string PROFILES_PROFILE_PASSWORD = 'forkcms';
+    public const string PROFILES_ACTIVE_PROFILE_EMAIL = 'test-active@fork-cms.com';
+    public const string PROFILES_ACTIVE_PROFILE_DISPLAY_NAME = 'active Fork CMS profile';
+    public const string PROFILES_ACTIVE_PROFILE_URL = 'active-fork-cms-profile';
+    public const array PROFILES_ACTIVE_PROFILE_DATA = [
         'email' => self::PROFILES_ACTIVE_PROFILE_EMAIL,
         'status' => 'active',
         'display_name' => self::PROFILES_ACTIVE_PROFILE_DISPLAY_NAME,
         'url' => self::PROFILES_ACTIVE_PROFILE_URL,
     ];
-    public const PROFILES_INACTIVE_PROFILE_EMAIL = 'test-inactive@fork-cms.com';
-    public const PROFILES_INACTIVE_PROFILE_DISPLAY_NAME = 'inactive Fork CMS profile';
-    public const PROFILES_INACTIVE_PROFILE_URL = 'inactive-fork-cms-profile';
-    public const PROFILES_INACTIVE_PROFILE_DATA = [
+    public const string PROFILES_INACTIVE_PROFILE_EMAIL = 'test-inactive@fork-cms.com';
+    public const string PROFILES_INACTIVE_PROFILE_DISPLAY_NAME = 'inactive Fork CMS profile';
+    public const string PROFILES_INACTIVE_PROFILE_URL = 'inactive-fork-cms-profile';
+    public const array PROFILES_INACTIVE_PROFILE_DATA = [
         'email' => self::PROFILES_INACTIVE_PROFILE_EMAIL,
         'status' => 'inactive',
         'display_name' => self::PROFILES_INACTIVE_PROFILE_DISPLAY_NAME,
         'url' => self::PROFILES_INACTIVE_PROFILE_URL,
     ];
-    public const PROFILES_DELETED_PROFILE_EMAIL = 'test-deleted@fork-cms.com';
-    public const PROFILES_DELETED_PROFILE_DISPLAY_NAME = 'deleted Fork CMS profile';
-    public const PROFILES_DELETED_PROFILE_URL = 'deleted-fork-cms-profile';
-    public const PROFILES_DELETED_PROFILE_DATA = [
+    public const string PROFILES_DELETED_PROFILE_EMAIL = 'test-deleted@fork-cms.com';
+    public const string PROFILES_DELETED_PROFILE_DISPLAY_NAME = 'deleted Fork CMS profile';
+    public const string PROFILES_DELETED_PROFILE_URL = 'deleted-fork-cms-profile';
+    public const array PROFILES_DELETED_PROFILE_DATA = [
         'email' => self::PROFILES_DELETED_PROFILE_EMAIL,
         'status' => 'deleted',
         'display_name' => self::PROFILES_DELETED_PROFILE_DISPLAY_NAME,
         'url' => self::PROFILES_DELETED_PROFILE_URL,
     ];
-    public const PROFILES_BLOCKED_PROFILE_EMAIL = 'test-blocked@fork-cms.com';
-    public const PROFILES_BLOCKED_PROFILE_DISPLAY_NAME = 'blocked Fork CMS profile';
-    public const PROFILES_BLOCKED_PROFILE_URL = 'blocked-fork-cms-profile';
-    public const PROFILES_BLOCKED_PROFILE_DATA = [
+    public const string PROFILES_BLOCKED_PROFILE_EMAIL = 'test-blocked@fork-cms.com';
+    public const string PROFILES_BLOCKED_PROFILE_DISPLAY_NAME = 'blocked Fork CMS profile';
+    public const string PROFILES_BLOCKED_PROFILE_URL = 'blocked-fork-cms-profile';
+    public const array PROFILES_BLOCKED_PROFILE_DATA = [
         'email' => self::PROFILES_BLOCKED_PROFILE_EMAIL,
         'status' => 'blocked',
         'display_name' => self::PROFILES_BLOCKED_PROFILE_DISPLAY_NAME,

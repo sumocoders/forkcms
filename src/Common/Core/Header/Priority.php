@@ -6,13 +6,13 @@ use InvalidArgumentException;
 
 final class Priority implements \Stringable
 {
-    private const CORE = 0;
-    private const STANDARD = 1;
-    private const MODULE = 2;
-    private const WIDGET = 3;
-    private const DEBUG = 99;
+    private const int CORE = 0;
+    private const int STANDARD = 1;
+    private const int MODULE = 2;
+    private const int WIDGET = 3;
+    private const int DEBUG = 99;
 
-    private const POSSIBLE_VALUES = [
+    private const array POSSIBLE_VALUES = [
         self::CORE,
         self::STANDARD,
         self::MODULE,

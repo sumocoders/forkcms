@@ -7,7 +7,7 @@ use SpoonDatabase;
 
 final class NavigationCache
 {
-    const CACHE_KEY = 'backend_navigation';
+    const string CACHE_KEY = 'backend_navigation';
 
     public function __construct(
         protected SpoonDatabase $database,

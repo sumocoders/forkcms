@@ -8,7 +8,7 @@ use Doctrine\DBAL\Types\StringType;
 
 final class SEOIndexType extends StringType
 {
-    const SEO_INDEX = 'seo_index';
+    const string SEO_INDEX = 'seo_index';
 
     /**
      * @param SEOIndex $seoIndex

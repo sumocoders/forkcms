@@ -13,7 +13,7 @@ final class SettingsSavedEvent extends Event
     /**
      * @var string The name the listener needs to listen to to catch this event.
      */
-    const EVENT_NAME = 'mailmotor.event.settings_saved';
+    const string EVENT_NAME = 'mailmotor.event.settings_saved';
 
     public function __construct(protected SaveSettings $settings)
     {

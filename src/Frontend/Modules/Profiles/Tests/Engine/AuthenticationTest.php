@@ -18,7 +18,7 @@ final class AuthenticationTest extends FrontendWebTestCase
     private $session;
 
     /** @var string */
-    private const SECRET_COOKIE_KEY = 'NotSoSecret';
+    private const string SECRET_COOKIE_KEY = 'NotSoSecret';
 
     protected function setUp(): void
     {

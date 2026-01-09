@@ -15,7 +15,7 @@ use SpoonFormDropdown;
  */
 class MediaItemDataGrid extends DataGridDatabase
 {
-    public function __construct(Type $type, int $folderId = null, string $searchQuery = null)
+    public function __construct(Type $type, ?int $folderId = null, ?string $searchQuery = null)
     {
         parent::__construct(
             'SELECT i.id, i.storage_type, i.type, i.url, i.title, i.sharding_folder_name,
@@ -174,7 +174,7 @@ class MediaItemDataGrid extends DataGridDatabase
         if ($type->isImage()) {
             // Add image url
             $this->setColumnFunction(
-                BackendDataGridFunctions::showImage(...),
+                [BackendDataGridFunctions::class, 'showImage'],
                 [
                     Model::get('media_library.storage.local')->getWebDir() . '/[sharding_folder_name]',
                     '[url]',

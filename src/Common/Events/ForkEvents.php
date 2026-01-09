@@ -10,5 +10,5 @@ final class ForkEvents
     /**
      * @var string
      */
-    const FORK_EVENTS_SESSION_ID_CHANGED = 'fork.events.session.id.changed';
+    const string FORK_EVENTS_SESSION_ID_CHANGED = 'fork.events.session.id.changed';
 }

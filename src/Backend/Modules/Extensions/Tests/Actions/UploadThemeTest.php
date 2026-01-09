@@ -10,9 +10,9 @@ use ZipArchive;
 
 class UploadThemeTest extends BackendWebTestCase
 {
-    private const THEME_NAME = 'Fork Test Theme';
-    private const URL_UPLOAD_THEME = '/private/en/extensions/upload_theme';
-    private const URL_THEMES_INDEX = '/private/en/extensions/themes';
+    private const string THEME_NAME = 'Fork Test Theme';
+    private const string URL_UPLOAD_THEME = '/private/en/extensions/upload_theme';
+    private const string URL_THEMES_INDEX = '/private/en/extensions/themes';
 
     /**
      * @var string
