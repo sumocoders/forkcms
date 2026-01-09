@@ -63,7 +63,7 @@ class Settings extends FrontendBaseBlock
 
         return array_combine(
             ['year', 'month', 'day'],
-            (empty($birthDate) ? ['', '', ''] : explode('-', $birthDate))
+            (empty($birthDate) ? ['', '', ''] : explode('-', (string) $birthDate))
         );
     }
 
@@ -274,8 +274,8 @@ class Settings extends FrontendBaseBlock
         return sprintf(
             '%1$s-%2$s-%3$s',
             $this->form->getField('year')->getValue(),
-            str_pad($this->form->getField('month')->getValue(), 2, '0', STR_PAD_LEFT),
-            str_pad($this->form->getField('day')->getValue(), 2, '0', STR_PAD_LEFT)
+            str_pad((string) $this->form->getField('month')->getValue(), 2, '0', STR_PAD_LEFT),
+            str_pad((string) $this->form->getField('day')->getValue(), 2, '0', STR_PAD_LEFT)
         );
     }
 }

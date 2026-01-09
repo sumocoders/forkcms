@@ -136,7 +136,7 @@ class BackendFactory
                 'visibility' => $backendConfig['visibility'] ?? 'private'
             ];
 
-            $prefix = isset($backendConfig['root']) ? trim($backendConfig['root'], '/ ') : null;
+            $prefix = isset($backendConfig['root']) ? trim((string) $backendConfig['root'], '/ ') : null;
 
             return $this->createBackend($backendConfig, new AwsS3Adapter($client, $backendConfig['bucket'], $prefix), $filesystemConfig);
         });
@@ -145,7 +145,7 @@ class BackendFactory
             $endpoint = sprintf('DefaultEndpointsProtocol=https;AccountName=%s;AccountKey=%s', $backendConfig['account'], $backendConfig['key']);
             $blobRestProxy = ServicesBuilder::getInstance()->createBlobService($endpoint);
 
-            $prefix = isset($backendConfig['root']) ? trim($backendConfig['root'], '/ ') : null;
+            $prefix = isset($backendConfig['root']) ? trim((string) $backendConfig['root'], '/ ') : null;
 
             return $this->createBackend($backendConfig, new AzureAdapter($blobRestProxy, $backendConfig['container'], $prefix));
         });

@@ -26,13 +26,13 @@ class TwigFilters
             $twig->addFunction(
                 new TwigFunction(
                     'isAllowedAction',
-                    [Authentication::class, 'isAllowedAction']
+                    Authentication::isAllowedAction(...)
                 )
             );
             $twig->addFunction(
                 new TwigFunction(
                     'isAllowedModule',
-                    [Authentication::class, 'isAllowedModule']
+                    Authentication::isAllowedModule(...)
                 )
             );
         }

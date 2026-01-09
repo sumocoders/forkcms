@@ -18,16 +18,16 @@ final class IncludeOnceExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'include_once',
-                [$this, 'includeOnce'],
+                $this->includeOnce(...),
                 ['needs_environment' => true, 'needs_context' => true, 'is_safe' => ['all']]
             ),
             new TwigFunction(
                 'is_included',
-                [$this, 'isIncluded']
+                $this->isIncluded(...)
             ),
             new TwigFunction(
                 'set_included',
-                [$this, 'setIncluded']
+                $this->setIncluded(...)
             ),
         ];
     }

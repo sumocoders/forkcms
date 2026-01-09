@@ -287,7 +287,7 @@ class Url extends KernelLoader
     private function redirectToFistAvailableLink(string $language, array $navigation): void
     {
         foreach ($navigation as $navigationItem) {
-            [$module, $action] = explode('/', $navigationItem['url']);
+            [$module, $action] = explode('/', (string) $navigationItem['url']);
             $module = \SpoonFilter::toCamelCase($module);
             $action = \SpoonFilter::toCamelCase($action);
 

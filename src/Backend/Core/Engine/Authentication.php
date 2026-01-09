@@ -93,7 +93,7 @@ class Authentication
     {
         $encryptedPassword = BackendUsersModel::getEncryptedPassword($email);
 
-        return password_verify($password, $encryptedPassword);
+        return password_verify($password, (string) $encryptedPassword);
     }
 
     /**
@@ -107,7 +107,7 @@ class Authentication
      */
     public static function getEncryptedString(string $string, string $salt = null): string
     {
-        return (string) sha1(md5($salt) . md5($string));
+        return (string) sha1(md5((string) $salt) . md5($string));
     }
 
     /**

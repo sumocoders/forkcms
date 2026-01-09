@@ -299,7 +299,7 @@ class Backend extends Filesystem
      */
     public function hasDirectory($directoryPath)
     {
-        $pathParts = array_filter(explode('/', $directoryPath), 'strlen');
+        $pathParts = array_filter(explode('/', $directoryPath), strlen(...));
         $dirName = array_pop($pathParts);
         $contents = $this->listContents(implode('/', $pathParts));
 

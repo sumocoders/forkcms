@@ -325,8 +325,8 @@ class Edit extends BackendBaseActionEdit
                 if ($ddmYear->isFilled()) {
                     // mysql format
                     $birthDate = $ddmYear->getValue() . '-';
-                    $birthDate .= str_pad($ddmMonth->getValue(), 2, '0', STR_PAD_LEFT) . '-';
-                    $birthDate .= str_pad($ddmDay->getValue(), 2, '0', STR_PAD_LEFT);
+                    $birthDate .= str_pad((string) $ddmMonth->getValue(), 2, '0', STR_PAD_LEFT) . '-';
+                    $birthDate .= str_pad((string) $ddmDay->getValue(), 2, '0', STR_PAD_LEFT);
                 } else {
                     $birthDate = null;
                 }
@@ -343,9 +343,9 @@ class Edit extends BackendBaseActionEdit
                 $displayName = $values['display_name'] ?? $this->profile['display_name'];
 
                 $redirectUrl = BackendModel::createUrlForAction('Index') .
-                               '&var=' . rawurlencode($values['email']) .
+                               '&var=' . rawurlencode((string) $values['email']) .
                     '&highlight=row-' . $this->id .
-                    '&var=' . rawurlencode($displayName) .
+                    '&var=' . rawurlencode((string) $displayName) .
                     '&report='
                 ;
 

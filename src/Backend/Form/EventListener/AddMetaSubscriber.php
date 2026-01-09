@@ -26,14 +26,14 @@ class AddMetaSubscriber implements EventSubscriberInterface
      * @param string|null $hreflangRepositoryMethod
      */
     public function __construct(
-        private string $moduleForUrl,
-        private string $actionForUrl,
-        private string $generateUrlCallbackClass,
-        private string $generateUrlCallbackMethod,
-        private array $generateUrlCallbackParameterMethods,
-        private string $baseFieldName = 'title',
-        private ?string $hreflangRepositoryClass = null,
-        private ?string $hreflangRepositoryMethod = null,
+        private readonly string $moduleForUrl,
+        private readonly string $actionForUrl,
+        private readonly string $generateUrlCallbackClass,
+        private readonly string $generateUrlCallbackMethod,
+        private readonly array $generateUrlCallbackParameterMethods,
+        private readonly string $baseFieldName = 'title',
+        private readonly ?string $hreflangRepositoryClass = null,
+        private readonly ?string $hreflangRepositoryMethod = null,
     ) {
     }
 
@@ -67,7 +67,7 @@ class AddMetaSubscriber implements EventSubscriberInterface
 
         foreach ($this->generateUrlCallbackParameterMethods as $generateUrlCallbackParameterMethod) {
             $parameter = $event;
-            $methods = explode('.', $generateUrlCallbackParameterMethod);
+            $methods = explode('.', (string) $generateUrlCallbackParameterMethod);
 
             foreach ($methods as $method) {
                 $parameter = $parameter->{$method}();

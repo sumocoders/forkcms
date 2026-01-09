@@ -78,7 +78,7 @@ final class ModelTest extends FrontendWebTestCase
         self::assertTrue(
             password_verify(
                 LoadProfilesProfile::PROFILES_PROFILE_PASSWORD,
-                Model::getEncryptedPassword(LoadProfilesProfile::PROFILES_ACTIVE_PROFILE_EMAIL)
+                (string) Model::getEncryptedPassword(LoadProfilesProfile::PROFILES_ACTIVE_PROFILE_EMAIL)
             )
         );
     }

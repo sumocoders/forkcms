@@ -11,7 +11,7 @@ class CreateSchema
     /**
      * @param EntityManager $entityManager
      */
-    public function __construct(private EntityManager $entityManager)
+    public function __construct(private readonly EntityManager $entityManager)
     {
     }
 
@@ -38,7 +38,7 @@ class CreateSchema
 
         $schemaTool->updateSchema(
             array_map(
-                [$this->entityManager, 'getClassMetadata'],
+                $this->entityManager->getClassMetadata(...),
                 $entityClasses
             ),
             true

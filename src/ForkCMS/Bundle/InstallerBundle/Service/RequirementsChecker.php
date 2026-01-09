@@ -16,7 +16,7 @@ final class RequirementsChecker
      */
     private $requirementCategories;
 
-    public function __construct(private string $rootDir)
+    public function __construct(private readonly string $rootDir)
     {
     }
 
@@ -122,7 +122,7 @@ final class RequirementsChecker
                 'subfolder',
                 // If we don't know for sure but we shall assume that it isn't in a subfolder
                 array_key_exists('REQUEST_URI', $_SERVER)
-                    ? mb_substr($_SERVER['REQUEST_URI'], 0, 8) === '/install' : true,
+                    ? mb_substr((string) $_SERVER['REQUEST_URI'], 0, 8) === '/install' : true,
                 'Fork CMS is as far as we can detect not running is a subfolder',
                 'Fork CMS can\'t be installed in subfolders',
                 RequirementStatus::error()

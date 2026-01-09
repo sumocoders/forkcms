@@ -55,10 +55,10 @@ class MediaGalleryType extends AbstractType
                 [
                     'label' => 'lbl.Status',
                     'choices' => array_map(
-                        fn($status) => Status::fromString($status),
+                        Status::fromString(...),
                         Status::POSSIBLE_VALUES
                     ),
-                    'choice_label' => fn(Status $type) => TemplateModifiers::toLabel($type),
+                    'choice_label' => TemplateModifiers::toLabel(...),
                     'choice_translation_domain' => false,
                     'choice_value' => fn(Status $status = null) => (string) $status,
                     'expanded' => true,

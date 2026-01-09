@@ -163,7 +163,7 @@ class Action extends KernelLoader
         if ($var === '') {
             $var = [];
         }
-        $var = array_map('strip_tags', (array) $var);
+        $var = array_map(strip_tags(...), (array) $var);
 
         // is there a report to show?
         if ($this->getRequest()->query->get('report', '') !== '') {

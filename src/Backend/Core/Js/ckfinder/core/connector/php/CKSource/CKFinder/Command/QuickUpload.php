@@ -32,7 +32,7 @@ class QuickUpload extends FileUpload
     {
         parent::__construct($app);
 
-        $app->on(KernelEvents::RESPONSE, [$this, 'onQuickUploadResponse']);
+        $app->on(KernelEvents::RESPONSE, $this->onQuickUploadResponse(...));
     }
 
     public function execute(Request $request, WorkingFolder $workingFolder, EventDispatcher $dispatcher, Config $config, CacheManager $cache, ThumbnailRepository $thumbsRepository)

@@ -27,8 +27,8 @@ final class InstallerController extends AbstractController
     public static $installationData;
 
     public function __construct(
-        private ForkInstaller $forkInstaller,
-        private RequirementsChecker $requirementsChecker,
+        private readonly ForkInstaller $forkInstaller,
+        private readonly RequirementsChecker $requirementsChecker,
     ) {
     }
 

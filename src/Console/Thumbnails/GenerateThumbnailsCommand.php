@@ -38,7 +38,7 @@ class GenerateThumbnailsCommand extends Command
             );
     }
 
-    public function __construct(private Thumbnails $thumbnails)
+    public function __construct(private readonly Thumbnails $thumbnails)
     {
         parent::__construct();
     }

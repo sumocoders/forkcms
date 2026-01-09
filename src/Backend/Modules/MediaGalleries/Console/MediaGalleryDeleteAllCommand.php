@@ -26,8 +26,8 @@ class MediaGalleryDeleteAllCommand extends Command
     protected $deleteMediaItems = false;
 
     public function __construct(
-        private MediaGalleryRepository $mediaGalleryRepository,
-        private CommandBus $commandBus,
+        private readonly MediaGalleryRepository $mediaGalleryRepository,
+        private readonly CommandBus $commandBus,
     ) {
         parent::__construct();
     }

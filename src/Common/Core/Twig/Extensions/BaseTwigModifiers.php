@@ -146,7 +146,7 @@ class BaseTwigModifiers
      */
     public static function snakeCase(string $string): string
     {
-        return ltrim(strtolower(preg_replace('/[A-Z]/', '_$0', $string)), '_');
+        return ltrim(strtolower((string) preg_replace('/[A-Z]/', '_$0', $string)), '_');
     }
 
     /**
@@ -163,7 +163,7 @@ class BaseTwigModifiers
     {
         // non-alpha and non-numeric characters become spaces
         $string = preg_replace('/[^a-z0-9' . implode('', []) . ']+/i', ' ', $string);
-        $string = trim($string);
+        $string = trim((string) $string);
         // uppercase the first character of each word
         $string = ucwords($string);
         $string = str_replace(' ', '', $string);

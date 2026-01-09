@@ -29,7 +29,7 @@ class Model
         $database = BackendModel::getContainer()->get('database');
 
         // make sure $ids is an array of integers
-        $ids = array_map('intval', (array) $ids);
+        $ids = array_map(intval(...), (array) $ids);
 
         // delete tags
         $database->delete('tags', 'id IN (' . implode(',', $ids) . ')');
@@ -273,7 +273,7 @@ class Model
             // loop tags
             foreach ($tags as $key => $tag) {
                 // cleanup
-                $tag = mb_strtolower(trim($tag));
+                $tag = mb_strtolower(trim((string) $tag));
 
                 // unset if the tag is empty
                 if ($tag == '') {

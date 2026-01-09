@@ -17,8 +17,10 @@ use Common\ModulesSettings;
  */
 final class NewNotImplementedMailingListSubscription
 {
-    public function __construct(private Swift_Mailer $mailer, private ModulesSettings $modulesSettings)
-    {
+    public function __construct(
+        private readonly Swift_Mailer $mailer,
+        private readonly ModulesSettings $modulesSettings,
+    ) {
     }
 
     public function onNotImplementedSubscribedEvent(NotImplementedSubscribedEvent $event): void

@@ -7,7 +7,7 @@ final class RequirementCategory
     /** @var Requirement[] */
     private $requirements;
 
-    public function __construct(private string $name, Requirement ...$requirements)
+    public function __construct(private readonly string $name, Requirement ...$requirements)
     {
         $this->requirements = $requirements;
     }

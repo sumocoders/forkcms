@@ -10,8 +10,8 @@ use SimpleBus\Message\Bus\Middleware\MessageBusSupportingMiddleware;
 class MediaItemManager
 {
     public function __construct(
-        private MediaItemRepository $mediaItemRepository,
-        private MessageBusSupportingMiddleware $commandBus,
+        private readonly MediaItemRepository $mediaItemRepository,
+        private readonly MessageBusSupportingMiddleware $commandBus,
     ) {
     }
 

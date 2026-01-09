@@ -80,7 +80,7 @@ class Navigation extends KernelLoader
         }
 
         if ($urlencode) {
-            $parameters = array_map('rawurlencode', $parameters);
+            $parameters = array_map(rawurlencode(...), $parameters);
         }
 
         $queryString = '?' . http_build_query($parameters);

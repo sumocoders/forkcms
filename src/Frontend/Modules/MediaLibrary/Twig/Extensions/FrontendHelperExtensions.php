@@ -8,7 +8,7 @@ use Twig\TwigFunction;
 
 class FrontendHelperExtensions extends AbstractExtension
 {
-    public function __construct(private FrontendHelper $frontendHelper)
+    public function __construct(private readonly FrontendHelper $frontendHelper)
     {
     }
 
@@ -17,7 +17,7 @@ class FrontendHelperExtensions extends AbstractExtension
         return [
             new TwigFunction(
                 'media_library_widget',
-                [$this, 'parseWidget'],
+                $this->parseWidget(...),
                 ['is_safe' => ['html']]
             ),
         ];

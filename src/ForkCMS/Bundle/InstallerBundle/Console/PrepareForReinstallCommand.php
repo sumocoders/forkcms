@@ -20,8 +20,8 @@ class PrepareForReinstallCommand extends Command
     const RETURN_DID_NOT_CLEAR_DATABASE = 2;
 
     public function __construct(
-        private \SpoonDatabase $database,
-        private KernelInterface $kernel,
+        private readonly \SpoonDatabase $database,
+        private readonly KernelInterface $kernel,
     ) {
         parent::__construct();
     }

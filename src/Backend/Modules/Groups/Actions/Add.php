@@ -179,7 +179,7 @@ class Add extends BackendBaseActionAdd
                 'value' => $module,
             ];
 
-            usort($this->actions[$module], fn($a, $b) => strcmp($a["label"], $b["label"]));
+            usort($this->actions[$module], fn($a, $b) => strcmp((string) $a["label"], (string) $b["label"]));
         }
     }
 
@@ -262,7 +262,7 @@ class Add extends BackendBaseActionAdd
         // loop through action permissions
         foreach ($actionPermissions as $permission) {
             // get bits
-            $bits = explode('_', $permission->getName());
+            $bits = explode('_', (string) $permission->getName());
 
             // convert camelcasing to underscore notation
             $module = $bits[1];
@@ -291,7 +291,7 @@ class Add extends BackendBaseActionAdd
         // loop through bundled action permissions
         foreach ($bundledActionPermissions as $permission) {
             // get bits
-            $bits = explode('_', $permission->getName());
+            $bits = explode('_', (string) $permission->getName());
 
             // convert camelcasing to underscore notation
             $module = $bits[1];
@@ -537,7 +537,7 @@ class Add extends BackendBaseActionAdd
                 $this->insertPermissions($actionPermissions, $bundledActionPermissions);
 
                 // everything is saved, so redirect to the overview
-                $this->redirect(BackendModel::createUrlForAction('Index') . '&report=added&var=' . rawurlencode($group['name']) . '&highlight=row-' . $group['id']);
+                $this->redirect(BackendModel::createUrlForAction('Index') . '&report=added&var=' . rawurlencode((string) $group['name']) . '&highlight=row-' . $group['id']);
             }
         }
     }

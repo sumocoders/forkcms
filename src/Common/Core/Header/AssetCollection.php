@@ -9,7 +9,7 @@ final class AssetCollection
     /** @var Asset[] */
     private $assets = [];
 
-    public function __construct(private Minifier $minifier)
+    public function __construct(private readonly Minifier $minifier)
     {
     }
 

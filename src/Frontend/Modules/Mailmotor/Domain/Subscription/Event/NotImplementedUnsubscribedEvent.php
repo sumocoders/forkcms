@@ -9,7 +9,7 @@ final class NotImplementedUnsubscribedEvent extends Event
 {
     const EVENT_NAME = 'mailmotor.event.not_implemented.unsubscribed';
 
-    public function __construct(private Unsubscription $unsubscription)
+    public function __construct(private readonly Unsubscription $unsubscription)
     {
     }
 

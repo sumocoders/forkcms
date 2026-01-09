@@ -7,7 +7,7 @@ use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
 
 final class CreateMediaGalleryHandler
 {
-    public function __construct(private MediaGalleryRepository $mediaGalleryRepository)
+    public function __construct(private readonly MediaGalleryRepository $mediaGalleryRepository)
     {
     }
 

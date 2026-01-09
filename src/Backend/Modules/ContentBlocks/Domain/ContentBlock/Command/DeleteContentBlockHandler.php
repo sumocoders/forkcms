@@ -8,7 +8,7 @@ use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 
 final class DeleteContentBlockHandler
 {
-    public function __construct(private ContentBlockRepository $contentBlockRepository)
+    public function __construct(private readonly ContentBlockRepository $contentBlockRepository)
     {
     }
 

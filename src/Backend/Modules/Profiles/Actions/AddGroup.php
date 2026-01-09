@@ -59,7 +59,7 @@ class AddGroup extends BackendBaseActionAdd
                 // everything is saved, so redirect to the overview
                 $this->redirect(
                     BackendModel::createUrlForAction('Groups') . '&report=group-added&var=' . rawurlencode(
-                        $values['name']
+                        (string) $values['name']
                     ) . '&highlight=row-' . $id
                 );
             }

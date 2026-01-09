@@ -7,7 +7,7 @@ use Frontend\Core\Engine\Theme;
 
 final class Facebook
 {
-    public function __construct(private ModulesSettings $modulesSettings)
+    public function __construct(private readonly ModulesSettings $modulesSettings)
     {
     }
 

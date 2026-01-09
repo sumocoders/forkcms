@@ -67,7 +67,7 @@ class ExportData extends BackendBaseAction
         // add start date
         if ($this->filter['start_date'] !== '') {
             // explode date parts
-            $chunks = explode('/', $this->filter['start_date']);
+            $chunks = explode('/', (string) $this->filter['start_date']);
 
             // add condition
             $query .= ' AND i.sent_on >= ?';
@@ -77,7 +77,7 @@ class ExportData extends BackendBaseAction
         // add end date
         if ($this->filter['end_date'] !== '') {
             // explode date parts
-            $chunks = explode('/', $this->filter['end_date']);
+            $chunks = explode('/', (string) $this->filter['end_date']);
 
             // add condition
             $query .= ' AND i.sent_on <= ?';

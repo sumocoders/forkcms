@@ -24,7 +24,7 @@ class CacheClearCommand extends Command
     protected $clearAll = false;
 
     public function __construct(
-        private FileManager $fileManager,
+        private readonly FileManager $fileManager,
     ) {
         parent::__construct();
     }

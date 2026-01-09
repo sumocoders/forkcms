@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class ForkCookieSetter
 {
-    public function __construct(private Cookie $cookie)
+    public function __construct(private readonly Cookie $cookie)
     {
     }
 

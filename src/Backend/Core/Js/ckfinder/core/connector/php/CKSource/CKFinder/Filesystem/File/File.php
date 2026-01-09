@@ -106,7 +106,7 @@ abstract class File
 
         array_shift($pieces); // Remove file base name
 
-        return array_map('strtolower', $pieces);
+        return array_map(strtolower(...), $pieces);
     }
 
     /**

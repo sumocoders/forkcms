@@ -12,7 +12,7 @@ use ZipStream\Stream;
 
 class Writer
 {
-    public function __construct(private string $charset)
+    public function __construct(private readonly string $charset)
     {
     }
 

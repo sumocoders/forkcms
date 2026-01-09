@@ -287,7 +287,7 @@ class Add extends BackendBaseActionAdd
                 if ($block['extra_id'] === null || $block['extra_type'] === 'usertemplate') {
                     if ($this->getRequest()->request->get('block_extra_type_' . $i) === 'usertemplate') {
                         $block['extra_id'] = $this->getRequest()->request->get('block_extra_id_' . $i);
-                        $_POST['block_extra_data_' . $i] = htmlspecialchars($_POST['block_extra_data_' . $i]);
+                        $_POST['block_extra_data_' . $i] = htmlspecialchars((string) $_POST['block_extra_data_' . $i]);
                     } else {
                         // reset vars
                         $block['extra_id'] = null;
@@ -380,7 +380,7 @@ class Add extends BackendBaseActionAdd
         );
         $this->form->addText(
             'external_redirect',
-            ($redirectValue === 'external') ? urldecode($originalPage['data']['external_redirect']['url']) : null,
+            ($redirectValue === 'external') ? urldecode((string) $originalPage['data']['external_redirect']['url']) : null,
             null,
             null,
             null,
@@ -664,7 +664,7 @@ class Add extends BackendBaseActionAdd
                         BackendModel::createUrlForAction(
                             'Edit'
                         ) . '&id=' . $page['id'] . '&report=added&var=' . rawurlencode(
-                            $page['title']
+                            (string) $page['title']
                         ) . '&highlight=row-' . $page['id']
                     );
                 } elseif ($page['status'] === 'draft') {
@@ -673,7 +673,7 @@ class Add extends BackendBaseActionAdd
                         BackendModel::createUrlForAction(
                             'Edit'
                         ) . '&id=' . $page['id'] . '&report=saved-as-draft&var=' . rawurlencode(
-                            $page['title']
+                            (string) $page['title']
                         ) . '&highlight=row-' . $page['revision_id'] . '&draft=' . $page['revision_id']
                     );
                 }
@@ -726,7 +726,7 @@ class Add extends BackendBaseActionAdd
 
     private function getHiddenJsonField(string $name, ?string $json): SpoonFormHidden
     {
-        return new class($name, htmlspecialchars($json)) extends SpoonFormHidden {
+        return new class($name, htmlspecialchars((string) $json)) extends SpoonFormHidden {
             public function getValue($allowHTML = null)
             {
                 return parent::getValue(true);
@@ -758,7 +758,7 @@ class Add extends BackendBaseActionAdd
                 }
 
                 // Only usertemplates with image
-                if (!str_contains($block['html'], 'data-ft-type="image"')) {
+                if (!str_contains((string) $block['html'], 'data-ft-type="image"')) {
                     return $block;
                 }
 

@@ -181,7 +181,7 @@ class Edit extends BackendBaseActionEdit
                 'value' => $module,
             ];
 
-            usort($this->actions[$module], fn($a, $b) => strcmp($a["label"], $b["label"]));
+            usort($this->actions[$module], fn($a, $b) => strcmp((string) $a["label"], (string) $b["label"]));
         }
     }
 
@@ -427,7 +427,7 @@ class Edit extends BackendBaseActionEdit
         // loop through action permissions
         foreach ($actionPermissions as $permission) {
             // get bits
-            $bits = explode('_', $permission->getName());
+            $bits = explode('_', (string) $permission->getName());
 
             // convert camelcasing to underscore notation
             $module = $bits[1];
@@ -456,7 +456,7 @@ class Edit extends BackendBaseActionEdit
         // loop through bundled action permissions
         foreach ($bundledActionPermissions as $permission) {
             // get bits
-            $bits = explode('_', $permission->getName());
+            $bits = explode('_', (string) $permission->getName());
 
             // convert camelcasing to underscore notation
             $module = $bits[1];
@@ -616,7 +616,7 @@ class Edit extends BackendBaseActionEdit
                 $this->updatePermissions($actionPermissions, $bundledActionPermissions);
 
                 // everything is saved, so redirect to the overview
-                $this->redirect(BackendModel::createUrlForAction('Index') . '&report=edited&var=' . rawurlencode($group['name']) . '&highlight=row-' . $group['id']);
+                $this->redirect(BackendModel::createUrlForAction('Index') . '&report=edited&var=' . rawurlencode((string) $group['name']) . '&highlight=row-' . $group['id']);
             }
         }
     }

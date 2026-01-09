@@ -52,8 +52,8 @@ class Statistics extends Action
 
         if (isset($data['server']['HTTP_REFERER'])) {
             $referrer = $data['server']['HTTP_REFERER'];
-            if (preg_match('/^(http|https):\/\//', $referrer)) {
-                $referrer = htmlspecialchars($referrer);
+            if (preg_match('/^(http|https):\/\//', (string) $referrer)) {
+                $referrer = htmlspecialchars((string) $referrer);
                 return '<a href="' . $referrer . '">' . $referrer . '</a>';
             }
         }

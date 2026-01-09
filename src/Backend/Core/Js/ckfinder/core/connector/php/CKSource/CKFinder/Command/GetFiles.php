@@ -40,7 +40,7 @@ class GetFiles extends CommandAbstract
         }
 
         // Sort files
-        usort($data->files, fn($a, $b) => strnatcasecmp($a['name'], $b['name']));
+        usort($data->files, fn($a, $b) => strnatcasecmp((string) $a['name'], (string) $b['name']));
 
         return $data;
     }

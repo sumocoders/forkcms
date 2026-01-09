@@ -9,9 +9,9 @@ use ForkCMS\Privacy\ConsentDialog;
 final class GoogleAnalytics implements \Stringable
 {
     public function __construct(
-        private ModulesSettings $modulesSettings,
-        private ConsentDialog $consentDialog,
-        private Cookie $cookie,
+        private readonly ModulesSettings $modulesSettings,
+        private readonly ConsentDialog $consentDialog,
+        private readonly Cookie $cookie,
     ) {
     }
 

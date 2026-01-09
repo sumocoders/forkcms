@@ -9,7 +9,7 @@ use Common\ModuleExtraType;
 
 final class CreateContentBlockHandler
 {
-    public function __construct(private ContentBlockRepository $contentBlockRepository)
+    public function __construct(private readonly ContentBlockRepository $contentBlockRepository)
     {
     }
 

@@ -83,7 +83,7 @@ class ResourceType
 
     public function isAllowedExtension($extension)
     {
-        $extension = strtolower(ltrim($extension, '.'));
+        $extension = strtolower(ltrim((string) $extension, '.'));
 
         $allowed = $this->configNode['allowedExtensions'];
         $denied = $this->configNode['deniedExtensions'];

@@ -145,7 +145,7 @@ class TwigTemplate extends BaseTwigTemplate
 
         return array_filter(
             $files,
-            fn($folder) => $filesystem->exists($folder)
+            $filesystem->exists(...)
         );
     }
 }

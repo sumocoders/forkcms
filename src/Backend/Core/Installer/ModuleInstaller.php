@@ -46,10 +46,10 @@ class ModuleInstaller
      * @param array $variables The passed variables.
      */
     public function __construct(
-        private SpoonDatabase $database,
-        private array $languages,
-        private array $interfaceLanguages,
-        private bool $example = false,
+        private readonly SpoonDatabase $database,
+        private readonly array $languages,
+        private readonly array $interfaceLanguages,
+        private readonly bool $example = false,
         private array $variables = [],
     ) {
     }

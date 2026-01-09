@@ -29,7 +29,7 @@ class Model
         $url .= '&z=' . $settings['zoom_level'];
 
         // set the map type
-        match (mb_strtolower($settings['map_type'])) {
+        match (mb_strtolower((string) $settings['map_type'])) {
             'roadmap' => $url .= '&t=m',
             'hybrid' => $url .= '&t=h',
             'terrain' => $url .= '&t=p',
@@ -39,7 +39,7 @@ class Model
         $pointers = [];
         // add the markers to the url
         foreach ($markers as $marker) {
-            $pointers[] = rawurlencode($marker['title']) . '@' . $marker['lat'] . ',' . $marker['lng'];
+            $pointers[] = rawurlencode((string) $marker['title']) . '@' . $marker['lat'] . ',' . $marker['lng'];
         }
 
         if (!empty($pointers)) {

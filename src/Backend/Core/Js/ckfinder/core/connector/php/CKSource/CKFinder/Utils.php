@@ -65,7 +65,7 @@ class Utils
     public static function getRootPath()
     {
         if (isset($_SERVER['SCRIPT_FILENAME'])) {
-            $sRealPath = dirname($_SERVER['SCRIPT_FILENAME']);
+            $sRealPath = dirname((string) $_SERVER['SCRIPT_FILENAME']);
         } else {
             /**
              * realpath — Returns canonicalized absolute pathname
@@ -80,7 +80,7 @@ class Utils
          * For instance, <code>$_SERVER['PHP_SELF']</code> in a script at the address `http://example.com/test.php/foo.bar`
          * would be `/test.php/foo.bar`.
          */
-        $sSelfPath = dirname($_SERVER['PHP_SELF']);
+        $sSelfPath = dirname((string) $_SERVER['PHP_SELF']);
         $sSelfPath = static::trimPathTrailingSlashes($sSelfPath);
 
         return static::trimPathTrailingSlashes(substr($sRealPath, 0, strlen($sRealPath) - strlen($sSelfPath)));

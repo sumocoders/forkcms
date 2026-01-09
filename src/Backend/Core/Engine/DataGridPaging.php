@@ -51,12 +51,12 @@ final class DataGridPaging implements iSpoonDatagridPaging
     }
 
     private function __construct(
-        private string $baseUrl,
-        private int $offset,
-        private ?string $orderByColumn,
-        private string $sortingDirection,
-        private int $totalNumberOfResults,
-        private int $resultsPerPage
+        private readonly string $baseUrl,
+        private readonly int $offset,
+        private readonly ?string $orderByColumn,
+        private readonly string $sortingDirection,
+        private readonly int $totalNumberOfResults,
+        private readonly int $resultsPerPage
     ) {
         $this->currentPage = (int) ceil($this->offset / $this->resultsPerPage) + 1;
         $this->totalNumberOfPages = (int) ceil($this->totalNumberOfResults / $this->resultsPerPage);

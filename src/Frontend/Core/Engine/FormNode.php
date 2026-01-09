@@ -16,7 +16,7 @@ class FormNode extends Node
      * @param string $tag
      */
     public function __construct(
-        private string $form,
+        private readonly string $form,
         int $lineNumber,
         string $tag,
     ) {

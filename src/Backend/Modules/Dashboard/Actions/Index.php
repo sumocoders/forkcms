@@ -107,7 +107,7 @@ class Index extends BackendBaseActionIndex
                     }
 
                     $templating = $this->get('template');
-                    $content = trim($templating->getContent($templatePath));
+                    $content = trim((string) $templating->getContent($templatePath));
 
                     if (empty($content)) {
                         continue;

@@ -99,8 +99,8 @@ class CKFinder extends Container implements HttpKernelInterface
         $this['dispatcher'] = function () use ($app) {
             $eventDispatcher = new EventDispatcher();
 
-            $eventDispatcher->addListener(KernelEvents::VIEW, [$this, 'createResponse'], -512);
-            $eventDispatcher->addListener(KernelEvents::RESPONSE, [$this, 'afterCommand'], -512);
+            $eventDispatcher->addListener(KernelEvents::VIEW, $this->createResponse(...), -512);
+            $eventDispatcher->addListener(KernelEvents::RESPONSE, $this->afterCommand(...), -512);
 
             $eventDispatcher->addSubscriber($app['exception_handler']);
 
@@ -340,12 +340,12 @@ class CKFinder extends Container implements HttpKernelInterface
 
         foreach ($pluginsEntries as $pluginInfo) {
             if (is_array($pluginInfo)) {
-                $pluginName = ucfirst($pluginInfo['name']);
+                $pluginName = ucfirst((string) $pluginInfo['name']);
                 if (isset($pluginInfo['path'])) {
                     require_once $pluginInfo['path'];
                 }
             } else {
-                $pluginName = ucfirst($pluginInfo);
+                $pluginName = ucfirst((string) $pluginInfo);
             }
 
             $pluginPath = Path::combine($pluginsDirectory, $pluginName, $pluginName . '.php');

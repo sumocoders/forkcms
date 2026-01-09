@@ -219,7 +219,7 @@ class UploadHandler
         $ext = $pathinfo['extension'] ?? '';
 
         // Check file extension
-        if (!in_array(strtolower($ext), array_map('strtolower', $this->allowedExtensions), true)) {
+        if (!in_array(strtolower($ext), array_map(strtolower(...), $this->allowedExtensions), true)) {
             $these = implode(', ', $this->allowedExtensions);
             throw new Exception('File has an invalid extension, it should be one of ' . $these . '.');
         }
@@ -228,7 +228,7 @@ class UploadHandler
     private function checkFileMimeType(UploadedFile $file): void
     {
         // Check file mime type
-        if (!in_array(strtolower($file->getMimeType()), array_map('strtolower', $this->allowedMimeTypes), true)) {
+        if (!in_array(strtolower((string) $file->getMimeType()), array_map(strtolower(...), $this->allowedMimeTypes), true)) {
             $these = implode(', ', $this->allowedMimeTypes);
             throw new Exception('File has an invalid mime type, it should be one of ' . $these . '.');
         }

@@ -21,7 +21,7 @@ class Model
         // loop all items
         foreach ($terms as $i => $term) {
             // trim terms
-            $term = trim($term);
+            $term = trim((string) $term);
 
             // last word may be incomplete (still typing)
             $split = explode(' ', $term);

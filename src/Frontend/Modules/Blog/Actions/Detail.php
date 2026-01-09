@@ -279,7 +279,7 @@ class Detail extends FrontendBaseBlock
     {
         // reformat data
         $website = $this->form->getField('website')->getValue();
-        if ($website === 'http://' || trim($website) === '') {
+        if ($website === 'http://' || trim((string) $website) === '') {
             $website = null;
         }
 

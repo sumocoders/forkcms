@@ -85,25 +85,25 @@ class Path
                 $path2 = '';
             }
 
-            if (!strlen($path2)) {
-                if (strlen($path1)) {
-                    $_lastCharP1 = substr($path1, -1, 1);
+            if (!strlen((string) $path2)) {
+                if (strlen((string) $path1)) {
+                    $_lastCharP1 = substr((string) $path1, -1, 1);
                     if (!$isDirSeparator($_lastCharP1)) {
                         $path1 .= '/';
                     }
                 }
             } else {
-                $_firstCharP2 = substr($path2, 0, 1);
-                if (strlen($path1)) {
-                    if (str_starts_with($path2, $path1)) {
+                $_firstCharP2 = substr((string) $path2, 0, 1);
+                if (strlen((string) $path1)) {
+                    if (str_starts_with((string) $path2, (string) $path1)) {
                         $result = $path2;
                         continue;
                     }
-                    $_lastCharP1 = substr($path1, -1, 1);
+                    $_lastCharP1 = substr((string) $path1, -1, 1);
                     if (!$isDirSeparator($_lastCharP1) && !$isDirSeparator($_firstCharP2)) {
                         $path1 .= '/';
                     } elseif ($isDirSeparator($_lastCharP1) && $isDirSeparator($_firstCharP2)) {
-                        $path2 = substr($path2, 1);
+                        $path2 = substr((string) $path2, 1);
                     }
                 } else {
                     $result = $path2;

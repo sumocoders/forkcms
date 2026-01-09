@@ -16,7 +16,7 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 final class UniqueDataTransferObjectValidator extends ConstraintValidator
 {
-    public function __construct(private ManagerRegistry $registry)
+    public function __construct(private readonly ManagerRegistry $registry)
     {
     }
 

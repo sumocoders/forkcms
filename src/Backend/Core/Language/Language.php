@@ -85,7 +85,7 @@ class Language
         foreach ($languages as $abbreviation) {
             $results[] = [
                 'value' => $abbreviation,
-                'label' => self::lbl(mb_strtoupper($abbreviation)),
+                'label' => self::lbl(mb_strtoupper((string) $abbreviation)),
             ];
         }
 
@@ -141,7 +141,7 @@ class Language
         // grab the languages from the settings & loop language to reset the label
         foreach ((array) Model::get('fork.settings')->get('Core', 'interface_languages', ['en']) as $key) {
             // fetch language's translation
-            $languages[$key] = self::getLabel(mb_strtoupper($key), 'Core');
+            $languages[$key] = self::getLabel(mb_strtoupper((string) $key), 'Core');
         }
 
         // sort alphabetically
@@ -196,7 +196,7 @@ class Language
         // grab the languages from the settings & loop language to reset the label
         foreach ((array) Model::get('fork.settings')->get('Core', 'languages', ['en']) as $key) {
             // fetch the language's translation
-            $languages[$key] = self::getLabel(mb_strtoupper($key), 'Core');
+            $languages[$key] = self::getLabel(mb_strtoupper((string) $key), 'Core');
         }
 
         // sort alphabetically

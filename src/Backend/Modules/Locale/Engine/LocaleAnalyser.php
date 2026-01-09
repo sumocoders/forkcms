@@ -7,8 +7,11 @@ use Symfony\Component\Finder\SplFileInfo;
 
 final class LocaleAnalyser
 {
-    public function __construct(private string $application, private array $paths, private array $installedModules)
-    {
+    public function __construct(
+        private readonly string $application,
+        private readonly array $paths,
+        private readonly array $installedModules,
+    ) {
     }
 
     public function findMissingLocale(string $language): array

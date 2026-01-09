@@ -12,9 +12,9 @@ use SpoonDatabase;
 class ModulesSettings
 {
     public function __construct(
-        private SpoonDatabase $database,
-        private CacheItemPoolInterface $cache,
-        private bool $forkIsInstalled = true,
+        private readonly SpoonDatabase $database,
+        private readonly CacheItemPoolInterface $cache,
+        private readonly bool $forkIsInstalled = true,
     ) {
     }
 

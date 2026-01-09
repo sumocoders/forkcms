@@ -10,7 +10,7 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 final class SettingsSavedListener
 {
-    public function __construct(private string $cacheDirectory)
+    public function __construct(private readonly string $cacheDirectory)
     {
     }
 

@@ -172,7 +172,7 @@ class Form extends FrontendBaseWidget
 
                     // values and labels are the same
                     $decodedValues = array_map(
-                        static fn($value) => html_entity_decode($value, ENT_QUOTES),
+                        static fn($value) => html_entity_decode((string) $value, ENT_QUOTES),
                         $values
                     );
                     $values = array_combine($values, $decodedValues);
@@ -553,7 +553,7 @@ class Form extends FrontendBaseWidget
                     if (in_array($field['type'], ['dropdown', 'checkbox', 'radiobutton'])) {
                         $possibleValues = [];
                         foreach ($field['settings']['values'] as $value) {
-                            $safeValue = str_replace(["'", '"'], '_', html_entity_decode($value, ENT_QUOTES));
+                            $safeValue = str_replace(["'", '"'], '_', html_entity_decode((string) $value, ENT_QUOTES));
                             $possibleValues[$safeValue] = $value;
                         }
 

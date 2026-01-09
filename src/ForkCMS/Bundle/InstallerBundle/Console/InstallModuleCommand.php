@@ -32,7 +32,7 @@ class InstallModuleCommand extends Command
     /** @var Connection */
     private $dbConnection;
 
-    public function __construct(EntityManager $em, private KernelInterface $kernel)
+    public function __construct(EntityManager $em, private readonly KernelInterface $kernel)
     {
         parent::__construct();
         $this->dbConnection = $em->getConnection();
@@ -97,7 +97,7 @@ class InstallModuleCommand extends Command
         foreach ($options as $option) {
             $name = $option['name'];
             $description = $option['description'];
-            $spacingWidth = $width - strlen($name);
+            $spacingWidth = $width - strlen((string) $name);
 
             $output->write(
                 sprintf('  <info>%s</info>%s%s', $name, str_repeat(' ', $spacingWidth), $description),
@@ -145,10 +145,10 @@ class InstallModuleCommand extends Command
 
             // Build array with module information
             $moduleInformation = Model::getModuleInformation($name);
-            $description = preg_replace(['/\s{2,}/', '/[\t\n]/'], '', strip_tags($moduleInformation['data']['description']) ?? "");
+            $description = preg_replace(['/\s{2,}/', '/[\t\n]/'], '', strip_tags((string) $moduleInformation['data']['description']) ?? "");
             $modules[$name] = [
                 'name' => $name,
-                'description' => strlen($description) > 100 ? substr($description, 0, 100)."..." : $description,
+                'description' => strlen((string) $description) > 100 ? substr((string) $description, 0, 100)."..." : $description,
             ];
         }
 
@@ -163,7 +163,7 @@ class InstallModuleCommand extends Command
     {
         $width = 0;
         foreach ($modules as $module) {
-            $width = strlen($module['name']) > $width ? strlen($module['name']) : $width;
+            $width = strlen((string) $module['name']) > $width ? strlen((string) $module['name']) : $width;
         }
 
         return $width + 2;

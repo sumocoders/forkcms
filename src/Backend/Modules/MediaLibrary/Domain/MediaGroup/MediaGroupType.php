@@ -26,8 +26,10 @@ use Backend\Modules\MediaLibrary\Domain\MediaGroup\Command\SaveMediaGroup;
 
 class MediaGroupType extends AbstractType
 {
-    public function __construct(private MediaGroupRepository $mediaGroupRepository, private MessageBusSupportingMiddleware $commandBus)
-    {
+    public function __construct(
+        private readonly MediaGroupRepository $mediaGroupRepository,
+        private readonly MessageBusSupportingMiddleware $commandBus,
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

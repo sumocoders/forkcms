@@ -54,7 +54,7 @@ class DownloadFile extends CommandAbstract
         } else {
             $userAgent = !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
             $encodedName = str_replace("\"", "\\\"", $fileName);
-            if (str_contains($userAgent, 'MSIE')) {
+            if (str_contains((string) $userAgent, 'MSIE')) {
                 $encodedName = str_replace(["+", "%2E"], [" ", "."], urlencode($encodedName));
             }
             $response->headers->set('Content-Type', 'application/octet-stream; name="' . $fileName . '"');

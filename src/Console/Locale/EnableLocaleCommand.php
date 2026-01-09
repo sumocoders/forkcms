@@ -51,9 +51,9 @@ class EnableLocaleCommand extends Command
     private $installedModules;
 
     public function __construct(
-        private ModulesSettings $settings,
+        private readonly ModulesSettings $settings,
         array $installedModules,
-        private bool $multiLanguageIsEnabled,
+        private readonly bool $multiLanguageIsEnabled,
         ?string $name = null,
     ) {
         parent::__construct($name);

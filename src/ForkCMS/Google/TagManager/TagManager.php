@@ -8,9 +8,9 @@ use ForkCMS\Privacy\ConsentDialog;
 class TagManager
 {
     public function __construct(
-        private ModulesSettings $modulesSettings,
-        private DataLayer $dataLayer,
-        private ConsentDialog $consentDialog
+        private readonly ModulesSettings $modulesSettings,
+        private readonly DataLayer $dataLayer,
+        private readonly ConsentDialog $consentDialog
     ) {
     }
 

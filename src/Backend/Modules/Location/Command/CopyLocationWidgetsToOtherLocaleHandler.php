@@ -7,7 +7,7 @@ use SpoonDatabase;
 
 final class CopyLocationWidgetsToOtherLocaleHandler
 {
-    public function __construct(private SpoonDatabase $database)
+    public function __construct(private readonly SpoonDatabase $database)
     {
     }
 

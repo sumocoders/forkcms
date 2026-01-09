@@ -166,7 +166,7 @@ class Model
     {
         $encryptedPassword = self::getEncryptedPassword($email);
 
-        return password_verify($password, $encryptedPassword);
+        return password_verify($password, (string) $encryptedPassword);
     }
 
     /**

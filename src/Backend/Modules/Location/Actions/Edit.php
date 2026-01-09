@@ -219,7 +219,7 @@ class Edit extends BackendBaseActionEdit
 
                 // redirect to the overview
                 if ($this->form->getField('redirect')->getValue() == 'overview') {
-                    $this->redirect(BackendModel::createUrlForAction('Index') . '&report=edited&var=' . rawurlencode($item['title']) . '&highlight=row-' . $item['id']);
+                    $this->redirect(BackendModel::createUrlForAction('Index') . '&report=edited&var=' . rawurlencode((string) $item['title']) . '&highlight=row-' . $item['id']);
                 } else {
                     $this->redirect(BackendModel::createUrlForAction('Edit') . '&id=' . $item['id'] . '&report=edited');
                 }

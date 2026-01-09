@@ -17,8 +17,8 @@ class FormFieldNode extends Node
      * @param string $tag
      */
     public function __construct(
-        private string $form,
-        private string $field,
+        private readonly string $form,
+        private readonly string $field,
         int $lineNumber,
         string $tag,
     ) {

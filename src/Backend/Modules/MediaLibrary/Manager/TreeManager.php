@@ -13,7 +13,7 @@ use SpoonFilter;
  */
 final class TreeManager
 {
-    public function __construct(protected MediaFolderCache $mediaFolderCache, private string $itemAction)
+    public function __construct(protected MediaFolderCache $mediaFolderCache, private readonly string $itemAction)
     {
     }
 
@@ -54,7 +54,7 @@ final class TreeManager
         $html = '<li id="folder-' . $cacheItem->id . '" rel="folder">' . "\n";
 
         // insert link
-        $html .= '<a href="' . $url . '"><ins>&#160;</ins>' . htmlspecialchars($cacheItem->name) . ' (' . $cacheItem->numberOfMediaItems . ')</a>' . "\n";
+        $html .= '<a href="' . $url . '"><ins>&#160;</ins>' . htmlspecialchars((string) $cacheItem->name) . ' (' . $cacheItem->numberOfMediaItems . ')</a>' . "\n";
 
         if ($cacheItem->numberOfChildren > 0) {
             $html .= $this->buildNavigationTree($cacheItem->children);

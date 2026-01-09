@@ -28,7 +28,7 @@ class ForkInstaller
      *
      * @param Container $container
      */
-    public function __construct(private Container $container)
+    public function __construct(private readonly Container $container)
     {
         Model::setContainer($this->container);
     }
@@ -294,9 +294,9 @@ class ForkInstaller
                 $data->getDebugEmail() :
                 $data->getEmail(),
             '<database-name>' => $data->getDatabaseName(),
-            '<database-host>' => addslashes($data->getDatabaseHostname()),
-            '<database-user>' => addslashes($data->getDatabaseUsername()),
-            '<database-password>' => addslashes($data->getDatabasePassword()),
+            '<database-host>' => addslashes((string) $data->getDatabaseHostname()),
+            '<database-user>' => addslashes((string) $data->getDatabaseUsername()),
+            '<database-password>' => addslashes((string) $data->getDatabasePassword()),
             '<database-port>' => $data->getDatabasePort(),
             '<site-protocol>' => $this->isHttpRequest() ? 'https' : 'http',
             '<site-domain>' => $_SERVER['HTTP_HOST'] ?? 'fork.local',
@@ -320,7 +320,7 @@ class ForkInstaller
             return false;
         }
 
-        return strtolower($_SERVER['HTTPS']) !== 'off';
+        return strtolower((string) $_SERVER['HTTPS']) !== 'off';
     }
 
     /**

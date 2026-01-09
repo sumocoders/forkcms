@@ -69,7 +69,7 @@ class TemplateModifiers extends BaseTwigModifiers
         $format = Authentication::getUser()->getSetting('number_format', 'dot_nothing');
 
         // get separators
-        $separators = explode('_', $format);
+        $separators = explode('_', (string) $format);
         $separatorSymbols = ['comma' => ',', 'dot' => '.', 'space' => ' ', 'nothing' => ''];
         $decimalSeparator = isset($separators[0], $separatorSymbols[$separators[0]])
             ? $separatorSymbols[$separators[0]] : null;
@@ -100,7 +100,7 @@ class TemplateModifiers extends BaseTwigModifiers
         }
 
         // get separators
-        $separators = explode('_', $format);
+        $separators = explode('_', (string) $format);
         $separatorSymbols = ['comma' => ',', 'dot' => '.', 'space' => ' ', 'nothing' => ''];
         $decimalSeparator = isset($separators[0], $separatorSymbols[$separators[0]])
             ? $separatorSymbols[$separators[0]] : null;

@@ -62,7 +62,7 @@ class Data extends BackendBaseActionIndex
         // add start date
         if ($this->filter['start_date'] !== '') {
             // explode date parts
-            $chunks = explode('/', $this->filter['start_date']);
+            $chunks = explode('/', (string) $this->filter['start_date']);
 
             // add condition
             $query .= ' AND i.sent_on >= ?';
@@ -72,7 +72,7 @@ class Data extends BackendBaseActionIndex
         // add end date
         if ($this->filter['end_date'] !== '') {
             // explode date parts
-            $chunks = explode('/', $this->filter['end_date']);
+            $chunks = explode('/', (string) $this->filter['end_date']);
 
             // add condition
             $query .= ' AND i.sent_on <= ?';
@@ -199,7 +199,7 @@ class Data extends BackendBaseActionIndex
         $endDate = '';
 
         if (isset($this->filter['start_date']) && $this->filter['start_date'] != '') {
-            $chunks = explode('/', $this->filter['start_date']);
+            $chunks = explode('/', (string) $this->filter['start_date']);
             $startDate = (int) mktime(0, 0, 0, (int) $chunks[1], (int) $chunks[0], (int) $chunks[2]);
             if ($startDate == 0) {
                 $startDate = '';
@@ -207,7 +207,7 @@ class Data extends BackendBaseActionIndex
         }
 
         if (isset($this->filter['end_date']) && $this->filter['end_date'] != '') {
-            $chunks = explode('/', $this->filter['end_date']);
+            $chunks = explode('/', (string) $this->filter['end_date']);
             $endDate = (int) mktime(0, 0, 0, (int) $chunks[1], (int) $chunks[0], (int) $chunks[2]);
             if ($endDate == 0) {
                 $endDate = '';

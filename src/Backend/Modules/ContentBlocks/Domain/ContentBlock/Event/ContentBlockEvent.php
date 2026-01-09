@@ -7,7 +7,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 abstract class ContentBlockEvent extends Event
 {
-    public function __construct(private ContentBlock $contentBlock)
+    public function __construct(private readonly ContentBlock $contentBlock)
     {
     }
 

@@ -411,12 +411,12 @@ class DataGrid extends \SpoonDataGrid
         $value = $this->columns[$column]->getValue();
 
         // add class for confirmation
-        if (mb_substr_count($value, '<a') === 0) {
+        if (mb_substr_count((string) $value, '<a') === 0) {
             // is it a link?
             throw new Exception('The column doesn\'t contain a link.');
         }
 
-        if (mb_substr_count($value, 'class="') > 0) {
+        if (mb_substr_count((string) $value, 'class="') > 0) {
             $value = str_replace(
                 'class="',
                 'data-message-id="' . $id . '" class="jsConfirmationTrigger ',

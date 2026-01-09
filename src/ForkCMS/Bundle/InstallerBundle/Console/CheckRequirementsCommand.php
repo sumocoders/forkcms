@@ -22,7 +22,7 @@ class CheckRequirementsCommand extends Command
     /** @var SymfonyStyle */
     private $formatter;
 
-    public function __construct(private RequirementsChecker $requirementsChecker)
+    public function __construct(private readonly RequirementsChecker $requirementsChecker)
     {
         parent::__construct();
     }

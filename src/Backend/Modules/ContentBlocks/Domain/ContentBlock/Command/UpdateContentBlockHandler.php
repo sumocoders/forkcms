@@ -7,7 +7,7 @@ use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 
 final class UpdateContentBlockHandler
 {
-    public function __construct(private ContentBlockRepository $contentBlockRepository)
+    public function __construct(private readonly ContentBlockRepository $contentBlockRepository)
     {
     }
 

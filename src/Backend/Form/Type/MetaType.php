@@ -34,8 +34,10 @@ class MetaType extends AbstractType
     /** @var Meta[] */
     private $meta;
 
-    public function __construct(private MetaRepository $metaRepository, private TranslatorInterface $translator)
-    {
+    public function __construct(
+        private readonly MetaRepository $metaRepository,
+        private readonly TranslatorInterface $translator,
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -154,7 +156,7 @@ class MetaType extends AbstractType
             'expanded' => true,
             'multiple' => false,
             'choices' => array_map(
-                fn($SEOIndex) => SEOIndex::fromString($SEOIndex),
+                SEOIndex::fromString(...),
                 SEOIndex::POSSIBLE_VALUES
             ),
             'choice_value' => fn(SEOIndex $SEOIndex = null) => (string) $SEOIndex,
@@ -178,7 +180,7 @@ class MetaType extends AbstractType
             'expanded' => true,
             'multiple' => false,
             'choices' => array_map(
-                fn($SEOFollow) => SEOFollow::fromString($SEOFollow),
+                SEOFollow::fromString(...),
                 SEOFollow::POSSIBLE_VALUES
             ),
             'choice_value' => fn(SEOFollow $SEOFollow = null) => (string) $SEOFollow,

@@ -8,8 +8,10 @@ use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
 
 final class UnsubscriptionHandler
 {
-    public function __construct(private Subscriber $subscriber, private ModulesSettings $modulesSettings)
-    {
+    public function __construct(
+        private readonly Subscriber $subscriber,
+        private readonly ModulesSettings $modulesSettings,
+    ) {
     }
 
     public function handle(Unsubscription $unsubscription): void

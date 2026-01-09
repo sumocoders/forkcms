@@ -94,7 +94,7 @@ class TemplateModifiers extends BaseTwigModifiers
         }
 
         // get separators
-        $separators = explode('_', $format);
+        $separators = explode('_', (string) $format);
         $separatorSymbols = ['comma' => ',', 'dot' => '.', 'space' => ' ', 'nothing' => ''];
         $decimalSeparator = isset($separators[0], $separatorSymbols[$separators[0]])
             ? $separatorSymbols[$separators[0]] : null;
@@ -272,7 +272,7 @@ class TemplateModifiers extends BaseTwigModifiers
         }
 
         // split URL into chunks
-        $chunks = (array) explode('/', $pageInfo['full_url']);
+        $chunks = (array) explode('/', (string) $pageInfo['full_url']);
 
         // remove language chunk
         $hasMultiLanguages = (bool) FrontendModel::getContainer()->getParameter('site.multilanguage');

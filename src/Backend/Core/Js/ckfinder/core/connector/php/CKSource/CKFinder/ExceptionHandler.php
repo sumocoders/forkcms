@@ -38,7 +38,7 @@ class ExceptionHandler implements EventSubscriberInterface
     )
     {
         if ($this->debug) {
-            set_error_handler([$this, 'errorHandler']);
+            set_error_handler($this->errorHandler(...));
         }
     }
 

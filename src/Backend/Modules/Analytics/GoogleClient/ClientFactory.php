@@ -14,8 +14,10 @@ use Common\ModulesSettings;
  */
 class ClientFactory
 {
-    public function __construct(private ModulesSettings $settings, private string $cacheDir)
-    {
+    public function __construct(
+        private readonly ModulesSettings $settings,
+        private readonly string $cacheDir,
+    ) {
     }
 
     public function createClient(): Google_Client
@@ -29,7 +31,7 @@ class ClientFactory
             new Google_Auth_AssertionCredentials(
                 $this->settings->get('Analytics', 'email'),
                 ['https://www.googleapis.com/auth/analytics.readonly'],
-                base64_decode($this->settings->get('Analytics', 'certificate'))
+                base64_decode((string) $this->settings->get('Analytics', 'certificate'))
             )
         );
 

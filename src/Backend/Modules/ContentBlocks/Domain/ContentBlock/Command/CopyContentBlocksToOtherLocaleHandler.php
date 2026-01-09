@@ -11,7 +11,7 @@ use Common\ModuleExtraType;
 
 final class CopyContentBlocksToOtherLocaleHandler
 {
-    public function __construct(private ContentBlockRepository $contentBlockRepository)
+    public function __construct(private readonly ContentBlockRepository $contentBlockRepository)
     {
     }
 

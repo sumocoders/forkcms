@@ -129,14 +129,14 @@ class ResizedImage extends ResizedImageAbstract
 
     public static function createFilename($fileName, $width, $height)
     {
-        $pathInfo = pathinfo($fileName);
+        $pathInfo = pathinfo((string) $fileName);
 
         return sprintf("%s__%dx%d%s", $pathInfo['filename'], $width, $height, isset($pathInfo['extension']) ? '.' . $pathInfo['extension'] : '');
     }
 
     public static function getSizeFromFilename($resizedImageFileName)
     {
-        $pathInfo = pathinfo($resizedImageFileName);
+        $pathInfo = pathinfo((string) $resizedImageFileName);
 
         preg_match('/^.*__(\d+)x(\d+)$/', $pathInfo['filename'], $matches);
 

@@ -42,7 +42,7 @@ class GetFolders extends CommandAbstract
         }
 
         // Sort folders
-        usort($data->folders, fn($a, $b) => strnatcasecmp($a['name'], $b['name']));
+        usort($data->folders, fn($a, $b) => strnatcasecmp((string) $a['name'], (string) $b['name']));
 
         return $data;
     }

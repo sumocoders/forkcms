@@ -53,7 +53,7 @@ class Local extends \League\Flysystem\Adapter\Local
 
         if (!isset($backendConfig['root']) || empty($backendConfig['root'])) {
             $baseUrl = $backendConfig['baseUrl'];
-            $baseUrl = preg_replace("|^http(s)?://[^/]+|i", "", $baseUrl);
+            $baseUrl = preg_replace("|^http(s)?://[^/]+|i", "", (string) $baseUrl);
             $backendConfig['root'] = Path::combine(Utils::getRootPath(), Utils::decodeURLParts($baseUrl));
         }
 

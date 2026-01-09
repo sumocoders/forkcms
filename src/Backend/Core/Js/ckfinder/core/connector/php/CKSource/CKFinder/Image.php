@@ -102,7 +102,7 @@ class Image
     {
         $sizeParts = explode('x', trim($size));
 
-        return count($sizeParts) === 2 ? array_map('intval', $sizeParts) : [0, 0];
+        return count($sizeParts) === 2 ? array_map(intval(...), $sizeParts) : [0, 0];
     }
 
     /**

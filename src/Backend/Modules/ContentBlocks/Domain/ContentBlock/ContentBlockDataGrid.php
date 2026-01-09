@@ -28,7 +28,7 @@ class ContentBlockDataGrid extends DataGridDatabase
 
         // show the hidden status
         $this->addColumn('isHidden', SpoonFilter::ucfirst(Language::lbl('VisibleOnSite')), '[hidden]');
-        $this->setColumnFunction([TemplateModifiers::class, 'showBool'], ['[hidden]', true], 'isHidden');
+        $this->setColumnFunction(TemplateModifiers::showBool(...), ['[hidden]', true], 'isHidden');
 
         // check if this action is allowed
         if (BackendAuthentication::isAllowedAction('Edit')) {

@@ -303,7 +303,7 @@ class ImportWordpress extends BackendBaseActionEdit
         $database = BackendModel::getContainer()->get('database');
         $id = (int) $database->getVar(
             'SELECT id FROM users WHERE email=? AND active=? AND deleted=?',
-            [mb_strtolower($this->authors[(string) $username]['email']), true, false]
+            [mb_strtolower((string) $this->authors[(string) $username]['email']), true, false]
         );
 
         // We found an id!
@@ -343,8 +343,8 @@ class ImportWordpress extends BackendBaseActionEdit
 
                 if (isset($this->attachments[mb_strtolower($file)])) {
                     $text = str_replace($file, $this->attachments[mb_strtolower($file)], $text);
-                } elseif (isset($this->attachments[mb_strtolower($noSize)])) {
-                    $text = str_replace($file, $this->attachments[mb_strtolower($noSize)], $text);
+                } elseif (isset($this->attachments[mb_strtolower((string) $noSize)])) {
+                    $text = str_replace($file, $this->attachments[mb_strtolower((string) $noSize)], $text);
                 }
             }
         }
@@ -364,8 +364,8 @@ class ImportWordpress extends BackendBaseActionEdit
 
                 if (isset($this->attachments[mb_strtolower($link)])) {
                     $text = str_replace($link, $this->attachments[mb_strtolower($link)], $text);
-                } elseif (isset($this->attachments[mb_strtolower($noSize)])) {
-                    $text = str_replace($link, $this->attachments[mb_strtolower($noSize)], $text);
+                } elseif (isset($this->attachments[mb_strtolower((string) $noSize)])) {
+                    $text = str_replace($link, $this->attachments[mb_strtolower((string) $noSize)], $text);
                 }
             }
         }

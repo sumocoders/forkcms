@@ -18,7 +18,7 @@ class SeoFormNode extends Node
      * @param int $lineNumber Line number in the template source file.
      * @param string $tag
      */
-    public function __construct(private string $form, int $lineNumber, string $tag)
+    public function __construct(private readonly string $form, int $lineNumber, string $tag)
     {
         parent::__construct([], [], $lineNumber, $tag);
     }

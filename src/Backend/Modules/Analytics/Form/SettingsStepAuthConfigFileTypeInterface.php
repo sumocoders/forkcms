@@ -15,7 +15,7 @@ final class SettingsStepAuthConfigFileTypeInterface implements SettingsStepTypeI
     /** @var Form */
     private $form;
 
-    public function __construct(string $name, private ModulesSettings $settings)
+    public function __construct(string $name, private readonly ModulesSettings $settings)
     {
         $this->form = new Form($name);
 

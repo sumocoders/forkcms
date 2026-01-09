@@ -16,7 +16,7 @@ final class DateRangeType
     /** @var Form */
     private $form;
 
-    public function __construct(string $name, private DateRange $dateRange)
+    public function __construct(string $name, private readonly DateRange $dateRange)
     {
         $this->form = new Form($name);
 

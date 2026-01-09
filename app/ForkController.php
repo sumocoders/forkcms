@@ -34,7 +34,7 @@ class ForkController extends AbstractController
     ];
 
     public function __construct(
-        private KernelInterface $kernel,
+        private readonly KernelInterface $kernel,
     ) {
     }
 

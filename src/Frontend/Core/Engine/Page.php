@@ -147,7 +147,7 @@ class Page extends KernelLoader
         $this->processPage();
 
         // execute all extras linked to the page
-        array_map([$this, 'processExtra'], $this->extras);
+        array_map($this->processExtra(...), $this->extras);
     }
 
     private function checkAuthentication(): void
@@ -287,7 +287,7 @@ class Page extends KernelLoader
                 // It isn't empty if HTML is provided, a decent extra is provided or a widget is provided
                 if ($block['extra_type'] === 'block'
                     || $block['extra_type'] === 'widget'
-                    || trim($block['html']) !== ''
+                    || trim((string) $block['html']) !== ''
                 ) {
                     return false;
                 }
@@ -402,7 +402,7 @@ class Page extends KernelLoader
             return;
         }
 
-        array_map([$this, 'addAlternateLinkForLanguage'], Language::getActiveLanguages());
+        array_map($this->addAlternateLinkForLanguage(...), Language::getActiveLanguages());
     }
 
     private function addAlternateLinkForLanguage(string $language): void
@@ -557,7 +557,7 @@ class Page extends KernelLoader
 
         // remove last /
         if ($url) {
-            $url = rtrim($url, '/\\');
+            $url = rtrim((string) $url, '/\\');
         }
 
         // Ignore 404 links

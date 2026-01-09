@@ -175,7 +175,7 @@ class Model
 
         // actions are urlencoded
         if ($record['type'] === 'act') {
-            $record['value'] = urldecode($record['value']);
+            $record['value'] = urldecode((string) $record['value']);
         }
 
         return $record;
@@ -372,7 +372,7 @@ class Model
 
         // loop and build labels
         foreach ($labels as &$row) {
-            $row = SpoonFilter::ucfirst(BL::msg(mb_strtoupper($row), 'Core'));
+            $row = SpoonFilter::ucfirst(BL::msg(mb_strtoupper((string) $row), 'Core'));
         }
 
         // build array
@@ -385,7 +385,7 @@ class Model
 
         // loop and build labels
         foreach ($labels as &$row) {
-            $row = SpoonFilter::ucfirst(BL::msg(mb_strtoupper($row), 'Core'));
+            $row = SpoonFilter::ucfirst(BL::msg(mb_strtoupper((string) $row), 'Core'));
         }
 
         // build array
@@ -564,7 +564,7 @@ class Model
     public static function insert(array $item): int
     {
         // actions should be urlized
-        if ($item['type'] == 'act' && urldecode($item['value']) != $item['value']) {
+        if ($item['type'] == 'act' && urldecode((string) $item['value']) != $item['value']) {
             $item['value'] = CommonUri::getUrl(
                 $item['value']
             );
@@ -583,7 +583,7 @@ class Model
     public static function update(array $item): int
     {
         // actions should be urlized
-        if ($item['type'] == 'act' && urldecode($item['value']) != $item['value']) {
+        if ($item['type'] == 'act' && urldecode((string) $item['value']) != $item['value']) {
             $item['value'] = CommonUri::getUrl(
                 $item['value']
             );

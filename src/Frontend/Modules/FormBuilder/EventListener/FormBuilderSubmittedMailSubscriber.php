@@ -83,7 +83,7 @@ final class FormBuilderSubmittedMailSubscriber
                     'name' => $form['name'],
                     'fields' => array_map(
                         function (array $field) : array {
-                            $field['value'] = html_entity_decode($field['value']);
+                            $field['value'] = html_entity_decode((string) $field['value']);
 
                             return $field;
                         },

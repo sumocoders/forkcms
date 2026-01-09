@@ -15,7 +15,7 @@ class ConsentDialog
     const CONSENT_PERSONALIZATION_STORAGE = 'personalization_storage';
     const CONSENT_SECURITY_STORAGE = 'security_storage';
 
-    public function __construct(private ModulesSettings $settings, private Cookie $cookie)
+    public function __construct(private readonly ModulesSettings $settings, private readonly Cookie $cookie)
     {
     }
 

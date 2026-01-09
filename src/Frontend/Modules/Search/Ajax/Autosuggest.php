@@ -151,12 +151,12 @@ class Autosuggest extends FrontendBaseAJAXAction
             array_map(
                 function (array $searchResult) use ($charset) {
                     if (empty($searchResult['text'])
-                        || mb_strlen($searchResult['text']) <= $this->autoSuggestItemLength) {
+                        || mb_strlen((string) $searchResult['text']) <= $this->autoSuggestItemLength) {
                         return $searchResult;
                     }
 
                     $searchResult['text'] = mb_substr(
-                        strip_tags($searchResult['text']),
+                        strip_tags((string) $searchResult['text']),
                         0,
                         $this->autoSuggestItemLength,
                         $charset

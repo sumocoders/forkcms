@@ -10,8 +10,10 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class Configurator
 {
-    public function __construct(private ModulesSettings $modulesSettings, private ContainerInterface $container)
-    {
+    public function __construct(
+        private readonly ModulesSettings $modulesSettings,
+        private readonly ContainerInterface $container,
+    ) {
     }
 
     public function onKernelRequest(RequestEvent $event): void

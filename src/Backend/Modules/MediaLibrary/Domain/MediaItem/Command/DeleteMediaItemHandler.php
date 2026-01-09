@@ -6,7 +6,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 
 final class DeleteMediaItemHandler
 {
-    public function __construct(private MediaItemRepository $mediaItemRepository)
+    public function __construct(private readonly MediaItemRepository $mediaItemRepository)
     {
     }
 

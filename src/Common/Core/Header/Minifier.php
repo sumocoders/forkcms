@@ -8,11 +8,11 @@ use MatthiasMullie\Minify;
 final class Minifier
 {
     public function __construct(
-        private Minify\Minify $minifyClass,
-        private string $basePath,
-        private string $cacheFileExtension,
-        private string $baseCacheUrl,
-        private string $baseCachePath,
+        private readonly Minify\Minify $minifyClass,
+        private readonly string $basePath,
+        private readonly string $cacheFileExtension,
+        private readonly string $baseCacheUrl,
+        private readonly string $baseCachePath,
     ) {
     }
 

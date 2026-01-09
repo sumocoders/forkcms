@@ -26,7 +26,7 @@ class Form extends \Common\Core\Form
         string $action = null,
         ?string $method = 'post',
         bool $useToken = true,
-        private bool $useGlobalError = true,
+        private readonly bool $useGlobalError = true,
     ) {
         $url = BackendModel::getContainer()->get('url');
 

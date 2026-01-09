@@ -104,7 +104,7 @@ class EditCategory extends BackendBaseActionEdit
                 // everything is saved, so redirect to the overview
                 $this->redirect(
                     BackendModel::createUrlForAction('Categories') . '&report=edited-category&var=' .
-                    rawurlencode($item['title']) . '&highlight=row-' . $item['id']
+                    rawurlencode((string) $item['title']) . '&highlight=row-' . $item['id']
                 );
             }
         }

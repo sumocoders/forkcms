@@ -115,7 +115,7 @@ class Model extends \Common\Core\Model
      */
     public static function camelCaseToLowerSnakeCase(string $string): string
     {
-        return mb_strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $string));
+        return mb_strtolower((string) preg_replace('/([a-z])([A-Z])/', '$1_$2', $string));
     }
 
     /**
@@ -313,7 +313,7 @@ class Model extends \Common\Core\Model
         // get database
         $database = self::getContainer()->get('database');
 
-        array_walk($ids, 'intval');
+        array_walk($ids, intval(...));
 
         // create an array with an equal amount of question marks as ids provided
         $extraIdPlaceHolders = array_fill(0, count($ids), '?');

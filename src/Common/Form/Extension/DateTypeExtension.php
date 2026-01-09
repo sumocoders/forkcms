@@ -22,7 +22,7 @@ final class DateTypeExtension extends AbstractTypeExtension
             $attr['class'] = '';
         }
 
-        $classes = explode(' ', $attr['class']);
+        $classes = explode(' ', (string) $attr['class']);
         if (!in_array('inputDatefield', $classes, true)) {
             $classes[] = 'inputDatefield';
         }

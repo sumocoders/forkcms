@@ -262,7 +262,7 @@ class TwigTemplate extends BaseTwigTemplate
         }
 
         if ($this->addSlashes) {
-            $realLabels = array_map('addslashes', $realLabels);
+            $realLabels = array_map(addslashes(...), $realLabels);
         }
 
         // just so the dump is nicely sorted

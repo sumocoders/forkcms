@@ -8,7 +8,7 @@ use SpoonDatabase;
 
 final class CopyFormWidgetsToOtherLocaleHandler
 {
-    public function __construct(private SpoonDatabase $database)
+    public function __construct(private readonly SpoonDatabase $database)
     {
     }
 

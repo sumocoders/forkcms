@@ -163,7 +163,7 @@ class Index extends BackendBaseActionIndex
                 }
 
                 // set header labels
-                $dataGrid->setHeaderLabels([$lang => \SpoonFilter::ucfirst(BL::lbl(mb_strtoupper($lang)))]);
+                $dataGrid->setHeaderLabels([$lang => \SpoonFilter::ucfirst(BL::lbl(mb_strtoupper((string) $lang)))]);
 
                 // only 1 language selected?
                 if (count($this->filter['language']) == 1) {

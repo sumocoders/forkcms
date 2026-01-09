@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 
 class ColumnsFilter implements IReadFilter
 {
-    public function __construct(private array $columns)
+    public function __construct(private readonly array $columns)
     {
     }
 

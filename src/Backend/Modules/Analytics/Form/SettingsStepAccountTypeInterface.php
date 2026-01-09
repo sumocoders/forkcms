@@ -22,8 +22,8 @@ final class SettingsStepAccountTypeInterface implements SettingsStepTypeInterfac
 
     public function __construct(
         string $name,
-        private ModulesSettings $settings,
-        private Google_Service_Analytics $googleServiceAnalytics,
+        private readonly ModulesSettings $settings,
+        private readonly Google_Service_Analytics $googleServiceAnalytics,
     ) {
         $this->form = new Form($name);
 

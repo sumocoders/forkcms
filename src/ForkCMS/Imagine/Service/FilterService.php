@@ -19,14 +19,14 @@ class FilterService
     private $logger;
 
     public function __construct(
-        private DataManager $dataManager,
-        private FilterManager $filterManager,
-        private CacheManager $cacheManager,
-        private bool $webpGenerate,
+        private readonly DataManager $dataManager,
+        private readonly FilterManager $filterManager,
+        private readonly CacheManager $cacheManager,
+        private readonly bool $webpGenerate,
         /**
          * @var mixed[]
          */
-        private array $webpOptions,
+        private readonly array $webpOptions,
         ?LoggerInterface $logger = null
     ) {
         $this->logger = $logger ?: new NullLogger();

@@ -4,8 +4,11 @@ namespace ForkCMS\Bundle\InstallerBundle\Requirement;
 
 final class Requirement
 {
-    private function __construct(private string $name, private RequirementStatus $status, private string $message)
-    {
+    private function __construct(
+        private readonly string $name,
+        private readonly RequirementStatus $status,
+        private readonly string $message,
+    ) {
     }
 
     public static function check(

@@ -44,7 +44,7 @@ final class NavigationCache
         }
 
         return array_map(
-            fn(array $navigationItem) => $this->buildNavigationItem($navigationItem),
+            $this->buildNavigationItem(...),
             $navigationItems
         );
     }

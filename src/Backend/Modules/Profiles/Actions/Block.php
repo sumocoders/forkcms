@@ -35,7 +35,7 @@ class Block extends BackendBaseActionDelete
                 // redirect
                 $this->redirect(
                     BackendModel::createUrlForAction('Index') . '&report=profile-unblocked&var=' . rawurlencode(
-                        $profile['email']
+                        (string) $profile['email']
                     ) . '&highlight=row-' . $this->id
                 );
             } else {
@@ -48,7 +48,7 @@ class Block extends BackendBaseActionDelete
                 // redirect
                 $this->redirect(
                     BackendModel::createUrlForAction('Index') . '&report=profile-blocked&var=' . rawurlencode(
-                        $profile['email']
+                        (string) $profile['email']
                     ) . '&highlight=row-' . $this->id
                 );
             }

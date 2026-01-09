@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DatabaseDataCollector extends DataCollector
 {
-    public function __construct(private SpoonDatabase $database)
+    public function __construct(private readonly SpoonDatabase $database)
     {
     }
 

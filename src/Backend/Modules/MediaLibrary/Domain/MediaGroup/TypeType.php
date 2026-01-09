@@ -34,7 +34,7 @@ class TypeType extends AbstractType
     private function getTypeChoices(): array
     {
         return array_map(
-            fn($type) => Type::fromString($type),
+            Type::fromString(...),
             Type::POSSIBLE_VALUES
         );
     }

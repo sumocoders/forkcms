@@ -94,6 +94,6 @@ class ImportLocaleCommand extends Command
 
     private function getLocalePath(?string $fileOption, ?string $moduleOption): string
     {
-        return $fileOption ?? __DIR__ . '/../../..' . '/src/Backend/Modules/' . ucfirst($moduleOption) . '/Installer/Data/locale.xml';
+        return $fileOption ?? __DIR__ . '/../../..' . '/src/Backend/Modules/' . ucfirst((string) $moduleOption) . '/Installer/Data/locale.xml';
     }
 }

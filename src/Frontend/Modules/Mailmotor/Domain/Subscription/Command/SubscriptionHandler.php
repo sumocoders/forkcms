@@ -9,8 +9,10 @@ use MailMotor\Bundle\MailMotorBundle\Exception\NotImplementedException;
 
 final class SubscriptionHandler
 {
-    public function __construct(private Subscriber $subscriber, private ModulesSettings $modulesSettings)
-    {
+    public function __construct(
+        private readonly Subscriber $subscriber,
+        private readonly ModulesSettings $modulesSettings,
+    ) {
     }
 
     public function handle(Subscription $subscription): void

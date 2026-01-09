@@ -336,10 +336,10 @@ class Config
     {
         $this->options['defaultResourceTypes'] =
             array_filter(
-                array_map('trim',
-                    explode(',', $this->options['defaultResourceTypes'])
+                array_map(trim(...),
+                    explode(',', (string) $this->options['defaultResourceTypes'])
                 ),
-                'strlen');
+                strlen(...));
 
 
         $formatToArray = function ($input) {
@@ -347,10 +347,10 @@ class Config
 
             return
                 array_filter(
-                    array_map('strtolower',
-                        array_map('trim', $input)
+                    array_map(strtolower(...),
+                        array_map(trim(...), $input)
                     ),
-                    'strlen');
+                    strlen(...));
         };
 
         foreach ($this->options['resourceTypes'] as $resourceTypeKey => $resourceTypeConfig) {

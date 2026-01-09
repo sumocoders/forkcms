@@ -3,8 +3,6 @@
 namespace Frontend\Modules\Mailmotor\EventListener;
 
 use Frontend\Core\Language\Locale;
-use MailMotor\Bundle\MailMotorBundle\Factory\MailMotorFactory;
-use MailMotor\Bundle\MailMotorBundle\Gateway\SubscriberGateway;
 use Common\ModulesSettings;
 use Frontend\Modules\FormBuilder\Event\FormBuilderSubmittedEvent;
 use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
@@ -14,8 +12,10 @@ use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
  */
 final class FormBuilderSubmittedMailmotorSubscriber
 {
-    public function __construct(private ModulesSettings $modulesSettings, private Subscriber $mailmotorSubscriber)
-    {
+    public function __construct(
+        private readonly ModulesSettings $modulesSettings,
+        private readonly Subscriber $mailmotorSubscriber,
+    ) {
     }
 
     public function onFormSubmitted(FormBuilderSubmittedEvent $event): void

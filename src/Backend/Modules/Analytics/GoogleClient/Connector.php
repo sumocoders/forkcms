@@ -13,9 +13,9 @@ use Psr\Cache\CacheItemPoolInterface;
 final class Connector
 {
     public function __construct(
-        private Google_Service_Analytics $analytics,
-        private CacheItemPoolInterface $cache,
-        private ModulesSettings $settings,
+        private readonly Google_Service_Analytics $analytics,
+        private readonly CacheItemPoolInterface $cache,
+        private readonly ModulesSettings $settings,
     ) {
     }
 

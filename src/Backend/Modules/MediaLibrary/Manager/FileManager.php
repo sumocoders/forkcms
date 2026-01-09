@@ -9,9 +9,9 @@ use Backend\Core\Engine\Model as BackendModel;
 
 final class FileManager
 {
-    private Filesystem $filesystem;
+    private readonly Filesystem $filesystem;
 
-    public function __construct(private ModulesSettings $settings)
+    public function __construct(private readonly ModulesSettings $settings)
     {
         $this->filesystem = new Filesystem();
     }

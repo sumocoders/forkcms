@@ -251,7 +251,7 @@ class Meta
         }
 
         // return value
-        return urldecode($this->data['data']['canonical_url']);
+        return urldecode((string) $this->data['data']['canonical_url']);
     }
 
     public function getCanonicalUrlOverwrite(): bool
@@ -412,7 +412,7 @@ class Meta
                     $this->hreflangFields[$language] = [
                         'language' => $language,
                         'field' => $field->parse(),
-                        'label' => strtoupper($language),
+                        'label' => strtoupper((string) $language),
                     ];
                 }
             }

@@ -22,7 +22,7 @@ class MediaGroupDataTransferObject
     /** @var bool */
     public $removeAllPreviousConnectedMediaItems = true;
 
-    public function __construct(private ?MediaGroup $mediaGroupEntity = null)
+    public function __construct(private readonly ?MediaGroup $mediaGroupEntity = null)
     {
         if ($this->hasExistingMediaGroup()) {
             $this->id = $this->mediaGroupEntity->getId();
