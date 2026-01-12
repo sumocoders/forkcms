@@ -2240,7 +2240,9 @@ VALUES
     (1542, 1, 'en', 'Frontend', 'Core', 'lbl', 'WithThe', 'with the', '2020-03-04 08:13:26'),
     (1543, 1, 'en', 'Frontend', 'Core', 'msg', 'ArticlesFor', 'articles for %1$s', '2020-03-04 08:13:26'),
     (1544, 1, 'en', 'Frontend', 'Core', 'msg', 'OldBrowser', 'You are using an outdated browsers. If you want to see the website like it was intended, you should upgrade your browser or install a decent browser such as <a href=\"https://www.google.com/chrome\">Google Chrome</a>.', '2020-03-04 08:13:26'),
-    (1545, 1, 'en', 'Frontend', 'Core', 'msg', 'Cookies', 'To enhance the user experience on this site we use <a href=\"/disclaimer\">cookies</a>.', '2020-03-04 08:13:26');
+    (1545, 1, 'en', 'Frontend', 'Core', 'msg', 'Cookies', 'To enhance the user experience on this site we use <a href=\"/disclaimer\">cookies</a>.', '2020-03-04 08:13:26'),
+    (1546, 1, 'en', 'Backend', 'Core', 'lbl', 'OgImage', 'Og:image', '2026-01-12 11:24:26'),
+    (1547, 1, 'en', 'Backend', 'Core', 'msg', 'HelpOgImage', 'Add an image to use for the og:image tag.', '2026-01-12 11:24:26');
 
 /*!40000 ALTER TABLE `locale` ENABLE KEYS */;
 UNLOCK TABLES;
