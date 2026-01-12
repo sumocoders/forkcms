@@ -143,21 +143,21 @@ jobs:
                   extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, bcmath, intl, gd, exif, iconv, imagick
                   coverage: none
 
-            # We need to have a vendor folder locally, as the whole root folder gets mounted as volume via docker-compose.
-            # Alternatively, you can define a named volume for the vendor folder path in docker-compose.
+            # We need to have a vendor folder locally, as the whole root folder gets mounted as volume via docker compose.
+            # Alternatively, you can define a named volume for the vendor folder path in docker compose.
             - name: Install dependencies
               run: composer install -o
 
             - name: Build Docker image
               run: |
                   docker pull ghcr.io/forkcms/forkcms:latest || true
-                  docker-compose build
+                  docker compose build
 
-            - name: Start docker-compose stack
+            - name: Start docker compose stack
               run: |
-                  docker-compose up -d
+                  docker compose up -d
                   docker run --rm --network=forkcms_default jwilder/dockerize -wait tcp://db:3306 -timeout 300s
-                  docker-compose ps "app" | grep -q "Up"
+                  docker compose ps "app" | grep -q "Up"
 
             - name: Test
               run: |
@@ -166,8 +166,8 @@ jobs:
 
             - name: Display error logs on failure
               if: ${{ failure() }}
-              run: docker ps && docker-compose logs
+              run: docker ps && docker compose logs
 
             - name: Cleanup
               if: always()
-              run: docker-compose down -v
+              run: docker compose down -v
