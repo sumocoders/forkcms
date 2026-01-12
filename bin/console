@@ -18,8 +18,8 @@ use Symfony\Component\ErrorHandler\Debug;
 use Backend\Init as BackendInit;
 
 $input = new ArgvInput();
-$env = $input->getParameterOption(array('--env', '-e'), getenv('FORK_ENV') ?: 'dev');
-$debug = getenv('FORK_DEBUG') !== '0' && !$input->hasParameterOption(array('--no-debug', '')) && $env !== 'prod';
+$env = $input->getParameterOption(array('--env', '-e'), $_ENV['FORK_ENV'] ?: 'prod');
+$debug = $_ENV['FORK_DEBUG'] !== '0' && !$input->hasParameterOption(array('--no-debug', '')) && $env !== 'prod';
 
 // Fork has not yet been installed
 $parametersFile = __DIR__ . '/../app/config/parameters.yml';
