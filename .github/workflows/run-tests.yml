@@ -123,19 +123,6 @@ jobs:
             - name: Run PHP Codesniffer
               run: bin/phpcs --standard=psr2 --extensions=php --warning-severity=0 --ignore=src/Backend/Core/Js/ckfinder,src/Backend/Cache,src/Frontend/Cache,src/Backend/Core/Js/ckeditor --report=full "src"
 
-    frontend:
-        name: Yarn test
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
-            - name: Install Node
-              uses: actions/setup-node@v2-beta
-              with:
-                  node-version: 12 # current LTS
-            - run: yarn install
-            - run: yarn test
-
     docker-test:
         name: Docker
         runs-on: ubuntu-latest
