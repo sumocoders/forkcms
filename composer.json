@@ -88,7 +88,6 @@
         }
     },
     "support": {
-        "forum": "https://fork-cms.herokuapp.com",
         "issues": "https://github.com/forkcms/forkcms/issues"
     },
     "scripts": {
