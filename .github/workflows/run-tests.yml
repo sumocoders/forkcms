@@ -90,7 +90,7 @@ jobs:
                   cp app/config/parameters.yml.test app/config/parameters.yml
 
             - name: Install dependencies
-              run: composer install -o
+              run: composer install -o --no-scripts
               env:
                   FORK_ENV: dev
 
@@ -118,7 +118,7 @@ jobs:
                   coverage: none
 
             - name: Install dependencies
-              run: composer install -o
+              run: composer install -o --no-scripts
 
             - name: Run PHP Codesniffer
               run: bin/phpcs --standard=psr2 --extensions=php --warning-severity=0 --ignore=src/Backend/Core/Js/ckfinder,src/Backend/Cache,src/Frontend/Cache,src/Backend/Core/Js/ckeditor --report=full "src"
@@ -146,7 +146,7 @@ jobs:
             # We need to have a vendor folder locally, as the whole root folder gets mounted as volume via docker compose.
             # Alternatively, you can define a named volume for the vendor folder path in docker compose.
             - name: Install dependencies
-              run: composer install -o
+              run: composer install -o --no-scripts
 
             - name: Build Docker image
               run: |
