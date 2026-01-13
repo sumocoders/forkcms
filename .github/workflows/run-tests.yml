@@ -85,14 +85,14 @@ jobs:
 
             - name: Prepare test env
               run: |
-                  mysql -h 127.0.0.1 -uroot -pkingtriton -e 'create database forkcms_test'
-                  mysql -h 127.0.0.1 -uroot -pkingtriton forkcms_test < tests/data/test_db.sql
+                  mysql -h 127.0.0.1 -uroot -pkingtriton forkcms < tests/data/test_db.sql
                   cp app/config/parameters.yml.test app/config/parameters.yml
 
             - name: Install dependencies
-              run: composer install -o --no-scripts
+              run: composer install -o
               env:
                   FORK_ENV: dev
+                  FORK_DEBUG: 1
 
             - name: Run PHPStan
               run: bin/phpstan analyze --error-format github src
