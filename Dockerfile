@@ -56,7 +56,6 @@ WORKDIR /var/www/html
 
 # Install the composer dependencies (no autoloader yet as that invalidates the docker cache)
 COPY composer.json ./
-COPY composer.lock ./
 RUN composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress && \
     composer clear-cache
 
