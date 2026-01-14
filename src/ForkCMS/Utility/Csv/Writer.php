@@ -12,11 +12,8 @@ use ZipStream\Stream;
 
 class Writer
 {
-    private $charset;
-
-    public function __construct(string $charset)
+    public function __construct(private readonly string $charset)
     {
-        $this->charset = $charset;
     }
 
     private function getDefaultOptions(): array
@@ -63,7 +60,7 @@ class Writer
     private function getStreamedResponse(Csv $writer, string $filename): StreamedResponse
     {
         $response = new StreamedResponse(
-            function () use ($writer) {
+            function () use ($writer): void {
                 $writer->save('php://output');
             }
         );

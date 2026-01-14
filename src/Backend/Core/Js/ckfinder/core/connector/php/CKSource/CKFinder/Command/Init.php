@@ -53,7 +53,7 @@ class Init extends CommandAbstract
         $thumbnailsEnabled = (bool) $thumbnailsConfig['enabled'];
 
         if ($thumbnailsEnabled) {
-            $sizes = array();
+            $sizes = [];
             foreach ($thumbnailsConfig['sizes'] as $sizeInfo) {
                 $sizes[] = sprintf("%dx%d", $sizeInfo['width'], $sizeInfo['height']);
             }
@@ -64,12 +64,12 @@ class Init extends CommandAbstract
         // Images
         $imagesConfig = $config->get('images');
 
-        $images = array(
+        $images = [
             'max' => $imagesConfig['maxWidth'] . 'x' . $imagesConfig['maxHeight']
-        );
+        ];
 
         if (isset($imagesConfig['sizes'])) {
-            $resize = array();
+            $resize = [];
 
             foreach ($imagesConfig['sizes'] as $name => $sizeInfo) {
                 $resize[$name] = $sizeInfo['width'] . 'x' . $sizeInfo['height'];
@@ -82,7 +82,7 @@ class Init extends CommandAbstract
 
         $resourceTypesNames = $config->getDefaultResourceTypes() ? : $config->getResourceTypes();
 
-        $data->resourceTypes = array();
+        $data->resourceTypes = [];
 
         if (!empty($resourceTypesNames)) {
             $phpMaxSize = 0;
@@ -121,14 +121,14 @@ class Init extends CommandAbstract
 
                 $resourceType = $resourceTypeFactory->getResourceType($resourceTypeName);
 
-                $resourceTypeObject = array(
+                $resourceTypeObject = [
                     'name'              => $resourceTypeName,
                     'allowedExtensions' => implode(",", $resourceType->getAllowedExtensions()),
                     'deniedExtensions'  => implode(",", $resourceType->getDeniedExtensions()),
                     'hash'              => $resourceType->getHash(),
                     'acl'               => $aclMask,
                     'maxSize'           => $resourceType->getMaxSize() ? min($resourceType->getMaxSize(), $phpMaxSize) : $phpMaxSize
-                );
+                ];
 
                 $resourceTypeBackend = $resourceType->getBackend();
 

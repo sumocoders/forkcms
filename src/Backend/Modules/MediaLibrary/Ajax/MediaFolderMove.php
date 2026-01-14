@@ -49,7 +49,7 @@ class MediaFolderMove extends BackendBaseAJAXAction
         try {
             /** @var MediaFolder $mediaFolder */
             return $this->get('media_library.repository.folder')->findOneById($id);
-        } catch (MediaFolderNotFound $mediaFolderNotFound) {
+        } catch (MediaFolderNotFound) {
             throw new AjaxExitException('Folder does not exist');
         }
     }
@@ -71,7 +71,7 @@ class MediaFolderMove extends BackendBaseAJAXAction
             }
 
             return $mediaFolder->getParent();
-        } catch (MediaFolderNotFound $mediaFolderNotFound) {
+        } catch (MediaFolderNotFound) {
             throw new AjaxExitException('Folder does not exist');
         }
     }

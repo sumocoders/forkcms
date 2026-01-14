@@ -32,7 +32,7 @@ class Acl implements AclInterface
      * 
      * @var array $entries
      */
-    protected $rules = array();
+    protected $rules = [];
 
     /**
      * @brief The role context interface.
@@ -53,7 +53,7 @@ class Acl implements AclInterface
      *
      * @var array $cachedResults
      */
-    protected $cachedResults = array();
+    protected $cachedResults = [];
 
     /**
      * Constructor.
@@ -97,11 +97,11 @@ class Acl implements AclInterface
     public function setRules($aclConfigNodes)
     {
         foreach ($aclConfigNodes as $node) {
-            $role = isset($node['role']) ? $node['role'] : "*";
+            $role = $node['role'] ?? "*";
 
-            $resourceType = isset($node['resourceType']) ? $node['resourceType'] : "*";
+            $resourceType = $node['resourceType'] ?? "*";
 
-            $folder = isset($node['folder']) ? $node['folder'] : "/";
+            $folder = $node['folder'] ?? "/";
 
             $permissions = Permission::getAll();
 
@@ -252,15 +252,15 @@ class Acl implements AclInterface
     {
         $folderRules = $this->rules[$folderPath];
 
-        $possibleRules = array(
-            array('*', '*'),
-            array('*', $resourceType),
-            array($role, '*'),
-            array($role, $resourceType),
-        );
+        $possibleRules = [
+            ['*', '*'],
+            ['*', $resourceType],
+            [$role, '*'],
+            [$role, $resourceType],
+        ];
 
         foreach ($possibleRules as $rule) {
-            list($role, $resourceType) = $rule;
+            [$role, $resourceType] = $rule;
 
             if (isset($folderRules[$role][$resourceType])) {
                 /* @var $ruleMask MaskBuilder */

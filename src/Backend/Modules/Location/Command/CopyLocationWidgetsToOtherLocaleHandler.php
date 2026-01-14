@@ -5,14 +5,10 @@ namespace Backend\Modules\Location\Command;
 use Common\ModuleExtraType;
 use SpoonDatabase;
 
-final class CopyLocationWidgetsToOtherLocaleHandler
+final readonly class CopyLocationWidgetsToOtherLocaleHandler
 {
-    /** @var SpoonDatabase */
-    private $database;
-
-    public function __construct(SpoonDatabase $database)
+    public function __construct(private SpoonDatabase $database)
     {
-        $this->database = $database;
     }
 
     public function handle(CopyLocationWidgetsToOtherLocale $copyLocationWidgetsToOtherLocale): void

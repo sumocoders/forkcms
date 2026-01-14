@@ -9,17 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DatabaseDataCollector extends DataCollector
 {
-    /**
-     * @var SpoonDatabase
-     */
-    private $database;
-
-    public function __construct(SpoonDatabase $database)
+    public function __construct(private readonly SpoonDatabase $database)
     {
-        $this->database = $database;
     }
 
-    public function collect(Request $request, Response $response, \Exception $exception = null): void
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
         $this->data = [
             'queries' => array_map(

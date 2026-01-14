@@ -172,9 +172,7 @@ class Form extends FrontendBaseWidget
 
                     // values and labels are the same
                     $decodedValues = array_map(
-                        static function ($value) {
-                            return html_entity_decode($value, ENT_QUOTES);
-                        },
+                        static fn($value) => html_entity_decode((string) $value, ENT_QUOTES),
                         $values
                     );
                     $values = array_combine($values, $decodedValues);
@@ -548,14 +546,14 @@ class Form extends FrontendBaseWidget
                             $values[$value['value']] = $value['label'];
                         }
 
-                        $fieldData['value'] = array_key_exists($fieldData['value'], $values)
+                        $fieldData['value'] = array_key_exists((string) $fieldData['value'], $values)
                             ? $values[$fieldData['value']] : null;
                     }
 
                     if (in_array($field['type'], ['dropdown', 'checkbox', 'radiobutton'])) {
                         $possibleValues = [];
                         foreach ($field['settings']['values'] as $value) {
-                            $safeValue = str_replace(["'", '"'], '_', html_entity_decode($value, ENT_QUOTES));
+                            $safeValue = str_replace(["'", '"'], '_', html_entity_decode((string) $value, ENT_QUOTES));
                             $possibleValues[$safeValue] = $value;
                         }
 
@@ -588,7 +586,6 @@ class Form extends FrontendBaseWidget
                 }
 
                 $this->get('event_dispatcher')->dispatch(
-                    FormBuilderEvents::FORM_SUBMITTED,
                     new FormBuilderSubmittedEvent($this->item, $fields, $dataId)
                 );
 

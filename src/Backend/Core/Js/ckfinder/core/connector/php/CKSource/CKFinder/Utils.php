@@ -35,9 +35,9 @@ class Utils
         }
 
         $bytes = ltrim($val, '+');
-        if (0 === strpos($bytes, '0x')) {
+        if (str_starts_with($bytes, '0x')) {
             $bytes = intval($bytes, 16);
-        } elseif (0 === strpos($bytes, '0')) {
+        } elseif (str_starts_with($bytes, '0')) {
             $bytes = intval($bytes, 8);
         } else {
             $bytes = intval($bytes);
@@ -65,7 +65,7 @@ class Utils
     public static function getRootPath()
     {
         if (isset($_SERVER['SCRIPT_FILENAME'])) {
-            $sRealPath = dirname($_SERVER['SCRIPT_FILENAME']);
+            $sRealPath = dirname((string) $_SERVER['SCRIPT_FILENAME']);
         } else {
             /**
              * realpath — Returns canonicalized absolute pathname
@@ -80,7 +80,7 @@ class Utils
          * For instance, <code>$_SERVER['PHP_SELF']</code> in a script at the address `http://example.com/test.php/foo.bar`
          * would be `/test.php/foo.bar`.
          */
-        $sSelfPath = dirname($_SERVER['PHP_SELF']);
+        $sSelfPath = dirname((string) $_SERVER['PHP_SELF']);
         $sSelfPath = static::trimPathTrailingSlashes($sSelfPath);
 
         return static::trimPathTrailingSlashes(substr($sRealPath, 0, strlen($sRealPath) - strlen($sSelfPath)));
@@ -118,7 +118,7 @@ class Utils
      */
     public static function encodeURLComponent($str)
     {
-        $revert = array('%21'=>'!', '%2A'=>'*', '%27'=>"'", '%28'=>'(', '%29'=>')');
+        $revert = ['%21'=>'!', '%2A'=>'*', '%27'=>"'", '%28'=>'(', '%29'=>')'];
 
         return strtr(rawurlencode($str), $revert);
     }
@@ -156,7 +156,7 @@ class Utils
      */
     public static function encodeURLParts($str)
     {
-        $revert = array('%2F'=>'/');
+        $revert = ['%2F'=>'/'];
 
         return strtr(static::encodeURLComponent($str), $revert);
     }
@@ -193,7 +193,7 @@ class Utils
      */
     public static function removeSessionCacheHeaders()
     {
-        $headersToRemove = array('Expires', 'Cache-Control', 'Last-Modified', 'Pragma');
+        $headersToRemove = ['Expires', 'Cache-Control', 'Last-Modified', 'Pragma'];
 
         foreach ($headersToRemove as $header) {
             header_remove($header);
@@ -213,7 +213,7 @@ class Utils
     public static function containsHtml($chunk)
     {
         if (extension_loaded('mbstring')) {
-            $encodingsToCheck = array('UTF-7', 'UTF-16BE', 'UTF-16LE', 'UTF-32BE', 'UTF-32LE');
+            $encodingsToCheck = ['UTF-7', 'UTF-16BE', 'UTF-16LE', 'UTF-32BE', 'UTF-32LE'];
             $supportedEncodings = mb_list_encodings();
 
             foreach ($encodingsToCheck as $encodingFrom) {
@@ -253,10 +253,10 @@ class Utils
             return true;
         }
 
-        $tags = array('<body', '<head', '<html', '<img', '<pre', '<script', '<table', '<title');
+        $tags = ['<body', '<head', '<html', '<img', '<pre', '<script', '<table', '<title'];
 
         foreach ($tags as $tag) {
-            if (false !== strpos($chunk, $tag)) {
+            if (str_contains($chunk, $tag)) {
                 return true;
             }
         }

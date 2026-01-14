@@ -140,7 +140,7 @@ class Model
         string $module,
         string $language,
         string $application,
-        int $excludedId = null
+        ?int $excludedId = null
     ): bool {
         // get database
         $database = BackendModel::getContainer()->get('database');
@@ -175,7 +175,7 @@ class Model
 
         // actions are urlencoded
         if ($record['type'] === 'act') {
-            $record['value'] = urldecode($record['value']);
+            $record['value'] = urldecode((string) $record['value']);
         }
 
         return $record;
@@ -355,20 +355,13 @@ class Model
     public static function getTypeName(string $type): string
     {
         // get full type name
-        switch ($type) {
-            case 'act':
-                $type = 'action';
-                break;
-            case 'err':
-                $type = 'error';
-                break;
-            case 'lbl':
-                $type = 'label';
-                break;
-            case 'msg':
-                $type = 'message';
-                break;
-        }
+        $type = match ($type) {
+            'act' => 'action',
+            'err' => 'error',
+            'lbl' => 'label',
+            'msg' => 'message',
+            default => $type,
+        };
 
         return $type;
     }
@@ -379,7 +372,7 @@ class Model
 
         // loop and build labels
         foreach ($labels as &$row) {
-            $row = SpoonFilter::ucfirst(BL::msg(mb_strtoupper($row), 'Core'));
+            $row = SpoonFilter::ucfirst(BL::msg(mb_strtoupper((string) $row), 'Core'));
         }
 
         // build array
@@ -392,7 +385,7 @@ class Model
 
         // loop and build labels
         foreach ($labels as &$row) {
-            $row = SpoonFilter::ucfirst(BL::msg(mb_strtoupper($row), 'Core'));
+            $row = SpoonFilter::ucfirst(BL::msg(mb_strtoupper((string) $row), 'Core'));
         }
 
         // build array
@@ -415,10 +408,10 @@ class Model
     public static function importXML(
         \SimpleXMLElement $xml,
         bool $overwriteConflicts = false,
-        array $frontendLanguages = null,
-        array $backendLanguages = null,
-        int $userId = null,
-        string $date = null
+        ?array $frontendLanguages = null,
+        ?array $backendLanguages = null,
+        ?int $userId = null,
+        ?string $date = null
     ): array {
         $statistics = [
             'total' => 0,
@@ -571,7 +564,7 @@ class Model
     public static function insert(array $item): int
     {
         // actions should be urlized
-        if ($item['type'] == 'act' && urldecode($item['value']) != $item['value']) {
+        if ($item['type'] == 'act' && urldecode((string) $item['value']) != $item['value']) {
             $item['value'] = CommonUri::getUrl(
                 $item['value']
             );
@@ -590,7 +583,7 @@ class Model
     public static function update(array $item): int
     {
         // actions should be urlized
-        if ($item['type'] == 'act' && urldecode($item['value']) != $item['value']) {
+        if ($item['type'] == 'act' && urldecode((string) $item['value']) != $item['value']) {
             $item['value'] = CommonUri::getUrl(
                 $item['value']
             );

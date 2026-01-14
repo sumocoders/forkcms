@@ -18,13 +18,9 @@ class TypeType extends AbstractType
                 [
                     'label' => 'msg.ChooseTypeForNewGroup',
                     'choices' => $this->getTypeChoices(),
-                    'choice_label' => function (Type $type) {
-                        return Language::lbl('MediaLibraryGroupType' . \SpoonFilter::toCamelCase($type, '-'), 'Core');
-                    },
+                    'choice_label' => fn(Type $type) => Language::lbl('MediaLibraryGroupType' . \SpoonFilter::toCamelCase($type, '-'), 'Core'),
                     'choice_translation_domain' => false,
-                    'choice_value' => function (Type $type = null) {
-                        return (string) $type;
-                    },
+                    'choice_value' => fn(?Type $type = null) => (string) $type,
                     'data' => Type::fromString('image'),
                 ]
             );
@@ -38,9 +34,7 @@ class TypeType extends AbstractType
     private function getTypeChoices(): array
     {
         return array_map(
-            function ($type) {
-                return Type::fromString($type);
-            },
+            Type::fromString(...),
             Type::POSSIBLE_VALUES
         );
     }

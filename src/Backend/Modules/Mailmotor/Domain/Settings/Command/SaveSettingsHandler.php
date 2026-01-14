@@ -5,19 +5,12 @@ namespace Backend\Modules\Mailmotor\Domain\Settings\Command;
 use Backend\Core\Language\Language;
 use Common\ModulesSettings;
 
-final class SaveSettingsHandler
+final readonly class SaveSettingsHandler
 {
-    private const MODULE_NAME = 'Mailmotor';
+    private const string MODULE_NAME = 'Mailmotor';
 
-    /**
-     * @var ModulesSettings
-     */
-    private $modulesSettings;
-
-    public function __construct(
-        ModulesSettings $modulesSettings
-    ) {
-        $this->modulesSettings = $modulesSettings;
+    public function __construct(private ModulesSettings $modulesSettings)
+    {
     }
 
     public function handle(SaveSettings $settings): void

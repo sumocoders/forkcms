@@ -5,11 +5,11 @@ namespace Frontend\Modules\Tags\Tests\Actions;
 use Backend\Modules\Tags\DataFixtures\LoadTagsModulesTags;
 use Backend\Modules\Tags\DataFixtures\LoadTagsTags;
 use Frontend\Core\Tests\FrontendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class IndexTest extends FrontendWebTestCase
 {
-    public function testTagsIndexShowsTags(Client $client): void
+    public function testTagsIndexShowsTags(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,

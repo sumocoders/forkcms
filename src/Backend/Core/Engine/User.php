@@ -72,7 +72,7 @@ class User
      */
     private $email;
 
-    public function __construct(int $userId = null, string $email = null)
+    public function __construct(?int $userId = null, ?string $email = null)
     {
         if ($userId !== null) {
             $this->loadUser($userId);

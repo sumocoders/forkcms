@@ -178,10 +178,10 @@ class Add extends BackendBaseActionAdd
                     BackendSearchModel::saveIndex($this->getModule(), $item['id'], ['title' => $item['title'], 'text' => $item['text']]);
 
                     // everything is saved, so redirect to the overview
-                    $this->redirect(BackendModel::createUrlForAction('Index') . '&report=added&var=' . rawurlencode($item['title']) . '&highlight=row-' . $item['revision_id']);
+                    $this->redirect(BackendModel::createUrlForAction('Index') . '&report=added&var=' . rawurlencode((string) $item['title']) . '&highlight=row-' . $item['revision_id']);
                 } elseif ($item['status'] == 'draft') {
                     // draft: everything is saved, so redirect to the edit action
-                    $this->redirect(BackendModel::createUrlForAction('Edit') . '&report=saved-as-draft&var=' . rawurlencode($item['title']) . '&id=' . $item['id'] . '&draft=' . $item['revision_id'] . '&highlight=row-' . $item['revision_id']);
+                    $this->redirect(BackendModel::createUrlForAction('Edit') . '&report=saved-as-draft&var=' . rawurlencode((string) $item['title']) . '&id=' . $item['id'] . '&draft=' . $item['revision_id'] . '&highlight=row-' . $item['revision_id']);
                 }
             }
         }

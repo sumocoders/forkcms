@@ -28,13 +28,6 @@ use CKSource\CKFinder\Filesystem\Path;
 abstract class File
 {
     /**
-     * File name.
-     *
-     * @var string $fileName
-     */
-    protected $fileName;
-
-    /**
      * CKFinder configuration.
      *
      * @var Config $config
@@ -52,9 +45,10 @@ abstract class File
      * @param string   $fileName
      * @param CKFinder $app
      */
-    public function __construct($fileName, CKFinder $app)
-    {
-        $this->fileName = $fileName;
+    public function __construct(
+        protected string $fileName,
+        CKFinder $app,
+    ) {
         $this->config = $app['config'];
         $this->app = $app;
     }
@@ -104,7 +98,7 @@ abstract class File
     {
         $fileName = $newFileName ?: $this->fileName;
 
-        if (strpos($fileName, '.') === false) {
+        if (!str_contains($fileName, '.')) {
             return true;
         }
 
@@ -112,7 +106,7 @@ abstract class File
 
         array_shift($pieces); // Remove file base name
 
-        return array_map('strtolower', $pieces);
+        return array_map(strtolower(...), $pieces);
     }
 
     /**
@@ -129,7 +123,7 @@ abstract class File
      *
      * @return bool `true` if file was renamed.
      */
-    public function autorename(Backend $backend = null, $path = '')
+    public function autorename(?Backend $backend = null, $path = '')
     {
         $filePath = Path::combine($path, $this->fileName);
 
@@ -166,7 +160,7 @@ abstract class File
      */
     public static function isValidName($fileName, $disallowUnsafeCharacters = true)
     {
-        if (null === $fileName || !strlen(trim($fileName)) || substr($fileName, -1, 1) == "." || false !== strpos($fileName, "..")) {
+        if (null === $fileName || !strlen(trim($fileName)) || str_ends_with($fileName, ".") || str_contains($fileName, "..")) {
             return false;
         }
 
@@ -175,7 +169,7 @@ abstract class File
         }
 
         if ($disallowUnsafeCharacters) {
-            if (strpos($fileName, ";") !== false) {
+            if (str_contains($fileName, ";")) {
                 return false;
             }
         }
@@ -190,8 +184,8 @@ abstract class File
      */
     public function isImage()
     {
-        $imagesExtensions = array('gif', 'jpeg', 'jpg', 'png', 'psd', 'bmp', 'tiff', 'tif',
-            'swc', 'iff', 'jpc', 'jp2', 'jpx', 'jb2', 'xbm', 'wbmp');
+        $imagesExtensions = ['gif', 'jpeg', 'jpg', 'png', 'psd', 'bmp', 'tiff', 'tif',
+            'swc', 'iff', 'jpc', 'jp2', 'jpx', 'jb2', 'xbm', 'wbmp'];
 
         return in_array($this->getExtension(), $imagesExtensions);
     }
@@ -206,7 +200,7 @@ abstract class File
      */
     public static function secureName($fileName, $disallowUnsafeCharacters)
     {
-        $fileName = str_replace(array(":", "*", "?", "|", "/"), "_", $fileName);
+        $fileName = str_replace([":", "*", "?", "|", "/"], "_", $fileName);
 
         if ($disallowUnsafeCharacters) {
             $fileName = str_replace(";", "_", $fileName);

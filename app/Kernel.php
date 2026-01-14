@@ -71,9 +71,8 @@ abstract class Kernel extends BaseKernel
 
     /**
      * This will disappear in time in favour of container-driven parameters.
-     *
-     * @deprecated
      */
+    #[\Deprecated]
     public function defineForkConstants(): void
     {
         $container = $this->getContainer();
@@ -185,9 +184,9 @@ abstract class Kernel extends BaseKernel
                 $moduleNames,
                 (array) $containerBuilder->get('database')->getColumn('SELECT name FROM modules')
             );
-        } catch (SpoonDatabaseException $e) {
+        } catch (SpoonDatabaseException) {
             $moduleNames = [];
-        } catch (PDOException $e) {
+        } catch (PDOException) {
             // fork is probably not installed yet
             $moduleNames = [];
         }

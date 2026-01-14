@@ -43,7 +43,7 @@ class MediaFolderGetCountsForGroup extends BackendBaseAJAXAction
 
         try {
             return $this->get('media_library.repository.group')->findOneById($id);
-        } catch (MediaGroupNotFound $mediaGroupNotFound) {
+        } catch (MediaGroupNotFound) {
             return null;
         }
     }

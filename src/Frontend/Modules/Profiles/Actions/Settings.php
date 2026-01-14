@@ -5,13 +5,12 @@ namespace Frontend\Modules\Profiles\Actions;
 use ForkCMS\Utility\Thumbnails;
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
 use Frontend\Core\Engine\Form as FrontendForm;
-use Frontend\Core\Engine\Model;
 use Frontend\Core\Language\Language as FL;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Modules\Profiles\Engine\Authentication as FrontendProfilesAuthentication;
 use Frontend\Modules\Profiles\Engine\Model as FrontendProfilesModel;
 use Frontend\Modules\Profiles\Engine\Profile;
-use Symfony\Component\Intl\Intl;
+use Symfony\Component\Intl\Countries;
 use Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException;
 
 class Settings extends FrontendBaseBlock
@@ -64,7 +63,7 @@ class Settings extends FrontendBaseBlock
 
         return array_combine(
             ['year', 'month', 'day'],
-            (empty($birthDate) ? ['', '', ''] : explode('-', $birthDate))
+            (empty($birthDate) ? ['', '', ''] : explode('-', (string) $birthDate))
         );
     }
 
@@ -96,7 +95,7 @@ class Settings extends FrontendBaseBlock
         $this->form
             ->addDropdown(
                 'country',
-                Intl::getRegionBundle()->getCountryNames(LANGUAGE),
+                Countries::getNames(LANGUAGE),
                 $this->profile->getSetting('country')
             )
             ->setDefaultElement('')
@@ -275,8 +274,8 @@ class Settings extends FrontendBaseBlock
         return sprintf(
             '%1$s-%2$s-%3$s',
             $this->form->getField('year')->getValue(),
-            str_pad($this->form->getField('month')->getValue(), 2, '0', STR_PAD_LEFT),
-            str_pad($this->form->getField('day')->getValue(), 2, '0', STR_PAD_LEFT)
+            str_pad((string) $this->form->getField('month')->getValue(), 2, '0', STR_PAD_LEFT),
+            str_pad((string) $this->form->getField('day')->getValue(), 2, '0', STR_PAD_LEFT)
         );
     }
 }

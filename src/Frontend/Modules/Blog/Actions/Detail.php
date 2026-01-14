@@ -279,7 +279,7 @@ class Detail extends FrontendBaseBlock
     {
         // reformat data
         $website = $this->form->getField('website')->getValue();
-        if ($website === 'http://' || trim($website) === '') {
+        if ($website === 'http://' || trim((string) $website) === '') {
             $website = null;
         }
 
@@ -348,16 +348,12 @@ class Detail extends FrontendBaseBlock
     {
         $redirectLink = $blogPostLink . (mb_strpos($blogPostLink, '?') === false ? '?' : '&');
 
-        switch ($comment['status']) {
-            case 'moderation':
-                return $redirectLink . 'comment=moderation#' . FL::act('Comment');
-            case 'spam':
-                return $redirectLink . 'comment=spam#' . FL::act('Comment');
-            case 'published':
-                return $redirectLink . 'comment=true#comment-' . $comment['id'];
-            default:
-                return $redirectLink;
-        }
+        return match ($comment['status']) {
+            'moderation' => $redirectLink . 'comment=moderation#' . FL::act('Comment'),
+            'spam' => $redirectLink . 'comment=spam#' . FL::act('Comment'),
+            'published' => $redirectLink . 'comment=true#comment-' . $comment['id'],
+            default => $redirectLink,
+        };
     }
 
     private function storeAuthorDataInCookies(array $comment): void
@@ -367,7 +363,7 @@ class Detail extends FrontendBaseBlock
             $cookie->set('comment_author', $comment['author']);
             $cookie->set('comment_email', $comment['email']);
             $cookie->set('comment_website', $comment['website']);
-        } catch (\RuntimeException $e) {
+        } catch (\RuntimeException) {
             // settings cookies isn't allowed, but because this isn't a real problem we ignore the exception
         }
     }

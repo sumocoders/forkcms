@@ -44,9 +44,8 @@ class CopyFileEvent extends CKFinderEvent
      * Returns the copied file object.
      *
      * @return CopiedFile
-     *
-     * @deprecated Please use getFile() instead.
      */
+    #[\Deprecated(message: 'Please use getFile() instead.')]
     public function getCopiedFile()
     {
         return $this->copiedFile;

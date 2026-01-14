@@ -16,24 +16,6 @@ final class DataGridPaging implements iSpoonDatagridPaging
     /** @var int */
     private $totalNumberOfPages;
 
-    /** @var string */
-    private $baseUrl;
-
-    /** @var string */
-    private $orderByColumn;
-
-    /** @var string */
-    private $sortingDirection;
-
-    /** @var int */
-    private $resultsPerPage;
-
-    /** @var int */
-    private $totalNumberOfResults;
-
-    /** @var int */
-    private $offset;
-
     /**
      * Builds & returns the pagination
      *
@@ -58,40 +40,26 @@ final class DataGridPaging implements iSpoonDatagridPaging
         $debug = true,
         $compileDirectory = null
     ) {
-        return (new self(
+        return new self(
             $baseUrl,
             $offset,
             $orderByColumn,
             $sortingDirection,
             $totalNumberOfResults,
             $resultsPerPage
-        ))->getHtml($debug, $compileDirectory);
+        )->getHtml($debug, $compileDirectory);
     }
 
-    /**
-     * @param string $baseUrl
-     * @param int $offset
-     * @param string|null $orderByColumn The name of the column to sort on.
-     * @param string $sortingDirection The sorting method, possible values are: asc, desc.
-     * @param int $totalNumberOfResults
-     * @param int $resultsPerPage The items per page.
-     */
     private function __construct(
-        string $baseUrl,
-        int $offset,
-        $orderByColumn,
-        string $sortingDirection,
-        int $totalNumberOfResults,
-        int $resultsPerPage
+        private readonly string $baseUrl,
+        private readonly int $offset,
+        private readonly ?string $orderByColumn,
+        private readonly string $sortingDirection,
+        private readonly int $totalNumberOfResults,
+        private readonly int $resultsPerPage
     ) {
-        $this->baseUrl = $baseUrl;
-        $this->offset = $offset;
-        $this->orderByColumn = $orderByColumn;
-        $this->sortingDirection = $sortingDirection;
-        $this->resultsPerPage = $resultsPerPage;
-        $this->totalNumberOfResults = $totalNumberOfResults;
-        $this->currentPage = (int) ceil($offset / $resultsPerPage) + 1;
-        $this->totalNumberOfPages = (int) ceil($totalNumberOfResults / $resultsPerPage);
+        $this->currentPage = (int) ceil($this->offset / $this->resultsPerPage) + 1;
+        $this->totalNumberOfPages = (int) ceil($this->totalNumberOfResults / $this->resultsPerPage);
     }
 
     /**
@@ -100,7 +68,7 @@ final class DataGridPaging implements iSpoonDatagridPaging
      *
      * @return string
      */
-    public function getHtml($debug = true, string $compileDirectory = null)
+    public function getHtml($debug = true, ?string $compileDirectory = null)
     {
         // if there is just one page we don't need paging
         if ($this->totalNumberOfResults < $this->resultsPerPage) {

@@ -3,16 +3,16 @@
 namespace Backend\Modules\Dashboard\Tests\Action;
 
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class IndexTest extends BackendWebTestCase
 {
-    public function testAuthenticationIsNeeded(Client $client): void
+    public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
         self::assertAuthenticationIsNeeded($client, '/private/en/dashboard/index');
     }
 
-    public function testIndexHasWidgets(Client $client): void
+    public function testIndexHasWidgets(KernelBrowser $client): void
     {
         $this->login($client);
 

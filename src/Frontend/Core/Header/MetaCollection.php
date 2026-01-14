@@ -2,7 +2,7 @@
 
 namespace Frontend\Core\Header;
 
-final class MetaCollection
+final class MetaCollection implements \Stringable
 {
     /** @var MetaData[] */
     private $metaData = [];
@@ -36,7 +36,7 @@ final class MetaCollection
     public function __toString(): string
     {
         /* @remark Sumocoders staging websites should not be tracked */
-        if (isset($_SERVER['HTTP_HOST']) && substr_count($_SERVER['HTTP_HOST'], '.sumocoders.eu') >= 1) {
+        if (isset($_SERVER['HTTP_HOST']) && substr_count((string) $_SERVER['HTTP_HOST'], '.sumocoders.eu') >= 1) {
             $this->addMetaData(
                 MetaData::forName('robots', 'noindex, nofollow'),
                 true

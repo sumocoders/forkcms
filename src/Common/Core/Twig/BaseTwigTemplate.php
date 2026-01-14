@@ -6,15 +6,16 @@ use Common\Core\Form;
 use Common\Core\Model;
 use Common\ModulesSettings;
 use SpoonForm;
-use Symfony\Bundle\TwigBundle\TwigEngine;
 use Twig\Environment;
 
 /**
  * This is a twig template wrapper
  * that glues spoon libraries and code standards with twig.
  */
-abstract class BaseTwigTemplate extends TwigEngine
+abstract class BaseTwigTemplate
 {
+    protected Environment $environment;
+
     /**
      * @var string
      */
@@ -76,7 +77,7 @@ abstract class BaseTwigTemplate extends TwigEngine
      * @param array $variables This array with keys and values will be used to search and replace in the template file.
      * @param string|null $index
      */
-    public function assignArray(array $variables, string $index = null): void
+    public function assignArray(array $variables, ?string $index = null): void
     {
         // artifacts?
         if (!empty($index) && isset($variables['Core'])) {

@@ -13,32 +13,39 @@ use ForkCMS\Bundle\InstallerBundle\Form\Type\DatabaseType;
 use ForkCMS\Bundle\InstallerBundle\Form\Type\LanguagesType;
 use ForkCMS\Bundle\InstallerBundle\Form\Type\LoginType;
 use ForkCMS\Bundle\InstallerBundle\Form\Type\ModulesType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use ForkCMS\Bundle\InstallerBundle\Service\ForkInstaller;
+use ForkCMS\Bundle\InstallerBundle\Service\RequirementsChecker;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class InstallerController extends Controller
+final class InstallerController extends AbstractController
 {
     /** @var InstallationData|null */
     public static $installationData;
+
+    public function __construct(
+        private readonly ForkInstaller $forkInstaller,
+        private readonly RequirementsChecker $requirementsChecker,
+    ) {
+    }
 
     public function step1Action(): Response
     {
         $this->checkInstall();
 
         // if all our requirements are met, go to the next step
-        $requirementsChecker = $this->get('forkcms.requirements.checker');
-        if ($requirementsChecker->passes()) {
+        if ($this->requirementsChecker->passes()) {
             return $this->redirect($this->generateUrl('install_step2'));
         }
 
         return $this->render(
-            'ForkCMSInstallerBundle:Installer:step1.html.twig',
+            'Installer/step1.html.twig',
             [
-                'checker' => $requirementsChecker,
-                'rootDir' => realpath($this->container->getParameter('site.path_www')),
+                'checker' => $this->requirementsChecker,
+                'rootDir' => realpath($this->getParameter('site.path_www')),
             ]
         );
     }
@@ -67,14 +74,13 @@ final class InstallerController extends Controller
     {
         $this->checkInstall();
 
-        $forkInstaller = $this->get('forkcms.installer');
-        $status = $forkInstaller->install($this->getInstallationData($request));
+        $status = $this->forkInstaller->install($this->getInstallationData($request));
 
         return $this->render(
-            'ForkCMSInstallerBundle:Installer:step6.html.twig',
+            'Installer/step6.html.twig',
             [
                 'installStatus' => $status,
-                'installer' => $forkInstaller,
+                'installer' => $this->forkInstaller,
                 'data' => $this->getInstallationData($request),
             ]
         );
@@ -104,7 +110,7 @@ final class InstallerController extends Controller
     protected function checkInstall()
     {
         $filesystem = new Filesystem();
-        $kernelDir = $this->container->getParameter('kernel.project_dir') . '/app';
+        $kernelDir = $this->getParameter('kernel.project_dir') . '/app';
         $parameterFile = $kernelDir . 'config/parameters.yml';
         if ($filesystem->exists($parameterFile)) {
             throw new ExitException(
@@ -127,8 +133,7 @@ final class InstallerController extends Controller
         $this->checkInstall();
 
         // check if can start the next step
-        $requirementsChecker = $this->get('forkcms.requirements.checker');
-        if ($requirementsChecker->hasErrors()) {
+        if ($this->requirementsChecker->hasErrors()) {
             return $this->redirect($this->generateUrl('install_step1'));
         }
 
@@ -138,7 +143,7 @@ final class InstallerController extends Controller
         }
 
         return $this->render(
-            'ForkCMSInstallerBundle:Installer:step' . $step . '.html.twig',
+            'Installer/step' . $step . '.html.twig',
             [
                 'form' => $form->createView(),
             ]

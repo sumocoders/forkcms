@@ -112,9 +112,9 @@ class Page extends KernelLoader
 
         try {
             $this->handlePage(Navigation::getPageId(implode('/', $this->url->getPages())));
-        } catch (NotFoundHttpException $notFoundHttpException) {
+        } catch (NotFoundHttpException) {
             $this->handlePage(Response::HTTP_NOT_FOUND);
-        } catch (InsufficientAuthenticationException $insufficientAuthenticationException) {
+        } catch (InsufficientAuthenticationException) {
             $this->redirectToLogin();
         }
     }
@@ -147,7 +147,7 @@ class Page extends KernelLoader
         $this->processPage();
 
         // execute all extras linked to the page
-        array_map([$this, 'processExtra'], $this->extras);
+        array_map($this->processExtra(...), $this->extras);
     }
 
     private function checkAuthentication(): void
@@ -215,11 +215,11 @@ class Page extends KernelLoader
                 $this->template->getContent($this->templatePath),
                 $this->statusCode
             );
-        } catch (NotFoundHttpException $notFoundHttpException) {
+        } catch (NotFoundHttpException) {
             $this->handlePage(Response::HTTP_NOT_FOUND);
 
             return $this->display();
-        } catch (InsufficientAuthenticationException $insufficientAuthenticationException) {
+        } catch (InsufficientAuthenticationException) {
             $this->redirectToLogin();
         }
     }
@@ -287,7 +287,7 @@ class Page extends KernelLoader
                 // It isn't empty if HTML is provided, a decent extra is provided or a widget is provided
                 if ($block['extra_type'] === 'block'
                     || $block['extra_type'] === 'widget'
-                    || trim($block['html']) !== ''
+                    || trim((string) $block['html']) !== ''
                 ) {
                     return false;
                 }
@@ -317,15 +317,13 @@ class Page extends KernelLoader
         $this->template->assignGlobal(
             'languages',
             array_map(
-                function (string $language) {
-                    return [
-                        'url' => '/' . $language,
-                        'label' => $language,
-                        'name' => Language::msg(mb_strtoupper($language)),
-                        'current' => $language === LANGUAGE,
-                        'alternate' => $this->generateAlternativeLinkForLanguage($language),
-                    ];
-                },
+                fn(string $language) => [
+                    'url' => '/' . $language,
+                    'label' => $language,
+                    'name' => Language::msg(mb_strtoupper($language)),
+                    'current' => $language === LANGUAGE,
+                    'alternate' => $this->generateAlternativeLinkForLanguage($language),
+                ],
                 Language::getActiveLanguages()
             )
         );
@@ -388,7 +386,7 @@ class Page extends KernelLoader
     protected function processExtra(ModuleExtraInterface $extra): void
     {
         $this->getContainer()->get('logger.public')->info(
-            'Executing ' . get_class($extra) . " '{$extra->getAction()}' for module '{$extra->getModule()}'."
+            'Executing ' . $extra::class . " '{$extra->getAction()}' for module '{$extra->getModule()}'."
         );
 
         // overwrite the template
@@ -404,7 +402,7 @@ class Page extends KernelLoader
             return;
         }
 
-        array_map([$this, 'addAlternateLinkForLanguage'], Language::getActiveLanguages());
+        array_map($this->addAlternateLinkForLanguage(...), Language::getActiveLanguages());
     }
 
     private function addAlternateLinkForLanguage(string $language): void
@@ -559,7 +557,7 @@ class Page extends KernelLoader
 
         // remove last /
         if ($url) {
-            $url = rtrim($url, '/\\');
+            $url = rtrim((string) $url, '/\\');
         }
 
         // Ignore 404 links

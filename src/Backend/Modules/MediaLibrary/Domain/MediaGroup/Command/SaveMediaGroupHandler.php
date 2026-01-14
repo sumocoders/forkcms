@@ -10,12 +10,8 @@ use Ramsey\Uuid\Uuid;
 
 final class SaveMediaGroupHandler
 {
-    /** @var MediaItemRepository */
-    protected $mediaItemRepository;
-
-    public function __construct(MediaItemRepository $mediaItemRepository)
+    public function __construct(protected MediaItemRepository $mediaItemRepository)
     {
-        $this->mediaItemRepository = $mediaItemRepository;
     }
 
     public function handle(SaveMediaGroup $saveMediaGroup): void
@@ -41,7 +37,7 @@ final class SaveMediaGroupHandler
                     $this->mediaItemRepository->findOneById(Uuid::fromString($mediaItemId)),
                     $sequence
                 ));
-            } catch (MediaItemNotFound $e) {
+            } catch (MediaItemNotFound) {
                 // Do nothing
             }
         }

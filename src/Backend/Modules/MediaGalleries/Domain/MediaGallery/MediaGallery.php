@@ -104,7 +104,7 @@ class MediaGallery
         int $userId,
         MediaGroup $mediaGroup,
         Status $status,
-        string $text = null
+        ?string $text = null
     ) {
         $this->userId = $userId;
         $this->action = $action;

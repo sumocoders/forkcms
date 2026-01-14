@@ -8,7 +8,7 @@ use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockDataTransferOb
 
 final class CreateContentBlock extends ContentBlockDataTransferObject
 {
-    public function __construct(Locale $locale = null)
+    public function __construct(?Locale $locale = null)
     {
         parent::__construct();
 

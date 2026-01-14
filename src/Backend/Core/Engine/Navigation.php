@@ -68,7 +68,7 @@ final class Navigation extends KernelLoader
             return [];
         }
 
-        [$module, $action] = explode('/', $navigationItem['url']);
+        [$module, $action] = explode('/', (string) $navigationItem['url']);
         $module = \SpoonFilter::toCamelCase($module);
         $action = \SpoonFilter::toCamelCase($action);
 

@@ -23,21 +23,10 @@ use CKSource\CKFinder\ResizedImage\ResizedImage;
  */
 class ProxyDownloadEvent extends CKFinderEvent
 {
-    /**
-     * @var DownloadedFile|ResizedImage $downloadedFile
-     */
-    protected $downloadedFile;
-
-    /**
-     * Constructor.
-     *
-     * @param CKFinder                    $app
-     * @param DownloadedFile|ResizedImage $downloadedFile
-     */
-    public function __construct(CKFinder $app, $downloadedFile)
-    {
-        $this->downloadedFile = $downloadedFile;
-
+    public function __construct(
+        CKFinder $app,
+        protected DownloadedFile|ResizedImage $downloadedFile,
+    ) {
         parent::__construct($app);
     }
 

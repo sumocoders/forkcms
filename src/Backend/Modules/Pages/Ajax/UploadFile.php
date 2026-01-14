@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class UploadFile extends AjaxAction
 {
-    private const ALLOWED_EXTENSIONS = [
+    private const array ALLOWED_EXTENSIONS = [
         'apng',
         'avif',
         'gif',

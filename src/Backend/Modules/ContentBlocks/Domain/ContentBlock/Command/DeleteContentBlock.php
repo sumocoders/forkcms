@@ -6,11 +6,7 @@ use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
 
 final class DeleteContentBlock
 {
-    /** @var ContentBlock */
-    public $contentBlock;
-
-    public function __construct(ContentBlock $contentBlock)
+    public function __construct(public ContentBlock $contentBlock)
     {
-        $this->contentBlock = $contentBlock;
     }
 }

@@ -29,7 +29,7 @@ class MediaGalleryDataGrid extends DataGridDatabase
 
     public static function getHtml(): string
     {
-        return (string) (new self())->getContent();
+        return (string) new self()->getContent();
     }
 
     private function setSortingFunctions(): void

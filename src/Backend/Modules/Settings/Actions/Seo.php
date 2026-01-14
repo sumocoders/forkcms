@@ -82,7 +82,7 @@ class Seo extends BackendBaseActionIndex
                         $this->langFields[$pageId][$lang]['title'] = $pageTitle;
                     } else {
                         $langPages = BackendPagesModel::getPagesForDropdown($lang);
-                        $ddn = $this->form->addDropdown('page_' . $lang . '_' . $pageId, $langPages, isset($pageData['data']['hreflang_' . $lang]) ? $pageData['data']['hreflang_' . $lang] : null)->setDefaultElement('');
+                        $ddn = $this->form->addDropdown('page_' . $lang . '_' . $pageId, $langPages, $pageData['data']['hreflang_' . $lang] ?? null)->setDefaultElement('');
                         $this->langFields[$pageId][$lang]['field'] = $ddn->parse();
                     }
                 }

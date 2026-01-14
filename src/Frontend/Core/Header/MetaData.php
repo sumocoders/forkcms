@@ -4,7 +4,7 @@ namespace Frontend\Core\Header;
 
 use InvalidArgumentException;
 
-final class MetaData
+final class MetaData implements \Stringable
 {
     /** @var array */
     private $attributes;
@@ -24,7 +24,7 @@ final class MetaData
         string $content,
         array $attributes,
         array $uniqueAttributeKeys = ['content'],
-        string $uniqueKeySuffix = null
+        ?string $uniqueKeySuffix = null
     ) {
         if (empty($content)) {
             throw new InvalidArgumentException('The content can not be empty');
@@ -38,7 +38,7 @@ final class MetaData
      * @param string[] $uniqueAttributeKeys
      * @param string|null $uniqueKeySuffix
      */
-    private function createUniqueKey(array $uniqueAttributeKeys, string $uniqueKeySuffix = null): void
+    private function createUniqueKey(array $uniqueAttributeKeys, ?string $uniqueKeySuffix = null): void
     {
         // make sure the keys are sorted alphabetically
         sort($uniqueAttributeKeys);
@@ -47,9 +47,7 @@ final class MetaData
             '|',
             array_filter(
                 array_map(
-                    function (string $attributeKey) {
-                        return $this->attributes[$attributeKey] ?? '';
-                    },
+                    fn(string $attributeKey) => $this->attributes[$attributeKey] ?? '',
                     $uniqueAttributeKeys
                 )
             )
@@ -115,9 +113,7 @@ final class MetaData
         $html .= implode(
             ' ',
             array_map(
-                function (string $parameterKey, string $parameterValue) {
-                    return $parameterKey . '="' . htmlspecialchars($parameterValue) . '"';
-                },
+                fn(string $parameterKey, string $parameterValue) => $parameterKey . '="' . htmlspecialchars($parameterValue) . '"',
                 array_keys($this->attributes),
                 $this->attributes
             )

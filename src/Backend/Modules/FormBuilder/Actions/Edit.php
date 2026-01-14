@@ -296,7 +296,7 @@ class Edit extends BackendBaseActionEdit
             $txtSuccessMessage = $this->form->getField('success_message');
             $txtIdentifier = $this->form->getField('identifier');
 
-            $emailAddresses = (array) explode(',', $txtEmail->getValue());
+            $emailAddresses = (array) explode(',', (string) $txtEmail->getValue());
 
             // validate fields
             $txtName->isFilled(BL::getError('NameIsRequired'));
@@ -354,7 +354,7 @@ class Edit extends BackendBaseActionEdit
                 // everything is saved, so redirect to the overview
                 $this->redirect(
                     BackendModel::createUrlForAction('Index') . '&report=edited&var=' .
-                    rawurlencode($values['name']) . '&highlight=row-' . $id
+                    rawurlencode((string) $values['name']) . '&highlight=row-' . $id
                 );
             }
         }

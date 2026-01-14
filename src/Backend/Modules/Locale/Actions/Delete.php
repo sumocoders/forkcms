@@ -63,7 +63,7 @@ class Delete extends BackendBaseActionDelete
             null,
             [
                 'report' => 'deleted',
-                'var' => $this->record['name'] . ' (' . mb_strtoupper($this->record['language']) . ')',
+                'var' => $this->record['name'] . ' (' . mb_strtoupper((string) $this->record['language']) . ')',
             ]
         ) . $this->filterQuery);
     }

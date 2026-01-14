@@ -79,7 +79,7 @@ class EditSynonym extends BackendBaseActionEdit
 
         $this->redirect(
             BackendModel::createUrlForAction('Synonyms') . '&report=edited-synonym&var=' . rawurlencode(
-                $synonym['term']
+                (string) $synonym['term']
             ) . '&highlight=row-' . $synonym['id']
         );
     }

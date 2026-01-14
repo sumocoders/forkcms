@@ -5,11 +5,11 @@ namespace Backend\Modules\Blog\Tests\Action;
 use Backend\Core\Tests\BackendWebTestCase;
 use Backend\Modules\Blog\DataFixtures\LoadBlogCategories;
 use Backend\Modules\Blog\DataFixtures\LoadBlogPosts;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class DeleteTest extends BackendWebTestCase
 {
-    public function testAuthenticationIsNeeded(Client $client): void
+    public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -21,7 +21,7 @@ class DeleteTest extends BackendWebTestCase
         self::assertAuthenticationIsNeeded($client, '/private/en/blog/delete?id=1');
     }
 
-    public function testInvalidIdShouldShowAnError(Client $client): void
+    public function testInvalidIdShouldShowAnError(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -48,7 +48,7 @@ class DeleteTest extends BackendWebTestCase
         self::assertCurrentUrlContains($client, 'error=non-existing');
     }
 
-    public function testDeleteIsAvailableFromTheEditPage(Client $client): void
+    public function testDeleteIsAvailableFromTheEditPage(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,

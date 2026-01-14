@@ -58,7 +58,7 @@ class Edit extends BackendBaseActionEdit
             // build class name
             $className = 'Backend\\Modules\\' . $module . '\\Engine\\Model';
             if ($module == 'Core') {
-                $className = 'Backend\\Core\\Engine\\Model';
+                $className = \Backend\Core\Engine\Model::class;
             }
 
             // check if the getByTag-method is available
@@ -138,7 +138,7 @@ class Edit extends BackendBaseActionEdit
                 // everything is saved, so redirect to the overview
                 $this->redirect(
                     BackendModel::createUrlForAction('Index') . '&report=edited&var=' . rawurlencode(
-                        $item['tag']
+                        (string) $item['tag']
                     ) . '&highlight=row-' . $item['id']
                 );
             }

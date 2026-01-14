@@ -1,7 +1,7 @@
-{% extends 'ForkCMSInstallerBundle:Installer:base.html.twig' %}
-{% import 'ForkCMSInstallerBundle:Installer:navigation.html.twig' as macro %}
+{% extends 'Installer/base.html.twig' %}
+{% import 'Installer/navigation.html.twig' as macro %}
 
-{% form_theme form 'ForkCMSInstallerBundle:Installer:form_theme.html.twig' %}
+{% form_theme form 'Installer/form_theme.html.twig' %}
 
 {% block navigation %}
   {{ macro.navigation('step-5') }}

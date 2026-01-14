@@ -112,13 +112,11 @@ class Rss extends FrontendBaseBlock
             implode(
                 ', ',
                 array_map(
-                    function (array $tag) : string {
-                        return sprintf(
-                            '<a href="%1$s" rel="tag" title="%2$s">%2$s</a>',
-                            $tag['full_url'],
-                            $tag['name']
-                        );
-                    },
+                    fn(array $tag): string => sprintf(
+                        '<a href="%1$s" rel="tag" title="%2$s">%2$s</a>',
+                        $tag['full_url'],
+                        $tag['name']
+                    ),
                     $tags
                 )
             )

@@ -25,15 +25,11 @@ use CKSource\CKFinder\Error;
  */
 class InvalidPluginException extends CKFinderException
 {
-    /**
-     * Constructor.
-     *
-     * @param string     $message    the exception message
-     * @param array      $parameters the parameters passed for translation
-     * @param \Exception $previous   the previous exception
-     */
-    public function __construct($message = null, $parameters = array(), \Exception $previous = null)
-    {
+    public function __construct(
+        ?string $message = null,
+        array $parameters = [],
+        ?\Exception $previous = null,
+    ) {
         parent::__construct($message, Error::INVALID_PLUGIN, $parameters, $previous);
     }
 }

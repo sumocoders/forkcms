@@ -16,20 +16,12 @@ final class SettingsStepWebPropertyTypeInterface implements SettingsStepTypeInte
     /** @var Form */
     private $form;
 
-    /** @var ModulesSettings */
-    private $settings;
-
-    /** Google_Service_Analytics $googleServiceAnalytics */
-    private $googleServiceAnalytics;
-
     public function __construct(
         string $name,
-        ModulesSettings $settings,
-        Google_Service_Analytics $googleServiceAnalytics
+        private readonly ModulesSettings $settings,
+        private readonly Google_Service_Analytics $googleServiceAnalytics
     ) {
         $this->form = new Form($name);
-        $this->settings = $settings;
-        $this->googleServiceAnalytics = $googleServiceAnalytics;
 
         $this->build();
     }

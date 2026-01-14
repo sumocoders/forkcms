@@ -38,7 +38,7 @@ class User
     /**
      * @param int|null $userId If you provide a userId, the object will be loaded with the data for this user.
      */
-    public function __construct(int $userId = null)
+    public function __construct(?int $userId = null)
     {
         // if a user id is given we will load the user in this object
         if ($userId !== null) {

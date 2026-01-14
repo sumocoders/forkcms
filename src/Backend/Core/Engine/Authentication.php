@@ -44,6 +44,11 @@ class Authentication
     private static $alreadyLoggedOut = false;
 
     /**
+     * Cached value for is logged in check
+     */
+    private static bool $isLoggedIn = false;
+
+    /**
      * Check the strength of the password
      *
      * @param string $password The password.
@@ -60,7 +65,7 @@ class Authentication
      */
     public static function cleanupOldSessions(): void
     {
-        $deleteIfOlderThan = (new DateTime('- 30 minutes', new DateTimeZone('UTC')))->format('Y-m-d H:i:s');
+        $deleteIfOlderThan = new DateTime('- 30 minutes', new DateTimeZone('UTC'))->format('Y-m-d H:i:s');
         BackendModel::get('database')->delete('users_sessions', 'date <= ?', [$deleteIfOlderThan]);
     }
 
@@ -88,7 +93,7 @@ class Authentication
     {
         $encryptedPassword = BackendUsersModel::getEncryptedPassword($email);
 
-        return password_verify($password, $encryptedPassword);
+        return password_verify($password, (string) $encryptedPassword);
     }
 
     /**
@@ -100,9 +105,9 @@ class Authentication
      *
      * @return string
      */
-    public static function getEncryptedString(string $string, string $salt = null): string
+    public static function getEncryptedString(string $string, ?string $salt = null): string
     {
-        return (string) sha1(md5($salt) . md5($string));
+        return (string) sha1(md5((string) $salt) . md5($string));
     }
 
     /**
@@ -120,9 +125,7 @@ class Authentication
         return self::$user;
     }
 
-    /**
-     * @deprecated this will become a private method in Fork 6
-     */
+    #[\Deprecated(message: 'this will become a private method in Fork 6')]
     public static function getAllowedActions(): array
     {
         if (!empty(self::$allowedActions)) {
@@ -160,7 +163,7 @@ class Authentication
      *
      * @return bool
      */
-    public static function isAllowedAction(string $action = null, string $module = null): bool
+    public static function isAllowedAction(?string $action = null, ?string $module = null): bool
     {
         $alwaysAllowed = self::getAlwaysAllowed();
 
@@ -264,8 +267,8 @@ class Authentication
      */
     public static function isLoggedIn(): bool
     {
-        if (BackendModel::getContainer()->has('logged_in')) {
-            return (bool) BackendModel::getContainer()->get('logged_in');
+        if (self::$isLoggedIn) {
+            return true;
         }
 
         // check if all needed values are set in the session
@@ -301,7 +304,7 @@ class Authentication
             self::$user = new User($sessionData['user_id']);
 
             // the user is logged on
-            BackendModel::getContainer()->set('logged_in', true);
+            self::$isLoggedIn = true;
 
             return true;
         }
@@ -379,12 +382,11 @@ class Authentication
 
         // trigger changed session ID
         BackendModel::get('event_dispatcher')->dispatch(
-            ForkEvents::FORK_EVENTS_SESSION_ID_CHANGED,
             new ForkSessionIdChangedEvent($oldSession, $session->getId())
         );
 
-        // update/instantiate the value for the logged_in container.
-        BackendModel::getContainer()->set('logged_in', true);
+        // set logged_in to true in the session
+        Authentication::$isLoggedIn = true;
         self::$user = new User($userId);
 
         return true;
@@ -419,7 +421,6 @@ class Authentication
 
         // trigger changed session ID
         BackendModel::get('event_dispatcher')->dispatch(
-            ForkEvents::FORK_EVENTS_SESSION_ID_CHANGED,
             new ForkSessionIdChangedEvent($oldSession, $session->getId())
         );
 

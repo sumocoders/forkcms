@@ -4,14 +4,10 @@ namespace Common\Core\Header;
 
 use InvalidArgumentException;
 
-final class JsData
+final class JsData implements \Stringable
 {
-    /** @var array */
-    private $jsData;
-
-    public function __construct(array $initialData = [])
+    public function __construct(private array $jsData = [])
     {
-        $this->jsData = $initialData;
     }
 
     public function add(string $module, string $key, $value): void

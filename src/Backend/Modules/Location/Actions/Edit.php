@@ -10,8 +10,8 @@ use Backend\Core\Engine\Model as BackendModel;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Location\Engine\Model as BackendLocationModel;
 use ForkCMS\Utility\Geolocation;
-use Symfony\Component\Intl\Intl;
 use Frontend\Modules\Location\Engine\Model as FrontendLocationModel;
+use Symfony\Component\Intl\Countries;
 
 /**
  * This is the edit-action, it will display a form to create a new item
@@ -84,7 +84,7 @@ class Edit extends BackendBaseActionEdit
             $this->settings['width'] = $settings['width_widget'];
             $this->settings['height'] = $settings['height_widget'];
             $this->settings['map_type'] = $settings['map_type_widget'];
-            $this->settings['map_style'] = isset($settings['map_style_widget']) ? $settings['map_style_widget'] : 'standard';
+            $this->settings['map_style'] = $settings['map_style_widget'] ?? 'standard';
             $this->settings['zoom_level'] = $settings['zoom_level_widget'];
             $this->settings['center']['lat'] = $this->record['lat'];
             $this->settings['center']['lng'] = $this->record['lng'];
@@ -96,8 +96,8 @@ class Edit extends BackendBaseActionEdit
             $this->settings['center']['lng'] = $this->record['lng'];
         }
 
-        $this->settings['full_url'] = (isset($this->settings['full_url'])) ? ($this->settings['full_url']) : false;
-        $this->settings['directions'] = (isset($this->settings['directions'])) ? ($this->settings['directions']) : false;
+        $this->settings['full_url'] ??= false;
+        $this->settings['directions'] ??= false;
     }
 
     private function loadForm(): void
@@ -108,7 +108,7 @@ class Edit extends BackendBaseActionEdit
         $this->form->addText('number', $this->record['number'])->makeRequired();
         $this->form->addText('zip', $this->record['zip'])->makeRequired();
         $this->form->addText('city', $this->record['city'])->makeRequired();
-        $this->form->addDropdown('country', Intl::getRegionBundle()->getCountryNames(BL::getInterfaceLanguage()), $this->record['country'])->makeRequired();
+        $this->form->addDropdown('country', Countries::getNames(BL::getInterfaceLanguage()), $this->record['country'])->makeRequired();
         $this->form->addHidden('redirect', 'overview');
     }
 
@@ -219,7 +219,7 @@ class Edit extends BackendBaseActionEdit
 
                 // redirect to the overview
                 if ($this->form->getField('redirect')->getValue() == 'overview') {
-                    $this->redirect(BackendModel::createUrlForAction('Index') . '&report=edited&var=' . rawurlencode($item['title']) . '&highlight=row-' . $item['id']);
+                    $this->redirect(BackendModel::createUrlForAction('Index') . '&report=edited&var=' . rawurlencode((string) $item['title']) . '&highlight=row-' . $item['id']);
                 } else {
                     $this->redirect(BackendModel::createUrlForAction('Edit') . '&id=' . $item['id'] . '&report=edited');
                 }

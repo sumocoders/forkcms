@@ -36,7 +36,7 @@ final class MediaFolderRepository extends EntityRepository
      *
      * @return bool
      */
-    public function existsByName(string $name, MediaFolder $parent = null): bool
+    public function existsByName(string $name, ?MediaFolder $parent = null): bool
     {
         /** @var MediaFolder $mediaFolder */
         $mediaFolder = $this->findOneBy([
@@ -52,7 +52,7 @@ final class MediaFolderRepository extends EntityRepository
         return $this->findBy([], ['name' => 'ASC'], 1)[0];
     }
 
-    public function findOneById(int $id = null): MediaFolder
+    public function findOneById(?int $id = null): MediaFolder
     {
         if ($id === null) {
             throw MediaFolderNotFound::forEmptyId();

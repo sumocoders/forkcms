@@ -84,7 +84,7 @@ class Analyse extends BackendBaseActionIndex
         }
 
         // set column functions
-        $this->dgFrontend->setColumnFunction([__CLASS__, 'formatFilesList'], '[used_in]', 'used_in', true);
+        $this->dgFrontend->setColumnFunction([self::class, 'formatFilesList'], '[used_in]', 'used_in', true);
 
         // check if this action is allowed
         if (BackendAuthentication::isAllowedAction('SaveTranslation')) {
@@ -121,7 +121,7 @@ class Analyse extends BackendBaseActionIndex
         }
 
         // set column functions
-        $this->dgBackend->setColumnFunction([__CLASS__, 'formatFilesList'], '[used_in]', 'used_in', true);
+        $this->dgBackend->setColumnFunction([self::class, 'formatFilesList'], '[used_in]', 'used_in', true);
 
         // check if this action is allowed
         if (BackendAuthentication::isAllowedAction('SaveTranslation')) {

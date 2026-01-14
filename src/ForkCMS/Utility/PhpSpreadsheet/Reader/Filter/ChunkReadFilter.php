@@ -6,20 +6,8 @@ use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 
 class ChunkReadFilter implements IReadFilter
 {
-    /**
-     * @var int
-     */
-    private $start = 0;
-
-    /**
-     * @var int
-     */
-    private $end = 0;
-
-    public function __construct(int $start, int $end)
+    public function __construct(private int $start, private int $end)
     {
-        $this->start = $start;
-        $this->end = $end;
     }
 
     public function setStart(int $start): self

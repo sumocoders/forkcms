@@ -19,9 +19,6 @@ use Symfony\Component\Finder\Finder;
  */
 class GenerateThumbnailsCommand extends Command
 {
-    /** @var Thumbnails */
-    private $thumbnails;
-
     /** @var string */
     private $folder;
 
@@ -41,10 +38,8 @@ class GenerateThumbnailsCommand extends Command
             );
     }
 
-    public function __construct(Thumbnails $thumbnails)
+    public function __construct(private readonly Thumbnails $thumbnails)
     {
-        $this->thumbnails = $thumbnails;
-
         parent::__construct();
     }
 
@@ -114,17 +109,13 @@ class GenerateThumbnailsCommand extends Command
 
         $files = array_values(
             array_map(
-                function (SplFileInfo $fileInfo): array {
-                    return [$fileInfo->getFilename()];
-                },
+                fn(SplFileInfo $fileInfo): array => [$fileInfo->getFilename()],
                 $this->findFilesInFolder($folder)
             )
         );
         $directories = array_values(
             array_map(
-                function (SplFileInfo $fileInfo): array {
-                    return [$fileInfo->getFilename()];
-                },
+                fn(SplFileInfo $fileInfo): array => [$fileInfo->getFilename()],
                 $this->findDirectoriesInFolder($folder)
             )
         );

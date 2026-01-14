@@ -58,7 +58,7 @@ class Folder
     public static function isValidName($folderName, $disallowUnsafeCharacters)
     {
         if ($disallowUnsafeCharacters) {
-            if (strpos($folderName, ".") !== false) {
+            if (str_contains($folderName, ".")) {
                 return false;
             }
         }

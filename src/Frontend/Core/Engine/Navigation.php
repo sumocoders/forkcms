@@ -68,11 +68,11 @@ class Navigation extends KernelLoader
     public static function getBackendUrlForBlock(
         string $action,
         string $module,
-        string $language = null,
-        array $parameters = null,
+        ?string $language = null,
+        ?array $parameters = null,
         bool $urlencode = true
     ): string {
-        $language = $language ?? LANGUAGE;
+        $language ??= LANGUAGE;
 
         // add at least one parameter
         if (empty($parameters)) {
@@ -80,7 +80,7 @@ class Navigation extends KernelLoader
         }
 
         if ($urlencode) {
-            $parameters = array_map('rawurlencode', $parameters);
+            $parameters = array_map(rawurlencode(...), $parameters);
         }
 
         $queryString = '?' . http_build_query($parameters);
@@ -158,7 +158,7 @@ class Navigation extends KernelLoader
                 'title' => $data['title'],
                 'navigation_title' => $data['navigation_title'],
                 'selected' => in_array($id, self::$selectedPageIds, true),
-                'link_class' => (isset($data['data']['link_class'])) ? $data['data']['link_class'] : null,
+                'link_class' => $data['data']['link_class'] ?? null,
             ];
         }
 
@@ -173,7 +173,7 @@ class Navigation extends KernelLoader
      *
      * @return array
      */
-    public static function getKeys(string $language = null): array
+    public static function getKeys(?string $language = null): array
     {
         return BackendPagesModel::getCacheBuilder()->getKeys($language ?? LANGUAGE);
     }
@@ -186,7 +186,7 @@ class Navigation extends KernelLoader
      *
      * @return array
      */
-    public static function getNavigation(string $language = null): array
+    public static function getNavigation(?string $language = null): array
     {
         return BackendPagesModel::getCacheBuilder()->getNavigation($language ?? LANGUAGE);
     }
@@ -220,7 +220,7 @@ class Navigation extends KernelLoader
     public static function getNavigationHTML(
         string $type = 'page',
         int $parentId = 0,
-        int $depth = null,
+        ?int $depth = null,
         array $excludeIds = [],
         string $template = 'Core/Layout/Templates/Navigation.html.twig',
         int $depthCounter = 1
@@ -390,7 +390,7 @@ class Navigation extends KernelLoader
      *
      * @return int
      */
-    public static function getPageId(string $url, string $language = null): int
+    public static function getPageId(string $url, ?string $language = null): int
     {
         // redefine
         $url = trim($url, '/');
@@ -455,9 +455,9 @@ class Navigation extends KernelLoader
      *
      * @return string
      */
-    public static function getUrl(int $pageId, string $language = null): string
+    public static function getUrl(int $pageId, ?string $language = null): string
     {
-        $language = $language ?? LANGUAGE;
+        $language ??= LANGUAGE;
 
         // init URL
         $url = FrontendModel::getContainer()->getParameter('site.multilanguage') ? '/' . $language . '/' : '/';
@@ -492,11 +492,11 @@ class Navigation extends KernelLoader
      */
     public static function getUrlForBlock(
         string $module,
-        string $action = null,
-        string $language = null,
-        array $data = null
+        ?string $action = null,
+        ?string $language = null,
+        ?array $data = null
     ): string {
-        $language = $language ?? LANGUAGE;
+        $language ??= LANGUAGE;
         // init var
         $pageIdForUrl = null;
 
@@ -581,9 +581,9 @@ class Navigation extends KernelLoader
      *
      * @return string
      */
-    public static function getUrlForExtraId(int $id, string $language = null): string
+    public static function getUrlForExtraId(int $id, ?string $language = null): string
     {
-        $language = $language ?? LANGUAGE;
+        $language ??= LANGUAGE;
         // get the menuItems
         $navigation = self::getNavigation($language);
 

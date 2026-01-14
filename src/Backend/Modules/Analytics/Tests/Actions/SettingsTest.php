@@ -3,16 +3,16 @@
 namespace Backend\Modules\Analytics\Tests\Action;
 
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class SettingsTest extends BackendWebTestCase
 {
-    public function testAuthenticationIsNeeded(Client $client): void
+    public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
         self::assertAuthenticationIsNeeded($client, '/private/en/analytics/settings');
     }
 
-    public function testAnalyticsSettingsWorks(Client $client): void
+    public function testAnalyticsSettingsWorks(KernelBrowser $client): void
     {
         $this->login($client);
 

@@ -40,7 +40,7 @@ class EmailSubscriptionValidator extends ConstraintValidator
                 $this->context->buildViolation($constraint->alreadySubscribedMessage)->addViolation();
             }
             // fallback for when no mail-engine is chosen in the Backend
-        } catch (NotImplementedException $e) {
+        } catch (NotImplementedException) {
             // do nothing
         }
     }

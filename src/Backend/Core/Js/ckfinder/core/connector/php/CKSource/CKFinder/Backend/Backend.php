@@ -101,7 +101,7 @@ class Backend extends Filesystem
      */
     public function getTrackedOperations()
     {
-        return isset($this->backendConfig['trackedOperations']) ? $this->backendConfig['trackedOperations'] : array();
+        return $this->backendConfig['trackedOperations'] ?? [];
     }
 
     /**
@@ -135,12 +135,10 @@ class Backend extends Filesystem
             $entry['acl'] = $this->acl->getComputedMask($resourceType->getName(), Path::combine($path, $entry['basename']));
         }
 
-        return array_filter($contents, function ($v) {
-            return isset($v['type']) &&
-                   $v['type'] === 'dir' &&
-                   !$this->isHiddenFolder($v['basename']) &&
-                   $v['acl'] & Permission::FOLDER_VIEW;
-        });
+        return array_filter($contents, fn($v) => isset($v['type']) &&
+               $v['type'] === 'dir' &&
+               !$this->isHiddenFolder($v['basename']) &&
+               $v['acl'] & Permission::FOLDER_VIEW);
     }
 
     /**
@@ -157,12 +155,10 @@ class Backend extends Filesystem
         $directoryPath = $this->buildPath($resourceType, $path);
         $contents = $this->listContents($directoryPath, $recursive);
 
-        return array_filter($contents, function ($v) use ($resourceType) {
-            return isset($v['type']) &&
-                   $v['type'] === 'file' &&
-                   !$this->isHiddenFile($v['basename']) &&
-                   $resourceType->isAllowedExtension(isset($v['extension']) ? $v['extension'] : '');
-        });
+        return array_filter($contents, fn($v) => isset($v['type']) &&
+               $v['type'] === 'file' &&
+               !$this->isHiddenFile($v['basename']) &&
+               $resourceType->isAllowedExtension($v['extension'] ?? ''));
     }
 
     /**
@@ -303,7 +299,7 @@ class Backend extends Filesystem
      */
     public function hasDirectory($directoryPath)
     {
-        $pathParts = array_filter(explode('/', $directoryPath), 'strlen');
+        $pathParts = array_filter(explode('/', $directoryPath), strlen(...));
         $dirName = array_pop($pathParts);
         $contents = $this->listContents(implode('/', $pathParts));
 
@@ -332,12 +328,12 @@ class Backend extends Filesystem
         if (isset($this->backendConfig['useProxyCommand'])) {
             $connectorUrl = $this->app->getConnectorUrl();
 
-            $queryParameters = array(
+            $queryParameters = [
                 'command' => 'Proxy',
                 'type' => $resourceType->getName(),
                 'currentFolder' => $folderPath,
                 'fileName' => $fileName
-            );
+            ];
 
             if ($thumbnailFileName) {
                 $queryParameters['thumbnail'] = $thumbnailFileName;
@@ -393,11 +389,7 @@ class Backend extends Filesystem
      */
     public function getRootDirectory()
     {
-        if (isset($this->backendConfig['root'])) {
-            return $this->backendConfig['root'];
-        }
-
-        return null;
+        return $this->backendConfig['root'] ?? null;
     }
 
     /**

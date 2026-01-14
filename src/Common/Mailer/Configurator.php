@@ -4,29 +4,19 @@ namespace Common\Mailer;
 
 use PDOException;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Common\ModulesSettings;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class Configurator
 {
-    /**
-     * @var ModulesSettings
-     */
-    private $modulesSettings;
-
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    public function __construct(ModulesSettings $modulesSettings, ContainerInterface $container)
-    {
-        $this->modulesSettings = $modulesSettings;
-        $this->container = $container;
+    public function __construct(
+        private readonly ModulesSettings $modulesSettings,
+        private readonly ContainerInterface $container,
+    ) {
     }
 
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         $this->configureMail();
     }
@@ -55,7 +45,7 @@ class Configurator
                 'swiftmailer.transport',
                 $transport
             );
-        } catch (PDOException $e) {
+        } catch (PDOException) {
             // we'll just use the mail transport thats pre-configured
         }
     }

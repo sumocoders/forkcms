@@ -112,7 +112,7 @@ class Add extends BackendBaseActionAdd
                 );
                 $this->redirect(
                     BackendModel::createUrlForAction('Index') . '&report=added&var=' .
-                    rawurlencode($item['question']) . '&highlight=' . $item['id']
+                    rawurlencode((string) $item['question']) . '&highlight=' . $item['id']
                 );
             }
         }

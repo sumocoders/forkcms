@@ -54,7 +54,7 @@ class ImportLocaleCommand extends Command
         string $localePath,
         bool $overwrite,
         OutputInterface $output,
-        string $specificLocale = null
+        ?string $specificLocale = null
     ): void {
         // Load the xml from the file
         $xmlData = @simplexml_load_file($localePath);
@@ -94,10 +94,6 @@ class ImportLocaleCommand extends Command
 
     private function getLocalePath(?string $fileOption, ?string $moduleOption): string
     {
-        if (isset($fileOption)) {
-            return $fileOption;
-        }
-
-        return __DIR__ . '/../../..' . '/src/Backend/Modules/' . ucfirst($moduleOption) . '/Installer/Data/locale.xml';
+        return $fileOption ?? __DIR__ . '/../../..' . '/src/Backend/Modules/' . ucfirst((string) $moduleOption) . '/Installer/Data/locale.xml';
     }
 }

@@ -29,7 +29,7 @@ class Model
     public static function callFromInterface(string $module, string $class, string $method, $parameter = null)
     {
         // check to see if the interface is implemented
-        if (in_array('Frontend\\Modules\\Tags\\Engine\\TagsInterface', class_implements($class))) {
+        if (in_array(\Frontend\Modules\Tags\Engine\TagsInterface::class, class_implements($class))) {
             // return result
             return call_user_func([$class, $method], $parameter);
         }
@@ -42,7 +42,7 @@ class Model
         );
     }
 
-    public static function get(string $url, Locale $locale = null): array
+    public static function get(string $url, ?Locale $locale = null): array
     {
         return (array) FrontendModel::getContainer()->get('database')->getRecord(
             'SELECT id, language, tag AS name, number, url
@@ -87,7 +87,7 @@ class Model
      *
      * @return array
      */
-    public static function getForItem(string $module, int $otherId, Locale $locale = null): array
+    public static function getForItem(string $module, int $otherId, ?Locale $locale = null): array
     {
         $return = [];
 
@@ -130,7 +130,7 @@ class Model
      *
      * @return array
      */
-    public static function getForMultipleItems(string $module, array $otherIds, Locale $locale = null): array
+    public static function getForMultipleItems(string $module, array $otherIds, ?Locale $locale = null): array
     {
         $database = FrontendModel::getContainer()->get('database');
 
@@ -223,7 +223,7 @@ class Model
         );
     }
 
-    public static function getAllForTag(string $tag, Locale $locale = null): array
+    public static function getAllForTag(string $tag, ?Locale $locale = null): array
     {
         return (array) FrontendModel::getContainer()->get('database')->getRecords(
             'SELECT mt.*
@@ -237,9 +237,7 @@ class Model
     public static function getItemsForTag(int $id): array
     {
         return array_map(
-            function (string $module) use ($id) {
-                return self::getItemsForTagAndModule($id, $module);
-            },
+            fn(string $module) => self::getItemsForTagAndModule($id, $module),
             self::getModulesForTag($id)
         );
     }

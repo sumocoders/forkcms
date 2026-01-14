@@ -89,7 +89,7 @@ class DetailTheme extends BackendBaseActionIndex
                         'message' => BL::getMessage('InformationFileIsEmpty'),
                     ];
                 }
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 // warning that the information file is corrupt
                 $this->warnings[] = ['message' => BL::getMessage('InformationFileCouldNotBeLoaded')];
             }

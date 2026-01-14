@@ -185,9 +185,9 @@ class Model implements FrontendTagsInterface
 
         // loop comments and create gravatar id
         foreach ($comments as &$row) {
-            $row['author'] = htmlspecialchars($row['author']);
-            $row['text'] = htmlspecialchars($row['text']);
-            $row['gravatar_id'] = md5($row['email']);
+            $row['author'] = htmlspecialchars((string) $row['author']);
+            $row['text'] = htmlspecialchars((string) $row['text']);
+            $row['gravatar_id'] = md5((string) $row['email']);
         }
 
         return $comments;
@@ -431,8 +431,8 @@ class Model implements FrontendTagsInterface
 
         // loop the numbers
         foreach ($numbers as $key => $count) {
-            $year = mb_substr($key, 0, 4);
-            $month = mb_substr($key, 4, 2);
+            $year = mb_substr((string) $key, 0, 4);
+            $month = mb_substr((string) $key, 4, 2);
 
             // reset
             if ($year < $firstYear) {
@@ -505,7 +505,7 @@ class Model implements FrontendTagsInterface
         );
 
         foreach ($comments as &$row) {
-            $row['gravatar_id'] = md5($row['email']);
+            $row['gravatar_id'] = md5((string) $row['email']);
         }
 
         return $comments;
@@ -678,7 +678,7 @@ class Model implements FrontendTagsInterface
             // add some URLs
             $row['post_full_url'] = $link . '/' . $row['post_url'];
             $row['full_url'] = $link . '/' . $row['post_url'] . '#comment-' . $row['id'];
-            $row['gravatar_id'] = md5($row['email']);
+            $row['gravatar_id'] = md5((string) $row['email']);
         }
 
         return $comments;

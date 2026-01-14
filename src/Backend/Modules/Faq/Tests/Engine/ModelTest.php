@@ -5,7 +5,7 @@ namespace Backend\Modules\Faq\Tests\Engine;
 use Backend\Modules\Faq\DataFixtures\LoadFaqCategories;
 use Backend\Modules\Faq\Engine\Model;
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 final class ModelTest extends BackendWebTestCase
 {
@@ -25,7 +25,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertEquals(LoadFaqCategories::FAQ_CATEGORY_DATA['sequence'], $addedCategory['sequence']);
     }
 
-    public function testIfCategoryExists(Client $client): void
+    public function testIfCategoryExists(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -38,7 +38,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertFalse(Model::existsCategory(99));
     }
 
-    public function testGeneratingCategoryUrl(Client $client): void
+    public function testGeneratingCategoryUrl(KernelBrowser $client): void
     {
         // new url
         self::assertEquals(
@@ -65,7 +65,7 @@ final class ModelTest extends BackendWebTestCase
         );
     }
 
-    public function testEditCategory(Client $client): void
+    public function testEditCategory(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -102,7 +102,7 @@ final class ModelTest extends BackendWebTestCase
         self::assertEquals($categoryData['title'], $editedCategory['title']);
     }
 
-    public function testDeleteCategory(Client $client): void
+    public function testDeleteCategory(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,

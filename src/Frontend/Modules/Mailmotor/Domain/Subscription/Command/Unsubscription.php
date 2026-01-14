@@ -8,23 +8,14 @@ use Frontend\Modules\Mailmotor\Domain\Subscription\Validator\Constraints as Mail
 
 final class Unsubscription
 {
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank(message="err.FieldIsRequired")
-     * @Assert\Email(message="err.EmailIsInvalid")
-     * @MailingListAssert\EmailUnsubscription
-     */
-    public $email;
-
-    /**
-     * @var Locale
-     */
-    public $locale;
-
-    public function __construct(Locale $locale, string $email = null)
-    {
-        $this->locale = $locale;
-        $this->email = $email;
+    public function __construct(
+        public Locale $locale,
+        /**
+         * @Assert\NotBlank(message="err.FieldIsRequired")
+         * @Assert\Email(message="err.EmailIsInvalid")
+         * @MailingListAssert\EmailUnsubscription
+         */
+        public ?string $email = null
+    ) {
     }
 }

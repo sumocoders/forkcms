@@ -111,7 +111,7 @@ class SubscribeType extends AbstractType
                 return $interests;
             }
 
-            foreach ($mailMotorInterests as $categoryId => $categoryInterest) {
+            foreach ($mailMotorInterests as $categoryInterest) {
                 if (empty($categoryInterest['children']) || !is_array($categoryInterest['children'])) {
                     continue;
                 }
@@ -123,7 +123,7 @@ class SubscribeType extends AbstractType
             }
             $this->modulesSettings->set('Mailmotor', 'interests', $interests);
             $this->modulesSettings->set('Mailmotor', 'interests_last_checked', new DateTime());
-        } catch (NotImplementedException $e) {
+        } catch (NotImplementedException) {
             // Fallback for when no mail-engine is chosen in the Backend
             $this->modulesSettings->set('Mailmotor', 'check_interests', false);
 

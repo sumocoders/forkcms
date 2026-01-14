@@ -5,7 +5,7 @@ namespace Backend\Modules\Tags\Tests\Action;
 use Backend\Modules\Tags\DataFixtures\LoadTagsModulesTags;
 use Backend\Modules\Tags\DataFixtures\LoadTagsTags;
 use Backend\Core\Tests\BackendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class EditTest extends BackendWebTestCase
 {
@@ -22,12 +22,12 @@ class EditTest extends BackendWebTestCase
         );
     }
 
-    public function testAuthenticationIsNeeded(Client $client): void
+    public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
         self::assertAuthenticationIsNeeded($client, '/private/en/tags/edit?id=' . LoadTagsTags::TAGS_TAG_1_ID);
     }
 
-    public function testWeCanGoToEditFromTheIndexPage(Client $client): void
+    public function testWeCanGoToEditFromTheIndexPage(KernelBrowser $client): void
     {
         $this->login($client);
 
@@ -36,7 +36,7 @@ class EditTest extends BackendWebTestCase
         self::assertCurrentUrlContains($client, '&id=' . LoadTagsTags::TAGS_TAG_2_ID);
     }
 
-    public function testEditingOurTag(Client $client): void
+    public function testEditingOurTag(KernelBrowser $client): void
     {
         $this->login($client);
 
@@ -69,7 +69,7 @@ class EditTest extends BackendWebTestCase
         self::assertResponseHasContent($client->getResponse(), 'Edited tag for functional tests');
     }
 
-    public function testSubmittingInvalidData(Client $client): void
+    public function testSubmittingInvalidData(KernelBrowser $client): void
     {
         $this->login($client);
 
@@ -99,7 +99,7 @@ class EditTest extends BackendWebTestCase
         self::assertResponseHasContent($client->getResponse(), 'Something went wrong', 'Please provide a name.');
     }
 
-    public function testInvalidIdShouldShowAnError(Client $client): void
+    public function testInvalidIdShouldShowAnError(KernelBrowser $client): void
     {
         $this->login($client);
         self::assertGetsRedirected($client, '/private/en/tags/edit?id=12345678', '/private/en/tags/index');

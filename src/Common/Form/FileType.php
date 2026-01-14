@@ -26,14 +26,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class FileType extends AbstractType
 {
-    /**
-     * @var ValidatorInterface
-     */
-    private $validator;
-
-    public function __construct(ValidatorInterface $validator)
+    public function __construct(private readonly ValidatorInterface $validator)
     {
-        $this->validator = $validator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -53,7 +47,7 @@ class FileType extends AbstractType
         $builder
             ->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use ($options) {
+                function (FormEvent $event) use ($options): void {
                     $fileIsEmpty = ($event->getData() === null || empty($event->getData()->getFileName()));
                     $required = $fileIsEmpty && $options['required'];
                     $fileFieldOptions = [
@@ -73,9 +67,7 @@ class FileType extends AbstractType
             )
             ->addModelTransformer(
                 new CallbackTransformer(
-                    function (AbstractFile $file = null) {
-                        return $file;
-                    },
+                    fn(?AbstractFile $file = null) => $file,
                     function ($file) use ($options) {
                         if (!$file instanceof AbstractFile && !$file instanceof stdClass) {
                             throw new TransformationFailedException('Invalid class for the file');
@@ -110,34 +102,29 @@ class FileType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => AbstractFile::class,
-                'empty_data' => function () {
-                    return new class extends stdClass {
-                        /** @var UploadedFile */
-                        protected $file;
+                'empty_data' => fn() => new class extends stdClass {
+                    protected ?UploadedFile $file = null;
+                    protected bool $pendingDeletion = false;
 
-                        /** @var bool */
-                        protected $pendingDeletion = false;
+                    public function setFile(?UploadedFile $file = null)
+                    {
+                        $this->file = $file;
+                    }
 
-                        public function setFile(UploadedFile $file = null)
-                        {
-                            $this->file = $file;
-                        }
+                    public function getFile(): ?UploadedFile
+                    {
+                        return $this->file;
+                    }
 
-                        public function getFile(): ?UploadedFile
-                        {
-                            return $this->file;
-                        }
+                    public function getPendingDeletion(): bool
+                    {
+                        return $this->pendingDeletion;
+                    }
 
-                        public function getPendingDeletion(): bool
-                        {
-                            return $this->pendingDeletion;
-                        }
-
-                        public function setPendingDeletion(bool $pendingDeletion)
-                        {
-                            $this->pendingDeletion = $pendingDeletion;
-                        }
-                    };
+                    public function setPendingDeletion(bool $pendingDeletion): void
+                    {
+                        $this->pendingDeletion = $pendingDeletion;
+                    }
                 },
                 'preview_label' => 'lbl.ViewCurrentFile',
                 'show_preview' => true,
@@ -145,12 +132,10 @@ class FileType extends AbstractType
                 'required_file_error' => 'err.FieldIsRequired',
                 'remove_file_label' => 'lbl.Delete',
                 'accept' => null,
-                'constraints' => array(new Valid()),
+                'constraints' => [new Valid()],
                 'error_bubbling' => false,
                 'help_text_message' => 'msg.HelpMaxFileSize',
-                'help_text_argument' => function (Options $options) {
-                    return $this->getUploadMaxFileSize($options['file_class']);
-                },
+                'help_text_argument' => fn(Options $options) => $this->getUploadMaxFileSize($options['file_class']),
             ]
         );
     }
@@ -177,7 +162,7 @@ class FileType extends AbstractType
             $view->vars['preview_url'] = $form->getData()->getWebPath();
         }
         array_map(
-            function ($optionName) use ($options, &$view) {
+            function ($optionName) use ($options, &$view): void {
                 if (array_key_exists($optionName, $options) && !empty($options[$optionName])) {
                     $view->vars[$optionName] = $options[$optionName];
                 }

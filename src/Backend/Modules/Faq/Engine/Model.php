@@ -269,7 +269,7 @@ class Model
      *
      * @return string
      */
-    public static function getUrl(string $url, int $id = null): string
+    public static function getUrl(string $url, ?int $id = null): string
     {
         $url = CommonUri::getUrl((string) $url);
         $database = BackendModel::get('database');
@@ -317,7 +317,7 @@ class Model
      *
      * @return string
      */
-    public static function getUrlForCategory(string $url, int $id = null): string
+    public static function getUrlForCategory(string $url, ?int $id = null): string
     {
         $url = CommonUri::getUrl($url);
         $database = BackendModel::get('database');
@@ -373,7 +373,7 @@ class Model
         return $insertId;
     }
 
-    public static function insertCategory(array $item, array $meta = null): int
+    public static function insertCategory(array $item, ?array $meta = null): int
     {
         $database = BackendModel::get('database');
 

@@ -53,6 +53,6 @@ class RelatedArticles extends Widget
     {
         $blogDetailUrl = Navigation::getUrlForBlock($this->getModule(), 'Detail');
 
-        return strpos($this->getRequest()->getPathInfo(), $blogDetailUrl) === 0;
+        return str_starts_with($this->getRequest()->getPathInfo(), $blogDetailUrl);
     }
 }

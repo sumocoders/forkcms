@@ -70,7 +70,7 @@ class CacheBuilder
         $json = [];
         foreach (Model::TYPES as $type) {
             // loop locale
-            foreach ($this->locale as $i => $item) {
+            foreach ($this->locale as $item) {
                 // types match
                 if ($item['type'] == $type) {
                     if ($application == 'Backend') {

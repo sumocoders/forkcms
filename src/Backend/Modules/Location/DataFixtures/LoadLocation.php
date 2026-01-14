@@ -6,8 +6,8 @@ use SpoonDatabase;
 
 final class LoadLocation
 {
-    public const LOCATION_LOCATION_TITLE = 'Test location';
-    public const LOCATION_LOCATION_DATA = [
+    public const string LOCATION_LOCATION_TITLE = 'Test location';
+    public const array LOCATION_LOCATION_DATA = [
         'language' => 'en',
         'title' => self::LOCATION_LOCATION_TITLE,
         'street' => 'Afrikalaan',
@@ -20,7 +20,7 @@ final class LoadLocation
         'show_overview' => '1',
     ];
 
-    public const LOCATION_LOCATION_MODULES_EXTRA_DATA = [
+    public const array LOCATION_LOCATION_MODULES_EXTRA_DATA = [
         'module' => 'Location',
         'type' => 'widget',
         'label' => 'Location',

@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ExitException extends RedirectException
 {
-    public function __construct(string $message, string $html = null, int $statusCode = Response::HTTP_OK)
+    public function __construct(string $message, ?string $html = null, int $statusCode = Response::HTTP_OK)
     {
         parent::__construct(
             $message,

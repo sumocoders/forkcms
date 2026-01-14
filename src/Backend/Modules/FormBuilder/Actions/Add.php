@@ -69,7 +69,7 @@ class Add extends BackendBaseActionAdd
             $txtSuccessMessage = $this->form->getField('success_message');
             $txtIdentifier = $this->form->getField('identifier');
 
-            $emailAddresses = (array) explode(',', $txtEmail->getValue());
+            $emailAddresses = (array) explode(',', (string) $txtEmail->getValue());
 
             // validate fields
             $txtName->isFilled(BL::getError('NameIsRequired'));
@@ -141,7 +141,7 @@ class Add extends BackendBaseActionAdd
                 // everything is saved, so redirect to the editform
                 $this->redirect(
                     BackendModel::createUrlForAction('Edit') . '&id=' . $id .
-                    '&report=added&var=' . rawurlencode($values['name']) . '#tabFields'
+                    '&report=added&var=' . rawurlencode((string) $values['name']) . '#tabFields'
                 );
             }
         }

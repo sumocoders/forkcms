@@ -216,7 +216,7 @@ class SaveField extends BackendBaseAJAXAction
                 if ($listId === '' || !$mailmotorGateway->ping($listId)) {
                     $errors['list_id'] = BL::getError('WrongMailEngineCredentials', 'Mailmotor');
                 }
-            } catch (\Exception $mailMotorException) {
+            } catch (\Exception) {
                 $errors['list_id'] = BL::getError('WrongMailEngineCredentials', 'Mailmotor');
             }
         }

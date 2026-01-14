@@ -22,32 +22,11 @@ use CKSource\CKFinder\Filesystem\Folder\WorkingFolder;
  */
 class CreateFolderEvent extends CKFinderEvent
 {
-    /**
-     * The working folder where the new folder is going to be created.
-     *
-     * @var WorkingFolder $workingFolder
-     */
-    protected $workingFolder;
-
-    /**
-     * The new folder name.
-     *
-     * @var string
-     */
-    protected $newFolderName;
-
-    /**
-     * Constructor.
-     *
-     * @param CKFinder      $app
-     * @param WorkingFolder $workingFolder
-     * @param string        $newFolderName
-     */
-    public function __construct(CKFinder $app, WorkingFolder $workingFolder, $newFolderName)
-    {
-        $this->workingFolder = $workingFolder;
-        $this->newFolderName = $newFolderName;
-
+    public function __construct(
+        CKFinder $app,
+        protected WorkingFolder $workingFolder,
+        protected string $newFolderName,
+    ) {
         parent::__construct($app);
     }
 

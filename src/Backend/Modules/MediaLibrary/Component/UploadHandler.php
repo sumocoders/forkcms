@@ -4,9 +4,9 @@ namespace Backend\Modules\MediaLibrary\Component;
 
 use Backend\Modules\MediaLibrary\Manager\FileManager;
 use Exception;
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeExtensionGuesser;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mime\MimeTypes;
 
 class UploadHandler
 {
@@ -53,7 +53,7 @@ class UploadHandler
         return $this->uploadName;
     }
 
-    public function combineChunks(string $uploadDirectory, string $name = null): array
+    public function combineChunks(string $uploadDirectory, ?string $name = null): array
     {
         $uuid = $this->request->request->get('qquuid');
         if ($name === null) {
@@ -95,7 +95,7 @@ class UploadHandler
         return ['success' => true, 'uuid' => $uuid];
     }
 
-    public function handleUpload(string $uploadDirectory, string $name = null): array
+    public function handleUpload(string $uploadDirectory, ?string $name = null): array
     {
         $this->cleanupChunksIfNecessary();
 
@@ -205,7 +205,7 @@ class UploadHandler
             throw new Exception('No files were uploaded.');
         }
 
-        if (strpos(strtolower($type), 'multipart/') !== 0 && !$this->request->query->has('done')) {
+        if (!str_starts_with(strtolower($type), 'multipart/') && !$this->request->query->has('done')) {
             throw new Exception(
                 'Server error. Not a multipart request. Please set forceMultipart to default value (true).'
             );
@@ -219,7 +219,7 @@ class UploadHandler
         $ext = $pathinfo['extension'] ?? '';
 
         // Check file extension
-        if (!in_array(strtolower($ext), array_map('strtolower', $this->allowedExtensions), true)) {
+        if (!in_array(strtolower($ext), array_map(strtolower(...), $this->allowedExtensions), true)) {
             $these = implode(', ', $this->allowedExtensions);
             throw new Exception('File has an invalid extension, it should be one of ' . $these . '.');
         }
@@ -228,7 +228,7 @@ class UploadHandler
     private function checkFileMimeType(UploadedFile $file): void
     {
         // Check file mime type
-        if (!in_array(strtolower($file->getMimeType()), array_map('strtolower', $this->allowedMimeTypes), true)) {
+        if (!in_array(strtolower((string) $file->getMimeType()), array_map(strtolower(...), $this->allowedMimeTypes), true)) {
             $these = implode(', ', $this->allowedMimeTypes);
             throw new Exception('File has an invalid mime type, it should be one of ' . $these . '.');
         }
@@ -269,7 +269,7 @@ class UploadHandler
                 DIRECTORY_SEPARATOR,
                 [$uploadDirectory, basename($this->request->request->get('qquuid')), $name]
             );
-            $mimeType = (new MimeTypeExtensionGuesser())->guess($uploadedPath);
+            $mimeType = new MimeTypes()->guessMimeType($uploadedPath);
 
             return new UploadedFile($uploadedPath, $name, $mimeType, filesize($uploadedPath));
         }
@@ -285,7 +285,7 @@ class UploadHandler
         return $file;
     }
 
-    private function getRedefinedName(string $name = null): string
+    private function getRedefinedName(?string $name = null): string
     {
         if ($name === null) {
             $name = $this->getName();
@@ -301,7 +301,7 @@ class UploadHandler
 
     private function getSize(UploadedFile $file): int
     {
-        $size = (int) $this->request->request->get('qqtotalfilesize', $file->getClientSize());
+        $size = (int) $this->request->request->get('qqtotalfilesize', $file->getSize());
 
         // Validate file size
         if ($size === 0) {
@@ -337,15 +337,11 @@ class UploadHandler
         }
 
         $val = (int) substr($str, 0, -1);
-        switch (strtoupper($unit)) {
-            case 'G':
-                return $val * 1073741824;
-            case 'M':
-                return $val * 1048576;
-            case 'K':
-                return $val * 1024;
-            default:
-                return $val;
-        }
+        return match (strtoupper($unit)) {
+            'G' => $val * 1073741824,
+            'M' => $val * 1048576,
+            'K' => $val * 1024,
+            default => $val,
+        };
     }
 }

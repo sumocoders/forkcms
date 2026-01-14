@@ -35,7 +35,7 @@ abstract class AbstractImage extends AbstractFile
      */
     const GENERATE_THUMBNAILS = true;
 
-    public function getAbsolutePath(string $subDirectory = null): ?string
+    public function getAbsolutePath(?string $subDirectory = null): ?string
     {
         if (self::GENERATE_THUMBNAILS && $subDirectory === null) {
             $subDirectory = 'source';
@@ -44,7 +44,7 @@ abstract class AbstractImage extends AbstractFile
         return $this->fileName === null ? null : $this->getUploadRootDir($subDirectory) . '/' . $this->fileName;
     }
 
-    public function getWebPath(string $subDirectory = null): string
+    public function getWebPath(?string $subDirectory = null): string
     {
         if (self::GENERATE_THUMBNAILS && $subDirectory === null) {
             $subDirectory = 'source';
@@ -64,7 +64,7 @@ abstract class AbstractImage extends AbstractFile
         return static::FALLBACK_IMAGE;
     }
 
-    protected function getUploadRootDir(string $subDirectory = null): string
+    protected function getUploadRootDir(?string $subDirectory = null): string
     {
         // the absolute directory path where uploaded
         // documents should be saved

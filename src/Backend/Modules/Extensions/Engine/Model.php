@@ -402,7 +402,7 @@ class Model
                         'message' => BL::getMessage('InformationFileIsEmpty'),
                     ];
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $information['warnings'][] = [
                     'message' => BL::getMessage('InformationFileCouldNotBeLoaded'),
                 ];
@@ -464,7 +464,7 @@ class Model
                 if (isset($info['version'])) {
                     $module['version'] = $info['version'];
                 }
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 // don't act upon error, we simply won't possess some info
             }
 
@@ -522,9 +522,7 @@ class Model
 
         return array_filter(
             BackendModel::getModules(),
-            function (string $module) use ($moduleSettings, $setting): bool {
-                return $moduleSettings->get($module, 'requires_' . $setting, false);
-            }
+            fn(string $module): bool => $moduleSettings->get($module, 'requires_' . $setting, false)
         );
     }
 
@@ -536,7 +534,7 @@ class Model
         );
     }
 
-    public static function getTemplates(string $theme = null): array
+    public static function getTemplates(?string $theme = null): array
     {
         $database = BackendModel::getContainer()->get('database');
         $theme = \SpoonFilter::getValue(
@@ -611,7 +609,7 @@ class Model
                 if (empty($information)) {
                     throw new Exception('Invalid info.xml');
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $information['thumbnail'] = 'thumbnail.png';
             }
 
@@ -856,11 +854,11 @@ class Model
 
             // build cronjob information
             $item = [];
-            $item['minute'] = (isset($attributes['minute'])) ? $attributes['minute'] : '*';
-            $item['hour'] = (isset($attributes['hour'])) ? $attributes['hour'] : '*';
-            $item['day-of-month'] = (isset($attributes['day-of-month'])) ? $attributes['day-of-month'] : '*';
-            $item['month'] = (isset($attributes['month'])) ? $attributes['month'] : '*';
-            $item['day-of-week'] = (isset($attributes['day-of-week'])) ? $attributes['day-of-week'] : '*';
+            $item['minute'] = $attributes['minute'] ?? '*';
+            $item['hour'] = $attributes['hour'] ?? '*';
+            $item['day-of-month'] = $attributes['day-of-month'] ?? '*';
+            $item['month'] = $attributes['month'] ?? '*';
+            $item['day-of-week'] = $attributes['day-of-week'] ?? '*';
             $item['action'] = $attributes['action'];
             $item['description'] = $cronjob[0];
 
@@ -877,8 +875,8 @@ class Model
 
             // build event information and add it to the list
             $information['events'][] = [
-                'application' => (isset($attributes['application'])) ? $attributes['application'] : '',
-                'name' => (isset($attributes['name'])) ? $attributes['name'] : '',
+                'application' => $attributes['application'] ?? '',
+                'name' => $attributes['name'] ?? '',
                 'description' => $event[0],
             ];
         }

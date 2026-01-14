@@ -26,15 +26,11 @@ use CKSource\CKFinder\Error;
  */
 class InvalidExtensionException extends CKFinderException
 {
-    /**
-     * Constructor.
-     *
-     * @param string     $message    the exception message
-     * @param array      $parameters the parameters passed for translation
-     * @param \Exception $previous   the previous exception
-     */
-    public function __construct($message = 'Invalid extension', $parameters = array(), \Exception $previous = null)
-    {
+    public function __construct(
+        string $message = 'Invalid extension',
+        array $parameters = [],
+        ?\Exception $previous = null,
+    ) {
         parent::__construct($message, Error::INVALID_EXTENSION, $parameters, $previous);
     }
 }

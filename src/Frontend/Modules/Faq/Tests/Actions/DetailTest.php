@@ -5,11 +5,11 @@ namespace Frontend\Modules\Faq\Actions;
 use Backend\Modules\Faq\DataFixtures\LoadFaqCategories;
 use Backend\Modules\Faq\DataFixtures\LoadFaqQuestions;
 use Frontend\Core\Tests\FrontendWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class DetailTest extends FrontendWebTestCase
 {
-    public function testFaqHasDetailPage(Client $client): void
+    public function testFaqHasDetailPage(KernelBrowser $client): void
     {
         $this->loadFixtures(
             $client,
@@ -38,7 +38,7 @@ class DetailTest extends FrontendWebTestCase
         self::assertCurrentUrlEndsWith($client, '/en/faq/detail/' . LoadFaqQuestions::FAQ_QUESTION_SLUG);
     }
 
-    public function testNonExistingFaqGives404(Client $client): void
+    public function testNonExistingFaqGives404(KernelBrowser $client): void
     {
         self::assertHttpStatusCode404($client, '/en/faq/detail/non-existing');
     }

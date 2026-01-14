@@ -7,6 +7,7 @@
          colors="true"
          bootstrap="autoload.php"
          stderr="true"
+         convertDeprecationsToExceptions="false"
 >
     <coverage>
         <include>
@@ -99,5 +100,8 @@
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
         <env name="FORK_ENV" value="test" />
         <env name="FORK_DEBUG" value="1" />
+        <env name="APP_ENV" value="test" />
+        <env name="APP_DEBUG" value="1" />
+        <env name="SYMFONY_PHPUNIT_VERSION" value="9.6" />
     </php>
 </phpunit>

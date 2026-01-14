@@ -15,7 +15,7 @@ use SpoonFormDropdown;
  */
 class MediaItemDataGrid extends DataGridDatabase
 {
-    public function __construct(Type $type, int $folderId = null, string $searchQuery = null)
+    public function __construct(Type $type, ?int $folderId = null, ?string $searchQuery = null)
     {
         parent::__construct(
             'SELECT i.id, i.storage_type, i.type, i.url, i.title, i.sharding_folder_name,
@@ -74,14 +74,14 @@ class MediaItemDataGrid extends DataGridDatabase
         return ['storage_type', 'sharding_folder_name', 'type', 'mime', 'url'];
     }
 
-    public static function getDataGrid(Type $type, int $folderId = null, string $searchQuery = null): DataGridDatabase
+    public static function getDataGrid(Type $type, ?int $folderId = null, ?string $searchQuery = null): DataGridDatabase
     {
         return new self($type, $folderId, $searchQuery);
     }
 
-    public static function getHtml(Type $type, int $folderId = null): string
+    public static function getHtml(Type $type, ?int $folderId = null): string
     {
-        return (string) (new self($type, $folderId))->getContent();
+        return (string) new self($type, $folderId)->getContent();
     }
 
     private function getMassActionDropdown(Type $type): SpoonFormDropdown
@@ -104,7 +104,7 @@ class MediaItemDataGrid extends DataGridDatabase
         return $ddmMediaItemMassAction;
     }
 
-    private function getParameters(Type $type, int $folderId = null, string $searchQuery = null): array
+    private function getParameters(Type $type, ?int $folderId = null, ?string $searchQuery = null): array
     {
         $parameters = [(string) $type];
 
@@ -119,7 +119,7 @@ class MediaItemDataGrid extends DataGridDatabase
         return $parameters;
     }
 
-    private function getWhere(int $folderId = null, string $searchQuery = null): string
+    private function getWhere(?int $folderId = null, ?string $searchQuery = null): string
     {
         $query = ($folderId !== null) ? ' AND i.mediaFolderId = ?' : '';
 
@@ -130,7 +130,7 @@ class MediaItemDataGrid extends DataGridDatabase
         return $query;
     }
 
-    private function setExtras(Type $type, int $folderId = null): void
+    private function setExtras(Type $type, ?int $folderId = null): void
     {
         $editActionUrl = Model::createUrlForAction('MediaItemEdit');
         $this->setHeaderLabels($this->getColumnHeaderLabels($type));

@@ -23,7 +23,7 @@ final class Language extends IdentityTranslator
 
         if (Model::requestIsAvailable()
             && Model::getRequest()->attributes->has('_route')
-            && stripos(Model::getRequest()->attributes->get('_route'), 'frontend') === 0
+            && stripos((string) Model::getRequest()->attributes->get('_route'), 'frontend') === 0
         ) {
             $application = 'Frontend';
         }
@@ -124,7 +124,7 @@ final class Language extends IdentityTranslator
             return parent::trans($id, $parameters, $domain, $locale);
         }
 
-        list($action, $string) = explode('.', $id, 2);
+        [$action, $string] = explode('.', $id, 2);
 
         if (!in_array($action, $possibleActions)) {
             return parent::trans($id, $parameters, $domain, $locale);
@@ -135,43 +135,6 @@ final class Language extends IdentityTranslator
         // we couldn't translate it, let the parent have a go
         if (preg_match('/\{\$' . $action . '.*' . $string . '\}/', $translatedString)) {
             $parentTranslatedString = parent::trans($id, $parameters, $domain, $locale);
-            // If the parent couldn't translate return our default
-            if ($id === $parentTranslatedString) {
-                return $translatedString;
-            }
-
-            return $parentTranslatedString;
-        }
-
-        return $translatedString;
-    }
-
-    public function transChoice($id, $number, array $parameters = array(), $domain = null, $locale = null)
-    {
-        $possibleActions = ['lbl', 'err', 'msg'];
-        if (self::get() === FrontendLanguage::class) {
-            $possibleActions[] = 'act';
-        }
-
-        if (!preg_match('/(' . implode('|', $possibleActions) . ')./', $id)) {
-            return parent::transChoice($id, $number, $parameters, $domain, $locale);
-        }
-
-        if (!strpos($id, '.')) {
-            return parent::transChoice($id, $number, $parameters, $domain, $locale);
-        }
-
-        list($action, $string) = explode('.', $id, 2);
-
-        if (!in_array($action, $possibleActions)) {
-            return parent::transChoice($id, $number, $parameters, $domain, $locale);
-        }
-
-        $translatedString = self::$action($string);
-
-        // we couldn't translate it, let the parent have a go
-        if (preg_match('/\{\$' . $action . '.*' . $string . '\}/', $translatedString)) {
-            $parentTranslatedString = parent::transChoice($id, $number, $parameters, $domain, $locale);
             // If the parent couldn't translate return our default
             if ($id === $parentTranslatedString) {
                 return $translatedString;

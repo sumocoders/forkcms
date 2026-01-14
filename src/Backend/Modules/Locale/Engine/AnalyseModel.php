@@ -60,9 +60,9 @@ class AnalyseModel extends Model
      * @param string $application the application
      * @param string $language the required language
      *
-     * @deprecated This method is no longer used in the core and will be removed in fork 6
      * @return array
      */
+    #[\Deprecated(message: 'This method is no longer used in the core and will be removed in fork 6')]
     public static function getSortLocaleFrom(string $application, string $language): array
     {
         trigger_error('This method is no longer used in the core and will be removed in fork 6');

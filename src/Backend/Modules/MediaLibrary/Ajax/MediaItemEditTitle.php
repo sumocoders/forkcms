@@ -45,7 +45,7 @@ class MediaItemEditTitle extends BackendBaseAJAXAction
         try {
             /** @var MediaItem $mediaItem */
             return $this->get('media_library.repository.item')->findOneById($id);
-        } catch (MediaItemNotFound $mediaItemNotFound) {
+        } catch (MediaItemNotFound) {
             throw new AjaxExitException(Language::err('MediaItemDoesNotExists'));
         }
     }

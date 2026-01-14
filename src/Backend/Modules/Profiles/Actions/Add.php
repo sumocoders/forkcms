@@ -7,7 +7,7 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
-use Symfony\Component\Intl\Intl as Intl;
+use Symfony\Component\Intl\Countries;
 
 /**
  * This is the add-action, it will display a form to add a new profile.
@@ -111,7 +111,7 @@ class Add extends BackendBaseActionAdd
             ->addDropdown('year', array_combine($years, $years))
         ;
         $this->form
-            ->addDropdown('country', Intl::getRegionBundle()->getCountryNames(BL::getInterfaceLanguage()))
+            ->addDropdown('country', Countries::getNames(BL::getInterfaceLanguage()))
         ;
         $this->form->addTextarea('about');
 
@@ -201,8 +201,8 @@ class Add extends BackendBaseActionAdd
                 if ($ddmYear->isFilled()) {
                     // mysql format
                     $birthDate = $ddmYear->getValue() . '-';
-                    $birthDate .= str_pad($ddmMonth->getValue(), 2, '0', STR_PAD_LEFT) . '-';
-                    $birthDate .= str_pad($ddmDay->getValue(), 2, '0', STR_PAD_LEFT);
+                    $birthDate .= str_pad((string) $ddmMonth->getValue(), 2, '0', STR_PAD_LEFT) . '-';
+                    $birthDate .= str_pad((string) $ddmDay->getValue(), 2, '0', STR_PAD_LEFT);
                 } else {
                     // not filled in
                     $birthDate = null;
@@ -230,7 +230,7 @@ class Add extends BackendBaseActionAdd
 
                 $redirectUrl = BackendModel::createUrlForAction('Edit') .
                                '&id=' . $this->id .
-                    '&var=' . rawurlencode($values['display_name']) .
+                    '&var=' . rawurlencode((string) $values['display_name']) .
                     '&report='
                 ;
 

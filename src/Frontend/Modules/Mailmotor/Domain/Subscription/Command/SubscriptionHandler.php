@@ -7,22 +7,12 @@ use Frontend\Core\Language\Locale;
 use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
 use MailMotor\Bundle\MailMotorBundle\Exception\NotImplementedException;
 
-final class SubscriptionHandler
+final readonly class SubscriptionHandler
 {
-    /**
-     * @var ModulesSettings
-     */
-    private $modulesSettings;
-
-    /**
-     * @var Subscriber
-     */
-    private $subscriber;
-
-    public function __construct(Subscriber $subscriber, ModulesSettings $modulesSettings)
-    {
-        $this->subscriber = $subscriber;
-        $this->modulesSettings = $modulesSettings;
+    public function __construct(
+        private Subscriber $subscriber,
+        private ModulesSettings $modulesSettings,
+    ) {
     }
 
     public function handle(Subscription $subscription): void
@@ -35,7 +25,7 @@ final class SubscriptionHandler
             if ($this->modulesSettings->get('Mailmotor', 'overwrite_interests', true)) {
                 $possibleInterests = $this->subscriber->getInterests($languageSpecificListId);
 
-                foreach ($possibleInterests as $categoryId => $categoryInterest) {
+                foreach ($possibleInterests as $categoryInterest) {
                     foreach ($categoryInterest['children'] as $categoryChildId => $categoryChildTitle) {
                         $interests[$categoryChildId] = in_array($categoryChildId, $subscription->interests);
                     }
@@ -45,7 +35,7 @@ final class SubscriptionHandler
                     $interests[$checkedInterestId] = true;
                 }
             }
-        } catch (NotImplementedException $e) {
+        } catch (NotImplementedException) {
             // Fallback for when no mail-engine is chosen in the Backend
         }
 

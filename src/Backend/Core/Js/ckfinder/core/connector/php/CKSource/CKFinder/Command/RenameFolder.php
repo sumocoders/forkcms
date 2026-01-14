@@ -15,7 +15,6 @@
 namespace CKSource\CKFinder\Command;
 
 use CKSource\CKFinder\Acl\Permission;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Event\RenameFolderEvent;
 use CKSource\CKFinder\Exception\InvalidRequestException;
 use CKSource\CKFinder\Filesystem\Folder\WorkingFolder;
@@ -26,7 +25,7 @@ class RenameFolder extends CommandAbstract
 {
     protected $requestMethod = Request::METHOD_POST;
 
-    protected $requires = array(Permission::FOLDER_RENAME);
+    protected $requires = [Permission::FOLDER_RENAME];
 
     public function execute(Request $request, WorkingFolder $workingFolder, EventDispatcher $dispatcher)
     {
@@ -39,7 +38,7 @@ class RenameFolder extends CommandAbstract
 
         $renameFolderEvent = new RenameFolderEvent($this->app, $workingFolder, $newFolderName);
 
-        $dispatcher->dispatch(CKFinderEvent::RENAME_FOLDER, $renameFolderEvent);
+        $dispatcher->dispatch($renameFolderEvent);
 
         if (!$renameFolderEvent->isPropagationStopped()) {
             $newFolderName = $renameFolderEvent->getNewFolderName();
@@ -47,6 +46,6 @@ class RenameFolder extends CommandAbstract
             return $workingFolder->rename($newFolderName);
         }
 
-        return array('renamed' => 0);
+        return ['renamed' => 0];
     }
 }

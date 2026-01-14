@@ -4,15 +4,11 @@ namespace ForkCMS\Bundle\InstallerBundle\Requirement;
 
 final class RequirementCategory
 {
-    /** @var string */
-    private $name;
-
     /** @var Requirement[] */
     private $requirements;
 
-    public function __construct(string $name, Requirement ...$requirements)
+    public function __construct(private readonly string $name, Requirement ...$requirements)
     {
-        $this->name = $name;
         $this->requirements = $requirements;
     }
 
@@ -36,9 +32,7 @@ final class RequirementCategory
     {
         return array_filter(
             $this->requirements,
-            function (Requirement $requirement) {
-                return $requirement->getStatus()->isWarning();
-            }
+            fn(Requirement $requirement) => $requirement->getStatus()->isWarning()
         );
     }
 
@@ -49,9 +43,7 @@ final class RequirementCategory
     {
         return array_filter(
             $this->requirements,
-            function (Requirement $requirement) {
-                return $requirement->getStatus()->isError();
-            }
+            fn(Requirement $requirement) => $requirement->getStatus()->isError()
         );
     }
 

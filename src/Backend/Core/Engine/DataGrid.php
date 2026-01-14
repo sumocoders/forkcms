@@ -184,13 +184,13 @@ class DataGrid extends \SpoonDataGrid
      */
     public function addColumnAction(
         string $name,
-        string $label = null,
-        string $value = null,
-        string $url = null,
-        string $title = null,
-        array $anchorAttributes = null,
-        string $image = null,
-        int $sequence = null
+        ?string $label = null,
+        ?string $value = null,
+        ?string $url = null,
+        ?string $title = null,
+        ?array $anchorAttributes = null,
+        ?string $image = null,
+        ?int $sequence = null
     ) {
         // reserve var for attributes
         $attributes = '';
@@ -411,12 +411,12 @@ class DataGrid extends \SpoonDataGrid
         $value = $this->columns[$column]->getValue();
 
         // add class for confirmation
-        if (mb_substr_count($value, '<a') === 0) {
+        if (mb_substr_count((string) $value, '<a') === 0) {
             // is it a link?
             throw new Exception('The column doesn\'t contain a link.');
         }
 
-        if (mb_substr_count($value, 'class="') > 0) {
+        if (mb_substr_count((string) $value, 'class="') > 0) {
             $value = str_replace(
                 'class="',
                 'data-message-id="' . $id . '" class="jsConfirmationTrigger ',
@@ -514,8 +514,8 @@ class DataGrid extends \SpoonDataGrid
     public function setMassActionCheckboxes(
         string $column,
         string $value,
-        array $excludedValues = null,
-        array $checkedValues = null
+        ?array $excludedValues = null,
+        ?array $checkedValues = null
     ): void {
         // build label and value
         $label = '<input type="checkbox" name="toggleChecks" value="toggleChecks" />';

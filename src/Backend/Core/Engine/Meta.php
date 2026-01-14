@@ -87,7 +87,7 @@ class Meta
      */
     public function __construct(
         Form $form,
-        int $metaId = null,
+        ?int $metaId = null,
         string $baseFieldName = 'title',
         bool $showCustomMeta = false
     ) {
@@ -126,10 +126,11 @@ class Meta
      * @throws Exception When the function does not exist
      *
      * @return string
-     *
-     * @deprecated use the generateUrl method on the meta repository
-     * This class will be removed when all modules run on doctrine
      */
+    #[\Deprecated(message: <<<'TXT'
+      use the generateUrl method on the meta repository
+      This class will be removed when all modules run on doctrine
+    TXT)]
     public function generateUrl(string $url): string
     {
         return Model::get('fork.repository.meta')->generateUrl(
@@ -251,7 +252,7 @@ class Meta
         }
 
         // return value
-        return urldecode($this->data['data']['canonical_url']);
+        return urldecode((string) $this->data['data']['canonical_url']);
     }
 
     public function getCanonicalUrlOverwrite(): bool
@@ -412,7 +413,7 @@ class Meta
                     $this->hreflangFields[$language] = [
                         'language' => $language,
                         'field' => $field->parse(),
-                        'label' => strtoupper($language),
+                        'label' => strtoupper((string) $language),
                     ];
                 }
             }
@@ -456,10 +457,11 @@ class Meta
      * @throws Exception If no meta id was provided.
      *
      * @return int
-     *
-     * @deprecated just use the entity for doctrine.
-     *             This class will be removed when all modules run on doctrine and will be replaced with the meta entity
      */
+    #[\Deprecated(message: <<<'TXT'
+      just use the entity for doctrine.
+      This class will be removed when all modules run on doctrine and will be replaced with the meta entity
+    TXT)]
     public function save(bool $update = false): int
     {
         $this->validate();

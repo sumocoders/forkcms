@@ -12,20 +12,12 @@ use ForkCMS\Bundle\InstallerBundle\Requirement\RequirementStatus;
 final class RequirementsChecker
 {
     /**
-     * The root dir of our project
-     *
-     * @var string
-     */
-    private $rootDir;
-
-    /**
      * @var RequirementCategory[]
      */
     private $requirementCategories;
 
-    public function __construct(string $rootDir)
+    public function __construct(private readonly string $rootDir)
     {
-        $this->rootDir = $rootDir;
     }
 
     /**
@@ -66,9 +58,7 @@ final class RequirementsChecker
         return in_array(
             true,
             array_map(
-                function (RequirementCategory $requirementCategory) {
-                    return $requirementCategory->hasErrors();
-                },
+                fn(RequirementCategory $requirementCategory) => $requirementCategory->hasErrors(),
                 $this->requirementCategories
             ),
             true
@@ -89,9 +79,7 @@ final class RequirementsChecker
         return in_array(
             true,
             array_map(
-                function (RequirementCategory $requirementCategory) {
-                    return $requirementCategory->hasWarnings();
-                },
+                fn(RequirementCategory $requirementCategory) => $requirementCategory->hasWarnings(),
                 $this->requirementCategories
             ),
             true
@@ -134,14 +122,14 @@ final class RequirementsChecker
                 'subfolder',
                 // If we don't know for sure but we shall assume that it isn't in a subfolder
                 array_key_exists('REQUEST_URI', $_SERVER)
-                    ? mb_substr($_SERVER['REQUEST_URI'], 0, 8) === '/install' : true,
+                    ? mb_substr((string) $_SERVER['REQUEST_URI'], 0, 8) === '/install' : true,
                 'Fork CMS is as far as we can detect not running is a subfolder',
                 'Fork CMS can\'t be installed in subfolders',
                 RequirementStatus::error()
             ),
             Requirement::check(
                 'mod_rewrite',
-                php_sapi_name() === "cli" || (bool) (getenv('MOD_REWRITE') || getenv('REDIRECT_MOD_REWRITE') || strtolower($_SERVER['HTTP_MOD_REWRITE'] ?? 'Off') === 'on'),
+                php_sapi_name() === "cli" || (bool) (($_ENV['MOD_REWRITE'] ?? false) || ($_ENV['REDIRECT_MOD_REWRITE'] ?? false) || strtolower($_SERVER['HTTP_MOD_REWRITE'] ?? 'Off') === 'on'),
                 'Fork CMS is able to rewrite the urls using mod_rewrite',
                 'Fork CMS will not be able to run if mod_rewrite can not be applied. Please make sure that the .htaccess file is present (the file starts with a dot, so it may be hidden on your filesystem), being read (AllowOverride directive) and the mod_rewrite module is enabled in Apache. If you are installing Fork CMS on another web server than Apache, make sure you have manually configured your web server to properly rewrite urls.
                  More information can be found in our <a href="http://www.fork-cms.com/knowledge-base/detail/fork-cms-and-webservers" title="Fork CMS and web servers">knowledge base</a>.
@@ -158,15 +146,13 @@ final class RequirementsChecker
         return new RequirementCategory(
             'PHP extensions',
             ...array_map(
-                function (array $extension) {
-                    return Requirement::check(
-                        $extension['name'],
-                        $extension['check'],
-                        $extension['message'],
-                        $extension['message'],
-                        RequirementStatus::error()
-                    );
-                },
+                fn(array $extension) => Requirement::check(
+                    $extension['name'],
+                    $extension['check'],
+                    $extension['message'],
+                    $extension['message'],
+                    RequirementStatus::error()
+                ),
                 [
                     [
                         'name' => 'cURL',

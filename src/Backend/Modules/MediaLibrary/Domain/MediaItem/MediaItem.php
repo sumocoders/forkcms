@@ -318,7 +318,7 @@ class MediaItem implements JsonSerializable
         try {
             // Define file from path
             $file = new File($path);
-        } catch (FileNotFoundException $e) {
+        } catch (FileNotFoundException) {
             throw new Exception(
                 'This is not a valid file: "' . $path . '".'
             );
@@ -345,7 +345,7 @@ class MediaItem implements JsonSerializable
 
         try {
             $mimeTypeType = Type::fromMimeType($file->getMimeType());
-        } catch (Exception $exception) {
+        } catch (Exception) {
             return $extensionType;
         }
 
@@ -501,7 +501,7 @@ class MediaItem implements JsonSerializable
         return $this->aspectRatio;
     }
 
-    public function getWebPath(string $liipImagineBundleFilter = null): string
+    public function getWebPath(?string $liipImagineBundleFilter = null): string
     {
         /** @var StorageProviderInterface $storage */
         $storage = Model::get('media_library.manager.storage')->getStorageProvider($this->getStorageType());
@@ -513,7 +513,7 @@ class MediaItem implements JsonSerializable
         return $storage->getWebPathWithFilter($this, $liipImagineBundleFilter);
     }
 
-    public function getThumbnail(string $liipImagineBundleFilter = null): string
+    public function getThumbnail(?string $liipImagineBundleFilter = null): string
     {
         /** @var StorageProviderInterface $storage */
         $storage = Model::get('media_library.manager.storage')->getStorageProvider($this->getStorageType());

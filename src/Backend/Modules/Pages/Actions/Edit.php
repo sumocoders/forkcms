@@ -378,7 +378,7 @@ class Edit extends BackendBaseActionEdit
             $this->form->addMultiCheckbox('allow', $values, $checked);
 
             // css link class
-            $page['link_class'] = $this->form->addText('link_class', isset($this->record['data']['link_class']) ? $this->record['data']['link_class'] : null);
+            $page['link_class'] = $this->form->addText('link_class', $this->record['data']['link_class'] ?? null);
         }
 
         // build prototype block
@@ -431,7 +431,7 @@ class Edit extends BackendBaseActionEdit
                 if ($block['extra_id'] === null || $block['extra_type'] == 'usertemplate') {
                     if ($this->getRequest()->request->get('block_extra_type_' . $i) === 'usertemplate') {
                         $block['extra_id'] = $this->getRequest()->request->get('block_extra_id_' . $i);
-                        $_POST['block_extra_data_' . $i] = htmlspecialchars($_POST['block_extra_data_' . $i]);
+                        $_POST['block_extra_data_' . $i] = htmlspecialchars((string) $_POST['block_extra_data_' . $i]);
                     } else {
                         // reset vars
                         $block['extra_id'] = null;
@@ -532,7 +532,7 @@ class Edit extends BackendBaseActionEdit
         );
         $this->form->addText(
             'external_redirect',
-            ($redirectValue == 'external') ? urldecode($this->record['data']['external_redirect']['url']) : null,
+            ($redirectValue == 'external') ? urldecode((string) $this->record['data']['external_redirect']['url']) : null,
             null,
             null,
             null,
@@ -585,7 +585,7 @@ class Edit extends BackendBaseActionEdit
         }
         // set callback for generating an unique URL
         $this->meta->setUrlCallback(
-            'Backend\Modules\Pages\Engine\Model',
+            \Backend\Modules\Pages\Engine\Model::class,
             'getUrl',
             [$this->record['id'], $this->record['parent_id'], $isAction]
         );
@@ -817,7 +817,7 @@ class Edit extends BackendBaseActionEdit
         if ($page['status'] === 'draft') {
             $this->redirect(
                 BackendModel::createUrlForAction('Edit') . '&id=' . $page['id']
-                . '&report=saved-as-draft&var=' . rawurlencode($page['title']) . '&highlight=row-' . $page['id']
+                . '&report=saved-as-draft&var=' . rawurlencode((string) $page['title']) . '&highlight=row-' . $page['id']
                 . '&draft=' . $page['revision_id']
             );
 
@@ -829,7 +829,7 @@ class Edit extends BackendBaseActionEdit
 
         $this->redirect(
             BackendModel::createUrlForAction('Edit') . '&id=' . $page['id'] . '&report=edited&var='
-            . rawurlencode($page['title']) . '&highlight=row-' . $page['id']
+            . rawurlencode((string) $page['title']) . '&highlight=row-' . $page['id']
         );
     }
 
@@ -1035,7 +1035,7 @@ class Edit extends BackendBaseActionEdit
 
     private function getHiddenJsonField(string $name, ?string $json): SpoonFormHidden
     {
-        return new class($name, htmlspecialchars($json)) extends SpoonFormHidden {
+        return new class($name, htmlspecialchars((string) $json)) extends SpoonFormHidden {
             public function getValue($allowHTML = null)
             {
                 return parent::getValue(true);

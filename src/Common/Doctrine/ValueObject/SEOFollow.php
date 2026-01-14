@@ -2,12 +2,12 @@
 
 namespace Common\Doctrine\ValueObject;
 
-final class SEOFollow
+final class SEOFollow implements \Stringable
 {
-    private const NONE = 'none';
-    private const FOLLOW = 'follow';
-    private const NOFOLLOW = 'nofollow';
-    public const POSSIBLE_VALUES = [
+    private const string NONE = 'none';
+    private const string FOLLOW = 'follow';
+    private const string NOFOLLOW = 'nofollow';
+    public const array POSSIBLE_VALUES = [
         self::NONE,
         self::FOLLOW,
         self::NOFOLLOW,

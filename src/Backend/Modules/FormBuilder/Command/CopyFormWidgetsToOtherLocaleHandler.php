@@ -6,14 +6,10 @@ use Backend\Core\Engine\Model as BackendModel;
 use Common\ModuleExtraType;
 use SpoonDatabase;
 
-final class CopyFormWidgetsToOtherLocaleHandler
+final readonly class CopyFormWidgetsToOtherLocaleHandler
 {
-    /** @var SpoonDatabase */
-    private $database;
-
-    public function __construct(SpoonDatabase $database)
+    public function __construct(private SpoonDatabase $database)
     {
-        $this->database = $database;
     }
 
     public function handle(CopyFormWidgetsToOtherLocale $command): void

@@ -135,7 +135,7 @@ class UploadTheme extends BackendBaseActionAdd
 
                         // Define the theme name, based on the info.xml file.
                         $this->themeName = $this->info['name'];
-                    } catch (Exception $e) {
+                    } catch (Exception) {
                         // Warning that the information file is corrupt
                         $fileFile->addError(BL::getMessage('InformationFileCouldNotBeLoaded'));
 
@@ -277,7 +277,7 @@ class UploadTheme extends BackendBaseActionAdd
     private function checkIfPathContainsIgnoredWord(string $path): bool
     {
         foreach ($this->ignoreList as $ignoreItem) {
-            if (mb_stripos($path, $ignoreItem) !== false) {
+            if (mb_stripos($path, (string) $ignoreItem) !== false) {
                 return true;
             }
         }

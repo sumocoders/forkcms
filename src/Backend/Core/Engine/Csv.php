@@ -16,20 +16,19 @@ class Csv extends \SpoonFileCSV
     /**
      * Output a CSV-file as a download
      *
-     * @deprecated remove this in Fork 6, just use ForkCMS\Utility\Csv\Writer->output()
      *
      * @param string $filename       The name of the file.
      * @param array  $array          The array to convert.
      * @param array  $columns        The column names you want to use.
      * @param array  $excludeColumns The columns you want to exclude.
-     *
      * @throws RedirectException
      */
+    #[\Deprecated(message: 'remove this in Fork 6, just use ForkCMS\Utility\Csv\Writer->output()')]
     public static function outputCSV(
         string $filename,
         array $array,
-        array $columns = null,
-        array $excludeColumns = null
+        ?array $columns = null,
+        ?array $excludeColumns = null
     ) {
         $headers = $columns;
         $data = $array;
@@ -38,17 +37,13 @@ class Csv extends \SpoonFileCSV
         if (!empty($excludeColumns)) {
             $headers = array_filter(
                 $columns,
-                function ($column) use ($excludeColumns) {
-                    return !in_array($column, $excludeColumns);
-                }
+                fn($column) => !in_array($column, $excludeColumns)
             );
 
             foreach ($array as $rowNumber => $row) {
                 $data[$rowNumber] = array_filter(
                     $row,
-                    function ($key) use ($excludeColumns) {
-                        return !in_array($key, $excludeColumns);
-                    },
+                    fn($key) => !in_array($key, $excludeColumns),
                     ARRAY_FILTER_USE_KEY
                 );
             }
@@ -67,7 +62,7 @@ class Csv extends \SpoonFileCSV
         $writer->setLineEnding(self::getLineEnding());
 
         $response = new StreamedResponse(
-            function () use ($writer) {
+            function () use ($writer): void {
                 $writer->save('php://output');
             }
         );
@@ -85,9 +80,7 @@ class Csv extends \SpoonFileCSV
         );
     }
 
-    /**
-     * @deprecated remove this in Fork 6, you should not rely on this.
-     */
+    #[\Deprecated(message: 'remove this in Fork 6, you should not rely on this.')]
     private static function getLineEnding(): string
     {
         $lineEnding = Authentication::getUser()->getSetting('csv_line_ending');

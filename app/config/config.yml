@@ -16,8 +16,6 @@ framework:
     validation:
         enable_annotations: true
     csrf_protection: ~
-    templating:
-        engines: ['twig']
     session:
         handler_id: ~
         cookie_secure: '%session.cookie_secure%'
@@ -28,6 +26,19 @@ framework:
                 adapter: cache.app
                 public: true
                 default_lifetime: 3600
+    messenger:
+        transports:
+            async:
+                dsn: 'doctrine://default'
+                retry_strategy:
+                    max_retries: 0
+                    delay: 5000
+                    multiplier: 6
+            failed: 'doctrine://default?queue_name=failed'
+
+        routing:
+            # Route your messages to the transports
+            # 'App\Message\YourMessage': async
 
 # Assetic Configuration
 #assetic:
@@ -125,9 +136,6 @@ liip_imagine:
                 thumbnail: { size : [1600, 500], mode : inbound }
 
 services:
-    templating.name_parser.public:
-        alias: templating.name_parser
-        public: true
     file_locator.public:
         alias: file_locator
         public: true
@@ -247,14 +255,10 @@ services:
         public: true
         arguments:
             - "@twig"
-            - "@templating.name_parser"
-            - "@templating.locator"
 
     translator:
         class: Common\Language
         public: true
-        arguments:
-            - "@translator.selector"
 
     Common\Core\Twig\Extensions\IncludeOnceExtension:
         public: false
@@ -282,3 +286,13 @@ services:
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
             - Common\Doctrine\Entity\Meta
+
+    ForkCMS\App\ForkController:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    messenger:
+        alias: 'Symfony\Component\Messenger\MessageBusInterface'
+        public: true
+

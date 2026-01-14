@@ -21,7 +21,6 @@ use CKSource\CKFinder\Backend\BackendFactory;
 use CKSource\CKFinder\Cache\CacheManager;
 use CKSource\CKFinder\Cache\Adapter\BackendAdapter;
 use CKSource\CKFinder\Event\AfterCommandEvent;
-use CKSource\CKFinder\Event\CKFinderEvent;
 use CKSource\CKFinder\Exception\CKFinderException;
 use CKSource\CKFinder\Exception\InvalidCsrfTokenException;
 use CKSource\CKFinder\Exception\InvalidPluginException;
@@ -45,8 +44,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -69,7 +68,7 @@ class CKFinder extends Container implements HttpKernelInterface
 
     const CHARS = '123456789ABCDEFGHJKLMNPQRSTUVWXYZ';
 
-    protected $plugins = array();
+    protected $plugins = [];
 
     protected $booted = false;
 
@@ -87,9 +86,7 @@ class CKFinder extends Container implements HttpKernelInterface
 
         $app = $this;
 
-        $this['config'] = function () use ($config) {
-            return new Config($config);
-        };
+        $this['config'] = (fn() => new Config($config));
 
         $this['authentication'] = function () use ($app) {
             $config = $app['config'];
@@ -97,15 +94,13 @@ class CKFinder extends Container implements HttpKernelInterface
             return new CallableAuthentication($config->get('authentication'));
         };
 
-        $this['exception_handler'] = function () use ($app) {
-            return new ExceptionHandler($app['translator'], $app['debug'], $app['logger']);
-        };
+        $this['exception_handler'] = (fn() => new ExceptionHandler($app['translator'], $app['debug'], $app['logger']));
 
         $this['dispatcher'] = function () use ($app) {
             $eventDispatcher = new EventDispatcher();
 
-            $eventDispatcher->addListener(KernelEvents::VIEW, array($this, 'createResponse'), -512);
-            $eventDispatcher->addListener(KernelEvents::RESPONSE, array($this, 'afterCommand'), -512);
+            $eventDispatcher->addListener(KernelEvents::VIEW, $this->createResponse(...), -512);
+            $eventDispatcher->addListener(KernelEvents::RESPONSE, $this->afterCommand(...), -512);
 
             $eventDispatcher->addSubscriber($app['exception_handler']);
 
@@ -120,13 +115,9 @@ class CKFinder extends Container implements HttpKernelInterface
             return $commandResolver;
         };
 
-        $this['request_stack'] = function () {
-            return new RequestStack();
-        };
+        $this['request_stack'] = (fn() => new RequestStack());
 
-        $this['request_transformer'] = function () {
-            return new JsonTransformer();
-        };
+        $this['request_transformer'] = (fn() => new JsonTransformer());
 
         $this['working_folder'] = function () use ($app) {
             $workingFolder = new WorkingFolder($app);
@@ -136,13 +127,9 @@ class CKFinder extends Container implements HttpKernelInterface
             return $workingFolder;
         };
 
-        $this['operation'] = function () use ($app) {
-            return new OperationManager($app);
-        };
+        $this['operation'] = (fn() => new OperationManager($app));
 
-        $this['kernel'] = function () use ($app) {
-            return new HttpKernel($app['dispatcher'], $app['resolver'], $app['request_stack']);
-        };
+        $this['kernel'] = (fn() => new HttpKernel($app['dispatcher'], $app['resolver'], $app['request_stack']));
 
         $this['acl'] = function () use ($app) {
             $config = $app['config'];
@@ -155,21 +142,13 @@ class CKFinder extends Container implements HttpKernelInterface
             return $acl;
         };
 
-        $this['backend_factory'] = function () use ($app) {
-            return new BackendFactory($app);
-        };
+        $this['backend_factory'] = (fn() => new BackendFactory($app));
 
-        $this['resource_type_factory'] = function () use ($app) {
-            return new ResourceTypeFactory($app);
-        };
+        $this['resource_type_factory'] = (fn() => new ResourceTypeFactory($app));
 
-        $this['thumbnail_repository'] = function () use ($app) {
-            return new ThumbnailRepository($app);
-        };
+        $this['thumbnail_repository'] = (fn() => new ThumbnailRepository($app));
 
-        $this['resized_image_repository'] = function () use ($app) {
-            return new ResizedImageRepository($app);
-        };
+        $this['resized_image_repository'] = (fn() => new ResizedImageRepository($app));
 
         $this['cache'] = function () use ($app) {
             $cacheBackend = $app['backend_factory']->getPrivateDirBackend('cache');
@@ -178,9 +157,7 @@ class CKFinder extends Container implements HttpKernelInterface
             return new CacheManager(new BackendAdapter($cacheBackend, $cacheDir));
         };
 
-        $this['translator'] = function () {
-            return new Translator();
-        };
+        $this['translator'] = (fn() => new Translator());
 
         $this['debug'] = $app['config']->get('debug');
 
@@ -201,9 +178,7 @@ class CKFinder extends Container implements HttpKernelInterface
         if ($app['config']->get('csrfProtection')) {
             $config = $app['config'];
 
-            $this['csrf_token_validator'] = function () use ($config) {
-                return new DoubleSubmitCookieTokenValidator();
-            };
+            $this['csrf_token_validator'] = (fn() => new DoubleSubmitCookieTokenValidator());
         }
     }
 
@@ -244,17 +219,14 @@ class CKFinder extends Container implements HttpKernelInterface
 
     /**
      * Creates a response.
-     *
-     * @param GetResponseForControllerResultEvent $event
      */
-    public function createResponse(GetResponseForControllerResultEvent $event)
+    public function createResponse(ViewEvent $event)
     {
         /* @var $dispatcher EventDispatcher */
         $dispatcher = $this['dispatcher'];
 
         $commandName = $event->getRequest()->get('command');
-        $eventName = CKFinderEvent::CREATE_RESPONSE_PREFIX . lcfirst($commandName);
-        $dispatcher->dispatch($eventName, $event);
+        $dispatcher->dispatch($event);
 
         $controllerResult = $event->getControllerResult();
         $event->setResponse(JsonResponse::create($controllerResult));
@@ -262,20 +234,15 @@ class CKFinder extends Container implements HttpKernelInterface
 
     /**
      * Fires `afterCommand` events.
-     *
-     * @param FilterResponseEvent $event
-     *
-     * @return \Symfony\Component\HttpFoundation\Response|static
      */
-    public function afterCommand(FilterResponseEvent $event)
+    public function afterCommand(ResponseEvent $event)
     {
         /* @var $dispatcher EventDispatcher */
         $dispatcher = $this['dispatcher'];
 
         $commandName = $event->getRequest()->get('command');
-        $eventName = CKFinderEvent::AFTER_COMMAND_PREFIX . lcfirst($commandName);
         $afterCommandEvent = new AfterCommandEvent($this, $commandName, $event->getResponse());
-        $dispatcher->dispatch($eventName, $afterCommandEvent);
+        $dispatcher->dispatch($afterCommandEvent);
 
         // #161 Clear any garbage from the output
         Response::closeOutputBuffers(0, false);
@@ -303,9 +270,9 @@ class CKFinder extends Container implements HttpKernelInterface
      *
      * @param Request $request request object
      */
-    public function run(Request $request = null)
+    public function run(?Request $request = null)
     {
-        $request = null === $request ? Request::createFromGlobals() : $request;
+        $request ??= Request::createFromGlobals();
 
         /* @var $kernel HttpKernel */
         $kernel = $this['kernel'];
@@ -318,7 +285,7 @@ class CKFinder extends Container implements HttpKernelInterface
 
     /**
      * Returns the BackedFactory service.
-     * 
+     *
      * @return BackendFactory
      */
     public function getBackendFactory()
@@ -352,7 +319,7 @@ class CKFinder extends Container implements HttpKernelInterface
      * @param string $message
      * @param array  $context
      */
-    public function debug($message, array $context = array())
+    public function debug($message, array $context = [])
     {
         $logger = $this['logger'];
 
@@ -373,12 +340,12 @@ class CKFinder extends Container implements HttpKernelInterface
 
         foreach ($pluginsEntries as $pluginInfo) {
             if (is_array($pluginInfo)) {
-                $pluginName = ucfirst($pluginInfo['name']);
+                $pluginName = ucfirst((string) $pluginInfo['name']);
                 if (isset($pluginInfo['path'])) {
                     require_once $pluginInfo['path'];
                 }
             } else {
-                $pluginName = ucfirst($pluginInfo);
+                $pluginName = ucfirst((string) $pluginInfo);
             }
 
             $pluginPath = Path::combine($pluginsDirectory, $pluginName, $pluginName . '.php');
@@ -390,7 +357,7 @@ class CKFinder extends Container implements HttpKernelInterface
             $pluginClassName = CKFinder::PLUGINS_NAMESPACE . $pluginName . '\\' . $pluginName;
 
             if (!class_exists($pluginClassName)) {
-                throw new InvalidPluginException(sprintf('CKFinder plugin "%s" not found (%s)', $pluginName, $pluginClassName), array('pluginName' => $pluginName));
+                throw new InvalidPluginException(sprintf('CKFinder plugin "%s" not found (%s)', $pluginName, $pluginClassName), ['pluginName' => $pluginName]);
             }
 
             $pluginObject = new $pluginClassName($this);
@@ -398,7 +365,7 @@ class CKFinder extends Container implements HttpKernelInterface
             if ($pluginObject instanceof PluginInterface) {
                 $this->registerPlugin($pluginObject);
             } else {
-                throw new InvalidPluginException(sprintf('CKFinder plugin class must implement %sPluginInterface', CKFinder::PLUGINS_NAMESPACE), array('pluginName' => $pluginName));
+                throw new InvalidPluginException(sprintf('CKFinder plugin class must implement %sPluginInterface', CKFinder::PLUGINS_NAMESPACE), ['pluginName' => $pluginName]);
             }
         }
     }
@@ -412,7 +379,7 @@ class CKFinder extends Container implements HttpKernelInterface
     {
         $plugin->setContainer($this);
 
-        $pluginNameParts = explode('\\', get_class($plugin));
+        $pluginNameParts = explode('\\', $plugin::class);
         $pluginName = end($pluginNameParts);
 
         $this['config']->extend($pluginName, $plugin->getDefaultConfig());
@@ -444,11 +411,7 @@ class CKFinder extends Container implements HttpKernelInterface
      */
     public function getPlugin($name)
     {
-        if (isset($this->plugins[$name])) {
-            return $this->plugins[$name];
-        }
-
-        return null;
+        return $this->plugins[$name] ?? null;
     }
 
     /**
@@ -464,7 +427,7 @@ class CKFinder extends Container implements HttpKernelInterface
             throw new CKFinderException(sprintf($errorMessage, 'Your PHP version is too old. CKFinder 3.x requires PHP 5.4+.'), Error::CUSTOM_ERROR);
         }
 
-        $missingExtensions = array();
+        $missingExtensions = [];
 
         if (!function_exists('gd_info')) {
             $missingExtensions[] = 'GD';

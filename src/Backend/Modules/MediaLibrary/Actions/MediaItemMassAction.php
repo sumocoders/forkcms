@@ -55,7 +55,7 @@ class MediaItemMassAction extends BackendBaseAction
                         $this->delete($mediaItem);
                         break;
                 }
-            } catch (MediaItemNotFound $mediaItemNotFound) {
+            } catch (MediaItemNotFound) {
                 // Do nothing
             }
         }
@@ -72,9 +72,9 @@ class MediaItemMassAction extends BackendBaseAction
     }
 
     private function getBackLink(
-        MediaFolder $mediaFolder = null,
+        ?MediaFolder $mediaFolder = null,
         array $parameters = [],
-        Type $selectedType = null
+        ?Type $selectedType = null
     ): string {
         if ($mediaFolder instanceof MediaFolder) {
             $parameters['folder'] = $mediaFolder->getId();
@@ -102,7 +102,7 @@ class MediaItemMassAction extends BackendBaseAction
         try {
             /** @var MediaFolder */
             return $this->get('media_library.repository.folder')->findOneById($id);
-        } catch (MediaFolderNotFound $mediaFolderNotFound) {
+        } catch (MediaFolderNotFound) {
             return null;
         }
     }
@@ -111,7 +111,7 @@ class MediaItemMassAction extends BackendBaseAction
     {
         try {
             return $this->get('media_library.repository.folder')->findOneById($mediaFolderId);
-        } catch (MediaItemNotFound $mediaItemNotFound) {
+        } catch (MediaItemNotFound) {
             $this->redirect(
                 $this->getBackLink(
                     null,
