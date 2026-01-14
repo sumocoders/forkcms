@@ -160,6 +160,7 @@ PHPUnit - Run unit tests:
         - *before_script_test_configuration
         - sed -i -E 's/database\.name:(.*)ci_test$/database.name:\1ci/g' app/config/parameters.yml
         - cat app/config/parameters.yml
+        - php bin/console --no-interaction cache:warmup --env=test
     script:
         - php bin/simple-phpunit --testsuite=unit --log-junit phpunit-unit-report.xml
     artifacts:
