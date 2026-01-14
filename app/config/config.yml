@@ -26,6 +26,19 @@ framework:
                 adapter: cache.app
                 public: true
                 default_lifetime: 3600
+    messenger:
+        transports:
+            async:
+                dsn: 'doctrine://default'
+                retry_strategy:
+                    max_retries: 0
+                    delay: 5000
+                    multiplier: 6
+            failed: 'doctrine://default?queue_name=failed'
+
+        routing:
+            # Route your messages to the transports
+            # 'App\Message\YourMessage': async
 
 # Assetic Configuration
 #assetic:
@@ -278,3 +291,8 @@ services:
         public: true
         autowire: true
         autoconfigure: true
+
+    messenger:
+        alias: 'Symfony\Component\Messenger\MessageBusInterface'
+        public: true
+
