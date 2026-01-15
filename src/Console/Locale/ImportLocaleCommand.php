@@ -25,7 +25,7 @@ class ImportLocaleCommand extends Command
             ->addOption('locale', 'l', InputOption::VALUE_OPTIONAL, 'Only install for a specific locale');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Get input values
         $fileOption = $input->getOption('file');
@@ -48,6 +48,8 @@ class ImportLocaleCommand extends Command
         // Import locale
         $output->writeln('<info>Importing locale....</info>');
         $this->importLocale($localePath, $overwriteOption, $output, $localeOption);
+
+        return Command::SUCCESS;
     }
 
     private function importLocale(

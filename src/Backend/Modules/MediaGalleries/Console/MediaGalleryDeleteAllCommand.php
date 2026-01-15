@@ -45,7 +45,7 @@ class MediaGalleryDeleteAllCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('<info>-Started deleting media galleries.</info>');
 
@@ -53,6 +53,8 @@ class MediaGalleryDeleteAllCommand extends Command
         $this->deleteMediaGalleries();
 
         $output->writeln('<info>-Finished deleting media galleries.</info>');
+
+        return Command::SUCCESS;
     }
 
     private function checkOptions(InputInterface $input): void
