@@ -25,7 +25,7 @@ cache: &global_cache
 
 .before_script_test_template: &before_script_test_configuration
     # import test DB
-    - mysql -h mysql -u root -proot ci_test < tests/data/test_db.sql
+    - mysql -h mysql -u root -proot ci_test --ssl-verify-server-cert=false < tests/data/test_db.sql
     # make sure bundle.js exists
     - touch src/Frontend/Core/Js/bundle.js
     # generate correct parameters.yml
