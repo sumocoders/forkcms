@@ -62,10 +62,6 @@ Install dependencies and build assets:
 # Code Quality section
 PHP_CodeSniffer - check code styling:
     image: sumocoders/fork-php85:latest
-    services:
-        - mysql:8.0
-    before_script:
-        - *before_script_test_configuration
     script:
         - php bin/phpcs --colors --report-full --report-\\Micheh\\PhpCodeSniffer\\Report\\Gitlab=phpcs-report.json
     artifacts:
@@ -76,8 +72,6 @@ PHP_CodeSniffer - check code styling:
     needs: ["Install dependencies and build assets"]
     tags:
         - docker
-    variables:
-        <<: *mysql_configuration
     allow_failure: true
 
 PHPStan - check for bugs:
