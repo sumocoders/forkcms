@@ -72,7 +72,6 @@ PHP_CodeSniffer - check code styling:
     needs: ["Install dependencies and build assets"]
     tags:
         - docker
-    allow_failure: true
 
 PHPStan - check for bugs:
     image: sumocoders/fork-php85:latest
