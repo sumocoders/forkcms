@@ -164,6 +164,17 @@ NPM packages - check for vulnerabilities:
         - docker
     allow_failure: true
 
+PHP packages - composer audit:
+    image: sumocoders/cli-tools-php85:latest
+    script:
+        - composer audit --ansi --no-interaction
+    stage: dependency scanning
+    needs: [ "Install dependencies and build assets" ]
+    tags:
+        - docker
+    allow_failure: true
+
+
 PHP packages - composer outdated:
     image: sumocoders/cli-tools-php85:latest
     script:
