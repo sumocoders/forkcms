@@ -139,18 +139,15 @@ Stylelint - check code styling:
     allow_failure: true
 
 StandardJS - check code styling:
-    image: sumocoders/cli-tools-php85:latest
+    image: sumocoders/standardjs:latest
     script:
-        - php bin/convert-to-junit-xml convert:standardjs "$(node_modules/.bin/standard)" > standardjs-report.xml
-    after_script:
-        # Run it again so the output is visible in the job
-        - node_modules/.bin/standard
+        - sh -c 'standard . | standard-gitlab --output-file standardjs-report.json --human-readable'
     artifacts:
         expire_in: 1 week
         reports:
-            junit: standardjs-report.xml
+            codequality: standardjs-report.json
     stage: code quality
-    needs: ["Install dependencies and build assets"]
+    needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
     allow_failure: true
