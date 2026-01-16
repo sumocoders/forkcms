@@ -4,11 +4,9 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-
-// scss-docs-start import-stack
 // Configuration
-//@import "bootstrap5/scss/functions";
-//@import "bootstrap5/scss/variables";
+// @import "bootstrap5/scss/functions";
+// @import "bootstrap5/scss/variables";
 @import "bootstrap5/scss/mixins";
 @import "bootstrap5/scss/utilities";
 
@@ -49,4 +47,3 @@
 
 // Utilities
 @import "bootstrap5/scss/utilities/api";
-// scss-docs-end import-stack
