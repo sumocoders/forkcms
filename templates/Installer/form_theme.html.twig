@@ -1,4 +1,4 @@
-{% extends "form_div_layout.html.twig" %}
+{% extends 'form_div_layout.html.twig' %}
 {# Widgets #}
 {% block form_widget_simple -%}
   {% if type is not defined or 'file' != type %}
@@ -18,11 +18,11 @@
   <div class="input-group">
     {% set prepend = '{{' == money_pattern[0:2] %}
     {% if not prepend %}
-      <span class="input-group-addon">{{ money_pattern|replace({ '{{ widget }}':''}) }}</span>
+      <span class="input-group-addon">{{ money_pattern|replace({'{{ widget }}': ''}) }}</span>
     {% endif %}
     {{- block('form_widget_simple') -}}
     {% if prepend %}
-      <span class="input-group-addon">{{ money_pattern|replace({ '{{ widget }}':''}) }}</span>
+      <span class="input-group-addon">{{ money_pattern|replace({'{{ widget }}': ''}) }}</span>
     {% endif %}
   </div>
 {%- endblock money_widget %}
@@ -40,8 +40,8 @@
     <div {{ block('widget_container_attributes') }}>
       {{ form_errors(form.date) }}
       {{ form_errors(form.time) }}
-      {{ form_widget(form.date, { datetime: true }) }}&nbsp;
-      {{ form_widget(form.time, { datetime: true }) }}
+      {{ form_widget(form.date, {datetime: true}) }}&nbsp;
+      {{ form_widget(form.time, {datetime: true}) }}
     </div>
   {% endif %}
 {%- endblock datetime_widget %}
@@ -104,20 +104,20 @@
 {% block checkbox_widget -%}
   {% set parent_label_class = parent_label_class|default('') %}
   {% if 'checkbox-inline' in parent_label_class %}
-    {{ form_label(form, null, { widget: parent() }) }}
+    {{ form_label(form, null, {widget: parent()}) }}
   {% else %}
     <div class="checkbox">
-      {{ form_label(form, null, { widget: parent() }) }}
+      {{ form_label(form, null, {widget: parent()}) }}
     </div>
   {% endif %}
 {%- endblock checkbox_widget %}
 {% block radio_widget -%}
   {% set parent_label_class = parent_label_class|default('') %}
   {% if 'radio-inline' in parent_label_class %}
-    {{ form_label(form, null, { widget: parent() }) }}
+    {{ form_label(form, null, {widget: parent()}) }}
   {% else %}
     <div class="radio">
-      {{ form_label(form, null, { widget: parent() }) }}
+      {{ form_label(form, null, {widget: parent()}) }}
     </div>
   {% endif %}
 {%- endblock radio_widget %}
