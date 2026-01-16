@@ -35,5 +35,8 @@ docker-compose.override.yml
 # phpunit cache
 /.phpunit.result.cache
 
-#phpcs cacge
+# phpcs cache
 /.phpcs-cache
+
+# Twig CS Fixer cache
+/.twig-cs-fixer.cache

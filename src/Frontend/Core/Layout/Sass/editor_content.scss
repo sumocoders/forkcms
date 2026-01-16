@@ -5,6 +5,7 @@ body {
   cursor: text;
   font-size: 16px; // min height so we can work with rems and not have super tiny text in the editors
   height: 100%;
+  /* stylelint-disable-next-line value-keyword-case */
   height: expression((window) && ((document.documentElement.clientHeight - 6) + "px"));
   height: auto;
   margin: 0;
