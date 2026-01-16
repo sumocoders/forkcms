@@ -98,7 +98,6 @@ PHPStan - check for bugs:
         - docker
     variables:
         <<: *mysql_configuration
-    allow_failure: true
 
 StandardJS - check code styling:
     image: sumocoders/cli-tools-php85:latest
