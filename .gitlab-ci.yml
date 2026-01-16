@@ -119,6 +119,25 @@ Twig-CS-Fixer - check code styling:
         - docker
     allow_failure: true
 
+Stylelint - check code styling:
+    image: sumocoders/stylelint:latest
+    script:
+        - stylelint --output-file=stylelint-report.json --custom-formatter=stylelint-formatter-gitlab-code-quality-report .
+    after_script:
+        - >
+            if [ $CI_JOB_STATUS != 'success' ]; then
+              stylelint --color .
+            fi
+    artifacts:
+        expire_in: 1 week
+        reports:
+            codequality: stylelint-report.json
+    stage: code quality
+    needs: [ "Install dependencies and build assets" ]
+    tags:
+        - docker
+    allow_failure: true
+
 StandardJS - check code styling:
     image: sumocoders/cli-tools-php85:latest
     script:
