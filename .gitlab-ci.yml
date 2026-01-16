@@ -157,16 +157,9 @@ StandardJS - check code styling:
 NPM packages - check for vulnerabilities:
     image: sumocoders/cli-tools-php85:latest
     script:
-        - php bin/convert-to-junit-xml convert:npm-audit "$(npm audit --production --json)" > npm-audit-report.xml
-    after_script:
-        # Run it again so the output is visible in the job output
         - npm audit --production
-    artifacts:
-        expire_in: 1 week
-        reports:
-            junit: npm-audit-report.xml
     stage: dependency scanning
-    needs: ["Install dependencies and build assets"]
+    needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
     allow_failure: true
