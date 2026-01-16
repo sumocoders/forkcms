@@ -99,6 +99,26 @@ PHPStan - check for bugs:
     variables:
         <<: *mysql_configuration
 
+Twig-CS-Fixer - check code styling:
+    image: sumocoders/cli-tools-php85:latest
+    script:
+        - php bin/twig-cs-fixer lint templates/ --report=junit > twigcs-report.xml
+    after_script:
+        # Run it again so the output is visible in the job
+        - >
+            if [ $CI_JOB_STATUS != 'success' ]; then
+              php bin/twig-cs-fixer --no-interaction lint templates/
+            fi
+    artifacts:
+        expire_in: 1 week
+        reports:
+            junit: twigcs-report.xml
+    stage: code quality
+    needs: [ "Install dependencies and build assets" ]
+    tags:
+        - docker
+    allow_failure: true
+
 StandardJS - check code styling:
     image: sumocoders/cli-tools-php85:latest
     script:

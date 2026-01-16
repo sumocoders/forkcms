@@ -78,7 +78,8 @@
         "deployer/deployer": "^7.0",
         "deployer/recipes": "^6.2",
         "tijsverkoyen/deployer-sumo": "^3.1",
-        "micheh/phpcs-gitlab": "^2.1"
+        "micheh/phpcs-gitlab": "^2.1",
+        "vincentlanglet/twig-cs-fixer": "^3.12"
     },
     "config": {
         "bin-dir": "bin",
