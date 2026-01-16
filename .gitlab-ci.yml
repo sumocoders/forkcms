@@ -26,7 +26,7 @@ cache: &global_cache
 
 .before_script_test_template: &before_script_test_configuration
     # import test DB
-    - mysql -h mysql -u root -proot ci_test < tests/data/test_db.sql
+    - mysql -h mysql -u root -proot ci_test --ssl-verify-server-cert=false < tests/data/test_db.sql
     # make sure bundle.js exists
     - touch src/Frontend/Core/Js/bundle.js
     # generate correct parameters.yml
@@ -70,7 +70,7 @@ PHP_CodeSniffer - check code styling:
         reports:
             junit: phpcs-report.json
     stage: code quality
-    needs: ["Install dependencies and build assets"]
+    needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
 
@@ -94,7 +94,7 @@ PHPStan - check for bugs:
         reports:
             junit: phpstan-report.json
     stage: code quality
-    needs: ["Install dependencies and build assets"]
+    needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
     variables:
@@ -191,7 +191,7 @@ PHP packages - composer outdated:
     image: sumocoders/cli-tools-php85:latest
     script:
         - composer outdated --ansi --no-interaction
-    stage: dependency scanning
+    stage: outdated packages
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -214,7 +214,7 @@ PHPUnit - Run unit tests:
         reports:
             junit: phpunit-unit-report.xml
     stage: test
-    needs: ["Install dependencies and build assets"]
+    needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
     variables:
