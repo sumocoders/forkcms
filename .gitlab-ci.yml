@@ -2,6 +2,7 @@ stages:
     - build
     - code quality
     - dependency scanning
+    - outdated packages
     - test
 
 
@@ -174,6 +175,17 @@ PHP packages - composer audit:
         - docker
     allow_failure: true
 
+
+# Outdated packages Scanning section
+NPM packages - check for outdated packages:
+    image: sumocoders/cli-tools-php85:latest
+    script:
+        - npm outdated --production
+    stage: outdated packages
+    needs: [ "Install dependencies and build assets" ]
+    tags:
+        - docker
+    allow_failure: true
 
 PHP packages - composer outdated:
     image: sumocoders/cli-tools-php85:latest
