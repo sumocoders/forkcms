@@ -67,11 +67,11 @@ PHP_CodeSniffer - check code styling:
     before_script:
         - *before_script_test_configuration
     script:
-        - php bin/phpcs --report-full --report-junit=phpcs-report.xml
+        - php bin/phpcs --colors --report-full --report-\\Micheh\\PhpCodeSniffer\\Report\\Gitlab=phpcs-report.json
     artifacts:
         expire_in: 1 week
         reports:
-            junit: phpcs-report.xml
+            junit: phpcs-report.json
     stage: code quality
     needs: ["Install dependencies and build assets"]
     tags:
