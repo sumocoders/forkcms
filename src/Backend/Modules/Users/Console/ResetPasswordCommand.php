@@ -21,7 +21,7 @@ class ResetPasswordCommand extends Command
             ->addArgument('password', InputArgument::OPTIONAL, '(Optional) The desired new password');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $helper = $this->getHelper('question');
 
@@ -41,7 +41,7 @@ class ResetPasswordCommand extends Command
                 sprintf('<error>User not found with email-address "%s".</error>', $questionEmailAddressAnswer)
             );
 
-            return;
+            return Command::FAILURE;
         }
 
         $questionPassword = new Question('Please provide the users new desired password: ');
@@ -58,5 +58,7 @@ class ResetPasswordCommand extends Command
         );
 
         $output->writeln('Password has been updated');
+
+        return Command::SUCCESS;
     }
 }
