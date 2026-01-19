@@ -1,7 +1,6 @@
 // Variables
 // Variables should follow the `$component-state-property-size` formula for
 // consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
-
 // Color system
 $white: #fff;
 $gray-100: #f8f9fa;
@@ -331,7 +330,6 @@ $enable-deprecation-messages: true;
 $enable-important-utilities: true;
 $enable-dark-mode: false;
 $color-mode-type: data; // `data` or `media-query`
-
 // Prefix for :root CSS variables
 $variable-prefix: bs-; // Deprecated in v5.2.0 for the shorter `$prefix`
 $prefix: $variable-prefix;
@@ -470,7 +468,6 @@ $transition-fade: opacity .15s linear;
 $transition-collapse: height .35s ease;
 $transition-collapse-width: width .35s ease;
 
-
 // stylelint-disable function-disallowed-list
 $aspect-ratios: (
   "1x1": 100%,
@@ -478,13 +475,14 @@ $aspect-ratios: (
   "16x9": calc(9 / 16 * 100%),
   "21x9": calc(9 / 21 * 100%)
 );
+
 // stylelint-enable function-disallowed-list
 // Typography
 // Font, line-height, and color for body text, headings, and more.
+
 // stylelint-disable value-keyword-case
 $font-family-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-
 // stylelint-enable value-keyword-case
 $font-family-base: var(--#{$prefix}font-sans-serif);
 $font-family-code: var(--#{$prefix}font-monospace);
@@ -844,7 +842,7 @@ $form-validation-states: (
     "icon": $form-feedback-icon-valid,
     "tooltip-color": #fff,
     "tooltip-bg-color": var(--#{$prefix}success),
-    "focus-box-shadow": 0 0 $input-btn-focus-blur $input-focus-width rgb(var(--#{$prefix}success-rgb), $input-btn-focus-color-opacity),
+    "focus-box-shadow": 0 0 $input-btn-focus-blur $input-focus-width rgba(var(--#{$prefix}success-rgb), $input-btn-focus-color-opacity), // stylelint-disable-line color-function-alias-notation
     "border-color": var(--#{$prefix}form-valid-border-color),
   ),
   "invalid": (
@@ -852,7 +850,7 @@ $form-validation-states: (
     "icon": $form-feedback-icon-invalid,
     "tooltip-color": #fff,
     "tooltip-bg-color": var(--#{$prefix}danger),
-    "focus-box-shadow": 0 0 $input-btn-focus-blur $input-focus-width rgb(var(--#{$prefix}danger-rgb), $input-btn-focus-color-opacity),
+    "focus-box-shadow": 0 0 $input-btn-focus-blur $input-focus-width rgba(var(--#{$prefix}danger-rgb), $input-btn-focus-color-opacity), // stylelint-disable-line color-function-alias-notation
     "border-color": var(--#{$prefix}form-invalid-border-color),
   )
 );
@@ -919,13 +917,13 @@ $navbar-toggler-font-size: $font-size-lg;
 $navbar-toggler-border-radius: $btn-border-radius;
 $navbar-toggler-focus-width: $btn-focus-width;
 $navbar-toggler-transition: box-shadow .15s ease-in-out;
-$navbar-light-color: rgb(var(--#{$prefix}emphasis-color-rgb), .65);
-$navbar-light-hover-color: rgb(var(--#{$prefix}emphasis-color-rgb), .8);
-$navbar-light-active-color: rgb(var(--#{$prefix}emphasis-color-rgb), 1);
-$navbar-light-disabled-color: rgb(var(--#{$prefix}emphasis-color-rgb), .3);
+$navbar-light-color: rgba(var(--#{$prefix}emphasis-color-rgb), .65); // stylelint-disable-line color-function-alias-notation
+$navbar-light-hover-color: rgba(var(--#{$prefix}emphasis-color-rgb), .8); // stylelint-disable-line color-function-alias-notation
+$navbar-light-active-color: rgba(var(--#{$prefix}emphasis-color-rgb), 1); // stylelint-disable-line color-function-alias-notation
+$navbar-light-disabled-color: rgba(var(--#{$prefix}emphasis-color-rgb), .3); // stylelint-disable-line color-function-alias-notation
 $navbar-light-icon-color: rgba($body-color, .75);
 $navbar-light-toggler-icon-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-icon-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
-$navbar-light-toggler-border-color: rgb(var(--#{$prefix}emphasis-color-rgb), .15);
+$navbar-light-toggler-border-color: rgba(var(--#{$prefix}emphasis-color-rgb), .15); // stylelint-disable-line color-function-alias-notation
 $navbar-light-brand-color: $navbar-light-active-color;
 $navbar-light-brand-hover-color: $navbar-light-active-color;
 $navbar-dark-color: rgba($white, .55);
@@ -939,6 +937,7 @@ $navbar-dark-brand-color: $navbar-dark-active-color;
 $navbar-dark-brand-hover-color: $navbar-dark-active-color;
 
 // Dropdowns
+// Dropdown menu container and contents.
 $dropdown-min-width: 10rem;
 $dropdown-padding-x: 0;
 $dropdown-padding-y: .5rem;
@@ -1026,7 +1025,7 @@ $card-box-shadow: null;
 $card-inner-border-radius: subtract($card-border-radius, $card-border-width);
 $card-cap-padding-y: $card-spacer-y * .5;
 $card-cap-padding-x: $card-spacer-x;
-$card-cap-bg: rgb(var(--#{$prefix}body-color-rgb), .03);
+$card-cap-bg: rgba(var(--#{$prefix}body-color-rgb), .03); // stylelint-disable-line color-function-alias-notation
 $card-cap-color: null;
 $card-height: null;
 $card-color: null;
@@ -1114,14 +1113,14 @@ $toast-padding-x: .75rem;
 $toast-padding-y: .5rem;
 $toast-font-size: .875rem;
 $toast-color: null;
-$toast-background-color: rgb(var(--#{$prefix}body-bg-rgb), .85);
+$toast-background-color: rgba(var(--#{$prefix}body-bg-rgb), .85); // stylelint-disable-line color-function-alias-notation
 $toast-border-width: var(--#{$prefix}border-width);
 $toast-border-color: var(--#{$prefix}border-color-translucent);
 $toast-border-radius: var(--#{$prefix}border-radius);
 $toast-box-shadow: var(--#{$prefix}box-shadow);
 $toast-spacing: $container-padding-x;
 $toast-header-color: var(--#{$prefix}secondary-color);
-$toast-header-background-color: rgb(var(--#{$prefix}body-bg-rgb), .85);
+$toast-header-background-color: rgba(var(--#{$prefix}body-bg-rgb), .85); // stylelint-disable-line color-function-alias-notation
 $toast-header-border-color: $toast-border-color;
 
 // Badges
@@ -1231,7 +1230,7 @@ $breadcrumb-margin-bottom: 1rem;
 $breadcrumb-bg: null;
 $breadcrumb-divider-color: var(--#{$prefix}secondary-color);
 $breadcrumb-active-color: var(--#{$prefix}secondary-color);
-$breadcrumb-divider: quote("/"); /* stylelint-disable-line scss/function-quote-no-quoted-strings-inside */
+$breadcrumb-divider: quote("/"); // stylelint-disable-line scss/function-quote-no-quoted-strings-inside
 $breadcrumb-divider-flipped: $breadcrumb-divider;
 $breadcrumb-border-radius: null;
 
