@@ -258,7 +258,6 @@ before('fork:migrations:database:run', 'fork:migrations:locale:run');
 before('fork:migrations:database:run', 'fork:database:backup');
 
 // Build and upload theme
-before('fork:theme:build', 'sumo:assets:fix-node-version');
 after('deploy:update_code', 'fork:theme:build');
 after('fork:theme:build', 'fork:theme:upload');
 // Clear Fork CMS cache after deploy
