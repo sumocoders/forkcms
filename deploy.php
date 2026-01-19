@@ -62,7 +62,6 @@ host('dev03.sumocoders.eu')
 //    ->set('deploy_path', '~/wwwroot')
 //    ->set('branch', 'master')
 //    ->set('bin/php', '$phpBinary')
-//    ->set('bin/cachetool', '/data/vhosts/{{user}}/wwwroot/shared/cachetool-8.6.1.phar')
 //    ->set('cachetool', '/data/vhosts/{{user}}/.sock/$sockFile --tmp-dir=/data/vhosts/{{user}}/.temp')
 //    ->set('document_root', '~/wwwroot/www')
 //    ->set('keep_releases', 3);
