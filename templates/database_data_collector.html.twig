@@ -11,7 +11,7 @@
       <span>{{ collector.querycount }}</span>
     </div>
   {% endset %}
-  {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': profiler_url } %}
+  {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', {link: profiler_url}) }}
 {% endblock %}
 
 {% block menu %}
@@ -37,7 +37,7 @@
         {% for i, query in collector.queries %}
           <tr class="">
           <{{ cycle(['th', 'td'], i) }}>
-          {{ query.query_formatted | raw }}<br />
+          {{ query.query_formatted|raw }}<br />
           <small>
             <strong>Parameters:</strong>
             [

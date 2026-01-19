@@ -1,12 +1,10 @@
+/* stylelint-disable-next-line selector-id-pattern */
 #privacyConsentDialog {
   position: fixed;
   display: block;
   height: auto;
   max-height: calc(100vh - env(safe-area-inset-bottom));
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  inset: 0;
   width: 100vw;
   z-index: $zindex-modal - 1;
   overflow-y: auto;
@@ -24,7 +22,7 @@
     }
 
     .modal-header, .modal-body, .modal-footer {
-      padding: 1rem 1rem;
+      padding: 1rem;
     }
   }
 

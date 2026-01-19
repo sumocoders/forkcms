@@ -1,6 +1,7 @@
 .splide {
   margin-bottom: 2rem;
 
+  /* stylelint-disable-next-line selector-class-pattern */
   .splide__slide {
     > div {
       height: 100%;
@@ -14,6 +15,7 @@
     }
   }
 
+  /* stylelint-disable-next-line selector-class-pattern */
   .splide__pagination {
     bottom: -1.5rem;
 

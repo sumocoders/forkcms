@@ -2,6 +2,7 @@ stages:
     - build
     - code quality
     - dependency scanning
+    - outdated packages
     - test
 
 
@@ -62,23 +63,16 @@ Install dependencies and build assets:
 # Code Quality section
 PHP_CodeSniffer - check code styling:
     image: sumocoders/fork-php85:latest
-    services:
-        - mysql:8.0
-    before_script:
-        - *before_script_test_configuration
     script:
-        - php bin/phpcs --report-full --report-junit=phpcs-report.xml
+        - php bin/phpcs --colors --report-full --report-\\Micheh\\PhpCodeSniffer\\Report\\Gitlab=phpcs-report.json
     artifacts:
         expire_in: 1 week
         reports:
-            junit: phpcs-report.xml
+            junit: phpcs-report.json
     stage: code quality
-    needs: ["Install dependencies and build assets"]
+    needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
-    variables:
-        <<: *mysql_configuration
-    allow_failure: true
 
 PHPStan - check for bugs:
     image: sumocoders/fork-php85:latest
@@ -88,35 +82,73 @@ PHPStan - check for bugs:
         - *before_script_test_configuration
         - php bin/console cache:warmup --no-interaction --env=dev
     script:
-        - php bin/phpstan analyze --memory-limit=-1 --error-format=junit --no-progress > phpstan-report.xml
+        - php bin/phpstan analyse --memory-limit=-1 --error-format=gitlab --no-progress --no-interaction > phpstan-report.json
     after_script:
         # Run it again so the output is visible in the job
-        - php bin/phpstan analyze --memory-limit=-1 --no-progress
+        - >
+            if [ $CI_JOB_STATUS != 'success' ]; then
+              php bin/phpstan analyse --memory-limit=-1 --no-progress
+            fi
     artifacts:
         expire_in: 1 week
         reports:
-            junit: phpstan-report.xml
+            junit: phpstan-report.json
     stage: code quality
-    needs: ["Install dependencies and build assets"]
+    needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
     variables:
         <<: *mysql_configuration
-    allow_failure: true
 
-StandardJS - check code styling:
+Twig-CS-Fixer - check code styling:
     image: sumocoders/cli-tools-php85:latest
     script:
-        - php bin/convert-to-junit-xml convert:standardjs "$(node_modules/.bin/standard)" > standardjs-report.xml
+        - php bin/twig-cs-fixer lint templates/ --report=junit > twigcs-report.xml
     after_script:
         # Run it again so the output is visible in the job
-        - node_modules/.bin/standard
+        - >
+            if [ $CI_JOB_STATUS != 'success' ]; then
+              php bin/twig-cs-fixer --no-interaction lint templates/
+            fi
     artifacts:
         expire_in: 1 week
         reports:
-            junit: standardjs-report.xml
+            junit: twigcs-report.xml
     stage: code quality
-    needs: ["Install dependencies and build assets"]
+    needs: [ "Install dependencies and build assets" ]
+    tags:
+        - docker
+    allow_failure: true
+
+Stylelint - check code styling:
+    image: sumocoders/stylelint:latest
+    script:
+        - stylelint --output-file=stylelint-report.json --custom-formatter=stylelint-formatter-gitlab-code-quality-report .
+    after_script:
+        - >
+            if [ $CI_JOB_STATUS != 'success' ]; then
+              stylelint --color .
+            fi
+    artifacts:
+        expire_in: 1 week
+        reports:
+            codequality: stylelint-report.json
+    stage: code quality
+    needs: [ "Install dependencies and build assets" ]
+    tags:
+        - docker
+    allow_failure: true
+
+StandardJS - check code styling:
+    image: sumocoders/standardjs:latest
+    script:
+        - sh -c 'standard . | standard-gitlab --output-file standardjs-report.json --human-readable'
+    artifacts:
+        expire_in: 1 week
+        reports:
+            codequality: standardjs-report.json
+    stage: code quality
+    needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
     allow_failure: true
@@ -126,16 +158,31 @@ StandardJS - check code styling:
 NPM packages - check for vulnerabilities:
     image: sumocoders/cli-tools-php85:latest
     script:
-        - php bin/convert-to-junit-xml convert:npm-audit "$(npm audit --production --json)" > npm-audit-report.xml
-    after_script:
-        # Run it again so the output is visible in the job output
         - npm audit --production
-    artifacts:
-        expire_in: 1 week
-        reports:
-            junit: npm-audit-report.xml
     stage: dependency scanning
-    needs: ["Install dependencies and build assets"]
+    needs: [ "Install dependencies and build assets" ]
+    tags:
+        - docker
+    allow_failure: true
+
+PHP packages - composer audit:
+    image: sumocoders/cli-tools-php85:latest
+    script:
+        - composer audit --ansi --no-interaction
+    stage: dependency scanning
+    needs: [ "Install dependencies and build assets" ]
+    tags:
+        - docker
+    allow_failure: true
+
+
+# Outdated packages Scanning section
+NPM packages - check for outdated packages:
+    image: sumocoders/cli-tools-php85:latest
+    script:
+        - npm outdated --production
+    stage: outdated packages
+    needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
     allow_failure: true
@@ -144,7 +191,7 @@ PHP packages - composer outdated:
     image: sumocoders/cli-tools-php85:latest
     script:
         - composer outdated --ansi --no-interaction
-    stage: dependency scanning
+    stage: outdated packages
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -167,7 +214,7 @@ PHPUnit - Run unit tests:
         reports:
             junit: phpunit-unit-report.xml
     stage: test
-    needs: ["Install dependencies and build assets"]
+    needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
     variables:
