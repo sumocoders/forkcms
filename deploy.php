@@ -3,7 +3,6 @@
 namespace Deployer;
 
 use Symfony\Component\Yaml\Yaml;
-use TijsVerkoyen\DeployerSumo\Utility\Path;
 
 require 'recipe/symfony.php';
 require 'contrib/cachetool.php';
