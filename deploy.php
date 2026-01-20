@@ -32,7 +32,7 @@ host('dev03.sumocoders.eu')
 
 // Define production
 //host('$host')
-//    ->setRemoteUser('{{user}}')
+//    ->setRemoteUser('{{production_user}}')
 //    ->set('labels', ['stage' => 'production'])
 //    ->setPort(2244)
 //    ->set('deploy_path', '~/wwwroot')
