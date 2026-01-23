@@ -24,6 +24,7 @@ jobs:
                 uses: actions/cache@v5
                 with:
                     path: |
+                        .env.local
                         app/config/parameters.yml
                         bin
                         css
@@ -87,6 +88,7 @@ jobs:
                 uses: actions/cache/restore@v4
                 with:
                     path: |
+                        .env.local
                         app/config/parameters.yml
                         bin
                         css
@@ -122,3 +124,71 @@ jobs:
             -   name: Run PHP Codesniffer
                 run: php bin/phpcs --colors --report-full
 
+    phpstan:
+        name: "PHPStan - check for bugs"
+        runs-on: ubuntu-latest
+        needs: install_dependencies_and_build_assets
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                    MYSQL_DATABASE: ci_test
+                    MYSQL_ROOT_PASSWORD: root
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        steps:
+            -   uses: actions/checkout@v5
+
+            -   name: Restore cached dependencies
+                uses: actions/cache/restore@v4
+                with:
+                    path: |
+                        .env.local
+                        app/config/parameters.yml
+                        bin
+                        css
+                        fonts
+                        images
+                        js
+                        node_modules
+                        vendor
+                    key: ${{ runner.os }}-pipeline-${{ github.run_id }}
+
+            -   name: Setup cache environment
+                id: extcache
+                uses: shivammathur/cache-extensions@v1
+                with:
+                    php-version: ${{ env.php_version }}
+                    extensions: ${{ env.php_extensions }}
+                    key: ${{ env.php_extensions_key }}
+
+            -   name: Cache extensions
+                uses: actions/cache@v4
+                with:
+                    path: ${{ steps.extcache.outputs.dir }}
+                    key: ${{ steps.extcache.outputs.key }}
+                    restore-keys: ${{ steps.extcache.outputs.key }}
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ env.php_version }}
+                    extensions: ${{ env.php_extensions }}
+                    coverage: none
+
+            -   name: Configure test environment
+                run: |
+                    mysql -h 127.0.0.1 -u root -proot ci_test < tests/data/test_db.sql
+                    touch src/Frontend/Core/Js/bundle.js
+                    php bin/generate-parameters-gitlab
+                    cp app/config/parameters.yml.gitlab app/config/parameters.yml
+                    sed -i -E 's/database\.name:(.*)ci$/database.name:\1ci_test/g' app/config/parameters.yml
+                    sed -i -E 's/database\.host:(.*)mysql$/database.host:\1127.0.0.1/g' app/config/parameters.yml
+                    php bin/console --no-interaction assets:install .
+                    php bin/console --no-interaction forkcms:cache:clear --env=dev
+                    php bin/console --no-interaction cache:warmup --env=dev
+
+            -   name: Run PHPStan
+                run: |
+                    php bin/phpstan analyse --memory-limit=-1 --no-progress --no-interaction
