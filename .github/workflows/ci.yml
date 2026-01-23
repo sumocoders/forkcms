@@ -1,0 +1,97 @@
+name: CI
+
+on:
+    push:
+        branches:
+            - master
+    pull_request: ~
+    workflow_dispatch: ~
+
+env:
+    php_version: 8.5
+    php_extensions: json zip gd intl simplexml
+    php_extensions_key: cache-v1 # can be any string, change to clear the extension cache.
+
+jobs:
+    # Build section
+    install_dependencies_and_build_assets:
+        name: "Install dependencies and build assets"
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v5
+
+            -   name: Cache dependencies
+                uses: actions/cache@v5
+                with:
+                    path: |
+                        app/config/parameters.yml
+                        bin
+                        css
+                        fonts
+                        images
+                        js
+                        node_modules
+                        vendor
+                    key: ${{ runner.os }}-pipeline-${{ github.run_id }}
+
+            -   name: Setup cache environment
+                id: extcache
+                uses: shivammathur/cache-extensions@v1
+                with:
+                    php-version: ${{ env.php_version }}
+                    extensions: ${{ env.php_extensions }}
+                    key: ${{ env.php_extensions_key }}
+
+            -   name: Cache extensions
+                uses: actions/cache@v4
+                with:
+                    path: ${{ steps.extcache.outputs.dir }}
+                    key: ${{ steps.extcache.outputs.key }}
+                    restore-keys: ${{ steps.extcache.outputs.key }}
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ env.php_version }}
+                    extensions: ${{ env.php_extensions }}
+                    coverage: none
+
+            -   name: Install Composer packages
+                run: composer install --no-scripts
+
+            -   name: Copy parameters.yml
+                run: cp app/config/parameters.yml.dist app/config/parameters.yml
+
+            -   name: Generate .env.local
+                run: |
+                    echo 'FORK_ENV=dev' >> .env.local
+                    echo 'FORK_DEBUG=true' >> .env.local
+
+            -   name: Install NPM packages
+                run: npm ci
+
+            -   name: Build assets
+                run: |
+                    node_modules/.bin/gulp build
+                    npm run build
+
+
+
+
+## Build section
+#Install dependencies and build assets:
+#    image: sumocoders/cli-tools-php85:latest
+#    script:
+#        - COMPOSER_MEMORY_LIMIT=-1 composer install --no-scripts --no-progress
+#        - cp app/config/parameters.yml.dist app/config/parameters.yml
+#        - echo 'FORK_ENV=dev' >> .env.local
+#        - echo 'FORK_DEBUG=true' >> .env.local
+#        - npm install --no-progress
+#        - node_modules/.bin/gulp build
+#    #        - npm run build
+#    cache:
+#        <<: *global_cache
+#        policy: pull-push
+#    stage: build
+#    tags:
+#        - docker
