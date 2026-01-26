@@ -55,6 +55,11 @@ jobs:
                     extensions: ${{ env.php_extensions }}
                     coverage: none
 
+            -   name: Setup node
+                uses: actions/setup-node@v6
+                with:
+                    node-version-file: 'package.json'
+
             -   name: Install Composer packages
                 run: composer install --no-scripts
 
@@ -314,6 +319,11 @@ jobs:
                         vendor
                     key: ${{ runner.os }}-pipeline-${{ github.run_id }}
 
+            -   name: Setup node
+                uses: actions/setup-node@v6
+                with:
+                    node-version-file: 'package.json'
+
             -   name: Run npm audit
                 run: npm audit --production
 
@@ -387,6 +397,11 @@ jobs:
                         node_modules
                         vendor
                     key: ${{ runner.os }}-pipeline-${{ github.run_id }}
+
+            -   name: Setup node
+                uses: actions/setup-node@v6
+                with:
+                    node-version-file: 'package.json'
 
             -   name: Run npm outdated
                 run: npm outdated --production
