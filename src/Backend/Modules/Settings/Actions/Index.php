@@ -3,7 +3,6 @@
 namespace Backend\Modules\Settings\Actions;
 
 use ForkCMS\Privacy\ConsentDialog;
-use ForkCMS\Utility\Akismet;
 use SpoonFilter;
 use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
 use Backend\Core\Engine\Form as BackendForm;
@@ -29,7 +28,6 @@ class Index extends BackendBaseActionIndex
      *
      * @var bool
      */
-    private $needsAkismet;
     private $needsGoogleMaps;
     private $needsGoogleRecaptcha;
 
@@ -38,12 +36,10 @@ class Index extends BackendBaseActionIndex
         parent::execute();
 
         // get some data
-        $modulesThatRequireAkismet = BackendExtensionsModel::getModulesThatRequireAkismet();
         $modulesThatRequireGoogleMaps = BackendExtensionsModel::getModulesThatRequireGoogleMaps();
         $modulesThatRequireGoogleRecaptcha = BackendExtensionsModel::getModulesThatRequireGoogleRecaptcha();
 
         // set properties
-        $this->needsAkismet = (!empty($modulesThatRequireAkismet));
         $this->needsGoogleMaps = (!empty($modulesThatRequireGoogleMaps));
         $this->needsGoogleRecaptcha = !empty($modulesThatRequireGoogleRecaptcha);
 
@@ -294,12 +290,6 @@ class Index extends BackendBaseActionIndex
         );
 
         // api keys are not required for every module
-        if ($this->needsAkismet) {
-            $this->form->addText(
-                'akismet_key',
-                $this->get('fork.settings')->get('Core', 'akismet_key', null)
-            );
-        }
         if ($this->needsGoogleMaps) {
             $this->form->addText(
                 'google_maps_key',
@@ -349,9 +339,6 @@ class Index extends BackendBaseActionIndex
         parent::parse();
 
         // show options
-        if ($this->needsAkismet) {
-            $this->template->assign('needsAkismet', true);
-        }
         if ($this->needsGoogleMaps) {
             $this->template->assign('needsGoogleMaps', true);
         }
@@ -404,20 +391,6 @@ class Index extends BackendBaseActionIndex
 
             // number
             $this->form->getField('number_format')->isFilled(BL::err('FieldIsRequired'));
-
-            // akismet key may be filled in
-            if ($this->needsAkismet && $this->form->getField('akismet_key')->isFilled()) {
-                // key has changed
-                if ($this->form->getField('akismet_key')->getValue() != $this->get('fork.settings')->get('Core', 'akismet_key', null)) {
-                    // create instance
-                    $akismet = new Akismet($this->form->getField('akismet_key')->getValue(), SITE_URL);
-
-                    // invalid key
-                    if (!$akismet->verifyKey()) {
-                        $this->form->getField('akismet_key')->setError(BL::err('InvalidAPIKey'));
-                    }
-                }
-            }
 
             // domains filled in
             if ($this->form->getField('site_domains')->isFilled()) {
@@ -582,13 +555,6 @@ class Index extends BackendBaseActionIndex
                 );
 
                 // api keys
-                if ($this->needsAkismet) {
-                    $this->get('fork.settings')->set(
-                        'Core',
-                        'akismet_key',
-                        $this->form->getField('akismet_key')->getValue()
-                    );
-                }
                 if ($this->needsGoogleMaps) {
                     $this->get('fork.settings')->set(
                         'Core',
