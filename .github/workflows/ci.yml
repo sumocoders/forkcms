@@ -392,3 +392,50 @@ jobs:
 
             -   name: Run npm outdated
                 run: npm outdated --production
+
+    php_composer_outdated:
+        name: "PHP packages - composer outdated"
+        runs-on: ubuntu-latest
+        needs: install_dependencies_and_build_assets
+        steps:
+            -   uses: actions/checkout@v5
+
+            -   name: Restore cached dependencies
+                uses: actions/cache/restore@v4
+                with:
+                    path: |
+                        .env.local
+                        app/config/parameters.yml
+                        bin
+                        css
+                        fonts
+                        images
+                        js
+                        node_modules
+                        vendor
+                    key: ${{ runner.os }}-pipeline-${{ github.run_id }}
+
+            -   name: Setup cache environment
+                id: extcache
+                uses: shivammathur/cache-extensions@v1
+                with:
+                    php-version: ${{ env.php_version }}
+                    extensions: ${{ env.php_extensions }}
+                    key: ${{ env.php_extensions_key }}
+
+            -   name: Cache extensions
+                uses: actions/cache@v4
+                with:
+                    path: ${{ steps.extcache.outputs.dir }}
+                    key: ${{ steps.extcache.outputs.key }}
+                    restore-keys: ${{ steps.extcache.outputs.key }}
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ env.php_version }}
+                    extensions: ${{ env.php_extensions }}
+                    coverage: none
+
+            -   name: Run composer outdated
+                run: composer outdated --ansi --no-interaction --strict
