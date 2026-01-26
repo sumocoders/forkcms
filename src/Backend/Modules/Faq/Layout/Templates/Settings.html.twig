@@ -80,18 +80,6 @@
                   {% form_field send_email_on_new_feedback %} {{ 'lbl.SendEmailOnNewFeedback'|trans|ucfirst }}
                 </label>
               </li>
-              <li class="checkbox">
-                <label for="spamfilter" class="control-label">
-                  {% form_field spamfilter %} {{ 'lbl.FilterCommentsForSpam'|trans|ucfirst }}
-                </label>
-                <p class="help-block">
-                  {{ 'msg.HelpSpamFilter'|trans }}
-                  {% if noAkismetKey %}
-                    <br>
-                    {{ 'msg.NoAkismetKey'|trans|format(geturl('index','settings'))|raw }}
-                  {% endif %}
-                </p>
-              </li>
             </ul>
           </div>
         </div>

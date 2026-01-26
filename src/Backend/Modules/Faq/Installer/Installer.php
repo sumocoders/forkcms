@@ -149,7 +149,6 @@ class Installer extends ModuleInstaller
         $this->setSetting($this->getModule(), 'overview_num_items_per_category', 10);
         $this->setSetting($this->getModule(), 'related_num_items', 5);
         $this->setSetting($this->getModule(), 'send_email_on_new_feedback', false);
-        $this->setSetting($this->getModule(), 'spamfilter', false);
     }
 
     private function getDefaultCategoryIdForLanguage(string $language): int

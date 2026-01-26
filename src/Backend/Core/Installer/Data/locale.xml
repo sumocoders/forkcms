@@ -12023,22 +12023,6 @@
         <translation language="pt"><![CDATA[chinês]]></translation>
         <translation language="pl"><![CDATA[Chiński]]></translation>
       </item>
-      <item type="message" name="NoAkismetKey">
-        <translation language="nl"><![CDATA[Om de spamfilter te activeren moet je een Akismet-key <a href="%1$s">ingeven</a>.]]></translation>
-        <translation language="en"><![CDATA[If you want to enable the spam-protection you should <a href="%1$s">configure</a> an Akismet-key.]]></translation>
-        <translation language="hu"><![CDATA[Ha spam védelmet szeretnénk, <a href="%1$s">be kell állítani</a> az Akismet-kulcsot.]]></translation>
-        <translation language="it"><![CDATA[Se vuoi abilitare la protezione anti spam devi <a href="%1$s">configurare</a> una chiave Askimet.]]></translation>
-        <translation language="ru"><![CDATA[Для включения спам-защиты <a href="%1$s">сконфигурируйте</a> Akismet-ключ.]]></translation>
-        <translation language="zh"><![CDATA[如果你想启用垃圾评论防火墙 <a href="%1$s">设置</a> 一个Akismet-key。]]></translation>
-        <translation language="de"><![CDATA[Wenn du den Spam-Schutz aktivieren möchtest, solltest du einen Akismet-Key <a href="%1$s">konfigurieren</a>.]]></translation>
-        <translation language="fr"><![CDATA[Si vous souhaitez activer la protection contre le spam, vous devez <a href="%1$s">configurer</a> une clef Akismet.]]></translation>
-        <translation language="es"><![CDATA[Si quieres activar la protección anti-spam debes <a href="%1$s">configurar</a> una Akismet-key.]]></translation>
-        <translation language="lt"><![CDATA[Norėdami įjungti apsaugą nuo spamo, <a href="%1$s">įrašykite</a> Akismet-raktą.]]></translation>
-        <translation language="sv"><![CDATA[Om du vill aktivera spam-skydd bör du <a href="%1$s"> nge</a> en Akismet-nyckel.]]></translation>
-        <translation language="el"><![CDATA[Αν επιθυμείτε να ενεργοποιήσετε την προφύλαξη από ανεπιθύμητη αλληλογραφία,, πρέπει να <a href="%1$s">ρυθμίσετε</a> ένα κλειδί Akismet.]]></translation>
-        <translation language="pt"><![CDATA[Para activar o filtro de SPAM deverá <a href="%1$s">fornecer</a> uma Akismet API key.]]></translation>
-        <translation language="pl"><![CDATA[Aby aktywować filtr antyspamowy, musisz wpisać klucz Akismet <a href="%1$s"> </a>.]]></translation>
-      </item>
       <item type="message" name="NoComments">
         <translation language="nl"><![CDATA[Er zijn nog geen reacties in deze categorie.]]></translation>
         <translation language="en"><![CDATA[There are no comments in this category yet.]]></translation>
@@ -12566,22 +12550,6 @@
         <translation language="en"><![CDATA[Add the text before submitting.]]></translation>
         <translation language="fr"><![CDATA[Veuillez ajouter le texte avant de valider.]]></translation>
         <translation language="de"><![CDATA[Füge das Text hinzu, bevor du den Eintrag speicherst.]]></translation>
-      </item>
-      <item type="error" name="AkismetKey">
-        <translation language="nl"><![CDATA[Akismet API-key werd nog niet geconfigureerd. <a href="%1$s">Configureer</a>]]></translation>
-        <translation language="en"><![CDATA[Akismet API-key is not yet configured. <a href="%1$s">Configure</a>]]></translation>
-        <translation language="hu"><![CDATA[Az Akismet API-kulcs még nincs beállítva. <a href="%1$s">Beállítás</a>]]></translation>
-        <translation language="it"><![CDATA[La chiave Askimet non è ancora stata configurata. <a href="%1$s">Configura</a>]]></translation>
-        <translation language="ru"><![CDATA[Akismet API-ключ не сконфигурирован. <a href="%1$s">Сконфигурировать</a>]]></translation>
-        <translation language="zh"><![CDATA[还未设置Akismet API-key。<a href="%1$s">点此设置</a>]]></translation>
-        <translation language="fr"><![CDATA[La clef API d'Akismet n'est pas configurée. <a href="%1$s">Configurer</a>]]></translation>
-        <translation language="de"><![CDATA[Akismet API-Key ist noch nicht konfiguriert.]]></translation>
-        <translation language="es"><![CDATA[Akismet API-key no ha sido configurada aun.]]></translation>
-        <translation language="lt"><![CDATA[Akismet API-raktas nesukonfigūruotas. <a href="%1$s">Įrašykite</a>]]></translation>
-        <translation language="sv"><![CDATA[Akismet API-nyckeln är ännu inte konfigurerad. <a href="%1$s">Konfiguration</a>]]></translation>
-        <translation language="el"><![CDATA[Δεν έχει ακόμη ρυθμιστεί το κλειδί API του Akismet. <a href="%1$s">Ρύθμιση</a>]]></translation>
-        <translation language="pt"><![CDATA[A API key do Akismet não foi configurada. <a href="%1$s">Configurar</a>.]]></translation>
-        <translation language="pl"><![CDATA[Klucz API Akismet nie został jeszcze skonfigurowany. <a href="%1$s"> Konfiguruj </a>]]></translation>
       </item>
       <item type="error" name="AlphaNumericCharactersOnly">
         <translation language="nl"><![CDATA[Enkel alfanumerieke karakters zijn toegestaan.]]></translation>

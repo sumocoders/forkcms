@@ -138,23 +138,11 @@ class Model
     public static function checkSettings(): array
     {
         $warnings = [];
-        $akismetModules = self::getModulesThatRequireAkismet();
         $googleMapsModules = self::getModulesThatRequireGoogleMaps();
 
         // check if this action is allowed
         if (!BackendAuthentication::isAllowedAction('Index', 'Settings')) {
             return [];
-        }
-
-        // check if the akismet key is available if there are modules that require it
-        if (!empty($akismetModules) && BackendModel::get('fork.settings')->get('Core', 'akismet_key', null) == '') {
-            // add warning
-            $warnings[] = [
-                'message' => sprintf(
-                    BL::err('AkismetKey'),
-                    BackendModel::createUrlForAction('Index', 'Settings')
-                ),
-            ];
         }
 
         // check if the google maps key is available if there are modules that require it
@@ -472,16 +460,6 @@ class Model
         }
 
         return $manageableModules;
-    }
-
-    /**
-     * Fetch the list of modules that require Akismet API key
-     *
-     * @return array
-     */
-    public static function getModulesThatRequireAkismet(): array
-    {
-        return self::getModulesThatRequireSetting('akismet');
     }
 
     /**

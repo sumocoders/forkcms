@@ -46,10 +46,6 @@ class Settings extends BackendBaseActionEdit
             $this->get('fork.settings')->get($this->url->getModule(), 'allow_multiple_categories', false)
         );
         $this->form->addCheckbox(
-            'spamfilter',
-            $this->get('fork.settings')->get($this->url->getModule(), 'spamfilter', false)
-        );
-        $this->form->addCheckbox(
             'allow_feedback',
             $this->get('fork.settings')->get($this->url->getModule(), 'allow_feedback', false)
         );
@@ -61,12 +57,6 @@ class Settings extends BackendBaseActionEdit
             'send_email_on_new_feedback',
             $this->get('fork.settings')->get($this->url->getModule(), 'send_email_on_new_feedback', false)
         );
-
-        // no Akismet-key, so we can't enable spam-filter
-        if ($this->get('fork.settings')->get('Core', 'akismet_key') == '') {
-            $this->form->getField('spamfilter')->setAttribute('disabled', 'disabled');
-            $this->template->assign('noAkismetKey', true);
-        }
     }
 
     private function validateForm(): void
@@ -96,11 +86,6 @@ class Settings extends BackendBaseActionEdit
                 );
                 $this->get('fork.settings')->set(
                     $this->url->getModule(),
-                    'spamfilter',
-                    (bool) $this->form->getField('spamfilter')->getValue()
-                );
-                $this->get('fork.settings')->set(
-                    $this->url->getModule(),
                     'allow_feedback',
                     (bool) $this->form->getField('allow_feedback')->getValue()
                 );
@@ -114,9 +99,6 @@ class Settings extends BackendBaseActionEdit
                     'send_email_on_new_feedback',
                     (bool) $this->form->getField('send_email_on_new_feedback')->getValue()
                 );
-                if ($this->get('fork.settings')->get('Core', 'akismet_key') === null) {
-                    $this->get('fork.settings')->set($this->url->getModule(), 'spamfilter', false);
-                }
 
                 // redirect to the settings page
                 $this->redirect(BackendModel::createUrlForAction('Settings') . '&report=saved');
