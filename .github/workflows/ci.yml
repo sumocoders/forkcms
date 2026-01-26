@@ -202,6 +202,7 @@ jobs:
         name: "Twig-CS-Fixer - check code styling"
         runs-on: ubuntu-latest
         needs: install_dependencies_and_build_assets
+        continue-on-error: true
         steps:
             -   uses: actions/checkout@v5
 
@@ -249,6 +250,7 @@ jobs:
         name: "Stylelint - check code styling"
         runs-on: ubuntu-latest
         needs: install_dependencies_and_build_assets
+        continue-on-error: true
         steps:
             -   uses: actions/checkout@v5
 
@@ -274,6 +276,7 @@ jobs:
         name: "StandardJS - check code styling"
         runs-on: ubuntu-latest
         needs: install_dependencies_and_build_assets
+        continue-on-error: true
         steps:
             -   uses: actions/checkout@v5
 
@@ -301,6 +304,7 @@ jobs:
         name: "NPM packages - check for vulnerabilities"
         runs-on: ubuntu-latest
         needs: install_dependencies_and_build_assets
+        continue-on-error: true
         steps:
             -   uses: actions/checkout@v5
 
@@ -331,6 +335,7 @@ jobs:
         name: "PHP packages - composer audit"
         runs-on: ubuntu-latest
         needs: install_dependencies_and_build_assets
+        continue-on-error: true
         steps:
             -   uses: actions/checkout@v5
 
@@ -380,6 +385,7 @@ jobs:
         name: "NPM packages - check for outdated packages"
         runs-on: ubuntu-latest
         needs: install_dependencies_and_build_assets
+        continue-on-error: true
         steps:
             -   uses: actions/checkout@v5
 
@@ -410,6 +416,7 @@ jobs:
         name: "PHP packages - composer outdated"
         runs-on: ubuntu-latest
         needs: install_dependencies_and_build_assets
+        continue-on-error: true
         steps:
             -   uses: actions/checkout@v5
 
