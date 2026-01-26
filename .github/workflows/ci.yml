@@ -76,6 +76,7 @@ jobs:
                     node_modules/.bin/gulp build
                     npm run build
 
+
     # Code Quality section
     php_code_sniffer:
         name: "PHP_CodeSniffer - check code styling"
@@ -192,3 +193,51 @@ jobs:
             -   name: Run PHPStan
                 run: |
                     php bin/phpstan analyse --memory-limit=-1 --no-progress --no-interaction
+
+
+    twig_cs_fixer:
+        name: "Twig-CS-Fixer - check code styling"
+        runs-on: ubuntu-latest
+        needs: install_dependencies_and_build_assets
+        steps:
+            -   uses: actions/checkout@v5
+
+            -   name: Restore cached dependencies
+                uses: actions/cache/restore@v4
+                with:
+                    path: |
+                        .env.local
+                        app/config/parameters.yml
+                        bin
+                        css
+                        fonts
+                        images
+                        js
+                        node_modules
+                        vendor
+                    key: ${{ runner.os }}-pipeline-${{ github.run_id }}
+
+            -   name: Setup cache environment
+                id: extcache
+                uses: shivammathur/cache-extensions@v1
+                with:
+                    php-version: ${{ env.php_version }}
+                    extensions: ${{ env.php_extensions }}
+                    key: ${{ env.php_extensions_key }}
+
+            -   name: Cache extensions
+                uses: actions/cache@v4
+                with:
+                    path: ${{ steps.extcache.outputs.dir }}
+                    key: ${{ steps.extcache.outputs.key }}
+                    restore-keys: ${{ steps.extcache.outputs.key }}
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ env.php_version }}
+                    extensions: ${{ env.php_extensions }}
+                    coverage: none
+
+            -   name: Run Twig-CS-Fixer
+                run: php bin/twig-cs-fixer --no-interaction lint templates/
