@@ -9,6 +9,7 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Locale\Engine\Model as BackendLocaleModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the index-action, it will display an overview of all the translations with an inline edit option.
@@ -126,7 +127,7 @@ class Index extends BackendBaseActionIndex
             $dataGrid->setPaging(false);
 
             // set header label for reference code
-            $dataGrid->setHeaderLabels(['name' => \SpoonFilter::ucfirst(BL::lbl('ReferenceCode'))]);
+            $dataGrid->setHeaderLabels(['name' => s(BL::lbl('ReferenceCode'))->title()->toString()]);
 
             // hide the application when only one application is shown
             if ($this->filter['application'] != '') {
@@ -163,7 +164,7 @@ class Index extends BackendBaseActionIndex
                 }
 
                 // set header labels
-                $dataGrid->setHeaderLabels([$lang => \SpoonFilter::ucfirst(BL::lbl(mb_strtoupper((string) $lang)))]);
+                $dataGrid->setHeaderLabels([$lang => s(BL::lbl(mb_strtoupper((string) $lang)))->title()->toString()]);
 
                 // only 1 language selected?
                 if (count($this->filter['language']) == 1) {

@@ -11,6 +11,7 @@ use Backend\Core\Engine\Exception as BackendException;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Groups\Engine\Model as BackendGroupsModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the index-action (default), it will display the login screen
@@ -98,7 +99,7 @@ class Index extends BackendBaseActionIndex
                     $instance->execute();
 
                     // user sequence provided?
-                    $title = \SpoonFilter::ucfirst(BL::lbl(\SpoonFilter::toCamelCase($module))) . ': ' . BL::lbl(\SpoonFilter::toCamelCase($widgetName));
+                    $title = s(BL::lbl(\SpoonFilter::toCamelCase($module)))->title()->toString() . ': ' . BL::lbl(\SpoonFilter::toCamelCase($widgetName));
                     $templatePath = $instance->getTemplatePath();
 
                     // reset template path

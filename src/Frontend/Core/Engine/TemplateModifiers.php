@@ -12,6 +12,7 @@ use Frontend\Modules\Profiles\Engine\Model as FrontendProfilesModel;
 use Common\Core\Twig\Extensions\BaseTwigModifiers;
 use SpoonDate;
 use Twig\Error\Error;
+use function Symfony\Component\String\s;
 
 /**
  * Contains all Frontend-related custom modifiers
@@ -509,6 +510,6 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function toLabel(string $value): string
     {
-        return \SpoonFilter::ucfirst(Language::lbl(\SpoonFilter::toCamelCase($value, '_', false)));
+        return s(Language::lbl(\SpoonFilter::toCamelCase($value, '_', false)))->title()->toString();
     }
 }

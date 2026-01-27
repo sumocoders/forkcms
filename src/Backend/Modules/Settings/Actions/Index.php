@@ -10,6 +10,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
 use Backend\Modules\Settings\Engine\Model as BackendSettingsModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the index-action (default), it will display the setting-overview
@@ -203,11 +204,11 @@ class Index extends BackendBaseActionIndex
         $googleRecaptchaVersions = [
             [
                 'value' => 'v2invisible',
-                'label' => SpoonFilter::ucfirst(BL::lbl('GoogleRecaptchaV2Invisible')),
+                'label' => s(BL::lbl('GoogleRecaptchaV2Invisible'))->title()->toString(),
             ],
             [
                 'value' => 'v3',
-                'label' => SpoonFilter::ucfirst(BL::lbl('GoogleRecaptchaV3')),
+                'label' => s(BL::lbl('GoogleRecaptchaV3'))->title()->toString(),
             ],
         ];
         $this->form->addRadiobutton(

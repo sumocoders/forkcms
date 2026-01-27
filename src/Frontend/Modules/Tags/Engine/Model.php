@@ -8,6 +8,7 @@ use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Core\Language\Language;
 use Frontend\Core\Language\Locale as FrontendLocale;
+use function Symfony\Component\String\s;
 
 /**
  * In this file we store all generic functions that we will be using in the tags module
@@ -263,7 +264,7 @@ class Model
 
         return [
             'name' => $module,
-            'label' => Language::lbl(\SpoonFilter::ucfirst($module)),
+            'label' => Language::lbl(s($module)->title()->toString()),
             'items' => $items,
         ];
     }

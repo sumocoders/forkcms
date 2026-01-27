@@ -8,6 +8,7 @@ use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\DataGridDatabase as BackendDataGridDatabase;
 use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the categories-action, it will display the overview of blog categories
@@ -34,7 +35,7 @@ class Categories extends BackendBaseActionIndex
 
         // set headers
         $this->dataGrid->setHeaderLabels([
-            'num_items' => \SpoonFilter::ucfirst(BL::lbl('Amount')),
+            'num_items' => s(BL::lbl('Amount')->title()->toString()),
         ]);
 
         // sorting columns

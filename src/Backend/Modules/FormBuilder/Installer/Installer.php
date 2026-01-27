@@ -5,6 +5,7 @@ namespace Backend\Modules\FormBuilder\Installer;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Installer\ModuleInstaller;
 use Common\ModuleExtraType;
+use function Symfony\Component\String\s;
 
 /**
  * Installer for the form_builder module
@@ -67,7 +68,7 @@ class Installer extends ModuleInstaller
             $form = [];
             $form['language'] = $language;
             $form['user_id'] = $this->getDefaultUserID();
-            $form['name'] = \SpoonFilter::ucfirst($this->getLocale('Contact', 'Core', $language, 'lbl', 'Frontend'));
+            $form['name'] = s($this->getLocale('Contact', 'Core', $language, 'lbl', 'Frontend'))->title()->toString();
             $form['method'] = 'database_email';
             $form['email'] = serialize([$this->getVariable('email')]);
             $form['success_message'] = $this->getLocale('ContactMessageSent', 'Core', $language, 'msg', 'Frontend');
@@ -82,7 +83,7 @@ class Installer extends ModuleInstaller
             $field['type'] = 'submit';
             $field['settings'] = serialize(
                 [
-                    'values' => \SpoonFilter::ucfirst($this->getLocale('Send', 'Core', $language, 'lbl', 'Frontend')),
+                    'values' => s($this->getLocale('Send', 'Core', $language, 'lbl', 'Frontend'))->title()->toString(),
                 ]
             );
             $this->getDatabase()->insert('forms_fields', $field);
@@ -92,7 +93,7 @@ class Installer extends ModuleInstaller
             $field['type'] = 'textbox';
             $field['settings'] = serialize(
                 [
-                    'label' => \SpoonFilter::ucfirst($this->getLocale('Name', 'Core', $language, 'lbl', 'Frontend')),
+                    'label' => s($this->getLocale('Name', 'Core', $language, 'lbl', 'Frontend'))->title()->toString(),
                 ]
             );
             $nameId = $this->getDatabase()->insert('forms_fields', $field);
@@ -109,7 +110,7 @@ class Installer extends ModuleInstaller
             $field['type'] = 'textbox';
             $field['settings'] = serialize(
                 [
-                    'label' => \SpoonFilter::ucfirst($this->getLocale('Email', 'Core', $language, 'lbl', 'Frontend')),
+                    'label' => s($this->getLocale('Email', 'Core', $language, 'lbl', 'Frontend'))->title()->toString(),
                 ]
             );
             $emailId = $this->getDatabase()->insert('forms_fields', $field);
@@ -125,7 +126,7 @@ class Installer extends ModuleInstaller
             $field['type'] = 'textarea';
             $field['settings'] = serialize(
                 [
-                    'label' => \SpoonFilter::ucfirst($this->getLocale('Message', 'Core', $language, 'lbl', 'Frontend')),
+                    'label' => s($this->getLocale('Message', 'Core', $language, 'lbl', 'Frontend'))->title()->toString(),
                 ]
             );
             $messageId = $this->getDatabase()->insert('forms_fields', $field);
@@ -154,7 +155,7 @@ class Installer extends ModuleInstaller
             // insert contact page
             $this->insertPage(
                 [
-                    'title' => \SpoonFilter::ucfirst($this->getLocale('Contact', 'Core', $language, 'lbl', 'Frontend')),
+                    'title' => s($this->getLocale('Contact', 'Core', $language, 'lbl', 'Frontend'))->title()->toString(),
                     'parent_id' => BackendModel::HOME_PAGE_ID,
                     'language' => $language,
                 ],

@@ -5,6 +5,7 @@ namespace Backend\Modules\FormBuilder\Engine;
 use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\TwigTemplate as BackendTemplate;
+use function Symfony\Component\String\s;
 
 /**
  * Helper class for the form_builder module.
@@ -152,8 +153,8 @@ class Helper
             } elseif (in_array($field['type'], ['checkbox', 'radiobutton'])) {
                 // name (prefixed by type)
                 $name = ($field['type'] === 'checkbox') ?
-                    'chk' . \SpoonFilter::ucfirst($fieldName) :
-                    'rbt' . \SpoonFilter::ucfirst($fieldName)
+                    'chk' . s($fieldName)->title()->toString() :
+                    'rbt' . s($fieldName)->title()->toString()
                 ;
 
                 // rebuild so the html is stored in a general name (and not rbtName)

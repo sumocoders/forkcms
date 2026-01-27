@@ -3,6 +3,7 @@
 namespace Backend\Modules\Locale\Engine;
 
 use Symfony\Component\Filesystem\Filesystem;
+use function Symfony\Component\String\s;
 
 /**
  * In this file, the locale cache is build
@@ -105,16 +106,16 @@ class CacheBuilder
 
         // build labels
         foreach ($monthsLong as $key => $value) {
-            $json['loc']['MonthLong' . \SpoonFilter::ucfirst($key)] = $value;
+            $json['loc']['MonthLong' . s($key)->title()->toString()] = $value;
         }
         foreach ($monthsShort as $key => $value) {
-            $json['loc']['MonthShort' . \SpoonFilter::ucfirst($key)] = $value;
+            $json['loc']['MonthShort' . s($key)->title()->toString()] = $value;
         }
         foreach ($daysLong as $key => $value) {
-            $json['loc']['DayLong' . \SpoonFilter::ucfirst($key)] = $value;
+            $json['loc']['DayLong' . s($key)->title()->toString()] = $value;
         }
         foreach ($daysShort as $key => $value) {
-            $json['loc']['DayShort' . \SpoonFilter::ucfirst($key)] = $value;
+            $json['loc']['DayShort' . s($key)->title()->toString()] = $value;
         }
     }
 

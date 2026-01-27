@@ -9,6 +9,7 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Frontend\Core\Language\Language as FL;
 use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the add-action, it will display a form to create a new item.
@@ -135,7 +136,7 @@ class Add extends BackendBaseActionAdd
                 $field = [];
                 $field['form_id'] = $id;
                 $field['type'] = 'submit';
-                $field['settings'] = serialize(['values' => \SpoonFilter::ucfirst(FL::getLabel('Send'))]);
+                $field['settings'] = serialize(['values' => s(FL::getLabel('Send'))->title()->toString()]);
                 BackendFormBuilderModel::insertField($field);
 
                 // everything is saved, so redirect to the editform

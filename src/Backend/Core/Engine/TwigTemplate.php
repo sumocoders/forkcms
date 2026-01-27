@@ -18,6 +18,7 @@ use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
+use function Symfony\Component\String\s;
 
 /**
  * This is a twig template wrapper
@@ -273,7 +274,7 @@ class TwigTemplate extends BaseTwigTemplate
     {
         return array_combine(
             array_map(
-                fn($key) => $prefix . \SpoonFilter::ucfirst($key),
+                fn($key) => $prefix . s($key)->title()->toString(),
                 array_keys($array)
             ),
             $array

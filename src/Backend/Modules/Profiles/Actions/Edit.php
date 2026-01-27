@@ -12,6 +12,7 @@ use Backend\Core\Engine\Model as BackendModel;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
 use Symfony\Component\Intl\Countries;
+use function Symfony\Component\String\s;
 
 /**
  * This is the edit-action, it will display a form to edit an existing profile.
@@ -72,8 +73,8 @@ class Edit extends BackendBaseActionEdit
     {
         // gender dropdown values
         $genderValues = [
-            'male' => \SpoonFilter::ucfirst(BL::getLabel('Male')),
-            'female' => \SpoonFilter::ucfirst(BL::getLabel('Female')),
+            'male' => s(BL::getLabel('Male'))->title()->toString(),
+            'female' => s(BL::getLabel('Female'))->title()->toString(),
         ];
 
         // birthdate dropdown values

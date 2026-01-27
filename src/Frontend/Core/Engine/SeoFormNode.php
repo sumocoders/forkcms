@@ -3,9 +3,9 @@
 namespace Frontend\Core\Engine;
 
 use Backend\Core\Language\Language as BackendLanguage;
-use SpoonFilter;
 use Twig\Compiler;
 use Twig\Node\Node;
+use function Symfony\Component\String\s;
 
 /**
  * Twig node for writing the SEO form
@@ -302,7 +302,7 @@ class SeoFormNode extends Node
 
     private function lbl(string $label): string
     {
-        return SpoonFilter::ucfirst(BackendLanguage::getLabel($label));
+        return s(BackendLanguage::getLabel($label))->title()->toString();
     }
 
     private function msg(string $message): string

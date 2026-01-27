@@ -13,6 +13,7 @@ use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
 use Backend\Modules\Search\Engine\Model as BackendSearchModel;
 use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
 use Backend\Modules\Users\Engine\Model as BackendUsersModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the add-action, it will display a form to create a new item
@@ -49,7 +50,7 @@ class Add extends BackendBaseActionAdd
 
         // get categories
         $categories = BackendBlogModel::getCategories();
-        $categories['new_category'] = \SpoonFilter::ucfirst(BL::getLabel('AddCategory'));
+        $categories['new_category'] = s(BL::getLabel('AddCategory'))->title()->toString();
 
         // create elements
         $this->form->addText('title', null, null, 'form-control title', 'form-control danger title')->makeRequired();
