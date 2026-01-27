@@ -9,6 +9,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
 use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
+use Symfony\Component\Validator\Constraints as Assert;
 use function Symfony\Component\String\s;
 
 /**
@@ -201,8 +202,17 @@ class EditThemeTemplate extends BackendBaseActionEdit
                 }
 
                 // not alphanumeric -> error
-                if (!\SpoonFilter::isValidAgainstRegexp('/^[a-z0-9]+$/i', $name)) {
-                    $errors[] = sprintf(BL::getError('NoAlphaNumPositionName'), $name);
+                $validationErrors = $this->get('validator')->validate(
+                    $name,
+                    new Assert\Regex([
+                        'pattern' => '/^[a-z0-9]+$/i',
+                        'message' => sprintf(BL::getError('NoAlphaNumPositionName'), $name),
+                    ])
+                );
+                if (count($validationErrors) > 0) {
+                    foreach ($validationErrors as $validationError) {
+                        $errors[] = $validationError->getMessage();
+                    }
                 }
 
                 // save positions

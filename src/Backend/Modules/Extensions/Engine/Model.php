@@ -978,10 +978,17 @@ class Model
      */
     public static function isValidTemplateSyntaxFormat(string $syntax): bool
     {
-        return \SpoonFilter::isValidAgainstRegexp(
-            '/^\[(\/|[a-z0-9])+(,(\/|[a-z0-9]+))*\](,\[(\/|[a-z0-9])+(,(\/|[a-z0-9]+))*\])*$/i',
-            $syntax
+        $filteredValue = filter_var(
+            $syntax,
+            FILTER_VALIDATE_REGEXP,
+            [
+                'options' => [
+                    'regexp' => '/^\[(\/|[a-z0-9])+(,(\/|[a-z0-9]+))*\](,\[(\/|[a-z0-9])+(,(\/|[a-z0-9]+))*\])*$/i',
+                ],
+            ]
         );
+
+        return $filteredValue === $syntax;
     }
 
     public static function updateTemplate(array $templateData): void

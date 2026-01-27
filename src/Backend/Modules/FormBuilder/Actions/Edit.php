@@ -11,6 +11,7 @@ use Backend\Modules\FormBuilder\Engine\Autocomplete;
 use Frontend\Core\Language\Language as FL;
 use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
 use Backend\Modules\FormBuilder\Engine\Helper as FormBuilderHelper;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This is the edit-action, it will display a form to edit an existing item
@@ -323,7 +324,13 @@ class Edit extends BackendBaseActionEdit
             // identifier
             if ($txtIdentifier->isFilled()) {
                 // invalid characters
-                if (!\SpoonFilter::isValidAgainstRegexp('/^[a-zA-Z0-9\.\_\-]+$/', $txtIdentifier->getValue())) {
+                $validationErrors = $this->get('validator')->validate(
+                    $txtIdentifier->getValue(),
+                    new Assert\Regex([
+                        'pattern' => '/^[a-zA-Z0-9\.\_\-]+$/',
+                    ])
+                );
+                if (count($validationErrors) > 0) {
                     $txtIdentifier->setError(BL::getError('InvalidIdentifier'));
                 } elseif (BackendFormBuilderModel::existsIdentifier($txtIdentifier->getValue(), $this->id)) {
                     $txtIdentifier->setError(BL::getError('UniqueIdentifier'));
