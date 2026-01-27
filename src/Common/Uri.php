@@ -2,7 +2,7 @@
 
 namespace Common;
 
-use Behat\Transliterator\Transliterator;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 /**
  * This is our Uri generating class
@@ -18,10 +18,8 @@ class Uri
      */
     public static function getUrl(string $value): string
     {
-        // convert cyrlic, greek or other caracters to ASCII characters
-        $value = Transliterator::transliterate($value);
+        $slugger = new AsciiSlugger();
 
-        // make a clean url out of it
-        return Transliterator::urlize($value);
+        return $slugger->slug($value)->lower();
     }
 }
