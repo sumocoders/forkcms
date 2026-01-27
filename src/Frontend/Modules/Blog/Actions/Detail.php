@@ -265,11 +265,6 @@ class Detail extends FrontendBaseBlock
         return isset($this->settings['allow_comments']) && $this->settings['allow_comments'];
     }
 
-    private function isSpamFilterEnabled(): bool
-    {
-        return isset($this->settings['spamfilter']) && $this->settings['spamfilter'];
-    }
-
     private function isModerationFilterEnabled(): bool
     {
         return isset($this->settings['moderation']) && $this->settings['moderation'];
@@ -308,26 +303,6 @@ class Detail extends FrontendBaseBlock
         if ($this->isModerationFilterEnabled()
             && !FrontendBlogModel::isModerated($comment['author'], $comment['email'])) {
             $comment['status'] = 'moderation';
-        }
-
-        // should we check if the item is spam
-        if ($this->isSpamFilterEnabled()) {
-            // check for spam
-            $result = FrontendModel::isSpam(
-                $comment['text'],
-                SITE_URL . $this->blogPost['full_url'],
-                $comment['author'],
-                $comment['email'],
-                $comment['website']
-            );
-
-            // if the comment is spam alter the comment status so it will appear in the spam queue
-            if ($result) {
-                $comment['status'] = 'spam';
-            } elseif ($result === 'unknown') {
-                // if the status is unknown then we should moderate it manually
-                $comment['status'] = 'moderation';
-            }
         }
 
         $comment['id'] = FrontendBlogModel::insertComment($comment);

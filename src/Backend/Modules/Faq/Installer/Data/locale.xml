@@ -301,18 +301,6 @@
         <translation language="pl"><![CDATA[Są to wszystkie wiadomości pozostawione przez użytkowników, którzy nie uznali tej odpowiedzi za przydatną.]]></translation>
         <translation language="pt"><![CDATA[Estas são todas as mensagens de visitantes que não consideraram esta resposta útil.]]></translation>
       </item>
-      <item type="message" name="HelpSpamFilter">
-        <translation language="nl"><![CDATA[Schakel de ingebouwde spam-filter (Akismet) in om spam-berichten in feedback en gebruikersvragen te vermijden.]]></translation>
-        <translation language="en"><![CDATA[Enable the built-in spamfilter (Akismet) to help avoid spam in feedback and user questions.]]></translation>
-        <translation language="es"><![CDATA[Activar el filtro anti-spam incorporado (Akismet) para ayudar a evitar el spam en feedback y preguntas de usuarios.]]></translation>
-        <translation language="de"><![CDATA[Aktiviere den eingebauten Spamfilter (Akismet) um Spam in den Benutzerfragen und im Feedback zu vermeiden.]]></translation>
-        <translation language="hu"><![CDATA[A beépített spamszűrő (Akismet) engedélyezése, hogy segítse elkerülni a spam visszajelzést és felhasználói kérdést.]]></translation>
-        <translation language="sv"><![CDATA[Aktivera inbyggda spamfiltret (Akismet) för att undvika skräp i återkopplingar och användarfrågor.]]></translation>
-        <translation language="el"><![CDATA[Ενεργοποίησε το ενσωματωμένο φίλτρο ανεπιθύμητης αλληλογραφίας (spam) (Akismet) γιά να μην έχετε ανεπιθύμητα μηνύματα στις ερωτήσεις και τις γνώμες των χρηστών.]]></translation>
-        <translation language="zh"><![CDATA[允许内置垃圾过滤器（Akismet）来帮助避免在回复和用户提问中的垃圾信息。]]></translation>
-        <translation language="pl"><![CDATA[Włącz wbudowany filtr antyspamowy (Akismet), aby uniknąć spamu w odpowiedzi na pytania i pytania użytkowników.]]></translation>
-        <translation language="pt"><![CDATA[Activar o filtro anti-spam (Akismet) para ajudar a evitar o SPAM em feedback e perguntas dos utilizadores.]]></translation>
-      </item>
       <item type="message" name="NoCategories">
         <translation language="nl"><![CDATA[Er zijn nog geen categorieën]]></translation>
         <translation language="en"><![CDATA[There are no categories yet]]></translation>

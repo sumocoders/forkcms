@@ -39,7 +39,6 @@ parameters:
     - '#Constant BACKEND_CORE_PATH not found.#'
     - '#Constant BACKEND_MODULES_PATH not found.#'
     - '#Constant BACKEND_PATH not found.#'
-    - '#Constant FORK_VERSION not found.#'
     - '#Constant FRONTEND_CACHE_PATH not found.#'
     - '#Constant FRONTEND_CACHE_URL not found.#'
     - '#Constant FRONTEND_CORE_PATH not found.#'

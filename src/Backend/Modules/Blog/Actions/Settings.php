@@ -52,15 +52,6 @@ class Settings extends BackendBaseActionEdit
             $this->get('fork.settings')->get($this->url->getModule(), 'recent_articles_list_num_items', 5)
         );
 
-        // add fields for spam
-        $this->form->addCheckbox('spamfilter', $this->get('fork.settings')->get($this->url->getModule(), 'spamfilter', false));
-
-        // no Akismet-key, so we can't enable spam-filter
-        if ($this->get('fork.settings')->get('Core', 'akismet_key') == '') {
-            $this->form->getField('spamfilter')->setAttribute('disabled', 'disabled');
-            $this->template->assign('noAkismetKey', true);
-        }
-
         // add fields for comments
         $this->form->addCheckbox('allow_comments', $this->get('fork.settings')->get($this->url->getModule(), 'allow_comments', false));
         $this->form->addCheckbox('moderation', $this->get('fork.settings')->get($this->url->getModule(), 'moderation', false));
@@ -106,7 +97,6 @@ class Settings extends BackendBaseActionEdit
                 $this->get('fork.settings')->set($this->url->getModule(), 'overview_num_items', (int) $this->form->getField('overview_number_of_items')->getValue());
                 $this->get('fork.settings')->set($this->url->getModule(), 'recent_articles_full_num_items', (int) $this->form->getField('recent_articles_full_number_of_items')->getValue());
                 $this->get('fork.settings')->set($this->url->getModule(), 'recent_articles_list_num_items', (int) $this->form->getField('recent_articles_list_number_of_items')->getValue());
-                $this->get('fork.settings')->set($this->url->getModule(), 'spamfilter', (bool) $this->form->getField('spamfilter')->getValue());
                 $this->get('fork.settings')->set($this->url->getModule(), 'allow_comments', (bool) $this->form->getField('allow_comments')->getValue());
                 $this->get('fork.settings')->set($this->url->getModule(), 'moderation', (bool) $this->form->getField('moderation')->getValue());
                 $this->get('fork.settings')->set($this->url->getModule(), 'notify_by_email_on_new_comment_to_moderate', (bool) $this->form->getField('notify_by_email_on_new_comment_to_moderate')->getValue());
@@ -116,9 +106,6 @@ class Settings extends BackendBaseActionEdit
                 $this->get('fork.settings')->set($this->url->getModule(), 'rss_meta_' . BL::getWorkingLanguage(), $this->form->getField('rss_meta')->getValue());
                 if ($this->isGod) {
                     $this->get('fork.settings')->set($this->url->getModule(), 'show_image_form', (bool) $this->form->getField('show_image_form')->getChecked());
-                }
-                if ($this->get('fork.settings')->get('Core', 'akismet_key') === null) {
-                    $this->get('fork.settings')->set($this->url->getModule(), 'spamfilter', false);
                 }
 
                 // redirect to the settings page
