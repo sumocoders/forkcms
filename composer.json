@@ -55,7 +55,6 @@
         "symfony/intl": "^5.4",
         "tijsverkoyen/css-to-inline-styles": "^2.0",
         "phpoffice/phpspreadsheet": "^1.12",
-        "composer/package-versions-deprecated": "^1.11",
         "guzzlehttp/guzzle": "^7.10",
         "doctrine/annotations": "^1.14",
         "sentry/sentry-symfony": "^5.8",
