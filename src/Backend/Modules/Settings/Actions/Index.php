@@ -136,12 +136,6 @@ class Index extends BackendBaseActionIndex
             'form-control danger code',
             true
         );
-        $this->form->addTextarea(
-            'site_domains',
-            implode("\n", (array) $this->get('fork.settings')->get('Core', 'site_domains', $defaultDomains)),
-            'form-control code',
-            'form-control danger code'
-        );
 
         // facebook settings
         // @deprecated remove this in Fork 6, facebook_admin_ids / facebook_app_id / facebook_app_secret should be removed
@@ -393,27 +387,6 @@ class Index extends BackendBaseActionIndex
             // number
             $this->form->getField('number_format')->isFilled(BL::err('FieldIsRequired'));
 
-            // domains filled in
-            if ($this->form->getField('site_domains')->isFilled()) {
-                // split on newlines
-                $domains = explode("\n", trim((string) $this->form->getField('site_domains')->getValue()));
-
-                // loop domains
-                foreach ($domains as $domain) {
-                    // strip funky stuff
-                    $domain = trim(str_replace(['www.', 'http://', 'https://'], '', $domain));
-
-                    // invalid URL
-                    if (!SpoonFilter::isURL('http://' . $domain)) {
-                        // set error
-                        $this->form->getField('site_domains')->setError(BL::err('InvalidDomain'));
-
-                        // stop looping domains
-                        break;
-                    }
-                }
-            }
-
             if ($this->form->getField('ckfinder_image_max_width')->isFilled()) {
                 $this->form->getField(
                     'ckfinder_image_max_width'
@@ -615,24 +588,6 @@ class Index extends BackendBaseActionIndex
                 // save active languages
                 $this->get('fork.settings')->set('Core', 'active_languages', $activeLanguages);
                 $this->get('fork.settings')->set('Core', 'redirect_languages', $redirectLanguages);
-
-                // domains may not contain www, http or https. Therefor we must loop and create the list of domains.
-                $siteDomains = [];
-
-                // domains filled in
-                if ($this->form->getField('site_domains')->isFilled()) {
-                    // split on newlines
-                    $domains = explode("\n", trim((string) $this->form->getField('site_domains')->getValue()));
-
-                    // loop domains
-                    foreach ($domains as $domain) {
-                        // strip funky stuff
-                        $siteDomains[] = trim(str_replace(['www.', 'http://', 'https://'], '', $domain));
-                    }
-                }
-
-                // save domains
-                $this->get('fork.settings')->set('Core', 'site_domains', $siteDomains);
 
                 // cookies
                 // @deprecated remove this in Fork 6, the privacy consent dialog should be used
