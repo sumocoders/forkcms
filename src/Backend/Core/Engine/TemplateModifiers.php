@@ -167,7 +167,7 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function toLabel($value): string
     {
-        return s(BackendLanguage::lbl(\SpoonFilter::toCamelCase($value, '_', false)))->title()->toString();
+        return s(BackendLanguage::lbl(\SpoonFilter::toCamelCase($value)))->title()->toString();
     }
 
     /**

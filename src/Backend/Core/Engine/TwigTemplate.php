@@ -233,10 +233,7 @@ class TwigTemplate extends BaseTwigTemplate
                 }
 
                 $this->assign(
-                    'show' . \SpoonFilter::toCamelCase($module, '_') . \SpoonFilter::toCamelCase(
-                        $action,
-                        '_'
-                    ),
+                    'show' . \SpoonFilter::toCamelCase($module) . \SpoonFilter::toCamelCase($action),
                     true
                 );
             }
