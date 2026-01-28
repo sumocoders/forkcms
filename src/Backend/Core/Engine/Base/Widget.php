@@ -129,8 +129,7 @@ class Widget extends KernelLoader
      */
     protected function setColumn(string $column): void
     {
-        $allowedColumns = ['left', 'middle', 'right'];
-        $this->column = \SpoonFilter::getValue($column, $allowedColumns, 'left');
+        $this->column = in_array($column, ['left', 'middle', 'right'], true) ? $column : 'left';
     }
 
     protected function setPosition(int $position): void

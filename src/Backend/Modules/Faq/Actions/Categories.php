@@ -8,6 +8,7 @@ use Backend\Core\Engine\DataGridDatabase as BackendDataGridDatabase;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Faq\Engine\Model as BackendFaqModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the categories-action, it will display the overview of faq categories
@@ -42,7 +43,7 @@ class Categories extends BackendBaseActionIndex
             [BL::getWorkingLanguage()]
         );
         $this->dataGrid->setColumnFunction('htmlspecialchars', ['[title]'], 'title', false);
-        $this->dataGrid->setHeaderLabels(['num_items' => \SpoonFilter::ucfirst(BL::lbl('Amount'))]);
+        $this->dataGrid->setHeaderLabels(['num_items' => s(BL::lbl('Amount'))->title()->toString()]);
         if ($this->multipleCategoriesAllowed) {
             $this->dataGrid->enableSequenceByDragAndDrop();
         } else {

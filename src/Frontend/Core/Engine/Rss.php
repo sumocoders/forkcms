@@ -12,8 +12,8 @@ class Rss extends \SpoonFeedRSS
     public function __construct(string $title, string $link, string $description, array $items = [])
     {
         // decode
-        $title = \SpoonFilter::htmlspecialcharsDecode($title);
-        $description = \SpoonFilter::htmlspecialcharsDecode($description);
+        $title = htmlspecialchars_decode($title);
+        $description = htmlspecialchars_decode($description);
 
         // call the parent
         parent::__construct(
@@ -31,8 +31,8 @@ class Rss extends \SpoonFeedRSS
             $items
         );
 
-        $siteTitle = \SpoonFilter::htmlspecialcharsDecode(
-            Model::get('fork.settings')->get('Core', 'site_title_' . LANGUAGE)
+        $siteTitle = htmlspecialchars_decode(
+            (string) Model::get('fork.settings')->get('Core', 'site_title_' . LANGUAGE)
         );
 
         // set feed properties

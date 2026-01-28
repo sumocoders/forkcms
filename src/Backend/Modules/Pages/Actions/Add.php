@@ -20,6 +20,7 @@ use SpoonFormHidden;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
+use function Symfony\Component\String\s;
 
 /**
  * This is the add-action, it will display a form to create a new item
@@ -243,7 +244,10 @@ class Add extends BackendBaseActionAdd
         $block['index'] = 0;
         $block['formElements']['chkVisible'] = $this->form->addCheckbox('block_visible_' . $block['index'], true);
         $block['formElements']['hidExtraId'] = $this->form->addHidden('block_extra_id_' . $block['index'], 0);
-        $block['formElements']['hidExtraType'] = $this->form->addHidden('block_extra_type_' . $block['index'], 'rich_text');
+        $block['formElements']['hidExtraType'] = $this->form->addHidden(
+            'block_extra_type_' . $block['index'],
+            'rich_text'
+        );
         $block['formElements']['hidExtraData'] = $this->form->addHidden('block_extra_data_' . $block['index']);
         $block['formElements']['hidPosition'] = $this->form->addHidden('block_position_' . $block['index'], 'fallback');
         $block['formElements']['txtHTML'] = $this->form->addTextarea(
@@ -360,15 +364,15 @@ class Add extends BackendBaseActionAdd
             $redirectValue = 'external';
         }
         $redirectValues = [
-            ['value' => 'none', 'label' => \SpoonFilter::ucfirst(BL::lbl('None'))],
+            ['value' => 'none', 'label' => s(BL::lbl('None'))->title()->toString()],
             [
                 'value' => 'internal',
-                'label' => \SpoonFilter::ucfirst(BL::lbl('InternalLink')),
+                'label' => s(BL::lbl('InternalLink'))->title()->toString(),
                 'variables' => ['isInternal' => true],
             ],
             [
                 'value' => 'external',
-                'label' => \SpoonFilter::ucfirst(BL::lbl('ExternalLink')),
+                'label' => s(BL::lbl('ExternalLink'))->title()->toString(),
                 'variables' => ['isExternal' => true],
             ],
         ];
@@ -380,7 +384,9 @@ class Add extends BackendBaseActionAdd
         );
         $this->form->addText(
             'external_redirect',
-            ($redirectValue === 'external') ? urldecode((string) $originalPage['data']['external_redirect']['url']) : null,
+            ($redirectValue === 'external') ? urldecode(
+                (string) $originalPage['data']['external_redirect']['url']
+            ) : null,
             null,
             null,
             null,
@@ -429,7 +435,10 @@ class Add extends BackendBaseActionAdd
         $this->template->assign('templates', $this->templates);
         $this->template->assign('isGod', $this->isGod);
         $this->template->assign('positions', $this->positions);
-        $this->template->assign('extrasData', json_encode(BackendModel::recursiveHtmlspecialchars(BackendExtensionsModel::getExtrasData())));
+        $this->template->assign(
+            'extrasData',
+            json_encode(BackendModel::recursiveHtmlspecialchars(BackendExtensionsModel::getExtrasData()))
+        );
         $this->template->assign('extrasById', json_encode(BackendExtensionsModel::getExtras()));
         $this->template->assign(
             'prefixURL',

@@ -239,14 +239,14 @@ class BaseTwigModifiers
         }
 
         // remove special chars, all of them, also the ones that shouldn't be there.
-        $string = SpoonFilter::htmlentitiesDecode($string, null, ENT_QUOTES);
+        $string = html_entity_decode($string);
 
         // remove HTML
         $string = strip_tags($string);
 
         // less characters
         if (mb_strlen($string) <= $length) {
-            return SpoonFilter::htmlspecialchars($string);
+            return htmlspecialchars($string);
         }
 
         // more characters
@@ -266,6 +266,6 @@ class BaseTwigModifiers
         }
 
         // return
-        return SpoonFilter::htmlspecialchars($string, ENT_QUOTES);
+        return htmlspecialchars($string);
     }
 }

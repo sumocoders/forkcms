@@ -13,6 +13,7 @@ use Backend\Form\Type\DeleteType;
 use Backend\Modules\Groups\Engine\Model as BackendGroupsModel;
 use Backend\Modules\Users\Engine\Model as BackendUsersModel;
 use Symfony\Component\Finder\Finder;
+use function Symfony\Component\String\s;
 
 /**
  * This is the edit-action, it will display a form to edit a group
@@ -267,9 +268,9 @@ class Edit extends BackendBaseActionEdit
         // check if this action is allowed
         if (BackendAuthentication::isAllowedAction('Edit', 'Users')) {
             // add columns
-            $this->dataGridUsers->addColumn('nickname', \SpoonFilter::ucfirst(BL::lbl('Nickname')), null, BackendModel::createUrlForAction('Edit', 'Users') . '&amp;id=[id]');
-            $this->dataGridUsers->addColumn('surname', \SpoonFilter::ucfirst(BL::lbl('Surname')), null, BackendModel::createUrlForAction('Edit', 'Users') . '&amp;id=[id]');
-            $this->dataGridUsers->addColumn('name', \SpoonFilter::ucfirst(BL::lbl('Name')), null, BackendModel::createUrlForAction('Edit', 'Users') . '&amp;id=[id]');
+            $this->dataGridUsers->addColumn('nickname', s(BL::lbl('Nickname'))->title()->toString(), null, BackendModel::createUrlForAction('Edit', 'Users') . '&amp;id=[id]');
+            $this->dataGridUsers->addColumn('surname', s(BL::lbl('Surname'))->title()->toString(), null, BackendModel::createUrlForAction('Edit', 'Users') . '&amp;id=[id]');
+            $this->dataGridUsers->addColumn('name', s(BL::lbl('Name'))->title()->toString(), null, BackendModel::createUrlForAction('Edit', 'Users') . '&amp;id=[id]');
 
             // add column URL
             $this->dataGridUsers->setColumnURL('email', BackendModel::createUrlForAction('Edit', 'Users') . '&amp;id=[id]');
@@ -316,7 +317,7 @@ class Edit extends BackendBaseActionEdit
 
                     // add widget checkboxes
                     $widgetBoxes[$j]['check'] = '<span>' . $this->form->addCheckbox('widgets_' . $widget['checkbox_name'], $selectedWidgets[$j] ?? null)->parse() . '</span>';
-                    $widgetBoxes[$j]['module'] = \SpoonFilter::ucfirst(BL::lbl($widget['module_name']));
+                    $widgetBoxes[$j]['module'] = s(BL::lbl($widget['module_name']))->title()->toString();
                     $widgetBoxes[$j]['widget'] = '<label for="widgets' . \SpoonFilter::toCamelCase($widget['checkbox_name']) . '">' . $widget['label'] . '</label>';
                     $widgetBoxes[$j]['description'] = $widget['description'];
                 }
@@ -345,8 +346,8 @@ class Edit extends BackendBaseActionEdit
                     // bundle not yet in array?
                     if (!in_array($action['group'], $addedBundles)) {
                         // assign bundled action boxes
-                        $actionBoxes[$key]['actions'][$i]['check'] = $this->form->addCheckbox('actions_' . $module['label'] . '_' . 'Group_' . \SpoonFilter::ucfirst($action['group']), in_array($action['value'], $selectedActions))->parse();
-                        $actionBoxes[$key]['actions'][$i]['action'] = \SpoonFilter::ucfirst($action['group']);
+                        $actionBoxes[$key]['actions'][$i]['check'] = $this->form->addCheckbox('actions_' . $module['label'] . '_' . 'Group_' . s($action['group'])->title()->toString(), in_array($action['value'], $selectedActions))->parse();
+                        $actionBoxes[$key]['actions'][$i]['action'] = s($action['group'])->title()->toString();
                         $actionBoxes[$key]['actions'][$i]['description'] = $this->actionGroups[$action['group']];
 
                         // add the group to the added bundles
@@ -582,9 +583,9 @@ class Edit extends BackendBaseActionEdit
                     // loop through all fields
                     foreach ($this->form->getFields() as $field) {
                         // field exists?
-                        if ($field->getName() == 'actions_' . $module['label'] . '_' . 'Group_' . \SpoonFilter::ucfirst($key)) {
+                        if ($field->getName() == 'actions_' . $module['label'] . '_' . 'Group_' . s($key)->title()->toString()) {
                             // add to bundled actions
-                            $bundledActionPermissions[] = $this->form->getField('actions_' . $module['label'] . '_' . 'Group_' . \SpoonFilter::ucfirst($key));
+                            $bundledActionPermissions[] = $this->form->getField('actions_' . $module['label'] . '_' . 'Group_' . s($key)->title()->toString());
                         }
                     }
                 }

@@ -21,6 +21,7 @@ use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
 use ForkCMS\Utility\Thumbnails;
 use SpoonFormHidden;
 use Symfony\Component\HttpFoundation\Response;
+use function Symfony\Component\String\s;
 
 /**
  * This is the edit-action, it will display a form to update an item
@@ -190,8 +191,8 @@ class Edit extends BackendBaseActionEdit
         // set headers
         $this->dgDrafts->setHeaderLabels(
             [
-                 'user_id' => \SpoonFilter::ucfirst(BL::lbl('By')),
-                 'edited_on' => \SpoonFilter::ucfirst(BL::lbl('LastEditedOn')),
+                 'user_id' => s(BL::lbl('By'))->title()->toString(),
+                 'edited_on' => s(BL::lbl('LastEditedOn'))->title()->toString(),
             ]
         );
 
@@ -512,15 +513,15 @@ class Edit extends BackendBaseActionEdit
             $redirectValue = 'external';
         }
         $redirectValues = [
-            ['value' => 'none', 'label' => \SpoonFilter::ucfirst(BL::lbl('None'))],
+            ['value' => 'none', 'label' => s(BL::lbl('None'))->title()->toString()],
             [
                 'value' => 'internal',
-                'label' => \SpoonFilter::ucfirst(BL::lbl('InternalLink')),
+                'label' => s(BL::lbl('InternalLink'))->title()->toString(),
                 'variables' => ['isInternal' => true],
             ],
             [
                 'value' => 'external',
-                'label' => \SpoonFilter::ucfirst(BL::lbl('ExternalLink')),
+                'label' => s(BL::lbl('ExternalLink'))->title()->toString(),
                 'variables' => ['isExternal' => true],
             ],
         ];
@@ -613,8 +614,8 @@ class Edit extends BackendBaseActionEdit
         // set headers
         $this->dgRevisions->setHeaderLabels(
             [
-                 'user_id' => \SpoonFilter::ucfirst(BL::lbl('By')),
-                 'edited_on' => \SpoonFilter::ucfirst(BL::lbl('LastEditedOn')),
+                 'user_id' => s(BL::lbl('By'))->title()->toString(),
+                 'edited_on' => s(BL::lbl('LastEditedOn'))->title()->toString(),
             ]
         );
 

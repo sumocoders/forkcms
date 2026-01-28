@@ -6,7 +6,7 @@ use Backend\Core\Installer\ModuleInstaller;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
 use Common\ModuleExtraType;
-use SpoonFilter;
+use function Symfony\Component\String\s;
 
 /**
  * Installer for the pages module
@@ -191,8 +191,7 @@ class Installer extends ModuleInstaller
             $modulesPageId = $this->insertPage(
                 [
                     'id' => 4,
-                    'title' => SpoonFilter::ucfirst(
-                        $this->getLocale('Modules', 'Core', $language, 'lbl', 'Frontend')
+                    'title' => s($this->getLocale('Modules', 'Core', $language, 'lbl', 'Frontend'))->title()->toString(
                     ),
                     'type' => 'page',
                     'language' => $language,
@@ -211,7 +210,7 @@ class Installer extends ModuleInstaller
                         'id' => BackendModel::HOME_PAGE_ID,
                         'parent_id' => BackendPagesModel::NO_PARENT_PAGE_ID,
                         'template_id' => $this->getTemplateId('home'),
-                        'title' => SpoonFilter::ucfirst($this->getLocale('Home', 'Core', $language)),
+                        'title' => s($this->getLocale('Home', 'Core', $language))->title()->toString(),
                         'language' => $language,
                         'allow_move' => false,
                         'allow_delete' => false,
@@ -226,8 +225,7 @@ class Installer extends ModuleInstaller
                 // blog
                 $this->insertPage(
                     [
-                        'title' => SpoonFilter::ucfirst(
-                            $this->getLocale('Blog', 'Core', $language, 'lbl', 'Frontend')
+                        'title' => s($this->getLocale('Blog', 'Core', $language, 'lbl', 'Frontend'))->title()->toString(
                         ),
                         'language' => $language,
                         'parent_id' => $modulesPageId,
@@ -301,7 +299,9 @@ class Installer extends ModuleInstaller
                     );
                     $this->insertPage(
                         [
-                            'title' => SpoonFilter::ucfirst($this->getLocale('ForgotPassword', 'Core', $language, 'lbl', 'Backend')),
+                            'title' => s(
+                                $this->getLocale('ForgotPassword', 'Core', $language, 'lbl', 'Backend')
+                            )->title()->toString(),
                             'language' => $language,
                             'parent_id' => $profilesPageId,
                         ],
@@ -311,9 +311,9 @@ class Installer extends ModuleInstaller
                     );
                     $this->insertPage(
                         [
-                            'title' => SpoonFilter::ucfirst(
+                            'title' => s(
                                 $this->getLocale('ResendActivation', 'Core', $language, 'lbl', 'Backend')
-                            ),
+                            )->title()->toString(),
                             'language' => $language,
                             'parent_id' => $profilesPageId,
                         ],
@@ -323,7 +323,9 @@ class Installer extends ModuleInstaller
                     );
                     $this->insertPage(
                         [
-                            'title' => SpoonFilter::ucfirst($this->getLocale('Login', 'Core', $language, 'lbl', 'Backend')),
+                            'title' => s(
+                                $this->getLocale('Login', 'Core', $language, 'lbl', 'Backend')
+                            )->title()->toString(),
                             'language' => $language,
                             'parent_id' => $profilesPageId,
                         ],
@@ -333,7 +335,9 @@ class Installer extends ModuleInstaller
                     );
                     $this->insertPage(
                         [
-                            'title' => SpoonFilter::ucfirst($this->getLocale('Register', 'Core', $language, 'lbl', 'Backend')),
+                            'title' => s(
+                                $this->getLocale('Register', 'Core', $language, 'lbl', 'Backend')
+                            )->title()->toString(),
                             'language' => $language,
                             'parent_id' => $profilesPageId,
                         ],
@@ -343,7 +347,9 @@ class Installer extends ModuleInstaller
                     );
                     $this->insertPage(
                         [
-                            'title' => SpoonFilter::ucfirst($this->getLocale('Logout', 'Core', $language, 'lbl', 'Backend')),
+                            'title' => s(
+                                $this->getLocale('Logout', 'Core', $language, 'lbl', 'Backend')
+                            )->title()->toString(),
                             'language' => $language,
                             'parent_id' => $profilesPageId,
                         ],
@@ -353,7 +359,9 @@ class Installer extends ModuleInstaller
                     );
                     $this->insertPage(
                         [
-                            'title' => SpoonFilter::ucfirst($this->getLocale('Profile', 'Core', $language, 'lbl', 'Backend')),
+                            'title' => s(
+                                $this->getLocale('Profile', 'Core', $language, 'lbl', 'Backend')
+                            )->title()->toString(),
                             'language' => $language,
                             'parent_id' => $profilesPageId,
                         ],
@@ -363,9 +371,9 @@ class Installer extends ModuleInstaller
                     );
                     $this->insertPage(
                         [
-                            'title' => SpoonFilter::ucfirst(
+                            'title' => s(
                                 $this->getLocale('ProfileSettings', 'Core', $language, 'lbl', 'Backend')
-                            ),
+                            )->title()->toString(),
                             'language' => $language,
                             'parent_id' => $profilesPageId,
                         ],
@@ -375,7 +383,9 @@ class Installer extends ModuleInstaller
                     );
                     $this->insertPage(
                         [
-                            'title' => SpoonFilter::ucfirst($this->getLocale('ChangeEmail', 'Core', $language, 'lbl', 'Backend')),
+                            'title' => s(
+                                $this->getLocale('ChangeEmail', 'Core', $language, 'lbl', 'Backend')
+                            )->title()->toString(),
                             'language' => $language,
                             'parent_id' => $profilesPageId,
                         ],
@@ -385,7 +395,9 @@ class Installer extends ModuleInstaller
                     );
                     $this->insertPage(
                         [
-                            'title' => SpoonFilter::ucfirst($this->getLocale('ChangePassword', 'Core', $language, 'lbl', 'Backend')),
+                            'title' => s(
+                                $this->getLocale('ChangePassword', 'Core', $language, 'lbl', 'Backend')
+                            )->title()->toString(),
                             'language' => $language,
                             'parent_id' => $profilesPageId,
                         ],
@@ -428,7 +440,7 @@ class Installer extends ModuleInstaller
                     'id' => BackendModel::HOME_PAGE_ID,
                     'parent_id' => BackendPagesModel::NO_PARENT_PAGE_ID,
                     'template_id' => $this->getTemplateId('home'),
-                    'title' => SpoonFilter::ucfirst($this->getLocale('Home', 'Core', $language, 'lbl', 'Backend')),
+                    'title' => s($this->getLocale('Home', 'Core', $language, 'lbl', 'Backend'))->title()->toString(),
                     'language' => $language,
                     'allow_move' => false,
                     'allow_delete' => false,
@@ -442,8 +454,7 @@ class Installer extends ModuleInstaller
             $this->insertPage(
                 [
                     'id' => 2,
-                    'title' => SpoonFilter::ucfirst(
-                        $this->getLocale('Sitemap', 'Core', $language, 'lbl', 'Frontend')
+                    'title' => s($this->getLocale('Sitemap', 'Core', $language, 'lbl', 'Frontend'))->title()->toString(
                     ),
                     'type' => 'footer',
                     'language' => $language,
@@ -458,9 +469,7 @@ class Installer extends ModuleInstaller
             $this->insertPage(
                 [
                     'id' => 3,
-                    'title' => SpoonFilter::ucfirst(
-                        $this->getLocale('Disclaimer', 'Core', $language, 'lbl', 'Frontend')
-                    ),
+                    'title' => s($this->getLocale('Disclaimer', 'Core', $language, 'lbl', 'Frontend'))->title()->toString(),
                     'type' => 'footer',
                     'language' => $language,
                 ],

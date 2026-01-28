@@ -8,6 +8,7 @@ use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Core\Engine\Rss as FrontendRSS;
 use Frontend\Core\Engine\RssItem as FrontendRSSItem;
 use Frontend\Modules\Blog\Engine\Model as FrontendBlogModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the RSS-feed with all the comments
@@ -25,7 +26,7 @@ class CommentsRss extends FrontendBaseBlock
     {
         $blogPostComments = FrontendBlogModel::getAllComments();
         $rss = new FrontendRSS(
-            \SpoonFilter::ucfirst(FL::msg('BlogAllComments')),
+            s(FL::msg('BlogAllComments'))->title()->toString(),
             SITE_URL . FrontendNavigation::getUrlForBlock($this->getModule()),
             ''
         );

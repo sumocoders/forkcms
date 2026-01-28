@@ -68,7 +68,15 @@ class Edit extends BackendBaseActionEdit
         parent::parse();
 
         // prevent XSS
-        $filter = \SpoonFilter::arrayMapRecursive('htmlspecialchars', $this->filter);
+        $filter = $this->filter;
+        array_walk_recursive(
+            $filter,
+            static function (&$value) {
+                if (is_string($value)) {
+                    $value = htmlspecialchars($value);
+                }
+            }
+        );
 
         // parse filter
         $this->template->assignArray($filter);

@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Symfony\Component\String\s;
 
 class SubscribeType extends AbstractType
 {
@@ -54,7 +55,7 @@ class SubscribeType extends AbstractType
                 'required' => true,
                 'label' => 'lbl.Email',
                 'attr' => [
-                    'placeholder' => \SpoonFilter::ucfirst(Language::lbl('YourEmail')),
+                    'placeholder' => s(Language::lbl('YourEmail'))->title()->toString(),
                 ],
             ]
         );
@@ -75,7 +76,7 @@ class SubscribeType extends AbstractType
             'subscribe',
             SubmitType::class,
             [
-                'label' => \SpoonFilter::ucfirst(Language::lbl('Subscribe')),
+                'label' => s(Language::lbl('Subscribe'))->title()->toString(),
             ]
         );
     }

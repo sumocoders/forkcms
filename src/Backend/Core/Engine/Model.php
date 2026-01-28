@@ -11,6 +11,7 @@ use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
 use Backend\Core\Engine\Model as BackendModel;
 use Frontend\Core\Language\Language as FrontendLanguage;
 use Backend\Core\Language\Language as BackendLanguage;
+use function Symfony\Component\String\s;
 
 /**
  * In this file we store all generic functions that we will be using in the backend.
@@ -418,7 +419,7 @@ class Model extends \Common\Core\Model
 
         // loop and add into the return-array (with correct label)
         foreach ($modules as $module) {
-            $dropDown[$module] = \SpoonFilter::ucfirst(BackendLanguage::lbl(\SpoonFilter::toCamelCase($module)));
+            $dropDown[$module] = s(BackendLanguage::lbl(\SpoonFilter::toCamelCase($module)))->title()->toString();
         }
 
         return $dropDown;

@@ -7,6 +7,7 @@ use SpoonFilter;
 use SpoonFormImage;
 use Symfony\Component\Filesystem\Filesystem;
 use Backend\Core\Language\Language as BackendLanguage;
+use function Symfony\Component\String\s;
 
 /**
  * This is our extended version of \SpoonFormFile
@@ -82,7 +83,7 @@ class FormImage extends SpoonFormImage
             $imageError = $_FILES[$this->getName()]['error'];
             if ($imageError === UPLOAD_ERR_INI_SIZE && empty($this->errors)) {
                 $this->addError(
-                    SpoonFilter::ucfirst(sprintf(BackendLanguage::err('FileTooBig'), Form::getUploadMaxFileSize()))
+                    s(sprintf(BackendLanguage::err('FileTooBig'), Form::getUploadMaxFileSize()))->title()->toString()
                 );
             }
         }

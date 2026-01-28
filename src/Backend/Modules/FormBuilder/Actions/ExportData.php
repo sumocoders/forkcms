@@ -10,6 +10,7 @@ use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
 use Common\Exception\RedirectException;
 use ForkCMS\Utility\Csv\Writer;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use function Symfony\Component\String\s;
 
 /**
  * This action is used to export submissions of a form.
@@ -170,8 +171,8 @@ class ExportData extends BackendBaseAction
     private function setItems(): void
     {
         // init header labels
-        $lblSessionId = \SpoonFilter::ucfirst(BL::lbl('SessionId'));
-        $lblSentOn = \SpoonFilter::ucfirst(BL::lbl('SentOn'));
+        $lblSessionId = s(BL::lbl('SessionId'))->title()->toString();
+        $lblSentOn = s(BL::lbl('SentOn'))->title()->toString();
         $this->columnHeaders = [$lblSessionId, $lblSentOn];
 
         // fetch query and parameters
@@ -202,7 +203,7 @@ class ExportData extends BackendBaseAction
             }
 
             // group submissions
-            $data[$row['data_id']][$row['label']] = \SpoonFilter::htmlentitiesDecode($value, null, ENT_QUOTES);
+            $data[$row['data_id']][$row['label']] = html_entity_decode($value);
 
             // add into headers if not yet added
             if (!in_array($row['label'], $this->columnHeaders)) {
