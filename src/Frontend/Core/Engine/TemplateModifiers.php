@@ -467,11 +467,16 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function cleanupPlainText(string $string): string
     {
-        // detect links
-        $string = \SpoonFilter::replaceURLsWithAnchors(
-            $string,
-            FrontendModel::get('fork.settings')->get('Core', 'seo_nofollow_in_comments', false)
-        );
+        $relAttributes = ['noopener'];
+        if (FrontendModel::get('fork.settings')->get('Core', 'seo_nofollow_in_comments', false)) {
+            $relAttributes[] = 'nofollow';
+        }
+
+        // replace links with a tags
+        $string = s($string)->replaceMatches(
+            '~(https?://[^\s]+)~',
+            '<a href="$1" rel="' . implode(' ', $relAttributes) . '">$1</a>'
+        )->toString();
 
         // replace newlines
         $string = str_replace("\r", '', $string);
