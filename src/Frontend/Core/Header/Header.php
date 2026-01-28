@@ -457,7 +457,7 @@ class Header extends KernelLoader
 
         $charset = $this->getContainer()->getParameter('kernel.charset');
         if ($charset === 'utf-8') {
-            $this->meta->addMetaLink(MetaLink::canonical(\SpoonFilter::htmlspecialchars($this->getCanonical())));
+            $this->meta->addMetaLink(MetaLink::canonical(htmlspecialchars($this->getCanonical())));
 
             return;
         }

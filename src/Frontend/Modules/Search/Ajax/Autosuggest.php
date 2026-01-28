@@ -173,9 +173,9 @@ class Autosuggest extends FrontendBaseAJAXAction
     {
         // set values
         $charset = $this->getContainer()->getParameter('kernel.charset');
-        $searchTerm = $this->getRequest()->request->get('term', '');
+        $searchTerm = (string) $this->getRequest()->request->get('term', '');
         $this->searchTerm = ($charset === 'utf-8')
-            ? \SpoonFilter::htmlspecialchars($searchTerm) : \SpoonFilter::htmlentities($searchTerm);
+            ? htmlspecialchars($searchTerm) : \SpoonFilter::htmlentities($searchTerm);
         $this->autoSuggestItemLength = $this->getRequest()->request->getInt('length', 50);
     }
 }

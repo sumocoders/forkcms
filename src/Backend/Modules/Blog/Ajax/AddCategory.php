@@ -30,7 +30,7 @@ class AddCategory extends BackendBaseAJAXAction
         // get the data
         // build array
         $item = [
-            'title' => \SpoonFilter::htmlspecialchars($categoryTitle),
+            'title' => htmlspecialchars($categoryTitle),
             'language' => BL::getWorkingLanguage(),
         ];
 

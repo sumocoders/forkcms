@@ -398,7 +398,7 @@ class Meta
         $this->form->addHidden('custom', $this->custom);
         $this->form->addHidden('class_name', $this->callback['class']);
         $this->form->addHidden('method_name', $this->callback['method']);
-        $this->form->addHidden('parameters', \SpoonFilter::htmlspecialchars(serialize($this->callback['parameters'])));
+        $this->form->addHidden('parameters', htmlspecialchars(serialize($this->callback['parameters'])));
 
         if (!empty($this->hreflangCallback)) {
             foreach (BackendLanguage::getActiveLanguages() as $language) {

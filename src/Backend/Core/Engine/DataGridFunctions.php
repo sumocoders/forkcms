@@ -299,7 +299,7 @@ class DataGridFunctions
 
         // less characters
         if (mb_strlen($string) <= $length) {
-            return SpoonFilter::htmlspecialchars($string);
+            return htmlspecialchars($string);
         }
 
         // more characters
@@ -316,7 +316,7 @@ class DataGridFunctions
             $string .= '…';
         }
 
-        return SpoonFilter::htmlspecialchars($string);
+        return htmlspecialchars($string);
     }
 
     /**

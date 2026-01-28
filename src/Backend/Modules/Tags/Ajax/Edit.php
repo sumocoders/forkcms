@@ -41,7 +41,7 @@ class Edit extends BackendBaseAJAXAction
         }
         $item = [];
         $item['id'] = $id;
-        $item['tag'] = \SpoonFilter::htmlspecialchars($tag);
+        $item['tag'] = htmlspecialchars($tag);
         $item['url'] = BackendTagsModel::getUrl(
             CommonUri::getUrl(htmlspecialchars_decode($item['tag'])),
             $id

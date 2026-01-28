@@ -246,7 +246,7 @@ class BaseTwigModifiers
 
         // less characters
         if (mb_strlen($string) <= $length) {
-            return SpoonFilter::htmlspecialchars($string);
+            return htmlspecialchars($string);
         }
 
         // more characters
@@ -266,6 +266,6 @@ class BaseTwigModifiers
         }
 
         // return
-        return SpoonFilter::htmlspecialchars($string, ENT_QUOTES);
+        return htmlspecialchars($string);
     }
 }

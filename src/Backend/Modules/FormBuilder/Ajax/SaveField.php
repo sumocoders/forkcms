@@ -231,10 +231,10 @@ class SaveField extends BackendBaseAJAXAction
         // htmlspecialchars except for paragraphs
         if ($type !== 'paragraph') {
             if ($values !== '') {
-                $values = \SpoonFilter::htmlspecialchars($values);
+                $values = htmlspecialchars($values);
             }
             if ($defaultValues !== '') {
-                $defaultValues = \SpoonFilter::htmlspecialchars($defaultValues);
+                $defaultValues = htmlspecialchars($defaultValues);
             }
         }
 
@@ -262,7 +262,7 @@ class SaveField extends BackendBaseAJAXAction
         // settings
         $settings = [];
         if ($label !== '') {
-            $settings['label'] = \SpoonFilter::htmlspecialchars($label);
+            $settings['label'] = htmlspecialchars($label);
         }
         if (!empty($values)) {
             $settings['values'] = $values;
@@ -271,10 +271,10 @@ class SaveField extends BackendBaseAJAXAction
             $settings['default_values'] = $defaultValues;
         }
         if ($placeholder !== '') {
-            $settings['placeholder'] = \SpoonFilter::htmlspecialchars($placeholder);
+            $settings['placeholder'] = htmlspecialchars($placeholder);
         }
         if ($classname !== '') {
-            $settings['classname'] = \SpoonFilter::htmlspecialchars($classname);
+            $settings['classname'] = htmlspecialchars($classname);
         }
 
         $settings['autocomplete'] = in_array($autocomplete, Autocomplete::POSSIBLE_VALUES) ? $autocomplete : '';
@@ -330,7 +330,7 @@ class SaveField extends BackendBaseAJAXAction
             $validate = [];
             $validate['field_id'] = $fieldId;
             $validate['type'] = 'required';
-            $validate['error_message'] = \SpoonFilter::htmlspecialchars($requiredErrorMessage);
+            $validate['error_message'] = htmlspecialchars($requiredErrorMessage);
 
             // add validation
             BackendFormBuilderModel::insertFieldValidation($validate);
@@ -344,9 +344,9 @@ class SaveField extends BackendBaseAJAXAction
             // build array
             $validate['field_id'] = $fieldId;
             $validate['type'] = $validation;
-            $validate['error_message'] = \SpoonFilter::htmlspecialchars($errorMessage);
+            $validate['error_message'] = htmlspecialchars($errorMessage);
             $validate['parameter'] = ($validationParameter !== '') ?
-                \SpoonFilter::htmlspecialchars($validationParameter) :
+                htmlspecialchars($validationParameter) :
                 null;
 
             // add validation
