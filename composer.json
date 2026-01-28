@@ -19,7 +19,6 @@
         "ext-gd": "*",
         "ext-intl": "*",
         "ext-simplexml": "*",
-        "behat/transliterator": "~1.0",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/orm": "^2.7",
         "google/apiclient": "~1.1.2",
@@ -56,13 +55,13 @@
         "symfony/intl": "^5.4",
         "tijsverkoyen/css-to-inline-styles": "^2.0",
         "phpoffice/phpspreadsheet": "^1.12",
-        "composer/package-versions-deprecated": "^1.11",
         "guzzlehttp/guzzle": "^7.10",
         "doctrine/annotations": "^1.14",
         "sentry/sentry-symfony": "^5.8",
         "symfony/dom-crawler": "^5.4",
         "symfony/browser-kit": "^5.4",
-        "symfony/messenger": "^5.4"
+        "symfony/messenger": "^5.4",
+        "symfony/string": "^5.4"
     },
     "require-dev": {
         "jdorn/sql-formatter": "1.2.17",
@@ -75,7 +74,6 @@
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-symfony": "^2.0",
         "deployer/deployer": "^7.0",
-        "deployer/recipes": "^6.2",
         "tijsverkoyen/deployer-sumo": "^4.3",
         "micheh/phpcs-gitlab": "^2.1",
         "vincentlanglet/twig-cs-fixer": "^3.12"

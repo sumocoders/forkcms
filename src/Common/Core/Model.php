@@ -3,7 +3,6 @@
 namespace Common\Core;
 
 use ForkCMS\App\BaseModel;
-use ForkCMS\Utility\Akismet;
 use ForkCMS\Utility\Thumbnails;
 use InvalidArgumentException;
 use RuntimeException;
@@ -268,22 +267,6 @@ class Model extends BaseModel
     {
         return self::getContainer()->has('request_stack')
                && self::getContainer()->get('request_stack')->getCurrentRequest() !== null;
-    }
-
-    protected static function getAkismet(): Akismet
-    {
-        $akismetKey = self::get('fork.settings')->get('Core', 'akismet_key');
-
-        // invalid key, so we can't detect spam
-        if (empty($akismetKey)) {
-            throw new InvalidArgumentException('no akismet key found');
-        }
-
-        $akismet = new Akismet($akismetKey, SITE_URL);
-        $akismet->setTimeOut(10);
-        $akismet->setUserAgent('Fork CMS/' . FORK_VERSION);
-
-        return $akismet;
     }
 
     public static function getSession(): SessionInterface

@@ -53,18 +53,6 @@
                   {% form_field moderation %} {{ 'lbl.EnableModeration'|trans|ucfirst }}
                 </label>
               </li>
-              <li class="checkbox">
-                <label for="spamfilter" class="control-label">
-                  {% form_field spamfilter %} {{ 'lbl.FilterCommentsForSpam'|trans|ucfirst }}
-                </label>
-                <p class="help-block">
-                  {{ 'msg.HelpSpamFilter'|trans|ucfirst }}
-                  {% if noAkismetKey %}
-                    <br />
-                    {{ 'msg.NoAkismetKey'|trans|format(geturl('index','settings')|raw) }}
-                  {% endif %}
-                </p>
-              </li>
             </ul>
             <p>{{ 'msg.FollowAllCommentsInRSS'|trans|format(commentsRSSURL)|raw }}</p>
           </div>

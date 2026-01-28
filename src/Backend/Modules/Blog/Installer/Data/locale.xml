@@ -237,21 +237,6 @@
         <translation language="pt"><![CDATA[Informar os vários serviços de blog quando um novo artigo é publicado.]]></translation>
         <translation language="pl"><![CDATA[Poinformuj o tym kilka serwisów blogów podczas publikowania nowej wiadomości.]]></translation>
       </item>
-      <item type="message" name="HelpSpamFilter">
-        <translation language="nl"><![CDATA[Schakel de ingebouwde spam-filter (Akismet) in om spam-berichten in reacties te vermijden.]]></translation>
-        <translation language="en"><![CDATA[Enable the built-in spamfilter (Akismet) to help avoid spam comments.]]></translation>
-        <translation language="it"><![CDATA[Abilita il filtro antispam (Askimet) per evitare spam nei commenti. ]]></translation>
-        <translation language="ru"><![CDATA[Включить спам-фильтр Akismet.]]></translation>
-        <translation language="zh"><![CDATA[开启内置的垃圾评论滤镜（Akismet)过滤垃圾评论。]]></translation>
-        <translation language="de"><![CDATA[Aktiviere den eingebauten Spamfilter (Akismet) um Spam in den Kommentaren zu vermeiden.]]></translation>
-        <translation language="hu"><![CDATA[Engedélyezd a beépített spamszűrőt (Akismet) a spam hozzászólások kivédéséhez.]]></translation>
-        <translation language="fr"><![CDATA[Activez le filtre de spam (Akismet) pour éviter les spams dans les commentaires.]]></translation>
-        <translation language="es"><![CDATA[Activar el filtro spam incorporado (Akismet) para ayudar a evitar los comentarios spam.]]></translation>
-        <translation language="sv"><![CDATA[Aktivera det inbyggda skräpfiltret (Akismet) för att undvika skräpkommentarer.]]></translation>
-        <translation language="el"><![CDATA[Ενεργοποίηση του ενσωματωμένου φίλτρου (Akismet) γιά την παρεμπόδιση ανεπιθύμητων σχολίων.]]></translation>
-        <translation language="pt"><![CDATA[Activar o filtro de spam (Akismet) para ajudar a evitar comentários spam.]]></translation>
-        <translation language="pl"><![CDATA[Włącz wbudowany filtr antyspamowy (Akismet), aby uniknąć spamu w komentarzach.]]></translation>
-      </item>
       <item type="message" name="HelpSummary">
         <translation language="nl"><![CDATA[Maak voor lange artikels een inleiding of samenvatting. Die kan getoond worden op de homepage of het artikeloverzicht.]]></translation>
         <translation language="en"><![CDATA[Write an introduction or summary for long articles. It will be shown on the homepage or the article overview.]]></translation>

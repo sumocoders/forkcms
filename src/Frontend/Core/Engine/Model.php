@@ -224,50 +224,6 @@ class Model extends \Common\Core\Model
         return $positions;
     }
 
-    /**
-     * General method to check if something is spam
-     *
-     * @param string $content The content that was submitted.
-     * @param string $permaLink The permanent location of the entry the comment was submitted to.
-     * @param string $author Commenter's name.
-     * @param string $email Commenter's email address.
-     * @param string $url Commenter's URL.
-     * @param string $type May be blank, comment, trackback, pingback, or a made up value like "registration".
-     *
-     * @throws \Exception
-     *
-     * @return bool|string Will return a boolean, except when we can't decide the status
-     *                          (unknown will be returned in that case)
-     */
-    public static function isSpam(
-        string $content,
-        string $permaLink,
-        ?string $author = null,
-        ?string $email = null,
-        ?string $url = null,
-        string $type = 'comment'
-    ) {
-        try {
-            $akismet = self::getAkismet();
-        } catch (InvalidArgumentException) {
-            return false;
-        }
-
-        // try it, to decide if the item is spam
-        try {
-            // check with Akismet if the item is spam
-            return $akismet->isSpam($content, $author, $email, $url, $permaLink, $type);
-        } catch (\Exception $e) {
-            // in debug mode we want to see exceptions, otherwise the fallback will be triggered
-            if (self::getContainer()->getParameter('kernel.debug')) {
-                throw $e;
-            }
-
-            // return unknown status
-            return 'unknown';
-        }
-    }
-
     private static function unserializeArrayContent(array $array, string $key): array
     {
         if (isset($array[$key]) && $array[$key] !== '') {

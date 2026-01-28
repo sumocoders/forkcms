@@ -22,7 +22,6 @@ class ModulesSettingsTest extends TestCase
 
         $modulesSettings->get('Core', 'theme', 'Fork');
         $modulesSettings->get('Core', 'time_format', 'H:i');
-        $modulesSettings->get('Blog', 'spam_filter', false);
     }
 
     public function testFetchingSettingWorks(): void

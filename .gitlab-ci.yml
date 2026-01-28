@@ -49,7 +49,7 @@ Install dependencies and build assets:
         - cp app/config/parameters.yml.dist app/config/parameters.yml
         - echo 'FORK_ENV=dev' >> .env.local
         - echo 'FORK_DEBUG=true' >> .env.local
-        - npm install --no-progress
+        - npm ci --no-progress
         - node_modules/.bin/gulp build
     #        - npm run build
     cache:
