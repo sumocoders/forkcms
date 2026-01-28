@@ -547,7 +547,7 @@ class Model
             // any extras?
             if (isset($row['data']['default_extras'])) {
                 foreach ($row['data']['default_extras'] as $value) {
-                    if (\SpoonFilter::isInteger($value)
+                    if (filter_var($value, FILTER_VALIDATE_INT) !== false
                         && isset($extras[$value]) && $extras[$value]['type'] == 'block'
                     ) {
                         $row['has_block'] = true;

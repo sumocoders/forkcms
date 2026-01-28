@@ -85,7 +85,7 @@ class Form extends FrontendBaseWidget
             }
 
             // normal parameter
-            if (\SpoonFilter::isInteger($key)) {
+            if (filter_var($key, FILTER_VALIDATE_INT) !== false) {
                 $moduleParameters[] = $value;
             } else {
                 // get parameter
