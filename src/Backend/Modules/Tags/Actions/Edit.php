@@ -129,7 +129,7 @@ class Edit extends BackendBaseActionEdit
                 $item['id'] = $this->id;
                 $item['tag'] = $this->form->getField('name')->getValue();
                 $item['url'] = BackendTagsModel::getUrl(
-                    CommonUri::getUrl(\SpoonFilter::htmlspecialcharsDecode($item['tag'])),
+                    CommonUri::getUrl(htmlspecialchars_decode($item['tag'])),
                     $this->id
                 );
 

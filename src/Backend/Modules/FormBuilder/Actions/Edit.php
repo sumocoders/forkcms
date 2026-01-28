@@ -266,7 +266,7 @@ class Edit extends BackendBaseActionEdit
                 // add field
                 $btn = $this->form->addButton(
                     'submit_field',
-                    \SpoonFilter::htmlspecialcharsDecode($field['settings']['values']),
+                    htmlspecialchars_decode((string) $field['settings']['values']),
                     'button',
                     'btn btn-default'
                 );

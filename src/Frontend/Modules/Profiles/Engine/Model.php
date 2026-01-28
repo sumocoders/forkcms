@@ -301,7 +301,7 @@ class Model
     public static function getUrl(string $displayName, ?int $excludedId = null): string
     {
         // decode special chars
-        $displayName = \SpoonFilter::htmlspecialcharsDecode($displayName);
+        $displayName = htmlspecialchars_decode($displayName);
 
         // urlise
         $url = CommonUri::getUrl($displayName);

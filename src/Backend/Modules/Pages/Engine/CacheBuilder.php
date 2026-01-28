@@ -352,7 +352,7 @@ class CacheBuilder
                     }
 
                     // get the title
-                    $title = \SpoonFilter::htmlspecialcharsDecode($cachedTitles[$pageId]);
+                    $title = htmlspecialchars_decode((string) $cachedTitles[$pageId]);
 
                     // split into chunks
                     $urlChunks = explode('/', (string) $url);

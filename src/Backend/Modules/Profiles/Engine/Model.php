@@ -444,7 +444,7 @@ class Model
     public static function getUrl(string $displayName, ?int $excludedProfileId = null): string
     {
         // decode specialchars
-        $displayName = \SpoonFilter::htmlspecialcharsDecode((string) $displayName);
+        $displayName = htmlspecialchars_decode($displayName);
 
         // urlise
         $url = CommonUri::getUrl($displayName);

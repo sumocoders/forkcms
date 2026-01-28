@@ -45,7 +45,7 @@ class SaveField extends BackendBaseAJAXAction
         $values = trim($this->getRequest()->request->get('values', ''));
 
         // this is somewhat a nasty hack, but it makes special chars work.
-        $values = \SpoonFilter::htmlspecialcharsDecode($values);
+        $values = htmlspecialchars_decode($values);
 
         $defaultValues = trim($this->getRequest()->request->get('default_values', ''));
         $placeholder = trim($this->getRequest()->request->get('placeholder', ''));
