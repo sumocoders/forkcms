@@ -1326,8 +1326,8 @@ class Model
         string $tree,
         ?string $language = null
     ): bool {
-        $typeOfDrop = SpoonFilter::getValue($typeOfDrop, self::POSSIBLE_TYPES_OF_DROP, self::TYPE_OF_DROP_INSIDE);
-        $tree = SpoonFilter::getValue($tree, ['main', 'meta', 'footer', 'root'], 'root');
+        $typeOfDrop = in_array($typeOfDrop, self::POSSIBLE_TYPES_OF_DROP, true) ? $typeOfDrop : self::TYPE_OF_DROP_INSIDE;
+        $tree = in_array($tree, ['main', 'meta', 'footer', 'root'], true) ? $tree : 'root';
         $language ??= BL::getWorkingLanguage();
 
         // When dropping on the main navigation it should be added as a child of the home page

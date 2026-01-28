@@ -516,11 +516,9 @@ class Model
     public static function getTemplates(?string $theme = null): array
     {
         $database = BackendModel::getContainer()->get('database');
-        $theme = \SpoonFilter::getValue(
-            (string) $theme,
-            null,
-            BackendModel::get('fork.settings')->get('Core', 'theme', 'Fork')
-        );
+        if ($theme === null || $theme === '') {
+            $theme = BackendModel::get('fork.settings')->get('Core', 'theme', 'Fork');
+        }
 
         $templates = (array) $database->getRecords(
             'SELECT i.id, i.label, i.path, i.data

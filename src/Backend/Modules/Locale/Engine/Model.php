@@ -478,8 +478,8 @@ class Model
                 foreach ($items as $item) {
                     // attributes
                     $attributes = $item->attributes();
-                    $type = SpoonFilter::getValue($attributes['type'], $possibleTypes, '');
-                    $name = s(SpoonFilter::getValue($attributes['name'], null, ''))->title()->toString();
+                    $type = in_array($attributes['type'], $possibleTypes, true) ? $attributes['type'] : '';
+                    $name = s($attributes['name'] ?? '')->title()->toString();
 
                     // missing attributes
                     if ($type == '' || $name == '') {
@@ -496,11 +496,7 @@ class Model
 
                         // attributes
                         $attributes = $translation->attributes();
-                        $language = SpoonFilter::getValue(
-                            $attributes['language'],
-                            $possibleLanguages[$application],
-                            ''
-                        );
+                        $language = in_array($attributes['language'], $possibleLanguages[$application], true) ? $attributes['language'] : '';
 
                         // language does not exist
                         if ($language == '') {
