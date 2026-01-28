@@ -16,10 +16,8 @@ class Autocomplete extends FrontendBaseAJAXAction
     {
         parent::execute();
 
-        $charset = $this->getContainer()->getParameter('kernel.charset');
         $searchTerm = (string) $this->getRequest()->request->get('term', '');
-        $term = ($charset === 'utf-8')
-            ? htmlspecialchars($searchTerm) : \SpoonFilter::htmlentities($searchTerm);
+        $term = htmlspecialchars($searchTerm);
         $limit = (int) $this->get('fork.settings')->get('Search', 'autocomplete_num_items', 10);
 
         if ($term === '') {

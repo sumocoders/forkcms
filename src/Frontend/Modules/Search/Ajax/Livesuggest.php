@@ -309,9 +309,7 @@ class Livesuggest extends FrontendBaseAJAXAction
 
     private function validateForm(): void
     {
-        $charset = $this->getContainer()->getParameter('kernel.charset');
         $searchTerm = (string) $this->getRequest()->request->get('term', '');
-        $this->searchTerm = ($charset === 'utf-8')
-            ? htmlspecialchars($searchTerm) : \SpoonFilter::htmlentities($searchTerm);
+        $this->searchTerm = htmlspecialchars($searchTerm);
     }
 }
