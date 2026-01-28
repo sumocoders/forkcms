@@ -462,7 +462,7 @@ class Header extends KernelLoader
             return;
         }
 
-        $this->meta->addMetaLink(MetaLink::canonical(\SpoonFilter::htmlentities($this->getCanonical())));
+        $this->meta->addMetaLink(MetaLink::canonical(htmlentities($this->getCanonical())));
     }
 
     public function setCanonicalUrl(string $canonicalUrl): void

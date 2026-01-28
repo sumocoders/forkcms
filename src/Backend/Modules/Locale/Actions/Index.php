@@ -153,12 +153,7 @@ class Index extends BackendBaseActionIndex
                 );
 
                 // escape the double quotes
-                $dataGrid->setColumnFunction(
-                    ['SpoonFilter', 'htmlentities'],
-                    ['[' . $lang . ']', null, ENT_QUOTES],
-                    $lang,
-                    true
-                );
+                $dataGrid->setColumnFunction('htmlentities', ['[' . $lang . ']'], $lang, true);
                 if ($type == 'act') {
                     $dataGrid->setColumnFunction('urldecode', ['[' . $lang . ']'], $lang, true);
                 }
