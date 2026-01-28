@@ -203,7 +203,7 @@ class ExportData extends BackendBaseAction
             }
 
             // group submissions
-            $data[$row['data_id']][$row['label']] = \SpoonFilter::htmlentitiesDecode($value, null, ENT_QUOTES);
+            $data[$row['data_id']][$row['label']] = html_entity_decode($value);
 
             // add into headers if not yet added
             if (!in_array($row['label'], $this->columnHeaders)) {

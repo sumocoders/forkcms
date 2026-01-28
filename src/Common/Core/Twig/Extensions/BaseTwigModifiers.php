@@ -239,7 +239,7 @@ class BaseTwigModifiers
         }
 
         // remove special chars, all of them, also the ones that shouldn't be there.
-        $string = SpoonFilter::htmlentitiesDecode($string, null, ENT_QUOTES);
+        $string = html_entity_decode($string);
 
         // remove HTML
         $string = strip_tags($string);
