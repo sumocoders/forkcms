@@ -424,7 +424,7 @@ class MetaType extends AbstractType
     {
         $chunks = explode('-', $string);
 
-        if (!SpoonFilter::isNumeric(end($chunks))) {
+        if (!ctype_digit(end($chunks))) {
             return $string;
         }
 

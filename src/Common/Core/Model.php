@@ -45,7 +45,7 @@ class Model extends BaseModel
         $last = $chunks[$count - 1];
 
         // is numeric
-        if (!\SpoonFilter::isNumeric($last)) {
+        if (!\ctype_digit($last)) {
             // not numeric, so add -2
             return $string . '-2';
         }
