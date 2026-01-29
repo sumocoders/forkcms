@@ -303,8 +303,8 @@ class Model
             }
 
             // add human readable name
-            $module = s(BL::lbl(\SpoonFilter::toCamelCase($row['module'])))->title()->toString();
-            $extraTypeLabel = s(BL::lbl(\SpoonFilter::toCamelCase('ExtraType_' . $row['type'])))->title()->toString();
+            $module = s(BL::lbl(s($row['module'])->camel()->title()->toString()))->title()->toString();
+            $extraTypeLabel = s(BL::lbl(s('ExtraType_' . $row['type'])->replace('_', ' ')->camel()->title()->toString()))->title()->toString();
             $row['human_name'] = $extraTypeLabel . ': ' . $name;
             $row['path'] = $extraTypeLabel . ' › ' . $module . ($module !== $name ? ' › ' . $name : '');
         }
@@ -354,7 +354,7 @@ class Model
             if (isset($row['data']['label_variables'])) {
                 $name = vsprintf($name, $row['data']['label_variables']);
             }
-            $moduleName = s(BL::lbl(\SpoonFilter::toCamelCase($row['module'])))->title()->toString();
+            $moduleName = s(BL::lbl(s($row['module'])->camel()->title()->toString()))->title()->toString();
 
             if (!isset($values[$row['module']])) {
                 $values[$row['module']] = [
@@ -428,7 +428,7 @@ class Model
             $module = [];
             $module['id'] = 'module_' . $moduleName;
             $module['raw_name'] = $moduleName;
-            $module['name'] = s(BL::getLabel(\SpoonFilter::toCamelCase($moduleName)))->title()->toString();
+            $module['name'] = s(BL::getLabel(s($moduleName)->camel()->title()->toString()))->title()->toString();
             $module['description'] = '';
             $module['version'] = '';
             $module['installed'] = false;

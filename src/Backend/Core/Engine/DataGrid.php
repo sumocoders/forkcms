@@ -75,7 +75,7 @@ class DataGrid extends \SpoonDataGrid
 
             // set default label
             $this->setHeaderLabels(
-                [$column => s(BackendLanguage::lbl(SpoonFilter::toCamelCase($column)))->title()->toString()]
+                [$column => s(BackendLanguage::lbl(s($column)->replace('_', ' ')->camel()->title()->toString()))->title()->toString()]
             );
         }
 
@@ -163,7 +163,7 @@ class DataGrid extends \SpoonDataGrid
             // add special attributes for actions we know
             $this->setColumnAttributes(
                 $name,
-                ['class' => 'fork-data-grid-action action' . SpoonFilter::toCamelCase($name)]
+                ['class' => 'fork-data-grid-action action' . s($name)->replace('_', ' ')->camel()->title()]
             );
         }
 
@@ -222,7 +222,7 @@ class DataGrid extends \SpoonDataGrid
         $this->setColumnAttributes(
             $name,
             [
-                'class' => 'fork-data-grid-action action' . SpoonFilter::toCamelCase($name),
+                'class' => 'fork-data-grid-action action' . s($name)->replace('_', ' ')->camel()->title(),
                 'style' => 'width: 10%;',
             ]
         );

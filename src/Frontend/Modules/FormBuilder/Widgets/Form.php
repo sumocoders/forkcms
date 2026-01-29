@@ -16,6 +16,7 @@ use ReCaptcha\RequestMethod\CurlPost;
 use SpoonFormAttributes;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Validator\Constraints as Assert;
+use function Symfony\Component\String\s;
 
 /**
  * This is the form widget.
@@ -381,8 +382,8 @@ class Form extends FrontendBaseWidget
                 } elseif (in_array($field['type'], ['checkbox', 'radiobutton'])) {
                     // name (prefixed by type)
                     $name = ($field['type'] === 'checkbox') ?
-                        'chk' . \SpoonFilter::toCamelCase($field['name']) :
-                        'rbt' . \SpoonFilter::toCamelCase($field['name'])
+                        'chk' . s($field['name'])->replace('_', ' ')->camel()->title()->toString() :
+                        'rbt' . s($field['name'])->replace('_', ' ')->camel()->title()->toString()
                     ;
 
                     // rebuild so the html is stored in a general name (and not rbtName)

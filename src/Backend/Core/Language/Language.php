@@ -6,6 +6,7 @@ use Backend\Core\Engine\Model;
 use Backend\Modules\Locale\Engine\Model as BackendLocaleModel;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use function Symfony\Component\String\s;
 
 /**
  * This class will store the language-dependant content for the Backend, it will also store the
@@ -114,10 +115,10 @@ class Language
     {
         $module ??= self::getCurrentModule();
 
-        $key = \SpoonFilter::toCamelCase($key);
+        $key = s($key)->replace('_', ' ')->camel()->title()->toString();
 
         // otherwise return the key in label-format
-        return self::$err[$module][$key] ?? self::$err['Core'][$key] ?? '{$err' . \SpoonFilter::toCamelCase($module) . $key . '}';
+        return self::$err[$module][$key] ?? self::$err['Core'][$key] ?? '{$err' . s($module)->camel()->title() . $key . '}';
     }
 
     public static function getErrors(): array
@@ -154,11 +155,10 @@ class Language
     public static function getLabel(string $key, ?string $module = null): string
     {
         $module ??= self::getCurrentModule();
-
-        $key = \SpoonFilter::toCamelCase($key);
+        $key = s($key)->replace('_', ' ')->camel()->title()->toString();
 
         // otherwise return the key in label-format
-        return self::$lbl[$module][$key] ?? self::$lbl['Core'][$key] ?? '{$lbl' . \SpoonFilter::toCamelCase($module) . $key . '}';
+        return self::$lbl[$module][$key] ?? self::$lbl['Core'][$key] ?? '{$lbl' . s($module)->camel()->title() . $key . '}';
     }
 
     public static function getLabels(): array
@@ -168,11 +168,11 @@ class Language
 
     public static function getMessage(string $key, ?string $module = null): string
     {
-        $key = \SpoonFilter::toCamelCase((string) $key);
         $module ??= self::getCurrentModule();
+        $key = s($key)->replace('_', ' ')->camel()->title()->toString();
 
         // otherwise return the key in label-format
-        return self::$msg[$module][$key] ?? self::$msg['Core'][$key] ?? '{$msg' . \SpoonFilter::toCamelCase($module) . $key . '}';
+        return self::$msg[$module][$key] ?? self::$msg['Core'][$key] ?? '{$msg' . s($module)->camel()->title() . $key . '}';
     }
 
     public static function getMessages(): array

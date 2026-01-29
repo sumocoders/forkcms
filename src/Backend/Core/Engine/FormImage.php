@@ -138,9 +138,9 @@ class FormImage extends SpoonFormImage
 
         // parse to template
         if ($template !== null) {
-            $template->assign('file' . SpoonFilter::toCamelCase($this->attributes['name']), $output);
+            $template->assign('file' . s($this->attributes['name'])->replace('_', ' ')->camel()->title(), $output);
             $template->assign(
-                'file' . SpoonFilter::toCamelCase($this->attributes['name']) . 'Error',
+                'file' . s($this->attributes['name'])->replace('_', ' ')->camel()->title() . 'Error',
                 ($this->errors != '') ? '<span class="formError text-danger">' . $this->errors . '</span>' : ''
             );
         }

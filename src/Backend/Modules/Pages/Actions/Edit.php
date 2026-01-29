@@ -367,7 +367,7 @@ class Edit extends BackendBaseActionEdit
 
             foreach ($permissions as $permission => $attributes) {
                 $values[] = [
-                    'label' => BL::msg(\SpoonFilter::toCamelCase('allow_' . $permission)),
+                    'label' => BL::msg(s('allow_' . $permission)->replace('_', ' ')->camel()->title()->toString()),
                     'value' => $permission,
                     'attributes' => $attributes,
                 ];

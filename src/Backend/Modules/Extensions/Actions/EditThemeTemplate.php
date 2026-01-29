@@ -138,10 +138,10 @@ class EditThemeTemplate extends BackendBaseActionEdit
                     $blocks[$item['id']] = s($item['data']['extra_label'])->title()->toString();
                 }
             } elseif ($item['type'] == 'widget') {
-                $widgets[$item['id']] = s(BL::lbl(\SpoonFilter::toCamelCase($item['module'])))->title() . ': ' .
+                $widgets[$item['id']] = s(BL::lbl(s($item['module'])->camel()->title()->toString()))->title() . ': ' .
                                         s(BL::lbl($item['label']))->title();
                 if (isset($item['data']['extra_label'])) {
-                    $widgets[$item['id']] = s(BL::lbl(\SpoonFilter::toCamelCase($item['module'])))->title() . ': ' .
+                    $widgets[$item['id']] = s(BL::lbl(s($item['module'])->camel()->title()->toString()))->title() . ': ' .
                                             $item['data']['extra_label'];
                 }
             }

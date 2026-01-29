@@ -2,17 +2,18 @@
 
 namespace Backend\Core\Engine\Base;
 
+use Backend\Core\Engine\Header;
+use Backend\Core\Engine\Model as BackendModel;
+use Backend\Core\Engine\Url;
 use Backend\Core\Engine\TwigTemplate;
+use Backend\Core\Language\Language as BL;
 use Common\Exception\RedirectException;
 use ForkCMS\App\KernelLoader;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Backend\Core\Engine\Header;
-use Backend\Core\Language\Language as BL;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Engine\Url;
+use function Symfony\Component\String\s;
 
 /**
  * This class implements a lot of functionality that can be extended by a specific action
@@ -171,7 +172,9 @@ class Action extends KernelLoader
             $this->template->assign('report', true);
 
             // camelcase the string
-            $messageName = strip_tags(\SpoonFilter::toCamelCase($this->getRequest()->query->get('report'), '-'));
+            $messageName = strip_tags(
+                s($this->getRequest()->query->get('report'))->replace('-', ' ')->camel()->title()->toString()
+            );
 
             // if we have data to use it will be passed as the var parameter
             if (!empty($var)) {
@@ -189,7 +192,9 @@ class Action extends KernelLoader
         // is there an error to show?
         if ($this->getRequest()->query->get('error', '') !== '') {
             // camelcase the string
-            $errorName = strip_tags(\SpoonFilter::toCamelCase($this->getRequest()->query->get('error'), '-'));
+            $errorName = strip_tags(
+                s($this->getRequest()->query->get('error'))->replace('-', ' ')->camel()->title()->toString()
+            );
 
             // if we have data to use it will be passed as the var parameter
             if (!empty($var)) {

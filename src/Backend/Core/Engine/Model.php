@@ -419,7 +419,7 @@ class Model extends \Common\Core\Model
 
         // loop and add into the return-array (with correct label)
         foreach ($modules as $module) {
-            $dropDown[$module] = s(BackendLanguage::lbl(\SpoonFilter::toCamelCase($module)))->title()->toString();
+            $dropDown[$module] = s(BackendLanguage::lbl(s($module)->camel()->title()->toString()))->title()->toString();
         }
 
         return $dropDown;
@@ -607,7 +607,7 @@ class Model extends \Common\Core\Model
 
         // append action
         if ($action !== null) {
-            $url .= '/' . urldecode(FrontendLanguage::act(\SpoonFilter::toCamelCase($action)));
+            $url .= '/' . urldecode(FrontendLanguage::act(s($action)->camel()->title()->toString()));
         }
 
         // return the unique URL!
@@ -629,7 +629,7 @@ class Model extends \Common\Core\Model
         ?array $fileSizes = null
     ): void {
         if (empty($fileSizes)) {
-            $model = get_class_vars('Backend' . \SpoonFilter::toCamelCase($module) . 'Model');
+            $model = get_class_vars('Backend' . s($module)->camel()->title() . 'Model');
             $fileSizes = $model['fileSizes'];
         }
 

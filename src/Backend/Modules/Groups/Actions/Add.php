@@ -166,7 +166,7 @@ class Add extends BackendBaseActionAdd
                 }
 
                 $this->actions[$module][] = [
-                    'label' => \SpoonFilter::toCamelCase($actionName),
+                    'label' => s($actionName)->replace('_', ' ')->camel()->title()->toString(),
                     'value' => $actionName,
                     'description' => $description,
                 ];
@@ -176,7 +176,7 @@ class Add extends BackendBaseActionAdd
         $modules = array_unique($modules);
         foreach ($modules as $module) {
             $this->modules[] = [
-                'label' => \SpoonFilter::toCamelCase($module),
+                'label' => s($module)->camel()->title()->toString(),
                 'value' => $module,
             ];
 
@@ -235,8 +235,8 @@ class Add extends BackendBaseActionAdd
                     // add to array
                     $this->widgets[] = [
                         'module_name' => $module,
-                        'checkbox_name' => \SpoonFilter::toCamelCase($module) . \SpoonFilter::toCamelCase($widgetName),
-                        'label' => \SpoonFilter::toCamelCase($widgetName),
+                        'checkbox_name' => s($module)->camel()->title()->toString() . s($widgetName)->replace('_', ' ')->camel()->title()->toString(),
+                        'label' => s($widgetName)->replace('_', ' ')->camel()->title()->toString(),
                         'value' => $widgetName,
                         'description' => $description,
                     ];
@@ -405,7 +405,7 @@ class Add extends BackendBaseActionAdd
                 // add widget checkboxes
                 $widgetBoxes[$j]['check'] = '<span>' . $this->form->addCheckbox('widgets_' . $widget['checkbox_name'], true)->parse() . '</span>';
                 $widgetBoxes[$j]['module'] = s(BL::lbl($widget['module_name']))->title()->toString();
-                $widgetBoxes[$j]['widget'] = '<label for="widgets' . \SpoonFilter::toCamelCase($widget['checkbox_name']) . '">' . $widget['label'] . '</label>';
+                $widgetBoxes[$j]['widget'] = '<label for="widgets' . s($widget['checkbox_name'])->replace('_', ' ')->camel()->title()->toString() . '">' . $widget['label'] . '</label>';
                 $widgetBoxes[$j]['description'] = $widget['description'];
             }
         }
@@ -438,7 +438,7 @@ class Add extends BackendBaseActionAdd
                 } else {
                     // assign action boxes
                     $actionBoxes[$key]['actions'][$i]['check'] = $this->form->addCheckbox('actions_' . $module['label'] . '_' . $action['label'])->parse();
-                    $actionBoxes[$key]['actions'][$i]['action'] = '<label for="actions' . \SpoonFilter::toCamelCase($module['label'] . '_' . $action['label']) . '">' . $action['label'] . '</label>';
+                    $actionBoxes[$key]['actions'][$i]['action'] = '<label for="actions' . s($module['label'] . ' ' . $action['label'])->replace('_', ' ')->camel()->title()->toString() . '">' . $action['label'] . '</label>';
                     $actionBoxes[$key]['actions'][$i]['description'] = $action['description'];
                 }
             }
@@ -467,7 +467,7 @@ class Add extends BackendBaseActionAdd
                 false,
                 'inputCheckbox checkBeforeUnload jsSelectAll'
             )->parse();
-            $permissionBoxes[$key]['id'] = \SpoonFilter::toCamelCase($module['label']);
+            $permissionBoxes[$key]['id'] = s($module['label'])->replace('_', ' ')->camel()->title()->toString();
         }
 
         // create elements

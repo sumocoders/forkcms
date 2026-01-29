@@ -203,7 +203,7 @@ class TwigTemplate extends BaseTwigTemplate
             $settings = (array) Authentication::getUser()->getSettings();
 
             foreach ($settings as $key => $setting) {
-                $this->assign('authenticatedUser' . \SpoonFilter::toCamelCase($key), $setting ?? '');
+                $this->assign('authenticatedUser' . s($key)->camel()->title(), $setting ?? '');
             }
 
             // check if this action is allowed
@@ -233,7 +233,7 @@ class TwigTemplate extends BaseTwigTemplate
                 }
 
                 $this->assign(
-                    'show' . \SpoonFilter::toCamelCase($module) . \SpoonFilter::toCamelCase($action),
+                    'show' . s($module . ' ' . $action)->camel()->title(),
                     true
                 );
             }
@@ -334,8 +334,8 @@ class TwigTemplate extends BaseTwigTemplate
             return;
         }
 
-        $this->assign('bodyID', \SpoonFilter::toCamelCase($url->getModule(), '_', true));
-        $bodyClass = \SpoonFilter::toCamelCase($url->getModule() . '_' . $url->getAction(), '_', true);
+        $this->assign('bodyID', s($url->getModule())->replace('_', ' ')->camel()->toString());
+        $bodyClass = s($url->getModule() . ' ' . $url->getAction())->camel()->toString();
         if (in_array(mb_strtolower($url->getAction()), ['add', 'edit'], true)) {
             $bodyClass = $url->getModule() . 'AddEdit';
         }

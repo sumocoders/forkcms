@@ -8,6 +8,7 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Language\Language;
 use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the edit-action, it will display a form to edit an existing item
@@ -103,7 +104,7 @@ class EditComment extends BackendBaseActionEdit
                 $this->redirect(
                     BackendModel::createUrlForAction('Comments') . '&report=edited-comment&id=' .
                     $item['id'] . '&highlight=row-' . $item['id'] . '#tab' .
-                    \SpoonFilter::toCamelCase($item['status'])
+                    s($item['status'])->camel()->title()
                 );
             }
         }

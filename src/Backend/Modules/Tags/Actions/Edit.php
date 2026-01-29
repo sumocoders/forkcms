@@ -73,7 +73,7 @@ class Edit extends BackendBaseActionEdit
                     if (isset($row['url'], $row['name'], $row['module'])) {
                         // add
                         $items[] = [
-                            'module' => s(BL::lbl(\SpoonFilter::toCamelCase($row['module'])))->title()->toString(),
+                            'module' => s(BL::lbl(s($row['module'])->camel()->title()->toString()))->title()->toString(),
                             'name' => $row['name'],
                             'url' => $row['url'],
                         ];

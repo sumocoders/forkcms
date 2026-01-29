@@ -223,7 +223,7 @@ class Add extends BackendBaseActionAdd
             foreach ($permissions as $permission => $attributes) {
                 $allowPermission = 'allow_' . $permission;
                 $values[] = [
-                    'label' => BL::msg(\SpoonFilter::toCamelCase($allowPermission)),
+                    'label' => BL::msg(s($allowPermission)->replace('_', ' ')->camel()->title()->toString()),
                     'value' => $permission,
                     'attributes' => $attributes,
                 ];

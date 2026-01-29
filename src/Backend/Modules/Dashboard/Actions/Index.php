@@ -99,7 +99,7 @@ class Index extends BackendBaseActionIndex
                     $instance->execute();
 
                     // user sequence provided?
-                    $title = s(BL::lbl(\SpoonFilter::toCamelCase($module)))->title()->toString() . ': ' . BL::lbl(\SpoonFilter::toCamelCase($widgetName));
+                    $title = s(BL::lbl(s($module)->camel()->title()->toString()))->title()->toString() . ': ' . BL::lbl(s($widgetName)->replace('_', ' ')->camel()->title()->toString());
                     $templatePath = $instance->getTemplatePath();
 
                     // reset template path
