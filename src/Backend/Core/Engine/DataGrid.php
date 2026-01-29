@@ -5,8 +5,8 @@ namespace Backend\Core\Engine;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Language\Language as BackendLanguage;
 use SpoonDatagridSource;
-use SpoonFilter;
 use SpoonFormDropdown;
+use function Symfony\Component\String\s;
 
 /**
  * This is our extended version of \SpoonDataGrid
@@ -74,7 +74,7 @@ class DataGrid extends \SpoonDataGrid
 
             // set default label
             $this->setHeaderLabels(
-                [$column => SpoonFilter::ucfirst(BackendLanguage::lbl(SpoonFilter::toCamelCase($column)))]
+                [$column => s(BackendLanguage::lbl(s($column)->replace('_', ' ')->camel()->title()->toString()))->title()->toString()]
             );
         }
 
@@ -120,7 +120,7 @@ class DataGrid extends \SpoonDataGrid
             $value =
                 '<a href="' . $url . '" class="btn btn-default btn-xs pull-right">' .
                 ($icon ? '<span class="fa ' . $icon . '" aria-hidden="true"></span>&nbsp;' : '') .
-               SpoonFilter::ucfirst($value) .
+               s($value)->title() .
                 '</a>';
 
             // reset URL
@@ -132,7 +132,7 @@ class DataGrid extends \SpoonDataGrid
             $value =
                 '<a href="' . $url . '" class="btn btn-default btn-xs">' .
                 ($icon ? '<span class="fa ' . $icon . '"></span>&nbsp;' : '') .
-                SpoonFilter::ucfirst($value) .
+                s($value)->title() .
                 '</a>';
 
             // reset URL
@@ -162,7 +162,7 @@ class DataGrid extends \SpoonDataGrid
             // add special attributes for actions we know
             $this->setColumnAttributes(
                 $name,
-                ['class' => 'fork-data-grid-action action' . SpoonFilter::toCamelCase($name)]
+                ['class' => 'fork-data-grid-action action' . s($name)->replace('_', ' ')->camel()->title()]
             );
         }
 
@@ -221,7 +221,7 @@ class DataGrid extends \SpoonDataGrid
         $this->setColumnAttributes(
             $name,
             [
-                'class' => 'fork-data-grid-action action' . SpoonFilter::toCamelCase($name),
+                'class' => 'fork-data-grid-action action' . s($name)->replace('_', ' ')->camel()->title(),
                 'style' => 'width: 10%;',
             ]
         );
@@ -404,7 +404,7 @@ class DataGrid extends \SpoonDataGrid
 
         // set title if there wasn't one provided
         if ($title === null) {
-            $title = SpoonFilter::ucfirst(BackendLanguage::lbl('Delete') . '?');
+            $title = s(BackendLanguage::lbl('Delete') . '?')->title()->toString();
         }
 
         // grab current value
@@ -492,11 +492,11 @@ class DataGrid extends \SpoonDataGrid
         // build HTML
         $HTML =
             '<label for="' . $actionDropDown->getAttribute('id') . '">' .
-            SpoonFilter::ucfirst(BackendLanguage::lbl('WithSelected')) .
+            s(BackendLanguage::lbl('WithSelected'))->title() .
             '</label>' .
             $actionDropDown->parse() .
             '<button type="button" class="btn btn-default jsMassActionSubmit">' .
-            '   <span>' . SpoonFilter::ucfirst(BackendLanguage::lbl('Execute')) . '</span>' .
+            '   <span>' . s(BackendLanguage::lbl('Execute'))->title() . '</span>' .
             '</button>';
 
         // assign parsed html

@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
 use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Modules\Profiles\Engine\Authentication as FrontendAuthentication;
+use function Symfony\Component\String\s;
 
 /**
  * This class will be used to build the navigation
@@ -565,7 +566,7 @@ class Navigation extends KernelLoader
 
         // append action
         if ($action !== null) {
-            $url .= '/' . Language::act(\SpoonFilter::toCamelCase($action));
+            $url .= '/' . Language::act(s($action)->replace('_', ' ')->camel()->title()->toString());
         }
 
         // return the URL

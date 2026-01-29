@@ -12,6 +12,7 @@ use Frontend\Modules\Profiles\Engine\Model as FrontendProfilesModel;
 use Common\Core\Twig\Extensions\BaseTwigModifiers;
 use SpoonDate;
 use Twig\Error\Error;
+use function Symfony\Component\String\s;
 
 /**
  * Contains all Frontend-related custom modifiers
@@ -466,11 +467,16 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function cleanupPlainText(string $string): string
     {
-        // detect links
-        $string = \SpoonFilter::replaceURLsWithAnchors(
-            $string,
-            FrontendModel::get('fork.settings')->get('Core', 'seo_nofollow_in_comments', false)
-        );
+        $relAttributes = ['noopener'];
+        if (FrontendModel::get('fork.settings')->get('Core', 'seo_nofollow_in_comments', false)) {
+            $relAttributes[] = 'nofollow';
+        }
+
+        // replace links with a tags
+        $string = s($string)->replaceMatches(
+            '~(https?://[^\s]+)~',
+            '<a href="$1" rel="' . implode(' ', $relAttributes) . '">$1</a>'
+        )->toString();
 
         // replace newlines
         $string = str_replace("\r", '', $string);
@@ -509,6 +515,6 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function toLabel(string $value): string
     {
-        return \SpoonFilter::ucfirst(Language::lbl(\SpoonFilter::toCamelCase($value, '_', false)));
+        return s(Language::lbl(s($value)->replace('_', ' ')->camel()->title()->toString()))->title()->toString();
     }
 }

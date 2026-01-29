@@ -7,6 +7,7 @@ use Backend\Core\Language\Language as BackendLanguage;
 use SpoonFormFile;
 use SpoonFormTextarea;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use function Symfony\Component\String\s;
 
 /**
  * This is our extended version of \SpoonForm
@@ -31,7 +32,7 @@ class Form extends \Common\Core\Form
         $url = BackendModel::getContainer()->get('url');
 
         parent::__construct(
-            $name ?? \SpoonFilter::toCamelCase($url->getModule() . '_' . $url->getAction(), '_', true),
+            $name ?? s($url->getModule() . ' ' . $url->getAction())->camel()->toString(),
             $action,
             $method ?? 'post',
             null,

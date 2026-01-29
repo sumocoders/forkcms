@@ -8,6 +8,7 @@ use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\DataGridArray as BackendDataGridArray;
 use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the modules-action, it will display the overview of modules.
@@ -70,7 +71,7 @@ class Modules extends BackendBaseActionIndex
         $this->dataGridInstallableModules = new BackendDataGridArray($this->installableModules);
 
         $this->dataGridInstallableModules->setSortingColumns(['raw_name']);
-        $this->dataGridInstallableModules->setHeaderLabels(['raw_name' => \SpoonFilter::ucfirst(BL::getLabel('Name'))]);
+        $this->dataGridInstallableModules->setHeaderLabels(['raw_name' => s(BL::getLabel('Name'))->title()->toString()]);
         $this->dataGridInstallableModules->setColumnsHidden(['installed', 'name']);
 
         // check if this action is allowed
@@ -83,7 +84,7 @@ class Modules extends BackendBaseActionIndex
         if (BackendAuthentication::isAllowedAction('InstallModule')) {
             // add install column
             $this->dataGridInstallableModules->addColumn('install', null, BL::lbl('Install'), BackendModel::createUrlForAction('InstallModule') . '&amp;module=[raw_name]', BL::lbl('Install'));
-            $this->dataGridInstallableModules->setColumnConfirm('install', sprintf(BL::msg('ConfirmModuleInstall'), '[raw_name]'), null, \SpoonFilter::ucfirst(BL::lbl('Install')) . '?');
+            $this->dataGridInstallableModules->setColumnConfirm('install', sprintf(BL::msg('ConfirmModuleInstall'), '[raw_name]'), null, s(BL::lbl('Install'))->title() . '?');
         }
     }
 

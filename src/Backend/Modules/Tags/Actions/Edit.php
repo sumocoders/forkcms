@@ -9,6 +9,7 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the edit action, it will display a form to edit an existing tag.
@@ -72,7 +73,7 @@ class Edit extends BackendBaseActionEdit
                     if (isset($row['url'], $row['name'], $row['module'])) {
                         // add
                         $items[] = [
-                            'module' => \SpoonFilter::ucfirst(BL::lbl(\SpoonFilter::toCamelCase($row['module']))),
+                            'module' => s(BL::lbl(s($row['module'])->camel()->title()->toString()))->title()->toString(),
                             'name' => $row['name'],
                             'url' => $row['url'],
                         ];
@@ -86,9 +87,9 @@ class Edit extends BackendBaseActionEdit
         $this->dgUsage->setColumnFunction('htmlspecialchars', ['[name]'], 'name', false);
         $this->dgUsage->setPaging(false);
         $this->dgUsage->setColumnsHidden(['url']);
-        $this->dgUsage->setHeaderLabels(['name' => \SpoonFilter::ucfirst(BL::lbl('Title')), 'url' => '']);
-        $this->dgUsage->setColumnURL('name', '[url]', \SpoonFilter::ucfirst(BL::lbl('Edit')));
-        $this->dgUsage->addColumn('edit', null, \SpoonFilter::ucfirst(BL::lbl('Edit')), '[url]', BL::lbl('Edit'));
+        $this->dgUsage->setHeaderLabels(['name' => s(BL::lbl('Title'))->title()->toString(), 'url' => '']);
+        $this->dgUsage->setColumnURL('name', '[url]', s(BL::lbl('Edit'))->title()->toString());
+        $this->dgUsage->addColumn('edit', null, s(BL::lbl('Edit'))->title()->toString(), '[url]', BL::lbl('Edit'));
     }
 
     private function loadForm(): void
@@ -128,7 +129,7 @@ class Edit extends BackendBaseActionEdit
                 $item['id'] = $this->id;
                 $item['tag'] = $this->form->getField('name')->getValue();
                 $item['url'] = BackendTagsModel::getUrl(
-                    CommonUri::getUrl(\SpoonFilter::htmlspecialcharsDecode($item['tag'])),
+                    CommonUri::getUrl(htmlspecialchars_decode($item['tag'])),
                     $this->id
                 );
 

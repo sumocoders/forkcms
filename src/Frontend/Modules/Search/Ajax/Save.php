@@ -16,10 +16,8 @@ class Save extends FrontendBaseAJAXAction
     {
         parent::execute();
 
-        $charset = $this->getContainer()->getParameter('kernel.charset');
-        $searchTerm = $this->getRequest()->request->get('term', '');
-        $term = ($charset === 'utf-8')
-            ? \SpoonFilter::htmlspecialchars($searchTerm) : \SpoonFilter::htmlentities($searchTerm);
+        $searchTerm = (string) $this->getRequest()->request->get('term', '');
+        $term = htmlspecialchars($searchTerm);
 
         if ($term === '') {
             $this->output(Response::HTTP_BAD_REQUEST, null, 'term-parameter is missing.');

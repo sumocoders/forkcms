@@ -115,7 +115,7 @@ class Model
      */
     public static function getTags(string $module, int $otherId, string $type = 'string', ?string $language = null)
     {
-        $type = (string) \SpoonFilter::getValue($type, ['string', 'array'], 'string');
+        $type = in_array($type, ['string', 'array'], true) ? $type : 'string';
 
         // fetch tags
         $tags = (array) BackendModel::getContainer()->get('database')->getColumn(

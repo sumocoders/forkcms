@@ -5,11 +5,12 @@ namespace Frontend\Core\Engine\Block;
 use ForkCMS\App\KernelLoader;
 use Frontend\Core\Engine\TwigTemplate;
 use Frontend\Core\Engine\Url;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
 use Frontend\Core\Engine\Base\Config;
 use Frontend\Core\Engine\Exception as FrontendException;
 use Frontend\Core\Language\Language as FL;
+use Symfony\Component\HttpKernel\KernelInterface;
+use function Symfony\Component\String\s;
 
 /**
  * This class will handle all stuff related to blocks
@@ -162,12 +163,12 @@ class ExtraInterface extends KernelLoader implements ModuleExtraInterface
 
         // action provided in the URL
         // loop possible actions
-        $actionParameter = \SpoonFilter::toCamelCase($actionParameter);
+        $actionParameter = s($actionParameter)->replace('_', ' ')->camel()->title()->toString();
         foreach ($this->config->getPossibleActions() as $actionName) {
             // get action that should be passed as parameter
-            $actionUrl = \SpoonFilter::toCamelCase(
-                rawurlencode(FL::act(\SpoonFilter::toCamelCase($actionName)))
-            );
+            $actionUrl = s(
+                rawurlencode(FL::act(s($actionName)->replace('_', ' ')->camel()->title()->toString()))
+            )->replace('_', ' ')->camel()->title()->toString();
 
             // the action is the requested one
             if ($actionUrl === $actionParameter) {

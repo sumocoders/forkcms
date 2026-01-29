@@ -6,7 +6,6 @@ use Backend\Core\Engine\Exception;
 use Backend\Core\Engine\Model;
 use Common\Uri;
 use Doctrine\ORM\EntityRepository;
-use SpoonFilter;
 
 class MetaRepository extends EntityRepository
 {
@@ -36,7 +35,7 @@ class MetaRepository extends EntityRepository
 
         // when using ->getValue() in SpoonFormText fields the function is using htmlentities(),
         // so we must decode it again first!
-        $url = SpoonFilter::htmlentitiesDecode($url);
+        $url = html_entity_decode($url, ENT_NOQUOTES);
 
         $actualParameters = [];
         // build parameters for use in the callback

@@ -11,6 +11,7 @@ use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Modules\Blog\Engine\Model as FrontendBlogModel;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class Detail extends FrontendBaseBlock
 {
@@ -251,8 +252,12 @@ class Detail extends FrontendBaseBlock
         $author = $cookie->get('comment_author');
         $email = ($cookie->has('comment_email') && filter_var($cookie->get('comment_email'), FILTER_VALIDATE_EMAIL))
             ? $cookie->get('comment_email') : null;
-        $website = ($cookie->has('comment_website') && \SpoonFilter::isURL($cookie->get('comment_website')))
-            ? $cookie->get('comment_website') : 'http://';
+        $validationErrors = $this->get('validator')->validate(
+            $cookie->get('comment_website'),
+            new Assert\Url()
+        );
+        $isValidUrl = count($validationErrors) === 0;
+        $website = ($cookie->has('comment_website') && $isValidUrl) ? $cookie->get('comment_website') : 'http://';
 
         $this->form->addText('author', $author)->setAttributes(['required' => null]);
         $this->form->addText('email', $email)->setAttributes(['required' => null, 'type' => 'email']);

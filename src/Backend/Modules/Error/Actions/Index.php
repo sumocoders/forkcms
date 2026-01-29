@@ -6,6 +6,7 @@ use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
 use Backend\Core\Language\Language as BL;
 use Common\Exception\ExitException;
 use Symfony\Component\HttpFoundation\Response;
+use function Symfony\Component\String\s;
 
 /**
  * This is the index-action (default), it will display an error depending on a given parameters
@@ -56,7 +57,7 @@ class Index extends BackendBaseActionIndex
         }
 
         // assign the correct message into the template
-        $this->template->assign('message', BL::err(\SpoonFilter::toCamelCase(htmlspecialchars($errorType), '-')));
+        $this->template->assign('message', BL::err(s(htmlspecialchars($errorType))->replace('-', ' ')->camel()->title()->toString()));
     }
 
     public function getContent(): Response

@@ -7,6 +7,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
 use Backend\Core\Language\Language as BackendLanguage;
+use function Symfony\Component\String\s;
 
 final class Navigation extends KernelLoader
 {
@@ -69,8 +70,8 @@ final class Navigation extends KernelLoader
         }
 
         [$module, $action] = explode('/', (string) $navigationItem['url']);
-        $module = \SpoonFilter::toCamelCase($module);
-        $action = \SpoonFilter::toCamelCase($action);
+        $module = s($module)->camel()->title()->toString();
+        $action = s($action)->camel()->title()->toString();
 
         if (Authentication::isAllowedModule($module) && Authentication::isAllowedAction($action, $module)) {
             return $navigationItem;

@@ -7,6 +7,7 @@ use Frontend\Core\Language\Language as FL;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Modules\Blog\Engine\Model as FrontendBlogModel;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use function Symfony\Component\String\s;
 
 class Category extends FrontendBaseBlock
 {
@@ -95,13 +96,13 @@ class Category extends FrontendBaseBlock
 
     private function addCategoryToBreadcrumb(): void
     {
-        $this->breadcrumb->addElement(\SpoonFilter::ucfirst(FL::lbl('Category')));
+        $this->breadcrumb->addElement(s(FL::lbl('Category'))->title()->toString());
         $this->breadcrumb->addElement($this->category['label']);
     }
 
     private function setPageTitle(): void
     {
-        $this->header->setPageTitle(\SpoonFilter::ucfirst(FL::lbl('Category')));
+        $this->header->setPageTitle(s(FL::lbl('Category'))->title()->toString());
     }
 
     private function parse(): void

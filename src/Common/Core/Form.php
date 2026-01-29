@@ -7,7 +7,6 @@ use Exception;
 use Frontend\Core\Header\Header as FrontendHeader;
 use Backend\Core\Engine\Url as BackendUrl;
 use Frontend\Core\Engine\Url as FrontendUrl;
-use SpoonFilter;
 use SpoonFormButton;
 use SpoonFormDropdown;
 use SpoonFormPassword;
@@ -129,7 +128,7 @@ class Form extends \SpoonForm
     ): FormDate {
         $name = (string) $name;
         $value = ($value === null || $value === '') ? null : (int) $value;
-        $type = SpoonFilter::getValue($type, ['from', 'till', 'range'], 'none');
+        $type = in_array($type, ['from', 'till', 'range'], true) ? $type : 'none';
         $date = ($date !== null) ? (int) $date : null;
         $date2 = ($date2 !== null) ? (int) $date2 : null;
         $class = (string) ($class ?? 'form-control fork-form-date inputDate');

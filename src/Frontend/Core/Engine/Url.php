@@ -5,7 +5,6 @@ namespace Frontend\Core\Engine;
 use Common\Exception\RedirectException;
 use ForkCMS\App\KernelLoader;
 use Frontend\Core\Language\Language;
-use SpoonFilter;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -101,12 +100,16 @@ class Url extends KernelLoader
     {
         // does the index exists and isn't this parameter empty
         if ($this->hasParameter($index)) {
-            return SpoonFilter::getValue(
-                $this->parameters[$index],
-                null,
-                null,
-                $type
-            );
+            $value = $this->parameters[$index];
+
+            return match ($type) {
+                'array' => ($value == '') ? [] : (array) $value,
+                'bool' => (bool) $value,
+                'double', 'float' => (float) $value,
+                'int' => (int) $value,
+                'string' => (string) $value,
+                default => $value,
+            };
         }
 
         // fallback

@@ -19,8 +19,8 @@ class RssItem extends \SpoonFeedRSSItem
     public function __construct(string $title, string $link, string $content)
     {
         // decode
-        $title = \SpoonFilter::htmlspecialcharsDecode($title);
-        $content = \SpoonFilter::htmlspecialcharsDecode($content);
+        $title = htmlspecialchars_decode($title);
+        $content = htmlspecialchars_decode($content);
 
         // set UTM-campaign
         $this->utm['utm_campaign'] = CommonUri::getUrl($title);
@@ -75,7 +75,7 @@ class RssItem extends \SpoonFeedRSSItem
     public function setAuthor($author): void
     {
         // remove special chars
-        $author = (string) \SpoonFilter::htmlspecialcharsDecode($author);
+        $author = htmlspecialchars_decode((string) $author);
 
         // add fake emailaddress
         if (!filter_var($author, FILTER_VALIDATE_EMAIL)) {
@@ -94,7 +94,7 @@ class RssItem extends \SpoonFeedRSSItem
     public function setDescription($description): void
     {
         // remove special chars
-        $description = (string) \SpoonFilter::htmlspecialcharsDecode($description);
+        $description = htmlspecialchars_decode((string) $description);
 
         // process links
         $description = $this->processLinks($description);

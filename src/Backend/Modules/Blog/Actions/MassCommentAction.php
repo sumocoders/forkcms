@@ -5,6 +5,7 @@ namespace Backend\Modules\Blog\Actions;
 use Backend\Core\Engine\Base\Action as BackendBaseAction;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
+use function Symfony\Component\String\s;
 
 /**
  * This action is used to update one or more comments (status, delete, ...)
@@ -60,6 +61,8 @@ class MassCommentAction extends BackendBaseAction
         }
 
         // redirect
-        $this->redirect(BackendModel::createUrlForAction('Comments') . '&report=' . $report . '#tab' . \SpoonFilter::ucfirst($from));
+        $this->redirect(
+            BackendModel::createUrlForAction('Comments') . '&report=' . $report . '#tab' . s($from)->title()
+        );
     }
 }

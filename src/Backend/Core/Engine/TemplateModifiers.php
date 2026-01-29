@@ -6,6 +6,7 @@ use Backend\Core\Engine\Model as BackendModel;
 use Common\Core\Twig\Extensions\BaseTwigModifiers;
 use Backend\Core\Language\Language as BackendLanguage;
 use SpoonDate;
+use function Symfony\Component\String\s;
 
 /**
  * This is our class with custom modifiers.
@@ -166,7 +167,7 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function toLabel($value): string
     {
-        return \SpoonFilter::ucfirst(BackendLanguage::lbl(\SpoonFilter::toCamelCase($value, '_', false)));
+        return s(BackendLanguage::lbl(s($value)->replace('_', ' ')->camel()->title()))->title()->toString();
     }
 
     /**

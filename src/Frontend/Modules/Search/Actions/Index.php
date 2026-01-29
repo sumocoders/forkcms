@@ -162,7 +162,7 @@ class Index extends FrontendBaseBlock
             return $canonicalUrl;
         }
 
-        return $canonicalUrl . '?q=' . \SpoonFilter::htmlspecialchars($query);
+        return $canonicalUrl . '?q=' . htmlspecialchars($query);
     }
 
     private function parse(): void

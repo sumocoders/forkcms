@@ -10,6 +10,7 @@ use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\DataGridDatabase as BackendDataGridDatabase;
 use Backend\Core\Engine\DataGridFunctions as BackendDataGridFunctions;
 use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the index-action (default), it will display the overview of blog posts
@@ -91,8 +92,8 @@ class Index extends BackendBaseActionIndex
         // set headers
         $this->dgPosts->setHeaderLabels(
             [
-                'user_id' => \SpoonFilter::ucfirst(BL::lbl('Author')),
-                'publish_on' => \SpoonFilter::ucfirst(BL::lbl('PublishedOn')),
+                'user_id' => s(BL::lbl('Author'))->title()->toString(),
+                'publish_on' => s(BL::lbl('PublishedOn'))->title()->toString(),
             ]
         );
 
@@ -169,7 +170,7 @@ class Index extends BackendBaseActionIndex
         $this->dgDrafts->setColumnFunction('htmlspecialchars', ['[title]'], 'title', false);
 
         // set headers
-        $this->dgDrafts->setHeaderLabels(['user_id' => \SpoonFilter::ucfirst(BL::lbl('Author'))]);
+        $this->dgDrafts->setHeaderLabels(['user_id' => s(BL::lbl('Author'))->title()->toString()]);
 
         // hide columns
         $this->dgDrafts->setColumnsHidden(['revision_id']);
@@ -240,7 +241,7 @@ class Index extends BackendBaseActionIndex
         $this->dgRecent->setColumnFunction('htmlspecialchars', ['[title]'], 'title', false);
 
         // set headers
-        $this->dgRecent->setHeaderLabels(['user_id' => \SpoonFilter::ucfirst(BL::lbl('Author'))]);
+        $this->dgRecent->setHeaderLabels(['user_id' => s(BL::lbl('Author'))->title()->toString()]);
 
         // hide columns
         $this->dgRecent->setColumnsHidden(['revision_id']);

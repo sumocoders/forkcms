@@ -7,6 +7,8 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
+use Symfony\Component\Validator\Constraints as Assert;
+use function Symfony\Component\String\s;
 
 /**
  * This is the add-action, it will display a form to create a new item
@@ -94,14 +96,16 @@ class AddThemeTemplate extends BackendBaseActionAdd
         // loop extras to populate the default extras
         foreach ($extras as $item) {
             if ($item['type'] == 'block') {
-                $blocks[$item['id']] = \SpoonFilter::ucfirst(BL::lbl($item['label']));
+                $blocks[$item['id']] = s(BL::lbl($item['label']))->title()->toString();
                 if (isset($item['data']['extra_label'])) {
-                    $blocks[$item['id']] = \SpoonFilter::ucfirst($item['data']['extra_label']);
+                    $blocks[$item['id']] = s($item['data']['extra_label'])->title()->toString();
                 }
             } elseif ($item['type'] == 'widget') {
-                $widgets[$item['id']] = \SpoonFilter::ucfirst(BL::lbl(\SpoonFilter::toCamelCase($item['module']))) . ': ' . \SpoonFilter::ucfirst(BL::lbl($item['label']));
+                $widgets[$item['id']] = s(BL::lbl(s($item['module'])->camel()->title()->toString()))->title() . ': ' .
+                                        s(BL::lbl($item['label']))->title();
                 if (isset($item['data']['extra_label'])) {
-                    $widgets[$item['id']] = \SpoonFilter::ucfirst(BL::lbl(\SpoonFilter::toCamelCase($item['module']))) . ': ' . $item['data']['extra_label'];
+                    $widgets[$item['id']] = s(BL::lbl(s($item['module'])->camel()->title()->toString()))->title() . ': ' .
+                                            $item['data']['extra_label'];
                 }
             }
         }
@@ -112,8 +116,8 @@ class AddThemeTemplate extends BackendBaseActionAdd
 
         // create array
         $defaultExtras = [
-            '' => [0 => \SpoonFilter::ucfirst(BL::lbl('Editor'))],
-            \SpoonFilter::ucfirst(BL::lbl('Widgets')) => $widgets,
+            '' => [0 => s(BL::lbl('Editor'))->title()],
+            s(BL::lbl('Widgets'))->title()->toString() => $widgets,
         ];
 
         // create default position field
@@ -161,8 +165,17 @@ class AddThemeTemplate extends BackendBaseActionAdd
                 }
 
                 // not alphanumeric -> error
-                if (!\SpoonFilter::isValidAgainstRegexp('/^[a-z0-9]+$/i', $name)) {
-                    $errors[] = sprintf(BL::getError('NoAlphaNumPositionName'), $name);
+                $validationErrors = $this->get('validator')->validate(
+                    $name,
+                    new Assert\Regex([
+                        'pattern' => '/^[a-z0-9]+$/i',
+                        'message' => sprintf(BL::getError('NoAlphaNumPositionName'), $name),
+                    ])
+                );
+                if (count($validationErrors) > 0) {
+                    foreach ($validationErrors as $validationError) {
+                        $errors[] = $validationError->getMessage();
+                    }
                 }
 
                 // save positions

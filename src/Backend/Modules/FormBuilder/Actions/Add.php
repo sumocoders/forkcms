@@ -9,6 +9,8 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Frontend\Core\Language\Language as FL;
 use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
+use Symfony\Component\Validator\Constraints as Assert;
+use function Symfony\Component\String\s;
 
 /**
  * This is the add-action, it will display a form to create a new item.
@@ -96,7 +98,13 @@ class Add extends BackendBaseActionAdd
             // identifier
             if ($txtIdentifier->isFilled()) {
                 // invalid characters
-                if (!\SpoonFilter::isValidAgainstRegexp('/^[a-zA-Z0-9\.\_\-]+$/', $txtIdentifier->getValue())) {
+                $validationErrors = $this->get('validator')->validate(
+                    $txtIdentifier->getValue(),
+                    new Assert\Regex([
+                        'pattern' => '/^[a-zA-Z0-9\.\_\-]+$/',
+                    ])
+                );
+                if (count($validationErrors) > 0) {
                     $txtIdentifier->setError(BL::getError('InvalidIdentifier'));
                 } elseif (BackendFormBuilderModel::existsIdentifier($txtIdentifier->getValue())) {
                     // unique identifier
@@ -135,7 +143,7 @@ class Add extends BackendBaseActionAdd
                 $field = [];
                 $field['form_id'] = $id;
                 $field['type'] = 'submit';
-                $field['settings'] = serialize(['values' => \SpoonFilter::ucfirst(FL::getLabel('Send'))]);
+                $field['settings'] = serialize(['values' => s(FL::getLabel('Send'))->title()->toString()]);
                 BackendFormBuilderModel::insertField($field);
 
                 // everything is saved, so redirect to the editform

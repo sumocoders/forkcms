@@ -7,7 +7,7 @@ use Backend\Core\Engine\DataGridDatabase;
 use Backend\Core\Engine\DataGridFunctions;
 use Backend\Core\Engine\Model;
 use Backend\Core\Language\Language;
-use SpoonFilter;
+use function Symfony\Component\String\s;
 
 /**
  * @TODO replace with a doctrine implementation of the data grid
@@ -21,7 +21,7 @@ class MediaGalleryDataGrid extends DataGridDatabase
              FROM media_gallery AS i'
         );
 
-        $this->setHeaderLabels(['title' => SpoonFilter::ucfirst(Language::lbl('Title'))]);
+        $this->setHeaderLabels(['title' => s(Language::lbl('Title'))->title()->toString()]);
         $this->setColumnFunction('htmlspecialchars', ['[title]'], 'title', false);
         $this->setSortingFunctions();
         $this->setExtraFunctions();

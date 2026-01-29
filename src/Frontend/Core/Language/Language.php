@@ -3,9 +3,10 @@
 namespace Frontend\Core\Language;
 
 use Backend\Core\Engine\Model;
+use Backend\Modules\Locale\Engine\CacheBuilder;
 use Frontend\Core\Engine\Exception;
 use Symfony\Component\Filesystem\Filesystem;
-use Backend\Modules\Locale\Engine\CacheBuilder;
+use function Symfony\Component\String\s;
 
 /**
  * This class will store the language-dependant content for the frontend.
@@ -82,7 +83,7 @@ class Language
     public static function getAction(string $key, bool $fallback = true): string
     {
         // redefine
-        $key = \SpoonFilter::toCamelCase($key);
+        $key = s($key)->replace('_', ' ')->camel()->title()->toString();
 
         // if the action exists return it,
         if (isset(self::$act[$key])) {
@@ -187,7 +188,7 @@ class Language
     public static function getError(string $key, bool $fallback = true): string
     {
         // redefine
-        $key = \SpoonFilter::toCamelCase($key);
+        $key = s($key)->replace('_', ' ')->camel()->title()->toString();
 
         // if the error exists return it,
         if (isset(self::$err[$key])) {
@@ -225,7 +226,7 @@ class Language
     public static function getLabel(string $key, bool $fallback = true): string
     {
         // redefine
-        $key = \SpoonFilter::toCamelCase($key);
+        $key = s($key)->replace('_', ' ')->camel()->title()->toString();
 
         // if the error exists return it,
         if (isset(self::$lbl[$key])) {
@@ -263,7 +264,7 @@ class Language
     public static function getMessage(string $key, bool $fallback = true): string
     {
         // redefine
-        $key = \SpoonFilter::toCamelCase($key);
+        $key = s($key)->replace('_', ' ')->camel()->title()->toString();
 
         // if the error exists return it,
         if (isset(self::$msg[$key])) {

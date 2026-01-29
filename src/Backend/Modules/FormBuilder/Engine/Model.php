@@ -7,6 +7,7 @@ use Backend\Core\Engine\Model as BackendModel;
 use Common\ModuleExtraType;
 use Frontend\Core\Language\Language as FL;
 use Symfony\Component\Finder\Finder;
+use function Symfony\Component\String\s;
 
 /**
  * In this file we store all generic functions that we will be using in the form_builder module
@@ -474,12 +475,12 @@ class Model
      */
     public static function getLocale(string $name, string $type = 'label', string $application = 'Backend'): string
     {
-        $name = \SpoonFilter::toCamelCase($name);
-        $class = \SpoonFilter::ucfirst($application) . '\Core\Language\Language';
-        $function = 'get' . \SpoonFilter::ucfirst($type);
+        $name = s($name)->replace('_', ' ')->camel()->title()->toString();
+        $class = s($application)->title()->toString() . '\Core\Language\Language';
+        $function = 'get' . s($type)->title()->toString();
 
         // execute and return value
-        return \SpoonFilter::ucfirst(call_user_func_array([$class, $function], [$name]));
+        return s(call_user_func_array([$class, $function], [$name]))->title()->toString();
     }
 
     /**

@@ -9,6 +9,7 @@ use Backend\Core\Engine\DataGridFunctions as BackendDataGridFunctions;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the index-action (default), it will display the pages-overview
@@ -73,8 +74,8 @@ class Index extends BackendBaseActionIndex
         // set headers
         $this->dgDrafts->setHeaderLabels(
             [
-                 'user_id' => \SpoonFilter::ucfirst(BL::lbl('By')),
-                 'edited_on' => \SpoonFilter::ucfirst(BL::lbl('LastEdited')),
+                 'user_id' => s(BL::lbl('By'))->title()->toString(),
+                 'edited_on' => s(BL::lbl('LastEdited'))->title()->toString(),
             ]
         );
 
@@ -127,8 +128,8 @@ class Index extends BackendBaseActionIndex
         // set headers
         $this->dgRecentlyEdited->setHeaderLabels(
             [
-                 'user_id' => \SpoonFilter::ucfirst(BL::lbl('By')),
-                 'edited_on' => \SpoonFilter::ucfirst(BL::lbl('LastEdited')),
+                 'user_id' => s(BL::lbl('By'))->title()->toString(),
+                 'edited_on' => s(BL::lbl('LastEdited'))->title()->toString(),
             ]
         );
 
