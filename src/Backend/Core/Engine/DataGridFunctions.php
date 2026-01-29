@@ -5,7 +5,6 @@ namespace Backend\Core\Engine;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Language\Language as BackendLanguage;
 use SpoonDate;
-use SpoonFilter;
 use function Symfony\Component\String\s;
 
 /**

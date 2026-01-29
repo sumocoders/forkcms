@@ -6,7 +6,6 @@ use Common\Uri as CommonUri;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
-use SpoonFilter;
 use function Symfony\Component\String\s;
 
 /**

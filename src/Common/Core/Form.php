@@ -7,7 +7,6 @@ use Exception;
 use Frontend\Core\Header\Header as FrontendHeader;
 use Backend\Core\Engine\Url as BackendUrl;
 use Frontend\Core\Engine\Url as FrontendUrl;
-use SpoonFilter;
 use SpoonFormButton;
 use SpoonFormDropdown;
 use SpoonFormPassword;

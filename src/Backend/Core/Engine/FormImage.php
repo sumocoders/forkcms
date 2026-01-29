@@ -3,7 +3,6 @@
 namespace Backend\Core\Engine;
 
 use ForkCMS\Utility\Thumbnails;
-use SpoonFilter;
 use SpoonFormImage;
 use Symfony\Component\Filesystem\Filesystem;
 use Backend\Core\Language\Language as BackendLanguage;

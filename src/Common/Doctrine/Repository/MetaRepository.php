@@ -6,7 +6,6 @@ use Backend\Core\Engine\Exception;
 use Backend\Core\Engine\Model;
 use Common\Uri;
 use Doctrine\ORM\EntityRepository;
-use SpoonFilter;
 
 class MetaRepository extends EntityRepository
 {

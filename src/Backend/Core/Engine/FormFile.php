@@ -2,7 +2,6 @@
 
 namespace Backend\Core\Engine;
 
-use SpoonFilter;
 use Backend\Core\Language\Language as BackendLanguage;
 use function Symfony\Component\String\s;
 

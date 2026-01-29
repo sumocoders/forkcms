@@ -8,7 +8,6 @@ use Common\Doctrine\Repository\MetaRepository;
 use Common\Doctrine\ValueObject\SEOFollow;
 use Common\Doctrine\ValueObject\SEOIndex;
 use Common\Form\CollectionType;
-use SpoonFilter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Exception\InvalidArgumentException;

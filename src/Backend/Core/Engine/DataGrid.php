@@ -5,7 +5,6 @@ namespace Backend\Core\Engine;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Language\Language as BackendLanguage;
 use SpoonDatagridSource;
-use SpoonFilter;
 use SpoonFormDropdown;
 use function Symfony\Component\String\s;
 

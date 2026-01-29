@@ -9,7 +9,6 @@ use Common\Doctrine\Entity\Meta;
 use ForkCMS\Utility\Thumbnails;
 use SimpleBus\Message\Bus\MessageBus;
 use InvalidArgumentException;
-use SpoonFilter;
 use Symfony\Component\Filesystem\Filesystem;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Language\Language as BL;

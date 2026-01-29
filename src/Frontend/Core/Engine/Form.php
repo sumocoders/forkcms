@@ -2,7 +2,6 @@
 
 namespace Frontend\Core\Engine;
 
-use SpoonFilter;
 use SpoonFormButton;
 use SpoonFormDropdown;
 use SpoonFormFile;

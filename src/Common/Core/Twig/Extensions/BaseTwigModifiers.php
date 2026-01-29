@@ -2,8 +2,6 @@
 
 namespace Common\Core\Twig\Extensions;
 
-use SpoonFilter;
-
 /**
  * Contains Base Frontend-related custom modifiers.
  * These filters work independent of front/backend.
