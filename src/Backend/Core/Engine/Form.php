@@ -32,7 +32,7 @@ class Form extends \Common\Core\Form
         $url = BackendModel::getContainer()->get('url');
 
         parent::__construct(
-            $name ?? s($url->getModule() . ' ' . $url->getAction())->camel->toString(),
+            $name ?? s($url->getModule() . ' ' . $url->getAction())->camel()->toString(),
             $action,
             $method ?? 'post',
             null,

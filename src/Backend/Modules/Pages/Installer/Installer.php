@@ -225,8 +225,7 @@ class Installer extends ModuleInstaller
                 // blog
                 $this->insertPage(
                     [
-                        'title' => s($this->getLocale('Blog', 'Core', $language, 'lbl', 'Frontend'))->title()->toString(
-                        ),
+                        'title' => s($this->getLocale('Blog', 'Core', $language, 'lbl', 'Frontend'))->title()->toString(),
                         'language' => $language,
                         'parent_id' => $modulesPageId,
                     ],
@@ -454,8 +453,7 @@ class Installer extends ModuleInstaller
             $this->insertPage(
                 [
                     'id' => 2,
-                    'title' => s($this->getLocale('Sitemap', 'Core', $language, 'lbl', 'Frontend'))->title()->toString(
-                    ),
+                    'title' => s($this->getLocale('Sitemap', 'Core', $language, 'lbl', 'Frontend'))->title()->toString(),
                     'type' => 'footer',
                     'language' => $language,
                 ],
