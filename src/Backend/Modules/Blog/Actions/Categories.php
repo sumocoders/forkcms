@@ -35,7 +35,7 @@ class Categories extends BackendBaseActionIndex
 
         // set headers
         $this->dataGrid->setHeaderLabels([
-            'num_items' => s(BL::lbl('Amount')->title()->toString()),
+            'num_items' => s(BL::lbl('Amount'))->title()->toString(),
         ]);
 
         // sorting columns
