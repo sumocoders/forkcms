@@ -475,7 +475,7 @@ class Model
      */
     public static function getLocale(string $name, string $type = 'label', string $application = 'Backend'): string
     {
-        $name = s($name)->title()->toString();
+        $name = s($name)->replace('_', ' ')->camel()->title()->toString();
         $class = s($application)->title()->toString() . '\Core\Language\Language';
         $function = 'get' . s($type)->title()->toString();
 
