@@ -9,6 +9,7 @@ use Frontend\Core\Language\Language as FL;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Modules\Profiles\Engine\Authentication as FrontendProfilesAuthentication;
 use Frontend\Modules\Profiles\Engine\Model as FrontendProfilesModel;
+use function Symfony\Component\String\s;
 
 class Login extends FrontendBaseBlock
 {
@@ -85,7 +86,7 @@ class Login extends FrontendBaseBlock
 
         if ($loginStatus !== FrontendProfilesAuthentication::LOGIN_ACTIVE) {
             $errorString = sprintf(
-                FL::getError('Profiles' . \SpoonFilter::toCamelCase($loginStatus) . 'Login'),
+                FL::getError('Profiles' . s($loginStatus)->replace('_', ' ')->camel()->title() . 'Login'),
                 FrontendNavigation::getUrlForBlock('Profiles', 'ResendActivation')
             );
 

@@ -172,10 +172,8 @@ class Autosuggest extends FrontendBaseAJAXAction
     private function validateForm(): void
     {
         // set values
-        $charset = $this->getContainer()->getParameter('kernel.charset');
-        $searchTerm = $this->getRequest()->request->get('term', '');
-        $this->searchTerm = ($charset === 'utf-8')
-            ? \SpoonFilter::htmlspecialchars($searchTerm) : \SpoonFilter::htmlentities($searchTerm);
+        $searchTerm = (string) $this->getRequest()->request->get('term', '');
+        $this->searchTerm = htmlspecialchars($searchTerm);
         $this->autoSuggestItemLength = $this->getRequest()->request->getInt('length', 50);
     }
 }

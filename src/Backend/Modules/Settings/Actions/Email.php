@@ -6,7 +6,7 @@ use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
-use SpoonFilter;
+use function Symfony\Component\String\s;
 
 /**
  * This is the email-action, it will display a form to set email settings
@@ -73,7 +73,11 @@ class Email extends BackendBaseActionIndex
             $this->form->addPassword('smtp_password', $this->get('fork.settings')->get('Core', 'smtp_password', ''));
             $this->form->addDropdown(
                 'smtp_secure_layer',
-                ['no' => SpoonFilter::ucfirst(BL::lbl('None')), 'ssl' => 'SSL', 'tls' => 'TLS'],
+                [
+                    'no' => s(BL::lbl('None'))->title()->toString(),
+                    'ssl' => 'SSL',
+                    'tls' => 'TLS'
+                ],
                 $this->get('fork.settings')->get('Core', 'smtp_secure_layer', 'no')
             );
         }

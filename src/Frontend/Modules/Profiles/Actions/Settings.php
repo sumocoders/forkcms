@@ -12,6 +12,7 @@ use Frontend\Modules\Profiles\Engine\Model as FrontendProfilesModel;
 use Frontend\Modules\Profiles\Engine\Profile;
 use Symfony\Component\Intl\Countries;
 use Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException;
+use function Symfony\Component\String\s;
 
 class Settings extends FrontendBaseBlock
 {
@@ -43,8 +44,8 @@ class Settings extends FrontendBaseBlock
     private function getGenderOptions(): array
     {
         return [
-            'male' => \SpoonFilter::ucfirst(FL::getLabel('Male')),
-            'female' => \SpoonFilter::ucfirst(FL::getLabel('Female')),
+            'male' => s(FL::getLabel('Male'))->title()->toString(),
+            'female' => s(FL::getLabel('Female'))->title()->toString(),
         ];
     }
 

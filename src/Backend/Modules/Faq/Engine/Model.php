@@ -7,6 +7,7 @@ use Common\Uri as CommonUri;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
+use function Symfony\Component\String\s;
 
 /**
  * In this file we store all generic functions that we will be using in the faq module
@@ -397,7 +398,7 @@ class Model
             'data',
             [
                 'id' => $item['id'],
-                'extra_label' => \SpoonFilter::ucfirst(BL::lbl('Category', 'Faq')) . ': ' . $item['title'],
+                'extra_label' => s(BL::lbl('Category', 'Faq'))->title()->toString() . ': ' . $item['title'],
                 'language' => $item['language'],
                 'edit_url' => BackendModel::createUrlForAction(
                     'EditCategory',

@@ -9,6 +9,7 @@ use Common\Events\ForkSessionIdChangedEvent;
 use DateTime;
 use DateTimeZone;
 use RuntimeException;
+use function Symfony\Component\String\s;
 
 /**
  * The class below will handle all authentication stuff. It will handle module-access, action-access, ...
@@ -170,7 +171,7 @@ class Authentication
         // The url should only be taken from the container if the action and or module isn't set
         // This way we can use the command also in the a console command
         $action = $action ?: BackendModel::get('url')->getAction();
-        $module = \SpoonFilter::toCamelCase($module ?: BackendModel::get('url')->getModule());
+        $module = s($module ?: BackendModel::get('url')->getModule())->camel()->title()->toString();
 
         // is this action an action that doesn't require authentication?
         if (isset($alwaysAllowed[$module][$action])) {
@@ -220,7 +221,7 @@ class Authentication
     {
         $modules = BackendModel::getModules();
         $alwaysAllowed = array_keys(self::getAlwaysAllowed());
-        $module = \SpoonFilter::toCamelCase($module);
+        $module = s($module)->camel()->title()->toString();
 
         // is this module a module that doesn't require user level authentication?
         if (in_array($module, $alwaysAllowed, true)) {

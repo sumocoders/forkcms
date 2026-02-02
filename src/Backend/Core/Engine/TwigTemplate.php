@@ -18,6 +18,7 @@ use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
+use function Symfony\Component\String\s;
 
 /**
  * This is a twig template wrapper
@@ -202,7 +203,7 @@ class TwigTemplate extends BaseTwigTemplate
             $settings = (array) Authentication::getUser()->getSettings();
 
             foreach ($settings as $key => $setting) {
-                $this->assign('authenticatedUser' . \SpoonFilter::toCamelCase($key), $setting ?? '');
+                $this->assign('authenticatedUser' . s($key)->camel()->title(), $setting ?? '');
             }
 
             // check if this action is allowed
@@ -232,10 +233,7 @@ class TwigTemplate extends BaseTwigTemplate
                 }
 
                 $this->assign(
-                    'show' . \SpoonFilter::toCamelCase($module, '_') . \SpoonFilter::toCamelCase(
-                        $action,
-                        '_'
-                    ),
+                    'show' . s($module . ' ' . $action)->camel()->title(),
                     true
                 );
             }
@@ -273,7 +271,7 @@ class TwigTemplate extends BaseTwigTemplate
     {
         return array_combine(
             array_map(
-                fn($key) => $prefix . \SpoonFilter::ucfirst($key),
+                fn($key) => $prefix . s($key)->title()->toString(),
                 array_keys($array)
             ),
             $array
@@ -336,8 +334,8 @@ class TwigTemplate extends BaseTwigTemplate
             return;
         }
 
-        $this->assign('bodyID', \SpoonFilter::toCamelCase($url->getModule(), '_', true));
-        $bodyClass = \SpoonFilter::toCamelCase($url->getModule() . '_' . $url->getAction(), '_', true);
+        $this->assign('bodyID', s($url->getModule())->replace('_', ' ')->camel()->toString());
+        $bodyClass = s($url->getModule() . ' ' . $url->getAction())->camel()->toString();
         if (in_array(mb_strtolower($url->getAction()), ['add', 'edit'], true)) {
             $bodyClass = $url->getModule() . 'AddEdit';
         }

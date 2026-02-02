@@ -11,6 +11,7 @@ use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Modules\Blog\Engine\Model as FrontendBlogModel;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use function Symfony\Component\String\s;
 
 class Archive extends FrontendBaseBlock
 {
@@ -166,7 +167,7 @@ class Archive extends FrontendBaseBlock
 
     private function setPageTitle(): void
     {
-        $this->header->setPageTitle(\SpoonFilter::ucfirst(FL::lbl('Archive')));
+        $this->header->setPageTitle(s(FL::lbl('Archive'))->title()->toString());
         $this->header->setPageTitle($this->startDate->format('Y'));
         if ($this->hasMonth) {
             $this->header->setPageTitle(
@@ -177,7 +178,7 @@ class Archive extends FrontendBaseBlock
 
     private function addPageToBreadcrumb(): void
     {
-        $this->breadcrumb->addElement(\SpoonFilter::ucfirst(FL::lbl('Archive')));
+        $this->breadcrumb->addElement(s(FL::lbl('Archive'))->title()->toString());
         $this->breadcrumb->addElement($this->startDate->format('Y'));
         if ($this->hasMonth) {
             $this->breadcrumb->addElement(

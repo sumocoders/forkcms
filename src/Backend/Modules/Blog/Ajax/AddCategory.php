@@ -5,6 +5,7 @@ namespace Backend\Modules\Blog\Ajax;
 use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
 use Backend\Core\Language\Language as BL;
 use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
+use Common\Uri;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -29,7 +30,7 @@ class AddCategory extends BackendBaseAJAXAction
         // get the data
         // build array
         $item = [
-            'title' => \SpoonFilter::htmlspecialchars($categoryTitle),
+            'title' => htmlspecialchars($categoryTitle),
             'language' => BL::getWorkingLanguage(),
         ];
 
@@ -40,7 +41,7 @@ class AddCategory extends BackendBaseAJAXAction
             'description_overwrite' => false,
             'title' => $item['title'],
             'title_overwrite' => false,
-            'url' => BackendBlogModel::getUrlForCategory(\SpoonFilter::urlise($item['title'])),
+            'url' => BackendBlogModel::getUrlForCategory(Uri::getUrl($item['title'])),
         ];
 
         // update

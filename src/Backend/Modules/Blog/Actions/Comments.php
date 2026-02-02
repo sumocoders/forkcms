@@ -9,6 +9,7 @@ use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\DataGridDatabase as BackendDataGridDatabase;
 use Backend\Core\Engine\DataGridFunctions as BackendDataGridFunctions;
 use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the comments-action , it will display the overview of blog comments
@@ -75,8 +76,8 @@ class Comments extends BackendBaseActionIndex
 
         // header labels
         $this->dgPublished->setHeaderLabels([
-            'created_on' => \SpoonFilter::ucfirst(BL::lbl('Date')),
-            'text' => \SpoonFilter::ucfirst(BL::lbl('Comment')),
+            'created_on' => s(BL::lbl('Date'))->title()->toString(),
+            'text' => s(BL::lbl('Comment'))->title()->toString(),
         ]);
 
         // add the multicheckbox column
@@ -171,8 +172,8 @@ class Comments extends BackendBaseActionIndex
 
         // header labels
         $this->dgModeration->setHeaderLabels([
-            'created_on' => \SpoonFilter::ucfirst(BL::lbl('Date')),
-            'text' => \SpoonFilter::ucfirst(BL::lbl('Comment')),
+            'created_on' => s(BL::lbl('Date'))->title()->toString(),
+            'text' => s(BL::lbl('Comment'))->title()->toString(),
         ]);
 
         // add the multicheckbox column
@@ -265,8 +266,8 @@ class Comments extends BackendBaseActionIndex
 
         // header labels
         $this->dgSpam->setHeaderLabels([
-            'created_on' => \SpoonFilter::ucfirst(BL::lbl('Date')),
-            'text' => \SpoonFilter::ucfirst(BL::lbl('Comment')),
+            'created_on' => s(BL::lbl('Date'))->title()->toString(),
+            'text' => s(BL::lbl('Comment'))->title()->toString(),
         ]);
 
         // add the multicheckbox column

@@ -5,7 +5,7 @@ namespace Backend\Core\Engine;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Language\Language as BackendLanguage;
 use SpoonDate;
-use SpoonFilter;
+use function Symfony\Component\String\s;
 
 /**
  * A set of commonly used functions that will be applied on rows or columns
@@ -23,8 +23,11 @@ class DataGridFunctions
      */
     public static function cleanupPlainText(string $var): string
     {
-        // detect links
-        $var = SpoonFilter::replaceURLsWithAnchors($var);
+        // replace links with a tags
+        $var = s($var)->replaceMatches(
+            '~(https?://[^\s]+)~',
+            '<a href="$1" rel="nofollow noopener">$1</a>'
+        )->toString();
 
         // replace newlines
         $var = str_replace("\r", '', $var);
@@ -295,7 +298,7 @@ class DataGridFunctions
 
         // less characters
         if (mb_strlen($string) <= $length) {
-            return SpoonFilter::htmlspecialchars($string);
+            return htmlspecialchars($string);
         }
 
         // more characters
@@ -312,7 +315,7 @@ class DataGridFunctions
             $string .= '…';
         }
 
-        return SpoonFilter::htmlspecialchars($string);
+        return htmlspecialchars($string);
     }
 
     /**

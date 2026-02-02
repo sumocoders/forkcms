@@ -7,8 +7,8 @@ use Backend\Core\Engine\DataGridFunctions as BackendDataGridFunctions;
 use Backend\Core\Engine\Model;
 use Backend\Core\Language\Language;
 use Backend\Modules\MediaLibrary\Actions\MediaItemMassAction;
-use SpoonFilter;
 use SpoonFormDropdown;
+use function Symfony\Component\String\s;
 
 /**
  * @TODO replace with a doctrine implementation of the data grid
@@ -49,15 +49,15 @@ class MediaItemDataGrid extends DataGridDatabase
     {
         if ($type->isMovie()) {
             return [
-                'storage_type' => SpoonFilter::ucfirst(Language::lbl('MediaStorageType')),
-                'url' => SpoonFilter::ucfirst(Language::lbl('MediaMovieId')),
-                'title' => SpoonFilter::ucfirst(Language::lbl('MediaMovieTitle')),
+                'storage_type' => s(Language::lbl('MediaStorageType'))->title()->toString(),
+                'url' => s(Language::lbl('MediaMovieId'))->title()->toString(),
+                'title' => s(Language::lbl('MediaMovieTitle'))->title()->toString(),
             ];
         }
 
         return [
             'type' => '',
-            'url' => SpoonFilter::ucfirst(Language::lbl('Image')),
+            'url' => s(Language::lbl('Image'))->title()->toString(),
         ];
     }
 

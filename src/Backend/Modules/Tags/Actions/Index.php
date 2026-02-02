@@ -8,6 +8,7 @@ use Backend\Core\Engine\DataGridDatabase as BackendDataGridDatabase;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the index-action, it will display the overview of tags
@@ -33,8 +34,8 @@ class Index extends BackendBaseActionIndex
 
         // header labels
         $this->dataGrid->setHeaderLabels([
-            'tag' => \SpoonFilter::ucfirst(BL::lbl('Name')),
-            'num_tags' => \SpoonFilter::ucfirst(BL::lbl('Amount')),
+            'tag' => s(BL::lbl('Name'))->title()->toString(),
+            'num_tags' => s(BL::lbl('Amount'))->title()->toString(),
         ]);
 
         // sorting columns

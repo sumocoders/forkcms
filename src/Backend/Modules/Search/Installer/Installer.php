@@ -4,6 +4,7 @@ namespace Backend\Modules\Search\Installer;
 
 use Common\ModuleExtraType;
 use Backend\Core\Installer\ModuleInstaller;
+use function Symfony\Component\String\s;
 
 /**
  * Installer for the search module
@@ -72,7 +73,7 @@ class Installer extends ModuleInstaller
             $searchIndexPageTitle = $this->getLocale('Search', 'Core', $language, 'lbl', 'Frontend');
             $this->insertPage(
                 [
-                    'title' => \SpoonFilter::ucfirst($searchIndexPageTitle),
+                    'title' => s($searchIndexPageTitle)->title()->toString(),
                     'type' => 'root',
                     'language' => $language,
                 ],

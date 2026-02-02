@@ -7,6 +7,7 @@ use Backend\Core\Engine\DataGridDatabase as BackendDataGridDatabase;
 use Backend\Core\Engine\DataGridFunctions as BackendDataGridFunctions;
 use Backend\Core\Language\Language as BL;
 use Backend\Modules\Search\Engine\Model as BackendSearchModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the statistics-action, it will display the overview of search statistics
@@ -28,7 +29,7 @@ class Statistics extends Action
         );
         $dataGrid->setColumnsHidden(['data']);
         $dataGrid->addColumn('referrer', BL::lbl('Referrer'));
-        $dataGrid->setHeaderLabels(['time' => \SpoonFilter::ucfirst(BL::lbl('SearchedOn'))]);
+        $dataGrid->setHeaderLabels(['time' => s(BL::lbl('SearchedOn'))->title()->toString()]);
 
         // set column function
         $dataGrid->setColumnFunction([self::class, 'parseRefererInDataGrid'], '[data]', 'referrer');

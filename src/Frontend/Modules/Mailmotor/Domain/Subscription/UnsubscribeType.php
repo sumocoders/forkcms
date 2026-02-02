@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Symfony\Component\String\s;
 
 class UnsubscribeType extends AbstractType
 {
@@ -21,14 +22,14 @@ class UnsubscribeType extends AbstractType
                 'required' => true,
                 'label' => 'lbl.Email',
                 'attr' => [
-                    'placeholder' => \SpoonFilter::ucfirst(Language::lbl('YourEmail')),
+                    'placeholder' => s(Language::lbl('YourEmail'))->title()->toString(),
                 ],
             ]
         )->add(
             'unsubscribe',
             SubmitType::class,
             [
-                'label' => \SpoonFilter::ucfirst(Language::lbl('Unsubscribe')),
+                'label' => s(Language::lbl('Unsubscribe'))->title()->toString(),
             ]
         );
     }

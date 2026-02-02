@@ -8,6 +8,7 @@ use Backend\Core\Engine\DataGridDatabase as BackendDataGridDatabase;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Users\Engine\Model as BackendUsersModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the index-action (default), it will display the users-overview
@@ -32,7 +33,7 @@ class Index extends BackendBaseActionIndex
             // add column
             $this->dataGrid->addColumn(
                 'nickname',
-                \SpoonFilter::ucfirst(BL::lbl('Nickname')),
+                s(BL::lbl('Nickname'))->title()->toString(),
                 null,
                 BackendModel::createUrlForAction('Edit') . '&amp;id=[id]',
                 BL::lbl('Edit')

@@ -6,6 +6,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Common\ModuleExtraType;
 use ForkCMS\Utility\Geolocation;
+use function Symfony\Component\String\s;
 
 /**
  * In this file we store all generic functions that we will be using in the location module
@@ -190,7 +191,7 @@ class Model
             'data',
             [
                 'id' => $item['id'],
-                'extra_label' => \SpoonFilter::ucfirst(BL::lbl('Location', 'Core')) . ': ' . $item['title'],
+                'extra_label' => s(BL::lbl('Location', 'Core'))->title() . ': ' . $item['title'],
                 'language' => $item['language'],
                 'edit_url' => BackendModel::createUrlForAction('Edit', 'Location') . '&id=' . $item['id'],
             ]
@@ -238,7 +239,7 @@ class Model
                 'data',
                 [
                     'id' => $item['id'],
-                    'extra_label' => \SpoonFilter::ucfirst(BL::lbl('Location', 'Core')) . ': ' . $item['title'],
+                    'extra_label' => s(BL::lbl('Location', 'Core'))->title() . ': ' . $item['title'],
                     'language' => $item['language'],
                     'edit_url' => BackendModel::createUrlForAction('Edit', 'Location') . '&id=' . $item['id'],
                 ]

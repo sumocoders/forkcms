@@ -8,6 +8,7 @@ use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\DataGridDatabase as BackendDataGridDatabase;
 use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the index-action (default), it will display the overview
@@ -29,7 +30,7 @@ class Index extends BackendBaseActionIndex
             [BL::getWorkingLanguage()]
         );
         $this->dataGrid->setHeaderLabels([
-            'email' => \SpoonFilter::ucfirst(BL::getLabel('Recipient')),
+            'email' => s(BL::getLabel('Recipient'))->title()->toString(),
             'sent_forms' => '',
         ]);
 

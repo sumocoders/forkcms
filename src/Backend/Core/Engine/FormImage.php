@@ -3,10 +3,10 @@
 namespace Backend\Core\Engine;
 
 use ForkCMS\Utility\Thumbnails;
-use SpoonFilter;
 use SpoonFormImage;
 use Symfony\Component\Filesystem\Filesystem;
 use Backend\Core\Language\Language as BackendLanguage;
+use function Symfony\Component\String\s;
 
 /**
  * This is our extended version of \SpoonFormFile
@@ -82,7 +82,7 @@ class FormImage extends SpoonFormImage
             $imageError = $_FILES[$this->getName()]['error'];
             if ($imageError === UPLOAD_ERR_INI_SIZE && empty($this->errors)) {
                 $this->addError(
-                    SpoonFilter::ucfirst(sprintf(BackendLanguage::err('FileTooBig'), Form::getUploadMaxFileSize()))
+                    s(sprintf(BackendLanguage::err('FileTooBig'), Form::getUploadMaxFileSize()))->title()->toString()
                 );
             }
         }
@@ -137,9 +137,9 @@ class FormImage extends SpoonFormImage
 
         // parse to template
         if ($template !== null) {
-            $template->assign('file' . SpoonFilter::toCamelCase($this->attributes['name']), $output);
+            $template->assign('file' . s($this->attributes['name'])->replace('_', ' ')->camel()->title(), $output);
             $template->assign(
-                'file' . SpoonFilter::toCamelCase($this->attributes['name']) . 'Error',
+                'file' . s($this->attributes['name'])->replace('_', ' ')->camel()->title() . 'Error',
                 ($this->errors != '') ? '<span class="formError text-danger">' . $this->errors . '</span>' : ''
             );
         }

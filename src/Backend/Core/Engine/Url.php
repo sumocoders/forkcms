@@ -5,13 +5,14 @@ namespace Backend\Core\Engine;
 use Backend\Core\Config;
 use Backend\Core\Engine\Base\Config as BackendBaseConfig;
 use Backend\Core\Engine\Model as BackendModel;
+use Backend\Core\Language\Language as BackendLanguage;
 use Common\Exception\RedirectException;
 use ForkCMS\App\KernelLoader;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Backend\Core\Language\Language as BackendLanguage;
+use function Symfony\Component\String\s;
 
 /**
  * This class will handle the incoming URL.
@@ -95,14 +96,14 @@ class Url extends KernelLoader
             return 'Dashboard';
         }
 
-        return \SpoonFilter::toCamelCase($module);
+        return s($module)->camel()->title()->toString();
     }
 
     private function getActionFromRequest(string $module, string $language): string
     {
         $action = BackendModel::getRequest()->attributes->get('action');
         if (!empty($action)) {
-            return \SpoonFilter::toCamelCase($action);
+            return s($action)->camel()->title()->toString();
         }
 
         return $this->getDefaultActionForModule($module, $language);
@@ -199,7 +200,7 @@ class Url extends KernelLoader
 
         if (Authentication::isLoggedIn() && !Authentication::isAllowedModule($module)) {
             if ($module === 'Dashboard') {
-                $this->redirectToFistAvailableLink(
+                $this->redirectToFirstAvailableLink(
                     $language,
                     $this->getContainer()->get('cache.backend_navigation')->get()
                 );
@@ -284,12 +285,12 @@ class Url extends KernelLoader
         return $url . '?' . $queryString;
     }
 
-    private function redirectToFistAvailableLink(string $language, array $navigation): void
+    private function redirectToFirstAvailableLink(string $language, array $navigation): void
     {
         foreach ($navigation as $navigationItem) {
             [$module, $action] = explode('/', (string) $navigationItem['url']);
-            $module = \SpoonFilter::toCamelCase($module);
-            $action = \SpoonFilter::toCamelCase($action);
+            $module = s($module)->camel()->title()->toString();
+            $action = s($action)->camel()->title()->toString();
 
             if (Authentication::isAllowedModule($module) && Authentication::isAllowedAction($action, $module)) {
                 $this->redirect(
@@ -299,7 +300,7 @@ class Url extends KernelLoader
             }
 
             if (array_key_exists('children', $navigationItem)) {
-                $this->redirectToFistAvailableLink($language, $navigationItem['children']);
+                $this->redirectToFirstAvailableLink($language, $navigationItem['children']);
             }
         }
     }
@@ -362,7 +363,7 @@ class Url extends KernelLoader
         }
 
         // set property
-        $this->action = \SpoonFilter::toCamelCase($action);
+        $this->action = s($action)->camel()->title()->toString();
     }
 
     private function setModule(string $module): void

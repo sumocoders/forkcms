@@ -11,6 +11,7 @@ use Backend\Core\Engine\DataGridFunctions as BackendDataGridFunctions;
 use Backend\Core\Engine\Exception;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
+use function Symfony\Component\String\s;
 
 /**
  * In this file we store all generic functions that we will be using in the extensions module.
@@ -113,7 +114,7 @@ class Model
                 }
 
                 $htmlContent[$y][$x] = [
-                    'title' => \SpoonFilter::ucfirst($value),
+                    'title' => s($value)->title()->toString(),
                     'value' => $value,
                     'exists' => $value != '/',
                     'rowspan' => $rowspan,
@@ -293,7 +294,7 @@ class Model
                 $row['data']['url'] = BackendModel::createUrlForAction('', $row['module']);
             }
 
-            $name = \SpoonFilter::ucfirst(BL::lbl($row['label']));
+            $name = s(BL::lbl($row['label']))->title()->toString();
             if (isset($row['data']['extra_label'])) {
                 $name = $row['data']['extra_label'];
             }
@@ -302,8 +303,8 @@ class Model
             }
 
             // add human readable name
-            $module = \SpoonFilter::ucfirst(BL::lbl(\SpoonFilter::toCamelCase($row['module'])));
-            $extraTypeLabel = \SpoonFilter::ucfirst(BL::lbl(\SpoonFilter::toCamelCase('ExtraType_' . $row['type'])));
+            $module = s(BL::lbl(s($row['module'])->camel()->title()->toString()))->title()->toString();
+            $extraTypeLabel = s(BL::lbl(s('ExtraType_' . $row['type'])->replace('_', ' ')->camel()->title()->toString()))->title()->toString();
             $row['human_name'] = $extraTypeLabel . ': ' . $name;
             $row['path'] = $extraTypeLabel . ' › ' . $module . ($module !== $name ? ' › ' . $name : '');
         }
@@ -346,14 +347,14 @@ class Model
                 );
             }
 
-            $name = \SpoonFilter::ucfirst(BL::lbl($row['label']));
+            $name = s(BL::lbl($row['label']))->title()->toString();
             if (isset($row['data']['extra_label'])) {
                 $name = $row['data']['extra_label'];
             }
             if (isset($row['data']['label_variables'])) {
                 $name = vsprintf($name, $row['data']['label_variables']);
             }
-            $moduleName = \SpoonFilter::ucfirst(BL::lbl(\SpoonFilter::toCamelCase($row['module'])));
+            $moduleName = s(BL::lbl(s($row['module'])->camel()->title()->toString()))->title()->toString();
 
             if (!isset($values[$row['module']])) {
                 $values[$row['module']] = [
@@ -427,7 +428,7 @@ class Model
             $module = [];
             $module['id'] = 'module_' . $moduleName;
             $module['raw_name'] = $moduleName;
-            $module['name'] = \SpoonFilter::ucfirst(BL::getLabel(\SpoonFilter::toCamelCase($moduleName)));
+            $module['name'] = s(BL::getLabel(s($moduleName)->camel()->title()->toString()))->title()->toString();
             $module['description'] = '';
             $module['version'] = '';
             $module['installed'] = false;
@@ -515,11 +516,9 @@ class Model
     public static function getTemplates(?string $theme = null): array
     {
         $database = BackendModel::getContainer()->get('database');
-        $theme = \SpoonFilter::getValue(
-            (string) $theme,
-            null,
-            BackendModel::get('fork.settings')->get('Core', 'theme', 'Fork')
-        );
+        if ($theme === null || $theme === '') {
+            $theme = BackendModel::get('fork.settings')->get('Core', 'theme', 'Fork');
+        }
 
         $templates = (array) $database->getRecords(
             'SELECT i.id, i.label, i.path, i.data
@@ -546,7 +545,7 @@ class Model
             // any extras?
             if (isset($row['data']['default_extras'])) {
                 foreach ($row['data']['default_extras'] as $value) {
-                    if (\SpoonFilter::isInteger($value)
+                    if (filter_var($value, FILTER_VALIDATE_INT) !== false
                         && isset($extras[$value]) && $extras[$value]['type'] == 'block'
                     ) {
                         $row['has_block'] = true;
@@ -977,10 +976,17 @@ class Model
      */
     public static function isValidTemplateSyntaxFormat(string $syntax): bool
     {
-        return \SpoonFilter::isValidAgainstRegexp(
-            '/^\[(\/|[a-z0-9])+(,(\/|[a-z0-9]+))*\](,\[(\/|[a-z0-9])+(,(\/|[a-z0-9]+))*\])*$/i',
-            $syntax
+        $filteredValue = filter_var(
+            $syntax,
+            FILTER_VALIDATE_REGEXP,
+            [
+                'options' => [
+                    'regexp' => '/^\[(\/|[a-z0-9])+(,(\/|[a-z0-9]+))*\](,\[(\/|[a-z0-9])+(,(\/|[a-z0-9]+))*\])*$/i',
+                ],
+            ]
         );
+
+        return $filteredValue === $syntax;
     }
 
     public static function updateTemplate(array $templateData): void

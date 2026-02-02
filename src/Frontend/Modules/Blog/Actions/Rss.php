@@ -9,7 +9,7 @@ use Frontend\Core\Engine\Rss as FrontendRSS;
 use Frontend\Core\Engine\RssItem as FrontendRSSItem;
 use Frontend\Core\Engine\User as FrontendUser;
 use Frontend\Modules\Blog\Engine\Model as FrontendBlogModel;
-use SpoonFilter;
+use function Symfony\Component\String\s;
 
 class Rss extends FrontendBaseBlock
 {
@@ -108,7 +108,7 @@ class Rss extends FrontendBaseBlock
 
         return sprintf(
             '<p>%1$s: %2$s</p>',
-            SpoonFilter::ucfirst(FL::lbl('Tags')),
+            s(FL::lbl('Tags'))->title()->toString(),
             implode(
                 ', ',
                 array_map(

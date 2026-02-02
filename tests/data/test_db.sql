@@ -2476,7 +2476,6 @@ VALUES
 	('Core','theme','s:9:\"Bootstrap\";'),
 	('Core','google_maps_key','s:0:\"\";'),
 	('Core','max_num_revisions','i:20;'),
-	('Core','site_domains','a:1:{i:0;s:13:\"fork.dev:8088\";}'),
 	('Core','site_html_head','s:0:\"\";'),
 	('Core','site_html_start_of_body','s:0:\"\";'),
 	('Core','site_html_end_of_body','s:0:\"\";'),

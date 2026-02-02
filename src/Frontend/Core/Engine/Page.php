@@ -17,6 +17,7 @@ use Frontend\Core\Engine\Block\Widget as FrontendBlockWidget;
 use Backend\Core\Engine\Model as BackendModel;
 use Frontend\Modules\Profiles\Engine\Authentication as FrontendAuthenticationModel;
 use Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException;
+use function Symfony\Component\String\s;
 
 /**
  * Frontend page class, this class will handle everything on a page
@@ -203,7 +204,7 @@ class Page extends KernelLoader
                 array_keys($this->record['positions'])
             );
             foreach ($unusedPositions as $position) {
-                $this->template->assign('position' . \SpoonFilter::ucfirst($position), []);
+                $this->template->assign('position' . s($position)->title(), []);
             }
 
             $this->header->parse();
@@ -354,7 +355,7 @@ class Page extends KernelLoader
             }
 
             // assign position to template
-            $this->template->assign('position' . \SpoonFilter::ucfirst($position), $positions[$position]);
+            $this->template->assign('position' . s($position)->title(), $positions[$position]);
         }
 
         $this->template->assign('positions', $positions);

@@ -18,6 +18,7 @@ use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
 use Backend\Modules\Search\Engine\Model as BackendSearchModel;
 use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
 use Backend\Modules\Users\Engine\Model as BackendUsersModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the edit-action, it will display a form to edit an existing item
@@ -134,8 +135,8 @@ class Edit extends BackendBaseActionEdit
 
         // set headers
         $this->dgDrafts->setHeaderLabels([
-            'user_id' => \SpoonFilter::ucfirst(BL::lbl('By')),
-            'edited_on' => \SpoonFilter::ucfirst(BL::lbl('LastEditedOn')),
+            'user_id' => s(BL::lbl('By'))->title()->toString(),
+            'edited_on' => s(BL::lbl('LastEditedOn'))->title()->toString(),
         ]);
 
         // set column-functions
@@ -185,7 +186,7 @@ class Edit extends BackendBaseActionEdit
 
         // get categories
         $categories = BackendBlogModel::getCategories();
-        $categories['new_category'] = \SpoonFilter::ucfirst(BL::getLabel('AddCategory'));
+        $categories['new_category'] = s(BL::getLabel('AddCategory'))->title()->toString();
 
         // create elements
         $this->form->addText('title', $this->record['title'], null, 'form-control title', 'form-control danger title')->makeRequired();
@@ -237,8 +238,8 @@ class Edit extends BackendBaseActionEdit
 
         // set headers
         $this->dgRevisions->setHeaderLabels([
-            'user_id' => \SpoonFilter::ucfirst(BL::lbl('By')),
-            'edited_on' => \SpoonFilter::ucfirst(BL::lbl('LastEditedOn')),
+            'user_id' => s(BL::lbl('By'))->title()->toString(),
+            'edited_on' => s(BL::lbl('LastEditedOn'))->title()->toString(),
         ]);
 
         // set column-functions
@@ -288,7 +289,7 @@ class Edit extends BackendBaseActionEdit
 
         // assign the active record and additional variables
         $this->template->assign('item', $this->record);
-        $this->template->assign('status', BL::lbl(\SpoonFilter::ucfirst($this->record['status'])));
+        $this->template->assign('status', BL::lbl(s($this->record['status'])->title()->toString()));
 
         // assign revisions-datagrid
         $this->template->assign('revisions', ($this->dgRevisions->getNumResults() != 0) ? $this->dgRevisions->getContent() : false);

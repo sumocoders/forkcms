@@ -8,6 +8,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
 use Symfony\Component\Intl\Countries;
+use function Symfony\Component\String\s;
 
 /**
  * This is the add-action, it will display a form to add a new profile.
@@ -58,8 +59,8 @@ class Add extends BackendBaseActionAdd
     {
         // gender dropdown values
         $genderValues = [
-            'male' => \SpoonFilter::ucfirst(BL::getLabel('Male')),
-            'female' => \SpoonFilter::ucfirst(BL::getLabel('Female')),
+            'male' => s(BL::getLabel('Male'))->title()->toString(),
+            'female' => s(BL::getLabel('Female'))->title()->toString(),
         ];
 
         // birthdate dropdown values

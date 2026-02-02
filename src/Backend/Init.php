@@ -2,7 +2,6 @@
 
 namespace Backend;
 
-use SpoonFilter;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**

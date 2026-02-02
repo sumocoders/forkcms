@@ -10,6 +10,7 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Groups\Engine\Model as BackendGroupsModel;
+use function Symfony\Component\String\s;
 
 /**
  * This is the add-action, it will display a form to create a new group
@@ -165,7 +166,7 @@ class Add extends BackendBaseActionAdd
                 }
 
                 $this->actions[$module][] = [
-                    'label' => \SpoonFilter::toCamelCase($actionName),
+                    'label' => s($actionName)->replace('_', ' ')->camel()->title()->toString(),
                     'value' => $actionName,
                     'description' => $description,
                 ];
@@ -175,7 +176,7 @@ class Add extends BackendBaseActionAdd
         $modules = array_unique($modules);
         foreach ($modules as $module) {
             $this->modules[] = [
-                'label' => \SpoonFilter::toCamelCase($module),
+                'label' => s($module)->camel()->title()->toString(),
                 'value' => $module,
             ];
 
@@ -234,8 +235,8 @@ class Add extends BackendBaseActionAdd
                     // add to array
                     $this->widgets[] = [
                         'module_name' => $module,
-                        'checkbox_name' => \SpoonFilter::toCamelCase($module) . \SpoonFilter::toCamelCase($widgetName),
-                        'label' => \SpoonFilter::toCamelCase($widgetName),
+                        'checkbox_name' => s($module)->camel()->title()->toString() . s($widgetName)->replace('_', ' ')->camel()->title()->toString(),
+                        'label' => s($widgetName)->replace('_', ' ')->camel()->title()->toString(),
                         'value' => $widgetName,
                         'description' => $description,
                     ];
@@ -403,8 +404,8 @@ class Add extends BackendBaseActionAdd
             foreach ($this->widgets as $j => $widget) {
                 // add widget checkboxes
                 $widgetBoxes[$j]['check'] = '<span>' . $this->form->addCheckbox('widgets_' . $widget['checkbox_name'], true)->parse() . '</span>';
-                $widgetBoxes[$j]['module'] = \SpoonFilter::ucfirst(BL::lbl($widget['module_name']));
-                $widgetBoxes[$j]['widget'] = '<label for="widgets' . \SpoonFilter::toCamelCase($widget['checkbox_name']) . '">' . $widget['label'] . '</label>';
+                $widgetBoxes[$j]['module'] = s(BL::lbl($widget['module_name']))->title()->toString();
+                $widgetBoxes[$j]['widget'] = '<label for="widgets' . s($widget['checkbox_name'])->replace('_', ' ')->camel()->title()->toString() . '">' . $widget['label'] . '</label>';
                 $widgetBoxes[$j]['description'] = $widget['description'];
             }
         }
@@ -427,8 +428,8 @@ class Add extends BackendBaseActionAdd
                     // bundle not yet in array?
                     if (!in_array($action['group'], $addedBundles)) {
                         // assign bundled action boxes
-                        $actionBoxes[$key]['actions'][$i]['check'] = $this->form->addCheckbox('actions_' . $module['label'] . '_' . 'Group_' . \SpoonFilter::ucfirst($action['group']))->parse();
-                        $actionBoxes[$key]['actions'][$i]['action'] = \SpoonFilter::ucfirst($action['group']);
+                        $actionBoxes[$key]['actions'][$i]['check'] = $this->form->addCheckbox('actions_' . $module['label'] . '_' . 'Group_' . s($action['group'])->title()->toString())->parse();
+                        $actionBoxes[$key]['actions'][$i]['action'] = s($action['group'])->title()->toString();
                         $actionBoxes[$key]['actions'][$i]['description'] = $this->actionGroups[$action['group']];
 
                         // add the group to the added bundles
@@ -437,7 +438,7 @@ class Add extends BackendBaseActionAdd
                 } else {
                     // assign action boxes
                     $actionBoxes[$key]['actions'][$i]['check'] = $this->form->addCheckbox('actions_' . $module['label'] . '_' . $action['label'])->parse();
-                    $actionBoxes[$key]['actions'][$i]['action'] = '<label for="actions' . \SpoonFilter::toCamelCase($module['label'] . '_' . $action['label']) . '">' . $action['label'] . '</label>';
+                    $actionBoxes[$key]['actions'][$i]['action'] = '<label for="actions' . s($module['label'] . ' ' . $action['label'])->replace('_', ' ')->camel()->title()->toString() . '">' . $action['label'] . '</label>';
                     $actionBoxes[$key]['actions'][$i]['description'] = $action['description'];
                 }
             }
@@ -466,7 +467,7 @@ class Add extends BackendBaseActionAdd
                 false,
                 'inputCheckbox checkBeforeUnload jsSelectAll'
             )->parse();
-            $permissionBoxes[$key]['id'] = \SpoonFilter::toCamelCase($module['label']);
+            $permissionBoxes[$key]['id'] = s($module['label'])->replace('_', ' ')->camel()->title()->toString();
         }
 
         // create elements
@@ -503,9 +504,9 @@ class Add extends BackendBaseActionAdd
                     // loop through all fields
                     foreach ($this->form->getFields() as $field) {
                         // field exists?
-                        if ($field->getName() == 'actions_' . $module['label'] . '_' . 'Group_' . \SpoonFilter::ucfirst($key)) {
+                        if ($field->getName() == 'actions_' . $module['label'] . '_' . 'Group_' . s($key)->title()) {
                             // add to bundled actions
-                            $bundledActionPermissions[] = $this->form->getField('actions_' . $module['label'] . '_' . 'Group_' . \SpoonFilter::ucfirst($key));
+                            $bundledActionPermissions[] = $this->form->getField('actions_' . $module['label'] . '_' . 'Group_' . s($key)->title());
                         }
                     }
                 }
