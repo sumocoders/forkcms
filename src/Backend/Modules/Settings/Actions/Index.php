@@ -67,7 +67,7 @@ class Index extends BackendBaseActionIndex
         $googleTrackingAnalyticsTrackingId = $this->get('fork.settings')->get(
             'Core',
             'google_tracking_google_analytics_tracking_id',
-            $this->get('fork.settings')->get('Analytics', 'web_property_id', '')
+            ''
         );
         $this->form->addCheckbox(
             'google_tracking_google_analytics_tracking_id_enabled',
