@@ -2045,10 +2045,6 @@ jsBackend.resizeFunctions = {
     calculate = (function (_this) {
       return function () {
         jsBackend.navigation.resize()
-        if (typeof jsBackend.analytics !== 'undefined') {
-          jsBackend.analytics.chartDoubleMetricPerDay.init()
-          jsBackend.analytics.chartPieChart.init()
-        }
         ticking = false
       }
     })(this)

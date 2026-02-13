@@ -476,7 +476,7 @@ class Model
                 // items
                 foreach ($items as $item) {
                     // attributes
-                    $attributes = $item->attributes();
+                    $attributes = current($item->attributes());
                     $type = in_array($attributes['type'], $possibleTypes, true) ? $attributes['type'] : '';
                     $name = s($attributes['name'] ?? '')->title()->toString();
 
@@ -494,7 +494,7 @@ class Model
                         ++$statistics['total'];
 
                         // attributes
-                        $attributes = $translation->attributes();
+                        $attributes = current($translation->attributes());
                         $language = in_array($attributes['language'], $possibleLanguages[$application], true) ? $attributes['language'] : '';
 
                         // language does not exist

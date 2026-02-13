@@ -108,7 +108,6 @@
       "src/Backend/Core/Js/jquery/jquery.backend.js",
       "src/Backend/Core/Js/jquery/jquery.ui.dialog.patch.js",
       "src/Backend/Core/Js/utils.js",
-      "src/Backend/Modules/Analytics/Js/Analytics.js",
       "src/Backend/Modules/Blog/Js/Blog.js",
       "src/Backend/Modules/Extensions/Js/Modules.js",
       "src/Backend/Modules/Extensions/Js/ThemeTemplate.js",

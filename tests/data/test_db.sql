@@ -7,69 +7,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table analytics_keywords
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `analytics_keywords`;
-
-CREATE TABLE `analytics_keywords` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `keyword` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `entrances` int(11) NOT NULL,
-  `date` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-
-# Dump of table analytics_landing_pages
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `analytics_landing_pages`;
-
-CREATE TABLE `analytics_landing_pages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `page_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `entrances` int(11) NOT NULL,
-  `bounces` int(11) NOT NULL,
-  `bounce_rate` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
-  `updated_on` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-
-# Dump of table analytics_pages
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `analytics_pages`;
-
-CREATE TABLE `analytics_pages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `page` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date_viewed` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-
-# Dump of table analytics_referrers
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `analytics_referrers`;
-
-CREATE TABLE `analytics_referrers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `referrer` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `entrances` int(11) NOT NULL,
-  `date` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-
 # Dump of table backend_navigation
 # ------------------------------------------------------------
 
@@ -113,13 +50,6 @@ VALUES
 	(21,9,'Search','search/settings',NULL,3),
 	(22,2,'ContentBlocks','content_blocks/index','a:2:{i:0;s:18:\"content_blocks/add\";i:1;s:19:\"content_blocks/edit\";}',2),
 	(23,2,'Tags','tags/index','a:1:{i:0;s:9:\"tags/edit\";}',3),
-	(24,0,'Marketing','analytics/index',NULL,4),
-	(25,24,'Analytics','analytics/index','a:1:{i:0;s:17:\"analytics/loading\";}',1),
-	(26,25,'Content','analytics/content',NULL,1),
-	(27,25,'AllPages','analytics/all_pages',NULL,2),
-	(28,25,'ExitPages','analytics/exit_pages',NULL,3),
-	(29,25,'LandingPages','analytics/landing_pages','a:3:{i:0;s:26:\"analytics/add_landing_page\";i:1;s:27:\"analytics/edit_landing_page\";i:2;s:21:\"analytics/detail_page\";}',4),
-	(30,9,'Analytics','analytics/settings',NULL,4),
 	(31,2,'Blog','',NULL,4),
 	(32,31,'Articles','blog/index','a:3:{i:0;s:8:\"blog/add\";i:1;s:9:\"blog/edit\";i:2;s:21:\"blog/import_wordpress\";}',1),
 	(33,31,'Comments','blog/comments','a:1:{i:0;s:17:\"blog/edit_comment\";}',2),
@@ -488,22 +418,6 @@ VALUES
 	(55,1,'Tags','Edit',7),
 	(56,1,'Tags','Index',7),
 	(57,1,'Tags','MassAction',7),
-	(58,1,'Analytics','AddLandingPage',7),
-	(59,1,'Analytics','AllPages',7),
-	(60,1,'Analytics','CheckStatus',7),
-	(61,1,'Analytics','Content',7),
-	(62,1,'Analytics','DeleteLandingPage',7),
-	(63,1,'Analytics','DetailPage',7),
-	(64,1,'Analytics','ExitPages',7),
-	(65,1,'Analytics','GetTrafficSources',7),
-	(66,1,'Analytics','Index',7),
-	(67,1,'Analytics','LandingPages',7),
-	(68,1,'Analytics','Loading',7),
-	(69,1,'Analytics','MassLandingPageAction',7),
-	(70,1,'Analytics','RefreshTrafficSources',7),
-	(71,1,'Analytics','Settings',7),
-	(72,1,'Analytics','TrafficSources',7),
-	(73,1,'Analytics','Visitors',7),
 	(74,1,'Blog','AddCategory',7),
 	(75,1,'Blog','Add',7),
 	(76,1,'Blog','Categories',7),
@@ -573,7 +487,6 @@ VALUES
 	(178,2,'Pages','Edit',7),
 	(179,2,'Pages','Settings',7),
 	(180,3,'Users','Edit',7),
-	(181,1,'Analytics','Reset',7),
 	(182,1,'Extensions','ExportThemeTemplates',7),
 	(183,1,'Location','Settings',7),
 	(184,1,'Mailmotor','Ping',7),
@@ -638,7 +551,6 @@ VALUES
 	(8,1,'Search'),
 	(9,1,'ContentBlocks'),
 	(10,1,'Tags'),
-	(11,1,'Analytics'),
 	(12,1,'Blog'),
 	(13,1,'Faq'),
 	(14,1,'FormBuilder'),
@@ -1030,7 +942,6 @@ VALUES
 	(327, 1, 'en', 'Backend', 'Core', 'lbl', 'Amount', 'amount', '2017-08-31 14:28:18'),
 	(328, 1, 'en', 'Backend', 'Core', 'lbl', 'Analyse', 'analyse', '2017-08-31 14:28:18'),
 	(329, 1, 'en', 'Backend', 'Core', 'lbl', 'Analysis', 'analysis', '2017-08-31 14:28:18'),
-	(330, 1, 'en', 'Backend', 'Core', 'lbl', 'Analytics', 'analytics', '2017-08-31 14:28:18'),
 	(331, 1, 'en', 'Backend', 'Core', 'lbl', 'APIKey', 'API key', '2017-08-31 14:28:18'),
 	(332, 1, 'en', 'Backend', 'Core', 'lbl', 'APIKeys', 'API keys', '2017-08-31 14:28:18'),
 	(333, 1, 'en', 'Backend', 'Core', 'lbl', 'APIURL', 'API URL', '2017-08-31 14:28:18'),
@@ -1784,24 +1695,6 @@ VALUES
 	(1083, 1, 'en', 'Backend', 'Tags', 'err', 'NonExisting', 'This tag doesn\'t exist.', '2017-08-31 14:28:22'),
 	(1084, 1, 'en', 'Backend', 'Tags', 'err', 'NoSelection', 'No tags were selected.', '2017-08-31 14:28:22'),
 	(1085, 1, 'en', 'Backend', 'Tags', 'err', 'TagAlreadyExists', 'This tag already exists.', '2017-08-31 14:28:22'),
-	(1086, 1, 'en', 'Backend', 'Analytics', 'lbl', 'AverageTimeOnSite', 'average time on site', '2017-08-31 14:28:22'),
-	(1087, 1, 'en', 'Backend', 'Analytics', 'lbl', 'BounceRate', 'bounce rate', '2017-08-31 14:28:22'),
-	(1088, 1, 'en', 'Backend', 'Analytics', 'lbl', 'ChangePeriod', 'change period', '2017-08-31 14:28:22'),
-	(1089, 1, 'en', 'Backend', 'Analytics', 'lbl', 'ChooseThisAccount', 'choose this account', '2017-08-31 14:28:22'),
-	(1090, 1, 'en', 'Backend', 'Analytics', 'lbl', 'ChooseWebsiteProfile', 'Choose an Analytics website profile...', '2017-08-31 14:28:22'),
-	(1091, 1, 'en', 'Backend', 'Analytics', 'lbl', 'GaPagePath', 'page', '2017-08-31 14:28:22'),
-	(1092, 1, 'en', 'Backend', 'Analytics', 'lbl', 'GaPageviews', 'pageviews', '2017-08-31 14:28:22'),
-	(1093, 1, 'en', 'Backend', 'Analytics', 'lbl', 'LinkedProfile', 'linked profile', '2017-08-31 14:28:22'),
-	(1094, 1, 'en', 'Backend', 'Analytics', 'lbl', 'NewVisitsPercentage', 'new visits percentage', '2017-08-31 14:28:22'),
-	(1095, 1, 'en', 'Backend', 'Analytics', 'lbl', 'PagesPerVisit', 'pages per visit', '2017-08-31 14:28:22'),
-	(1096, 1, 'en', 'Backend', 'Analytics', 'lbl', 'Pageviews', 'pageviews', '2017-08-31 14:28:22'),
-	(1097, 1, 'en', 'Backend', 'Analytics', 'lbl', 'Certificate', 'certificate (.p12 file)', '2017-08-31 14:28:22'),
-	(1098, 1, 'en', 'Backend', 'Analytics', 'lbl', 'MostViewedPages', 'most viewed pages', '2017-08-31 14:28:22'),
-	(1099, 1, 'en', 'Backend', 'Analytics', 'lbl', 'Visitors', 'visitors', '2017-08-31 14:28:22'),
-	(1100, 1, 'en', 'Backend', 'Analytics', 'err', 'P12Only', 'Only p12 files are allowed.', '2017-08-31 14:28:22'),
-	(1101, 1, 'en', 'Backend', 'Analytics', 'msg', 'CertificateHelp', '\n          <h3>How to get your secret file?</h3>\n          <br/>\n          <p>Enable the Analytics API</p>\n          <p>\n            <ol>\n              <li>Go to the <a href=\"https://console.developers.google.com/\" target=\"_blank\">Google Developers Console</a>.</li>\n              <li>Make sure you\'re logged in with a Google account that has access to the wanted Analytics account.</li>\n              <li>Select a project in the header, or create a new one.</li>\n              <li>Click on <strong>Library</strong> in the sidebar on the left.</li>\n              <li>Go to the <strong>Analytics API</strong> page by clicking on it in the <strong>Other popular API\'s</strong> category or typing it in the search bar.</li>\n              <li>You can enable the API if you haven\'t done that yet by clicking on <strong>ENABLE API</strong> underneath the header.</li>\n            </ol>\n          </p>\n          <p>Creating credentials for Fork CMS.</p>\n          <p>\n            <ol>\n              <li>In the sidebar on the left, select <strong>Credentials</strong>.</li>\n              <li>Click on <strong>Create credentials</strong> and select <strong>Service account key</strong> in the dropdown.</li>\n              <li>Create a new service account with the role <strong>Project - Editor</strong> and <strong>P12</strong> as Key type.</li>\n              <li>Download the generated certificate (.p12 file).</li>\n              <li>Go back to the <strong>Credentials</strong> page and click on <strong>Manage service accounts</strong></li>\n              <li>Copy the <strong>Service account ID</strong> of the newly created account. It should look something like <code>name@spheric-passkey-123456.iam.gserviceaccount.com</code></li>\n              <li>Login to analytics, go to admin page and add the generated e-mail adress to the prefered property with \"read and analyze\" rights.</li>\n              <li>Grab a cup of coffee, and come back to Fork in some minutes. It can take some time before the coupling is fully done.</li>\n            </ol>\n          </p>', '2017-08-31 14:28:22'),
-	(1102, 1, 'en', 'Backend', 'Analytics', 'msg', 'NoAccounts', 'There are no analytics accounts coupled to the given email address. Make sure you added the email address %1$s to the wanted account. It can take a while before the coupling is completed.', '2017-08-31 14:28:22'),
-	(1103, 1, 'en', 'Backend', 'Analytics', 'msg', 'RemoveAccountLink', 'Remove the link with your Google account', '2017-08-31 14:28:22'),
 	(1104, 1, 'en', 'Backend', 'Core', 'lbl', 'PageviewsByTrafficSources', 'pageviews per traffic source', '2017-08-31 14:28:22'),
 	(1105, 1, 'en', 'Backend', 'Blog', 'lbl', 'Add', 'add article', '2017-08-31 14:28:23'),
 	(1106, 1, 'en', 'Backend', 'Blog', 'lbl', 'WordpressFilter', 'filter', '2017-08-31 14:28:23'),
@@ -2373,7 +2266,6 @@ VALUES
 	('Search','2015-02-23 19:48:53'),
 	('ContentBlocks','2015-02-23 19:48:53'),
 	('Tags','2015-02-23 19:48:53'),
-	('Analytics','2015-02-23 19:48:53'),
 	('Blog','2015-02-23 19:48:53'),
 	('Faq','2015-02-23 19:48:53'),
 	('FormBuilder','2015-02-23 19:48:53'),
