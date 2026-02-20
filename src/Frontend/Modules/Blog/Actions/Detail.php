@@ -65,17 +65,17 @@ class Detail extends FrontendBaseBlock
 
     private function getBlogPost(): array
     {
-        if ($this->url->getParameter(1) === null) {
+        if ($this->url->getParameter(0) === null) {
             throw new NotFoundHttpException();
         }
 
         if ($this->url->getParameter('revision', 'int') === null) {
-            return $this->completeBlogPost(FrontendBlogModel::get($this->url->getParameter(1)));
+            return $this->completeBlogPost(FrontendBlogModel::get($this->url->getParameter(0)));
         }
 
         return $this->completeBlogPost(
             FrontendBlogModel::getRevision(
-                $this->url->getParameter(1),
+                $this->url->getParameter(0),
                 $this->url->getParameter('revision', 'int')
             )
         );
