@@ -17,6 +17,9 @@ class Installer extends ModuleInstaller
     /** @var int */
     private $blogBlockId;
 
+    /** @var int */
+    private $blogBlockDetailId;
+
     public function install(): void
     {
         $this->addModule('Blog');
@@ -101,7 +104,7 @@ class Installer extends ModuleInstaller
     private function configureFrontendExtras(): void
     {
         $this->blogBlockId = $this->insertExtra($this->getModule(), ModuleExtraType::block(), 'Blog');
-        $this->insertExtra($this->getModule(), ModuleExtraType::block(), 'Detail', 'Detail');
+        $this->blogBlockDetailId = $this->insertExtra($this->getModule(), ModuleExtraType::block(), 'Detail', 'Detail');
         $this->insertExtra($this->getModule(), ModuleExtraType::widget(), 'Archive', 'Archive');
         $this->insertExtra($this->getModule(), ModuleExtraType::widget(), 'Categories', 'Categories');
         $this->insertExtra($this->getModule(), ModuleExtraType::widget(), 'RecentArticlesFull', 'RecentArticlesFull');
@@ -132,13 +135,20 @@ class Installer extends ModuleInstaller
             $this->setSetting($this->getModule(), 'rss_description_' . $language, '');
 
             // check if a page for blog already exists in this language
-            if (!$this->hasPageWithBlogBlock($language)) {
-                $this->insertPage(
+            if (!$this->hasPageWithBlogBlock($language, $this->blogBlockId)) {
+                $indexId = $this->insertPage(
                     ['title' => 'Blog', 'language' => $language],
                     null,
                     ['extra_id' => $this->blogBlockId, 'position' => 'main'],
                     ['extra_id' => $searchId, 'position' => 'top']
                 );
+                if (!$this->hasPageWithBlogBlock($language, $this->blogBlockDetailId)) {
+                    $this->insertPage(
+                        ['title' => 'Detail', 'language' => $language, 'parent_id' => $indexId],
+                        null,
+                        ['extra_id' => $this->blogBlockDetailId, 'position' => 'main'],
+                    );
+                }
             }
 
             if ($this->installExample()) {
@@ -183,7 +193,7 @@ class Installer extends ModuleInstaller
         );
     }
 
-    private function hasPageWithBlogBlock(string $language): bool
+    private function hasPageWithBlogBlock(string $language, int $blockId): bool
     {
         // @todo: Replace with a PageRepository method when it exists.
         return (bool) $this->getDatabase()->getVar(
@@ -192,7 +202,7 @@ class Installer extends ModuleInstaller
              INNER JOIN pages_blocks AS b ON b.revision_id = p.revision_id
              WHERE b.extra_id = ? AND p.language = ?
              LIMIT 1',
-            [$this->blogBlockId, $language]
+            [$blockId, $language]
         );
     }
 

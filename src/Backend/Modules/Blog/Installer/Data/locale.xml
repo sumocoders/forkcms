@@ -435,6 +435,15 @@
         <translation language="pl"><![CDATA[Można przesyłać tylko pliki XML.]]></translation>
       </item>
     </Blog>
+    <Pages>
+      <item type="label" name="Detail">
+        <translation language="nl"><![CDATA[detail]]></translation>
+        <translation language="en"><![CDATA[detail]]></translation>
+        <translation language="fr"><![CDATA[détail]]></translation>
+        <translation language="de"><![CDATA[detail]]></translation>
+        <translation language="es"><![CDATA[detalle]]></translation>
+      </item>
+    </Pages>
     <Core>
       <item type="label" name="RelatedArticles">
         <translation language="nl"><![CDATA[gerelateerde artikelen]]></translation>
