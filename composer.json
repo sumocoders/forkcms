@@ -21,7 +21,6 @@
         "ext-simplexml": "*",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/orm": "^2.7",
-        "google/apiclient": "~1.1.2",
         "google/recaptcha": "^1.2",
         "jeroendesloovere/geolocation-php-api": "^2.1",
         "league/flysystem": "~1.0",
