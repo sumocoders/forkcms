@@ -2,15 +2,48 @@
 
 namespace ForkCMS\Utility\Csv;
 
+use Backend\Core\Engine\User;
 use ForkCMS\Utility\PhpSpreadsheet\Reader\Filter\ChunkReadFilter;
-use PhpOffice\PhpSpreadsheet\IOFactory;
+use ForkCMS\Utility\PhpSpreadsheet\Reader\Filter\ColumnsFilter;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 
 class Reader
 {
-    public function findColumnIndexes(string $path, array $columns): array
+    private function getUserOptions(User $user): array
     {
-        $reader = IOFactory::createReader('Csv');
+        $options['Delimiter'] = $user->getSetting('csv_split_character');
+
+        $lineEnding = $user->getSetting('csv_line_ending');
+        if ($lineEnding === '\n') {
+            $options['LineEnding'] = "\n";
+        }
+        if ($lineEnding === '\r\n') {
+            $options['LineEnding'] = "\r\n";
+        }
+
+        return $options;
+    }
+
+    private function getReader(array $options): Csv
+    {
+        $reader = new Csv();
+
+        if (!empty($options)) {
+            foreach ($options as $option => $value) {
+                $methodName = 'set' . $option;
+                if (method_exists($reader, $methodName)) {
+                    $reader->$methodName($value);
+                }
+            }
+        }
+
+        return $reader;
+    }
+
+    public function findColumnIndexes(string $path, array $columns, User $user): array
+    {
+        $reader = $this->getReader($this->getUserOptions($user));
         $reader->setReadDataOnly(true);
         $reader->setReadFilter(new ChunkReadFilter(1, 1));
         $spreadSheet = $reader->load($path);
@@ -26,6 +59,30 @@ class Reader
         }
 
         return $indexes;
+    }
+
+    public function convertFileToArray(string $path, array $mapping, User $user): array
+    {
+        $data = [];
+
+        $reader = $this->getReader($this->getUserOptions($user));
+        $reader->setReadDataOnly(true);
+        $reader->setReadFilter(new ColumnsFilter(array_keys($mapping)));
+        $spreadSheet = $reader->load($path);
+
+        foreach ($spreadSheet->getActiveSheet()->getRowIterator() as $row) {
+            // skip the first row as it contains the headers
+            if ($row->getRowIndex() === 1) {
+                continue;
+            }
+
+            $data[] = $this->convertRowIntoMappedArray(
+                $row,
+                $mapping
+            );
+        }
+
+        return $data;
     }
 
     public function convertRowIntoMappedArray(Row $row, array $mapping): array
