@@ -2,17 +2,14 @@
 
 namespace ForkCMS\Utility\Csv;
 
-use Backend\Core\Engine\Authentication;
 use Backend\Core\Engine\User;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use ZipStream\Stream;
 
-class Writer
+readonly class Writer
 {
-    public function __construct(private readonly string $charset)
+    public function __construct(private string $charset)
     {
     }
 
@@ -43,13 +40,13 @@ class Writer
 
     private function getWriter(Spreadsheet $spreadsheet, array $options = []): Csv
     {
-        $writer = IOFactory::createWriter($spreadsheet, 'Csv');
+        $writer = new Csv($spreadsheet);
 
         if (!empty($options)) {
             foreach ($options as $option => $value) {
                 $methodName = 'set' . $option;
                 if (method_exists($writer, $methodName)) {
-                    call_user_func([$writer, $methodName], $value);
+                    $writer->$methodName($value);
                 }
             }
         }
@@ -86,11 +83,6 @@ class Writer
 
     public function getResponseForUser(Spreadsheet $spreadsheet, string $filename, User $user): StreamedResponse
     {
-        $options = array_merge($this->getDefaultOptions(), $this->getUserOptions($user));
-
-        return $this->getStreamedResponse(
-            $this->getWriter($spreadsheet, $options),
-            $filename
-        );
+        return $this->getResponse($spreadsheet, $filename, $this->getUserOptions($user));
     }
 }
