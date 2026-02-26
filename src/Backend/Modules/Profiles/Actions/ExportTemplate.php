@@ -9,7 +9,8 @@ use ForkCMS\Utility\Csv\Writer;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
- * This is the add-action, it will display a form to add a new profile.
+ * This is the export template-action
+ * it will download a template that can be used for import.
  */
 class ExportTemplate extends BackendBaseActionAdd
 {
