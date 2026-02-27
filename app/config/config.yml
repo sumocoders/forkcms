@@ -265,6 +265,11 @@ services:
         tags:
             - { name: twig.extension }
 
+    Common\Core\Twig\Extensions\UtmExtension:
+        public: false
+        tags:
+            - { name: twig.extension }
+
     ForkCMS\Google\TagManager\DataLayer:
         public: true
 

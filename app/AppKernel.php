@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new \MailMotor\Bundle\MailChimpBundle\MailMotorMailChimpBundle(),
             new \MailMotor\Bundle\CampaignMonitorBundle\MailMotorCampaignMonitorBundle(),
             new \Liip\ImagineBundle\LiipImagineBundle(),
+            new \Twig\Extra\TwigExtraBundle\TwigExtraBundle(),
         ];
 
         if ($this->getEnvironment() === 'prod') {
