@@ -8,4 +8,8 @@ services:
             - "@mailer"
             - "@fork.settings"
         tags:
-            - { name: kernel.event_listener, event: form.submitted, method: onFormSubmitted }
+            - {
+                name: kernel.event_listener,
+                event: Frontend\Modules\FormBuilder\Event\FormBuilderSubmittedEvent,
+                method: onFormSubmitted
+            }
