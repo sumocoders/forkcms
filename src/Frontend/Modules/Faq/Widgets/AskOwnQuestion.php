@@ -2,12 +2,11 @@
 
 namespace Frontend\Modules\Faq\Widgets;
 
-use Common\Mailer\Message;
+use Common\Mailer\EmailFactory;
 use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
 use Frontend\Core\Engine\Form as FrontendForm;
 use Frontend\Core\Language\Language as FL;
-use Frontend\Core\Engine\Model as FrontendModel;
-use Frontend\Core\Engine\Navigation as FrontendNavigation;
+use Symfony\Component\Mailer\MailerInterface;
 
 /**
  * This is a widget with the form to ask a question
@@ -82,7 +81,7 @@ class AskOwnQuestion extends FrontendBaseWidget
         return [
             'sentOn' => time(),
             'name' => $this->form->getField('name')->getValue(),
-            'email' => $this->form->getField('email')->getValue(),
+            'emailaddress' => $this->form->getField('email')->getValue(),
             'message' => $this->form->getField('message')->getValue(),
         ];
     }
@@ -101,18 +100,14 @@ class AskOwnQuestion extends FrontendBaseWidget
 
     private function sendNewQuestionNotification(array $question): void
     {
-        $from = $this->get('fork.settings')->get('Core', 'mailer_from');
-        $to = $this->get('fork.settings')->get('Core', 'mailer_to');
-        $replyTo = $this->get('fork.settings')->get('Core', 'mailer_reply_to');
-        $message = Message::newInstance(sprintf(FL::getMessage('FaqOwnQuestionSubject'), $question['name']))
-            ->setFrom([$from['email'] => $from['name']])
-            ->setTo([$to['email'] => $to['name']])
-            ->setReplyTo([$replyTo['email'] => $replyTo['name']])
-            ->parseHtml(
-                '/Faq/Layout/Templates/Mails/OwnQuestion.html.twig',
-                $question,
-                true
-            );
-        $this->get('mailer')->send($message);
+        /** @var EmailFactory $emailFactory */
+        $emailFactory = $this->get(EmailFactory::class);
+        /** @var MailerInterface $mailer */
+        $mailer = $this->get(MailerInterface::class);
+        $message = $emailFactory->create()
+            ->subject(sprintf(FL::getMessage('FaqOwnQuestionSubject'), $question['name']))
+            ->htmlTemplate('/Faq/Layout/Templates/Mails/OwnQuestion.html.twig')
+            ->context($question);
+        $mailer->send($message);
     }
 }
