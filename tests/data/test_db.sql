@@ -375,7 +375,6 @@ VALUES
 	(12,1,'Settings','Index',7),
 	(13,1,'Settings','Email',7),
 	(14,1,'Settings','Seo',7),
-	(15,1,'Settings','TestEmailConnection',7),
 	(16,1,'Users','Add',7),
 	(17,1,'Users','Delete',7),
 	(18,1,'Users','Edit',7),

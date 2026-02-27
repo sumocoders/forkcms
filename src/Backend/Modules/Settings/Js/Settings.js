@@ -12,7 +12,6 @@ jsBackend.settings = {
         canAddNew: true
       })
 
-    $('#testEmailConnection').on('click', jsBackend.settings.testEmailConnection)
     $('[data-role="fork-clear-cache"]').on('click', jsBackend.settings.clearCache)
 
     $('#activeLanguages input:checkbox').on('change', jsBackend.settings.changeActiveLanguage).change()
@@ -41,51 +40,6 @@ jsBackend.settings = {
         $other.attr('checked', false).attr('disabled', true)
       }
     }
-  },
-
-  testEmailConnection: function (e) {
-    // prevent default
-    e.preventDefault()
-
-    var $spinner = $('#testEmailConnectionSpinner')
-    var $error = $('#testEmailConnectionError')
-    var $success = $('#testEmailConnectionSuccess')
-    var $email = $('#settingsEmail')
-
-    // show spinner
-    $spinner.show()
-
-    // hide previous results
-    $error.hide()
-    $success.hide()
-
-    // fetch email parameters
-    var settings = {}
-    $.each($email.serializeArray(), function () { settings[this.name] = this.value })
-
-    // make the call
-    $.ajax(
-      {
-        data: $.extend({fork: {action: 'TestEmailConnection'}}, settings),
-        success: function (data, textStatus) {
-          // hide spinner
-          $spinner.hide()
-
-          // show success
-          if (data.code === 200) {
-            jsBackend.messages.add('success', jsBackend.locale.msg('TestWasSent'), '')
-          } else {
-            jsBackend.messages.add('danger', jsBackend.locale.err('ErrorWhileSendingEmail'), '')
-          }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-          // hide spinner
-          $spinner.hide()
-
-          // show error
-          jsBackend.messages.add('danger', jsBackend.locale.err('ErrorWhileSendingEmail'), '')
-        }
-      })
   },
 
   clearCache: function (e) {

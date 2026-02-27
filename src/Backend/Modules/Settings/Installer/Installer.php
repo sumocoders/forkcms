@@ -45,6 +45,5 @@ class Installer extends ModuleInstaller
         $this->setActionRights(1, $this->getModule(), 'Email');
         $this->setActionRights(1, $this->getModule(), 'Index');
         $this->setActionRights(1, $this->getModule(), 'Seo');
-        $this->setActionRights(1, $this->getModule(), 'TestEmailConnection');
     }
 }
