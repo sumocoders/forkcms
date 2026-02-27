@@ -26,6 +26,8 @@ framework:
                 adapter: cache.app
                 public: true
                 default_lifetime: 3600
+    mailer:
+        dsn: '%mailer.dsn%'
     messenger:
         transports:
             async:

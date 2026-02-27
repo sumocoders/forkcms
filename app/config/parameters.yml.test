@@ -22,3 +22,5 @@ parameters:
 
     action.group_tag:       '\@actiongroup'
     action.rights_level:    7
+
+    mailer.dsn: 'null://null'
