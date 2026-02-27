@@ -65,17 +65,6 @@ monolog:
             path:  "%site.path_www%/var/logs/%kernel.environment%/error.log"
             level: error
             max_files: 10
-        # swift:
-        #     type:       swift_mailer
-        #     from_email: %fork.debug_email%
-        #     to_email:   %fork.debug_email%
-        #     subject:    %site.default_title% %fork.debug_message%
-        #     level:      error
-        #     formatter:  monolog.formatter.html
-        #     content_type: text/html
-
-swiftmailer:
-    transport: "sendmail"
 
 liip_imagine:
     resolvers:
@@ -169,15 +158,6 @@ services:
             # and caused some queries to break.
             - [ execute, [ 'SET sql_mode = REPLACE(@@SESSION.sql_mode, "ONLY_FULL_GROUP_BY", "")'] ]
             - [ setDebug, [ "%kernel.debug%" ]]
-    mailer_configurator:
-        class: Common\Mailer\Configurator
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-            - { name: kernel.event_listener, event: console.command, method: onConsoleCommand }
-        arguments:
-            - "@fork.settings"
-            - "@service_container"
-
     cache.filesystem.adapter:
         class: League\Flysystem\Adapter\Local
         arguments:
@@ -303,3 +283,11 @@ services:
         alias: 'Symfony\Component\Messenger\MessageBusInterface'
         public: true
 
+    Symfony\Component\Mailer\MailerInterface:
+        alias: mailer.mailer
+        public: true
+
+    Common\Mailer\EmailFactory:
+        public: true
+        arguments:
+            - "@fork.settings"
