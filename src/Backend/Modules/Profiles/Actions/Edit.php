@@ -27,11 +27,6 @@ class Edit extends BackendBaseActionEdit
     private $dgGroups;
 
     /**
-     * @var bool
-     */
-    private $notifyProfile;
-
-    /**
      * Info about the current profile.
      *
      * @var array
@@ -61,12 +56,6 @@ class Edit extends BackendBaseActionEdit
     {
         // get general info
         $this->profile = BackendProfilesModel::get($this->id);
-
-        $this->notifyProfile = $this->get('fork.settings')->get(
-            $this->url->getModule(),
-            'send_new_profile_mail',
-            false
-        );
     }
 
     private function loadForm(): void
@@ -201,8 +190,6 @@ class Edit extends BackendBaseActionEdit
     {
         parent::parse();
 
-        $this->template->assign('notifyProfile', $this->notifyProfile);
-
         // assign the active record and additional variables
         $this->template->assign('profile', $this->profile);
 
@@ -272,9 +259,8 @@ class Edit extends BackendBaseActionEdit
                 }
             }
 
-            // new_password is checked, so verify new password (only if profile should not be notified)
-            // because then if the password field is empty, it will generate a new password
-            if ($chkNewPassword->isChecked() && !$this->notifyProfile) {
+            // new_password is checked, so verify new password
+            if ($chkNewPassword->isChecked()) {
                 $txtPassword->isFilled(BL::err('FieldIsRequired'));
                 $txtPasswordRepeat->isFilled(BL::err('FieldIsRequired'));
 
@@ -347,33 +333,7 @@ class Edit extends BackendBaseActionEdit
                                '&var=' . rawurlencode((string) $values['email']) .
                     '&highlight=row-' . $this->id .
                     '&var=' . rawurlencode((string) $displayName) .
-                    '&report='
-                ;
-
-                if ($this->notifyProfile &&
-                    ($chkNewEmail->isChecked() || $chkNewPassword->isChecked())
-                ) {
-                    // notify values
-                    $notifyValues = array_merge(
-                        $values,
-                        [
-                            'id' => $this->id,
-                            'first_name' => $txtFirstName->getValue(),
-                            'last_name' => $txtLastName->getValue(),
-                            'unencrypted_password' => $password,
-                        ]
-                    );
-
-                    if (!isset($notifyValues['display_name'])) {
-                        $notifyValues['display_name'] = $this->profile['display_name'];
-                    }
-
-                    BackendProfilesModel::notifyProfile($notifyValues, true);
-
-                    $redirectUrl .= 'saved-and-notified';
-                } else {
-                    $redirectUrl .= 'saved';
-                }
+                    '&report=saved';
 
                 // everything is saved, so redirect to the overview
                 $this->redirect($redirectUrl);

@@ -2,7 +2,6 @@
 
 namespace Backend\Modules\Profiles\Engine;
 
-use Common\Mailer\Message;
 use Common\Uri as CommonUri;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Language\Language as BL;
@@ -627,125 +626,6 @@ class Model
     public static function insertProfileGroup(array $membership): int
     {
         return (int) BackendModel::getContainer()->get('database')->insert('profiles_groups_rights', $membership);
-    }
-
-    /**
-     * Notify admin - after adding profile to profiles module
-     *
-     * @param array $values
-     * @param string $templatePath
-     */
-    public static function notifyAdmin(array $values, ?string $templatePath = null): void
-    {
-        // to email
-        $toEmail = BackendModel::get('fork.settings')->get('Profiles', 'profile_notification_email', null);
-
-        if ($toEmail === null) {
-            $to = BackendModel::get('fork.settings')->get('Core', 'mailer_to');
-            $toEmail = $to['email'];
-        }
-
-        // define backend url
-        $backendUrl = BackendModel::createUrlForAction('Edit', 'Profiles') . '&id=' . $values['id'];
-
-        // set variables
-        $variables = [
-            'message' => vsprintf(
-                BL::msg('NotificationNewProfileToAdmin', 'Profiles'),
-                [
-                    $values['display_name'],
-                    $values['email'],
-                    $backendUrl,
-                ]
-            ),
-        ];
-
-        // define subject
-        $subject = vsprintf(
-            BL::lbl('NotificationNewProfileToAdmin', 'Profiles'),
-            [
-                $values['email'],
-            ]
-        );
-
-        self::sendMail(
-            $subject,
-            $templatePath,
-            $variables,
-            $toEmail
-        );
-    }
-
-    /**
-     * Notify profile - after adding profile to profiles module
-     *
-     * @param array $values
-     * @param bool $forUpdate
-     * @param string $templatePath
-     */
-    public static function notifyProfile(
-        array $values,
-        bool $forUpdate = false,
-        ?string $templatePath = null
-    ): void {
-        // set variables
-        $variables = [
-            'message' => vsprintf(
-                BL::msg('NotificationNewProfileLoginCredentials', 'Profiles'),
-                [
-                    $values['email'],
-                    $values['unencrypted_password'],
-                    SITE_URL,
-                ]
-            ),
-        ];
-
-        // define subject
-        $notificationSubject = $forUpdate ? 'NotificationUpdatedProfileToProfile' : 'NotificationNewProfileToProfile';
-        $subject = BL::lbl($notificationSubject, 'Profiles');
-
-        self::sendMail(
-            $subject,
-            $templatePath,
-            $variables,
-            $values['email'],
-            $values['display_name']
-        );
-    }
-
-    /**
-     * Send mail
-     *
-     * @param string $subject
-     * @param string|null $templatePath
-     * @param array $variables
-     * @param string $toEmail
-     * @param string $toDisplayName
-     */
-    protected static function sendMail(
-        $subject,
-        ?string $templatePath,
-        array $variables,
-        string $toEmail,
-        ?string $toDisplayName = null
-    ): void {
-        if (empty($templatePath)) {
-            $templatePath = FRONTEND_CORE_PATH . '/Layout/Templates/Mails/Notification.html.twig';
-        }
-
-        // define variables
-        $from = BackendModel::get('fork.settings')->get('Core', 'mailer_from');
-        $replyTo = BackendModel::get('fork.settings')->get('Core', 'mailer_reply_to');
-
-        // create a message object and set all the needed properties
-        $message = Message::newInstance($subject)
-            ->setFrom([$from['email'] => $from['name']])
-            ->setTo([$toEmail => $toDisplayName])
-            ->setReplyTo([$replyTo['email'] => $replyTo['name']])
-            ->parseHtml($templatePath, $variables, true);
-
-        // send it through the mailer service
-        BackendModel::get('mailer')->send($message);
     }
 
     /**

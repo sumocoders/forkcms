@@ -4,7 +4,6 @@
 jsBackend.Profiles = {
   init: function () {
     jsBackend.Profiles.massAddToGroup.init()
-    jsBackend.Profiles.settings.init()
     jsBackend.Profiles.editEmail.init()
     jsBackend.Profiles.editPassword.init()
   },
@@ -65,49 +64,6 @@ jsBackend.Profiles = {
       $('#newPasswordBox').toggle(checked)
     }
   },
-
-  settings: {
-    init: function () {
-      if ($('#sendNewProfileAdminMail').length === 0) return false
-
-      $('#sendNewProfileAdminMail').on('change', function () {
-        jsBackend.Profiles.settings.toggleAdminMail()
-      })
-
-      $('#limitDisplayNameChanges').on('change', function () {
-        jsBackend.Profiles.settings.toggleDisplayNameChanges()
-      })
-
-      $('#overwriteProfileNotificationEmail').on('change', function () {
-        jsBackend.Profiles.settings.toggleProfileNotificationEmail()
-      })
-
-      jsBackend.Profiles.settings.toggleAdminMail()
-      jsBackend.Profiles.settings.toggleDisplayNameChanges()
-      jsBackend.Profiles.settings.toggleProfileNotificationEmail()
-    },
-
-    toggleAdminMail: function () {
-      var $item = $('#sendNewProfileAdminMail')
-      var checked = ($item.attr('checked') === 'checked')
-
-      $('#overwriteProfileNotificationEmailBox').toggle(checked)
-    },
-
-    toggleDisplayNameChanges: function () {
-      var $item = $('#limitDisplayNameChanges')
-      var checked = ($item.attr('checked') === 'checked')
-
-      $('#maxDisplayNameChangesBox').toggle(checked)
-    },
-
-    toggleProfileNotificationEmail: function () {
-      var $item = $('#overwriteProfileNotificationEmail')
-      var checked = ($item.attr('checked') === 'checked')
-
-      $('#profileNotificationEmailBox').toggle(checked)
-    }
-  }
 }
 
 $(jsBackend.Profiles.init)

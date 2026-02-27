@@ -2822,23 +2822,6 @@
         <translation language="tr"><![CDATA[örn. 20/06/2011]]></translation>
         <translation language="pt"><![CDATA[ex.: 18/08/2017]]></translation>
       </item>
-      <item type="message" name="HelpDisplayNameChanges">
-        <translation language="nl"><![CDATA[Het aantal weergave naam aanpassingen is gelimiteerd tot %1$s. Je kan nog %2$s wijziging(en) maken.]]></translation>
-        <translation language="en"><![CDATA[The amount of display name changes is limited to %1$s. You have %2$s change(s) left.]]></translation>
-        <translation language="fr"><![CDATA[Le nombre de changement de nom d'affichage est limité à %1$s. Vous pouvez encore faire %2$s changement(s).]]></translation>
-        <translation language="it"><![CDATA[Puoi cambiare il nome un massimo di %1$s volte. Hai ancora %2$s modifiche possibili.]]></translation>
-        <translation language="hu"><![CDATA[A becenevedet %1$s alkalommal tudod megváltoztatni. Neked maradt még %2$s alkalom.]]></translation>
-        <translation language="ru"><![CDATA[Вы можете изменить своё имя всего %1$s раз. Осталось %2$s.]]></translation>
-        <translation language="zh"><![CDATA[显示名称允许更改%1$s次，当前剩余%2$s次更改机会。]]></translation>
-        <translation language="de"><![CDATA[Die Anzahl an Nichname-Änderungen ist auf %1$s limitiert. Du hast noch %2$s Änderung(en) übrig.]]></translation>
-        <translation language="es"><![CDATA[El número de veces que puedes cambiar el nombre a mostrar esta limitado a %1$s. Te quedan %2$s .]]></translation>
-        <translation language="lt"><![CDATA[Jus galite savo vardą keisti %1$s kartų. Liko %2$s kartų.]]></translation>
-        <translation language="uk"><![CDATA[Ви можете змінити своє ім'я всього %1$s раз. Залишилося %2$s.]]></translation>
-        <translation language="sv"><![CDATA[Antalet ändringar av ditt visningsnamn är begränsat till %1$s. Du har %2$s ändring(ar) kvar..]]></translation>
-        <translation language="el"><![CDATA[Οι επιτρεπόμενες αλλαγές στο όνομα οθόνης είναι %1$s. Σας απέμειναν  %2$s αλλαγές.]]></translation>
-        <translation language="pl"><![CDATA[Ilość zmian wyświetlanej nazwy jest ograniczona do %1$s. Pozostały ci %2$s zmiany.]]></translation>
-        <translation language="pt"><![CDATA[O número de vezes que pode alterar o seu nome de ecrã está limitado a %1$s vez(es). Ainda dispõe de %2$s alterações.]]></translation>
-      </item>
       <item type="message" name="HelpImageField">
         <translation language="nl"><![CDATA[Enkel bestanden met extensie jp(e)g, gif of png zijn toegelaten.]]></translation>
         <translation language="en"><![CDATA[Only jp(e)g, gif or png-files are allowed.]]></translation>

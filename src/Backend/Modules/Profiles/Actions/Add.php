@@ -20,39 +20,13 @@ class Add extends BackendBaseActionAdd
      */
     private $id;
 
-    /**
-     * @var bool
-     */
-    private $notifyAdmin;
-
-    /**
-     * @var bool
-     */
-    private $notifyProfile;
-
     public function execute(): void
     {
         parent::execute();
-        $this->getData();
         $this->loadForm();
         $this->validateForm();
         $this->parse();
         $this->display();
-    }
-
-    public function getData(): void
-    {
-        $this->notifyAdmin = $this->get('fork.settings')->get(
-            $this->url->getModule(),
-            'send_new_profile_admin_mail',
-            false
-        );
-
-        $this->notifyProfile = $this->get('fork.settings')->get(
-            $this->url->getModule(),
-            'send_new_profile_mail',
-            false
-        );
     }
 
     private function loadForm(): void
@@ -75,45 +49,30 @@ class Add extends BackendBaseActionAdd
         $this->form
             ->addText('email')
             ->setAttribute('type', 'email')
-            ->makeRequired()
-        ;
+            ->makeRequired();
         $this->form
             ->addPassword('password')
-            ->setAttribute('autocomplete', 'new-password')
-        ;
-
-        if (!$this->notifyProfile) {
-            $this->form->getField('password')->makeRequired();
-        }
+            ->setAttribute('autocomplete', 'new-password');
 
         $this->form
             ->addText('display_name')
-            ->makeRequired()
-        ;
+            ->makeRequired();
         $this->form
-            ->addText('first_name')
-        ;
+            ->addText('first_name');
         $this->form
-            ->addText('last_name')
-        ;
+            ->addText('last_name');
         $this->form
-            ->addText('city')
-        ;
+            ->addText('city');
         $this->form
-            ->addDropdown('gender', $genderValues)
-        ;
+            ->addDropdown('gender', $genderValues);
         $this->form
-            ->addDropdown('day', array_combine($days, $days))
-        ;
+            ->addDropdown('day', array_combine($days, $days));
         $this->form
-            ->addDropdown('month', $months)
-        ;
+            ->addDropdown('month', $months);
         $this->form
-            ->addDropdown('year', array_combine($years, $years))
-        ;
+            ->addDropdown('year', array_combine($years, $years));
         $this->form
-            ->addDropdown('country', Countries::getNames(BL::getInterfaceLanguage()))
-        ;
+            ->addDropdown('country', Countries::getNames(BL::getInterfaceLanguage()));
         $this->form->addTextarea('about');
 
         // set default elements dropdowns
@@ -166,11 +125,6 @@ class Add extends BackendBaseActionAdd
                 }
             }
 
-            // profile must not be notified, password must not be empty
-            if (!$this->notifyProfile) {
-                $txtPassword->isFilled(BL::err('FieldIsRequired'));
-            }
-
             // one of the birthday fields are filled in
             if ($ddmDay->isFilled() || $ddmMonth->isFilled() || $ddmYear->isFilled()) {
                 // valid date?
@@ -218,36 +172,10 @@ class Add extends BackendBaseActionAdd
                 BackendProfilesModel::setSetting($this->id, 'country', $ddmCountry->getValue());
                 BackendProfilesModel::setSetting($this->id, 'about', $txtAbout->getValue());
 
-                // notify values
-                $notifyValues = array_merge(
-                    $values,
-                    [
-                        'id' => $this->id,
-                        'first_name' => $txtFirstName->getValue(),
-                        'last_name' => $txtLastName->getValue(),
-                        'unencrypted_password' => $password,
-                    ]
-                );
-
                 $redirectUrl = BackendModel::createUrlForAction('Edit') .
                                '&id=' . $this->id .
-                    '&var=' . rawurlencode((string) $values['display_name']) .
-                    '&report='
-                ;
-
-                // notify new profile user
-                if ($this->notifyProfile) {
-                    BackendProfilesModel::notifyProfile($notifyValues);
-
-                    $redirectUrl .= 'saved-and-notified';
-                } else {
-                    $redirectUrl .= 'saved';
-                }
-
-                // notify admin
-                if ($this->notifyAdmin) {
-                    BackendProfilesModel::notifyAdmin($notifyValues);
-                }
+                               '&var=' . rawurlencode((string) $values['display_name']) .
+                               '&report=saved';
 
                 // everything is saved, so redirect to the overview
                 $this->redirect($redirectUrl);
@@ -258,7 +186,5 @@ class Add extends BackendBaseActionAdd
     protected function parse(): void
     {
         parent::parse();
-
-        $this->template->assign('notifyProfile', $this->notifyProfile);
     }
 }

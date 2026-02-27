@@ -18,7 +18,6 @@
               <label class="form-label" for="displayName">{{ 'lbl.DisplayName'|trans|ucfirst }}
                 <abbr title="{{ 'lbl.RequiredField'|trans|ucfirst }}">*</abbr></label>
               {% form_field display_name %}
-              <small class="text-muted">{{ 'msg.HelpDisplayNameChanges'|trans|format(maxDisplayNameChanges, displayNameChangesLeft ) }}</small>
               {% form_field_error display_name %}
             </div>
             <div class="form-group{% if txtEmailError %} has-danger{% endif %}">

@@ -46,20 +46,17 @@ class Register extends FrontendBaseBlock
         $this->form
             ->addText('display_name')
             ->setAttribute('autocomplete', 'username')
-            ->makeRequired()
-        ;
+            ->makeRequired();
         $this->form
             ->addText('email')
             ->setAttribute('type', 'email')
             ->setAttribute('autocomplete', 'email')
-            ->makeRequired()
-        ;
+            ->makeRequired();
         $this->form
             ->addPassword('password')
             ->setAttribute('data-role', 'fork-new-password')
             ->setAttribute('autocomplete', 'new-password')
-            ->makeRequired()
-        ;
+            ->makeRequired();
         $this->form->addCheckbox('show_password')->setAttributes(
             [
                 'data-role' => 'fork-toggle-visible-password',

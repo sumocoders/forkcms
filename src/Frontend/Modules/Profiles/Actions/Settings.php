@@ -77,9 +77,6 @@ class Settings extends FrontendBaseBlock
             ->setAttribute('autocomplete', 'username')
             ->makeRequired()
         ;
-        if (!$this->displayNameCanStillBeChanged()) {
-            $this->form->getField('display_name')->setAttribute('disabled', 'disabled');
-        }
         $this->form
             ->addText('first_name', $this->profile->getSetting('first_name'))
             ->setAttribute('autocomplete', 'given-name')
@@ -142,23 +139,6 @@ class Settings extends FrontendBaseBlock
         $this->template->assign('avatar', (string) $this->profile->getSetting('avatar', ''));
 
         $this->form->parse($this->template);
-
-        // display name changes
-        $this->template->assign('maxDisplayNameChanges', FrontendProfilesModel::MAX_DISPLAY_NAME_CHANGES);
-        $this->template->assign(
-            'displayNameChangesLeft',
-            FrontendProfilesModel::MAX_DISPLAY_NAME_CHANGES - $this->profile->getSetting('display_name_changes')
-        );
-    }
-
-    private function getAmountOfDisplayNameChanges(): int
-    {
-        return (int) FrontendProfilesModel::getSetting($this->profile->getId(), 'display_name_changes');
-    }
-
-    private function displayNameCanStillBeChanged(): bool
-    {
-        return FrontendProfilesModel::displayNameCanStillBeChanged($this->profile);
     }
 
     private function validateForm(): bool
@@ -168,8 +148,7 @@ class Settings extends FrontendBaseBlock
         $ddmMonth = $this->form->getField('month');
         $ddmYear = $this->form->getField('year');
 
-        if ($this->displayNameCanStillBeChanged()
-            && $this->profile->getDisplayName() !== $txtDisplayName->getValue()
+        if ($this->profile->getDisplayName() !== $txtDisplayName->getValue()
             && $txtDisplayName->isFilled(FL::getError('FieldIsRequired'))
             && FrontendProfilesModel::existsDisplayName($txtDisplayName->getValue(), $this->profile->getId())) {
             $txtDisplayName->addError(FL::getError('DisplayNameExists'));
@@ -225,14 +204,8 @@ class Settings extends FrontendBaseBlock
             return;
         }
 
-        $displayNameChanges = $this->getAmountOfDisplayNameChanges();
-        if ($this->displayNameWasChanged()) {
-            ++$displayNameChanges;
-        }
-
         $this->profile->setSettings(
             [
-                'display_name_changes' => $displayNameChanges,
                 'first_name' => $this->form->getField('first_name')->getValue(),
                 'last_name' => $this->form->getField('last_name')->getValue(),
                 'city' => $this->form->getField('city')->getValue(),
