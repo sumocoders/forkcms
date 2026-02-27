@@ -9,9 +9,11 @@ use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\User;
 use Backend\Modules\Users\Engine\Model as BackendUsersModel;
-use Common\Mailer\Message;
+use Common\Mailer\EmailFactory;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use function Symfony\Component\String\s;
 
 /**
@@ -209,21 +211,23 @@ class Index extends BackendBaseActionIndex
                 $user->setSetting('reset_password_key', $key);
                 $user->setSetting('reset_password_timestamp', time());
 
+
+                /** @var EmailFactory $emailFactory */
+                $emailFactory = $this->get(EmailFactory::class);
+                /** @var MailerInterface $mailer */
+                $mailer = $this->get(MailerInterface::class);
+
                 // send e-mail to user
-                $from = $this->get('fork.settings')->get('Core', 'mailer_from');
-                $replyTo = $this->get('fork.settings')->get('Core', 'mailer_reply_to');
-                $message = Message::newInstance(s(BL::msg('ResetYourPasswordMailSubject'))->title()->toString())
-                    ->setFrom([$from['email'] => $from['name']])
-                    ->setTo([$email])
-                    ->setReplyTo([$replyTo['email'] => $replyTo['name']])
-                    ->parseHtml(
-                        '/Authentication/Layout/Templates/Mails/ResetPassword.html.twig',
-                        [
+                $message = $emailFactory->create()
+                    ->subject(s(BL::msg('ResetYourPasswordMailSubject'))->title()->toString())
+                    ->to(new Address($email))
+                    ->htmlTemplate('@ForkBackendModules/Authentication/Layout/Templates/Mails/ResetPassword.html.twig')
+                    ->context([
                             'resetLink' => SITE_URL . BackendModel::createUrlForAction('ResetPassword')
                                            . '&email=' . $email . '&key=' . $key,
                         ]
                     );
-                $this->get('mailer')->send($message);
+                $mailer->send($message);
 
                 // clear post-values
                 $_POST['backend_email_forgot'] = '';
