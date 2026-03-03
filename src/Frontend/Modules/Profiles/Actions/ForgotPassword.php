@@ -107,7 +107,8 @@ class ForgotPassword extends FrontendBaseBlock
             ->subject(FL::getMessage('ForgotPasswordSubject'))
             ->to(new Address($this->form->getField('email')->getValue()))
             ->htmlTemplate('/Profiles/Layout/Templates/Mails/ForgotPassword.html.twig')
-            ->context([
+            ->context(
+                [
                     'resetUrl' => $resetUrl,
                     'firstName' => FrontendProfilesModel::getSetting($profileId, 'first_name'),
                     'lastName' => FrontendProfilesModel::getSetting($profileId, 'last_name'),

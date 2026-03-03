@@ -140,7 +140,8 @@ class Register extends FrontendBaseBlock
             ->subject(FL::getMessage('RegisterSubject'))
             ->to(new Address($profile['email'], $profile['display_name']))
             ->htmlTemplate('Profiles/Layout/Templates/Mails/Register.html.twig')
-            ->context([
+            ->context(
+                [
                     'activationUrl' => SITE_URL .
                                        FrontendNavigation::getUrlForBlock(
                                            $this->getModule(),

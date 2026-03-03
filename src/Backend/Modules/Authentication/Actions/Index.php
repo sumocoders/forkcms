@@ -108,7 +108,10 @@ class Index extends BackendBaseActionIndex
             $userId = BackendUsersModel::getIdByEmail($txtEmail->getValue());
 
             // all fields are ok?
-            if ($txtEmail->isFilled() && $txtPassword->isFilled() && $this->form->getToken() == $this->form->getField('form_token')->getValue()) {
+            if ($txtEmail->isFilled()
+                && $txtPassword->isFilled()
+                && $this->form->getToken() == $this->form->getField('form_token')->getValue()
+            ) {
                 // try to login the user
                 if (!BackendAuthentication::loginUser($txtEmail->getValue(), $txtPassword->getValue())) {
                     $this->getContainer()->get('logger.public')->info(
@@ -222,7 +225,8 @@ class Index extends BackendBaseActionIndex
                     ->subject(s(BL::msg('ResetYourPasswordMailSubject'))->title()->toString())
                     ->to(new Address($email))
                     ->htmlTemplate('@ForkBackendModules/Authentication/Layout/Templates/Mails/ResetPassword.html.twig')
-                    ->context([
+                    ->context(
+                        [
                             'resetLink' => SITE_URL . BackendModel::createUrlForAction('ResetPassword')
                                            . '&email=' . $email . '&key=' . $key,
                         ]

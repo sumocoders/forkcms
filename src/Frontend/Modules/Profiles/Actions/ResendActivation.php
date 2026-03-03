@@ -47,8 +47,7 @@ class ResendActivation extends FrontendBaseBlock
             ->addText('email')
             ->setAttribute('type', 'email')
             ->setAttribute('autocomplete', 'email')
-            ->makeRequired()
-        ;
+            ->makeRequired();
     }
 
     private function parse(): void
@@ -112,9 +111,10 @@ class ResendActivation extends FrontendBaseBlock
             ->subject(FL::getMessage('RegisterSubject'))
             ->to(new Address($this->profile->getEmail(), $this->profile->getDisplayName()))
             ->htmlTemplate('Profiles/Layout/Templates/Mails/Register.html.twig')
-            ->context([
+            ->context(
+                [
                     'activationUrl' => SITE_URL . FrontendNavigation::getUrlForBlock($this->getModule(), 'Activate')
-                         . '/' . $this->profile->getSetting('activation_key')
+                                       . '/' . $this->profile->getSetting('activation_key')
                 ]
             );
 
