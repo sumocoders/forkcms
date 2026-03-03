@@ -168,30 +168,6 @@ class Settings extends FrontendBaseBlock
         return $this->form->isCorrect();
     }
 
-    private function displayNameWasChanged(): bool
-    {
-        $txtDisplayName = $this->form->getField('display_name');
-
-        if (!$this->displayNameCanStillBeChanged()
-            || $this->profile->getDisplayName() === $txtDisplayName->getValue()) {
-            // no change or not allowed to change the display name
-            return false;
-        }
-
-        $this->profile->setDisplayName($txtDisplayName->getValue());
-        $this->profile->setUrl(FrontendProfilesModel::getUrl($txtDisplayName->getValue(), $this->profile->getId()));
-
-        FrontendProfilesModel::update(
-            $this->profile->getId(),
-            [
-                'display_name' => $this->profile->getDisplayName(),
-                'url' => $this->profile->getUrl(),
-            ]
-        );
-
-        return true;
-    }
-
     private function handleForm(): void
     {
         if (!$this->form->isSubmitted()) {
