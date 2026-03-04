@@ -50,7 +50,6 @@ class EditFileEvent extends CKFinderEvent
      *
      * @return EditedFile
      */
-    #[\Deprecated(message: 'Please use getFile() instead.')]
     public function getEditedFile()
     {
         return $this->editedFile;

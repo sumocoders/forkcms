@@ -45,7 +45,6 @@ class RenameFileEvent extends CKFinderEvent
      *
      * @return RenamedFile
      */
-    #[\Deprecated(message: 'Please use getFile() instead.')]
     public function getRenamedFile()
     {
         return $this->renamedFile;

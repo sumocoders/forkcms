@@ -45,7 +45,6 @@ class DownloadFileEvent extends CKFinderEvent
      *
      * @return DownloadedFile
      */
-    #[\Deprecated(message: 'Please use getFile() instead.')]
     public function getDownloadedFile()
     {
         return $this->downloadedFile;
