@@ -112,7 +112,7 @@ class Index extends BackendBaseActionIndex
         $siteHtmlStartOfBodyValue = $this->get('fork.settings')->get(
             'Core',
             'site_html_start_of_body',
-            $this->get('fork.settings')->get('Core', 'site_start_of_body_scripts', null)
+            $this->get('fork.settings')->get('Core', 'site_html_start_of_body', null)
         );
         $this->form->addTextarea(
             'site_html_start_of_body',
@@ -124,7 +124,7 @@ class Index extends BackendBaseActionIndex
         $siteHtmlEndOfBodyValue = $this->get('fork.settings')->get(
             'Core',
             'site_html_end_of_body',
-            $this->get('fork.settings')->get('Core', 'site_html_footer', null)
+            $this->get('fork.settings')->get('Core', 'site_html_end_of_body', null)
         );
         $this->form->addTextarea(
             'site_html_end_of_body',
@@ -423,10 +423,9 @@ class Index extends BackendBaseActionIndex
                     'site_html_start_of_body',
                     $this->form->getField('site_html_start_of_body')->getValue()
                 );
-                // @deprecated remove this in Fork 6, use site_html_start_of_body
                 $this->get('fork.settings')->set(
                     'Core',
-                    'site_start_of_body_scripts',
+                    'site_html_start_of_body',
                     $this->form->getField('site_html_start_of_body')->getValue()
                 );
                 $this->get('fork.settings')->set(
@@ -434,10 +433,9 @@ class Index extends BackendBaseActionIndex
                     'site_html_end_of_body',
                     $this->form->getField('site_html_end_of_body')->getValue()
                 );
-                // @deprecated remove this in Fork 6, use site_html_end_of_body
                 $this->get('fork.settings')->set(
                     'Core',
-                    'site_html_footer',
+                    'site_html_end_of_body',
                     $this->form->getField('site_html_end_of_body')->getValue()
                 );
 

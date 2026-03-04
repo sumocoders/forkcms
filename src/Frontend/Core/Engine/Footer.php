@@ -43,7 +43,7 @@ class Footer extends KernelLoader
         $footerLinks = (array) Navigation::getFooterLinks();
         $this->template->assignGlobal('footerLinks', $footerLinks);
 
-        $siteHTMLEndOfBody = (string) $this->get('fork.settings')->get('Core', 'site_html_end_of_body', $this->get('fork.settings')->get('Core', 'site_html_footer', null));
+        $siteHTMLEndOfBody = (string) $this->get('fork.settings')->get('Core', 'site_html_end_of_body');
 
         // add Google sitelinks search box code if wanted.
         if ($this->get('fork.settings')->get('Search', 'use_sitelinks_search_box', true)) {
@@ -56,9 +56,6 @@ class Footer extends KernelLoader
 
         // assign site wide html
         $this->template->assignGlobal('siteHTMLEndOfBody', $siteHTMLEndOfBody);
-
-        // @deprecated remove this in Fork 6, use siteHTMLEndOfBody
-        $this->template->assignGlobal('siteHTMLFooter', $siteHTMLEndOfBody);
     }
 
     /**
