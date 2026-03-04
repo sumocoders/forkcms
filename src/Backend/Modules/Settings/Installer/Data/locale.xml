@@ -196,10 +196,6 @@
         <translation language="zh"><![CDATA[配置上载的图像的最大宽度（以像素为单位）。如果上传的图片比较大，它就会被缩小比例。设置为0以禁用此功能。]]></translation>
         <translation language="pl"><![CDATA[Skonfiguruj maksymalną szerokość (w pikselach) przesłanych obrazów. Jeśli przesłany obraz jest większy, zostanie proporcjonalnie zmniejszony. Ustaw na 0, aby wyłączyć tę funkcję.]]></translation>
       </item>
-      <item type="message" name="HelpCookies">
-        <translation language="nl"><![CDATA[Gebruik toch de verouderde cookiebar, je kan beter het privacy voorkeuren scherm gebruiken.]]></translation>
-        <translation language="en"><![CDATA[Show the deprecated cookiebar, consider upgrading to the consent dialog.]]></translation>
-      </item>
       <item type="message" name="HelpDateFormatLong">
         <translation language="nl"><![CDATA[Formaat dat bij de overzichtspagina's en detailweergaves wordt gebruikt.]]></translation>
         <translation language="en"><![CDATA[Format that's used on overview and detail pages.]]></translation>
@@ -461,14 +457,6 @@
         <translation language="es"><![CDATA[agregar <code>rel="nofollow"</code> en los enlaces dentro de un comentario]]></translation>
         <translation language="el"><![CDATA[Προσθέσατε <code>rel="nofollow"</code> σε συνδέσμους που βρίσκονται μέσα σε σχόλιο.]]></translation>
         <translation language="pl"><![CDATA[dodaj <code>rel="nofollow"</code> do linków wewnątrz komentarza]]></translation>
-      </item>
-      <item type="message" name="ShowCookieBar">
-        <translation language="nl"><![CDATA[toon de cookie balk]]></translation>
-        <translation language="en"><![CDATA[show the cookie bar]]></translation>
-        <translation language="fr"><![CDATA[montrer la barre de cookie]]></translation>
-        <translation language="de"><![CDATA[zeigen Sie die Cookie-Bar]]></translation>
-        <translation language="es"><![CDATA[monstrar la barra de cookie]]></translation>
-        <translation language="pl"><![CDATA[pokaż pasek cookie]]></translation>
       </item>
       <item type="message" name="TestMessage">
         <translation language="nl"><![CDATA[dit is een test]]></translation>
