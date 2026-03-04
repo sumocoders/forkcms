@@ -72,7 +72,6 @@ abstract class Kernel extends BaseKernel
     /**
      * This will disappear in time in favour of container-driven parameters.
      */
-    #[\Deprecated]
     public function defineForkConstants(): void
     {
         $container = $this->getContainer();
