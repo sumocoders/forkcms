@@ -385,8 +385,7 @@ class Header extends KernelLoader
             ) . "\n";
         }
 
-        // @deprecated fallback to site_html_header as this was used in the past
-        $siteHTMLHead .= (string) $this->get('fork.settings')->get('Core', 'site_html_head', $this->get('fork.settings')->get('Core', 'site_html_header', '')) . "\n";
+        $siteHTMLHead .= (string) $this->get('fork.settings')->get('Core', 'site_html_head') . "\n";
         $siteHTMLHead .= "\n" . $this->jsData;
         $this->template->assignGlobal('siteHTMLHead', trim($siteHTMLHead));
 

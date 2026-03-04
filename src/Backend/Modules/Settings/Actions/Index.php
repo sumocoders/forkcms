@@ -98,11 +98,9 @@ class Index extends BackendBaseActionIndex
             $googleTrackingTagManagerContainerIdField->setAttribute('disabled', 'disabled');
         }
 
-        // @deprecated fallback to site_html_header as this was used in the past.
         $siteHtmlHeadValue = $this->get('fork.settings')->get(
             'Core',
             'site_html_head',
-            $this->get('fork.settings')->get('Core', 'site_html_header', null)
         );
         $this->form->addTextarea(
             'site_html_head',
