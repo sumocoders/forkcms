@@ -111,8 +111,7 @@ class Index extends BackendBaseActionIndex
         );
         $siteHtmlStartOfBodyValue = $this->get('fork.settings')->get(
             'Core',
-            'site_html_start_of_body',
-            $this->get('fork.settings')->get('Core', 'site_html_start_of_body', null)
+            'site_html_start_of_body'
         );
         $this->form->addTextarea(
             'site_html_start_of_body',
@@ -123,8 +122,7 @@ class Index extends BackendBaseActionIndex
         );
         $siteHtmlEndOfBodyValue = $this->get('fork.settings')->get(
             'Core',
-            'site_html_end_of_body',
-            $this->get('fork.settings')->get('Core', 'site_html_end_of_body', null)
+            'site_html_end_of_body'
         );
         $this->form->addTextarea(
             'site_html_end_of_body',
@@ -132,12 +130,6 @@ class Index extends BackendBaseActionIndex
             'form-control code',
             'form-control danger code',
             true
-        );
-
-        // twitter settings
-        $this->form->addText(
-            'twitter_site_name',
-            ltrim((string) $this->get('fork.settings')->get('Core', 'twitter_site_name', null), '@')
         );
 
         // ckfinder
