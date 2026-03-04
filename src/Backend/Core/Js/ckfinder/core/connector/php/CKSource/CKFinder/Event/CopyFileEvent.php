@@ -45,16 +45,6 @@ class CopyFileEvent extends CKFinderEvent
      *
      * @return CopiedFile
      */
-    public function getCopiedFile()
-    {
-        return $this->copiedFile;
-    }
-
-    /**
-     * Returns the copied file object.
-     *
-     * @return CopiedFile
-     */
     public function getFile()
     {
         return $this->copiedFile;

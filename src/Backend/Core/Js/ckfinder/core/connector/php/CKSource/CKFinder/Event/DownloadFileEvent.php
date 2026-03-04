@@ -45,16 +45,6 @@ class DownloadFileEvent extends CKFinderEvent
      *
      * @return DownloadedFile
      */
-    public function getDownloadedFile()
-    {
-        return $this->downloadedFile;
-    }
-
-    /**
-     * Returns the downloaded file object.
-     *
-     * @return DownloadedFile
-     */
     public function getFile()
     {
         return $this->downloadedFile;

@@ -34,8 +34,6 @@ class Permission
     const IMAGE_RESIZE        = 256;
     const IMAGE_RESIZE_CUSTOM = 512;
 
-    const FILE_UPLOAD         = 32;
-
     /**
      * Returns an array of all permissions defined in the Permission class constants.
      *

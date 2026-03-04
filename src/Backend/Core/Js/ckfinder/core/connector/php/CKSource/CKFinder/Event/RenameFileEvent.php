@@ -45,16 +45,6 @@ class RenameFileEvent extends CKFinderEvent
      *
      * @return RenamedFile
      */
-    public function getRenamedFile()
-    {
-        return $this->renamedFile;
-    }
-
-    /**
-     * Returns the renamed file object.
-     *
-     * @return RenamedFile
-     */
     public function getFile()
     {
         return $this->renamedFile;
