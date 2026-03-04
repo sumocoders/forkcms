@@ -130,15 +130,6 @@
         <translation language="de"><![CDATA[Sicherheit]]></translation>
         <translation language="pl"><![CDATA[bezpieczeństwo]]></translation>
       </item>
-      <item type="label" name="Twitter">
-        <translation language="nl"><![CDATA[twitter]]></translation>
-        <translation language="en"><![CDATA[twitter]]></translation>
-        <translation language="de"><![CDATA[twitter]]></translation>
-        <translation language="fr"><![CDATA[twitter]]></translation>
-        <translation language="es"><![CDATA[twitter]]></translation>
-        <translation language="it"><![CDATA[twitter]]></translation>
-        <translation language="pl"><![CDATA[twitter]]></translation>
-      </item>
       <item type="label" name="Tools">
         <translation language="nl"><![CDATA[tools]]></translation>
         <translation language="en"><![CDATA[tools]]></translation>
@@ -260,12 +251,6 @@
         <translation language="es"><![CDATA[Enviar las notificaciones del CMS a esta dirección e-mail.]]></translation>
         <translation language="el"><![CDATA[Στείλε ειδοποιήσεις CMS σε αυτή τη διεύθυνση email.]]></translation>
         <translation language="pl"><![CDATA[Wysyłaj powiadomienia na ten adres mailowy.]]></translation>
-      </item>
-      <item type="label" name="TwitterSiteName">
-          <translation language="nl"><![CDATA[twitter gebruikersnaam]]></translation>
-          <translation language="en"><![CDATA[twitter username]]></translation>
-          <translation language="fr"><![CDATA[twitter nom d'utilisateur]]></translation>
-          <translation language="pl"><![CDATA[nazwa użytkownika tweeter]]></translation>
       </item>
       <item type="message" name="HelpLanguages">
         <translation language="nl"><![CDATA[Duid aan welke talen toegankelijk zijn voor bezoekers]]></translation>

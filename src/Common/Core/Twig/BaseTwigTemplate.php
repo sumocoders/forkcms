@@ -179,15 +179,6 @@ abstract class BaseTwigTemplate
             'SITE_DOMAIN',
             SITE_DOMAIN
         );
-
-        // twitter stuff
-        if ($this->forkSettings->get('Core', 'twitter_site_name', null) !== null) {
-            // strip @ from twitter username
-            $twig->addGlobal(
-                'TWITTER_SITE_NAME',
-                ltrim($this->forkSettings->get('Core', 'twitter_site_name', null), '@')
-            );
-        }
     }
 
     /**

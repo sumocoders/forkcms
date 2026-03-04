@@ -445,17 +445,6 @@ class Index extends BackendBaseActionIndex
                     $this->form->getField('site_html_end_of_body')->getValue()
                 );
 
-                // twitter settings
-                /** @var \SpoonFormText $txtTwitterSiteName */
-                $txtTwitterSiteName = $this->form->getField('twitter_site_name');
-                if ($txtTwitterSiteName->isFilled()) {
-                    $this->get('fork.settings')->set(
-                        'Core',
-                        'twitter_site_name',
-                        '@' . ltrim((string) $txtTwitterSiteName->getValue(), '@')
-                    );
-                }
-
                 // google recaptcha settings
                 $this->get('fork.settings')->set(
                     'Core',
