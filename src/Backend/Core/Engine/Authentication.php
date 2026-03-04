@@ -126,7 +126,7 @@ class Authentication
         return self::$user;
     }
 
-    private static function getAllowedActions(): array
+    public static function getAllowedActions(): array
     {
         if (!empty(self::$allowedActions)) {
             return self::$allowedActions;
