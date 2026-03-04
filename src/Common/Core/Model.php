@@ -249,7 +249,6 @@ class Model extends BaseModel
      *
      * @return Session
      */
-    #[\Deprecated(message: 'This has been added to fix an issue but should be fixed properly in fork 6.0.0')]
     private static function getMockSession(): Session
     {
         if (!self::getContainer()->has('fork.mock.session')) {
