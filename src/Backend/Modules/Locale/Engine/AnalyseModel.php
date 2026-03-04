@@ -53,29 +53,4 @@ class AnalyseModel extends Model
 
         return $frontendAnalyser->findMissingLocale($language);
     }
-
-    /**
-     * Get the locale that is used in a sorted manner
-     *
-     * @param string $application the application
-     * @param string $language the required language
-     *
-     * @return array
-     */
-    #[\Deprecated(message: 'This method is no longer used in the core and will be removed in fork 6')]
-    public static function getSortLocaleFrom(string $application, string $language): array
-    {
-        trigger_error('This method is no longer used in the core and will be removed in fork 6');
-
-        $oldLocale = [];
-        $type = ['lbl', 'act', 'err', 'msg'];
-        $allBackendDBLocale = self::getTranslations($application, '', $type, [$language], '', '');
-        foreach ($allBackendDBLocale as $localeRecord) {
-            foreach ($localeRecord as $record) {
-                $oldLocale[$record['module']][$record['name']] = $record['name'];
-            }
-        }
-
-        return $oldLocale;
-    }
 }
