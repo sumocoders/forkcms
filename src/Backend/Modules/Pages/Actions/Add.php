@@ -753,6 +753,7 @@ class Add extends BackendBaseActionAdd
         }
 
         $this->template->assign('showCopyWarning', true);
+        $this->template->assign('isCopy', true);
 
         $originalPage = BackendPagesModel::get($id);
 
