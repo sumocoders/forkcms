@@ -4,11 +4,11 @@ namespace Backend\Modules\MediaGalleries\Console;
 
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\DeleteMediaGallery;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
-use SimpleBus\SymfonyBridge\Bus\CommandBus;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * Delete media galleries Console Command
@@ -20,14 +20,12 @@ class MediaGalleryDeleteAllCommand extends Command
     /**
      * The MediaGroupMediaItem connections are always deleted,
      * but should we delete the source MediaItem items as well?
-     *
-     * @var bool
      */
-    protected $deleteMediaItems = false;
+    protected bool $deleteMediaItems = false;
 
     public function __construct(
         private readonly MediaGalleryRepository $mediaGalleryRepository,
-        private readonly CommandBus $commandBus,
+        private readonly MessageBusInterface $messageBus,
     ) {
         parent::__construct();
     }
@@ -75,8 +73,8 @@ class MediaGalleryDeleteAllCommand extends Command
 
         // Loop all media galleries
         foreach ($mediaGalleries as $mediaGallery) {
-            $this->commandBus->handle(
-                new DeleteMediaGallery($mediaGallery),
+            $this->messageBus->dispatch(
+                new DeleteMediaGallery($mediaGallery, $this->deleteMediaItems),
             );
         }
     }

@@ -6,16 +6,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
 use Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 final readonly class DeleteMediaGalleryHandler
 {
     public function __construct(
         private MediaGalleryRepository $mediaGalleryRepository,
         private MediaItemRepository $mediaItemRepository,
+        private EntityManagerInterface $entityManager,
     ) {
     }
 
-    public function handle(DeleteMediaGallery $deleteMediaGallery): void
+    public function __invoke(DeleteMediaGallery $deleteMediaGallery): void
     {
         // We should delete all MediaItem entities which were connected to this MediaGallery
         if ($deleteMediaGallery->deleteAllMediaItems) {
@@ -30,5 +34,7 @@ final readonly class DeleteMediaGalleryHandler
         }
 
         $this->mediaGalleryRepository->remove($deleteMediaGallery->mediaGallery);
+
+        $this->entityManager->flush();
     }
 }

@@ -16,8 +16,8 @@ services:
   media_galleries.handler.delete_media_gallery:
     class: Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\DeleteMediaGalleryHandler
     public: true
+    autoconfigure: true
+    autowire: true
     arguments:
-      - "@media_galleries.repository.gallery"
-      - "@media_library.repository.item"
-    tags:
-      - { name: command_handler, handles: Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\DeleteMediaGallery }
+      $mediaGalleryRepository: "@media_galleries.repository.gallery"
+      $mediaItemRepository: "@media_library.repository.item"
