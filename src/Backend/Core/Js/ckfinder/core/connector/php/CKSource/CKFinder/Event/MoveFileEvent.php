@@ -45,17 +45,6 @@ class MoveFileEvent extends CKFinderEvent
      *
      * @return MovedFile
      */
-    #[\Deprecated(message: 'Please use getFile() instead.')]
-    public function getMovedFile()
-    {
-        return $this->movedFile;
-    }
-
-    /**
-     * Returns the moved file object.
-     *
-     * @return MovedFile
-     */
     public function getFile()
     {
         return $this->movedFile;

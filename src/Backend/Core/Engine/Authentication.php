@@ -126,7 +126,6 @@ class Authentication
         return self::$user;
     }
 
-    #[\Deprecated(message: 'this will become a private method in Fork 6')]
     public static function getAllowedActions(): array
     {
         if (!empty(self::$allowedActions)) {

@@ -179,36 +179,6 @@ abstract class BaseTwigTemplate
             'SITE_DOMAIN',
             SITE_DOMAIN
         );
-
-        // facebook stuff
-        // @deprecated remove this in Fork 6, facebook_admin_ids / facebook_app_id should be removed
-        if ($this->forkSettings->get('Core', 'facebook_admin_ids', null) !== null) {
-            $twig->addGlobal(
-                'FACEBOOK_ADMIN_IDS',
-                $this->forkSettings->get('Core', 'facebook_admin_ids', null)
-            );
-        }
-        if ($this->forkSettings->get('Core', 'facebook_app_id', null) !== null) {
-            $twig->addGlobal(
-                'FACEBOOK_APP_ID',
-                $this->forkSettings->get('Core', 'facebook_app_id', null)
-            );
-        }
-        if ($this->forkSettings->get('Core', 'facebook_app_secret', null) !== null) {
-            $twig->addGlobal(
-                'FACEBOOK_APP_SECRET',
-                $this->forkSettings->get('Core', 'facebook_app_secret', null)
-            );
-        }
-
-        // twitter stuff
-        if ($this->forkSettings->get('Core', 'twitter_site_name', null) !== null) {
-            // strip @ from twitter username
-            $twig->addGlobal(
-                'TWITTER_SITE_NAME',
-                ltrim($this->forkSettings->get('Core', 'twitter_site_name', null), '@')
-            );
-        }
     }
 
     /**

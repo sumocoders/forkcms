@@ -45,17 +45,6 @@ class DeleteFileEvent extends CKFinderEvent
      *
      * @return DeletedFile
      */
-    #[\Deprecated(message: 'Please use getFile() instead.')]
-    public function getDeletedFile()
-    {
-        return $this->deletedFile;
-    }
-
-    /**
-     * Returns the deleted file object.
-     *
-     * @return DeletedFile
-     */
     public function getFile()
     {
         return $this->deletedFile;

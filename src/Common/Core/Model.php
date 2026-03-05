@@ -141,51 +141,6 @@ class Model extends BaseModel
     }
 
     /**
-     * Generate thumbnails based on the folders in the path
-     * Use
-     *  - 128x128 as foldername to generate an image where the width will be
-     *      128px and the height will be 128px
-     *  - 128x as foldername to generate an image where the width will be
-     *      128px, the height will be calculated based on the aspect ratio.
-     *  - x128 as foldername to generate an image where the height will be
-     *      128px, the width will be calculated based on the aspect ratio.
-     *
-     * @param string $path The path wherein the thumbnail-folders will be stored.
-     * @param string $sourceFile The location of the source file
-     */
-    #[\Deprecated(message: 'Please use the service `ForkCMS\Utility\Thumbnails` instead.')]
-    public static function generateThumbnails(string $path, string $sourceFile): void
-    {
-        self::get(Thumbnails::class)->generate($path, $sourceFile);
-    }
-
-    /**
-     * Delete thumbnails based on the folders in the path
-     *
-     * @param string $path The path wherein the thumbnail-folders exist.
-     * @param string|null $thumbnail The filename to be deleted.
-     */
-    #[\Deprecated(message: 'Please use the service `ForkCMS\Utility\Thumbnails` instead.')]
-    public static function deleteThumbnails(string $path, ?string $thumbnail): void
-    {
-        self::get(Thumbnails::class)->delete($path, $thumbnail);
-    }
-
-    /**
-     * Get the thumbnail folders
-     *
-     * @param string $path The path
-     * @param bool $includeSource Should the source-folder be included in the return-array.
-     *
-     * @return array
-     */
-    #[\Deprecated(message: 'Please use the service `ForkCMS\Utility\Thumbnails` instead.')]
-    public static function getThumbnailFolders(string $path, bool $includeSource = false): array
-    {
-        return self::get(Thumbnails::class)->getFolders($path, $includeSource);
-    }
-
-    /**
      * Get the UTC date in a specific format. Use this method when inserting dates in the database!
      *
      * @param string $format The format to return the timestamp in. Default is MySQL datetime format.
@@ -294,7 +249,6 @@ class Model extends BaseModel
      *
      * @return Session
      */
-    #[\Deprecated(message: 'This has been added to fix an issue but should be fixed properly in fork 6.0.0')]
     private static function getMockSession(): Session
     {
         if (!self::getContainer()->has('fork.mock.session')) {

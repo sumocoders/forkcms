@@ -130,15 +130,6 @@
         <translation language="de"><![CDATA[Sicherheit]]></translation>
         <translation language="pl"><![CDATA[bezpieczeństwo]]></translation>
       </item>
-      <item type="label" name="Twitter">
-        <translation language="nl"><![CDATA[twitter]]></translation>
-        <translation language="en"><![CDATA[twitter]]></translation>
-        <translation language="de"><![CDATA[twitter]]></translation>
-        <translation language="fr"><![CDATA[twitter]]></translation>
-        <translation language="es"><![CDATA[twitter]]></translation>
-        <translation language="it"><![CDATA[twitter]]></translation>
-        <translation language="pl"><![CDATA[twitter]]></translation>
-      </item>
       <item type="label" name="Tools">
         <translation language="nl"><![CDATA[tools]]></translation>
         <translation language="en"><![CDATA[tools]]></translation>
@@ -147,15 +138,6 @@
         <translation language="es"><![CDATA[tools]]></translation>
         <translation language="it"><![CDATA[tools]]></translation>
         <translation language="pl"><![CDATA[narzędzia]]></translation>
-      </item>
-      <item type="label" name="Facebook">
-        <translation language="nl"><![CDATA[facebook]]></translation>
-        <translation language="en"><![CDATA[facebook]]></translation>
-        <translation language="de"><![CDATA[facebook]]></translation>
-        <translation language="fr"><![CDATA[facebook]]></translation>
-        <translation language="es"><![CDATA[facebook]]></translation>
-        <translation language="it"><![CDATA[facebook]]></translation>
-        <translation language="pl"><![CDATA[facebook]]></translation>
       </item>
       <item type="label" name="CkFinder">
         <translation language="nl"><![CDATA[ckfinder]]></translation>
@@ -214,10 +196,6 @@
         <translation language="zh"><![CDATA[配置上载的图像的最大宽度（以像素为单位）。如果上传的图片比较大，它就会被缩小比例。设置为0以禁用此功能。]]></translation>
         <translation language="pl"><![CDATA[Skonfiguruj maksymalną szerokość (w pikselach) przesłanych obrazów. Jeśli przesłany obraz jest większy, zostanie proporcjonalnie zmniejszony. Ustaw na 0, aby wyłączyć tę funkcję.]]></translation>
       </item>
-      <item type="message" name="HelpCookies">
-        <translation language="nl"><![CDATA[Gebruik toch de verouderde cookiebar, je kan beter het privacy voorkeuren scherm gebruiken.]]></translation>
-        <translation language="en"><![CDATA[Show the deprecated cookiebar, consider upgrading to the consent dialog.]]></translation>
-      </item>
       <item type="message" name="HelpDateFormatLong">
         <translation language="nl"><![CDATA[Formaat dat bij de overzichtspagina's en detailweergaves wordt gebruikt.]]></translation>
         <translation language="en"><![CDATA[Format that's used on overview and detail pages.]]></translation>
@@ -269,64 +247,6 @@
         <translation language="es"><![CDATA[Enviar las notificaciones del CMS a esta dirección e-mail.]]></translation>
         <translation language="el"><![CDATA[Στείλε ειδοποιήσεις CMS σε αυτή τη διεύθυνση email.]]></translation>
         <translation language="pl"><![CDATA[Wysyłaj powiadomienia na ten adres mailowy.]]></translation>
-      </item>
-      <item type="message" name="HelpFacebookAdminIds">
-        <translation language="nl"><![CDATA[Een lijst met de Facebook-gebruikers hun ID en/of het id van de Facebook-applicatie die de paginas mogen beheren.]]></translation>
-        <translation language="en"><![CDATA[Either Facebook user IDs or a Facebook Platform application ID that administers this website.]]></translation>
-        <translation language="it"><![CDATA[O lo user ID Facebook o un ID dell'applicazione Facebook Platform di chi amministra questo sito. ]]></translation>
-        <translation language="ru"><![CDATA[ID пользователя Facebook, который будет администрировать сайт.]]></translation>
-        <translation language="zh"><![CDATA[Facebook用户ID或Facebook平台应用ID管理这个网站。]]></translation>
-        <translation language="hu"><![CDATA[Vagy Facebook felhasználó ID-t vagy Facebook Platform alkalmazás ID-t alkalmaz az oldal.]]></translation>
-        <translation language="fr"><![CDATA[Une ID d'utilisateur Facebook our une ID d'application Facebook en lien avec ce site.]]></translation>
-        <translation language="de"><![CDATA[Entweder die Facebookbenutzer-IDs oder die Facebook Plattformanwendungs-ID die diese Website administriert.]]></translation>
-        <translation language="es"><![CDATA[Ya sea IDs de usuario Facebook o ID de una aplicación Facebook Platform la que administra este sitio web.]]></translation>
-        <translation language="el"><![CDATA[Είτε το ID χρήστη στο Facebook είτε ένα ID εφαρμογής Facebook Platform γιά τη διαχείριση αυτού του ιστοχώρου.]]></translation>
-        <translation language="pl"><![CDATA[Facebook user ID lub Facebook Platform application ID które administrują tą witryną.]]></translation>
-      </item>
-      <item type="message" name="HelpFacebookApiKey">
-        <translation language="nl"><![CDATA[De API-sleutel van je Facebook-toepassing]]></translation>
-        <translation language="en"><![CDATA[The API key of your Facebook application.]]></translation>
-        <translation language="it"><![CDATA[La chiave API della tua applicazione Facebook.]]></translation>
-        <translation language="ru"><![CDATA[API-ключ к приложению Facebook.]]></translation>
-        <translation language="zh"><![CDATA[你的Facebook应用API key]]></translation>
-        <translation language="hu"><![CDATA[A Facebook alkalmazás API kulcsa.]]></translation>
-        <translation language="fr"><![CDATA[La clef API de votre application Facebook.]]></translation>
-        <translation language="de"><![CDATA[Der API-Key deiner Facebookanwendung.]]></translation>
-        <translation language="es"><![CDATA[La API key de tu aplicación Facebook.]]></translation>
-        <translation language="el"><![CDATA[Το κλειδί API της εφαρμογής σας στο Facebook.]]></translation>
-        <translation language="pl"><![CDATA[Klucz API dla twojej aplikacji Facebook.]]></translation>
-      </item>
-      <item type="message" name="HelpFacebookApplicationId">
-        <translation language="nl"><![CDATA[Het toepassings-id van je Facebook-toepassing.]]></translation>
-        <translation language="en"><![CDATA[The id of your Facebook application]]></translation>
-        <translation language="it"><![CDATA[L'ID della tua applicazione Facebook.]]></translation>
-        <translation language="ru"><![CDATA[ID приложения Facebook.]]></translation>
-        <translation language="zh"><![CDATA[你的Facebook应用ID]]></translation>
-        <translation language="hu"><![CDATA[A Facebook alkalmazás id-je.]]></translation>
-        <translation language="fr"><![CDATA[L'ID de votre application Facebook]]></translation>
-        <translation language="de"><![CDATA[Die ID deiner Facebookanwendung.]]></translation>
-        <translation language="es"><![CDATA[La id de tu aplicación Facebook]]></translation>
-        <translation language="el"><![CDATA[Το id της εφαρμογής σας στο Facebook.]]></translation>
-        <translation language="pl"><![CDATA[ID twojej aplikacji Facebook.]]></translation>
-      </item>
-      <item type="message" name="HelpFacebookApplicationSecret">
-        <translation language="nl"><![CDATA[De App Secret van je Facebook-toepassing.]]></translation>
-        <translation language="en"><![CDATA[The secret of your Facebook application.]]></translation>
-        <translation language="it"><![CDATA[La chiave segreta della tua applicazione Facebook]]></translation>
-        <translation language="ru"><![CDATA[Секретный код приложения Facebook.]]></translation>
-        <translation language="zh"><![CDATA[你的Facebook应用密码。]]></translation>
-        <translation language="hu"><![CDATA[The secret of your Facebook application.]]></translation>
-        <translation language="fr"><![CDATA[La clef secrète de votre application Facebook]]></translation>
-        <translation language="de"><![CDATA[Secret-Key deiner Facebook-Anwendung.]]></translation>
-        <translation language="es"><![CDATA[La App secret de tu aplicación Facebook.]]></translation>
-        <translation language="el"><![CDATA[Το μυστικό κωδικού της εφαρμογής σας στο Facebook.]]></translation>
-        <translation language="pl"><![CDATA[Sekret twojej aplikacji Facebook.]]></translation>
-      </item>
-      <item type="label" name="TwitterSiteName">
-          <translation language="nl"><![CDATA[twitter gebruikersnaam]]></translation>
-          <translation language="en"><![CDATA[twitter username]]></translation>
-          <translation language="fr"><![CDATA[twitter nom d'utilisateur]]></translation>
-          <translation language="pl"><![CDATA[nazwa użytkownika tweeter]]></translation>
       </item>
       <item type="message" name="HelpLanguages">
         <translation language="nl"><![CDATA[Duid aan welke talen toegankelijk zijn voor bezoekers]]></translation>
@@ -537,14 +457,6 @@
         <translation language="es"><![CDATA[agregar <code>rel="nofollow"</code> en los enlaces dentro de un comentario]]></translation>
         <translation language="el"><![CDATA[Προσθέσατε <code>rel="nofollow"</code> σε συνδέσμους που βρίσκονται μέσα σε σχόλιο.]]></translation>
         <translation language="pl"><![CDATA[dodaj <code>rel="nofollow"</code> do linków wewnątrz komentarza]]></translation>
-      </item>
-      <item type="message" name="ShowCookieBar">
-        <translation language="nl"><![CDATA[toon de cookie balk]]></translation>
-        <translation language="en"><![CDATA[show the cookie bar]]></translation>
-        <translation language="fr"><![CDATA[montrer la barre de cookie]]></translation>
-        <translation language="de"><![CDATA[zeigen Sie die Cookie-Bar]]></translation>
-        <translation language="es"><![CDATA[monstrar la barra de cookie]]></translation>
-        <translation language="pl"><![CDATA[pokaż pasek cookie]]></translation>
       </item>
       <item type="message" name="TestMessage">
         <translation language="nl"><![CDATA[dit is een test]]></translation>

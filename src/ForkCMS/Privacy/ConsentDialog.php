@@ -39,7 +39,7 @@ class ConsentDialog
 
     public function shouldDialogBeShown(): bool
     {
-        // the cookiebar is hidden within the settings, so don't show it
+        // the consent dialog is hidden within the settings, so don't show it
         if (!$this->isDialogEnabled()) {
             return false;
         }

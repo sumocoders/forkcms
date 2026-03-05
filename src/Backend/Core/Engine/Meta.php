@@ -126,11 +126,10 @@ class Meta
      * @throws Exception When the function does not exist
      *
      * @return string
+     *
+     * @deprecated use the generateUrl method on the meta repository
+     * This class will be removed when all modules run on doctrine
      */
-    #[\Deprecated(message: <<<'TXT'
-      use the generateUrl method on the meta repository
-      This class will be removed when all modules run on doctrine
-    TXT)]
     public function generateUrl(string $url): string
     {
         return Model::get('fork.repository.meta')->generateUrl(
@@ -457,11 +456,10 @@ class Meta
      * @throws Exception If no meta id was provided.
      *
      * @return int
+     *
+     * @deprecated use the generateUrl method on the meta repository
+     * This class will be removed when all modules run on doctrine
      */
-    #[\Deprecated(message: <<<'TXT'
-      just use the entity for doctrine.
-      This class will be removed when all modules run on doctrine and will be replaced with the meta entity
-    TXT)]
     public function save(bool $update = false): int
     {
         $this->validate();

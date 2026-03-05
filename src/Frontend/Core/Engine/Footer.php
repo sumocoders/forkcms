@@ -43,14 +43,7 @@ class Footer extends KernelLoader
         $footerLinks = (array) Navigation::getFooterLinks();
         $this->template->assignGlobal('footerLinks', $footerLinks);
 
-        $siteHTMLEndOfBody = (string) $this->get('fork.settings')->get('Core', 'site_html_end_of_body', $this->get('fork.settings')->get('Core', 'site_html_footer', null));
-
-        // @deprecated remove this in Fork 6, Facebook should not be added automaticall
-        $facebookAppId = $this->get('fork.settings')->get('Core', 'facebook_app_id', null);
-        if ($facebookAppId !== null) {
-            // add Facebook container
-            $siteHTMLEndOfBody .= $this->getFacebookHtml($facebookAppId);
-        }
+        $siteHTMLEndOfBody = (string) $this->get('fork.settings')->get('Core', 'site_html_end_of_body');
 
         // add Google sitelinks search box code if wanted.
         if ($this->get('fork.settings')->get('Search', 'use_sitelinks_search_box', true)) {
@@ -63,73 +56,6 @@ class Footer extends KernelLoader
 
         // assign site wide html
         $this->template->assignGlobal('siteHTMLEndOfBody', $siteHTMLEndOfBody);
-
-        // @deprecated remove this in Fork 6, use siteHTMLEndOfBody
-        $this->template->assignGlobal('siteHTMLFooter', $siteHTMLEndOfBody);
-    }
-
-    /**
-     * Builds the HTML needed for Facebook to be initialized
-     *
-     * @param string $facebookAppId The application id used to interact with FB
-     * @return string  HTML and JS needed to initialize FB JavaScript
-     */
-    #[\Deprecated(message: <<<'TXT'
-      remove this in Fork 6, Facebook should be added with respect
-      to the given consent. In essence: add Facebook yourself if
-      needed.
-    TXT)]
-    protected function getFacebookHtml(string $facebookAppId): string
-    {
-        // add the fb-root div
-        $facebookHtml = "\n" . '<div id="fb-root"></div>' . "\n";
-
-        // add facebook JavaScript
-        $facebookHtml .= '<script>' . "\n";
-        if (!empty($facebookAppId)) {
-            $facebookHtml .= '    window.fbAsyncInit = function() {' . "\n";
-            $facebookHtml .= '        FB.init({' . "\n";
-            $facebookHtml .= '            appId: "' . $facebookAppId . '",' . "\n";
-            $facebookHtml .= '            status: true,' . "\n";
-            $facebookHtml .= '            cookie: true,' . "\n";
-            $facebookHtml .= '            xfbml: true,' . "\n";
-            $facebookHtml .= '            oauth: true' . "\n";
-            $facebookHtml .= '        });' . "\n";
-            $facebookHtml .= '        jsFrontend.facebook.afterInit();' . "\n";
-            $facebookHtml .= '    };' . "\n";
-        }
-
-        $facebookHtml .= '    (function(d, s, id){' . "\n";
-        $facebookHtml .= '        var js, fjs = d.getElementsByTagName(s)[0];' . "\n";
-        $facebookHtml .= '        if (d.getElementById(id)) {return;}' . "\n";
-        $facebookHtml .= '        js = d.createElement(s); js.id = id;' . "\n";
-        $facebookHtml .= '        js.src = "//connect.facebook.net/' . $this->getFacebookLocale() . '/all.js";' . "\n";
-        $facebookHtml .= '        fjs.parentNode.insertBefore(js, fjs);' . "\n";
-        $facebookHtml .= '    }(document, \'script\', \'facebook-jssdk\'));' . "\n";
-        $facebookHtml .= '</script>';
-
-        return $facebookHtml;
-    }
-
-    #[\Deprecated(message: <<<'TXT'
-      remove this in Fork 6, Facebook should be added with respect
-      to the given consent. In essence: add Facebook yourself if
-      needed.
-    TXT)]
-    private function getFacebookLocale(): string
-    {
-        $specialCases = [
-            'en' => 'en_US', // sorry uk :( I prefer you too
-            'zh' => 'zh_CN',
-            'cs' => 'cs_CZ',
-            'el' => 'el_GR',
-            'ja' => 'ja_JP',
-            'sv' => 'sv_SE',
-            'uk' => 'uk_UA',
-        ];
-
-        // check if it is a special case, otherwise return [language]_[language]
-        return $specialCases[LANGUAGE] ?? mb_strtolower(LANGUAGE) . '_' . mb_strtoupper(LANGUAGE);
     }
 
     /**
