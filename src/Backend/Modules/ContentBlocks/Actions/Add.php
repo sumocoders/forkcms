@@ -9,6 +9,7 @@ use Backend\Modules\ContentBlocks\Domain\ContentBlock\Command\CreateContentBlock
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockType;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\Event\ContentBlockCreated;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This is the add-action, it will display a form to create a new item
@@ -52,7 +53,9 @@ class Add extends BackendBaseActionAdd
         $createContentBlock->userId = Authentication::getUser()->getUserId();
 
         // The command bus will handle the saving of the content block in the database.
-        $this->get('command_bus')->handle($createContentBlock);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($createContentBlock);
 
         return $createContentBlock;
     }

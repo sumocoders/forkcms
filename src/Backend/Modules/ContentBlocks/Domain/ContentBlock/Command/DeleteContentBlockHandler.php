@@ -3,16 +3,20 @@
 namespace Backend\Modules\ContentBlocks\Domain\ContentBlock\Command;
 
 use Backend\Core\Engine\Model;
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 final readonly class DeleteContentBlockHandler
 {
-    public function __construct(private ContentBlockRepository $contentBlockRepository)
-    {
+    public function __construct(
+        private ContentBlockRepository $contentBlockRepository,
+        private EntityManagerInterface $entityManager,
+    ) {
     }
 
-    public function handle(DeleteContentBlock $deleteContentBlock): void
+    public function __invoke(DeleteContentBlock $deleteContentBlock): void
     {
         $this->contentBlockRepository->removeByIdAndLocale(
             $deleteContentBlock->contentBlock->getId(),
@@ -20,5 +24,7 @@ final readonly class DeleteContentBlockHandler
         );
 
         Model::deleteExtraById($deleteContentBlock->contentBlock->getExtraId());
+
+        $this->entityManager->flush();
     }
 }
