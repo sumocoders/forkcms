@@ -9,7 +9,6 @@ use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Events;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
-use SimpleBus\Message\Bus\MessageBus;
 
 /**
  * MediaItem Subscriber
@@ -19,7 +18,6 @@ final class MediaItemSubscriber implements EventSubscriber
     public function __construct(
         protected FileManager $fileManager,
         protected CacheManager $cacheManager,
-        protected MessageBus $commandBus,
     ) {
     }
 
