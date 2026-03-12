@@ -13,6 +13,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Type;
 use Backend\Modules\MediaLibrary\Manager\MediaItemManager;
 use Exception;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This action is used to update one or more media items (move, ...)
@@ -191,7 +192,9 @@ class MediaItemMassAction extends BackendBaseAction
         $updateMediaItem->folder = $this->moveToMediaFolder;
 
         // Handle the MediaItem update
-        $this->get('command_bus')->handle($updateMediaItem);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($updateMediaItem);
     }
 
     private function delete(MediaItem $mediaItem): void

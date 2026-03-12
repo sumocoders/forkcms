@@ -9,6 +9,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Common\Exception\AjaxExitException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This AJAX-action is being used to edit the title for an existing MediaItem item and save them into to the database.
@@ -57,18 +58,18 @@ class MediaItemEditTitle extends BackendBaseAJAXAction
 
     private function updateMediaItem(): UpdateMediaItem
     {
-        /** @var MediaItem $mediaItem */
         $mediaItem = $this->getMediaItem();
 
         /** @var string $title */
         $title = $this->getItemTitle();
 
-        /** @var UpdateMediaItem $updateMediaItem */
         $updateMediaItem = new UpdateMediaItem($mediaItem);
         $updateMediaItem->title = $title;
 
         // Handle the MediaItem update
-        $this->get('command_bus')->handle($updateMediaItem);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($updateMediaItem);
 
         return $updateMediaItem;
     }

@@ -9,6 +9,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\Command\UpdateMediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemType;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class MediaItemEdit extends BackendBaseActionEdit
 {
@@ -69,7 +70,9 @@ class MediaItemEdit extends BackendBaseActionEdit
         $updateMediaItem = $form->getData();
 
         // Handle the MediaItem update
-        $this->get('command_bus')->handle($updateMediaItem);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($updateMediaItem);
 
         $this->redirect(
             $this->getBackLink(

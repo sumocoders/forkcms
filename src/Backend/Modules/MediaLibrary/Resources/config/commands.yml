@@ -38,8 +38,4 @@ services:
       - { name: command_handler, handles: Backend\Modules\MediaLibrary\Domain\MediaItem\Command\CreateMediaItemFromMovieUrl }
   Backend\Modules\MediaLibrary\Domain\MediaItem\Command\CreateMediaItemFromLocalStorageTypeHandler:
   Backend\Modules\MediaLibrary\Domain\MediaItem\Command\DeleteMediaItemHandler:
-  media_galleries.handler.update_media_item:
-    class: Backend\Modules\MediaLibrary\Domain\MediaItem\Command\UpdateMediaItemHandler
-    public: true
-    tags:
-      - { name: command_handler, handles: Backend\Modules\MediaLibrary\Domain\MediaItem\Command\UpdateMediaItem }
+  Backend\Modules\MediaLibrary\Domain\MediaItem\Command\UpdateMediaItemHandler:
