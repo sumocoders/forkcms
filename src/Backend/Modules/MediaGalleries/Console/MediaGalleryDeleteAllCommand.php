@@ -4,17 +4,17 @@ namespace Backend\Modules\MediaGalleries\Console;
 
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\DeleteMediaGallery;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-/**
- * Delete media galleries Console Command
- * Example: "bin/console media_galleries:delete:galleries", will delete all galleries
- * Example: "bin/console media_galleries:delete:galleries --delete-media-items", will delete all galleries and all MediaItem entities
- */
+#[AsCommand(
+    'media_galleries:delete:galleries',
+    'Delete media galleries.'
+)]
 class MediaGalleryDeleteAllCommand extends Command
 {
     /**
@@ -33,13 +33,17 @@ class MediaGalleryDeleteAllCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('media_galleries:delete:galleries')
-            ->setDescription('Delete media galleries.')
             ->addOption(
                 'delete-media-items',
                 null,
                 InputOption::VALUE_NONE,
                 'If set, all connected MediaItems will be deleted as well from the library.'
+            )
+            ->setHelp(<<<'EOF'
+                Delete media galleries Console Command
+                 * Example: "bin/console media_galleries:delete:galleries", will delete all galleries
+                 * Example: "bin/console media_galleries:delete:galleries --delete-media-items", will delete all galleries and all MediaItem entities
+                EOF
             );
     }
 

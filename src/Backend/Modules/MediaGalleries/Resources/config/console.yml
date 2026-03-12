@@ -1,8 +1,7 @@
 services:
-    media_galleries.console.delete_galleries:
-        class: Backend\Modules\MediaGalleries\Console\MediaGalleryDeleteAllCommand
-        arguments:
-            - "@media_galleries.repository.gallery"
-            - "@messenger.bus.default"
-        tags:
-            - { name: console.command }
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    Backend\Modules\MediaGalleries\Console\MediaGalleryDeleteAllCommand:

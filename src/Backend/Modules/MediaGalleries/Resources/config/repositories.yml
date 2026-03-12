@@ -5,3 +5,5 @@ services:
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
             - Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGallery
+
+    Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository: '@media_galleries.repository.gallery'
