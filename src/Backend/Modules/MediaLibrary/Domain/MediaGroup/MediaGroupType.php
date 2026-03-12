@@ -9,7 +9,6 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\StorageType;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Type as MediaItemPossibleType;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\Type as MediaGroupPossibleType;
 use Ramsey\Uuid\Uuid;
-use SimpleBus\Message\Bus\Middleware\MessageBusSupportingMiddleware;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Exception\LogicException;
@@ -17,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
@@ -28,7 +28,7 @@ class MediaGroupType extends AbstractType
 {
     public function __construct(
         private readonly MediaGroupRepository $mediaGroupRepository,
-        private readonly MessageBusSupportingMiddleware $commandBus,
+        private readonly MessageBusInterface $messageBus,
     ) {
     }
 
@@ -229,7 +229,7 @@ class MediaGroupType extends AbstractType
         );
 
         // Handle the MediaGroup save
-        $this->commandBus->handle($saveMediaGroup);
+        $this->messageBus->dispatch($saveMediaGroup);
 
         return $saveMediaGroup;
     }

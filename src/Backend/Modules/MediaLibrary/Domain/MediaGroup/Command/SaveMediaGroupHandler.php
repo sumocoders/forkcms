@@ -7,14 +7,17 @@ use Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-final class SaveMediaGroupHandler
+#[AsMessageHandler]
+final readonly class SaveMediaGroupHandler
 {
-    public function __construct(protected MediaItemRepository $mediaItemRepository)
-    {
+    public function __construct(
+        private MediaItemRepository $mediaItemRepository,
+    ) {
     }
 
-    public function handle(SaveMediaGroup $saveMediaGroup): void
+    public function __invoke(SaveMediaGroup $saveMediaGroup): void
     {
         /** @var MediaGroup $mediaGroup */
         $mediaGroup = MediaGroup::fromDataTransferObject($saveMediaGroup);

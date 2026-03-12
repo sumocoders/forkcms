@@ -27,4 +27,5 @@ services:
         arguments:
             - Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem
 
+    Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupRepository: '@media_library.repository.group'
     Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository: '@media_library.repository.item'
