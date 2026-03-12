@@ -1,4 +1,9 @@
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
   # MediaFolder
   media_galleries.handler.create_media_folder:
     class: Backend\Modules\MediaLibrary\Domain\MediaFolder\Command\CreateMediaFolderHandler
@@ -37,13 +42,7 @@ services:
       - "@media_library.repository.item"
     tags:
       - { name: command_handler, handles: Backend\Modules\MediaLibrary\Domain\MediaItem\Command\CreateMediaItemFromMovieUrl }
-  media_galleries.handler.create_media_item_from_local_source:
-    class: Backend\Modules\MediaLibrary\Domain\MediaItem\Command\CreateMediaItemFromLocalStorageTypeHandler
-    public: true
-    arguments:
-      - "@media_library.repository.item"
-    tags:
-      - { name: command_handler, handles: Backend\Modules\MediaLibrary\Domain\MediaItem\Command\CreateMediaItemFromLocalStorageType }
+  Backend\Modules\MediaLibrary\Domain\MediaItem\Command\CreateMediaItemFromLocalStorageTypeHandler:
   media_library.handler.delete_media_item:
     class: Backend\Modules\MediaLibrary\Domain\MediaItem\Command\DeleteMediaItemHandler
     public: true

@@ -16,10 +16,10 @@ use Backend\Modules\MediaLibrary\Manager\FileManager;
 use Backend\Modules\MediaLibrary\Manager\MimeTypeManager;
 use Common\Exception\AjaxExitException;
 use Common\Exception\RedirectException;
-use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This AJAX-action is being used to upload new MediaItem items and save them into to the database.
@@ -47,8 +47,8 @@ class MediaItemUpload extends BackendBaseAJAXAction
     /** @var MediaFolderRepository */
     private $mediaFolderRepository;
 
-    /** @var MessageBus */
-    private $commandBus;
+    /** @var MessageBusInterface */
+    private $messageBus;
 
     /** @var UploadHandler */
     private $uploadHandler;
@@ -69,7 +69,7 @@ class MediaItemUpload extends BackendBaseAJAXAction
         $this->extensionManager = $this->get('media_library.manager.extension');
         $this->mimeTypeManager = $this->get('media_library.manager.mime_type');
         $this->mediaFolderRepository = $this->get('media_library.repository.folder');
-        $this->commandBus = $this->get('command_bus');
+        $this->messageBus = $this->get('messenger.default_bus');
     }
 
     public function execute(): void
@@ -110,7 +110,7 @@ class MediaItemUpload extends BackendBaseAJAXAction
             BackendAuthentication::getUser()->getUserId()
         );
 
-        $this->commandBus->handle($createMediaItemFromLocalSource);
+        $this->messageBus->dispatch($createMediaItemFromLocalSource);
 
         $this->sendResponseForResult(
             array_merge(
