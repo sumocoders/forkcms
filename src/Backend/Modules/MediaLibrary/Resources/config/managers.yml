@@ -18,8 +18,7 @@ services:
         class: Backend\Modules\MediaLibrary\Manager\MediaItemManager
         public: true
         arguments:
-            - "@media_library.repository.item"
-            - "@command_bus"
+            - "@messenger.bus.default"
             - "@event_dispatcher"
 
     media_library.manager.mime_type:

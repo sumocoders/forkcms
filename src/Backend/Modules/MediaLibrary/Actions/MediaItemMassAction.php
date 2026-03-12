@@ -11,6 +11,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Type;
+use Backend\Modules\MediaLibrary\Manager\MediaItemManager;
 use Exception;
 
 /**
@@ -195,10 +196,9 @@ class MediaItemMassAction extends BackendBaseAction
 
     private function delete(MediaItem $mediaItem): void
     {
-        /** @var DeleteMediaItem $deleteMediaItem */
-        $deleteMediaItem = new DeleteMediaItem($mediaItem);
-
         // Handle the MediaItem delete
-        $this->get('command_bus')->handle($deleteMediaItem);
+        /** @var MediaItemManager $manager */
+        $manager = $this->get('media_library.manager.item');
+        $manager->delete($mediaItem);
     }
 }
