@@ -1,4 +1,9 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
     media_library.listener.invalidate_backend_media_folder_cache:
         class: Backend\Modules\MediaLibrary\EventListener\MediaFolderInvalidateBackendCacheSubscriber
         arguments:
@@ -13,9 +18,6 @@ services:
             - "@media_library.manager.file"
             - "@liip_imagine.cache.manager"
             - "@command_bus"
-    media_library.listener.media_item_deleted_resequence:
-        class: Backend\Modules\MediaLibrary\EventListener\MediaItemDeletedReSequenceMediaGroupMediaItemListener
-        arguments:
-            - "@command_bus"
+    Backend\Modules\MediaLibrary\EventListener\MediaItemDeletedReSequenceMediaGroupMediaItemListener:
         tags:
             - { name: doctrine.event_listener, event: postRemove }
