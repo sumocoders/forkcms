@@ -72,7 +72,6 @@ abstract class Kernel extends BaseKernel
     /**
      * This will disappear in time in favour of container-driven parameters.
      */
-    #[\Deprecated]
     public function defineForkConstants(): void
     {
         $container = $this->getContainer();
@@ -82,10 +81,6 @@ abstract class Kernel extends BaseKernel
         Spoon::setDebugMessage($container->getParameter('fork.debug_message'));
         Spoon::setCharset(strtolower($container->getParameter('kernel.charset')));
 
-        /**
-         * @deprecated SPOON_* constants are deprecated in favour of Spoon::set*().
-         * Will be removed in the next major release.
-         */
         defined('PATH_WWW') || define('PATH_WWW', realpath($container->getParameter('site.path_www')));
 
         defined('SITE_DEFAULT_LANGUAGE') || define('SITE_DEFAULT_LANGUAGE', $container->getParameter('site.default_language'));

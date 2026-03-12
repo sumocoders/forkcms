@@ -267,51 +267,6 @@
       </div>
     </div>
   </div>
-  <div class="row fork-module-content">
-    <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">{{ 'lbl.Facebook'|trans|ucfirst }}</h2>
-        </div>
-        <div class="panel-body">
-          <div class="form-group">
-            <label for="facebookAdminIds" class="control-label">{{ 'lbl.AdminIds'|trans|ucfirst }}</label>
-            {% form_field facebook_admin_ids %} {% form_field_error facebook_admin_ids %}
-            <span class="help-block">{{ 'msg.HelpFacebookAdminIds'|trans|ucfirst }}</span>
-          </div>
-          <div class="form-group">
-            <label for="facebookApplicationId" class="control-label">{{ 'lbl.ApplicationId'|trans|ucfirst }}</label>
-            {% form_field facebook_application_id %} {% form_field_error facebook_application_id %}
-            <span class="help-block">{{ 'msg.HelpFacebookApplicationId'|trans|ucfirst }}</span>
-          </div>
-          <div class="form-group last">
-            <label for="facebookApplicationSecret" class="control-label">{{ 'lbl.ApplicationSecret'|trans|ucfirst }}</label>
-            {% form_field facebook_application_secret %} {% form_field_error facebook_application_secret %}
-            <span class="help-block">{{ 'msg.HelpFacebookApplicationSecret'|trans|ucfirst }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row fork-module-content">
-    <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">{{ 'lbl.Twitter'|trans|ucfirst }}</h2>
-        </div>
-        <div class="panel-body">
-          <div class="form-group last">
-            <label for="twitterSiteName" class="control-label">{{ 'lbl.TwitterSiteName'|trans|ucfirst }}</label>
-            <div class="input-group">
-              <div class="input-group-addon">@</div>
-              {% form_field twitter_site_name %}
-            </div>
-            {% form_field_error twitter_site_name %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
     <div class="row fork-module-content">
       <div class="col-md-12">
         <div class="panel panel-default">
@@ -342,13 +297,6 @@
           <h2 class="panel-title">{{ 'lbl.PrivacyConsents'|trans|ucfirst }}</h2>
         </div>
         <div class="panel-body">
-          <div class="form-group last">
-            <ul class="list-unstyled">
-              <li class="checkbox">
-                <label for="showCookieBar" class="control-label">{% form_field show_cookie_bar %} {{ 'msg.ShowCookieBar'|trans|ucfirst }}</label>
-              </li>
-            </ul>
-          </div>
           <div class="form-group last">
             <ul class="list-unstyled">
               <li class="checkbox">

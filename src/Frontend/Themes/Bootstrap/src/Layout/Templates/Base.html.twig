@@ -77,7 +77,7 @@
 
   {# Site wide HTML #}
   {% block htmlHeader %}
-    {{ siteHTMLHeader|raw }}
+    {{ siteHTMLHead|raw }}
   {% endblock %}
 
   {# Extra stuff you want to put in the header #}
@@ -122,7 +122,7 @@
 
   {# Site wide HTML #}
   {% block htmlFooter %}
-    {{ siteHTMLFooter|raw }}
+    {{ siteHTMLEndOfBody|raw }}
   {% endblock %}
 
   {% block footerScripts %}

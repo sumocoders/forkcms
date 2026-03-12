@@ -98,11 +98,9 @@ class Index extends BackendBaseActionIndex
             $googleTrackingTagManagerContainerIdField->setAttribute('disabled', 'disabled');
         }
 
-        // @deprecated fallback to site_html_header as this was used in the past.
         $siteHtmlHeadValue = $this->get('fork.settings')->get(
             'Core',
             'site_html_head',
-            $this->get('fork.settings')->get('Core', 'site_html_header', null)
         );
         $this->form->addTextarea(
             'site_html_head',
@@ -113,8 +111,7 @@ class Index extends BackendBaseActionIndex
         );
         $siteHtmlStartOfBodyValue = $this->get('fork.settings')->get(
             'Core',
-            'site_html_start_of_body',
-            $this->get('fork.settings')->get('Core', 'site_start_of_body_scripts', null)
+            'site_html_start_of_body'
         );
         $this->form->addTextarea(
             'site_html_start_of_body',
@@ -125,8 +122,7 @@ class Index extends BackendBaseActionIndex
         );
         $siteHtmlEndOfBodyValue = $this->get('fork.settings')->get(
             'Core',
-            'site_html_end_of_body',
-            $this->get('fork.settings')->get('Core', 'site_html_footer', null)
+            'site_html_end_of_body'
         );
         $this->form->addTextarea(
             'site_html_end_of_body',
@@ -134,21 +130,6 @@ class Index extends BackendBaseActionIndex
             'form-control code',
             'form-control danger code',
             true
-        );
-
-        // facebook settings
-        // @deprecated remove this in Fork 6, facebook_admin_ids / facebook_app_id / facebook_app_secret should be removed
-        $this->form->addText('facebook_admin_ids', $this->get('fork.settings')->get('Core', 'facebook_admin_ids', null));
-        $this->form->addText('facebook_application_id', $this->get('fork.settings')->get('Core', 'facebook_app_id', null));
-        $this->form->addText(
-            'facebook_application_secret',
-            $this->get('fork.settings')->get('Core', 'facebook_app_secret', null)
-        );
-
-        // twitter settings
-        $this->form->addText(
-            'twitter_site_name',
-            ltrim((string) $this->get('fork.settings')->get('Core', 'twitter_site_name', null), '@')
         );
 
         // ckfinder
@@ -301,10 +282,6 @@ class Index extends BackendBaseActionIndex
             );
         }
 
-        // cookies
-        // @deprecated remove this in Fork 6, the privacy consent dialog should be used
-        $this->form->addCheckbox('show_cookie_bar', $this->get('fork.settings')->get('Core', 'show_cookie_bar', false));
-
         // privacy
         $this->form->addCheckbox(
             'show_consent_dialog',
@@ -438,10 +415,9 @@ class Index extends BackendBaseActionIndex
                     'site_html_start_of_body',
                     $this->form->getField('site_html_start_of_body')->getValue()
                 );
-                // @deprecated remove this in Fork 6, use site_html_start_of_body
                 $this->get('fork.settings')->set(
                     'Core',
-                    'site_start_of_body_scripts',
+                    'site_html_start_of_body',
                     $this->form->getField('site_html_start_of_body')->getValue()
                 );
                 $this->get('fork.settings')->set(
@@ -449,46 +425,11 @@ class Index extends BackendBaseActionIndex
                     'site_html_end_of_body',
                     $this->form->getField('site_html_end_of_body')->getValue()
                 );
-                // @deprecated remove this in Fork 6, use site_html_end_of_body
                 $this->get('fork.settings')->set(
                     'Core',
-                    'site_html_footer',
+                    'site_html_end_of_body',
                     $this->form->getField('site_html_end_of_body')->getValue()
                 );
-
-                // facebook settings
-                $this->get('fork.settings')->set(
-                    'Core',
-                    'facebook_admin_ids',
-                    ($this->form->getField('facebook_admin_ids')->isFilled()) ? $this->form->getField(
-                        'facebook_admin_ids'
-                    )->getValue() : null
-                );
-                $this->get('fork.settings')->set(
-                    'Core',
-                    'facebook_app_id',
-                    ($this->form->getField('facebook_application_id')->isFilled()) ? $this->form->getField(
-                        'facebook_application_id'
-                    )->getValue() : null
-                );
-                $this->get('fork.settings')->set(
-                    'Core',
-                    'facebook_app_secret',
-                    ($this->form->getField('facebook_application_secret')->isFilled()) ? $this->form->getField(
-                        'facebook_application_secret'
-                    )->getValue() : null
-                );
-
-                // twitter settings
-                /** @var \SpoonFormText $txtTwitterSiteName */
-                $txtTwitterSiteName = $this->form->getField('twitter_site_name');
-                if ($txtTwitterSiteName->isFilled()) {
-                    $this->get('fork.settings')->set(
-                        'Core',
-                        'twitter_site_name',
-                        '@' . ltrim((string) $txtTwitterSiteName->getValue(), '@')
-                    );
-                }
 
                 // google recaptcha settings
                 $this->get('fork.settings')->set(
@@ -587,14 +528,6 @@ class Index extends BackendBaseActionIndex
                 // save active languages
                 $this->get('fork.settings')->set('Core', 'active_languages', $activeLanguages);
                 $this->get('fork.settings')->set('Core', 'redirect_languages', $redirectLanguages);
-
-                // cookies
-                // @deprecated remove this in Fork 6, the privacy consent dialog should be used
-                $this->get('fork.settings')->set(
-                    'Core',
-                    'show_cookie_bar',
-                    $this->form->getField('show_cookie_bar')->getChecked()
-                );
 
                 // privacy
                 $this->get('fork.settings')->set(

@@ -323,8 +323,7 @@ class Model
         self::buildCache($toLanguage);
     }
 
-    #[\Deprecated(message: 'Will become private since it is only used in this class')]
-    public static function createHtml(
+    private static function createHtml(
         string $navigationType = 'page',
         int $depth = 0,
         int $parentId = BackendModel::HOME_PAGE_ID,
