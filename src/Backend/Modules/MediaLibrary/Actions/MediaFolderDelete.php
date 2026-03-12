@@ -7,6 +7,7 @@ use Backend\Core\Engine\Model;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\Command\DeleteMediaFolder;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class MediaFolderDelete extends BackendBaseActionDelete
 {
@@ -69,16 +70,16 @@ class MediaFolderDelete extends BackendBaseActionDelete
 
     private function deleteMediaFolder(): DeleteMediaFolder
     {
-        /** @var MediaFolder $mediaFolder */
         $mediaFolder = $this->getMediaFolder();
 
         $this->checkIfDeleteIsAllowed($mediaFolder);
 
-        /** @var DeleteMediaFolder $deleteMediaFolder */
         $deleteMediaFolder = new DeleteMediaFolder($mediaFolder);
 
         // Handle the MediaFolder delete
-        $this->get('command_bus')->handle($deleteMediaFolder);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($deleteMediaFolder);
 
         return $deleteMediaFolder;
     }

@@ -5,25 +5,9 @@ services:
     public: true
 
   # MediaFolder
-  media_galleries.handler.create_media_folder:
-    class: Backend\Modules\MediaLibrary\Domain\MediaFolder\Command\CreateMediaFolderHandler
-    public: true
-    arguments:
-      - "@media_library.repository.folder"
-    tags:
-      - { name: command_handler, handles: Backend\Modules\MediaLibrary\Domain\MediaFolder\Command\CreateMediaFolder }
-  media_galleries.handler.delete_media_folder:
-    class: Backend\Modules\MediaLibrary\Domain\MediaFolder\Command\DeleteMediaFolderHandler
-    public: true
-    arguments:
-      - "@media_library.repository.folder"
-    tags:
-      - { name: command_handler, handles: Backend\Modules\MediaLibrary\Domain\MediaFolder\Command\DeleteMediaFolder }
-  media_galleries.handler.update_media_folder:
-    class: Backend\Modules\MediaLibrary\Domain\MediaFolder\Command\UpdateMediaFolderHandler
-    public: true
-    tags:
-      - { name: command_handler, handles: Backend\Modules\MediaLibrary\Domain\MediaFolder\Command\UpdateMediaFolder }
+  Backend\Modules\MediaLibrary\Domain\MediaFolder\Command\CreateMediaFolderHandler:
+  Backend\Modules\MediaLibrary\Domain\MediaFolder\Command\DeleteMediaFolderHandler:
+  Backend\Modules\MediaLibrary\Domain\MediaFolder\Command\UpdateMediaFolderHandler:
 
   # MediaGroup
   Backend\Modules\MediaLibrary\Domain\MediaGroup\Command\SaveMediaGroupHandler:
