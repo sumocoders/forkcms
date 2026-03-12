@@ -7,6 +7,7 @@ use Backend\Core\Engine\Model;
 use Backend\Core\Language\Language;
 use Backend\Modules\Mailmotor\Domain\Settings\Command\SaveSettings;
 use Backend\Modules\Mailmotor\Domain\Settings\Event\SettingsSavedEvent;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This tests the api
@@ -69,7 +70,9 @@ final class Ping extends ActionIndex
         $saveSettings = new SaveSettings($this->get('fork.settings'));
         $saveSettings->mailEngine = 'not_implemented';
 
-        $this->get('command_bus')->handle($saveSettings);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($saveSettings);
 
         $this->get('event_dispatcher')->dispatch(
             new SettingsSavedEvent($saveSettings)

@@ -1,24 +1,17 @@
 services:
-  mailmotor.handler.save_settings:
-    class: Backend\Modules\Mailmotor\Domain\Settings\Command\SaveSettingsHandler
+  _defaults:
+    autowire: true
+    autoconfigure: true
     public: true
+
+  Backend\Modules\Mailmotor\Domain\Settings\Command\SaveSettingsHandler:
     arguments:
-      - "@fork.settings"
-    tags:
-      - { name: command_handler, handles: Backend\Modules\Mailmotor\Domain\Settings\Command\SaveSettings }
-  mailmotor.handler.subscription:
-    class: Frontend\Modules\Mailmotor\Domain\Subscription\Command\SubscriptionHandler
-    public: true
+      $modulesSettings: "@fork.settings"
+  Frontend\Modules\Mailmotor\Domain\Subscription\Command\SubscriptionHandler:
     arguments:
-      - "@mailmotor.subscriber"
-      - "@fork.settings"
-    tags:
-      - { name: command_handler, handles: Frontend\Modules\Mailmotor\Domain\Subscription\Command\Subscription }
-  mailmotor.handler.unsubscription:
-    class: Frontend\Modules\Mailmotor\Domain\Subscription\Command\UnsubscriptionHandler
-    public: true
+      $subscriber: "@mailmotor.subscriber"
+      $modulesSettings: "@fork.settings"
+  Frontend\Modules\Mailmotor\Domain\Subscription\Command\UnsubscriptionHandler:
     arguments:
-      - "@mailmotor.subscriber"
-      - "@fork.settings"
-    tags:
-      - { name: command_handler, handles: Frontend\Modules\Mailmotor\Domain\Subscription\Command\Unsubscription }
+      $subscriber: "@mailmotor.subscriber"
+      $modulesSettings: "@fork.settings"

@@ -10,6 +10,7 @@ use Frontend\Modules\Mailmotor\Domain\Subscription\Command\Unsubscription;
 use Frontend\Modules\Mailmotor\Domain\Subscription\Event\NotImplementedUnsubscribedEvent;
 use Frontend\Modules\Mailmotor\Domain\Subscription\UnsubscribeType;
 use MailMotor\Bundle\MailMotorBundle\Exception\NotImplementedException;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This is the Unsubscription-action for Mailmotor
@@ -45,7 +46,9 @@ class Unsubscribe extends FrontendBaseBlock
 
         try {
             // The command bus will handle the unsubscription
-            $this->get('command_bus')->handle($unsubscription);
+            /** @var MessageBusInterface $messageBus */
+            $messageBus = $this->get('messenger.default_bus');
+            $messageBus->dispatch($unsubscription);
         } catch (NotImplementedException) {
             // fallback for when no mail-engine is chosen in the Backend
             $this->get('event_dispatcher')->dispatch(
