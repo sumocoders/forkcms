@@ -1,5 +1,4 @@
-{% apply inky_to_html|inline_css %}
-  {% apply utm('mail', 'email', (email.subject ?? 'unknown')|slug)|inline_css %}
+{% apply inky_to_html|utm('mail', 'email', (email.subject ?? 'unknown')|slug)|inline_css %}
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -352,5 +351,4 @@
     </html>
 
 
-  {% endapply %}
 {% endapply %}
