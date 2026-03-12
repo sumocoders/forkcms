@@ -26,7 +26,6 @@ class UtmExtension extends AbstractExtension
             return $html;
         }
 
-
         return preg_replace_callback(
             '/href="(https?:[^"]+)"/i',
             function (array $matches) use ($campaign, $source, $medium): string {
