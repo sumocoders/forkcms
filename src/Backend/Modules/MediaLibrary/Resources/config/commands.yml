@@ -13,13 +13,7 @@ services:
   Backend\Modules\MediaLibrary\Domain\MediaGroup\Command\SaveMediaGroupHandler:
 
   # MediaItem
-  media_galleries.handler.create_media_item_from_movie_url:
-    class: Backend\Modules\MediaLibrary\Domain\MediaItem\Command\CreateMediaItemFromMovieUrlHandler
-    public: true
-    arguments:
-      - "@media_library.repository.item"
-    tags:
-      - { name: command_handler, handles: Backend\Modules\MediaLibrary\Domain\MediaItem\Command\CreateMediaItemFromMovieUrl }
+  Backend\Modules\MediaLibrary\Domain\MediaItem\Command\CreateMediaItemFromMovieUrlHandler:
   Backend\Modules\MediaLibrary\Domain\MediaItem\Command\CreateMediaItemFromLocalStorageTypeHandler:
   Backend\Modules\MediaLibrary\Domain\MediaItem\Command\DeleteMediaItemHandler:
   Backend\Modules\MediaLibrary\Domain\MediaItem\Command\UpdateMediaItemHandler:
