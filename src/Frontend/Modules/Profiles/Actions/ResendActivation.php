@@ -2,7 +2,7 @@
 
 namespace Frontend\Modules\Profiles\Actions;
 
-use Common\Mailer\Message;
+use Common\Mailer\EmailFactory;
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
 use Frontend\Core\Engine\Form as FrontendForm;
 use Frontend\Core\Language\Language as FL;
@@ -11,6 +11,8 @@ use Frontend\Modules\Profiles\Engine\Authentication as FrontendProfilesAuthentic
 use Frontend\Modules\Profiles\Engine\Model as FrontendProfilesModel;
 use Frontend\Modules\Profiles\Engine\Profile;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 
 /**
  * This is the resend activation-action. It will resend your activation email.
@@ -45,8 +47,7 @@ class ResendActivation extends FrontendBaseBlock
             ->addText('email')
             ->setAttribute('type', 'email')
             ->setAttribute('autocomplete', 'email')
-            ->makeRequired()
-        ;
+            ->makeRequired();
     }
 
     private function parse(): void
@@ -102,19 +103,21 @@ class ResendActivation extends FrontendBaseBlock
 
     private function resendActivationEmail(): void
     {
-        $activationUrl = SITE_URL . FrontendNavigation::getUrlForBlock($this->getModule(), 'Activate')
-                         . '/' . $this->profile->getSetting('activation_key');
-        $from = $this->get('fork.settings')->get('Core', 'mailer_from');
-        $replyTo = $this->get('fork.settings')->get('Core', 'mailer_reply_to');
-        $message = Message::newInstance(FL::getMessage('RegisterSubject'))
-            ->setFrom([$from['email'] => $from['name']])
-            ->setTo([$this->profile->getEmail() => $this->profile->getDisplayName()])
-            ->setReplyTo([$replyTo['email'] => $replyTo['name']])
-            ->parseHtml(
-                'Profiles/Layout/Templates/Mails/Register.html.twig',
-                ['activationUrl' => $activationUrl],
-                true
+        /** @var EmailFactory $emailFactory */
+        $emailFactory = $this->get(EmailFactory::class);
+        /** @var MailerInterface $mailer */
+        $mailer = $this->get(MailerInterface::class);
+        $message = $emailFactory->create()
+            ->subject(FL::getMessage('RegisterSubject'))
+            ->to(new Address($this->profile->getEmail(), $this->profile->getDisplayName()))
+            ->htmlTemplate('Profiles/Layout/Templates/Mails/Register.html.twig')
+            ->context(
+                [
+                    'activationUrl' => SITE_URL . FrontendNavigation::getUrlForBlock($this->getModule(), 'Activate')
+                                       . '/' . $this->profile->getSetting('activation_key')
+                ]
             );
-        $this->get('mailer')->send($message);
+
+        $mailer->send($message);
     }
 }

@@ -5,7 +5,11 @@ services:
     formbuilder.submitted.mailer:
         class: Frontend\Modules\FormBuilder\EventListener\FormBuilderSubmittedMailSubscriber
         arguments:
-            - "@mailer"
-            - "@fork.settings"
+            - "@mailer.mailer"
+            - '@Common\Mailer\EmailFactory'
         tags:
-            - { name: kernel.event_listener, event: form.submitted, method: onFormSubmitted }
+            - {
+                name: kernel.event_listener,
+                event: Frontend\Modules\FormBuilder\Event\FormBuilderSubmittedEvent,
+                method: onFormSubmitted
+            }

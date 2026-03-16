@@ -2,13 +2,15 @@
 
 namespace Frontend\Modules\Profiles\Actions;
 
-use Common\Mailer\Message;
+use Common\Mailer\EmailFactory;
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
 use Frontend\Core\Engine\Form as FrontendForm;
 use Frontend\Core\Language\Language as FL;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Modules\Profiles\Engine\Authentication as FrontendProfilesAuthentication;
 use Frontend\Modules\Profiles\Engine\Model as FrontendProfilesModel;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 
 /**
  * Request a reset password email.
@@ -40,8 +42,7 @@ class ForgotPassword extends FrontendBaseBlock
             ->addText('email')
             ->setAttribute('type', 'email')
             ->setAttribute('autocomplete', 'email')
-            ->makeRequired()
-        ;
+            ->makeRequired();
     }
 
     private function parse(): void
@@ -98,21 +99,22 @@ class ForgotPassword extends FrontendBaseBlock
 
     private function sendForgotPasswordEmail(int $profileId, string $resetUrl): void
     {
-        $from = $this->get('fork.settings')->get('Core', 'mailer_from');
-        $replyTo = $this->get('fork.settings')->get('Core', 'mailer_reply_to');
-        $message = Message::newInstance(FL::getMessage('ForgotPasswordSubject'))
-            ->setFrom([$from['email'] => $from['name']])
-            ->setTo([$this->form->getField('email')->getValue() => ''])
-            ->setReplyTo([$replyTo['email'] => $replyTo['name']])
-            ->parseHtml(
-                '/Profiles/Layout/Templates/Mails/ForgotPassword.html.twig',
+        /** @var EmailFactory $emailFactory */
+        $emailFactory = $this->get(EmailFactory::class);
+        /** @var MailerInterface $mailer */
+        $mailer = $this->get(MailerInterface::class);
+        $message = $emailFactory->create()
+            ->subject(FL::getMessage('ForgotPasswordSubject'))
+            ->to(new Address($this->form->getField('email')->getValue()))
+            ->htmlTemplate('/Profiles/Layout/Templates/Mails/ForgotPassword.html.twig')
+            ->context(
                 [
                     'resetUrl' => $resetUrl,
                     'firstName' => FrontendProfilesModel::getSetting($profileId, 'first_name'),
                     'lastName' => FrontendProfilesModel::getSetting($profileId, 'last_name'),
-                ],
-                true
+                ]
             );
-        $this->get('mailer')->send($message);
+
+        $mailer->send($message);
     }
 }

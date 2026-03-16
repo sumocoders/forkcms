@@ -4,7 +4,7 @@ namespace Frontend\Modules\Blog\Engine;
 
 use Common\Doctrine\Entity\Meta;
 use Common\Doctrine\Repository\MetaRepository;
-use Common\Mailer\Message;
+use Common\Mailer\EmailFactory;
 use ForkCMS\Utility\Thumbnails;
 use Frontend\Core\Language\Language as FL;
 use Frontend\Core\Engine\Model as FrontendModel;
@@ -13,6 +13,7 @@ use Frontend\Core\Engine\Url as FrontendUrl;
 use Frontend\Core\Language\Locale;
 use Frontend\Modules\Tags\Engine\Model as FrontendTagsModel;
 use Frontend\Modules\Tags\Engine\TagsInterface as FrontendTagsInterface;
+use Symfony\Component\Mailer\MailerInterface;
 
 /**
  * In this file we store all generic functions that we will be using in the blog module
@@ -850,7 +851,6 @@ class Model implements FrontendTagsInterface
         // notify on all comments
         if ($notifyByMailOnComment) {
             $variables = [];
-
             // comment to moderate
             if ($comment['status'] == 'moderation') {
                 $variables['message'] = vsprintf(
@@ -865,21 +865,16 @@ class Model implements FrontendTagsInterface
                 );
             }
 
-            $to = FrontendModel::get('fork.settings')->get('Core', 'mailer_to');
-            $from = FrontendModel::get('fork.settings')->get('Core', 'mailer_from');
-            $replyTo = FrontendModel::get('fork.settings')->get('Core', 'mailer_reply_to');
-            $message = Message::newInstance(FL::msg('NotificationSubject'))
-                ->setFrom([$from['email'] => $from['name']])
-                ->setTo([$to['email'] => $to['name']])
-                ->setReplyTo([$replyTo['email'] => $replyTo['name']])
-                ->parseHtml(
-                    '/Core/Layout/Templates/Mails/Notification.html.twig',
-                    $variables,
-                    true
-                )
-            ;
-            FrontendModel::get('mailer')->send($message);
-        } elseif ($notifyByMailOnCommentToModerate && $comment['status'] == 'moderation') {
+            /** @var EmailFactory $emailFactory */
+            $emailFactory = FrontendModel::get(EmailFactory::class);
+            /** @var MailerInterface $mailer */
+            $mailer = FrontendModel::get(MailerInterface::class);
+            $message = $emailFactory->create()
+                ->subject(FL::msg('NotificationSubject'))
+                ->htmlTemplate('/Core/Layout/Templates/Mails/Notification.html.twig')
+                ->context($variables);
+            $mailer->send($message);
+        } elseif ($notifyByMailOnCommentToModerate && $comment['status'] === 'moderation') {
             // only notify on new comments to moderate and if the comment is one to moderate
             // set variables
             $variables = [];
@@ -888,20 +883,15 @@ class Model implements FrontendTagsInterface
                 [$comment['author'], $url, $comment['post_title'], $backendUrl]
             );
 
-            $to = FrontendModel::get('fork.settings')->get('Core', 'mailer_to');
-            $from = FrontendModel::get('fork.settings')->get('Core', 'mailer_from');
-            $replyTo = FrontendModel::get('fork.settings')->get('Core', 'mailer_reply_to');
-            $message = Message::newInstance(FL::msg('NotificationSubject'))
-                ->setFrom([$from['email'] => $from['name']])
-                ->setTo([$to['email'] => $to['name']])
-                ->setReplyTo([$replyTo['email'] => $replyTo['name']])
-                ->parseHtml(
-                    '/Core/Layout/Templates/Mails/Notification.html.twig',
-                    $variables,
-                    true
-                )
-            ;
-            FrontendModel::get('mailer')->send($message);
+            /** @var EmailFactory $emailFactory */
+            $emailFactory = FrontendModel::get(EmailFactory::class);
+            /** @var MailerInterface $mailer */
+            $mailer = FrontendModel::get(MailerInterface::class);
+            $message = $emailFactory->create()
+                ->subject(FL::msg('NotificationSubject'))
+                ->htmlTemplate('/Core/Layout/Templates/Mails/Notification.html.twig')
+                ->context($variables);
+            $mailer->send($message);
         }
     }
 

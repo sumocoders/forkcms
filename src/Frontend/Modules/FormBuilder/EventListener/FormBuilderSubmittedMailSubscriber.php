@@ -2,21 +2,22 @@
 
 namespace Frontend\Modules\FormBuilder\EventListener;
 
-use Common\Mailer\Message;
-use Swift_Mailer;
-use Common\ModulesSettings;
+use Common\Mailer\EmailFactory;
 use Frontend\Core\Language\Language;
-use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Modules\FormBuilder\Event\FormBuilderSubmittedEvent;
-use Swift_Mime_SimpleMessage;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 
 /**
  * A Formbuilder submitted event subscriber that will send an email if needed
  */
 final class FormBuilderSubmittedMailSubscriber
 {
-    public function __construct(protected Swift_Mailer $mailer, protected ModulesSettings $modulesSettings)
-    {
+    public function __construct(
+        protected MailerInterface $mailer,
+        protected EmailFactory $emailFactory,
+    ) {
     }
 
     public function onFormSubmitted(FormBuilderSubmittedEvent $event): void
@@ -34,81 +35,51 @@ final class FormBuilderSubmittedMailSubscriber
             if (array_key_exists('send_confirmation_mail_to', $field['settings']) &&
                 $field['settings']['send_confirmation_mail_to'] === true
             ) {
-                $to = $fieldData[$field['id']]['value'];
-                $from = FrontendModel::get('fork.settings')->get('Core', 'mailer_from');
-                $replyTo = FrontendModel::get('fork.settings')->get('Core', 'mailer_reply_to');
-                $message = Message::newInstance($field['settings']['confirmation_mail_subject'])
-                    ->setFrom([$from['email'] => $from['name']])
-                    ->setTo($to)
-                    ->setReplyTo([$replyTo['email'] => $replyTo['name']])
-                    ->parseHtml(
-                        '/Core/Layout/Templates/Mails/Notification.html.twig',
-                        ['message' => $field['settings']['confirmation_mail_message']],
-                        true
-                    )
-                ;
+                $message = $this->emailFactory->create()
+                    ->subject($field['settings']['confirmation_mail_subject'])
+                    ->to(new Address($fieldData[$field['id']]['value']))
+                    ->htmlTemplate('/Core/Layout/Templates/Mails/Notification.html.twig')
+                    ->context([
+                        'message' => $field['settings']['confirmation_mail_message'],
+                    ]);
                 $this->mailer->send($message);
             }
         }
     }
 
-    /**
-     * @param array $form
-     * @param array $fieldData
-     * @param string $subject
-     * @param string|array|null $to
-     * @param bool $isConfirmationMail
-     *
-     * @return Swift_Mime_SimpleMessage
-     */
     private function getMessage(
         array $form,
         array $fieldData,
-        ?string $subject = null,
-        $to = null,
-        bool $isConfirmationMail = false
-    ) : Swift_Mime_SimpleMessage {
+        ?string $subject = null
+    ): TemplatedEmail {
         if ($subject === null) {
             $subject = Language::getMessage('FormBuilderSubject');
         }
 
-        $from = $this->modulesSettings->get('Core', 'mailer_from');
+        $message = $this->emailFactory->create()
+            ->subject(sprintf($subject, $form['name']))
+            ->htmlTemplate('/FormBuilder/Layout/Templates/Mails/' . $form['email_template'])
+            ->context([
+                'subject' => $subject,
+                'sentOn' => time(),
+                'name' => $form['name'],
+                'fields' => array_map(
+                    function (array $field): array {
+                        $field['value'] = html_entity_decode((string) $field['value']);
 
-        $message = Message::newInstance(sprintf($subject, $form['name']))
-            ->parseHtml(
-                '/FormBuilder/Layout/Templates/Mails/' . $form['email_template'],
-                [
-                    'subject' => $subject,
-                    'sentOn' => time(),
-                    'name' => $form['name'],
-                    'fields' => array_map(
-                        function (array $field) : array {
-                            $field['value'] = html_entity_decode((string) $field['value']);
-
-                            return $field;
-                        },
-                        $fieldData
-                    ),
-                    'is_confirmation_mail' => $isConfirmationMail,
-                ],
-                true
-            )
-            ->setTo($to ?? $form['email'])
-            ->setFrom([$from['email'] => $from['name']])
-        ;
+                        return $field;
+                    },
+                    $fieldData
+                )
+            ]);
 
         // check if we have a replyTo email set
         foreach ($form['fields'] as $field) {
             if (array_key_exists('reply_to', $field['settings']) &&
                 $field['settings']['reply_to'] === true
             ) {
-                $email = $fieldData[$field['id']]['value'];
-                $message->setReplyTo([$email => $email]);
+                $message->replyTo(new Address($fieldData[$field['id']]['value']));
             }
-        }
-        if (empty($message->getReplyTo())) {
-            $replyTo = $this->modulesSettings->get('Core', 'mailer_reply_to');
-            $message->setReplyTo([$replyTo['email'] => $replyTo['name']]);
         }
 
         return $message;
@@ -124,13 +95,13 @@ final class FormBuilderSubmittedMailSubscriber
     protected function getEmailFields(array $data): array
     {
         return array_map(
-            function ($item) : array {
+            function ($item): array {
                 $value = unserialize($item['value'], ['allowed_classes' => false]);
 
                 return [
                     'label' => $item['label'],
                     'value' => (
-                        is_array($value)
+                    is_array($value)
                         ? implode(',', $value)
                         : nl2br($value)
                     ),

@@ -26,6 +26,8 @@ framework:
                 adapter: cache.app
                 public: true
                 default_lifetime: 3600
+    mailer:
+        dsn: '%mailer.dsn%'
     messenger:
         transports:
             async:
@@ -55,6 +57,8 @@ twig:
         - "%fork.form.theme%"
     paths:
       '%site.path_www%/src/Frontend/Modules/': ForkFrontendModules
+      '%site.path_www%/src/Backend/Modules/': ForkBackendModules
+      '%site.path_www%/src/Backend/Core/': ForkBackendCore
 
 monolog:
     handlers:
@@ -63,17 +67,6 @@ monolog:
             path:  "%site.path_www%/var/logs/%kernel.environment%/error.log"
             level: error
             max_files: 10
-        # swift:
-        #     type:       swift_mailer
-        #     from_email: %fork.debug_email%
-        #     to_email:   %fork.debug_email%
-        #     subject:    %site.default_title% %fork.debug_message%
-        #     level:      error
-        #     formatter:  monolog.formatter.html
-        #     content_type: text/html
-
-swiftmailer:
-    transport: "sendmail"
 
 liip_imagine:
     resolvers:
@@ -167,15 +160,6 @@ services:
             # and caused some queries to break.
             - [ execute, [ 'SET sql_mode = REPLACE(@@SESSION.sql_mode, "ONLY_FULL_GROUP_BY", "")'] ]
             - [ setDebug, [ "%kernel.debug%" ]]
-    mailer_configurator:
-        class: Common\Mailer\Configurator
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-            - { name: kernel.event_listener, event: console.command, method: onConsoleCommand }
-        arguments:
-            - "@fork.settings"
-            - "@service_container"
-
     cache.filesystem.adapter:
         class: League\Flysystem\Adapter\Local
         arguments:
@@ -265,6 +249,11 @@ services:
         tags:
             - { name: twig.extension }
 
+    Common\Core\Twig\Extensions\UtmExtension:
+        public: false
+        tags:
+            - { name: twig.extension }
+
     ForkCMS\Google\TagManager\DataLayer:
         public: true
 
@@ -296,3 +285,11 @@ services:
         alias: 'Symfony\Component\Messenger\MessageBusInterface'
         public: true
 
+    Symfony\Component\Mailer\MailerInterface:
+        alias: mailer.mailer
+        public: true
+
+    Common\Mailer\EmailFactory:
+        public: true
+        arguments:
+            - "@fork.settings"

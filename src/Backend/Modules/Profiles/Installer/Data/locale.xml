@@ -366,49 +366,10 @@
         <translation language="el"><![CDATA[Πλήθος μελών]]></translation>
         <translation language="pl"><![CDATA[liczba członków]]></translation>
       </item>
-      <item type="label" name="LimitDisplayNameChanges">
-        <translation language="nl"><![CDATA[Wijzigingen in weergavenaam beperken]]></translation>
-        <translation language="en"><![CDATA[Limit display name changes]]></translation>
-      </item>
-      <item type="label" name="DisplayNameChanges">
-        <translation language="nl"><![CDATA[Wijzigingen in weergavenaam]]></translation>
-        <translation language="en"><![CDATA[Display name changes]]></translation>
-      </item>
-      <item type="label" name="NotificationNewProfileToAdmin">
-        <translation language="nl"><![CDATA[Nieuw profiel voor %1$s is toegevoegd.]]></translation>
-        <translation language="en"><![CDATA[New profile for %1$s has been created.]]></translation>
-        <translation language="fr"><![CDATA[Nouveau profil pour %1$s a été créé.]]></translation>
-        <translation language="pl"><![CDATA[Nowy profil dla %1$s został utworzony.]]></translation>
-      </item>
-      <item type="label" name="NotificationNewProfileToProfile">
-        <translation language="nl"><![CDATA[Uw profiel is aangemaakt.]]></translation>
-        <translation language="en"><![CDATA[Your profile has been added.]]></translation>
-        <translation language="fr"><![CDATA[Votre profil a été créé.]]></translation>
-        <translation language="pl"><![CDATA[Twój profil został dodany.]]></translation>
-      </item>
-      <item type="label" name="NotificationUpdatedProfileToProfile">
-        <translation language="nl"><![CDATA[Uw profiel is gewijzigd.]]></translation>
-        <translation language="en"><![CDATA[Your profile has been edited.]]></translation>
-        <translation language="fr"><![CDATA[Votre profil est modifié.]]></translation>
-        <translation language="pl"><![CDATA[Twój profil został zmodyfikowany. ]]></translation>
-      </item>
-      <item type="label" name="OverwriteProfileNotificationEmail">
-        <translation language="nl"><![CDATA[Gebruik een aangepast e-mailadres.]]></translation>
-        <translation language="en"><![CDATA[Use a custom mail address.]]></translation>
-        <translation language="pl"><![CDATA[Użyj niestandardowego adresu e-mail.]]></translation>
-      </item>
       <item type="label" name="UpdateEmail">
         <translation language="nl"><![CDATA[wijzig e-mail]]></translation>
         <translation language="en"><![CDATA[update e-mail]]></translation>
         <translation language="pl"><![CDATA[aktualizuj adres e-mail]]></translation>
-      </item>
-      <item type="label" name="NewProfileWillBeNotified">
-        <translation language="nl">
-          <![CDATA[Bij het opslaan zal dit nieuw profiel een e-mail ontvangen met de logingegevens.]]></translation>
-        <translation language="en">
-          <![CDATA[When saving, this new profile will receive an e-mail with the login credentials.]]></translation>
-        <translation language="pl">
-          <![CDATA[Podczas zapisywania ten nowy profil otrzyma wiadomość e-mail z danymi logowania.]]></translation>
       </item>
       <item type="label" name="RegisteredOn">
         <translation language="nl"><![CDATA[geregistreerd op]]></translation>
@@ -423,20 +384,6 @@
         <translation language="uk"><![CDATA[Дата реєстрації]]></translation>
         <translation language="el"><![CDATA[Ενεγράφη στις]]></translation>
         <translation language="pl"><![CDATA[zarejestrowany dn.]]></translation>
-      </item>
-      <item type="label" name="SendNewProfileAdminMail">
-        <translation language="nl">
-          <![CDATA[Verzend mail naar administrator als een nieuw profiel toegevoegd is.]]></translation>
-        <translation language="en"><![CDATA[Send mail to administrator on new profile.]]></translation>
-        <translation language="pl"><![CDATA[Wyślij wiadomość do administratora o nowym profilu.]]></translation>
-      </item>
-      <item type="label" name="SendNewProfileMail">
-        <translation language="nl">
-          <![CDATA[Verzend mail naar het nieuwe profiel bij aanmaking of wanneer e-mail of wachtwoord gewijzigd wordt.]]></translation>
-        <translation language="en">
-          <![CDATA[Send mail to new profile on creation or when e-mail or password has been changed.]]></translation>
-        <translation language="pl">
-          <![CDATA[Wyślij wiadomość do nowego profilu podczas tworzenia lub po zmianie adresu e-mail lub hasła.]]></translation>
       </item>
       <item type="label" name="Time">
         <translation language="nl"><![CDATA[tijd]]></translation>
