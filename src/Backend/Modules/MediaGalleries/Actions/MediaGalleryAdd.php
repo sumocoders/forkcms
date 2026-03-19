@@ -10,6 +10,7 @@ use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryType;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\CreateMediaGallery;
 use InvalidArgumentException;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This is the class to Add a MediaGallery
@@ -45,7 +46,9 @@ class MediaGalleryAdd extends ActionAdd
         $createMediaGallery = $form->getData();
 
         // Handle the MediaGallery create
-        $this->get('command_bus')->handle($createMediaGallery);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($createMediaGallery);
 
         return $createMediaGallery;
     }

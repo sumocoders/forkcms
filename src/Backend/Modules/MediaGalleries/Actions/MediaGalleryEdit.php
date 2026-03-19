@@ -9,6 +9,7 @@ use Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\UpdateMediaGaller
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\Exception\MediaGalleryNotFound;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGallery;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryType;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This is the class to Edit a MediaGallery
@@ -59,7 +60,9 @@ class MediaGalleryEdit extends BackendBaseActionEdit
         $updateMediaGallery = $form->getData();
 
         // Handle the MediaGallery update
-        $this->get('command_bus')->handle($updateMediaGallery);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($updateMediaGallery);
 
         $this->redirect(
             $this->getBackLink(

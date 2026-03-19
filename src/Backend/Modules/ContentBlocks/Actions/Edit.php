@@ -15,6 +15,7 @@ use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockType;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\Event\ContentBlockUpdated;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\Exception\ContentBlockNotFound;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This is the edit-action, it will display a form to edit an existing item
@@ -126,7 +127,9 @@ class Edit extends BackendBaseActionEdit
         $updateContentBlock->userId = Authentication::getUser()->getUserId();
 
         // The command bus will handle the saving of the content block in the database.
-        $this->get('command_bus')->handle($updateContentBlock);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($updateContentBlock);
 
         return $updateContentBlock;
     }

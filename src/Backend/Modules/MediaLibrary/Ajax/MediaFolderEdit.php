@@ -10,6 +10,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use Common\Exception\AjaxExitException;
 use Common\Uri;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This edit-action will update a folder using AJAX
@@ -75,7 +76,9 @@ class MediaFolderEdit extends BackendBaseAJAXAction
         $updateMediaFolder->name = htmlspecialchars($name, ENT_QUOTES);
 
         // Handle the MediaFolder update
-        $this->get('command_bus')->handle($updateMediaFolder);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($updateMediaFolder);
 
         return $updateMediaFolder;
     }

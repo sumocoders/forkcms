@@ -6,7 +6,9 @@ use Common\ModulesSettings;
 use Frontend\Core\Language\Locale;
 use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
 use MailMotor\Bundle\MailMotorBundle\Exception\NotImplementedException;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 final readonly class SubscriptionHandler
 {
     public function __construct(
@@ -15,7 +17,7 @@ final readonly class SubscriptionHandler
     ) {
     }
 
-    public function handle(Subscription $subscription): void
+    public function __invoke(Subscription $subscription): void
     {
         $mergeFields = [];
         $interests = [];

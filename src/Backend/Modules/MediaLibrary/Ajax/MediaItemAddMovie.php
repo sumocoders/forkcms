@@ -12,6 +12,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\StorageType;
 use Common\Exception\AjaxExitException;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This AJAX-action will add a new MediaItem movie.
@@ -35,7 +36,6 @@ class MediaItemAddMovie extends BackendBaseAJAXAction
 
     private function createMovieMediaItem(): CreateMediaItemFromMovieUrl
     {
-        /** @var CreateMediaItemFromMovieUrl $createMediaItem */
         $createMediaItemFromMovieUrl = new CreateMediaItemFromMovieUrl(
             $this->getMovieStorageType(),
             $this->getMovieId(),
@@ -45,7 +45,9 @@ class MediaItemAddMovie extends BackendBaseAJAXAction
         );
 
         // Handle the MediaItem create
-        $this->get('command_bus')->handle($createMediaItemFromMovieUrl);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($createMediaItemFromMovieUrl);
 
         return $createMediaItemFromMovieUrl;
     }

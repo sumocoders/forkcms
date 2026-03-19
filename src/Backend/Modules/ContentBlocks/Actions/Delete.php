@@ -10,6 +10,7 @@ use Backend\Modules\ContentBlocks\Domain\ContentBlock\Command\DeleteContentBlock
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\Event\ContentBlockDeleted;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\Exception\ContentBlockNotFound;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This is the delete-action, it will delete an item.
@@ -30,7 +31,9 @@ class Delete extends BackendBaseActionDelete
         $contentBlock = $this->getContentBlock((int) $deleteFormData['id']);
 
         // The command bus will handle the saving of the content block in the database.
-        $this->get('command_bus')->handle(new DeleteContentBlock($contentBlock));
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch(new DeleteContentBlock($contentBlock));
 
         $this->get('event_dispatcher')->dispatch(
             new ContentBlockDeleted($contentBlock)
