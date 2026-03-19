@@ -34,8 +34,6 @@
         "pimple/pimple": "^3.2",
         "ramsey/uuid": "^4.0",
         "ramsey/uuid-doctrine": "^2.0",
-        "simple-bus/doctrine-orm-bridge": "6.2.*",
-        "simple-bus/symfony-bridge": "~6.2",
         "spoon/library": "^4.0",
         "swiftmailer/swiftmailer": "^6.0",
         "symfony/monolog-bundle": "^3.1",

@@ -142,9 +142,6 @@ services:
     logger.public:
         alias: logger
         public: true
-    command_bus.public:
-        alias: command_bus
-        public: true
     liip_imagine.cache.manager.public:
         alias: liip_imagine.cache.manager
         public: true
