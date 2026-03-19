@@ -60,7 +60,7 @@
         "twig/cssinliner-extra": "^3.23",
         "twig/string-extra": "^3.23",
         "twig/inky-extra": "^3.23",
-        "symfony/uid": "*"
+        "symfony/uid": "^5.4"
     },
     "require-dev": {
         "jdorn/sql-formatter": "1.2.17",
