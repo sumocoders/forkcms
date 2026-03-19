@@ -17,7 +17,6 @@ services:
         arguments:
             - "@media_library.manager.file"
             - "@liip_imagine.cache.manager"
-            - "@command_bus"
     Backend\Modules\MediaLibrary\EventListener\MediaItemDeletedReSequenceMediaGroupMediaItemListener:
         tags:
             - { name: doctrine.event_listener, event: postRemove }
