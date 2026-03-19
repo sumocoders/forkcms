@@ -19,7 +19,6 @@ services:
         public: true
         arguments:
             - "@messenger.bus.default"
-            - "@event_dispatcher"
 
     media_library.manager.mime_type:
         class: Backend\Modules\MediaLibrary\Manager\MimeTypeManager
