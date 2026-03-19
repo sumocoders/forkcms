@@ -2,11 +2,11 @@
 
 namespace Backend\Modules\MediaGalleries\Domain\MediaGallery;
 
-use Ramsey\Uuid\Uuid;
-use Doctrine\ORM\Mapping as ORM;
 use Backend\Core\Engine\Model;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
 use Common\ModuleExtraType;
+use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Doctrine\UuidGenerator;
 
 /**
  * @ORM\Entity(repositoryClass="Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository")
@@ -18,7 +18,7 @@ class MediaGallery
      * @var string
      *
      * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\CustomIdGenerator(class=UuidGenerator::class)
      * @ORM\Column(type="guid")
      */
     private $id;
