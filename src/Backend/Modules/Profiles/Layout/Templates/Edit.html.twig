@@ -7,9 +7,6 @@
 
 {% block content %}
   {% form edit %}
-  {% if notifyProfile %}
-    <p class="text-warning">{{ macro.icon('warning') }} {{ 'lbl.UpdatedProfileWillBeNotified'|trans|ucfirst }}</p>
-  {% endif %}
   <div class="row fork-module-content">
     <div class="col-md-12">
       <div>

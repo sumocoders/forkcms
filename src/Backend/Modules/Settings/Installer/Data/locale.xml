@@ -432,19 +432,6 @@
         <translation language="el"><![CDATA[Δεν υπάρχουν ακόμη id γιά το διαχειριστή.]]></translation>
         <translation language="pl"><![CDATA[Brak ID administratora.]]></translation>
       </item>
-      <item type="message" name="SendTestMail">
-        <translation language="nl"><![CDATA[verstuur testmail]]></translation>
-        <translation language="en"><![CDATA[send test email]]></translation>
-        <translation language="it"><![CDATA[invia email di prova]]></translation>
-        <translation language="ru"><![CDATA[Отправить тестовое сообщение.]]></translation>
-        <translation language="zh"><![CDATA[发送测试邮件]]></translation>
-        <translation language="de"><![CDATA[sende Testmail]]></translation>
-        <translation language="hu"><![CDATA[teszt e-mail küldése]]></translation>
-        <translation language="fr"><![CDATA[envoyer un mail test]]></translation>
-        <translation language="es"><![CDATA[enviar email de prueba]]></translation>
-        <translation language="el"><![CDATA[Αποστολή δοκιμαστικού email.]]></translation>
-        <translation language="pl"><![CDATA[Wyślij email testowy]]></translation>
-      </item>
       <item type="message" name="SEONoFollowInComments">
         <translation language="nl"><![CDATA[<code>rel="nofollow"</code> voor links in reacties]]></translation>
         <translation language="en"><![CDATA[add <code>rel="nofollow"</code> on links inside a comment]]></translation>
@@ -457,58 +444,6 @@
         <translation language="es"><![CDATA[agregar <code>rel="nofollow"</code> en los enlaces dentro de un comentario]]></translation>
         <translation language="el"><![CDATA[Προσθέσατε <code>rel="nofollow"</code> σε συνδέσμους που βρίσκονται μέσα σε σχόλιο.]]></translation>
         <translation language="pl"><![CDATA[dodaj <code>rel="nofollow"</code> do linków wewnątrz komentarza]]></translation>
-      </item>
-      <item type="message" name="TestMessage">
-        <translation language="nl"><![CDATA[dit is een test]]></translation>
-        <translation language="en"><![CDATA[this is just a test]]></translation>
-        <translation language="it"><![CDATA[questo è solo una prova]]></translation>
-        <translation language="ru"><![CDATA[Это просто тест.]]></translation>
-        <translation language="zh"><![CDATA[这是一条测试消息]]></translation>
-        <translation language="de"><![CDATA[dies ist nur ein Test]]></translation>
-        <translation language="hu"><![CDATA[ez csak egy teszt]]></translation>
-        <translation language="fr"><![CDATA[il s'eagit juste d'un test]]></translation>
-        <translation language="es"><![CDATA[esto sólo es una prueba]]></translation>
-        <translation language="el"><![CDATA[Αυτό είναι απλώς μία δοκιμή.]]></translation>
-        <translation language="pl"><![CDATA[To jest tylko test]]></translation>
-      </item>
-      <item type="message" name="TestWasSent">
-        <translation language="nl"><![CDATA[De testmail is verzonden.]]></translation>
-        <translation language="en"><![CDATA[The test email was sent.]]></translation>
-        <translation language="it"><![CDATA[L'email di prova è stata inviata.]]></translation>
-        <translation language="ru"><![CDATA[Сообщение отправлено.]]></translation>
-        <translation language="zh"><![CDATA[测试邮件已发送。]]></translation>
-        <translation language="de"><![CDATA[Die Testmail wurde versandt.]]></translation>
-        <translation language="hu"><![CDATA[A teszt e-mail elküldve.]]></translation>
-        <translation language="fr"><![CDATA[L'e-mail tests a été envoyé.]]></translation>
-        <translation language="es"><![CDATA[El email de prueba ha sido enviado.]]></translation>
-        <translation language="el"><![CDATA[Το δοκιμαστικό email απεστάλη.]]></translation>
-        <translation language="pl"><![CDATA[Email testowy został wysłany.]]></translation>
-      </item>
-      <item type="error" name="PortIsRequired">
-        <translation language="nl"><![CDATA[Poort is verplicht.]]></translation>
-        <translation language="en"><![CDATA[Port is required.]]></translation>
-        <translation language="it"><![CDATA[La porta è obbligatoria.]]></translation>
-        <translation language="ru"><![CDATA[Порт - обязательное поле.]]></translation>
-        <translation language="zh"><![CDATA[端口是必填项。]]></translation>
-        <translation language="fr"><![CDATA[Le port est requis.]]></translation>
-        <translation language="hu"><![CDATA[A port kötelező.]]></translation>
-        <translation language="de"><![CDATA[Port ist eine Pflichtangabe.]]></translation>
-        <translation language="es"><![CDATA[El Puerto es requerido.]]></translation>
-        <translation language="el"><![CDATA[Ο αριθμός της θύρας (port) είναι υποχρεωτικός.]]></translation>
-        <translation language="pl"><![CDATA[Port jest wymagany.]]></translation>
-      </item>
-      <item type="error" name="ServerIsRequired">
-        <translation language="nl"><![CDATA[Server is verplicht.]]></translation>
-        <translation language="en"><![CDATA[Server is required.]]></translation>
-        <translation language="it"><![CDATA[Il server è obbligatorio.]]></translation>
-        <translation language="ru"><![CDATA[Сервер - обязательное поле.]]></translation>
-        <translation language="zh"><![CDATA[服务器 ]]></translation>
-        <translation language="fr"><![CDATA[Serveur est requis]]></translation>
-        <translation language="hu"><![CDATA[A szerver kötelező.]]></translation>
-        <translation language="de"><![CDATA[Der Server muss angegeben werden.]]></translation>
-        <translation language="es"><![CDATA[El servidor es requerido.]]></translation>
-        <translation language="el"><![CDATA[Το όνομα ή IP του διακομιστή (server) είναι υποχρεωτικό.]]></translation>
-        <translation language="pl"><![CDATA[Serwer jest wymagany.]]></translation>
       </item>
       <item type="label" name="GoogleTrackingOptions">
         <translation language="nl"><![CDATA[Google tracking options]]></translation>

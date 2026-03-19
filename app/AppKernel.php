@@ -19,7 +19,6 @@ class AppKernel extends Kernel
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\TwigBundle\TwigBundle(),
             new \Symfony\Bundle\MonologBundle\MonologBundle(),
-            new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new \ForkCMS\Bundle\InstallerBundle\ForkCMSInstallerBundle(),
             new \ForkCMS\Bundle\CoreBundle\ForkCMSCoreBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
@@ -29,6 +28,7 @@ class AppKernel extends Kernel
             new \MailMotor\Bundle\MailChimpBundle\MailMotorMailChimpBundle(),
             new \MailMotor\Bundle\CampaignMonitorBundle\MailMotorCampaignMonitorBundle(),
             new \Liip\ImagineBundle\LiipImagineBundle(),
+            new \Twig\Extra\TwigExtraBundle\TwigExtraBundle(),
         ];
 
         if ($this->getEnvironment() === 'prod') {

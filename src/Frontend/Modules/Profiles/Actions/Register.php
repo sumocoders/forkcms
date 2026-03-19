@@ -2,7 +2,7 @@
 
 namespace Frontend\Modules\Profiles\Actions;
 
-use Common\Mailer\Message;
+use Common\Mailer\EmailFactory;
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
 use Frontend\Core\Engine\Form as FrontendForm;
 use Frontend\Core\Language\Language as FL;
@@ -10,6 +10,8 @@ use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Modules\Profiles\Engine\Authentication as FrontendProfilesAuthentication;
 use Frontend\Modules\Profiles\Engine\Model as FrontendProfilesModel;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 
 class Register extends FrontendBaseBlock
 {
@@ -46,20 +48,17 @@ class Register extends FrontendBaseBlock
         $this->form
             ->addText('display_name')
             ->setAttribute('autocomplete', 'username')
-            ->makeRequired()
-        ;
+            ->makeRequired();
         $this->form
             ->addText('email')
             ->setAttribute('type', 'email')
             ->setAttribute('autocomplete', 'email')
-            ->makeRequired()
-        ;
+            ->makeRequired();
         $this->form
             ->addPassword('password')
             ->setAttribute('data-role', 'fork-new-password')
             ->setAttribute('autocomplete', 'new-password')
-            ->makeRequired()
-        ;
+            ->makeRequired();
         $this->form->addCheckbox('show_password')->setAttributes(
             [
                 'data-role' => 'fork-toggle-visible-password',
@@ -133,18 +132,23 @@ class Register extends FrontendBaseBlock
 
     private function sendActivationEmail(array $profile, string $activationKey): void
     {
-        $activationUrl = SITE_URL . FrontendNavigation::getUrlForBlock($this->getModule(), 'Activate');
-        $from = $this->get('fork.settings')->get('Core', 'mailer_from');
-        $replyTo = $this->get('fork.settings')->get('Core', 'mailer_reply_to');
-        $message = Message::newInstance(FL::getMessage('RegisterSubject'))
-            ->setFrom([$from['email'] => $from['name']])
-            ->setTo([$profile['email'] => $profile['display_name']])
-            ->setReplyTo([$replyTo['email'] => $replyTo['name']])
-            ->parseHtml(
-                'Profiles/Layout/Templates/Mails/Register.html.twig',
-                ['activationUrl' => $activationUrl . '/' . $activationKey],
-                true
+        /** @var EmailFactory $emailFactory */
+        $emailFactory = $this->get(EmailFactory::class);
+        /** @var MailerInterface $mailer */
+        $mailer = $this->get(MailerInterface::class);
+        $message = $emailFactory->create()
+            ->subject(FL::getMessage('RegisterSubject'))
+            ->to(new Address($profile['email'], $profile['display_name']))
+            ->htmlTemplate('Profiles/Layout/Templates/Mails/Register.html.twig')
+            ->context(
+                [
+                    'activationUrl' => SITE_URL .
+                                       FrontendNavigation::getUrlForBlock(
+                                           $this->getModule(),
+                                           'Activate'
+                                       ) . '/' . $activationKey
+                ]
             );
-        $this->get('mailer')->send($message);
+        $mailer->send($message);
     }
 }

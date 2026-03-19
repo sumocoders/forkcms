@@ -2,7 +2,7 @@
 
 namespace Frontend\Modules\Faq\Actions;
 
-use Common\Mailer\Message;
+use Common\Mailer\EmailFactory;
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
 use Frontend\Core\Engine\Form as FrontendForm;
 use Frontend\Core\Language\Language as FL;
@@ -11,6 +11,7 @@ use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Modules\Faq\Engine\Model as FrontendFaqModel;
 use Frontend\Modules\Tags\Engine\Model as FrontendTagsModel;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Mailer\MailerInterface;
 
 /**
  * This is the detail-action
@@ -287,20 +288,14 @@ class Detail extends FrontendBaseBlock
     {
         $feedback['question'] = $this->question['question'];
 
-        $to = $this->get('fork.settings')->get('Core', 'mailer_to');
-        $from = $this->get('fork.settings')->get('Core', 'mailer_from');
-        $replyTo = $this->get('fork.settings')->get('Core', 'mailer_reply_to');
-        $message = Message::newInstance(
-            sprintf(FL::getMessage('FaqFeedbackSubject'), $feedback['question'])
-        )
-            ->setFrom([$from['email'] => $from['name']])
-            ->setTo([$to['email'] => $to['name']])
-            ->setReplyTo([$replyTo['email'] => $replyTo['name']])
-            ->parseHtml(
-                '/Faq/Layout/Templates/Mails/Feedback.html.twig',
-                $feedback,
-                true
-            );
-        $this->get('mailer')->send($message);
+        /** @var EmailFactory $emailFactory */
+        $emailFactory = FrontendModel::get(EmailFactory::class);
+        /** @var MailerInterface $mailer */
+        $mailer = FrontendModel::get(MailerInterface::class);
+        $message = $emailFactory->create()
+            ->subject(sprintf(FL::getMessage('FaqFeedbackSubject'), $feedback['question']))
+            ->htmlTemplate('/Faq/Layout/Templates/Mails/Feedback.html.twig')
+            ->context($feedback);
+        $mailer->send($message);
     }
 }

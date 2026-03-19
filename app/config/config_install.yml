@@ -79,3 +79,8 @@ services:
         public: true
         arguments:
             - "%site.path_www%"
+
+    Common\Mailer\EmailFactory:
+        public: true
+        arguments:
+            - "@fork.settings"

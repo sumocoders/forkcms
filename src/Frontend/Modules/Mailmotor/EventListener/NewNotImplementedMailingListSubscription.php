@@ -3,10 +3,9 @@
 namespace Frontend\Modules\Mailmotor\EventListener;
 
 use Common\Language;
-use Common\Mailer\Message;
+use Common\Mailer\EmailFactory;
 use Frontend\Modules\Mailmotor\Domain\Subscription\Event\NotImplementedSubscribedEvent;
-use Swift_Mailer;
-use Common\ModulesSettings;
+use Symfony\Component\Mailer\MailerInterface;
 
 /**
  * New mailing list subscription
@@ -18,36 +17,24 @@ use Common\ModulesSettings;
 final readonly class NewNotImplementedMailingListSubscription
 {
     public function __construct(
-        private Swift_Mailer $mailer,
-        private ModulesSettings $modulesSettings,
+        protected MailerInterface $mailer,
+        protected EmailFactory $emailFactory,
     ) {
     }
 
     public function onNotImplementedSubscribedEvent(NotImplementedSubscribedEvent $event): void
     {
-        $title = sprintf(
+        $subject = sprintf(
             Language::lbl('MailTitleSubscribeSubscriber'),
             $event->getSubscription()->email,
             strtoupper((string) $event->getSubscription()->locale)
         );
-
-        $to = $this->modulesSettings->get('Core', 'mailer_to');
-        $from = $this->modulesSettings->get('Core', 'mailer_from');
-        $replyTo = $this->modulesSettings->get('Core', 'mailer_reply_to');
-
-        $message = Message::newInstance($title)
-            ->setFrom([$from['email'] => $from['name']])
-            ->setTo([$to['email'] => $to['name']])
-            ->setReplyTo([$replyTo['email'] => $replyTo['name']])
-            ->parseHtml(
-                FRONTEND_CORE_PATH . '/Layout/Templates/Mails/Notification.html.twig',
-                [
-                    'message' => $title,
-                ],
-                true
-            )
-        ;
-
+        $message = $this->emailFactory->create()
+            ->subject($subject)
+            ->htmlTemplate('/Core/Layout/Templates/Mails/Notification.html.twig')
+            ->context([
+                'message' => $subject,
+            ]);
         $this->mailer->send($message);
     }
 }

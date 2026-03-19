@@ -23,4 +23,6 @@ parameters:
     action.group_tag:       '<action-group-tag>'
     action.rights_level:    <action-rights-level>
 
+    mailer.dsn: 'smtp://127.0.0.1:1025'
+
     sentry.dsn: ''

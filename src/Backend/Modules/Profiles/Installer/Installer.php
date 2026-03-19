@@ -48,7 +48,6 @@ class Installer extends ModuleInstaller
         $this->setActionRights(1, $this->getModule(), 'Import');
         $this->setActionRights(1, $this->getModule(), 'Index');
         $this->setActionRights(1, $this->getModule(), 'MassAction');
-        $this->setActionRights(1, $this->getModule(), 'Settings');
     }
 
     private function configureBackendActionRightsForProfileGroup(): void
@@ -358,12 +357,6 @@ class Installer extends ModuleInstaller
     private function configureSettings(): void
     {
         $this->setSetting($this->getModule(), 'allow_gravatar', true);
-        $this->setSetting($this->getModule(), 'overwrite_profile_notification_email', false);
-        $this->setSetting($this->getModule(), 'profile_notification_email', null);
-        $this->setSetting($this->getModule(), 'send_mail_for_new_profile_to_admin', false);
-        $this->setSetting($this->getModule(), 'send_mail_for_new_profile_to_profile', false);
-        $this->setSetting($this->getModule(), 'limit_display_name_changes', true);
-        $this->setSetting($this->getModule(), 'max_display_name_changes', Model::MAX_DISPLAY_NAME_CHANGES);
     }
 
     private function getExtraId(string $key): int
