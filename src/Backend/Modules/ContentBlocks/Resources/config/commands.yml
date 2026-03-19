@@ -8,10 +8,4 @@ services:
     Backend\Modules\ContentBlocks\Domain\ContentBlock\Command\UpdateContentBlockHandler:
     Backend\Modules\ContentBlocks\Domain\ContentBlock\Command\DeleteContentBlockHandler:
 
-    content_blocks.handler.copy_content_blocks_to_other_locale:
-        class: Backend\Modules\ContentBlocks\Domain\ContentBlock\Command\CopyContentBlocksToOtherLocaleHandler
-        public: true
-        arguments:
-            - "@content_blocks.repository.content_block"
-        tags:
-            - { name: command_handler, handles: Backend\Modules\ContentBlocks\Domain\ContentBlock\Command\CopyContentBlocksToOtherLocale }
+    Backend\Modules\ContentBlocks\Domain\ContentBlock\Command\CopyContentBlocksToOtherLocaleHandler:

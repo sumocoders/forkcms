@@ -5,9 +5,7 @@ namespace Backend\Modules\Pages\Engine;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\Command\CopyContentBlocksToOtherLocale;
 use Backend\Modules\FormBuilder\Command\CopyFormWidgetsToOtherLocale;
 use Backend\Modules\Location\Command\CopyLocationWidgetsToOtherLocale;
-use Common\Doctrine\Entity\Meta;
 use ForkCMS\Utility\Thumbnails;
-use SimpleBus\Message\Bus\MessageBus;
 use InvalidArgumentException;
 use Symfony\Component\Filesystem\Filesystem;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
@@ -19,6 +17,7 @@ use Backend\Modules\Search\Engine\Model as BackendSearchModel;
 use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
 use ForkCMS\App\ForkController;
 use Frontend\Core\Language\Language as FrontendLanguage;
+use Symfony\Component\Messenger\MessageBusInterface;
 use function Symfony\Component\String\s;
 
 /**
@@ -95,15 +94,15 @@ class Model
         // get database
         $database = BackendModel::getContainer()->get('database');
 
-        /** @var MessageBus $commanBus */
-        $commandBus = BackendModel::get('command_bus');
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = BackendModel::get('messenger.default_bus');
 
         $toLocale = Locale::fromString($toLanguage);
         $fromLocale = Locale::fromString($fromLanguage);
 
         // copy contentBlocks and get copied contentBlockIds
         $copyContentBlocks = new CopyContentBlocksToOtherLocale($toLocale, $fromLocale);
-        $commandBus->handle($copyContentBlocks);
+        $messageBus->dispatch($copyContentBlocks);
         $contentBlockIds = $copyContentBlocks->extraIdMap;
 
         // define old block ids
@@ -113,7 +112,7 @@ class Model
         if (BackendModel::isModuleInstalled('Location')) {
             // copy location widgets and get copied widget ids
             $copyLocationWidgets = new CopyLocationWidgetsToOtherLocale($toLocale, $fromLocale);
-            $commandBus->handle($copyLocationWidgets);
+            $messageBus->dispatch($copyLocationWidgets);
             $locationWidgetIds = $copyLocationWidgets->extraIdMap;
 
             // define old block ids
@@ -125,7 +124,7 @@ class Model
         if (BackendModel::isModuleInstalled('FormBuilder')) {
             // copy form widgets and get copied widget ids
             $copyFormWidgets = new CopyFormWidgetsToOtherLocale($toLocale, $fromLocale);
-            $commandBus->handle($copyFormWidgets);
+            $messageBus->dispatch($copyFormWidgets);
             $formWidgetIds = $copyFormWidgets->extraIdMap;
 
             // define old block ids

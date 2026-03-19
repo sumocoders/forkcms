@@ -167,6 +167,7 @@ services:
             # and caused some queries to break.
             - [ execute, [ 'SET sql_mode = REPLACE(@@SESSION.sql_mode, "ONLY_FULL_GROUP_BY", "")'] ]
             - [ setDebug, [ "%kernel.debug%" ]]
+    SpoonDatabase: '@database'
     mailer_configurator:
         class: Common\Mailer\Configurator
         tags:

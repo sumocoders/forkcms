@@ -8,14 +8,19 @@ use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\Status;
 use Common\ModuleExtraType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 final readonly class CopyContentBlocksToOtherLocaleHandler
 {
-    public function __construct(private ContentBlockRepository $contentBlockRepository)
-    {
+    public function __construct(
+        private ContentBlockRepository $contentBlockRepository,
+        private EntityManagerInterface $entityManager,
+    ) {
     }
 
-    public function handle(CopyContentBlocksToOtherLocale $copyContentBlocksToOtherLocale): void
+    public function __invoke(CopyContentBlocksToOtherLocale $copyContentBlocksToOtherLocale): void
     {
         $contentBlocksToCopy = $this->getContentBlocksToCopy($copyContentBlocksToOtherLocale->fromLocale);
         $id = $this->contentBlockRepository->getNextIdForLanguage($copyContentBlocksToOtherLocale->toLocale);
@@ -36,6 +41,8 @@ final readonly class CopyContentBlocksToOtherLocaleHandler
             },
             $contentBlocksToCopy
         );
+
+        $this->entityManager->flush();
     }
 
     private function getContentBlocksToCopy(Locale $locale): array

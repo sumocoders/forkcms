@@ -4,14 +4,16 @@ namespace Backend\Modules\Location\Command;
 
 use Common\ModuleExtraType;
 use SpoonDatabase;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 final readonly class CopyLocationWidgetsToOtherLocaleHandler
 {
     public function __construct(private SpoonDatabase $database)
     {
     }
 
-    public function handle(CopyLocationWidgetsToOtherLocale $copyLocationWidgetsToOtherLocale): void
+    public function __invoke(CopyLocationWidgetsToOtherLocale $copyLocationWidgetsToOtherLocale): void
     {
         $currentWidgets = (array) $this->database->getRecords(
             'SELECT * FROM modules_extras WHERE module = ? AND type = ? AND action = ?',
