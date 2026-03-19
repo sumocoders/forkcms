@@ -2,7 +2,7 @@
 
 namespace Backend\Modules\MediaLibrary\Domain\MediaGroup;
 
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 class MediaGroupDataTransferObject
 {

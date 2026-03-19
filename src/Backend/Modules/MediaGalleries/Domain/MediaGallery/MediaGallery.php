@@ -2,7 +2,6 @@
 
 namespace Backend\Modules\MediaGalleries\Domain\MediaGallery;
 
-use Ramsey\Uuid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use Backend\Core\Engine\Model;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
