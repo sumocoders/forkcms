@@ -71,7 +71,7 @@ class Subscribe extends FrontendBaseBlock
                 throw $exception;
             }
 
-            $this->getContainer()->get('logger.public')->error('Mailmotor Subcribe Mailchimp error: ' . $reason);
+            $this->getContainer()->get('logger.public')->error('Mailmotor Subscribe Mailchimp error: ' . $reason);
 
             $this->template->assign('mailmotorSubscribeHasFormError', true);
             $this->template->assign('form', $form->createView());
