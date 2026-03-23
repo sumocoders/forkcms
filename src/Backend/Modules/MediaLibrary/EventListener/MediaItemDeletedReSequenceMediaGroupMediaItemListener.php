@@ -5,18 +5,19 @@ namespace Backend\Modules\MediaLibrary\EventListener;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use SimpleBus\Message\Bus\MessageBus;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\Command\SaveMediaGroup;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
 use Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * When MediaItem is deleted, re-sequence the MediaGroupMediaItem entities.
  */
-final class MediaItemDeletedReSequenceMediaGroupMediaItemListener
+final readonly class MediaItemDeletedReSequenceMediaGroupMediaItemListener
 {
-    public function __construct(protected MessageBus $commandBus)
-    {
+    public function __construct(
+        private MessageBusInterface $messageBus,
+    ) {
     }
 
     public function postRemove(LifecycleEventArgs $eventArgs): void
@@ -58,6 +59,6 @@ final class MediaItemDeletedReSequenceMediaGroupMediaItemListener
             $newMediaIds
         );
 
-        $this->commandBus->handle($updateMediaGroup);
+        $this->messageBus->dispatch($updateMediaGroup);
     }
 }

@@ -10,6 +10,7 @@ use Frontend\Modules\Mailmotor\Domain\Subscription\Command\Subscription;
 use Frontend\Modules\Mailmotor\Domain\Subscription\Event\NotImplementedSubscribedEvent;
 use Frontend\Modules\Mailmotor\Domain\Subscription\SubscribeType;
 use MailMotor\Bundle\MailMotorBundle\Exception\NotImplementedException;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This is the Subscribe-action for the Mailmotor
@@ -53,7 +54,9 @@ class Subscribe extends FrontendBaseBlock
 
         try {
             // The command bus will handle the subscription
-            $this->get('command_bus')->handle($subscription);
+            /** @var MessageBusInterface $messageBus */
+            $messageBus = $this->get('messenger.default_bus');
+            $messageBus->dispatch($subscription);
         } catch (NotImplementedException) {
             // fallback for when no mail-engine is chosen in the Backend
             $this->get('event_dispatcher')->dispatch(
@@ -68,7 +71,7 @@ class Subscribe extends FrontendBaseBlock
                 throw $exception;
             }
 
-            $this->getContainer()->get('logger')->error('Mailmotor Subcribe Mailchimp error: ' . $reason);
+            $this->getContainer()->get('logger.public')->error('Mailmotor Subscribe Mailchimp error: ' . $reason);
 
             $this->template->assign('mailmotorSubscribeHasFormError', true);
             $this->template->assign('form', $form->createView());

@@ -9,6 +9,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
 use Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * Installer for the MediaLibrary module
@@ -102,7 +103,9 @@ class Installer extends ModuleInstaller
     protected function loadMediaFolders(): void
     {
         // Handle the create MediaFolder
-        Model::get('command_bus')->handle(new CreateMediaFolder('default', 1));
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = Model::get('messenger.default_bus');
+        $messageBus->dispatch(new CreateMediaFolder('default', 1));
 
         // Delete cache
         Model::get('media_library.cache.media_folder')->delete();

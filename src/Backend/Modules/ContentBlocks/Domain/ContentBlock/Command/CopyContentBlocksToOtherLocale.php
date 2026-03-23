@@ -6,18 +6,13 @@ use Backend\Core\Language\Locale;
 
 final class CopyContentBlocksToOtherLocale
 {
-    /** @var Locale */
-    public $fromLocale;
+    /** This is used to be able to convert the old ids to the new ones if used in other places */
+    public array $extraIdMap = [];
 
-    /** @var array this is used to be able to convert the old ids to the new ones if used in other places */
-    public $extraIdMap;
-
-    public function __construct(public Locale $toLocale, ?Locale $fromLocale = null)
+    public function __construct(public Locale $toLocale, public ?Locale $fromLocale = null)
     {
-        if ($fromLocale === null) {
-            $fromLocale = Locale::workingLocale();
+        if ($this->fromLocale === null) {
+            $this->fromLocale = Locale::workingLocale();
         }
-        $this->fromLocale = $fromLocale;
-        $this->extraIdMap = [];
     }
 }

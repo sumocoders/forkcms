@@ -4,14 +4,19 @@ namespace Backend\Modules\MediaLibrary\Domain\MediaItem\Command;
 
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-final class CreateMediaItemFromLocalStorageTypeHandler
+#[AsMessageHandler]
+final readonly class CreateMediaItemFromLocalStorageTypeHandler
 {
-    public function __construct(protected MediaItemRepository $mediaItemRepository)
-    {
+    public function __construct(
+        private MediaItemRepository $mediaItemRepository,
+        private EntityManagerInterface $entityManager,
+    ) {
     }
 
-    public function handle(CreateMediaItemFromLocalStorageType $createMediaItemFromLocalStorageType): void
+    public function __invoke(CreateMediaItemFromLocalStorageType $createMediaItemFromLocalStorageType): void
     {
         /** @var MediaItem $mediaItem */
         $mediaItem = MediaItem::createFromLocalStorageType(
@@ -23,5 +28,9 @@ final class CreateMediaItemFromLocalStorageTypeHandler
         $this->mediaItemRepository->add($mediaItem);
 
         $createMediaItemFromLocalStorageType->setMediaItem($mediaItem);
+
+        dump($mediaItem);
+        $this->entityManager->flush();
+        dump('flushed');
     }
 }

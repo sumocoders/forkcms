@@ -10,6 +10,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use Backend\Modules\Pages\Engine\Model;
 use Common\Exception\AjaxExitException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This edit-action will reorder moved pages using Ajax
@@ -21,15 +22,15 @@ class MediaFolderMove extends BackendBaseAJAXAction
         // call parent
         parent::execute();
 
-        /** @var MediaFolder $mediaFolder */
         $mediaFolder = $this->getMediaFolder();
 
-        /** @var UpdateMediaFolder $updateMediaFolder */
         $updateMediaFolder = new UpdateMediaFolder($mediaFolder);
         $updateMediaFolder->parent = $this->getMediaFolderWhereDroppedOn($this->getTypeOfDrop());
 
         // Handle the MediaFolder update
-        $this->get('command_bus')->handle($updateMediaFolder);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($updateMediaFolder);
 
         $this->output(
             Response::HTTP_OK,

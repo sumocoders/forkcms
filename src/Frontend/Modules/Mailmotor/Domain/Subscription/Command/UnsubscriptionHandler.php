@@ -5,7 +5,9 @@ namespace Frontend\Modules\Mailmotor\Domain\Subscription\Command;
 use Common\ModulesSettings;
 use Frontend\Core\Language\Locale;
 use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 final readonly class UnsubscriptionHandler
 {
     public function __construct(
@@ -14,7 +16,7 @@ final readonly class UnsubscriptionHandler
     ) {
     }
 
-    public function handle(Unsubscription $unsubscription): void
+    public function __invoke(Unsubscription $unsubscription): void
     {
         // Unsubscribing the user, will dispatch an event
         $this->subscriber->unsubscribe(

@@ -11,7 +11,9 @@ use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Type;
+use Backend\Modules\MediaLibrary\Manager\MediaItemManager;
 use Exception;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This action is used to update one or more media items (move, ...)
@@ -190,15 +192,16 @@ class MediaItemMassAction extends BackendBaseAction
         $updateMediaItem->folder = $this->moveToMediaFolder;
 
         // Handle the MediaItem update
-        $this->get('command_bus')->handle($updateMediaItem);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($updateMediaItem);
     }
 
     private function delete(MediaItem $mediaItem): void
     {
-        /** @var DeleteMediaItem $deleteMediaItem */
-        $deleteMediaItem = new DeleteMediaItem($mediaItem);
-
         // Handle the MediaItem delete
-        $this->get('command_bus')->handle($deleteMediaItem);
+        /** @var MediaItemManager $manager */
+        $manager = $this->get('media_library.manager.item');
+        $manager->delete($mediaItem);
     }
 }

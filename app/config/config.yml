@@ -135,9 +135,6 @@ services:
     logger.public:
         alias: logger
         public: true
-    command_bus.public:
-        alias: command_bus
-        public: true
     liip_imagine.cache.manager.public:
         alias: liip_imagine.cache.manager
         public: true
@@ -160,6 +157,7 @@ services:
             # and caused some queries to break.
             - [ execute, [ 'SET sql_mode = REPLACE(@@SESSION.sql_mode, "ONLY_FULL_GROUP_BY", "")'] ]
             - [ setDebug, [ "%kernel.debug%" ]]
+    SpoonDatabase: '@database'
     cache.filesystem.adapter:
         class: League\Flysystem\Adapter\Local
         arguments:

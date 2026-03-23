@@ -3,12 +3,22 @@
 namespace Backend\Modules\MediaLibrary\Domain\MediaFolder\Command;
 
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-final class UpdateMediaFolderHandler
+#[AsMessageHandler]
+final readonly class UpdateMediaFolderHandler
 {
-    public function handle(UpdateMediaFolder $updateMediaFolder): void
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+    ) {
+    }
+
+    public function __invoke(UpdateMediaFolder $updateMediaFolder): void
     {
         // We redefine the MediaFolder, so we can use it in an action
         $updateMediaFolder->setMediaFolderEntity(MediaFolder::fromDataTransferObject($updateMediaFolder));
+
+        $this->entityManager->flush();
     }
 }

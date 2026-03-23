@@ -1,15 +1,8 @@
 services:
-    media_library.form.type.media_group:
-        class: Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupType
-        arguments:
-            - "@media_library.repository.group"
-            - "@command_bus"
-        tags:
-            - { name: form.type }
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
 
+    Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupType:
     Backend\Modules\MediaLibrary\Domain\MediaGroup\SingleMediaGroupType:
-        arguments:
-            - "@media_library.repository.group"
-            - "@command_bus"
-        tags:
-            - { name: form.type }

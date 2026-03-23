@@ -5,3 +5,5 @@ services:
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
             - Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock
+
+    Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository: '@content_blocks.repository.content_block'

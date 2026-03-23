@@ -18,7 +18,7 @@ abstract class Locale implements Serializable, JsonSerializable, \Stringable
         $this->setLocale($locale);
     }
 
-    public static function fromString(string $locale): self
+    public static function fromString(string $locale): static
     {
         return new static($locale);
     }

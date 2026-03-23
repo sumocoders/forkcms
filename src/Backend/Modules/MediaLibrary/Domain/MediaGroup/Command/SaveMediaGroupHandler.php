@@ -7,14 +7,19 @@ use Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 use Symfony\Component\Uid\Uuid;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-final class SaveMediaGroupHandler
+#[AsMessageHandler]
+final readonly class SaveMediaGroupHandler
 {
-    public function __construct(protected MediaItemRepository $mediaItemRepository)
-    {
+    public function __construct(
+        private MediaItemRepository $mediaItemRepository,
+        private EntityManagerInterface $entityManager,
+    ) {
     }
 
-    public function handle(SaveMediaGroup $saveMediaGroup): void
+    public function __invoke(SaveMediaGroup $saveMediaGroup): void
     {
         /** @var MediaGroup $mediaGroup */
         $mediaGroup = MediaGroup::fromDataTransferObject($saveMediaGroup);
@@ -41,5 +46,7 @@ final class SaveMediaGroupHandler
                 // Do nothing
             }
         }
+
+        $this->entityManager->flush();
     }
 }

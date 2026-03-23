@@ -4,14 +4,12 @@ namespace Backend\Modules\MediaLibrary\Manager;
 
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Command\DeleteMediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
-use SimpleBus\Message\Bus\Middleware\MessageBusSupportingMiddleware;
+use Symfony\Component\Messenger\MessageBusInterface;
 
-class MediaItemManager
+final readonly class MediaItemManager
 {
     public function __construct(
-        private readonly MediaItemRepository $mediaItemRepository,
-        private readonly MessageBusSupportingMiddleware $commandBus,
+        private MessageBusInterface $messageBus,
     ) {
     }
 
@@ -20,7 +18,7 @@ class MediaItemManager
         $deleteMediaItem = new DeleteMediaItem($mediaItem);
 
         // Handle the MediaItem delete
-        $this->commandBus->handle($deleteMediaItem);
+        $this->messageBus->dispatch($deleteMediaItem);
 
         return $deleteMediaItem;
     }

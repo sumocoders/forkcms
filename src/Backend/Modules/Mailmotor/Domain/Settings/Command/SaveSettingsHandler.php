@@ -4,7 +4,9 @@ namespace Backend\Modules\Mailmotor\Domain\Settings\Command;
 
 use Backend\Core\Language\Language;
 use Common\ModulesSettings;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 final readonly class SaveSettingsHandler
 {
     private const string MODULE_NAME = 'Mailmotor';
@@ -13,7 +15,7 @@ final readonly class SaveSettingsHandler
     {
     }
 
-    public function handle(SaveSettings $settings): void
+    public function __invoke(SaveSettings $settings): void
     {
         $this->modulesSettings->set(self::MODULE_NAME, 'mail_engine', $settings->mailEngine);
         $this->modulesSettings->set(self::MODULE_NAME, 'double_opt_in', $settings->doubleOptIn);

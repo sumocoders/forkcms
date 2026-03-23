@@ -5,6 +5,7 @@ namespace Backend\Modules\MediaGalleries\Domain\MediaGallery;
 use Doctrine\ORM\Mapping as ORM;
 use Backend\Core\Engine\Model;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
+use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Common\ModuleExtraType;
 
 /**
@@ -17,8 +18,9 @@ class MediaGallery
      * @var string
      *
      * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="guid")
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class=UuidGenerator::class)
+     * @ORM\Column(type="uuid")
      */
     private $id;
 

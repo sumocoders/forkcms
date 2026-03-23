@@ -5,14 +5,16 @@ namespace Backend\Modules\FormBuilder\Command;
 use Backend\Core\Engine\Model as BackendModel;
 use Common\ModuleExtraType;
 use SpoonDatabase;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 final readonly class CopyFormWidgetsToOtherLocaleHandler
 {
     public function __construct(private SpoonDatabase $database)
     {
     }
 
-    public function handle(CopyFormWidgetsToOtherLocale $command): void
+    public function __invoke(CopyFormWidgetsToOtherLocale $command): void
     {
         $currentWidgets = (array) $this->database->getRecords(
             'SELECT * FROM modules_extras WHERE module = ? AND type = ? AND action = ?',

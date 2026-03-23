@@ -4,16 +4,20 @@ namespace Backend\Modules\MediaLibrary\Domain\MediaItem\Command;
 
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-final class CreateMediaItemFromMovieUrlHandler
+#[AsMessageHandler]
+final readonly class CreateMediaItemFromMovieUrlHandler
 {
-    public function __construct(protected MediaItemRepository $mediaItemRepository)
-    {
+    public function __construct(
+        private MediaItemRepository $mediaItemRepository,
+        private EntityManagerInterface $entityManager,
+    ) {
     }
 
-    public function handle(CreateMediaItemFromMovieUrl $createMediaItemFromMovieUrl): void
+    public function __invoke(CreateMediaItemFromMovieUrl $createMediaItemFromMovieUrl): void
     {
-        /** @var MediaItem $mediaItem */
         $mediaItem = MediaItem::createFromMovieUrl(
             $createMediaItemFromMovieUrl->source,
             $createMediaItemFromMovieUrl->movieId,
@@ -25,5 +29,7 @@ final class CreateMediaItemFromMovieUrlHandler
         $createMediaItemFromMovieUrl->setMediaItem($mediaItem);
 
         $this->mediaItemRepository->add($mediaItem);
+
+        $this->entityManager->flush();
     }
 }

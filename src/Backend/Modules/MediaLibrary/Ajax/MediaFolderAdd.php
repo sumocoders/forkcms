@@ -10,6 +10,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFoun
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use Common\Exception\AjaxExitException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * This AJAX-action will add a new MediaFolder.
@@ -52,7 +53,9 @@ class MediaFolderAdd extends BackendBaseAJAXAction
         );
 
         // Handle the MediaFolder create
-        $this->get('command_bus')->handle($createMediaFolder);
+        /** @var MessageBusInterface $messageBus */
+        $messageBus = $this->get('messenger.default_bus');
+        $messageBus->dispatch($createMediaFolder);
 
         return $createMediaFolder;
     }
