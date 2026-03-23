@@ -76,6 +76,7 @@ class MediaItemUpload extends BackendBaseAJAXAction
     {
         parent::execute();
 
+        dump('starting upload');
         $this->request = $this->getRequest();
         $this->response = $this->createResponse();
         $this->uploadHandler = $this->createUploader();
@@ -102,6 +103,7 @@ class MediaItemUpload extends BackendBaseAJAXAction
             // Remove the old folder
             $this->fileManager->deleteFolder($this->uploadDirectory . '/' . $result['uuid']);
         }
+        dump($newName);
 
         /** @var CreateMediaItemFromLocalStorageType $createMediaItem */
         $createMediaItemFromLocalSource = new CreateMediaItemFromLocalStorageType(
@@ -111,6 +113,8 @@ class MediaItemUpload extends BackendBaseAJAXAction
         );
 
         $this->messageBus->dispatch($createMediaItemFromLocalSource);
+
+        dump('finished upload');
 
         $this->sendResponseForResult(
             array_merge(

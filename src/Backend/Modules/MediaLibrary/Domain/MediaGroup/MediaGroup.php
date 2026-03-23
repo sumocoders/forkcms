@@ -10,8 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use JsonSerializable;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * MediaGroup
@@ -54,7 +53,7 @@ class MediaGroup implements JsonSerializable, Countable
          * @ORM\Id
          * @ORM\Column(type="uuid")
          */
-        private UuidInterface $id,
+        private Uuid $id,
         /**
          * @ORM\Column(type="media_group_type")
          */
@@ -67,13 +66,13 @@ class MediaGroup implements JsonSerializable, Countable
         Type $type
     ): self {
         return new self(
-            Uuid::uuid4(),
+            Uuid::v4(),
             $type
         );
     }
 
     public static function createFromId(
-        UuidInterface $id,
+        Uuid $id,
         Type $type
     ): self {
         return new self(
@@ -123,7 +122,7 @@ class MediaGroup implements JsonSerializable, Countable
         ];
     }
 
-    public function getId(): UuidInterface
+    public function getId(): Uuid
     {
         return $this->id;
     }

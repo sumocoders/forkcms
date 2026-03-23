@@ -7,8 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
 use JsonSerializable;
-use Ramsey\Uuid\Doctrine\UuidGenerator;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * MediaGroup MediaItem
@@ -18,11 +17,9 @@ use Ramsey\Uuid\UuidInterface;
 class MediaGroupMediaItem implements JsonSerializable
 {
     /**
-     * @var UuidInterface
+     * @var Uuid
      *
      * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class=UuidGenerator::class)
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
@@ -81,6 +78,7 @@ class MediaGroupMediaItem implements JsonSerializable
         MediaItem $item,
         int $sequence
     ) {
+        $this->id = Uuid::v4();
         $this->group = $group;
         $this->item = $item;
         $this->createdOn = new DateTime();
@@ -102,14 +100,14 @@ class MediaGroupMediaItem implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->id->toRfc4122(),
             'item' => $this->item,
             'createdOn' => $this->createdOn->getTimestamp(),
             'sequence' => $this->sequence,
         ];
     }
 
-    public function getId(): int
+    public function getId(): Uuid
     {
         return $this->id;
     }

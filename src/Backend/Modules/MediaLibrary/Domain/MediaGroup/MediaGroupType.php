@@ -8,7 +8,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\AspectRatio;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\StorageType;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Type as MediaItemPossibleType;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\Type as MediaGroupPossibleType;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Exception\LogicException;
@@ -183,7 +183,7 @@ class MediaGroupType extends AbstractType
     private function getMediaGroupTransformFunction(): callable
     {
         return static fn(MediaGroup $mediaGroup) => [
-            'id' => $mediaGroup->getId(),
+            'id' => $mediaGroup->getId()->toRfc4122(),
             'type' => $mediaGroup->getType(),
             'mediaIds' => implode(',', $mediaGroup->getIdsForConnectedItems()),
             'mediaGroup' => $mediaGroup,

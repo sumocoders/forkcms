@@ -6,8 +6,8 @@ use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
 use Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
+use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\EntityManagerInterface;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
