@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use Backend\Core\Engine\Model;
-use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * MediaItem
@@ -26,12 +26,10 @@ use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 class MediaItem implements JsonSerializable
 {
     /**
-     * @var string
+     * @var Uuid
      *
      * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class=UuidGenerator::class)
-     * @ORM\Column(type="uuid")
+     * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
@@ -163,6 +161,7 @@ class MediaItem implements JsonSerializable
         MediaFolder $folder,
         int $userId
     ) {
+        $this->id = Uuid::v4();
         $this->folder = $folder;
         $this->userId = $userId;
         $this->type = $type;
