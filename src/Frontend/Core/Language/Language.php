@@ -422,4 +422,44 @@ class Language
 
         return vsprintf($label, $parameters);
     }
+
+    /**
+     * Get a message with parameters
+     *
+     * @param string $key
+     * @param array  $parameters
+     * @param bool   $fallback
+     *
+     * @return string
+     */
+    public static function msgWithParameters(string $key, array $parameters = [], bool $fallback = true): string
+    {
+        $message = self::getMessage($key, $fallback);
+
+        if ($parameters === []) {
+            return $message;
+        }
+
+        return vsprintf($message, $parameters);
+    }
+
+    /**
+     * Get an error with parameters
+     *
+     * @param string $key
+     * @param array  $parameters
+     * @param bool   $fallback
+     *
+     * @return string
+     */
+    public static function errWithParameters(string $key, array $parameters = [], bool $fallback = true): string
+    {
+        $error = self::getError($key, $fallback);
+
+        if ($parameters === []) {
+            return $error;
+        }
+
+        return vsprintf($error, $parameters);
+    }
 }
