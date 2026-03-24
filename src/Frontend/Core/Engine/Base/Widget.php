@@ -96,13 +96,11 @@ class Widget extends KernelLoader
      *
      * @param string $file The path for the CSS-file that should be loaded.
      * @param bool $overwritePath Whether or not to add the module to this path. Module path is added by default.
-     * @param bool $minify Should the CSS be minified?
      * @param bool $addTimestamp May we add a timestamp for caching purposes?
      */
     public function addCSS(
         string $file,
         bool $overwritePath = false,
-        bool $minify = true,
         bool $addTimestamp = true
     ): void {
         // external urls always overwrite the path
@@ -112,7 +110,7 @@ class Widget extends KernelLoader
             $file = '/src/Frontend/Modules/' . $this->getModule() . '/Layout/Css/' . $file;
         }
 
-        $this->header->addCSS($file, $minify, $addTimestamp, Priority::widget());
+        $this->header->addCSS($file, $addTimestamp, Priority::widget());
     }
 
     /**
@@ -120,13 +118,11 @@ class Widget extends KernelLoader
      *
      * @param string $file The path to the javascript-file that should be loaded.
      * @param bool $overwritePath Whether or not to add the module to this path. Module path is added by default.
-     * @param bool $minify Should the file be minified?
      * @param bool $addTimestamp May we add a timestamp for caching purposes?
      */
     public function addJS(
         string $file,
         bool $overwritePath = false,
-        bool $minify = true,
         bool $addTimestamp = true
     ): void {
         // external urls always overwrite the path
@@ -136,7 +132,7 @@ class Widget extends KernelLoader
             $file = '/src/Frontend/Modules/' . $this->getModule() . '/Js/' . $file;
         }
 
-        $this->header->addJS($file, $minify, $addTimestamp, Priority::widget());
+        $this->header->addJS($file, $addTimestamp, Priority::widget());
     }
 
     /**
@@ -167,7 +163,6 @@ class Widget extends KernelLoader
             $this->header->addJS(
                 $frontendModuleUrl . '/' . $this->getModule() . '.js',
                 true,
-                true,
                 Priority::widget()
             );
         }
@@ -176,7 +171,6 @@ class Widget extends KernelLoader
         if (is_file($frontendModulePath . '/Js/' . $this->getAction() . '.js')) {
             $this->header->addJS(
                 $frontendModuleUrl . '/' . $this->getAction() . '.js',
-                true,
                 true,
                 Priority::widget()
             );

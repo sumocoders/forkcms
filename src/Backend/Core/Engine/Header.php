@@ -77,24 +77,24 @@ final class Header extends KernelLoader
 
     private function addCoreJs(): void
     {
-        $this->addJS('/js/vendors/jquery.min.js', 'Core', false, true, true, Priority::core());
-        $this->addJS('/js/vendors/jquery-migrate.min.js', 'Core', false, true, true, Priority::core());
-        $this->addJS('/js/vendors/jquery-ui.min.js', 'Core', false, true, true, Priority::core());
-        $this->addJS('/js/vendors/bootstrap.min.js', 'Core', false, true, true, Priority::core());
-        $this->addJS('/js/vendors/typeahead.bundle.min.js', 'Core', false, true, true, Priority::core());
-        $this->addJS('/js/vendors/bootstrap-tagsinput.min.js', 'Core', false, true, true, Priority::core());
-        $this->addJS('jquery/jquery.backend.js', 'Core', true, false, true, Priority::core());
-        $this->addJS('utils.js', 'Core', true, false, true, Priority::core());
-        $this->addJS('backend.js', 'Core', true, false, true, Priority::core());
+        $this->addJS('/js/vendors/jquery.min.js', 'Core', true, true, Priority::core());
+        $this->addJS('/js/vendors/jquery-migrate.min.js', 'Core', true, true, Priority::core());
+        $this->addJS('/js/vendors/jquery-ui.min.js', 'Core', true, true, Priority::core());
+        $this->addJS('/js/vendors/bootstrap.min.js', 'Core', true, true, Priority::core());
+        $this->addJS('/js/vendors/typeahead.bundle.min.js', 'Core', true, true, Priority::core());
+        $this->addJS('/js/vendors/bootstrap-tagsinput.min.js', 'Core', true, true, Priority::core());
+        $this->addJS('jquery/jquery.backend.js', 'Core', false, true, Priority::core());
+        $this->addJS('utils.js', 'Core', false, true, Priority::core());
+        $this->addJS('backend.js', 'Core', false, true, Priority::core());
     }
 
     private function addCoreCss(): void
     {
-        $this->addCSS('/css/vendors/bootstrap-tagsinput.css', 'Core', true, true, true, Priority::core());
-        $this->addCSS('/css/vendors/bootstrap-tagsinput-typeahead.css', 'Core', true, true, true, Priority::core());
-        $this->addCSS('/css/vendors/bootstrap-accessibility.css', 'Core', true, true, true, Priority::core());
-        $this->addCSS('screen.css', 'Core', false, true, true, Priority::core());
-        $this->addCSS('debug.css', 'Core', false, true, true, Priority::debug());
+        $this->addCSS('/css/vendors/bootstrap-tagsinput.css', 'Core', true, true, Priority::core());
+        $this->addCSS('/css/vendors/bootstrap-tagsinput-typeahead.css', 'Core', true, true, Priority::core());
+        $this->addCSS('/css/vendors/bootstrap-accessibility.css', 'Core', true, true, Priority::core());
+        $this->addCSS('screen.css', 'Core', false, true, Priority::core());
+        $this->addCSS('debug.css', 'Core', false, true, Priority::debug());
     }
 
     private function buildPathForModule(string $fileName, string $module, string $subDirectory): string
@@ -121,7 +121,6 @@ final class Header extends KernelLoader
      * @param string $module The module wherein the file is located.
      * @param bool $overwritePath Should we overwrite the full path?
      *                            An external url will always be handled with $overwritePath as true.
-     * @param bool $minify Should the CSS be minified?
      * @param bool $addTimestamp May we add a timestamp for caching purposes?
      * @param Priority $priority the files are added based on the priority
      *                           defaults to standard for full links or core or module for core or module css
@@ -130,22 +129,19 @@ final class Header extends KernelLoader
         string $file,
         ?string $module = null,
         bool $overwritePath = false,
-        bool $minify = true,
         bool $addTimestamp = true,
         ?Priority $priority = null
     ): void {
         $module ??= $this->url->getModule();
         $isExternalUrl = $this->get('fork.validator.url')->isExternalUrl($file);
         $overwritePath = $overwritePath || $isExternalUrl; // external urls always overwrite the path
-        $minify = $minify && !$isExternalUrl;
 
         $this->cssFiles->add(
             new Asset(
                 $overwritePath ? $file : $this->buildPathForModule($file, $module, 'Layout/Css'),
                 $addTimestamp,
                 $priority ?? ($overwritePath ? Priority::standard() : Priority::forModule($module))
-            ),
-            $minify
+            )
         );
     }
 
@@ -156,7 +152,6 @@ final class Header extends KernelLoader
      *
      * @param string $file The file to load.
      * @param string $module The module wherein the file is located.
-     * @param bool $minify Should the javascript be minified?
      * @param bool $overwritePath Should we overwrite the full path?
      *                            An external url will always be handled with $overwritePath as true.
      * @param bool $addTimestamp May we add a timestamp for caching purposes?
@@ -166,7 +161,6 @@ final class Header extends KernelLoader
     public function addJS(
         string $file,
         ?string $module = null,
-        bool $minify = true,
         bool $overwritePath = false,
         bool $addTimestamp = true,
         ?Priority $priority = null
@@ -174,7 +168,6 @@ final class Header extends KernelLoader
         $module ??= $this->url->getModule();
         $isExternalUrl = $this->get('fork.validator.url')->isExternalUrl($file);
         $overwritePath = $overwritePath || $isExternalUrl; // external urls always overwrite the path
-        $minify = $minify && !$isExternalUrl;
 
         $this->jsFiles->add(
             new Asset(
@@ -182,7 +175,6 @@ final class Header extends KernelLoader
                 $addTimestamp,
                 $priority ?? ($overwritePath ? Priority::standard() : Priority::forModule($module))
             ),
-            $minify
         );
     }
 

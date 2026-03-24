@@ -19,11 +19,11 @@ class AssetCollectionTest extends TestCase
         $asset4 = new Asset(__DIR__ . '/../../../../../js/vendors/bootstrap.min.js', false, Priority::core());
         $asset5 = new Asset(__DIR__ . '/../../../../../js/vendors/jquery.min.js', false, Priority::core());
 
-        $assetCollection->add($asset1, false);
-        $assetCollection->add($asset2, false);
-        $assetCollection->add($asset3, false);
-        $assetCollection->add($asset4, false);
-        $assetCollection->add($asset5, false);
+        $assetCollection->add($asset1);
+        $assetCollection->add($asset2);
+        $assetCollection->add($asset3);
+        $assetCollection->add($asset4);
+        $assetCollection->add($asset5);
 
         $unorderedAssets = $assetCollection->getAssets();
         self::assertEquals($asset1, $unorderedAssets[$asset1->getFile()]);

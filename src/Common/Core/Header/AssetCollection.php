@@ -9,7 +9,7 @@ final class AssetCollection
     /** @var Asset[] */
     private $assets = [];
 
-    public function add(Asset $asset, bool $minify = true): void
+    public function add(Asset $asset): void
     {
         // we already have it we don't need to add it again
         if (array_key_exists($asset->getFile(), $this->assets)) {

@@ -68,16 +68,15 @@ class Form extends \Common\Core\Form
         $HTML = (bool) $HTML;
 
         // we add JS because we need CKEditor
-        $this->header->addJS('ckeditor/ckeditor.js', 'Core', false);
-        $this->header->addJS('ckeditor/adapters/jquery.js', 'Core', false);
-        $this->header->addJS('ckfinder/ckfinder.js', 'Core', false);
+        $this->header->addJS('ckeditor/ckeditor.js', 'Core');
+        $this->header->addJS('ckeditor/adapters/jquery.js', 'Core');
+        $this->header->addJS('ckfinder/ckfinder.js', 'Core');
 
         // add the internal link lists-file
         if (is_file(FRONTEND_CACHE_PATH . '/Navigation/editor_link_list_' . BackendLanguage::getWorkingLanguage() . '.js')) {
             $this->header->addJS(
                 '/src/Frontend/Cache/Navigation/editor_link_list_' . BackendLanguage::getWorkingLanguage() . '.js',
                 null,
-                false,
                 true,
                 true
             );
