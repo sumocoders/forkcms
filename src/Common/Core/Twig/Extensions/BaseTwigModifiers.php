@@ -2,6 +2,9 @@
 
 namespace Common\Core\Twig\Extensions;
 
+use Backend\Core\Language\Language as BackendLanguage;
+use IntlDateFormatter;
+
 /**
  * Contains Base Frontend-related custom modifiers.
  * These filters work independent of front/backend.
@@ -187,7 +190,16 @@ class BaseTwigModifiers
             $timestamp = strtotime($timestamp);
         }
 
-        return \SpoonDate::getDate($format, $timestamp, $language);
+        $date = new IntlDateFormatter(
+            BackendLanguage::getInterfaceLanguage(),
+            IntlDateFormatter::SHORT,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'dd MMMM yyyy'
+        )->format((int) $timestamp);
+
+        return $date;
     }
 
     /**
