@@ -10,7 +10,7 @@ use Frontend\Core\Language\Language;
 use Frontend\Core\Language\Locale;
 use Frontend\Modules\Profiles\Engine\Model as FrontendProfilesModel;
 use Common\Core\Twig\Extensions\BaseTwigModifiers;
-use SpoonDate;
+use IntlDateFormatter;
 use Twig\Error\Error;
 use function Symfony\Component\String\s;
 
@@ -29,15 +29,20 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function formatDate($var): string
     {
-        // get setting
-        $format = FrontendModel::get('fork.settings')->get('Core', 'date_format_short');
-
         if ($var instanceof DateTime) {
             $var = $var->getTimestamp();
         }
 
-        // format the date
-        return SpoonDate::getDate($format, (int) $var, Locale::frontendLanguage());
+        $date = new IntlDateFormatter(
+            Locale::frontendLanguage(),
+            IntlDateFormatter::SHORT,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'dd.MM.yyyy'
+        )->format((int) $var);
+
+        return $date;
     }
 
     /**
@@ -50,15 +55,20 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function formatDateTime($var): string
     {
-        // get setting
-        $format = FrontendModel::get('fork.settings')->get('Core', 'date_format_long');
-
         if ($var instanceof DateTime) {
             $var = $var->getTimestamp();
         }
 
-        // format the date
-        return SpoonDate::getDate($format, (int) $var, Locale::frontendLanguage());
+        $date = new IntlDateFormatter(
+            Locale::frontendLanguage(),
+            IntlDateFormatter::LONG,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'EEEE d MMMM yyyy'
+        )->format((int) $var);
+
+        return $date;
     }
 
     /**
@@ -108,7 +118,7 @@ class TemplateModifiers extends BaseTwigModifiers
 
     /**
      * Format a UNIX-timestamp as a date
-     * syntax: {{ $var|formatdate }}
+     * syntax: {{ $var|formattime }}
      *
      * @param int|DateTime $var The UNIX-timestamp to format or \DateTime
      *
@@ -116,15 +126,20 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function formatTime($var): string
     {
-        // get setting
-        $format = FrontendModel::get('fork.settings')->get('Core', 'time_format');
-
         if ($var instanceof DateTime) {
             $var = $var->getTimestamp();
         }
 
-        // format the date
-        return SpoonDate::getDate($format, (int) $var, Locale::frontendLanguage());
+        $date = new IntlDateFormatter(
+            Locale::frontendLanguage(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::SHORT,
+            null,
+            null,
+            'HH:mm'
+        )->format((int) $var);
+
+        return $date;
     }
 
     /**
