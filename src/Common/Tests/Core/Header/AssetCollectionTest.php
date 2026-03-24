@@ -4,7 +4,6 @@ namespace Common\Tests\Core\Header;
 
 use Common\Core\Header\Asset;
 use Common\Core\Header\AssetCollection;
-use Common\Core\Header\Minifier;
 use Common\Core\Header\Priority;
 use PHPUnit\Framework\TestCase;
 
@@ -12,7 +11,7 @@ class AssetCollectionTest extends TestCase
 {
     public function testAddAssetToCollection(): void
     {
-        $assetCollection = new AssetCollection(Minifier::js(__DIR__, __DIR__, __DIR__));
+        $assetCollection = new AssetCollection();
 
         $asset1 = new Asset(__DIR__ . '/../../../../../js/vendors/jquery-ui.min.js', false, Priority::standard());
         $asset2 = new Asset(__DIR__ . '/../../../../../js/vendors/slick.min.js', false, Priority::module());

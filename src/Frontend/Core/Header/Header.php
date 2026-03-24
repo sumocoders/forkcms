@@ -5,7 +5,6 @@ namespace Frontend\Core\Header;
 use Common\Core\Header\Asset;
 use Common\Core\Header\AssetCollection;
 use Common\Core\Header\JsData;
-use Common\Core\Header\Minifier;
 use Common\Core\Header\Priority;
 use ForkCMS\App\KernelLoader;
 use ForkCMS\Google\TagManager\TagManager;
@@ -103,20 +102,8 @@ class Header extends KernelLoader
         $this->template = $container->get('templating');
         $this->url = $container->get('url');
 
-        $this->cssFiles = new AssetCollection(
-            Minifier::css(
-                $container->getParameter('site.path_www'),
-                FRONTEND_CACHE_URL . '/MinifiedCss/',
-                FRONTEND_CACHE_PATH . '/MinifiedCss/'
-            )
-        );
-        $this->jsFiles = new AssetCollection(
-            Minifier::js(
-                $container->getParameter('site.path_www'),
-                FRONTEND_CACHE_URL . '/MinifiedJs/',
-                FRONTEND_CACHE_PATH . '/MinifiedJs/'
-            )
-        );
+        $this->cssFiles = new AssetCollection();
+        $this->jsFiles = new AssetCollection();
 
         $jsData = [
             'LANGUAGE' => Locale::frontendLanguage(),
