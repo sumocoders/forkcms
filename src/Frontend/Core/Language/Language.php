@@ -402,4 +402,24 @@ class Language
     {
         return self::getMessage($key, $fallback);
     }
+
+    /**
+     * Get a label with parameters
+     *
+     * @param string $key
+     * @param array  $parameters
+     * @param bool   $fallback
+     *
+     * @return string
+     */
+    public static function lblWithParameters(string $key, array $parameters = [], bool $fallback = true): string
+    {
+        $label = self::getLabel($key, $fallback);
+
+        if ($parameters === []) {
+            return $label;
+        }
+
+        return vsprintf($label, $parameters);
+    }
 }
