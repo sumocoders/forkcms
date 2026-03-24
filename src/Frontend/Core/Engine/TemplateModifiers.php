@@ -202,13 +202,61 @@ class TemplateModifiers extends BaseTwigModifiers
             return '';
         }
 
-        // return
-        return '<abbr title="'.\SpoonDate::getDate(
-            FrontendModel::get('fork.settings')->get('Core', 'date_format_long') .', '
-            . FrontendModel::get('fork.settings')->get('Core', 'time_format'),
-            $timestamp,
-            Locale::frontendLanguage()
-        ).'">'.\SpoonDate::getTimeAgo($timestamp, Locale::frontendLanguage()).'</abbr>';
+        $now = time();
+        $diff = $now - $timestamp;
+
+        if ($diff < 0) {
+            $diff = -$diff;
+        }
+
+        $seconds = (int) $diff;
+        $minutes = (int) floor($seconds / 60);
+        $hours   = (int) floor($seconds / 3600);
+        $days    = (int) floor($seconds / 86400);
+        $months  = (int) floor($seconds / (30 * 86400));
+        $years   = (int) floor($seconds / (365 * 86400));
+
+        // Decide unit
+        if ($years > 0) {
+            $count = $years;
+            $keySingular = 'TimeAgoYearSingular';
+            $keyPlural   = 'TimeAgoYearPlural';
+        } elseif ($months > 0) {
+            $count = $months;
+            $keySingular = 'TimeAgoMonthSingular';
+            $keyPlural   = 'TimeAgoMonthPlural';
+        } elseif ($days > 0) {
+            $count = $days;
+            $keySingular = 'TimeAgoDaySingular';
+            $keyPlural   = 'TimeAgoDayPlural';
+        } elseif ($hours > 0) {
+            $count = $hours;
+            $keySingular = 'TimeAgoHourSingular';
+            $keyPlural   = 'TimeAgoHourPlural';
+        } elseif ($minutes > 0) {
+            $count = $minutes;
+            $keySingular = 'TimeAgoMinuteSingular';
+            $keyPlural   = 'TimeAgoMinutePlural';
+        } else {
+            $count = $seconds;
+            $keySingular = 'TimeAgoSecondSingular';
+            $keyPlural   = 'TimeAgoSecondPlural';
+        }
+
+        if ($count <= 0) {
+            return Language::lbl('TimeAgoEmpty');
+        }
+
+        if ($count === 1) {
+            return Language::lbl($keySingular);
+        }
+
+        return Language::lblWithParameters(
+            $keyPlural,
+            [
+                $count
+            ]
+        );
     }
 
     /**
