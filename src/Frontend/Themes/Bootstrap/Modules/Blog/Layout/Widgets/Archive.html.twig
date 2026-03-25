@@ -32,7 +32,7 @@ variables that are available:
                       <li>
                         {% if month.url %}
                         <a href="{{ month.url }}">{% endif %}
-                          {{ month.label|spoondate('F',LANGUAGE ) }}
+                          {{ month.label|customformatdate('MMMM', LANGUAGE) }}
                           {% if month.url %}</a>{% endif %}
                         <span class="badge">{{ month.total }}</span>
                       </li>

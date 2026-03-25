@@ -16,9 +16,9 @@ variables that are available:
           <header class="module-header">
             <h3>
               {% if archive.month %}
-                {{ 'msg.ArticlesFor'|trans|ucfirst|format(archive.start_date|spoondate('F Y',LANGUAGE) ) }}
+                {{ 'msg.ArticlesFor'|trans|ucfirst|format(archive.start_date|customformatdate('MMMM YYYY', LANGUAGE)) }}
               {% else %}
-                {{ 'msg.ArticlesFor'|trans|ucfirst|format(archive.start_date|date('Y') ) }}
+                {{ 'msg.ArticlesFor'|trans|ucfirst|format(archive.start_date|date('Y')) }}
               {% endif %}
             </h3>
           </header>
@@ -35,7 +35,7 @@ variables that are available:
               {% for item in items %}
                 <tr>
                   <td>
-                    <time itemprop="datePublished" datetime="{{ item.publish_on|date('Y-m-d\\TH:i:s.vP' ) }}">{{ item.publish_on|spoondate('d/m/Y',LANGUAGE ) }}</time>
+                    <time itemprop="datePublished" datetime="{{ item.publish_on|date('Y-m-d\\TH:i:s.vP') }}">{{ item.publish_on|customformatdate('dd/mm/yy', LANGUAGE) }}</time>
                   </td>
                   <td><a href="{{ item.full_url }}" title="{{ item.title }}">{{ item.title }}</a></td>
                   {% if allowComments %}
@@ -56,7 +56,7 @@ variables that are available:
             </table>
           </div>
         </section>
-        {% include "Core/Layout/Templates/Pagination.html.twig" %}
+        {{ include('Core/Layout/Templates/Pagination.html.twig') }}
       {% endif %}
     </div>
   </div>

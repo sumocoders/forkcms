@@ -1,11 +1,11 @@
 {% extends 'Layout/Templates/base.html.twig' %}
-{% import "Layout/Templates/macros.html.twig" as macro %}
+{% import 'Layout/Templates/macros.html.twig' as macro %}
 
 {% block actionbar %}
   <div class="btn-toolbar pull-right">
     <div class="btn-group" role="group">
       {% if isAllowedAction('Data') %}
-        {{ macro.buttonIcon( geturl('data') ~ '&id=' ~ formId ~ '&start_date=' ~ filter.start_date ~ '&end_date=' ~ filter.end_date, 'list', 'lbl.BackToData'|trans|ucfirst) }}
+        {{ macro.buttonIcon(geturl('data') ~ '&id=' ~ formId ~ '&start_date=' ~ filter.start_date ~ '&end_date=' ~ filter.end_date, 'list', 'lbl.BackToData'|trans|ucfirst) }}
       {% endif %}
     </div>
   </div>
@@ -41,7 +41,7 @@
           <table class="table">
             <tr>
               <th>{{ 'lbl.SentOn'|trans|ucfirst }}:</th>
-              <td>{{ sentOn|spoondate }}</td>
+              <td>{{ sentOn|formatdatetime }}</td>
             </tr>
           </table>
         </div>
@@ -71,8 +71,8 @@
                 <p>{{ 'msg.ConfirmDeleteData'|trans|ucfirst }}</p>
               </div>
               <div class="modal-footer">
-                {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "data-dismiss":"modal", "type":"button" } ) }}
-                {{ macro.buttonIcon(geturl('mass_data_action') ~ '&action=delete&form_id=' ~ formId ~ '&id=' ~ id, 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger' ) }}
+                {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', {'data-dismiss': 'modal', type: 'button'}) }}
+                {{ macro.buttonIcon(geturl('mass_data_action') ~ '&action=delete&form_id=' ~ formId ~ '&id=' ~ id, 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger') }}
               </div>
             </div>
           </div>

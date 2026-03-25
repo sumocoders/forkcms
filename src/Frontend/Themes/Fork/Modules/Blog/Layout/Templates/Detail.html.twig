@@ -1,4 +1,4 @@
-{% extends "@ForkFrontendModules/Blog/Layout/Templates/Detail.html.twig" %}
+{% extends '@ForkFrontendModules/Blog/Layout/Templates/Detail.html.twig' %}
 
 {% block block_heading %}
   <header class="block-heading page-header" role="banner">
@@ -11,7 +11,7 @@
         {{ 'msg.WrittenBy'|trans|ucfirst|format(item.user_id|usersetting('nickname')) }}
         {{ 'lbl.On'|trans }}
         <time itemprop="datePublished" datetime="{{ item.publish_on|date('Y-m-d\\TH:i:s') }}">
-          {{ item.publish_on|spoondate(dateFormatLong, LANGUAGE) }}
+          {{ item.publish_on|customformatdate('EEEE d MMMM yyyy', LANGUAGE) }}
         </time>
       </div>
       <div class="col-xs-12 col-md-6">
@@ -19,12 +19,12 @@
           {% if item.allow_comments %}
             {% if not item.comments %}
               <a href="{{ item.full_url }}#{{ 'act.Comment'|trans }}" itemprop="discussionUrl">
-                {{ 'msg.BlogNumberOfComments'|trans|format(item.comments_count ) }}
+                {{ 'msg.BlogNumberOfComments'|trans|format(item.comments_count) }}
               </a>
             {% else %}
               <a href="{{ item.full_url }}#{{ 'act.Comments'|trans }}" itemprop="discussionUrl">
                 {% if item.comments_multiple %}
-                  {{ 'msg.BlogNumberOfComments'|trans|format(item.comments_count ) }}
+                  {{ 'msg.BlogNumberOfComments'|trans|format(item.comments_count) }}
                 {% else %}
                   {{ 'msg.BlogOneComment'|trans }}
                 {% endif %}
