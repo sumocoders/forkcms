@@ -82,10 +82,10 @@ class Add extends BackendBaseActionAdd
         parent::execute();
 
         // add js
-        $this->header->addJS('jstree/jquery.tree.js', null, false);
-        $this->header->addJS('jstree/lib/jquery.cookie.js', null, false);
-        $this->header->addJS('jstree/plugins/jquery.tree.cookie.js', null, false);
-        $this->header->addJS('/js/vendors/SimpleAjaxUploader.min.js', 'Core', false, true);
+        $this->header->addJS('jstree/jquery.tree.js');
+        $this->header->addJS('jstree/lib/jquery.cookie.js');
+        $this->header->addJS('jstree/plugins/jquery.tree.cookie.js');
+        $this->header->addJS('/js/vendors/SimpleAjaxUploader.min.js', null, true);
 
         // get the templates
         $this->templates = BackendExtensionsModel::getTemplates();

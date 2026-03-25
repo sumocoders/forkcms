@@ -5,3 +5,5 @@ services:
         public: true
 
     Backend\Modules\Location\Command\CopyLocationWidgetsToOtherLocaleHandler:
+        arguments:
+            $database: '@database'

@@ -5,3 +5,5 @@ services:
         public: true
 
     Backend\Modules\FormBuilder\Command\CopyFormWidgetsToOtherLocaleHandler:
+        arguments:
+            $database: '@database'

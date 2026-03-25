@@ -5,7 +5,6 @@ namespace Frontend\Core\Header;
 use Common\Core\Header\Asset;
 use Common\Core\Header\AssetCollection;
 use Common\Core\Header\JsData;
-use Common\Core\Header\Minifier;
 use Common\Core\Header\Priority;
 use ForkCMS\App\KernelLoader;
 use ForkCMS\Google\TagManager\TagManager;
@@ -103,20 +102,8 @@ class Header extends KernelLoader
         $this->template = $container->get('templating');
         $this->url = $container->get('url');
 
-        $this->cssFiles = new AssetCollection(
-            Minifier::css(
-                $container->getParameter('site.path_www'),
-                FRONTEND_CACHE_URL . '/MinifiedCss/',
-                FRONTEND_CACHE_PATH . '/MinifiedCss/'
-            )
-        );
-        $this->jsFiles = new AssetCollection(
-            Minifier::js(
-                $container->getParameter('site.path_www'),
-                FRONTEND_CACHE_URL . '/MinifiedJs/',
-                FRONTEND_CACHE_PATH . '/MinifiedJs/'
-            )
-        );
+        $this->cssFiles = new AssetCollection();
+        $this->jsFiles = new AssetCollection();
 
         $jsData = [
             'LANGUAGE' => Locale::frontendLanguage(),
@@ -131,59 +118,53 @@ class Header extends KernelLoader
 
         // debug stylesheet
         if ($container->getParameter('kernel.debug')) {
-            $this->addCSS('/src/Frontend/Core/Layout/Css/debug.css', true, true, Priority::debug());
+            $this->addCSS('/src/Frontend/Core/Layout/Css/debug.css', true, Priority::debug());
         }
 
         // add default javascript-files
-        $this->addJS('/js/vendors/jquery.min.js', false, true, Priority::core());
-        $this->addJS('/src/Frontend/Core/Js/jquery/jquery.frontend.js', true, true, Priority::core());
-        $this->addJS('/src/Frontend/Core/Js/utils.js', true, true, Priority::core());
-        $this->addJS('/src/Frontend/Core/Js/frontend.js', true, true, Priority::core());
+        $this->addJS('/js/vendors/jquery.min.js', true, Priority::core());
+        $this->addJS('/src/Frontend/Core/Js/jquery/jquery.frontend.js', true, Priority::core());
+        $this->addJS('/src/Frontend/Core/Js/utils.js', true, Priority::core());
+        $this->addJS('/src/Frontend/Core/Js/frontend.js', true, Priority::core());
         // @custom for SumoCoders
-        $this->addJS('/src/Frontend/Core/bundle.js', false, true, Priority::core());
-        $this->addJS('/src/Frontend/Core/icons.js', false, true, Priority::core());
+        $this->addJS('/src/Frontend/Core/bundle.js', true, Priority::core());
+        $this->addJS('/src/Frontend/Core/icons.js', true, Priority::core());
     }
 
     /**
      * Add a CSS file into the array
      *
      * @param string $file The path for the CSS-file that should be loaded.
-     * @param bool $minify Should the CSS be minified?
      * @param bool $addTimestamp May we add a timestamp for caching purposes?
      * @param Priority|null $priority Provides a way to change the order that things are loaded
      */
     public function addCSS(
         string $file,
-        bool $minify = true,
         bool $addTimestamp = true,
         ?Priority $priority = null
     ): void {
         $isExternalUrl = $this->get('fork.validator.url')->isExternalUrl($file);
         $file = $isExternalUrl ? $file : Theme::getPath($file);
-        $minify = $minify && !$isExternalUrl;
 
-        $this->cssFiles->add(new Asset($file, $addTimestamp, $priority), $minify);
+        $this->cssFiles->add(new Asset($file, $addTimestamp, $priority));
     }
 
     /**
      * Add a javascript file into the array
      *
      * @param string $file The path to the javascript-file that should be loaded.
-     * @param bool $minify Should the javascript be minified?
      * @param bool $addTimestamp May we add a timestamp for caching purposes?
      * @param Priority|null $priority Provides a way to change the order that things are loaded
      */
     public function addJS(
         string $file,
-        bool $minify = true,
         bool $addTimestamp = true,
         ?Priority $priority = null
     ): void {
         $isExternalUrl = $this->get('fork.validator.url')->isExternalUrl($file);
         $file = $isExternalUrl ? $file : Theme::getPath($file);
-        $minify = $minify && !$isExternalUrl;
 
-        $this->jsFiles->add(new Asset($file, $addTimestamp, $priority), $minify);
+        $this->jsFiles->add(new Asset($file, $addTimestamp, $priority));
     }
 
     /**
