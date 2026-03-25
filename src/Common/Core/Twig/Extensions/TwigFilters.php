@@ -117,7 +117,7 @@ class TwigFilters
         // @Deprecated We should look for replacements because they run on spoon library
         // after we have those we can remove them
 
-        $twig->addFilter(new TwigFilter('spoondate', $app . '::spoonDate'));
+        $twig->addFilter(new TwigFilter('customformatdate', $app . '::customFormatDate'));
         $twig->addFilter(new TwigFilter('formatdate', $app . '::formatDate'));
         $twig->addFilter(new TwigFilter('formattime', $app . '::formatTime'));
         $twig->addFilter(new TwigFilter('timeago', $app . '::timeAgo'));
