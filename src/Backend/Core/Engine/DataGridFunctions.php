@@ -71,7 +71,7 @@ class DataGridFunctions
         }
 
         // get user setting for long dates
-        $format = Authentication::getUser()->getSetting('date_format');
+        $format = 'j F Y';
 
         // format the date according the user his settings
         return SpoonDate::getDate($format, $timestamp, BackendLanguage::getInterfaceLanguage());
@@ -92,7 +92,7 @@ class DataGridFunctions
         }
 
         // get user setting for long dates
-        $format = Authentication::getUser()->getSetting('datetime_format');
+        $format = 'j F Y H:i';
 
         // format the date according the user his settings
         return SpoonDate::getDate($format, $timestamp, BackendLanguage::getInterfaceLanguage());
@@ -113,7 +113,7 @@ class DataGridFunctions
         }
 
         // get user setting for long dates
-        $format = Authentication::getUser()->getSetting('time_format');
+        $format = 'H:i';
 
         // format the date according the user his settings
         return SpoonDate::getDate($format, $timestamp, BackendLanguage::getInterfaceLanguage());
@@ -129,7 +129,7 @@ class DataGridFunctions
     public static function getTimeAgo(int $timestamp): string
     {
         // get user setting for long dates
-        $format = Authentication::getUser()->getSetting('datetime_format');
+        $format = 'j F Y H:i';
 
         // get the time ago as a string
         $timeAgo = SpoonDate::getTimeAgo($timestamp, BackendLanguage::getInterfaceLanguage(), $format);

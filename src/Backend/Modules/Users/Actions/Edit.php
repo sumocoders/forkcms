@@ -155,16 +155,6 @@ class Edit extends BackendBaseActionEdit
             $this->record['settings']['preferred_editor'] ?? BackendModel::getPreferredEditor()
         );
         $this->form->addDropdown(
-            'date_format',
-            BackendUsersModel::getDateFormats(),
-            $this->user->getSetting('date_format')
-        );
-        $this->form->addDropdown(
-            'time_format',
-            BackendUsersModel::getTimeFormats(),
-            $this->user->getSetting('time_format')
-        );
-        $this->form->addDropdown(
             'number_format',
             BackendUsersModel::getNumberFormats(),
             $this->user->getSetting('number_format', 'dot_nothing')
@@ -279,8 +269,6 @@ class Edit extends BackendBaseActionEdit
             $fields['surname']->isFilled(BL::err('SurnameIsRequired'));
             $fields['interface_language']->isFilled(BL::err('FieldIsRequired'));
             $fields['preferred_editor']->isFilled(BL::err('FieldIsRequired'));
-            $fields['date_format']->isFilled(BL::err('FieldIsRequired'));
-            $fields['time_format']->isFilled(BL::err('FieldIsRequired'));
             $fields['number_format']->isFilled(BL::err('FieldIsRequired'));
             if ($this->allowUserRights) {
                 $fields['groups']->isFilled(BL::err('FieldIsRequired'));
@@ -324,9 +312,6 @@ class Edit extends BackendBaseActionEdit
                 $settings['surname'] = $fields['surname']->getValue();
                 $settings['interface_language'] = $fields['interface_language']->getValue();
                 $settings['preferred_editor'] = $fields['preferred_editor']->getValue();
-                $settings['date_format'] = $fields['date_format']->getValue();
-                $settings['time_format'] = $fields['time_format']->getValue();
-                $settings['datetime_format'] = $settings['date_format'] . ' ' . $settings['time_format'];
                 $settings['number_format'] = $fields['number_format']->getValue();
                 $settings['csv_split_character'] = $fields['csv_split_character']->getValue();
                 $settings['csv_line_ending'] = $fields['csv_line_ending']->getValue();
