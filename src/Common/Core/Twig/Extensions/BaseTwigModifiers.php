@@ -190,7 +190,9 @@ class BaseTwigModifiers
             $timestamp = strtotime($timestamp);
         }
 
-        if ($language === null) {
+        if (defined('APPLICATION') && APPLICATION === 'Frontend') {
+            $language = FRONTEND_LANGUAGE;
+        } else {
             $language = BackendLanguage::getInterfaceLanguage();
         }
 
