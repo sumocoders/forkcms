@@ -70,10 +70,8 @@ class DataGridFunctions
             return '';
         }
 
-        // get user setting for long dates
         $format = 'j F Y';
 
-        // format the date according the user his settings
         return SpoonDate::getDate($format, $timestamp, BackendLanguage::getInterfaceLanguage());
     }
 
@@ -91,10 +89,8 @@ class DataGridFunctions
             return '';
         }
 
-        // get user setting for long dates
         $format = 'j F Y H:i';
 
-        // format the date according the user his settings
         return SpoonDate::getDate($format, $timestamp, BackendLanguage::getInterfaceLanguage());
     }
 
@@ -112,10 +108,8 @@ class DataGridFunctions
             return '';
         }
 
-        // get user setting for long dates
         $format = 'H:i';
 
-        // format the date according the user his settings
         return SpoonDate::getDate($format, $timestamp, BackendLanguage::getInterfaceLanguage());
     }
 
