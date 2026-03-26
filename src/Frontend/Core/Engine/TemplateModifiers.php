@@ -260,7 +260,7 @@ class TemplateModifiers extends BaseTwigModifiers
             'EEEE d MMMM yyyy'
         )->format((int) $timestamp);
 
-        return '<abbr title="'.$date.'">'.Language::lblWithParameters($keyPlural, [$count]).'</abbr>';
+        return '<abbr title="' . $date . '">' . Language::lblWithParameters($keyPlural, [$count]) . '</abbr>';
     }
 
     /**
