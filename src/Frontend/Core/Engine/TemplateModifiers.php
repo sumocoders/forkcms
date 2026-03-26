@@ -185,7 +185,7 @@ class TemplateModifiers extends BaseTwigModifiers
 
     /**
      * Formats a timestamp as a string that indicates the time ago
-     *    syntax: {{ $$timestamp|timeago }}.
+     *    syntax: {{ $timestamp|timeago|raw }}.
      *
      * @param int|DateTime $timestamp A UNIX-timestamp that will be formatted as a time-ago-string.
      *
@@ -251,12 +251,16 @@ class TemplateModifiers extends BaseTwigModifiers
             return Language::lbl($keySingular);
         }
 
-        return Language::lblWithParameters(
-            $keyPlural,
-            [
-                $count
-            ]
-        );
+        $date = new IntlDateFormatter(
+            Locale::frontendLanguage(),
+            IntlDateFormatter::LONG,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'EEEE d MMMM yyyy'
+        )->format((int) $timestamp);
+
+        return '<abbr title="'.$date.'">'.Language::lblWithParameters($keyPlural, [$count]).'</abbr>';
     }
 
     /**
