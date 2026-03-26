@@ -17,7 +17,7 @@
       <header class="page-header block-heading" role="banner">
         <h3>
           {% if archive.month %}
-            {{ archive.start_date|customformatdate('EEEE d MMMM yyyy', LANGUAGE) }}
+            {{ archive.start_date|customformatdate('MMMM yyyy', LANGUAGE) }}
           {% else %}
             {{ archive.start_date|date('Y') }}
           {% endif %}
@@ -42,7 +42,7 @@
               <tr>
                 <td class="date">
                   <time itemprop="datePublished" datetime="{{ item.publish_on|date('Y-m-d\\TH:i:s') }}">
-                    {{ item.publish_on|customformatdate('EEEE d MMMM yyyy', LANGUAGE) }}
+                    {{ item.publish_on|customformatdate('dd/MM/yyyy', LANGUAGE) }}
                   </time>
                 </td>
                 <td class="title">
