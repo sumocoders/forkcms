@@ -21,7 +21,6 @@ class ModulesSettingsTest extends TestCase
         );
 
         $modulesSettings->get('Core', 'theme', 'Fork');
-        $modulesSettings->get('Core', 'time_format', 'H:i');
     }
 
     public function testFetchingSettingWorks(): void

@@ -150,23 +150,6 @@ class Index extends BackendBaseActionIndex
             $this->get('fork.settings')->get('Core', 'ckfinder_image_max_height', 1200)
         );
 
-        // date & time formats
-        $this->form->addDropdown(
-            'time_format',
-            BackendModel::getTimeFormats(),
-            $this->get('fork.settings')->get('Core', 'time_format')
-        );
-        $this->form->addDropdown(
-            'date_format_short',
-            BackendModel::getDateFormatsShort(),
-            $this->get('fork.settings')->get('Core', 'date_format_short')
-        );
-        $this->form->addDropdown(
-            'date_format_long',
-            BackendModel::getDateFormatsLong(),
-            $this->get('fork.settings')->get('Core', 'date_format_long')
-        );
-
         // number formats
         $this->form->addDropdown(
             'number_format',
@@ -355,11 +338,6 @@ class Index extends BackendBaseActionIndex
                 );
             }
 
-            // date & time
-            $this->form->getField('time_format')->isFilled(BL::err('FieldIsRequired'));
-            $this->form->getField('date_format_short')->isFilled(BL::err('FieldIsRequired'));
-            $this->form->getField('date_format_long')->isFilled(BL::err('FieldIsRequired'));
-
             // number
             $this->form->getField('number_format')->isFilled(BL::err('FieldIsRequired'));
 
@@ -488,23 +466,6 @@ class Index extends BackendBaseActionIndex
                         $this->form->getField('google_recaptcha_secret_key')->getValue()
                     );
                 }
-
-                // date & time formats
-                $this->get('fork.settings')->set(
-                    'Core',
-                    'time_format',
-                    $this->form->getField('time_format')->getValue()
-                );
-                $this->get('fork.settings')->set(
-                    'Core',
-                    'date_format_short',
-                    $this->form->getField('date_format_short')->getValue()
-                );
-                $this->get('fork.settings')->set(
-                    'Core',
-                    'date_format_long',
-                    $this->form->getField('date_format_long')->getValue()
-                );
 
                 // date & time formats
                 $this->get('fork.settings')->set(

@@ -265,50 +265,6 @@ class Model extends \Common\Core\Model
         return $string;
     }
 
-    /**
-     * Fetch the list of long date formats including examples of these formats.
-     *
-     * @return array
-     */
-    public static function getDateFormatsLong(): array
-    {
-        $possibleFormats = [];
-
-        // loop available formats
-        foreach ((array) self::get('fork.settings')->get('Core', 'date_formats_long') as $format) {
-            // get date based on given format
-            $possibleFormats[$format] = \SpoonDate::getDate(
-                $format,
-                null,
-                Authentication::getUser()->getSetting('interface_language')
-            );
-        }
-
-        return $possibleFormats;
-    }
-
-    /**
-     * Fetch the list of short date formats including examples of these formats.
-     *
-     * @return array
-     */
-    public static function getDateFormatsShort(): array
-    {
-        $possibleFormats = [];
-
-        // loop available formats
-        foreach ((array) self::get('fork.settings')->get('Core', 'date_formats_short') as $format) {
-            // get date based on given format
-            $possibleFormats[$format] = \SpoonDate::getDate(
-                $format,
-                null,
-                Authentication::getUser()->getSetting('interface_language')
-            );
-        }
-
-        return $possibleFormats;
-    }
-
     public static function getExtras(array $ids): array
     {
         // get database
@@ -451,23 +407,6 @@ class Model extends \Common\Core\Model
     public static function getNumberFormats(): array
     {
         return (array) self::get('fork.settings')->get('Core', 'number_formats');
-    }
-
-    /**
-     * Fetch the list of time formats including examples of these formats.
-     *
-     * @return array
-     */
-    public static function getTimeFormats(): array
-    {
-        $possibleFormats = [];
-        $interfaceLanguage = Authentication::getUser()->getSetting('interface_language');
-
-        foreach (self::get('fork.settings')->get('Core', 'time_formats') as $format) {
-            $possibleFormats[$format] = \SpoonDate::getDate($format, null, $interfaceLanguage);
-        }
-
-        return $possibleFormats;
     }
 
     /**
