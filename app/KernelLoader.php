@@ -28,9 +28,10 @@ class KernelLoader
     /**
      * Gets a service by id.
      *
-     * @param string $reference The service id
+     * @template Service
+     * @param string|class-string<Service> $reference The service id
      *
-     * @return mixed The service
+     * @return mixed|Service The service
      */
     public function get(string $reference)
     {
