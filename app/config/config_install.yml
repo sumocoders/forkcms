@@ -74,6 +74,7 @@ services:
             - "%database.port%"
         calls:
             - [ setDebug, [ "%kernel.debug%" ]]
+    SpoonDatabase: '@database'
 
     ForkCMS\Utility\Thumbnails:
         public: true
