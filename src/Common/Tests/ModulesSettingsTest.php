@@ -3,10 +3,9 @@
 namespace Common\Tests;
 
 use Common\ModulesSettings;
-use MatthiasMullie\Scrapbook\Adapters\MemoryStore;
-use MatthiasMullie\Scrapbook\Psr6\Pool;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 /**
  * Tests for our module settings
@@ -17,7 +16,7 @@ class ModulesSettingsTest extends TestCase
     {
         $modulesSettings = new ModulesSettings(
             $this->getDatabaseMock(),
-            new Pool(new MemoryStore())
+            new ArrayAdapter()
         );
 
         $modulesSettings->get('Core', 'theme', 'Fork');
@@ -28,7 +27,7 @@ class ModulesSettingsTest extends TestCase
     {
         $modulesSettings = new ModulesSettings(
             $this->getDatabaseMock(),
-            new Pool(new MemoryStore())
+            new ArrayAdapter()
         );
 
         self::assertEquals(
@@ -45,7 +44,7 @@ class ModulesSettingsTest extends TestCase
     {
         $modulesSettings = new ModulesSettings(
             $this->getDatabaseMock(),
-            new Pool(new MemoryStore())
+            new ArrayAdapter()
         );
 
         self::assertEquals(
@@ -58,7 +57,7 @@ class ModulesSettingsTest extends TestCase
     {
         $modulesSettings = new ModulesSettings(
             $this->getDatabaseMock(),
-            new Pool(new MemoryStore())
+            new ArrayAdapter()
         );
 
         self::assertEquals(

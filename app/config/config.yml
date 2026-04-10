@@ -26,6 +26,9 @@ framework:
                 adapter: cache.app
                 public: true
                 default_lifetime: 3600
+            cache.pool:
+                adapter: cache.app
+                public: true
     mailer:
         dsn: '%mailer.dsn%'
     messenger:
@@ -158,27 +161,7 @@ services:
             - [ execute, [ 'SET sql_mode = REPLACE(@@SESSION.sql_mode, "ONLY_FULL_GROUP_BY", "")'] ]
             - [ setDebug, [ "%kernel.debug%" ]]
     SpoonDatabase: '@database'
-    cache.filesystem.adapter:
-        class: League\Flysystem\Adapter\Local
-        arguments:
-            - "%kernel.cache_dir%"
-    cache.filesystem.filesystem:
-        class: League\Flysystem\Filesystem
-        arguments:
-            - "@cache.filesystem.adapter"
-    cache.adapter:
-        class: MatthiasMullie\Scrapbook\Adapters\Flysystem
-        arguments:
-            - "@cache.filesystem.filesystem"
-    cache.buffer:
-        class: MatthiasMullie\Scrapbook\Buffered\BufferedStore
-        arguments:
-            - "@cache.adapter"
-    cache.pool:
-        class: MatthiasMullie\Scrapbook\Psr6\Pool
-        public: true
-        arguments:
-            - "@cache.buffer"
+
     cache.backend_navigation:
         class: Backend\Core\Engine\NavigationCache
         public: true
