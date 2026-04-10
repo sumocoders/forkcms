@@ -26,6 +26,13 @@ class MediaItemDataGrid extends DataGridDatabase
             $this->getParameters($type, $folderId, $searchQuery)
         );
 
+        $this->addColumn('detail');
+        $this->setColumnFunction(
+            [__CLASS__, 'getDetailUrl'],
+            ['[sharding_folder_name]', '[url]', '[storage_type]'],
+            'detail'
+        );
+
         // filter on folder?
         if ($folderId !== null) {
             $this->setURL('&folder=' . $folderId, true);
@@ -211,5 +218,22 @@ class MediaItemDataGrid extends DataGridDatabase
         // our JS needs to know an id, so we can highlight it
         $this->setRowAttributes(['id' => 'row-[id]']);
         $this->setColumnFunction('htmlspecialchars', ['[title]'], 'title', false);
+    }
+
+    public static function getDetailUrl(string $shardingFolderName, string $url, string $storageType): string
+    {
+        if ($storageType === 'youtube') {
+            $link = 'https://youtube.com/watch?v=' . $url;
+        } elseif ($storageType === 'vimeo') {
+            $link = 'https://www.vimeo.com/' . $url;
+        } else {
+            $link = '/src/Frontend/Files/MediaLibrary/' . $shardingFolderName . '/' . $url;
+        }
+
+        $html = '<a href="' . $link . '" target="_blank" class="btn btn-default btn-xs pull-right">';
+        $html .= '<span class="fa fa-eye"></span>' . ucfirst(Language::lbl('View'));
+        $html .= '</a>';
+
+        return $html;
     }
 }
