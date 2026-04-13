@@ -31,7 +31,7 @@
                     {% if months.url %}
                       <a href="{{ months.url }}">
                     {% endif %}
-                      {{ months.label|spoondate('F', LANGUAGE) }}
+                      {{ months.label|customformatdate('MMMM', LANGUAGE) }}
                       {% if months.url %}
                         <span class="badge">{{ months.total }}</span>
                       {% endif %}

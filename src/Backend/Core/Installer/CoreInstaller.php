@@ -66,62 +66,6 @@ class CoreInstaller extends ModuleInstaller
         $this->setSetting('Core', 'site_html_head', '');
         $this->setSetting('Core', 'site_html_end_of_body', '');
 
-        // date & time
-        $this->setSetting('Core', 'date_format_short', 'j.n.Y');
-        $this->setSetting(
-            'Core',
-            'date_formats_short',
-            [
-                'j/n/Y',
-                'j-n-Y',
-                'j.n.Y',
-                'n/j/Y',
-                'n/j/Y',
-                'n/j/Y',
-                'd/m/Y',
-                'd-m-Y',
-                'd.m.Y',
-                'm/d/Y',
-                'm-d-Y',
-                'm.d.Y',
-                'j/n/y',
-                'j-n-y',
-                'j.n.y',
-                'n/j/y',
-                'n-j-y',
-                'n.j.y',
-                'd/m/y',
-                'd-m-y',
-                'd.m.y',
-                'm/d/y',
-                'm-d-y',
-                'm.d.y',
-            ]
-        );
-        $this->setSetting('Core', 'date_format_long', 'l j F Y');
-        $this->setSetting(
-            'Core',
-            'date_formats_long',
-            [
-                'j F Y',
-                'D j F Y',
-                'l j F Y',
-                'j F, Y',
-                'D j F, Y',
-                'l j F, Y',
-                'd F Y',
-                'd F, Y',
-                'F j Y',
-                'D F j Y',
-                'l F j Y',
-                'F d, Y',
-                'D F d, Y',
-                'l F d, Y',
-            ]
-        );
-        $this->setSetting('Core', 'time_format', 'H:i');
-        $this->setSetting('Core', 'time_formats', ['H:i', 'H:i:s', 'g:i a', 'g:i A']);
-
         // number formats
         $this->setSetting('Core', 'number_format', 'dot_nothing');
         $this->setSetting(

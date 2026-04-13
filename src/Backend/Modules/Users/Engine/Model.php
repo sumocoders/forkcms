@@ -5,6 +5,8 @@ namespace Backend\Modules\Users\Engine;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\User as BackendUser;
+use Backend\Core\Language\Language as BackendLanguage;
+use IntlDateFormatter;
 
 /**
  * In this file we store all generic functions that we will be using in the users module.
@@ -184,29 +186,6 @@ class Model
         ];
     }
 
-    /**
-     * Fetch the list of date formats including examples of these formats.
-     *
-     * @return array
-     */
-    public static function getDateFormats(): array
-    {
-        // init var
-        $possibleFormats = [];
-
-        // loop available formats
-        foreach ((array) BackendModel::get('fork.settings')->get('Users', 'date_formats') as $format) {
-            $possibleFormats[$format] = \SpoonDate::getDate(
-                $format,
-                null,
-                BackendAuthentication::getUser()->getSetting('interface_language')
-            );
-        }
-
-        // return
-        return $possibleFormats;
-    }
-
     public static function getGroups(): array
     {
         return (array) BackendModel::getContainer()->get('database')->getPairs(
@@ -291,29 +270,6 @@ class Model
             ),
             ['allowed_classes' => false]
         );
-    }
-
-    /**
-     * Fetch the list of time formats including examples of these formats.
-     *
-     * @return array
-     */
-    public static function getTimeFormats(): array
-    {
-        // init var
-        $possibleFormats = [];
-
-        // loop available formats
-        foreach (BackendModel::get('fork.settings')->get('Users', 'time_formats') as $format) {
-            $possibleFormats[$format] = \SpoonDate::getDate(
-                $format,
-                null,
-                BackendAuthentication::getUser()->getSetting('interface_language')
-            );
-        }
-
-        // return
-        return $possibleFormats;
     }
 
     public static function getUsers(): array

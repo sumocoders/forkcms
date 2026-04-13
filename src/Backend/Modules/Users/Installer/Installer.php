@@ -54,9 +54,7 @@ class Installer extends ModuleInstaller
 
     private function configureSettings(): void
     {
-        $this->setSetting($this->getModule(), 'date_formats', ['j/n/Y', 'd/m/Y', 'j F Y', 'F j, Y']);
         $this->setSetting($this->getModule(), 'default_group', 1);
-        $this->setSetting($this->getModule(), 'time_formats', ['H:i', 'H:i:s', 'g:i a', 'g:i A']);
     }
 
     public function getPasswordStrength(): string
@@ -148,9 +146,6 @@ class Installer extends ModuleInstaller
             $settings['preferred_editor'] = Model::getContainer()->getParameter('fork.form.default_preferred_editor');
             $settings['surname'] = 'CMS';
             $settings['interface_language'] = $this->getVariable('default_interface_language');
-            $settings['date_format'] = 'j F Y';
-            $settings['time_format'] = 'H:i';
-            $settings['datetime_format'] = $settings['date_format'] . ' ' . $settings['time_format'];
             $settings['number_format'] = 'dot_nothing';
             $settings['password_key'] = uniqid('', true);
             $settings['password_strength'] = $this->getPasswordStrength();

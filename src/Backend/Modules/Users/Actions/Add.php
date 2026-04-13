@@ -71,16 +71,6 @@ class Add extends BackendBaseActionAdd
             BackendModel::getContainer()->getParameter('fork.form.default_preferred_editor')
         );
         $this->form->addDropdown(
-            'date_format',
-            BackendUsersModel::getDateFormats(),
-            BackendAuthentication::getUser()->getSetting('date_format')
-        );
-        $this->form->addDropdown(
-            'time_format',
-            BackendUsersModel::getTimeFormats(),
-            BackendAuthentication::getUser()->getSetting('time_format')
-        );
-        $this->form->addDropdown(
             'number_format',
             BackendUsersModel::getNumberFormats(),
             BackendAuthentication::getUser()->getSetting('number_format', 'dot_nothing')
@@ -140,8 +130,6 @@ class Add extends BackendBaseActionAdd
             $this->form->getField('surname')->isFilled(BL::err('SurnameIsRequired'));
             $this->form->getField('interface_language')->isFilled(BL::err('FieldIsRequired'));
             $this->form->getField('preferred_editor')->isFilled(BL::err('FieldIsRequired'));
-            $this->form->getField('date_format')->isFilled(BL::err('FieldIsRequired'));
-            $this->form->getField('time_format')->isFilled(BL::err('FieldIsRequired'));
             $this->form->getField('number_format')->isFilled(BL::err('FieldIsRequired'));
             $this->form->getField('groups')->isFilled(BL::err('FieldIsRequired'));
             if ($this->form->getField('password')->isFilled()) {
@@ -159,9 +147,6 @@ class Add extends BackendBaseActionAdd
                 $settings['surname'] = $this->form->getField('surname')->getValue();
                 $settings['interface_language'] = $this->form->getField('interface_language')->getValue();
                 $settings['preferred_editor'] = $this->form->getField('preferred_editor')->getValue();
-                $settings['date_format'] = $this->form->getField('date_format')->getValue();
-                $settings['time_format'] = $this->form->getField('time_format')->getValue();
-                $settings['datetime_format'] = $settings['date_format'] . ' ' . $settings['time_format'];
                 $settings['number_format'] = $this->form->getField('number_format')->getValue();
                 $settings['csv_split_character'] = $this->form->getField('csv_split_character')->getValue();
                 $settings['csv_line_ending'] = $this->form->getField('csv_line_ending')->getValue();

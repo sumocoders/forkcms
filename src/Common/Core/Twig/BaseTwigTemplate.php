@@ -138,10 +138,6 @@ abstract class BaseTwigTemplate
             return;
         }
 
-        $twig->addGlobal('timeFormat', $this->forkSettings->get('Core', 'time_format'));
-        $twig->addGlobal('dateFormatShort', $this->forkSettings->get('Core', 'date_format_short'));
-        $twig->addGlobal('dateFormatLong', $this->forkSettings->get('Core', 'date_format_long'));
-
         // old theme checker
         if ($this->forkSettings->get('Core', 'theme') !== null) {
             $twig->addGlobal('THEME', $this->forkSettings->get('Core', 'theme', 'Fork'));

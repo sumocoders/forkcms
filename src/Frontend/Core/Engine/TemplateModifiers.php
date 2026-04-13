@@ -10,7 +10,7 @@ use Frontend\Core\Language\Language;
 use Frontend\Core\Language\Locale;
 use Frontend\Modules\Profiles\Engine\Model as FrontendProfilesModel;
 use Common\Core\Twig\Extensions\BaseTwigModifiers;
-use SpoonDate;
+use IntlDateFormatter;
 use Twig\Error\Error;
 use function Symfony\Component\String\s;
 
@@ -29,15 +29,20 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function formatDate($var): string
     {
-        // get setting
-        $format = FrontendModel::get('fork.settings')->get('Core', 'date_format_short');
-
         if ($var instanceof DateTime) {
             $var = $var->getTimestamp();
         }
 
-        // format the date
-        return SpoonDate::getDate($format, (int) $var, Locale::frontendLanguage());
+        $date = new IntlDateFormatter(
+            Locale::frontendLanguage(),
+            IntlDateFormatter::SHORT,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'dd.MM.yyyy'
+        )->format((int) $var);
+
+        return $date;
     }
 
     /**
@@ -50,15 +55,20 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function formatDateTime($var): string
     {
-        // get setting
-        $format = FrontendModel::get('fork.settings')->get('Core', 'date_format_long');
-
         if ($var instanceof DateTime) {
             $var = $var->getTimestamp();
         }
 
-        // format the date
-        return SpoonDate::getDate($format, (int) $var, Locale::frontendLanguage());
+        $date = new IntlDateFormatter(
+            Locale::frontendLanguage(),
+            IntlDateFormatter::LONG,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'EEEE d MMMM yyyy'
+        )->format((int) $var);
+
+        return $date;
     }
 
     /**
@@ -108,7 +118,7 @@ class TemplateModifiers extends BaseTwigModifiers
 
     /**
      * Format a UNIX-timestamp as a date
-     * syntax: {{ $var|formatdate }}
+     * syntax: {{ $var|formattime }}
      *
      * @param int|DateTime $var The UNIX-timestamp to format or \DateTime
      *
@@ -116,15 +126,20 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function formatTime($var): string
     {
-        // get setting
-        $format = FrontendModel::get('fork.settings')->get('Core', 'time_format');
-
         if ($var instanceof DateTime) {
             $var = $var->getTimestamp();
         }
 
-        // format the date
-        return SpoonDate::getDate($format, (int) $var, Locale::frontendLanguage());
+        $date = new IntlDateFormatter(
+            Locale::frontendLanguage(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::SHORT,
+            null,
+            null,
+            'HH:mm'
+        )->format((int) $var);
+
+        return $date;
     }
 
     /**
@@ -170,7 +185,7 @@ class TemplateModifiers extends BaseTwigModifiers
 
     /**
      * Formats a timestamp as a string that indicates the time ago
-     *    syntax: {{ $$timestamp|timeago }}.
+     *    syntax: {{ $timestamp|timeago|raw }}.
      *
      * @param int|DateTime $timestamp A UNIX-timestamp that will be formatted as a time-ago-string.
      *
@@ -187,13 +202,65 @@ class TemplateModifiers extends BaseTwigModifiers
             return '';
         }
 
-        // return
-        return '<abbr title="'.\SpoonDate::getDate(
-            FrontendModel::get('fork.settings')->get('Core', 'date_format_long') .', '
-            . FrontendModel::get('fork.settings')->get('Core', 'time_format'),
-            $timestamp,
-            Locale::frontendLanguage()
-        ).'">'.\SpoonDate::getTimeAgo($timestamp, Locale::frontendLanguage()).'</abbr>';
+        $now = time();
+        $diff = $now - $timestamp;
+
+        if ($diff < 0) {
+            $diff = -$diff;
+        }
+
+        $seconds = (int) $diff;
+        $minutes = (int) floor($seconds / 60);
+        $hours   = (int) floor($seconds / 3600);
+        $days    = (int) floor($seconds / 86400);
+        $months  = (int) floor($seconds / (30 * 86400));
+        $years   = (int) floor($seconds / (365 * 86400));
+
+        // Decide unit
+        if ($years > 0) {
+            $count = $years;
+            $keySingular = 'TimeAgoYearSingular';
+            $keyPlural   = 'TimeAgoYearPlural';
+        } elseif ($months > 0) {
+            $count = $months;
+            $keySingular = 'TimeAgoMonthSingular';
+            $keyPlural   = 'TimeAgoMonthPlural';
+        } elseif ($days > 0) {
+            $count = $days;
+            $keySingular = 'TimeAgoDaySingular';
+            $keyPlural   = 'TimeAgoDayPlural';
+        } elseif ($hours > 0) {
+            $count = $hours;
+            $keySingular = 'TimeAgoHourSingular';
+            $keyPlural   = 'TimeAgoHourPlural';
+        } elseif ($minutes > 0) {
+            $count = $minutes;
+            $keySingular = 'TimeAgoMinuteSingular';
+            $keyPlural   = 'TimeAgoMinutePlural';
+        } else {
+            $count = $seconds;
+            $keySingular = 'TimeAgoSecondSingular';
+            $keyPlural   = 'TimeAgoSecondPlural';
+        }
+
+        if ($count <= 0) {
+            return Language::lbl('TimeAgoEmpty');
+        }
+
+        if ($count === 1) {
+            return Language::lbl($keySingular);
+        }
+
+        $date = new IntlDateFormatter(
+            Locale::frontendLanguage(),
+            IntlDateFormatter::LONG,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'EEEE d MMMM yyyy'
+        )->format((int) $timestamp);
+
+        return '<abbr title="' . $date . '">' . Language::lblWithParameters($keyPlural, [$count]) . '</abbr>';
     }
 
     /**

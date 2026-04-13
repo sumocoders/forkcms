@@ -4395,6 +4395,81 @@
         <translation language="nl"><![CDATA[Bewaar mijn voorkeuren]]></translation>
         <translation language="en"><![CDATA[Save my preferences]]></translation>
       </item>
+      <item type="label" name="TimeAgoEmpty">
+        <translation language="en"><![CDATA[just now]]></translation>
+        <translation language="nl"><![CDATA[zojuist]]></translation>
+        <translation language="fr"><![CDATA[à l’instant]]></translation>
+      </item>
+      <item type="label" name="TimeAgoSecondSingular">
+        <translation language="en"><![CDATA[1 second ago]]></translation>
+        <translation language="nl"><![CDATA[1 seconde geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a 1 seconde]]></translation>
+      </item>
+
+      <item type="label" name="TimeAgoSecondPlural">
+        <translation language="en"><![CDATA[%1$s seconds ago]]></translation>
+        <translation language="nl"><![CDATA[%1$s seconden geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a %1$s secondes]]></translation>
+      </item>
+
+      <item type="label" name="TimeAgoMinuteSingular">
+        <translation language="en"><![CDATA[1 minute ago]]></translation>
+        <translation language="nl"><![CDATA[1 minuut geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a 1 minute]]></translation>
+      </item>
+
+      <item type="label" name="TimeAgoMinutePlural">
+        <translation language="en"><![CDATA[%1$s minutes ago]]></translation>
+        <translation language="nl"><![CDATA[%1$s minuten geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a %1$s minutes]]></translation>
+      </item>
+
+      <item type="label" name="TimeAgoHourSingular">
+        <translation language="en"><![CDATA[1 hour ago]]></translation>
+        <translation language="nl"><![CDATA[1 uur geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a 1 heure]]></translation>
+      </item>
+
+      <item type="label" name="TimeAgoHourPlural">
+        <translation language="en"><![CDATA[%1$s hours ago]]></translation>
+        <translation language="nl"><![CDATA[%1$s uur geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a %1$s heures]]></translation>
+      </item>
+
+      <item type="label" name="TimeAgoDaySingular">
+        <translation language="en"><![CDATA[1 day ago]]></translation>
+        <translation language="nl"><![CDATA[1 dag geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a 1 jour]]></translation>
+      </item>
+      <item type="label" name="TimeAgoDayPlural">
+        <translation language="en"><![CDATA[%1$s days ago]]></translation>
+        <translation language="nl"><![CDATA[%1$s dagen geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a %1$s jours]]></translation>
+      </item>
+
+      <item type="label" name="TimeAgoMonthSingular">
+        <translation language="en"><![CDATA[1 month ago]]></translation>
+        <translation language="nl"><![CDATA[1 maand geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a 1 mois]]></translation>
+      </item>
+
+      <item type="label" name="TimeAgoMonthPlural">
+        <translation language="en"><![CDATA[%1$s months ago]]></translation>
+        <translation language="nl"><![CDATA[%1$s maanden geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a %1$s mois]]></translation>
+      </item>
+
+      <item type="label" name="TimeAgoYearSingular">
+        <translation language="en"><![CDATA[1 year ago]]></translation>
+        <translation language="nl"><![CDATA[1 jaar geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a 1 an]]></translation>
+      </item>
+
+      <item type="label" name="TimeAgoYearPlural">
+        <translation language="en"><![CDATA[%1$s years ago]]></translation>
+        <translation language="nl"><![CDATA[%1$s jaar geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a %1$s ans]]></translation>
+      </item>
     </Core>
   </Frontend>
   <Backend>

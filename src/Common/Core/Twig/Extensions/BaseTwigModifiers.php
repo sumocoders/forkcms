@@ -2,6 +2,9 @@
 
 namespace Common\Core\Twig\Extensions;
 
+use Backend\Core\Language\Language as BackendLanguage;
+use IntlDateFormatter;
+
 /**
  * Contains Base Frontend-related custom modifiers.
  * These filters work independent of front/backend.
@@ -172,7 +175,7 @@ class BaseTwigModifiers
 
     /**
      * Formats a language specific date.
-     *    syntax: {{ $timestamp|spoondate($format, $language) }}.
+     *    syntax: {{ $timestamp|customformatdate($format, $language) }}.
      *
      * @param string|int $timestamp The timestamp or date that you want to apply the format to.
      * @param string $format The optional format that you want to apply on the provided timestamp.
@@ -180,14 +183,29 @@ class BaseTwigModifiers
      *
      * @return string The formatted date according to the timestamp, format and provided language.
      */
-    public static function spoonDate($timestamp, $format = 'Y-m-d H:i:s', $language = 'en')
+    public static function customFormatDate($timestamp, $format = 'yyyy-MM-dd HH:mm:ss', $language = null)
     {
         if (is_string($timestamp) && !is_numeric($timestamp)) {
             // use strptime if you want to restrict the input format
             $timestamp = strtotime($timestamp);
         }
 
-        return \SpoonDate::getDate($format, $timestamp, $language);
+        if (defined('APPLICATION') && APPLICATION === 'Frontend') {
+            $language = FRONTEND_LANGUAGE;
+        } else {
+            $language = BackendLanguage::getInterfaceLanguage();
+        }
+
+        $date = new IntlDateFormatter(
+            $language,
+            IntlDateFormatter::SHORT,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            $format
+        )->format((int) $timestamp);
+
+        return $date;
     }
 
     /**
