@@ -27,7 +27,7 @@
     "browser-sync": "^3.0.4",
     "browser-sync-webpack-plugin": "^2.3.0",
     "ckeditor": "^4.12.1",
-    "copy-webpack-plugin": "^11.0.0",
+    "copy-webpack-plugin": "^14.0.0",
     "cropper": "^3.0.0-rc.2",
     "css-loader": "^6.8.1",
     "del": "^3.0.0",
@@ -64,7 +64,6 @@
     "stylelint-config-standard-scss": "^17.0.0",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1",
     "webpack-merge": "^5.9.0"
   },
   "scripts": {
