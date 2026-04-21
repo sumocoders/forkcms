@@ -35,7 +35,6 @@
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-livereload": "^4.0.1",
-    "gulp-plumber": "^1.2.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass-no-nodesass": "^1.1.0",
     "gulp-sourcemaps": "^1.9.1",
