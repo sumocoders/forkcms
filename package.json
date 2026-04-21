@@ -30,7 +30,6 @@
     "copy-webpack-plugin": "^14.0.0",
     "cropper": "^3.0.0-rc.2",
     "css-loader": "^6.8.1",
-    "file-loader": "^6.2.0",
     "fine-uploader": "^5.14.1",
     "font-awesome": "^4.7.0",
     "gulp": "^4.0.2",
