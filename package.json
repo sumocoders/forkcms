@@ -151,7 +151,7 @@
     "graceful-fs": "^4.2.9"
   },
   "volta": {
-    "node": "18.13.0"
+    "node": "25.9.0"
   },
   "dependencies": {
     "@splidejs/splide": "^4.1.4",
