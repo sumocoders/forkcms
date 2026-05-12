@@ -1,13 +1,5 @@
 <!DOCTYPE html>
-<!--[if lte IE 8 ]>
-  <html lang="{{ FRONTEND_LANGUAGE }}" class="ie8 ie">
-<![endif]-->
-<!--[if IE 9 ]>
-  <html lang="{{ FRONTEND_LANGUAGE }}" class="ie9 ie">
-<![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
-    <html lang="{{ FRONTEND_LANGUAGE }}">
-<!--<![endif]-->
+<html lang="{{ FRONTEND_LANGUAGE }}">
 <head>
   {# Meta #}
   {% block meta %}
@@ -33,43 +25,11 @@
   <link rel="author" href="/humans.txt" />
 
   {% block icons %}
-    {# Apple touch icon #}
-    <link rel="apple-touch-icon" sizes="120x120" href="{{ THEME_URL }}/apple-touch-icon-120.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="{{ THEME_URL }}/apple-touch-icon-152.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ THEME_URL }}/apple-touch-icon-180.png" />
-
-    {# Favicon #}
-    <link rel="icon" sizes="16x16" href="{{ THEME_URL }}/favicon-16.png">
-    <link rel="icon" sizes="32x32" href="{{ THEME_URL }}/favicon-32.png">
-    <link rel="icon" sizes="57x57" href="{{ THEME_URL }}/favicon-57.png">
-    <link rel="icon" sizes="76x76" href="{{ THEME_URL }}/favicon-76.png">
-    <link rel="icon" sizes="96x96" href="{{ THEME_URL }}/favicon-96.png">
-    <link rel="icon" sizes="128x128" href="{{ THEME_URL }}/favicon-128.png">
-    <link rel="icon" sizes="192x192" href="{{ THEME_URL }}/favicon-192.png">
-    <link rel="icon" sizes="228x228" href="{{ THEME_URL }}/favicon-228.png">
-
-    <!--[if IE]>
-      <link rel="shortcut icon" sizes="64x64" href="{{ THEME_URL }}/favicon.ico">
-    <![endif]-->
-
-    {# Windows 8 tile #}
-    <meta name="application-name" content="{{ siteTitle }}" />
-    <meta name="msapplication-TileColor" content="#3380aa" />
-    <meta name="msapplication-TileImage" content="{{ THEME_URL }}/metro-tile.png" />
-
-    {# Android #}
-    <link rel="shortcut icon" sizes="196x196" href="{{ THEME_URL }}/android-icon-196.png">
-
+    <link rel="icon" href="{{ THEME_URL }}/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="{{ THEME_URL }}/favicon.ico" sizes="32x32">
+    <link rel="apple-touch-icon" href="{{ THEME_URL }}/apple-touch-icon.png">
+    <link rel="manifest" href="{{ THEME_URL }}/site.webmanifest">
   {% endblock %}
-
-  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-  <!--[if lt IE 9]>
-  {% block ieFallbacks %}
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
-  {% endblock %}
-  <![endif]-->
 
   {% if debug %}
     <script src="http://localhost:35729/livereload.js?snipver=1"></script>
