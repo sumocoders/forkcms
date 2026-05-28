@@ -3,8 +3,9 @@
 namespace Backend\Core\Engine;
 
 use Backend\Core\Engine\Model as BackendModel;
+use Backend\Core\Language\Language;
 use Backend\Core\Language\Language as BackendLanguage;
-use SpoonDate;
+use IntlDateFormatter;
 use function Symfony\Component\String\s;
 
 /**
@@ -70,9 +71,16 @@ class DataGridFunctions
             return '';
         }
 
-        $format = 'j F Y';
+        $date = new IntlDateFormatter(
+            BackendLanguage::getInterfaceLanguage(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'd MMMM yyyy'
+        )->format($timestamp);
 
-        return SpoonDate::getDate($format, $timestamp, BackendLanguage::getInterfaceLanguage());
+        return $date;
     }
 
     /**
@@ -89,9 +97,17 @@ class DataGridFunctions
             return '';
         }
 
-        $format = 'j F Y H:i';
 
-        return SpoonDate::getDate($format, $timestamp, BackendLanguage::getInterfaceLanguage());
+        $date = new IntlDateFormatter(
+            BackendLanguage::getInterfaceLanguage(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'd MMMM yyyy HH:mm'
+        )->format($timestamp);
+
+        return $date;
     }
 
     /**
@@ -108,9 +124,17 @@ class DataGridFunctions
             return '';
         }
 
-        $format = 'H:i';
 
-        return SpoonDate::getDate($format, $timestamp, BackendLanguage::getInterfaceLanguage());
+        $date = new IntlDateFormatter(
+            BackendLanguage::getInterfaceLanguage(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'HH:mm'
+        )->format($timestamp);
+
+        return $date;
     }
 
     /**
@@ -122,15 +146,76 @@ class DataGridFunctions
      */
     public static function getTimeAgo(int $timestamp): string
     {
-        // get user setting for long dates
-        $format = 'j F Y H:i';
+        if ($timestamp === 0) {
+            return '';
+        }
 
-        // get the time ago as a string
-        $timeAgo = SpoonDate::getTimeAgo($timestamp, BackendLanguage::getInterfaceLanguage(), $format);
+        $locale = BackendLanguage::getInterfaceLanguage();
+
+        $dateTimeFormatter = new IntlDateFormatter(
+            $locale,
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'yyyy-MM-dd HH:mm:ss'
+        );
+
+        $titleFormatter = new IntlDateFormatter(
+            $locale,
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'd MMMM yyyy HH:mm'
+        );
+
+        $diff = abs(time() - $timestamp);
+
+        $seconds = (int) $diff;
+        $minutes = (int) floor($seconds / 60);
+        $hours   = (int) floor($seconds / 3600);
+        $days    = (int) floor($seconds / 86400);
+        $months  = (int) floor($seconds / (30 * 86400));
+        $years   = (int) floor($seconds / (365 * 86400));
+
+        if ($years > 0) {
+            $count = $years;
+            $keySingular = 'TimeAgoYearSingular';
+            $keyPlural   = 'TimeAgoYearPlural';
+        } elseif ($months > 0) {
+            $count = $months;
+            $keySingular = 'TimeAgoMonthSingular';
+            $keyPlural   = 'TimeAgoMonthPlural';
+        } elseif ($days > 0) {
+            $count = $days;
+            $keySingular = 'TimeAgoDaySingular';
+            $keyPlural   = 'TimeAgoDayPlural';
+        } elseif ($hours > 0) {
+            $count = $hours;
+            $keySingular = 'TimeAgoHourSingular';
+            $keyPlural   = 'TimeAgoHourPlural';
+        } elseif ($minutes > 0) {
+            $count = $minutes;
+            $keySingular = 'TimeAgoMinuteSingular';
+            $keyPlural   = 'TimeAgoMinutePlural';
+        } else {
+            $count = $seconds;
+            $keySingular = 'TimeAgoSecondSingular';
+            $keyPlural   = 'TimeAgoSecondPlural';
+        }
+
+        if ($count <= 0) {
+            return Language::lbl('TimeAgoEmpty');
+        }
+
+        $timeAgo = $count === 1
+            ? Language::lbl($keySingular)
+            : Language::lblWithParameters($keyPlural, [$count]);
 
         return '<time tabindex="0" data-toggle="tooltip" datetime="'
-               . SpoonDate::getDate('Y-m-d H:i:s', $timestamp)
-               . '" title="' . SpoonDate::getDate($format, $timestamp, BackendLanguage::getInterfaceLanguage())
+               . $dateTimeFormatter->format($timestamp)
+               . '" title="' . $titleFormatter->format($timestamp)
                . '">' . $timeAgo . '</time>';
     }
 

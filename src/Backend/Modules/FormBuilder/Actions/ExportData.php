@@ -9,6 +9,7 @@ use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
 use Common\Exception\RedirectException;
 use ForkCMS\Utility\Csv\Writer;
+use IntlDateFormatter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use function Symfony\Component\String\s;
 
@@ -186,12 +187,17 @@ class ExportData extends BackendBaseAction
         foreach ($records as $row) {
             // first row of a submission
             if (!isset($data[$row['data_id']])) {
+                $date = new IntlDateFormatter(
+                    BL::getWorkingLanguage(),
+                    IntlDateFormatter::NONE,
+                    IntlDateFormatter::NONE,
+                    null,
+                    null,
+                    'yyyy-MM-dd HH:mm:ss'
+                )->format($row['sent_on']);
+
                 $data[$row['data_id']][$lblSessionId] = $row['session_id'];
-                $data[$row['data_id']][$lblSentOn] = \SpoonDate::getDate(
-                    'Y-m-d H:i:s',
-                    $row['sent_on'],
-                    BL::getWorkingLanguage()
-                );
+                $data[$row['data_id']][$lblSentOn] = $date;
             }
 
             // value is serialized

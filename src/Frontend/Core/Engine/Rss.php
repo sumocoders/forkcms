@@ -37,7 +37,7 @@ class Rss extends \SpoonFeedRSS
 
         // set feed properties
         $this->setLanguage(LANGUAGE);
-        $this->setCopyright(\SpoonDate::getDate('Y') . ' ' . $siteTitle);
+        $this->setCopyright(date('Y') . ' ' . $siteTitle);
         $this->setGenerator($siteTitle);
         $this->setImage(SITE_URL . FRONTEND_CORE_URL . '/Layout/images/rss_image.png', $title, $link);
 
