@@ -12,7 +12,6 @@ final readonly class UpdateContentBlockHandler
 {
     public function __construct(
         private ContentBlockRepository $contentBlockRepository,
-        private EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -22,7 +21,5 @@ final readonly class UpdateContentBlockHandler
         $this->contentBlockRepository->add($contentBlock);
 
         $updateContentBlock->setContentBlockEntity($contentBlock);
-
-        $this->entityManager->flush();
     }
 }

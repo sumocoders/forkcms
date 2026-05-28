@@ -16,7 +16,6 @@ final readonly class CopyContentBlocksToOtherLocaleHandler
 {
     public function __construct(
         private ContentBlockRepository $contentBlockRepository,
-        private EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -41,8 +40,6 @@ final readonly class CopyContentBlocksToOtherLocaleHandler
             },
             $contentBlocksToCopy
         );
-
-        $this->entityManager->flush();
     }
 
     private function getContentBlocksToCopy(Locale $locale): array

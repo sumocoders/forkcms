@@ -10,8 +10,8 @@ final class MediaFolderRepository extends EntityRepository
 {
     public function add(MediaFolder $mediaFolder): void
     {
-        // We don't flush here, see http://disq.us/p/okjc6b
         $this->getEntityManager()->persist($mediaFolder);
+        $this->save();
     }
 
     private function bumpFolderCount(int $folderId, array &$counts): void
@@ -82,7 +82,12 @@ final class MediaFolderRepository extends EntityRepository
 
     public function remove(MediaFolder $mediaFolder): void
     {
-        // We don't flush here, see http://disq.us/p/okjc6b
         $this->getEntityManager()->remove($mediaFolder);
+        $this->save();
+    }
+
+    public function save(): void
+    {
+        $this->getEntityManager()->flush();
     }
 }

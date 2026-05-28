@@ -12,7 +12,6 @@ final readonly class CreateMediaFolderHandler
 {
     public function __construct(
         private MediaFolderRepository $mediaFolderRepository,
-        private EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -24,7 +23,5 @@ final readonly class CreateMediaFolderHandler
 
         // We redefine the MediaFolder, so we can use it in an action
         $createMediaFolder->setMediaFolderEntity($mediaFolder);
-
-        $this->entityManager->flush();
     }
 }

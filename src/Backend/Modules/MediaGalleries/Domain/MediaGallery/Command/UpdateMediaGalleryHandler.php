@@ -3,6 +3,7 @@
 namespace Backend\Modules\MediaGalleries\Domain\MediaGallery\Command;
 
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGallery;
+use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
@@ -10,7 +11,7 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 final readonly class UpdateMediaGalleryHandler
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
+        private MediaGalleryRepository $mediaGalleryRepository,
     ) {
     }
 
@@ -19,6 +20,6 @@ final readonly class UpdateMediaGalleryHandler
         // We redefine the mediaGallery, so we can use it in an action
         $updateMediaGallery->setMediaGalleryEntity(MediaGallery::fromDataTransferObject($updateMediaGallery));
 
-        $this->entityManager->flush();
+        $this->mediaGalleryRepository->save();
     }
 }

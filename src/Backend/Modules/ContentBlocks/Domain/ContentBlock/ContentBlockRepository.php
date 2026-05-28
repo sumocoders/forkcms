@@ -20,8 +20,8 @@ class ContentBlockRepository extends EntityRepository
             );
         }
 
-        // We don't flush here, see http://disq.us/p/okjc6b
         $this->getEntityManager()->persist($contentBlock);
+        $this->save();
     }
 
     public function getNextIdForLanguage(Locale $locale): int
@@ -72,12 +72,18 @@ class ContentBlockRepository extends EntityRepository
 
     public function removeByIdAndLocale($id, Locale $locale): void
     {
-        // We don't flush here, see http://disq.us/p/okjc6b
         array_map(
             function (ContentBlock $contentBlock): void {
                 $this->getEntityManager()->remove($contentBlock);
             },
             (array) $this->findBy(['id' => $id, 'locale' => $locale])
         );
+
+        $this->save();
+    }
+
+    public function save(): void
+    {
+        $this->getEntityManager()->flush();
     }
 }

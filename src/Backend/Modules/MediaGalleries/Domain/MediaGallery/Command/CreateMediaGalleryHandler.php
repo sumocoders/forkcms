@@ -12,7 +12,6 @@ final readonly class CreateMediaGalleryHandler
 {
     public function __construct(
         private MediaGalleryRepository $mediaGalleryRepository,
-        private EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -23,7 +22,5 @@ final readonly class CreateMediaGalleryHandler
 
         // We redefine the mediaGallery, so we can use it in an action
         $createMediaGallery->setMediaGalleryEntity($mediaGallery);
-
-        $this->entityManager->flush();
     }
 }
