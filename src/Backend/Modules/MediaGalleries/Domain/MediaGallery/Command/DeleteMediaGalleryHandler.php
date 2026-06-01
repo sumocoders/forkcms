@@ -15,7 +15,6 @@ final readonly class DeleteMediaGalleryHandler
     public function __construct(
         private MediaGalleryRepository $mediaGalleryRepository,
         private MediaItemRepository $mediaItemRepository,
-        private EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -34,7 +33,5 @@ final readonly class DeleteMediaGalleryHandler
         }
 
         $this->mediaGalleryRepository->remove($deleteMediaGallery->mediaGallery);
-
-        $this->entityManager->flush();
     }
 }

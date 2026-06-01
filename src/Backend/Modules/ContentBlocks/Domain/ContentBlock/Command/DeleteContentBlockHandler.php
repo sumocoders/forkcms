@@ -12,7 +12,6 @@ final readonly class DeleteContentBlockHandler
 {
     public function __construct(
         private ContentBlockRepository $contentBlockRepository,
-        private EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -24,7 +23,5 @@ final readonly class DeleteContentBlockHandler
         );
 
         Model::deleteExtraById($deleteContentBlock->contentBlock->getExtraId());
-
-        $this->entityManager->flush();
     }
 }

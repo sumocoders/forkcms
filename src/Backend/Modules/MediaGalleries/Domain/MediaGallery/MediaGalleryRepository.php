@@ -16,6 +16,7 @@ final class MediaGalleryRepository extends EntityRepository
     public function add(MediaGallery $mediaGallery): void
     {
         $this->getEntityManager()->persist($mediaGallery);
+        $this->save();
     }
 
     public function existsByTitle(string $title, ?string $ignoreMediaGalleryId = null): bool
@@ -47,5 +48,11 @@ final class MediaGalleryRepository extends EntityRepository
     public function remove(MediaGallery $mediaGallery): void
     {
         $this->getEntityManager()->remove($mediaGallery);
+        $this->save();
+    }
+
+    public function save(): void
+    {
+        $this->getEntityManager()->flush();
     }
 }

@@ -14,7 +14,6 @@ final readonly class CreateContentBlockHandler
 {
     public function __construct(
         private ContentBlockRepository $contentBlockRepository,
-        private EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -27,8 +26,6 @@ final readonly class CreateContentBlockHandler
         $this->contentBlockRepository->add($contentBlock);
 
         $createContentBlock->setContentBlockEntity($contentBlock);
-
-        $this->entityManager->flush();
     }
 
     private function getNewExtraId(): int

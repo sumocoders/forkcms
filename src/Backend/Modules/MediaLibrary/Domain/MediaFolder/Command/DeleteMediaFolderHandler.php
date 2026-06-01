@@ -20,7 +20,5 @@ final readonly class DeleteMediaFolderHandler
         $mediaFolder = $deleteMediaFolder->mediaFolder;
 
         $this->mediaFolderRepository->remove($mediaFolder);
-
-        $this->entityManager->flush();
     }
 }
