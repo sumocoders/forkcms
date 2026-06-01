@@ -9,6 +9,7 @@ use Frontend\Core\Engine\Navigation;
 use Frontend\Core\Language\Language as FL;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Modules\Blog\Engine\Model as FrontendBlogModel;
+use IntlDateFormatter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use function Symfony\Component\String\s;
@@ -170,8 +171,16 @@ class Archive extends FrontendBaseBlock
         $this->header->setPageTitle(s(FL::lbl('Archive'))->title()->toString());
         $this->header->setPageTitle($this->startDate->format('Y'));
         if ($this->hasMonth) {
+            $date = new IntlDateFormatter(
+                LANGUAGE,
+                IntlDateFormatter::NONE,
+                IntlDateFormatter::NONE,
+                null,
+                null,
+                'MMMM'
+            )->format($this->startDate->getTimestamp());
             $this->header->setPageTitle(
-                \SpoonDate::getDate('F', $this->startDate->getTimestamp(), LANGUAGE)
+                $date
             );
         }
     }
@@ -181,12 +190,16 @@ class Archive extends FrontendBaseBlock
         $this->breadcrumb->addElement(s(FL::lbl('Archive'))->title()->toString());
         $this->breadcrumb->addElement($this->startDate->format('Y'));
         if ($this->hasMonth) {
+            $date = new IntlDateFormatter(
+                LANGUAGE,
+                IntlDateFormatter::NONE,
+                IntlDateFormatter::NONE,
+                null,
+                null,
+                'MMMM'
+            )->format($this->startDate->getTimestamp());
             $this->breadcrumb->addElement(
-                \SpoonDate::getDate(
-                    'F',
-                    $this->startDate->getTimestamp(),
-                    LANGUAGE
-                )
+                $date
             );
         }
     }
