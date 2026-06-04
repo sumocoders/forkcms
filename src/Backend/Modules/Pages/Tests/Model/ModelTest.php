@@ -29,5 +29,13 @@ class ModelTest extends TestCase
             'http://example.com/test#événements',
             Model::getEncodedRedirectUrl('http://example.com/test#événements')
         );
+        self::assertEquals(
+            'https://user:pass@example.com:8443/foo%22bar?x=1#frag',
+            Model::getEncodedRedirectUrl('https://user:pass@example.com:8443/foo"bar?x=1#frag')
+        );
+        self::assertEquals(
+            'https://example.com?foo=bar#frag',
+            Model::getEncodedRedirectUrl('https://example.com?foo=bar#frag')
+        );
     }
 }

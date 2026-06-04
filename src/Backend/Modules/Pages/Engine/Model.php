@@ -1548,12 +1548,43 @@ class Model
     {
         $parsedUrl = parse_url($redirectUrl);
 
+        if ($parsedUrl === false) {
+            return $redirectUrl;
+        }
+
         // Encode quotes in url path
         if (isset($parsedUrl['path'])) {
             $parsedUrl['path'] = str_replace(['"', '\''], ['%22', '%27'], $parsedUrl['path']);
         }
 
-        $url = $parsedUrl['scheme'] . '://' . $parsedUrl['host'] . $parsedUrl['path'];
+        // Rebuild URL
+        $url = '';
+
+        if (isset($parsedUrl['scheme'])) {
+            $url .= $parsedUrl['scheme'];
+            $url .= isset($parsedUrl['host']) ? '://' : ':';
+        }
+
+        if (isset($parsedUrl['host'])) {
+            if (isset($parsedUrl['user'])) {
+                $url .= $parsedUrl['user'];
+
+                if (isset($parsedUrl['pass'])) {
+                    $url .= ':' . $parsedUrl['pass'];
+                }
+
+                $url .= '@';
+            }
+
+            $url .= $parsedUrl['host'];
+
+            if (isset($parsedUrl['port'])) {
+                $url .= ':' . $parsedUrl['port'];
+            }
+        }
+
+        $url .= $parsedUrl['path'] ?? '';
+
         if (isset($parsedUrl['query'])) {
             $url .= '?' . $parsedUrl['query'];
         }
