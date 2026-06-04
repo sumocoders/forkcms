@@ -1546,20 +1546,53 @@ class Model
 
     public static function getEncodedRedirectUrl(string $redirectUrl): string
     {
-        preg_match('!(http[s]?)://(.*)!i', $redirectUrl, $matches);
-        $urlChunks = explode('/', $matches[2]);
-        /** @phpstan-ignore-next-line  */
-        if (!empty($urlChunks)) {
-            // skip domain name
-            $domain = array_shift($urlChunks);
-            foreach ($urlChunks as &$urlChunk) {
-                $urlChunk = rawurlencode($urlChunk);
-            }
-            unset($urlChunk);
-            $redirectUrl = $matches[1] . '://' . $domain . '/' . implode('/', $urlChunks);
+        $parsedUrl = parse_url($redirectUrl);
+
+        if ($parsedUrl === false) {
+            return $redirectUrl;
         }
 
-        return $redirectUrl;
+        // Encode quotes in url path
+        if (isset($parsedUrl['path'])) {
+            $parsedUrl['path'] = str_replace(['"', '\''], ['%22', '%27'], $parsedUrl['path']);
+        }
+
+        // Rebuild URL
+        $url = '';
+
+        if (isset($parsedUrl['scheme'])) {
+            $url .= $parsedUrl['scheme'];
+            $url .= isset($parsedUrl['host']) ? '://' : ':';
+        }
+
+        if (isset($parsedUrl['host'])) {
+            if (isset($parsedUrl['user'])) {
+                $url .= $parsedUrl['user'];
+
+                if (isset($parsedUrl['pass'])) {
+                    $url .= ':' . $parsedUrl['pass'];
+                }
+
+                $url .= '@';
+            }
+
+            $url .= $parsedUrl['host'];
+
+            if (isset($parsedUrl['port'])) {
+                $url .= ':' . $parsedUrl['port'];
+            }
+        }
+
+        $url .= $parsedUrl['path'] ?? '';
+
+        if (isset($parsedUrl['query'])) {
+            $url .= '?' . $parsedUrl['query'];
+        }
+        if (isset($parsedUrl['fragment'])) {
+            $url .= '#' . $parsedUrl['fragment'];
+        }
+
+        return $url;
     }
 
     private static function getNewParent(int $droppedOnPageId, string $typeOfDrop, array $droppedOnPage): int
