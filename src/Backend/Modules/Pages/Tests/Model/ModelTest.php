@@ -25,5 +25,9 @@ class ModelTest extends TestCase
             'http://cédé.be/Quote%22HelloWorld%22',
             Model::getEncodedRedirectUrl('http://cédé.be/Quote"HelloWorld"')
         );
+        self::assertEquals(
+            'http://example.com/test#événements',
+            Model::getEncodedRedirectUrl('http://example.com/test#événements')
+        );
     }
 }
