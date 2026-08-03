@@ -1,0 +1,22 @@
+services:
+    Console\Sitemap\GenerateSitemapCommand:
+        public: true
+        tags:
+            - { name: console.command }
+        arguments:
+            $providers: !tagged sitemap.url_provider
+            $projectDir: '%kernel.project_dir%'
+
+    Common\Sitemap\PagesSitemapUrlProvider:
+        public: true
+        arguments:
+            $database: '@database'
+        tags:
+            - { name: sitemap.url_provider }
+
+    Common\Sitemap\FaqSitemapUrlProvider:
+        public: true
+        arguments:
+            $database: '@database'
+        tags:
+            - { name: sitemap.url_provider }

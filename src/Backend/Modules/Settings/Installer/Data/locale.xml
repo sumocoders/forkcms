@@ -415,6 +415,22 @@
         <translation language="en"><![CDATA[The cache has been successfully cleared.]]></translation>
         <translation language="pl"><![CDATA[Pamięć podręczna została pomyślnie wyczyszczona.]]></translation>
       </item>
+      <item type="label" name="GenerateSitemap">
+        <translation language="nl"><![CDATA[genereer sitemap]]></translation>
+        <translation language="en"><![CDATA[generate sitemap]]></translation>
+      </item>
+      <item type="message" name="GenerateSitemap">
+        <translation language="nl"><![CDATA[Genereer de sitemap.xml opnieuw voor alle actieve talen.]]></translation>
+        <translation language="en"><![CDATA[Regenerate the sitemap.xml for all active languages.]]></translation>
+      </item>
+      <item type="message" name="GeneratingSitemap">
+        <translation language="nl"><![CDATA[De sitemap wordt gegenereerd, even geduld]]></translation>
+        <translation language="en"><![CDATA[The sitemap is being generated, hang on]]></translation>
+      </item>
+      <item type="message" name="SitemapGenerated">
+        <translation language="nl"><![CDATA[De sitemap werd succesvol gegenereerd.]]></translation>
+        <translation language="en"><![CDATA[The sitemap was generated successfully.]]></translation>
+      </item>
       <item type="label" name="LinkedPagesPerLanguage">
         <translation language="nl"><![CDATA[gelinkte pagina's per taal]]></translation>
         <translation language="en"><![CDATA[linked pages per language]]></translation>

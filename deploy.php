@@ -231,6 +231,10 @@ task('fork:migrations:locale:run', function () {
     }
 })->desc('Run locale migrations');
 
+task('fork:sitemap:generate', function () {
+    run('{{bin/console}} forkcms:sitemap:generate --env={{symfony_env}}');
+})->desc('Generate sitemap.xml');
+
 task(
     'fork:database:backup',
     function () {
@@ -261,3 +265,5 @@ after('deploy:update_code', 'fork:theme:build');
 after('fork:theme:build', 'fork:theme:upload');
 // Clear Fork CMS cache after deploy
 before('deploy:cache:clear', 'fork:cache:clear');
+// Generate the sitemap after cache is cleared
+after('fork:cache:clear', 'fork:sitemap:generate');
