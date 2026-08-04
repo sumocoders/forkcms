@@ -3,8 +3,7 @@
 namespace Backend\Modules\Settings\Ajax;
 
 use Backend\Core\Engine\Base\AjaxAction;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Console\Input\ArrayInput;
+use Common\Sitemap\SitemapGenerator;
 use Symfony\Component\HttpFoundation\Response;
 
 class GenerateSitemap extends AjaxAction
@@ -13,23 +12,14 @@ class GenerateSitemap extends AjaxAction
     {
         parent::execute();
 
-        $kernel = $this->getKernel();
-        $application = new Application($kernel);
-        $application->setAutoExit(false);
+        try {
+            $count = $this->get(SitemapGenerator::class)->generate();
+        } catch (\Throwable $e) {
+            $this->output(Response::HTTP_INTERNAL_SERVER_ERROR, null, $e->getMessage());
 
-        $input = new ArrayInput(
-            [
-                'command' => 'forkcms:sitemap:generate',
-            ]
-        );
+            return;
+        }
 
-        $exitCode = $application->run($input);
-
-        $this->output(
-            Response::HTTP_OK,
-            [
-                'exitCode' => $exitCode,
-            ]
-        );
+        $this->output(Response::HTTP_OK, ['count' => $count]);
     }
 }

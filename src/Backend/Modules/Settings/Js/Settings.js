@@ -118,14 +118,7 @@ jsBackend.settings = {
           }
         },
         success: function (data) {
-          // if the command exited with exit code 0, it was successful
-          if (data.data.exitCode === 0) {
-            jsBackend.messages.add('success', jsBackend.locale.msg('SitemapGenerated'))
-            return
-          }
-
-          // not so successful if it exited with anything else
-          jsBackend.messages.add('danger', jsBackend.locale.err('SomethingWentWrong'))
+          jsBackend.messages.add('success', jsBackend.locale.msg('SitemapGenerated'))
         },
         error: function () {
           // show error in case something goes wrong with the call itself
