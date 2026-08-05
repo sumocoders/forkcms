@@ -3,6 +3,7 @@ imports:
     - { resource: form.yml }
     - { resource: parameters.yml }
     - { resource: doctrine.yml }
+    - { resource: sitemap.yml }
 
 parameters:
     fork.is_installed: true

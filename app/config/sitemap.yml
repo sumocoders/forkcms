@@ -1,0 +1,33 @@
+services:
+    Common\Sitemap\SitemapGenerator:
+        public: true
+        arguments:
+            $providers: !tagged sitemap.url_provider
+            $projectDir: '%kernel.project_dir%'
+
+    Console\Sitemap\GenerateSitemapCommand:
+        public: true
+        autowire: true
+        tags:
+            - { name: console.command }
+
+    Common\Sitemap\PagesSitemapUrlProvider:
+        public: true
+        arguments:
+            $database: '@database'
+        tags:
+            - { name: sitemap.url_provider }
+
+    Common\Sitemap\FaqSitemapUrlProvider:
+        public: true
+        arguments:
+            $database: '@database'
+        tags:
+            - { name: sitemap.url_provider }
+
+    Common\Sitemap\BlogSitemapUrlProvider:
+        public: true
+        arguments:
+            $database: '@database'
+        tags:
+            - { name: sitemap.url_provider }

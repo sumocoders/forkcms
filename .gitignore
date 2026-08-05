@@ -40,3 +40,6 @@ docker-compose.override.yml
 
 # Twig CS Fixer cache
 /.twig-cs-fixer.cache
+
+# Generated sitemap
+/sitemap.xml
