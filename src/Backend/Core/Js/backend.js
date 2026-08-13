@@ -557,12 +557,34 @@ jsBackend.ckeditor = {
     $.fn.modal.Constructor.prototype.enforceFocus = function () {
       var modalThis = this
       $(document).on('focusin.modal', function (e) {
+        // Re-entrancy guard: forcing focus below fires another focusin
+        // synchronously. Without this guard the modal and CKEditor can keep
+        // handing focus back and forth within a single event dispatch until
+        // the call stack overflows (RangeError: Maximum call stack size exceeded).
+        if (modalThis.isEnforcingFocus) {
+          return
+        }
+
+        // Don't enforce focus for a modal that isn't visible. A modal can be
+        // hidden while its focusin handler is still bound (e.g. a second modal
+        // opened from the first, like the user template edit form opened from
+        // the add-block chooser); it would otherwise steal focus from the
+        // inputs in the visible modal.
+        if (!modalThis.$element.is(':visible')) {
+          return
+        }
+
+        // Leave focus alone when it lands anywhere inside a CKEditor instance:
+        // its editing surface and Source view textarea (.cke / .cke_source) and
+        // its dialog popups (.cke_dialog). CKEditor manages focus there itself.
+        var isCkEditorElement = $(e.target).closest('.cke, .cke_source, .cke_dialog').length > 0
+
         if (modalThis.$element[0] !== e.target &&
           !modalThis.$element.has(e.target).length &&
-          !$(e.target.parentNode).hasClass('cke_dialog_ui_input_select') &&
-          !$(e.target.parentNode).hasClass('cke_dialog_ui_input_text') &&
-          !$(e.target.parentNode).hasClass('cke_dialog_ui_input_textarea')) {
+          !isCkEditorElement) {
+          modalThis.isEnforcingFocus = true
           modalThis.$element.focus()
+          modalThis.isEnforcingFocus = false
         }
       })
     }
