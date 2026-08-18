@@ -95,6 +95,12 @@ class Ajax extends KernelLoader implements ApplicationInterface
             );
             $this->response = $this->ajaxAction->getContent();
         } catch (\Exception $exception) {
+            $this->getContainer()->get('logger.public')->error(
+                'Unhandled exception during Ajax::initialize(): ' . $exception->getMessage(),
+                ['exception' => $exception]
+            );
+            \Sentry\captureException($exception);
+
             $this->ajaxAction = new FrontendBaseAJAXAction($this->getKernel(), '', '');
             $this->ajaxAction->output(
                 Response::HTTP_INTERNAL_SERVER_ERROR,
