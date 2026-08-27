@@ -9,3 +9,11 @@ services:
       - "@ForkCMS\\Utility\\Thumbnails"
     tags:
       - { name: console.command }
+  forkcms.console.mailmotor.remove:
+    class: Console\Mailmotor\RemoveMailmotorCommand
+    arguments:
+      - "@database"
+      - "@fork.settings"
+      - "@kernel"
+    tags:
+      - { name: console.command }
