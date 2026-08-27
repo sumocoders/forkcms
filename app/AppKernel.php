@@ -23,10 +23,6 @@ class AppKernel extends Kernel
             new \ForkCMS\Bundle\CoreBundle\ForkCMSCoreBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new \Backend\Modules\MediaLibrary\MediaLibrary(),
-            new \Backend\Modules\Mailmotor\Mailmotor(),
-            new \MailMotor\Bundle\MailMotorBundle\MailMotorMailMotorBundle(),
-            new \MailMotor\Bundle\MailChimpBundle\MailMotorMailChimpBundle(),
-            new \MailMotor\Bundle\CampaignMonitorBundle\MailMotorCampaignMonitorBundle(),
             new \Liip\ImagineBundle\LiipImagineBundle(),
             new \Twig\Extra\TwigExtraBundle\TwigExtraBundle(),
         ];

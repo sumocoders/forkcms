@@ -56,7 +56,6 @@
             <exclude>src/Frontend/Modules/Faq/Tests/Actions</exclude>
             <exclude>src/Frontend/Modules/FormBuilder/Tests/Actions</exclude>
             <exclude>src/Frontend/Modules/Location/Tests/Actions</exclude>
-            <exclude>src/Frontend/Modules/Mailmotor/Tests/Actions</exclude>
             <exclude>src/Frontend/Modules/Pages/Tests/Actions</exclude>
             <exclude>src/Frontend/Modules/Profiles/Tests/Actions</exclude>
             <exclude>src/Frontend/Modules/Search/Tests/Actions</exclude>
@@ -73,7 +72,6 @@
             <exclude>src/Backend/Modules/Locale/Tests/Actions</exclude>
             <exclude>src/Backend/Modules/Location/Tests/Actions</exclude>
             <exclude>src/Backend/Modules/Pages/Tests/Actions</exclude>
-            <exclude>src/Backend/Modules/Mailmotor/Tests/Actions</exclude>
             <exclude>src/Backend/Modules/Pages/Tests/Actions</exclude>
             <exclude>src/Backend/Modules/Profiles/Tests/Actions</exclude>
             <exclude>src/Backend/Modules/Search/Tests/Actions</exclude>

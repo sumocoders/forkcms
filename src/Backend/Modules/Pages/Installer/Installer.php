@@ -96,20 +96,6 @@ class Installer extends ModuleInstaller
         if (in_array('Faq', $this->getVariable('selected_modules'))) {
             $extras['faq_block'] = $this->insertExtra('Faq', ModuleExtraType::block(), 'Faq');
         }
-        if (in_array('Mailmotor', $this->getVariable('selected_modules'))) {
-            $extras['mailmotor_subscribe'] = $this->insertExtra(
-                'Mailmotor',
-                ModuleExtraType::block(),
-                'SubscribeForm',
-                'Subscribe'
-            );
-            $extras['mailmotor_unsubscribe'] = $this->insertExtra(
-                'Mailmotor',
-                ModuleExtraType::block(),
-                'UnsubscribeForm',
-                'Unsubscribe'
-            );
-        }
         $extras['tags_block'] = $this->insertExtra('Tags', ModuleExtraType::block(), 'Tags');
         if (in_array('Profiles', $this->getVariable('selected_modules'))) {
             $extras['profiles_forgot_password'] = $this->insertExtra(
@@ -248,27 +234,6 @@ class Installer extends ModuleInstaller
                         ],
                         null,
                         ['extra_id' => $extras['faq_block']]
-                    );
-                }
-
-                // mailmotor
-                if (in_array('Mailmotor', $this->getVariable('selected_modules'))) {
-                    $newslettersPageId = $this->insertPage(
-                        [
-                            'title' => 'Newsletters',
-                            'language' => $language,
-                            'parent_id' => $modulesPageId,
-                        ]
-                    );
-                    $this->insertPage(
-                        ['parent_id' => $newslettersPageId, 'title' => 'Subscribe', 'language' => $language],
-                        null,
-                        ['extra_id' => $extras['mailmotor_subscribe'], 'position' => 'main']
-                    );
-                    $this->insertPage(
-                        ['parent_id' => $newslettersPageId, 'title' => 'Unsubscribe', 'language' => $language],
-                        null,
-                        ['extra_id' => $extras['mailmotor_unsubscribe'], 'position' => 'main']
                     );
                 }
 

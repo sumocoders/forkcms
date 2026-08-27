@@ -142,9 +142,6 @@ services:
     liip_imagine.cache.manager.public:
         alias: liip_imagine.cache.manager
         public: true
-    mailmotor.factory.public:
-        alias: mailmotor.factory
-        public: true
     database:
         class: SpoonDatabase
         public: true
