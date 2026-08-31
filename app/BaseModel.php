@@ -17,6 +17,14 @@ class BaseModel
      */
     private static $container;
 
+    /**
+     * Gets a service by id.
+     *
+     * @template Service
+     * @param string|class-string<Service> $serviceId
+     *
+     * @return mixed|Service The service
+     */
     public static function get(string $serviceId)
     {
         return self::$container->get($serviceId);

@@ -4,11 +4,21 @@ namespace Common\Doctrine\Repository;
 
 use Backend\Core\Engine\Exception;
 use Backend\Core\Engine\Model;
+use Common\Doctrine\Entity\Meta;
 use Common\Uri;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
-class MetaRepository extends EntityRepository
+/**
+ * @extends ServiceEntityRepository<Meta>
+ */
+class MetaRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Meta::class);
+    }
+
     /**
      * Generate an url, using the predefined callback.
      *

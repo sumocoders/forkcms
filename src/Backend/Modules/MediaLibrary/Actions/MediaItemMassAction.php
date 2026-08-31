@@ -5,11 +5,13 @@ namespace Backend\Modules\MediaLibrary\Actions;
 use Backend\Core\Engine\Base\Action as BackendBaseAction;
 use Backend\Core\Engine\Model;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
+use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Command\DeleteMediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Command\UpdateMediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
+use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Type;
 use Backend\Modules\MediaLibrary\Manager\MediaItemManager;
 use Exception;
@@ -47,7 +49,7 @@ class MediaItemMassAction extends BackendBaseAction
         foreach ($this->getSelectedMediaItemIds() as $mediaItemId) {
             try {
                 /** @var MediaItem $mediaItem */
-                $mediaItem = $this->get('media_library.repository.item')->findOneById($mediaItemId);
+                $mediaItem = $this->get(MediaItemRepository::class)->findOneById($mediaItemId);
 
                 switch ($action) {
                     case self::MOVE:
@@ -103,7 +105,7 @@ class MediaItemMassAction extends BackendBaseAction
 
         try {
             /** @var MediaFolder */
-            return $this->get('media_library.repository.folder')->findOneById($id);
+            return $this->get(MediaFolderRepository::class)->findOneById($id);
         } catch (MediaFolderNotFound) {
             return null;
         }
@@ -112,7 +114,7 @@ class MediaItemMassAction extends BackendBaseAction
     private function getMediaFolder(int $mediaFolderId, Type $selectedType): MediaFolder
     {
         try {
-            return $this->get('media_library.repository.folder')->findOneById($mediaFolderId);
+            return $this->get(MediaFolderRepository::class)->findOneById($mediaFolderId);
         } catch (MediaItemNotFound) {
             $this->redirect(
                 $this->getBackLink(

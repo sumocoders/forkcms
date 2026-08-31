@@ -8,6 +8,7 @@ use Backend\Form\Type\DeleteType;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\DeleteMediaGallery;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\Exception\MediaGalleryNotFound;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGallery;
+use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
@@ -54,7 +55,7 @@ class MediaGalleryDelete extends BackendBaseActionDelete
     {
         try {
             /** @var MediaGallery|null $mediaGallery */
-            return $this->get('media_galleries.repository.gallery')->findOneById($id);
+            return $this->get(MediaGalleryRepository::class)->findOneById($id);
         } catch (MediaGalleryNotFound) {
             $this->redirect(
                 $this->getBackLink(

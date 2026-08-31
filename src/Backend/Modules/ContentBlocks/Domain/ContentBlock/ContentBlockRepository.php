@@ -4,10 +4,19 @@ namespace Backend\Modules\ContentBlocks\Domain\ContentBlock;
 
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\Exception\ContentBlockNotFound;
 use Common\Locale;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
-class ContentBlockRepository extends EntityRepository
+/**
+ * @extends ServiceEntityRepository<ContentBlock>
+ */
+class ContentBlockRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, ContentBlock::class);
+    }
+
     public function add(ContentBlock $contentBlock): void
     {
         // make sure the other revisions are archived

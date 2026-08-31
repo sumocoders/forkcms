@@ -18,7 +18,7 @@ class AddMetaSubscriber implements EventSubscriberInterface
     /**
      * @param string $moduleForUrl The URL shown in the backend will need this "module" to be generated.
      * @param string $actionForUrl The URL shown in the backend will need this "action" to be generated.
-     * @param string $generateUrlCallbackClass Name of the class or the container service id, f.e.: 'moduleForUrl.repository.item',
+     * @param string $generateUrlCallbackClass Name of the class or the container service id, f.e.: MediaItemRepository::class,
      * @param string $generateUrlCallbackMethod Name of the public method which returns you the URL, f.e.: "getUrl"
      * @param array $generateUrlCallbackParameterMethods Extra parameters you want to include in the AJAX call to get the URL, f.e.: ["getData.getLocale", "getForm.getParent.getParent.getData.getMenuEntityId"]
      * @param string $baseFieldName The field in the form where the URL should be generated for.

@@ -251,9 +251,8 @@ services:
 
     Common\Doctrine\Repository\MetaRepository:
         public: true
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments:
-            - Common\Doctrine\Entity\Meta
+        autowire: true
+        autoconfigure: true
 
     ForkCMS\App\ForkController:
         public: true
