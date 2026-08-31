@@ -3330,23 +3330,6 @@
         <translation language="pl"><![CDATA[Brak wyników.]]></translation>
         <translation language="pt"><![CDATA[Não existem resultados.]]></translation>
       </item>
-      <item type="message" name="SubscribeSuccess">
-        <translation language="en"><![CDATA[You have successfully subscribed to the newsletter.]]></translation>
-        <translation language="nl"><![CDATA[Je bent met success ingeschreven op de nieuwsbrief.]]></translation>
-        <translation language="hu"><![CDATA[Sikeresen feliratkoztál a hírlevélre.]]></translation>
-        <translation language="it"><![CDATA[Sei iscritto con successo alla newsletter.]]></translation>
-        <translation language="fr"><![CDATA[Votre inscription à la newsletter à bien été pris en compte.]]></translation>
-        <translation language="ru"><![CDATA[Вы успешно подписались на рассылку.]]></translation>
-        <translation language="zh"><![CDATA[你已经成功订阅了邮件通知。]]></translation>
-        <translation language="de"><![CDATA[Du hast dich erfolgreich für den Newsletter eingetragen.]]></translation>
-        <translation language="es"><![CDATA[Te has subscrito correctamente.]]></translation>
-        <translation language="lt"><![CDATA[Naujienlaiškis užsakytas.]]></translation>
-        <translation language="uk"><![CDATA[Ви успішно підписалися на розсилку]]></translation>
-        <translation language="sv"><![CDATA[Du prenumererar nu på nyhetsbrevet.]]></translation>
-        <translation language="el"><![CDATA[Έχετε εγγραφεί με επιτυχία συνδρομητής στο ενημερωτικό φυλλάδιο.]]></translation>
-        <translation language="pl"><![CDATA[Udało Ci się zapisac do newslettera.]]></translation>
-        <translation language="pt"><![CDATA[Subscreveu com sucesso à newsletter.]]></translation>
-      </item>
       <item type="message" name="TagsNoItems">
         <translation language="nl"><![CDATA[Er werden nog geen tags gebruikt.]]></translation>
         <translation language="en"><![CDATA[No tags were used.]]></translation>
@@ -3363,23 +3346,6 @@
         <translation language="el"><![CDATA[Δεν χρησιμοποιήθηκαν καθόλου ετικέτες.]]></translation>
         <translation language="pl"><![CDATA[Nie wykorzystano jeszcze tagów]]></translation>
         <translation language="pt"><![CDATA[Ainda não foram utilizadas etiquetas.]]></translation>
-      </item>
-      <item type="message" name="UnsubscribeSuccess">
-        <translation language="en"><![CDATA[You have successfully unsubscribed from the newsletter.]]></translation>
-        <translation language="nl"><![CDATA[Je bent met success uitgeschreven uit de nieuwsbrief.]]></translation>
-        <translation language="hu"><![CDATA[Sikeresen leiratkoztál a hírlevélről.]]></translation>
-        <translation language="it"><![CDATA[La tua iscrizione alla newsletter è stata cancellata con successo.]]></translation>
-        <translation language="fr"><![CDATA[Votre inscription à la newsletter a bien été annulée.]]></translation>
-        <translation language="ru"><![CDATA[Вы успешно отписались от рассылки.]]></translation>
-        <translation language="zh"><![CDATA[你已经成功退订了邮件通知。]]></translation>
-        <translation language="de"><![CDATA[Du hast den Newsletter erfolgreich abbestellt.]]></translation>
-        <translation language="es"><![CDATA[Te has dado de baja correctamente.]]></translation>
-        <translation language="lt"><![CDATA[Prenumerta nutraukta.]]></translation>
-        <translation language="uk"><![CDATA[Ви успішно відпідписалися від розсилки]]></translation>
-        <translation language="sv"><![CDATA[Du har nu avanmält dig från nyhetsbrevet.]]></translation>
-        <translation language="el"><![CDATA[Έχετε επιτυχώς διαγράψει τη συνδρομή σας από το ενημερωτικό φυλλάδιο.]]></translation>
-        <translation language="pl"><![CDATA[Udało Ci się wypisać z newslettera.]]></translation>
-        <translation language="pt"><![CDATA[Cancelou com sucesso a sua subscrição da newsletter.]]></translation>
       </item>
       <item type="message" name="UpdateEmailIsSuccess">
         <translation language="nl"><![CDATA[Je e-mail werd gewijzigd.]]></translation>
@@ -3465,40 +3431,6 @@
         <translation language="el"><![CDATA[γράφτηκε από τον %1$s]]></translation>
         <translation language="pl"><![CDATA[napisane przez %1$s]]></translation>
         <translation language="pt"><![CDATA[escrito por %1$s]]></translation>
-      </item>
-      <item type="error" name="AlreadySubscribed">
-        <translation language="en"><![CDATA[This e-mail address is already subscribed to the newsletter.]]></translation>
-        <translation language="nl"><![CDATA[Dit e-mailadres is reeds ingeschreven op de nieuwsbrief.]]></translation>
-        <translation language="hu"><![CDATA[Ez az e-mail cím már feliratkozott a hírlevélre.]]></translation>
-        <translation language="it"><![CDATA[Questa email è già iscritta alla newsletter.]]></translation>
-        <translation language="fr"><![CDATA[Cette adresse e-mail est déjà inscrite à la newsletter.]]></translation>
-        <translation language="ru"><![CDATA[Этот E-mail уже подписан на рассылку.]]></translation>
-        <translation language="zh"><![CDATA[这个邮箱已经订阅了邮件消息。]]></translation>
-        <translation language="de"><![CDATA[Diese E-Mail-Adresse ist bereits für den Newsletter eingetragen.]]></translation>
-        <translation language="es"><![CDATA[Esta dirección e-mail está actualmente subscrita.]]></translation>
-        <translation language="lt"><![CDATA[Šis el.paštas jau yra prenumeratoje.]]></translation>
-        <translation language="uk"><![CDATA[Цей e-mail вже підписаний на розсилки]]></translation>
-        <translation language="sv"><![CDATA[Denna e-postadress prenummererar redan på nyhetsbrevet.]]></translation>
-        <translation language="el"><![CDATA[Αυτή η διεύθυνση email έχει ήδη συνδρομή στο ενημερωτικό φυλλάδιο.]]></translation>
-        <translation language="pl"><![CDATA[Ten adres e-mail jest już zapisany do newslettera.]]></translation>
-        <translation language="pt"><![CDATA[Este endereço de email já não se encontra inscrito na newsletter.]]></translation>
-      </item>
-      <item type="error" name="AlreadyUnsubscribed">
-        <translation language="en"><![CDATA[This e-mail address is already unsubscribed from the newsletter]]></translation>
-        <translation language="nl"><![CDATA[Dit e-mailadres is reeds uitschreven uit de nieuwsbrief.]]></translation>
-        <translation language="hu"><![CDATA[Ez az e-mail cím már leiratkozott a hírlevélről.]]></translation>
-        <translation language="it"><![CDATA[Questa email è già stata cancellata dalla newsletter.]]></translation>
-        <translation language="fr"><![CDATA[Cette adresse e-mail est déjà désinscrite de la newsletter.]]></translation>
-        <translation language="ru"><![CDATA[Этот E-mail уже отписан от рассылки.]]></translation>
-        <translation language="zh"><![CDATA[这个邮箱已经退订了邮件消息。]]></translation>
-        <translation language="de"><![CDATA[Diese E-Mail-Adresse hat den Newsletter bereits abbestellt.]]></translation>
-        <translation language="es"><![CDATA[Esta dirección e-mail está actualmente dada de baja.]]></translation>
-        <translation language="lt"><![CDATA[Šis el.paštas jau nutraukė prenumeratą.]]></translation>
-        <translation language="uk"><![CDATA[Цей e-mail відключений від розсилки]]></translation>
-        <translation language="sv"><![CDATA[Denna e-postadress är har redan avanmält sig från nyhetsbrevet]]></translation>
-        <translation language="el"><![CDATA[Αυτή η διεύθυνση email έχει ακυρώσει τη συνδρομή της στο ενημερωτικό φυλλάδιο.]]></translation>
-        <translation language="pl"><![CDATA[Ten adres e-mail  wypisał się już z newslettera]]></translation>
-        <translation language="pt"><![CDATA[Este endereço de email já não se encontra inscrito da newsletter.]]></translation>
       </item>
       <item type="error" name="AuthorIsRequired">
         <translation language="nl"><![CDATA[Auteur is een verplicht veld.]]></translation>
@@ -4064,23 +3996,6 @@
         <translation language="pl"><![CDATA[Coś poszło nie tak.]]></translation>
         <translation language="pt"><![CDATA[Ocorreu um erro.]]></translation>
       </item>
-      <item type="error" name="SubscribeFailed">
-        <translation language="en"><![CDATA[Subscribing failed]]></translation>
-        <translation language="nl"><![CDATA[Het inschrijven is niet gelukt]]></translation>
-        <translation language="hu"><![CDATA[Feliratkozás sikertelen]]></translation>
-        <translation language="it"><![CDATA[Abbonamento fallito]]></translation>
-        <translation language="fr"><![CDATA[L'inscription a échoué]]></translation>
-        <translation language="ru"><![CDATA[Ошибка подписки.]]></translation>
-        <translation language="zh"><![CDATA[订阅失败]]></translation>
-        <translation language="de"><![CDATA[Abonnement fehlgeschlagen]]></translation>
-        <translation language="es"><![CDATA[Subscripción falló failed]]></translation>
-        <translation language="lt"><![CDATA[Prenumeratos klaida]]></translation>
-        <translation language="uk"><![CDATA[Помилка підписки.]]></translation>
-        <translation language="sv"><![CDATA[Prenumerering misslyckades]]></translation>
-        <translation language="el"><![CDATA[Η εγγραφή συνδρομής απέτυχε]]></translation>
-        <translation language="pl"><![CDATA[Zapisywanie nie powiodło się]]></translation>
-        <translation language="pt"><![CDATA[A subscrição falhou.]]></translation>
-      </item>
       <item type="error" name="TermIsRequired">
         <translation language="nl"><![CDATA[De zoekterm is verplicht.]]></translation>
         <translation language="en"><![CDATA[The searchterm is required.]]></translation>
@@ -4097,23 +4012,6 @@
         <translation language="el"><![CDATA[Ο όρος αναζήτησης είναι υποχρεωτικός]]></translation>
         <translation language="pl"><![CDATA[Szukana fraza jest wymagana.]]></translation>
         <translation language="pt"><![CDATA[O termo de pesquisa é obrigatório.]]></translation>
-      </item>
-      <item type="error" name="UnsubscribeFailed">
-        <translation language="en"><![CDATA[Unsubscribing failed]]></translation>
-        <translation language="nl"><![CDATA[Het uitschrijven is niet gelukt]]></translation>
-        <translation language="hu"><![CDATA[Leiratkozás sikertelen]]></translation>
-        <translation language="it"><![CDATA[Cancellazione abbonamento fallita]]></translation>
-        <translation language="fr"><![CDATA[La désinscription a échoué]]></translation>
-        <translation language="ru"><![CDATA[Ошибка при отписке.]]></translation>
-        <translation language="zh"><![CDATA[退订失败]]></translation>
-        <translation language="de"><![CDATA[Das Abbestellen hat nicht geklappt.]]></translation>
-        <translation language="es"><![CDATA[Darse de baja falló]]></translation>
-        <translation language="lt"><![CDATA[Prenumeratos atsisakymo klaida]]></translation>
-        <translation language="uk"><![CDATA[Помилка при відписці]]></translation>
-        <translation language="sv"><![CDATA[Avanmälan misslyckades]]></translation>
-        <translation language="el"><![CDATA[Η διαγραφή της συνδρομής απέτυχε]]></translation>
-        <translation language="pl"><![CDATA[Nie udał się proces anulowania subskrypcji]]></translation>
-        <translation language="pt"><![CDATA[O cancelamento da subscrição falhou.]]></translation>
       </item>
       <item type="action" name="Archive">
         <translation language="nl"><![CDATA[archief]]></translation>
@@ -7434,176 +7332,6 @@
         <translation language="zh"><![CDATA[立陶宛语]]></translation>
         <translation language="pt"><![CDATA[lituano]]></translation>
         <translation language="pl"><![CDATA[Litewski]]></translation>
-      </item>
-      <item type="label" name="Mailmotor">
-        <translation language="en"><![CDATA[mailmotor]]></translation>
-        <translation language="nl"><![CDATA[mailmotor]]></translation>
-        <translation language="hu"><![CDATA[mailmotor]]></translation>
-        <translation language="it"><![CDATA[mailmotor]]></translation>
-        <translation language="ru"><![CDATA[MailMotor]]></translation>
-        <translation language="zh"><![CDATA[邮件]]></translation>
-        <translation language="de"><![CDATA[mailmotor]]></translation>
-        <translation language="fr"><![CDATA[mailmotor]]></translation>
-        <translation language="es"><![CDATA[mailmotor]]></translation>
-        <translation language="lt"><![CDATA[mailmotor]]></translation>
-        <translation language="uk"><![CDATA[MailMotor]]></translation>
-        <translation language="sv"><![CDATA[mailmotor]]></translation>
-        <translation language="el"><![CDATA[μηχανή αποστολής email (mailmotor)]]></translation>
-        <translation language="pt"><![CDATA[mailmotor]]></translation>
-        <translation language="pl"><![CDATA[mailmotor]]></translation>
-      </item>
-      <item type="label" name="MailmotorClicks">
-        <translation language="en"><![CDATA[clicks]]></translation>
-        <translation language="nl"><![CDATA[kliks]]></translation>
-        <translation language="hu"><![CDATA[kattintás]]></translation>
-        <translation language="it"><![CDATA[click]]></translation>
-        <translation language="ru"><![CDATA[Клики]]></translation>
-        <translation language="zh"><![CDATA[点击]]></translation>
-        <translation language="de"><![CDATA[Klicks]]></translation>
-        <translation language="fr"><![CDATA[clics]]></translation>
-        <translation language="es"><![CDATA[clicks]]></translation>
-        <translation language="lt"><![CDATA[paspaudimai]]></translation>
-        <translation language="uk"><![CDATA[Кліки]]></translation>
-        <translation language="sv"><![CDATA[klick]]></translation>
-        <translation language="el"><![CDATA[κλικαρίσματα]]></translation>
-        <translation language="pt"><![CDATA[cliques]]></translation>
-        <translation language="pl"><![CDATA[kliki]]></translation>
-      </item>
-      <item type="label" name="MailmotorGroups">
-        <translation language="en"><![CDATA[groups]]></translation>
-        <translation language="nl"><![CDATA[doelgroepen]]></translation>
-        <translation language="hu"><![CDATA[csoportok]]></translation>
-        <translation language="it"><![CDATA[gruppi]]></translation>
-        <translation language="ru"><![CDATA[Группы]]></translation>
-        <translation language="zh"><![CDATA[邮件组]]></translation>
-        <translation language="de"><![CDATA[Gruppen]]></translation>
-        <translation language="fr"><![CDATA[groupes]]></translation>
-        <translation language="lt"><![CDATA[groups]]></translation>
-        <translation language="uk"><![CDATA[Групи]]></translation>
-        <translation language="es"><![CDATA[grupos]]></translation>
-        <translation language="sv"><![CDATA[grupper]]></translation>
-        <translation language="el"><![CDATA[ομάδες]]></translation>
-        <translation language="pt"><![CDATA[grupos]]></translation>
-        <translation language="pl"><![CDATA[grupy]]></translation>
-      </item>
-      <item type="label" name="MailmotorLatestMailing">
-        <translation language="en"><![CDATA[last sent mailing]]></translation>
-        <translation language="nl"><![CDATA[laatst verzonden mailing]]></translation>
-        <translation language="hu"><![CDATA[utoljára küldött mail]]></translation>
-        <translation language="it"><![CDATA[ultimo invio]]></translation>
-        <translation language="ru"><![CDATA[Последняя рассылка]]></translation>
-        <translation language="zh"><![CDATA[最后一次发送]]></translation>
-        <translation language="fr"><![CDATA[dernier mailing envoyé]]></translation>
-        <translation language="de"><![CDATA[zuletzt versandter Newsletter]]></translation>
-        <translation language="es"><![CDATA[último envio]]></translation>
-        <translation language="lt"><![CDATA[paskutiniai siuntiniai]]></translation>
-        <translation language="uk"><![CDATA[Остання розсилка]]></translation>
-        <translation language="sv"><![CDATA[senast skickade mail]]></translation>
-        <translation language="el"><![CDATA[τελευταία ταχυδρόμηση]]></translation>
-        <translation language="pt"><![CDATA[últimos envios]]></translation>
-        <translation language="pl"><![CDATA[ostatni wysłany mailing]]></translation>
-      </item>
-      <item type="label" name="MailmotorOpened">
-        <translation language="en"><![CDATA[opened]]></translation>
-        <translation language="nl"><![CDATA[geopend]]></translation>
-        <translation language="hu"><![CDATA[megnyitott]]></translation>
-        <translation language="it"><![CDATA[aperto]]></translation>
-        <translation language="ru"><![CDATA[Открыто]]></translation>
-        <translation language="zh"><![CDATA[已打开]]></translation>
-        <translation language="de"><![CDATA[geöffnet]]></translation>
-        <translation language="fr"><![CDATA[ouvert]]></translation>
-        <translation language="es"><![CDATA[abierto]]></translation>
-        <translation language="lt"><![CDATA[ativira]]></translation>
-        <translation language="uk"><![CDATA[Відкрито]]></translation>
-        <translation language="sv"><![CDATA[öppnat]]></translation>
-        <translation language="el"><![CDATA[έναρξη ταχυδρόμησης]]></translation>
-        <translation language="pt"><![CDATA[aberto]]></translation>
-        <translation language="pl"><![CDATA[otwarto]]></translation>
-      </item>
-      <item type="label" name="MailmotorSendDate">
-        <translation language="en"><![CDATA[send date]]></translation>
-        <translation language="nl"><![CDATA[verzenddatum]]></translation>
-        <translation language="hu"><![CDATA[küldés dátuma]]></translation>
-        <translation language="it"><![CDATA[data di invio]]></translation>
-        <translation language="ru"><![CDATA[Дата отправки]]></translation>
-        <translation language="zh"><![CDATA[发送日期]]></translation>
-        <translation language="fr"><![CDATA[date d'envoi]]></translation>
-        <translation language="de"><![CDATA[Versanddatum]]></translation>
-        <translation language="es"><![CDATA[fecha de envio]]></translation>
-        <translation language="lt"><![CDATA[išsiuntimo data]]></translation>
-        <translation language="uk"><![CDATA[Дата надсилання]]></translation>
-        <translation language="sv"><![CDATA[skickat den]]></translation>
-        <translation language="el"><![CDATA[ημερομηνία αποστολής]]></translation>
-        <translation language="pt"><![CDATA[data de envio]]></translation>
-        <translation language="pl"><![CDATA[data wysłania]]></translation>
-      </item>
-      <item type="label" name="MailmotorSent">
-        <translation language="en"><![CDATA[sent]]></translation>
-        <translation language="nl"><![CDATA[verzonden]]></translation>
-        <translation language="hu"><![CDATA[elküldött]]></translation>
-        <translation language="it"><![CDATA[inviato]]></translation>
-        <translation language="ru"><![CDATA[Отправлено]]></translation>
-        <translation language="zh"><![CDATA[已发送]]></translation>
-        <translation language="fr"><![CDATA[envoyé]]></translation>
-        <translation language="de"><![CDATA[versandt]]></translation>
-        <translation language="es"><![CDATA[enviado]]></translation>
-        <translation language="lt"><![CDATA[išsiųsta]]></translation>
-        <translation language="uk"><![CDATA[Надіслано]]></translation>
-        <translation language="sv"><![CDATA[skickat]]></translation>
-        <translation language="el"><![CDATA[απεστάλη]]></translation>
-        <translation language="pt"><![CDATA[enviado]]></translation>
-        <translation language="pl"><![CDATA[wysłane]]></translation>
-      </item>
-      <item type="label" name="MailmotorStatistics">
-        <translation language="en"><![CDATA[statistics]]></translation>
-        <translation language="nl"><![CDATA[statistieken]]></translation>
-        <translation language="hu"><![CDATA[statisztikák]]></translation>
-        <translation language="it"><![CDATA[statistiche]]></translation>
-        <translation language="ru"><![CDATA[Статистика]]></translation>
-        <translation language="zh"><![CDATA[统计]]></translation>
-        <translation language="de"><![CDATA[Statistik]]></translation>
-        <translation language="fr"><![CDATA[statistiques]]></translation>
-        <translation language="es"><![CDATA[estadisticas]]></translation>
-        <translation language="lt"><![CDATA[statistika]]></translation>
-        <translation language="uk"><![CDATA[Статистика]]></translation>
-        <translation language="sv"><![CDATA[statistik]]></translation>
-        <translation language="el"><![CDATA[στατιστικά]]></translation>
-        <translation language="pt"><![CDATA[estatísticas]]></translation>
-        <translation language="pl"><![CDATA[statystyki]]></translation>
-      </item>
-      <item type="label" name="MailmotorSubscriptions">
-        <translation language="en"><![CDATA[subscriptions]]></translation>
-        <translation language="nl"><![CDATA[inschrijvingen]]></translation>
-        <translation language="hu"><![CDATA[feliratkozók]]></translation>
-        <translation language="it"><![CDATA[abbonamenti]]></translation>
-        <translation language="ru"><![CDATA[Подписки]]></translation>
-        <translation language="zh"><![CDATA[订阅]]></translation>
-        <translation language="fr"><![CDATA[abonnements]]></translation>
-        <translation language="de"><![CDATA[Anmeldungen]]></translation>
-        <translation language="es"><![CDATA[subscripciones]]></translation>
-        <translation language="lt"><![CDATA[prenumeratos]]></translation>
-        <translation language="uk"><![CDATA[Підписки]]></translation>
-        <translation language="sv"><![CDATA[prenumerera]]></translation>
-        <translation language="el"><![CDATA[συνδρομές]]></translation>
-        <translation language="pt"><![CDATA[subscrições]]></translation>
-        <translation language="pl"><![CDATA[zapisy]]></translation>
-      </item>
-      <item type="label" name="MailmotorUnsubscriptions">
-        <translation language="en"><![CDATA[unsubscriptions]]></translation>
-        <translation language="nl"><![CDATA[uitschrijvingen]]></translation>
-        <translation language="hu"><![CDATA[leiratkozók]]></translation>
-        <translation language="it"><![CDATA[cancellazioni abbonamento]]></translation>
-        <translation language="ru"><![CDATA[Отписки]]></translation>
-        <translation language="zh"><![CDATA[退订]]></translation>
-        <translation language="fr"><![CDATA[désabonnements]]></translation>
-        <translation language="de"><![CDATA[Abmeldungen]]></translation>
-        <translation language="es"><![CDATA[dados de baja]]></translation>
-        <translation language="lt"><![CDATA[Atsisakymai]]></translation>
-        <translation language="uk"><![CDATA[Відписки]]></translation>
-        <translation language="sv"><![CDATA[avsluta prenumeration]]></translation>
-        <translation language="el"><![CDATA[ακυρώσεις συνδρομών]]></translation>
-        <translation language="pt"><![CDATA[cancelamentos de subscrição]]></translation>
-        <translation language="pl"><![CDATA[wypisy]]></translation>
       </item>
       <item type="label" name="MainContent">
         <translation language="nl"><![CDATA[hoofdinhoud]]></translation>

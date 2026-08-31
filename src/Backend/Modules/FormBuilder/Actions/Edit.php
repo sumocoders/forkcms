@@ -84,7 +84,6 @@ class Edit extends BackendBaseActionEdit
         $this->form->addText('textbox_classname');
         $this->form->addCheckbox('textbox_required');
         $this->form->addCheckbox('textbox_reply_to');
-        $this->form->addCheckbox('textbox_mailmotor');
         $this->form->addText('textbox_required_error_message');
         $this->form->addDropdown(
             'textbox_validation',
@@ -193,14 +192,6 @@ class Edit extends BackendBaseActionEdit
         // heading dialog
         $this->form->addText('heading');
 
-        // mailmotor dialog
-        $settings = BackendModel::get('fork.settings');
-        $this->form->addText(
-            'mailmotor_list_id',
-            $settings->get('Mailmotor', 'list_id_' . BL::getWorkingLanguage()) ?? $settings->get('Mailmotor', 'list_id')
-        );
-        $this->form->addText('mailmotor_label', BL::lbl('MailmotorSubscribeToNewsletter'));
-
         // paragraph dialog
         $this->form->addEditor('paragraph');
         $this->form->getField('paragraph')->setAttribute('cols', 30);
@@ -220,15 +211,9 @@ class Edit extends BackendBaseActionEdit
         $settings = BackendModel::get('fork.settings');
         $recaptchaSiteKey = $settings->get('Core', 'google_recaptcha_site_key');
         $recaptchaSecretKey = $settings->get('Core', 'google_recaptcha_secret_key');
-        $mailmotorListId = $settings->get('Mailmotor', 'list_id');
 
         if (!($recaptchaSiteKey || $recaptchaSecretKey)) {
             $this->template->assign('recaptchaMissing', true);
-        }
-
-        if (BackendModel::isModuleInstalled('Mailmotor')) {
-            $this->template->assign('showMailmotorOption', !empty($mailmotorListId));
-            $this->template->assign('mailmotorMailEngine', $settings->get('Mailmotor', 'mail_engine'));
         }
 
         // parse error messages

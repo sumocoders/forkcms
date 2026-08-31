@@ -113,7 +113,6 @@
       "src/Backend/Modules/Groups/Js/Groups.js",
       "src/Backend/Modules/Locale/Js/Locale.js",
       "src/Backend/Modules/Location/Js/Location.js",
-      "src/Backend/Modules/Mailmotor/Js/Mailmotor.js",
       "src/Backend/Modules/MediaGalleries/Js/MediaGalleries.js",
       "src/Backend/Modules/MediaLibrary/Js/MediaLibrary.js",
       "src/Backend/Modules/MediaLibrary/Js/MediaLibraryHelper.js",
