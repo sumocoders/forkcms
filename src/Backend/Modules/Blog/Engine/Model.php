@@ -810,7 +810,7 @@ class Model
 
         // Any tags?
         if (!empty($tags)) {
-            BackendTagsModel::saveTags($item['id'], implode(',', $tags), 'blog');
+            BackendTagsModel::saveTags($item['id'], implode(',', $tags), 'Blog');
         }
 
         // Any comments?
