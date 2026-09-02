@@ -4,4 +4,4 @@ services:
         class: Frontend\Modules\MediaLibrary\Helper\FrontendHelper
         public: true
         arguments:
-            - "@media_library.repository.group_item"
+            - '@Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItemRepository'

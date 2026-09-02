@@ -3,11 +3,20 @@
 namespace Backend\Modules\MediaLibrary\Domain\MediaFolder;
 
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
 
-final class MediaFolderRepository extends EntityRepository
+/**
+ * @extends ServiceEntityRepository<MediaFolder>
+ */
+final class MediaFolderRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, MediaFolder::class);
+    }
+
     public function add(MediaFolder $mediaFolder): void
     {
         $this->getEntityManager()->persist($mediaFolder);

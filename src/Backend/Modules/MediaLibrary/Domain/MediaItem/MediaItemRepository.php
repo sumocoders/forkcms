@@ -3,14 +3,22 @@
 namespace Backend\Modules\MediaLibrary\Domain\MediaItem;
 
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
 
 /**
  * @method MediaItem|null findOneByUrl(string $url)
+ *
+ * @extends ServiceEntityRepository<MediaItem>
  */
-final class MediaItemRepository extends EntityRepository
+final class MediaItemRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, MediaItem::class);
+    }
+
     public function add(MediaItem $mediaItem): void
     {
         // We don't flush here, see http://disq.us/p/okjc6b

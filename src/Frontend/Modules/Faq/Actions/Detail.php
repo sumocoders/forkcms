@@ -2,6 +2,7 @@
 
 namespace Frontend\Modules\Faq\Actions;
 
+use Common\Doctrine\Repository\MetaRepository;
 use Common\Mailer\EmailFactory;
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
 use Frontend\Core\Engine\Form as FrontendForm;
@@ -74,7 +75,7 @@ class Detail extends FrontendBaseBlock
         $question['full_url'] = $baseQuestionUrl . '/' . $question['url'];
         $question['tags'] = FrontendTagsModel::getForItem($this->getModule(), $question['id']);
         $question['allow_feedback'] = $this->isFeedbackAllowed();
-        $question['meta'] = FrontendModel::get('fork.repository.meta')->find($question['meta_id']);
+        $question['meta'] = FrontendModel::get(MetaRepository::class)->find($question['meta_id']);
 
         return $question;
     }

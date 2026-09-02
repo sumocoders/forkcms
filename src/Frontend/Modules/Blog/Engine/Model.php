@@ -164,7 +164,7 @@ class Model implements FrontendTagsInterface
             return [];
         }
 
-        $category['meta'] = FrontendModel::get('fork.repository.meta')->find($category['meta_id']);
+        $category['meta'] = FrontendModel::get(MetaRepository::class)->find($category['meta_id']);
 
         return $category;
     }
@@ -746,7 +746,7 @@ class Model implements FrontendTagsInterface
     private static function completeBlogPost(array $blogPost): array
     {
         if (isset($blogPost['meta_id'])) {
-            $blogPost['meta'] = FrontendModel::get('fork.repository.meta')->find($blogPost['meta_id']);
+            $blogPost['meta'] = FrontendModel::get(MetaRepository::class)->find($blogPost['meta_id']);
         }
 
         if (isset($blogPost['meta_data'])) {

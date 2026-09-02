@@ -2,6 +2,7 @@
 
 namespace Frontend\Modules\Faq\Actions;
 
+use Common\Doctrine\Repository\MetaRepository;
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
 use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
@@ -44,7 +45,7 @@ class Category extends FrontendBaseBlock
 
         $category['full_url'] = FrontendNavigation::getUrlForBlock($this->getModule(), $this->getAction())
                                 . '/' . $category['url'];
-        $category['meta'] = FrontendModel::get('fork.repository.meta')->find($category['meta_id']);
+        $category['meta'] = FrontendModel::get(MetaRepository::class)->find($category['meta_id']);
 
         return $category;
     }
