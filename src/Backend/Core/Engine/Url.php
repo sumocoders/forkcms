@@ -173,11 +173,11 @@ class Url extends KernelLoader
     private function getForkData(): array
     {
         if (BackendModel::getRequest()->request->has('fork')) {
-            return $this->splitUpForkData((array) BackendModel::getRequest()->request->get('fork'));
+            return $this->splitUpForkData((array) BackendModel::getRequest()->request->all('fork'));
         }
 
         if (BackendModel::getRequest()->query->has('fork')) {
-            return $this->splitUpForkData((array) BackendModel::getRequest()->query->get('fork'));
+            return $this->splitUpForkData((array) BackendModel::getRequest()->query->all('fork'));
         }
 
         return $this->splitUpForkData(BackendModel::getRequest()->query->all());
