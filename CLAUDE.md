@@ -86,7 +86,7 @@ Fork CMS ships its own installer bundle (`src/ForkCMS/Bundle/InstallerBundle`) p
 - `app/config/parameters.yml` holds DB credentials, `kernel.secret`, site settings (`site.protocol`, `site.domain`, `site.multilanguage`, ...), mailer DSN, Sentry DSN. Never commit real values — work from `parameters.yml.dist`.
 
 ## Code style specifics
-- PHP: PSR2 via phpcs (`phpcs.xml.dist`), scoped to `src/` only (excludes `Cache/`, `Core/Js/ckeditor`, `Core/Js/ckfinder`).
+- PHP: PSR2 via phpcs (`phpcs.xml.dist`), scoped to `src/` only (excludes `Cache/`, `Core/Js/ckeditor`).
 - PHPStan level 1 (`phpstan.dist.neon`) against `src/`; a large `ignoreErrors` list suppresses false positives on Fork's legacy global constants (`BACKEND_PATH`, `FRONTEND_CACHE_PATH`, `SITE_URL`, etc.) — don't try to "fix" those by defining the constants, they're intentionally dynamic/runtime-injected.
 - JS: StandardJS (`package.json` `"standard"` block has a long `ignore` list of legacy/vendored JS — don't lint-fix those files opportunistically).
 - SCSS/CSS: stylelint-config-standard-scss with `at-rule-no-unknown`, `no-descending-specificity`, `scss/no-global-function-names` disabled.
