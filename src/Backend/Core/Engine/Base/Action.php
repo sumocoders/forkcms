@@ -160,7 +160,11 @@ class Action extends KernelLoader
         }
 
         // store var so we don't have to call this function twice
-        $var = $this->getRequest()->query->get('var', []);
+        try {
+            $var = $this->getRequest()->query->get('var', '');
+        } catch (\Exception) {
+            $var = $this->getRequest()->query->all('var');
+        }
         if ($var === '') {
             $var = [];
         }
