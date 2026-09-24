@@ -87,7 +87,7 @@ class Navigation extends KernelLoader
         $queryString = '?' . http_build_query($parameters);
 
         // build the URL and return it
-        return FrontendModel::get('router')->generate(
+        return FrontendModel::get(\Symfony\Bundle\FrameworkBundle\Routing\Router::class)->generate(
             'backend',
             ['_locale' => $language, 'module' => $module, 'action' => $action]
         ) . $queryString;

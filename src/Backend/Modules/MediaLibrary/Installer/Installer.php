@@ -104,7 +104,7 @@ class Installer extends ModuleInstaller
     {
         // Handle the create MediaFolder
         /** @var MessageBusInterface $messageBus */
-        $messageBus = Model::get('messenger.default_bus');
+        $messageBus = Model::get(MessageBusInterface::class);
         $messageBus->dispatch(new CreateMediaFolder('default', 1));
 
         // Delete cache

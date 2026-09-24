@@ -1,4 +1,9 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
     media_library.cache.media_folder:
         class: Backend\Modules\MediaLibrary\Builder\MediaFolder\MediaFolderCache
         public: true

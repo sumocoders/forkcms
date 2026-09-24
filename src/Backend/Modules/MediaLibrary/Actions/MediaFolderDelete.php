@@ -79,7 +79,7 @@ class MediaFolderDelete extends BackendBaseActionDelete
 
         // Handle the MediaFolder delete
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($deleteMediaFolder);
 
         return $deleteMediaFolder;

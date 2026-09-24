@@ -78,7 +78,7 @@ class MediaFolderEdit extends BackendBaseAJAXAction
 
         // Handle the MediaFolder update
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($updateMediaFolder);
 
         return $updateMediaFolder;

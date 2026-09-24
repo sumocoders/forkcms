@@ -65,7 +65,7 @@ class TwigTemplate extends BaseTwigTemplate
     private function connectSymfonyForms(): void
     {
         $rendererEngine = new TwigRendererEngine($this->getFormTemplates('FormLayout.html.twig'), $this->environment);
-        $csrfTokenManager = Model::get('security.csrf.token_manager');
+        $csrfTokenManager = Model::get(\Symfony\Component\Security\Csrf\CsrfTokenManager::class);
         $this->environment->addRuntimeLoader(
             new FactoryRuntimeLoader(
                 [

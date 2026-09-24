@@ -1,4 +1,9 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
     media_library.manager.extension:
         class: Backend\Modules\MediaLibrary\Manager\ExtensionManager
         public: true

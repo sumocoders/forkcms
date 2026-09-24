@@ -25,9 +25,13 @@ doctrine:
                 dbname: "%database.name%_test"
 
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
     database:
         class: SpoonDatabase
-        public: true
         arguments:
             - "%database.driver%"
             - "%database.host%"

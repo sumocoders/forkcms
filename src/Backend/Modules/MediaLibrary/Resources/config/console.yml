@@ -1,4 +1,9 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
     media_library.console.cache_clear:
         class: Backend\Modules\MediaLibrary\Console\CacheClearCommand
         arguments:

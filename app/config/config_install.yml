@@ -44,6 +44,11 @@ parameters:
     fork.form.theme: "ForkCMSInstallerBundle:Installer:form_theme.html.twig"
 
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
     templating:
         alias: templating.engine.twig
 

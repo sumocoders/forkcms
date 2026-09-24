@@ -128,7 +128,7 @@ class Edit extends BackendBaseActionEdit
 
         // The command bus will handle the saving of the content block in the database.
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($updateContentBlock);
 
         return $updateContentBlock;

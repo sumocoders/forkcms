@@ -112,7 +112,7 @@ class TwigTemplate extends BaseTwigTemplate
             ],
             $this->environment
         );
-        $csrfTokenManager = Model::get('security.csrf.token_manager');
+        $csrfTokenManager = Model::get(\Symfony\Component\Security\Csrf\CsrfTokenManager::class);
         $this->environment->addRuntimeLoader(
             new FactoryRuntimeLoader(
                 [
@@ -343,7 +343,7 @@ class TwigTemplate extends BaseTwigTemplate
 
     private function autoloadMissingTaggedExtensions(ContainerInterface $container): void
     {
-        foreach ($container->get('twig')->getExtensions() as $id => $extension) {
+        foreach ($container->get(\Twig\Environment::class)->getExtensions() as $id => $extension) {
             if (!$this->environment->hasExtension($id)) {
                 $this->environment->addExtension($extension);
             }
