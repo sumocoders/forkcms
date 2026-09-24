@@ -29,7 +29,7 @@ class UpdateSequence extends BackendBaseAJAXAction
 
         // Handle the Categories ReSequence
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch(new $this->handlerClass($ids));
 
         // success output

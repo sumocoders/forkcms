@@ -495,7 +495,7 @@ class Form extends FrontendBaseWidget
                         }
                     } elseif ($rule === 'time') {
                         $regexTime = '/^(([0-1][0-9]|2[0-3]|[0-9])|([0-1][0-9]|2[0-3]|[0-9])(:|h)[0-5]?[0-9]?)$/';
-                        $validationErrors = $this->get('validator')->validate(
+                        $validationErrors = $this->get(\Symfony\Component\Validator\Validator\ValidatorInterface::class)->validate(
                             $this->form->getField($fieldName)->getValue(),
                             new Assert\Regex([
                                 'pattern' => $regexTime,

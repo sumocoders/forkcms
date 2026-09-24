@@ -309,7 +309,7 @@ class Edit extends BackendBaseActionEdit
             // identifier
             if ($txtIdentifier->isFilled()) {
                 // invalid characters
-                $validationErrors = $this->get('validator')->validate(
+                $validationErrors = $this->get(\Symfony\Component\Validator\Validator\ValidatorInterface::class)->validate(
                     $txtIdentifier->getValue(),
                     new Assert\Regex([
                         'pattern' => '/^[a-zA-Z0-9\.\_\-]+$/',

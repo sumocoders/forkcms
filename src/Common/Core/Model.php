@@ -215,13 +215,13 @@ class Model extends BaseModel
             throw new RuntimeException('No request available');
         }
 
-        return self::getContainer()->get('request_stack')->getCurrentRequest();
+        return self::getContainer()->get(\Symfony\Component\HttpFoundation\RequestStack::class)->getCurrentRequest();
     }
 
     public static function requestIsAvailable(): bool
     {
-        return self::getContainer()->has('request_stack')
-               && self::getContainer()->get('request_stack')->getCurrentRequest() !== null;
+        return self::getContainer()->has(\Symfony\Component\HttpFoundation\RequestStack::class)
+               && self::getContainer()->get(\Symfony\Component\HttpFoundation\RequestStack::class)->getCurrentRequest() !== null;
     }
 
     public static function getSession(): SessionInterface

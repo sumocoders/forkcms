@@ -38,7 +38,7 @@ class MediaGalleryDelete extends BackendBaseActionDelete
 
         // Handle the MediaGallery delete
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($deleteMediaGallery);
 
         $this->redirect(

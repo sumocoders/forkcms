@@ -202,7 +202,7 @@ class EditThemeTemplate extends BackendBaseActionEdit
                 }
 
                 // not alphanumeric -> error
-                $validationErrors = $this->get('validator')->validate(
+                $validationErrors = $this->get(\Symfony\Component\Validator\Validator\ValidatorInterface::class)->validate(
                     $name,
                     new Assert\Regex([
                         'pattern' => '/^[a-z0-9]+$/i',
