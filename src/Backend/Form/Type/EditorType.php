@@ -33,7 +33,6 @@ class EditorType extends TextareaType
                 null,
                 false,
                 true,
-                true
             );
         }
     }
