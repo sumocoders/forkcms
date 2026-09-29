@@ -89,6 +89,7 @@ set('clear_paths', [
     '.stylelintignore',
     '.stylelintrc',
     '.twig-cs-fixer.dist.php',
+    'AGENTS.md',
     'CLAUDE.md',
     'deploy.php',
     'gulpfile.js',
