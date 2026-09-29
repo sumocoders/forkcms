@@ -5,6 +5,7 @@ namespace Deployer;
 use Symfony\Component\Yaml\Yaml;
 
 require 'recipe/symfony.php';
+require 'recipe/deploy/clear_paths.php';
 require 'contrib/cachetool.php';
 require __DIR__ . '/vendor/tijsverkoyen/deployer-sumo/sumo.php';
 
@@ -73,6 +74,36 @@ add('writable_dirs', [
 
 // Disallow stats
 set('allow_anonymous_stats', false);
+
+// Files/dirs that should not be publicly accessible on the webserver
+set('clear_paths', [
+    '.github',
+    'docs',
+    'migrations',
+    'tests',
+    '.editorconfig',
+    '.gitattributes',
+    '.gitignore',
+    '.gitlab-ci.yml',
+    '.php-version',
+    '.stylelintignore',
+    '.stylelintrc',
+    '.twig-cs-fixer.dist.php',
+    'AGENTS.md',
+    'CLAUDE.md',
+    'deploy.php',
+    'gulpfile.js',
+    'LICENSE.md',
+    'package.json',
+    'package-lock.json',
+    'phpcs.xml.dist',
+    'phpstan.dist.neon',
+    'phpunit.xml.dist',
+    'postcss.config.js',
+    'webpack.common.js',
+    'webpack.dev.js',
+    'webpack.prod.js',
+]);
 
 // Shared folder
 set('shared_folder', '{{deploy_path}}/shared');
@@ -260,6 +291,8 @@ before('fork:cache:clear', 'fork:migrations:database:run');
 before('fork:migrations:database:run', 'fork:migrations:locale:run');
 before('fork:migrations:database:run', 'fork:database:backup');
 
+// Remove non-public files after migrations
+after('database:migrate', 'deploy:clear_paths');
 // Build and upload theme
 after('deploy:update_code', 'fork:theme:build');
 after('fork:theme:build', 'fork:theme:upload');
