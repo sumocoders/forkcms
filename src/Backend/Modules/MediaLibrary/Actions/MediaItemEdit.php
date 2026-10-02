@@ -72,7 +72,7 @@ class MediaItemEdit extends BackendBaseActionEdit
 
         // Handle the MediaItem update
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($updateMediaItem);
 
         $this->redirect(

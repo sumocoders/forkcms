@@ -6,6 +6,11 @@ parameters:
         html: 'HTML'
 
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
     fork.datepicker.form:
         class: Common\Form\DatePickerType
         arguments:

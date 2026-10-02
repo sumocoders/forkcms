@@ -69,7 +69,7 @@ class MediaItemUpload extends BackendBaseAJAXAction
         $this->extensionManager = $this->get('media_library.manager.extension');
         $this->mimeTypeManager = $this->get('media_library.manager.mime_type');
         $this->mediaFolderRepository = $this->get(MediaFolderRepository::class);
-        $this->messageBus = $this->get('messenger.default_bus');
+        $this->messageBus = $this->get(MessageBusInterface::class);
     }
 
     public function execute(): void

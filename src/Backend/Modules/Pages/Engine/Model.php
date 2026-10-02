@@ -95,7 +95,7 @@ class Model
         $database = BackendModel::getContainer()->get('database');
 
         /** @var MessageBusInterface $messageBus */
-        $messageBus = BackendModel::get('messenger.default_bus');
+        $messageBus = BackendModel::get(MessageBusInterface::class);
 
         $toLocale = Locale::fromString($toLanguage);
         $fromLocale = Locale::fromString($fromLanguage);

@@ -133,6 +133,11 @@ liip_imagine:
                 thumbnail: { size : [1600, 500], mode : inbound }
 
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
     file_locator.public:
         alias: file_locator
         public: true
@@ -271,3 +276,23 @@ services:
         public: true
         arguments:
             - "@fork.settings"
+
+    ## Mark following services as public:
+
+    Symfony\Component\Security\Csrf\CsrfTokenManager:
+        alias: security.csrf.token_manager
+
+    Twig\Environment:
+        alias: twig
+
+    Symfony\Component\Form\FormFactoryInterface:
+        alias: form.factory
+
+    Symfony\Component\Validator\Validator\ValidatorInterface:
+        alias: debug.validator
+
+    Symfony\Component\HttpFoundation\RequestStack:
+        alias: request_stack
+
+    Symfony\Component\Messenger\MessageBusInterface:
+        alias: messenger.bus.default

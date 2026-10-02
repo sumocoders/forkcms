@@ -55,7 +55,7 @@ class MediaFolderAdd extends BackendBaseAJAXAction
 
         // Handle the MediaFolder create
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($createMediaFolder);
 
         return $createMediaFolder;
