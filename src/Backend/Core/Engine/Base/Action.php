@@ -160,7 +160,11 @@ class Action extends KernelLoader
         }
 
         // store var so we don't have to call this function twice
-        $var = $this->getRequest()->query->get('var', []);
+        try {
+            $var = $this->getRequest()->query->get('var', '');
+        } catch (\Exception) {
+            $var = $this->getRequest()->query->all('var');
+        }
         if ($var === '') {
             $var = [];
         }
@@ -242,7 +246,7 @@ class Action extends KernelLoader
      */
     public function createForm(string $type, $data = null, array $options = []): Form
     {
-        return $this->get('form.factory')->create($type, $data, $options);
+        return $this->get(\Symfony\Component\Form\FormFactoryInterface::class)->create($type, $data, $options);
     }
 
     /**

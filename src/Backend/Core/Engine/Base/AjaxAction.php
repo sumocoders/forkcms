@@ -90,7 +90,7 @@ class AjaxAction extends KernelLoader
 
         throw new RedirectException(
             'Invalid csrf token',
-            JsonResponse::create(Language::err('Csrf'), JsonResponse::HTTP_FORBIDDEN)
+            new JsonResponse(Language::err('Csrf'), JsonResponse::HTTP_FORBIDDEN)
         );
     }
 }

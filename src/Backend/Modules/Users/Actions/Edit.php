@@ -3,6 +3,7 @@
 namespace Backend\Modules\Users\Actions;
 
 use Backend\Form\Type\DeleteType;
+use Common\Core\RequestParameter;
 use Symfony\Component\Filesystem\Filesystem;
 use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
@@ -41,7 +42,7 @@ class Edit extends BackendBaseActionEdit
 
     public function execute(): void
     {
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
         $error = $this->getRequest()->query->get('error', '');
         $this->loadAuthenticatedUser();
 

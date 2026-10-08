@@ -31,7 +31,7 @@ class MassAction extends BackendBaseAction
         } else {
             // at least one id
             // redefine id's
-            $aIds = (array) $this->getRequest()->query->get('id');
+            $aIds = $this->getRequest()->query->all('id');
 
             // delete comment(s)
             if ($action === 'delete') {

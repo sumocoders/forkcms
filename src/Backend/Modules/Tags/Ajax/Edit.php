@@ -5,6 +5,7 @@ namespace Backend\Modules\Tags\Ajax;
 use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
 use Backend\Core\Language\Language as BL;
 use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
+use Common\Core\RequestParameter;
 use Common\Uri as CommonUri;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,7 +19,7 @@ class Edit extends BackendBaseAJAXAction
         parent::execute();
 
         // get parameters
-        $id = $this->getRequest()->request->getInt('id');
+        $id = RequestParameter::getInt($this->getRequest()->request, 'id');
         $tag = trim($this->getRequest()->request->get('value', ''));
 
         // validate id

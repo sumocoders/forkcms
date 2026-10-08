@@ -7,6 +7,7 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
+use Common\Core\RequestParameter;
 use Symfony\Component\Validator\Constraints as Assert;
 use function Symfony\Component\String\s;
 
@@ -145,7 +146,7 @@ class AddThemeTemplate extends BackendBaseActionAdd
                 // loop submitted blocks
                 while ($this->getRequest()->request->has('type_' . $i . '_' . $j)) {
                     // gather blocks id
-                    $extras[] = $this->getRequest()->request->getInt('type_' . $i . '_' . $j);
+                    $extras[] = RequestParameter::getInt($this->getRequest()->request, 'type_' . $i . '_' . $j);
 
                     // increment counter; go fetch next block
                     ++$j;
@@ -165,7 +166,7 @@ class AddThemeTemplate extends BackendBaseActionAdd
                 }
 
                 // not alphanumeric -> error
-                $validationErrors = $this->get('validator')->validate(
+                $validationErrors = $this->get(\Symfony\Component\Validator\Validator\ValidatorInterface::class)->validate(
                     $name,
                     new Assert\Regex([
                         'pattern' => '/^[a-z0-9]+$/i',

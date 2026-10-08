@@ -1,4 +1,9 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
     media_library.storage.local:
         class: Backend\Modules\MediaLibrary\Component\StorageProvider\LocalStorageProvider
         public: true

@@ -4,7 +4,8 @@ namespace Backend\Core\Tests;
 
 use Common\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\BrowserKit\Exception\BadMethodCallException;
+use Symfony\Component\HttpFoundation\Request;
 
 abstract class BackendWebTestCase extends WebTestCase
 {
@@ -45,12 +46,19 @@ abstract class BackendWebTestCase extends WebTestCase
     {
         $connectionSymbol = (str_contains($url, '?')) ? '&' : '?';
 
-        $session = $client->getContainer()->get('session');
+        try {
+            $request = $client->getRequest();
+        } catch (BadMethodCallException $exception) {
+            // no request has been made yet, so there is no session and no csrf token
+            return $url;
+        }
 
-        if (!$session instanceof Session) {
+        if (!$request instanceof Request || !$request->hasSession()) {
             // no session so no csrf token
             return $url;
         }
+
+        $session = $request->getSession();
 
         return $url . $connectionSymbol . 'token=' . $session->get('csrf_token');
     }

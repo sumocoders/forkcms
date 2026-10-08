@@ -9,6 +9,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Location\Engine\Model as BackendLocationModel;
+use Common\Core\RequestParameter;
 use ForkCMS\Utility\Geolocation;
 use Frontend\Modules\Location\Engine\Model as FrontendLocationModel;
 use Symfony\Component\Intl\Countries;
@@ -32,7 +33,7 @@ class Edit extends BackendBaseActionEdit
 
     public function execute(): void
     {
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // does the item exists
         if ($this->id !== 0 && BackendLocationModel::exists($this->id)) {

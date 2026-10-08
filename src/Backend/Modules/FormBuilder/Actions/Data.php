@@ -10,6 +10,7 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
+use Common\Core\RequestParameter;
 
 /**
  * This is the data-action it will display the overview of sent data
@@ -86,7 +87,7 @@ class Data extends BackendBaseActionIndex
     public function execute(): void
     {
         // get parameters
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // does the item exist
         if ($this->id !== 0 && BackendFormBuilderModel::exists($this->id)) {

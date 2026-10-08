@@ -277,7 +277,7 @@ class Widget extends KernelLoader
      */
     public function createForm(string $type, $data = null, array $options = []): Form
     {
-        return $this->get('form.factory')->create($type, $data, $options);
+        return $this->get(\Symfony\Component\Form\FormFactoryInterface::class)->create($type, $data, $options);
     }
 
     /**

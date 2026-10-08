@@ -4,6 +4,7 @@ namespace Backend\Modules\FormBuilder\Ajax;
 
 use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
 use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
+use Common\Core\RequestParameter;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -16,8 +17,8 @@ class GetField extends BackendBaseAJAXAction
         parent::execute();
 
         // get parameters
-        $formId = trim($this->getRequest()->request->getInt('form_id'));
-        $fieldId = trim($this->getRequest()->request->getInt('field_id'));
+        $formId = RequestParameter::getInt($this->getRequest()->request, 'form_id');
+        $fieldId = RequestParameter::getInt($this->getRequest()->request, 'field_id');
 
         // invalid form id
         if (!BackendFormBuilderModel::exists($formId)) {

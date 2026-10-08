@@ -8,6 +8,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaFolder\Command\UpdateMediaFolder;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
+use Common\Core\RequestParameter;
 use Common\Exception\AjaxExitException;
 use Common\Uri;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +39,7 @@ class MediaFolderEdit extends BackendBaseAJAXAction
 
     protected function getMediaFolder(): MediaFolder
     {
-        $id = $this->getRequest()->request->getInt('folder_id');
+        $id = RequestParameter::getInt($this->getRequest()->request, 'folder_id');
 
         // validate values
         if ($id === 0) {
@@ -78,7 +79,7 @@ class MediaFolderEdit extends BackendBaseAJAXAction
 
         // Handle the MediaFolder update
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($updateMediaFolder);
 
         return $updateMediaFolder;

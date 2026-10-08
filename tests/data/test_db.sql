@@ -2188,7 +2188,8 @@ VALUES
 	(25,'Change password',0,'Change password',0,'Change password',0,'change-password',0,NULL,NULL,NULL,NULL),
 	(26,'BlogCategory for tests',0,'BlogCategory for tests',0,'BlogCategory for tests',0,'blogcategory-for-tests',0,NULL,NULL,NULL,NULL),
 	(27,'Blogpost for functional tests',0,'Blogpost for functional tests',0,'Blogpost for functional tests',0,'blogpost-for-functional-tests',0,NULL,NULL,NULL,NULL),
-	(28,'Blog category for functional tests',0,'Blog category for functional tests',0,'Blog category for functional tests',0,'blog-category-for-functional-tests',0,NULL,NULL,NULL,NULL);
+	(28,'Blog category for functional tests',0,'Blog category for functional tests',0,'Blog category for functional tests',0,'blog-category-for-functional-tests',0,NULL,NULL,NULL,NULL),
+	(29,'Detail',0,'Detail',0,'Detail',0,'detail',0,NULL,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `meta` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -2290,7 +2291,8 @@ VALUES
 	(35,'Profiles','block','ResetPassword','ResetPassword',NULL,0,5008),
 	(36,'Profiles','block','ResendActivation','ResendActivation',NULL,0,5009),
 	(37,'Profiles','widget','LoginBox','LoginBox',NULL,0,5010),
-	(38,'Profiles','widget','LoginLink','LoginLink',NULL,0,5011);
+	(38,'Profiles','widget','LoginLink','LoginLink',NULL,0,5011),
+	(39,'Blog','block','Detail','Detail',NULL,0,1006);
 
 /*!40000 ALTER TABLE `modules_extras` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -2445,7 +2447,8 @@ VALUES
 	(420,20,1,0,5,22,'en','root','Profile','Profile',0,0,'active','2015-02-23 19:48:54',NULL,'2015-02-23 19:48:54','2015-02-23 19:48:54',1,1,1,1,11),
 	(421,21,1,420,5,23,'en','page','Profile settings','Profile settings',0,0,'active','2015-02-23 19:48:54',NULL,'2015-02-23 19:48:54','2015-02-23 19:48:54',1,1,1,1,0),
 	(422,22,1,420,5,24,'en','page','Change email','Change email',0,0,'active','2015-02-23 19:48:54',NULL,'2015-02-23 19:48:54','2015-02-23 19:48:54',1,1,1,1,1),
-	(423,23,1,420,5,25,'en','page','Change password','Change password',0,0,'active','2015-02-23 19:48:54',NULL,'2015-02-23 19:48:54','2015-02-23 19:48:54',1,1,1,1,2);
+	(423,23,1,420,5,25,'en','page','Change password','Change password',0,0,'active','2015-02-23 19:48:54',NULL,'2015-02-23 19:48:54','2015-02-23 19:48:54',1,1,1,1,2),
+	(424,24,1,407,5,29,'en','page','Detail','Detail',0,0,'active','2015-02-23 19:48:53',NULL,'2015-02-23 19:48:53','2015-02-23 19:48:53',1,1,1,1,0);
 
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -2515,7 +2518,8 @@ VALUES
 	(22,'main',31,'rich_text',NULL,'','2015-02-23 19:48:54','2015-02-23 19:48:54',1,0),
 	(22,'top',1,'rich_text',NULL,'','2015-02-23 19:48:54','2015-02-23 19:48:54',1,0),
 	(23,'main',32,'rich_text',NULL,'','2015-02-23 19:48:54','2015-02-23 19:48:54',1,0),
-	(23,'top',1,'rich_text',NULL,'','2015-02-23 19:48:54','2015-02-23 19:48:54',1,0);
+	(23,'top',1,'rich_text',NULL,'','2015-02-23 19:48:54','2015-02-23 19:48:54',1,0),
+	(24,'main',39,'rich_text',NULL,'','2015-02-23 19:48:53','2015-02-23 19:48:53',1,0);
 
 /*!40000 ALTER TABLE `pages_blocks` ENABLE KEYS */;
 UNLOCK TABLES;

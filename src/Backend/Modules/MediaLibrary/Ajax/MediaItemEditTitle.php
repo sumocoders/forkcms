@@ -69,7 +69,7 @@ class MediaItemEditTitle extends BackendBaseAJAXAction
 
         // Handle the MediaItem update
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($updateMediaItem);
 
         return $updateMediaItem;

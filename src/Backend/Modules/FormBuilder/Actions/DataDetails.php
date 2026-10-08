@@ -5,6 +5,7 @@ namespace Backend\Modules\FormBuilder\Actions;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
 use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
+use Common\Core\RequestParameter;
 
 /**
  * This is the data-action it will display the details of a sent data item
@@ -32,7 +33,7 @@ class DataDetails extends BackendBaseActionIndex
     public function execute(): void
     {
         // get parameters
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // does the item exist
         if ($this->id !== 0 && BackendFormBuilderModel::existsData($this->id)) {

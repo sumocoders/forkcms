@@ -2,6 +2,7 @@
 
 namespace Backend\Modules\Tags\Actions;
 
+use Common\Core\RequestParameter;
 use Common\Uri as CommonUri;
 use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
 use Backend\Core\Engine\DataGridArray as BackendDataGridArray;
@@ -25,7 +26,7 @@ class Edit extends BackendBaseActionEdit
 
     public function execute(): void
     {
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // does the item exist
         if ($this->id !== 0 && BackendTagsModel::exists($this->id)) {

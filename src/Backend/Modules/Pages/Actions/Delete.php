@@ -8,6 +8,7 @@ use Backend\Core\Engine\Model as BackendModel;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
 use Backend\Modules\Search\Engine\Model as BackendSearchModel;
+use Common\Core\RequestParameter;
 
 /**
  * This is the delete-action, it will delete a page
@@ -47,7 +48,7 @@ class Delete extends BackendBaseActionDelete
             return;
         }
 
-        $revisionId = $this->getRequest()->query->getInt('revision_id');
+        $revisionId = RequestParameter::getInt($this->getRequest()->query, 'revision_id');
         if ($revisionId === 0) {
             $revisionId = null;
         }

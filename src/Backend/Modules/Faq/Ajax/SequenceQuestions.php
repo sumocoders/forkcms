@@ -5,6 +5,7 @@ namespace Backend\Modules\Faq\Ajax;
 use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
 use Backend\Core\Language\Language;
 use Backend\Modules\Faq\Engine\Model as BackendFaqModel;
+use Common\Core\RequestParameter;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -16,9 +17,9 @@ class SequenceQuestions extends BackendBaseAJAXAction
     {
         parent::execute();
 
-        $questionId = $this->getRequest()->request->getInt('questionId');
-        $fromCategoryId = $this->getRequest()->request->getInt('fromCategoryId');
-        $toCategoryId = $this->getRequest()->request->getInt('toCategoryId');
+        $questionId = RequestParameter::getInt($this->getRequest()->request, 'questionId');
+        $fromCategoryId = RequestParameter::getInt($this->getRequest()->request, 'fromCategoryId');
+        $toCategoryId = RequestParameter::getInt($this->getRequest()->request, 'toCategoryId');
         $fromCategorySequence = $this->getRequest()->request->get('fromCategorySequence', '');
         $toCategorySequence = $this->getRequest()->request->get('toCategorySequence', '');
 
