@@ -2,6 +2,7 @@
 
 namespace Frontend\Modules\Search\Ajax;
 
+use Common\Core\RequestParameter;
 use DateInterval;
 use Psr\Cache\CacheItemPoolInterface;
 use Frontend\Core\Engine\Base\AjaxAction as FrontendBaseAJAXAction;
@@ -174,6 +175,6 @@ class Autosuggest extends FrontendBaseAJAXAction
         // set values
         $searchTerm = (string) $this->getRequest()->request->get('term', '');
         $this->searchTerm = htmlspecialchars($searchTerm);
-        $this->autoSuggestItemLength = $this->getRequest()->request->getInt('length', 50);
+        $this->autoSuggestItemLength = RequestParameter::getInt($this->getRequest()->request, 'length', 50);
     }
 }

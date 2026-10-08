@@ -4,6 +4,7 @@ namespace Backend\Modules\Pages\Ajax;
 
 use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
 use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
+use Common\Core\RequestParameter;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -17,7 +18,7 @@ class GetInfo extends BackendBaseAJAXAction
         parent::execute();
 
         // get parameters
-        $id = $this->getRequest()->request->getInt('id');
+        $id = RequestParameter::getInt($this->getRequest()->request, 'id');
 
         // validate
         if ($id === 0) {

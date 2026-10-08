@@ -9,6 +9,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
 use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
+use Common\Core\RequestParameter;
 use Symfony\Component\Validator\Constraints as Assert;
 use function Symfony\Component\String\s;
 
@@ -46,7 +47,7 @@ class EditThemeTemplate extends BackendBaseActionEdit
     private function loadData(): void
     {
         // get record
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // validate id
         if ($this->id === 0 || !BackendExtensionsModel::existsTemplate($this->id)) {
@@ -182,7 +183,7 @@ class EditThemeTemplate extends BackendBaseActionEdit
                 // loop submitted blocks
                 while ($this->getRequest()->request->has('type_' . $i . '_' . $j)) {
                     // gather blocks id
-                    $extras[] = $this->getRequest()->request->getInt('type_' . $i . '_' . $j);
+                    $extras[] = RequestParameter::getInt($this->getRequest()->request, 'type_' . $i . '_' . $j);
 
                     // increment counter; go fetch next block
                     ++$j;

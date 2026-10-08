@@ -14,6 +14,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Type;
 use Backend\Modules\MediaLibrary\Manager\MediaItemManager;
+use Common\Core\RequestParameter;
 use Exception;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -101,7 +102,7 @@ class MediaItemMassAction extends BackendBaseAction
     private function getCurrentMediaFolder(): ?MediaFolder
     {
         // Define current folder
-        $id = $this->getRequest()->request->getInt('current_folder_id');
+        $id = RequestParameter::getInt($this->getRequest()->request, 'current_folder_id');
 
         try {
             /** @var MediaFolder */
@@ -131,7 +132,7 @@ class MediaItemMassAction extends BackendBaseAction
     private function getMediaFolderToMoveTo(Type $selectedType): MediaFolder
     {
         // Define folder id
-        $id = $this->getRequest()->request->getInt('move_to_folder_id', 0);
+        $id = RequestParameter::getInt($this->getRequest()->request, 'move_to_folder_id', 0);
 
         if ($id === 0) {
             $this->redirect(

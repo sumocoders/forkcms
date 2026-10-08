@@ -8,6 +8,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
+use Common\Core\RequestParameter;
 
 /**
  * This is the edit_profile_group-action, it will display a form to add a profile to a group.
@@ -29,8 +30,8 @@ class EditProfileGroup extends BackendBaseActionEdit
     public function execute(): void
     {
         // get parameters
-        $this->id = $this->getRequest()->query->getInt('id');
-        $this->profileId = $this->getRequest()->query->getInt('profile_id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
+        $this->profileId = RequestParameter::getInt($this->getRequest()->query, 'profile_id');
 
         // does the item exists
         if ($this->id !== 0 && BackendProfilesModel::existsProfileGroup($this->id)) {

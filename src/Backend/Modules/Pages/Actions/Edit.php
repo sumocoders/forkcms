@@ -18,6 +18,7 @@ use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
 use Backend\Modules\Search\Engine\Model as BackendSearchModel;
 use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
 use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
+use Common\Core\RequestParameter;
 use ForkCMS\Utility\Thumbnails;
 use SpoonFormHidden;
 use Symfony\Component\HttpFoundation\Response;
@@ -124,7 +125,7 @@ class Edit extends BackendBaseActionEdit
     private function loadData(): void
     {
         // get record
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
         $this->isGod = BackendAuthentication::getUser()->isGod();
 
         // check if something went wrong
@@ -141,7 +142,7 @@ class Edit extends BackendBaseActionEdit
         $this->blocksContent = BackendPagesModel::getBlocks($this->id, $this->record['revision_id']);
 
         // is there a revision specified?
-        $revisionToLoad = $this->getRequest()->query->getInt('revision');
+        $revisionToLoad = RequestParameter::getInt($this->getRequest()->query, 'revision');
 
         // if this is a valid revision
         if ($revisionToLoad !== 0) {
@@ -156,7 +157,7 @@ class Edit extends BackendBaseActionEdit
         }
 
         // is there a revision specified?
-        $draftToLoad = $this->getRequest()->query->getInt('draft');
+        $draftToLoad = RequestParameter::getInt($this->getRequest()->query, 'draft');
 
         // if this is a valid revision
         if ($draftToLoad !== 0) {
@@ -459,7 +460,7 @@ class Edit extends BackendBaseActionEdit
                 // set data
                 $block['created_on'] = BackendModel::getUTCDate();
                 $block['edited_on'] = $block['created_on'];
-                $block['visible'] = $this->getRequest()->request->getBoolean('block_visible_' . $i);
+                $block['visible'] = RequestParameter::getBoolean($this->getRequest()->request, 'block_visible_' . $i);
                 $block['sequence'] = count($positions[$block['position']]) - 1;
 
                 // add to blocks

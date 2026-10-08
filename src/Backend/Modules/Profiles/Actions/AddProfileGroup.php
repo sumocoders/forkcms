@@ -7,6 +7,7 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
+use Common\Core\RequestParameter;
 
 /**
  * This is the add_profile_group-action, it will display a form to add a profile to a group.
@@ -23,7 +24,7 @@ class AddProfileGroup extends BackendBaseActionAdd
     public function execute(): void
     {
         // get parameters
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // does the item exists
         if ($this->id !== 0 && BackendProfilesModel::exists($this->id)) {

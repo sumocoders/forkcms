@@ -7,6 +7,7 @@ use Backend\Core\Engine\Base\Action as BackendBaseAction;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
+use Common\Core\RequestParameter;
 use Common\Exception\RedirectException;
 use ForkCMS\Utility\Csv\Writer;
 use IntlDateFormatter;
@@ -92,7 +93,7 @@ class ExportData extends BackendBaseAction
     public function execute(): void
     {
         $this->checkToken();
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // does the item exist
         if ($this->id !== 0 && BackendFormBuilderModel::exists($this->id)) {

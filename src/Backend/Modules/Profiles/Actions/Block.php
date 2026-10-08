@@ -5,6 +5,7 @@ namespace Backend\Modules\Profiles\Actions;
 use Backend\Core\Engine\Base\ActionDelete as BackendBaseActionDelete;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
+use Common\Core\RequestParameter;
 
 /**
  * This action will toggle the block status a profile.
@@ -14,7 +15,7 @@ class Block extends BackendBaseActionDelete
     public function execute(): void
     {
         // get parameters
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // does the item exist
         if ($this->id !== 0 && BackendProfilesModel::exists($this->id)) {

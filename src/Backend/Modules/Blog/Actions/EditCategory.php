@@ -9,6 +9,7 @@ use Backend\Core\Engine\Meta as BackendMeta;
 use Backend\Core\Language\Language as BL;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
+use Common\Core\RequestParameter;
 
 /**
  * This is the edit category action, it will display a form to edit an existing category.
@@ -18,7 +19,7 @@ class EditCategory extends BackendBaseActionEdit
     public function execute(): void
     {
         // get parameters
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // does the item exists
         if ($this->id !== 0 && BackendBlogModel::existsCategory($this->id)) {

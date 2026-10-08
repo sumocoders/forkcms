@@ -3,6 +3,7 @@
 namespace Backend\Modules\MediaLibrary\Ajax;
 
 use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
+use Common\Core\RequestParameter;
 use Common\Exception\AjaxExitException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,7 +18,7 @@ class MediaFolderInfo extends BackendBaseAJAXAction
         parent::execute();
 
         // get parameters
-        $id = $this->getRequest()->request->getInt('id', 0);
+        $id = RequestParameter::getInt($this->getRequest()->request, 'id', 0);
 
         if ($id === 0) {
             throw new AjaxExitException('no id provided');

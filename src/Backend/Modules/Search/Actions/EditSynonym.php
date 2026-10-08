@@ -8,6 +8,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Search\Engine\Model as BackendSearchModel;
+use Common\Core\RequestParameter;
 
 /**
  * This is the edit synonym action, it will display a form to edit an existing synonym.
@@ -86,7 +87,7 @@ class EditSynonym extends BackendBaseActionEdit
 
     private function getId(): int
     {
-        $id = $this->getRequest()->query->getInt('id');
+        $id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         if ($id === 0 || !BackendSearchModel::existsSynonymById($id)) {
             $this->redirect(BackendModel::createUrlForAction('Synonyms') . '&error=non-existing');

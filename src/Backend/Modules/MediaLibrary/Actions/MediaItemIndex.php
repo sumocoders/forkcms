@@ -13,6 +13,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemSearchType;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Type;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemDataGrid;
+use Common\Core\RequestParameter;
 use Symfony\Component\Form\Form;
 
 class MediaItemIndex extends BackendBaseActionIndex
@@ -51,7 +52,7 @@ class MediaItemIndex extends BackendBaseActionIndex
     private function getMediaFolder(): ?MediaFolder
     {
         // Define folder id
-        $id = $this->getRequest()->query->getInt('folder');
+        $id = RequestParameter::getInt($this->getRequest()->query, 'folder');
 
         try {
             /** @var MediaFolder mediaFolder */

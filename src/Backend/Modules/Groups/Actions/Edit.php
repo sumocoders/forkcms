@@ -12,6 +12,7 @@ use Backend\Core\Engine\Model as BackendModel;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Groups\Engine\Model as BackendGroupsModel;
 use Backend\Modules\Users\Engine\Model as BackendUsersModel;
+use Common\Core\RequestParameter;
 use Symfony\Component\Finder\Finder;
 use function Symfony\Component\String\s;
 
@@ -188,7 +189,7 @@ class Edit extends BackendBaseActionEdit
 
     private function getData(): void
     {
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // get dashboard sequence
         $this->hiddenOnDashboard = BackendGroupsModel::getSetting($this->id, 'hidden_on_dashboard');

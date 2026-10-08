@@ -112,6 +112,9 @@ abstract class WebTestCase extends BaseWebTestCase
     {
         $database = $client->getContainer()->get('database');
 
+        // the page and navigation caches outlive the database, so drop them too
+        $client->getContainer()->get('cache.pool')->clear();
+
         // make sure our database has a clean state (freshly installed Fork)
         $this->emptyTestDatabase($database);
         $kernelDir = $client->getContainer()->getParameter('kernel.project_dir') . '/app';

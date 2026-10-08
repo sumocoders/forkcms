@@ -2,6 +2,7 @@
 
 namespace Backend\Core\Engine;
 
+use Common\Core\RequestParameter;
 use Common\ModuleExtraType;
 use InvalidArgumentException;
 use Symfony\Component\Filesystem\Filesystem;
@@ -82,7 +83,7 @@ class Model extends \Common\Core\Model
 
             // add offset, order & sort (only if not yet manually added)
             if (!isset($parameters['offset']) && $queryParameterBag->has('offset')) {
-                $parameters['offset'] = $queryParameterBag->getInt('offset');
+                $parameters['offset'] = RequestParameter::getInt($queryParameterBag, 'offset');
             }
             if (!isset($parameters['order']) && $queryParameterBag->has('order')) {
                 $parameters['order'] = $queryParameterBag->get('order');
