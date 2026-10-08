@@ -10,6 +10,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Faq\Engine\Model as BackendFaqModel;
+use Common\Core\RequestParameter;
 
 /**
  * This is the edit category action, it will display a form to edit an existing category.
@@ -18,7 +19,7 @@ class EditCategory extends BackendBaseActionEdit
 {
     public function execute(): void
     {
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // does the item exist?
         if ($this->id !== 0 && BackendFaqModel::existsCategory($this->id)) {

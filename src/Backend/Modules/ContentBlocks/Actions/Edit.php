@@ -14,6 +14,7 @@ use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRevisionDataGr
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockType;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\Event\ContentBlockUpdated;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\Exception\ContentBlockNotFound;
+use Common\Core\RequestParameter;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -83,7 +84,7 @@ class Edit extends BackendBaseActionEdit
         $contentBlockRepository = $this->get(ContentBlockRepository::class);
 
         // specific revision?
-        $revisionId = $this->getRequest()->query->getInt('revision');
+        $revisionId = RequestParameter::getInt($this->getRequest()->query, 'revision');
 
         if ($revisionId !== 0) {
             $this->template->assign('usingRevision', true);
@@ -97,7 +98,7 @@ class Edit extends BackendBaseActionEdit
 
         try {
             return $contentBlockRepository->findOneByIdAndLocale(
-                $this->getRequest()->query->getInt('id'),
+                RequestParameter::getInt($this->getRequest()->query, 'id'),
                 Locale::workingLocale()
             );
         } catch (ContentBlockNotFound) {

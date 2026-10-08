@@ -5,6 +5,7 @@ namespace Backend\Modules\FormBuilder\Actions;
 use Backend\Core\Engine\Base\Action as BackendBaseAction;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
+use Common\Core\RequestParameter;
 
 /**
  * This action is used to update one or more data items
@@ -24,7 +25,7 @@ class MassDataAction extends BackendBaseAction
         }
 
         // form id
-        $formId = $this->getRequest()->query->getInt('form_id');
+        $formId = RequestParameter::getInt($this->getRequest()->query, 'form_id');
 
         // no id's provided
         if (!$this->getRequest()->query->has('id')) {

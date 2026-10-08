@@ -10,6 +10,7 @@ use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\DataGridDatabase as BackendDataGridDatabase;
 use Backend\Core\Engine\DataGridFunctions as BackendDataGridFunctions;
 use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
+use Common\Core\RequestParameter;
 use function Symfony\Component\String\s;
 
 /**
@@ -45,7 +46,7 @@ class Index extends BackendBaseActionIndex
         parent::execute();
 
         // set category id
-        $this->categoryId = $this->getRequest()->query->getInt('category');
+        $this->categoryId = RequestParameter::getInt($this->getRequest()->query, 'category');
         if ($this->categoryId === 0) {
             $this->categoryId = null;
         } else {

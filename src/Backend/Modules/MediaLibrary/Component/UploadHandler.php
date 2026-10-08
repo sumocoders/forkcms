@@ -3,6 +3,7 @@
 namespace Backend\Modules\MediaLibrary\Component;
 
 use Backend\Modules\MediaLibrary\Manager\FileManager;
+use Common\Core\RequestParameter;
 use Exception;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,7 +61,7 @@ class UploadHandler
             $name = $this->getName();
         }
         $targetFolder = $this->chunksFolder . DIRECTORY_SEPARATOR . $uuid;
-        $totalParts = $this->request->request->getInt('qqtotalparts', 1);
+        $totalParts = RequestParameter::getInt($this->request->request, 'qqtotalparts', 1);
 
         $targetPath = implode(DIRECTORY_SEPARATOR, [$uploadDirectory, $uuid, $name]);
         $this->uploadName = $name;
@@ -112,7 +113,7 @@ class UploadHandler
 
             $name = $this->getRedefinedName($name);
             $this->checkFileExtension($name);
-            if ($this->request->request->getInt('qqtotalparts', 1) === 1) {
+            if (RequestParameter::getInt($this->request->request, 'qqtotalparts', 1) === 1) {
                 $this->checkFileMimeType($file);
             }
         } catch (Exception $e) {
@@ -122,12 +123,12 @@ class UploadHandler
         $uuid = $this->request->request->get('qquuid');
 
         // Chunked upload
-        if ($this->request->request->getInt('qqtotalparts', 1) > 1) {
+        if (RequestParameter::getInt($this->request->request, 'qqtotalparts', 1) > 1) {
             if ($this->request->query->has('done')) {
                 return ['success' => true, 'uuid' => $uuid];
             }
             $chunksFolder = $this->chunksFolder;
-            $partIndex = $this->request->request->getInt('qqpartindex');
+            $partIndex = RequestParameter::getInt($this->request->request, 'qqpartindex');
 
             if (!is_writable($chunksFolder) && !is_executable($uploadDirectory)) {
                 return ['error' => "Server error. Chunks directory isn't writable or executable."];

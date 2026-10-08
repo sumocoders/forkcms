@@ -10,6 +10,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupType;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemSelectionDataGrid;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\Type;
+use Common\Core\RequestParameter;
 
 class MediaBrowser extends BackendBaseAction
 {
@@ -29,7 +30,7 @@ class MediaBrowser extends BackendBaseAction
 
     protected function getMediaFolder(): ?MediaFolder
     {
-        $id = $this->getRequest()->query->getInt('folder');
+        $id = RequestParameter::getInt($this->getRequest()->query, 'folder');
 
         try {
             return $this->get(MediaFolderRepository::class)->findOneById($id);

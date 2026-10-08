@@ -3,6 +3,7 @@
 namespace Backend\Modules\Locale\Actions;
 
 use Backend\Form\Type\DeleteType;
+use Common\Core\RequestParameter;
 use Common\Uri as CommonUri;
 use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
@@ -30,7 +31,7 @@ class Edit extends BackendBaseActionEdit
 
     public function execute(): void
     {
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // does the item exists
         if ($this->id !== 0 && BackendLocaleModel::exists($this->id)) {

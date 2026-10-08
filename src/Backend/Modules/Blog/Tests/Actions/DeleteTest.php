@@ -72,7 +72,7 @@ class DeleteTest extends BackendWebTestCase
         self::assertCurrentUrlContains($client, '/private/en/blog/delete');
         self::assertEquals(
             1,
-            $client->getRequest()->request->get('blog_delete')['id']
+            $client->getRequest()->request->all('blog_delete')['id']
         );
 
         // we're redirected back to the index page after deletion

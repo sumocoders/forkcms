@@ -9,6 +9,7 @@ use Backend\Core\Engine\DataGridFunctions as BackendDataGridFunctions;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
+use Common\Core\RequestParameter;
 use function Symfony\Component\String\s;
 
 /**
@@ -187,10 +188,10 @@ class Index extends BackendBaseActionIndex
         $this->template->assign('tree', BackendPagesModel::getTreeHTML());
 
         // open the tree on a specific page
-        if ($this->getRequest()->query->getInt('id') !== 0) {
+        if (RequestParameter::getInt($this->getRequest()->query, 'id') !== 0) {
             $this->template->assign(
                 'openedPageId',
-                $this->getRequest()->query->getInt('id')
+                RequestParameter::getInt($this->getRequest()->query, 'id')
             );
         } else {
             $this->template->assign('openedPageId', BackendModel::HOME_PAGE_ID);

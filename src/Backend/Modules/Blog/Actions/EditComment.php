@@ -8,6 +8,7 @@ use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Language\Language;
 use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
+use Common\Core\RequestParameter;
 use function Symfony\Component\String\s;
 
 /**
@@ -17,7 +18,7 @@ class EditComment extends BackendBaseActionEdit
 {
     public function execute(): void
     {
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // does the item exist
         if ($this->id !== 0 && BackendBlogModel::existsComment($this->id)) {

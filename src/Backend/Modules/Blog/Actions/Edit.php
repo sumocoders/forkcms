@@ -3,6 +3,7 @@
 namespace Backend\Modules\Blog\Actions;
 
 use Backend\Modules\Blog\Form\BlogDeleteType;
+use Common\Core\RequestParameter;
 use ForkCMS\Utility\Thumbnails;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
@@ -49,14 +50,14 @@ class Edit extends BackendBaseActionEdit
     public function execute(): void
     {
         // get parameters
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // does the item exists
         if ($this->id !== 0 && BackendBlogModel::exists($this->id)) {
             parent::execute();
 
             // set category id
-            $this->categoryId = $this->getRequest()->query->getInt('category');
+            $this->categoryId = RequestParameter::getInt($this->getRequest()->query, 'category');
             if ($this->categoryId === 0) {
                 $this->categoryId = null;
             }
@@ -85,7 +86,7 @@ class Edit extends BackendBaseActionEdit
         $this->imageIsAllowed = $this->get('fork.settings')->get($this->url->getModule(), 'show_image_form', true);
 
         // is there a revision specified?
-        $revisionToLoad = $this->getRequest()->query->getInt('revision');
+        $revisionToLoad = RequestParameter::getInt($this->getRequest()->query, 'revision');
 
         // if this is a valid revision
         if ($revisionToLoad !== 0) {
@@ -97,7 +98,7 @@ class Edit extends BackendBaseActionEdit
         }
 
         // is there a revision specified?
-        $draftToLoad = $this->getRequest()->query->getInt('draft');
+        $draftToLoad = RequestParameter::getInt($this->getRequest()->query, 'draft');
 
         // if this is a valid revision
         if ($draftToLoad !== 0) {

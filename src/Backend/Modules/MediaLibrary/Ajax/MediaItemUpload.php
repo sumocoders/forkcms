@@ -14,6 +14,7 @@ use Backend\Modules\MediaLibrary\Component\UploadHandler;
 use Backend\Modules\MediaLibrary\Manager\ExtensionManager;
 use Backend\Modules\MediaLibrary\Manager\FileManager;
 use Backend\Modules\MediaLibrary\Manager\MimeTypeManager;
+use Common\Core\RequestParameter;
 use Common\Exception\AjaxExitException;
 use Common\Exception\RedirectException;
 use Symfony\Component\HttpFoundation\Request;
@@ -152,7 +153,7 @@ class MediaItemUpload extends BackendBaseAJAXAction
 
     private function getMediaFolder(): MediaFolder
     {
-        $id = $this->request->query->getInt('folder_id');
+        $id = RequestParameter::getInt($this->request->query, 'folder_id');
 
         if ($id === 0) {
             throw new AjaxExitException(Language::err('MediaFolderIsRequired'));
@@ -237,6 +238,6 @@ class MediaItemUpload extends BackendBaseAJAXAction
     {
         return array_key_exists('success', $result)
                && !$this->request->query->has('done')
-               && $this->request->request->getInt('qqtotalparts', 1) > 1;
+               && RequestParameter::getInt($this->request->request, 'qqtotalparts', 1) > 1;
     }
 }

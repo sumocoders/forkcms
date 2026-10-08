@@ -15,6 +15,7 @@ use Backend\Modules\Search\Engine\Model as BackendSearchModel;
 use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
 use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
 use Common\Core\Model;
+use Common\Core\RequestParameter;
 use ForkCMS\Utility\Thumbnails;
 use SpoonFormHidden;
 use Symfony\Component\DomCrawler\Crawler;
@@ -310,7 +311,7 @@ class Add extends BackendBaseActionAdd
                 // set data
                 $block['created_on'] = BackendModel::getUTCDate();
                 $block['edited_on'] = $block['created_on'];
-                $block['visible'] = $this->getRequest()->request->getBoolean('block_visible_' . $i);
+                $block['visible'] = RequestParameter::getBoolean($this->getRequest()->request, 'block_visible_' . $i);
                 $block['sequence'] = count($positions[$block['position']]) - 1;
 
                 // add to blocks
@@ -423,7 +424,7 @@ class Add extends BackendBaseActionAdd
         $this->meta->setUrlCallback(
             BackendPagesModel::class,
             'getUrl',
-            [0, $this->getRequest()->query->getInt('parent'), false]
+            [0, RequestParameter::getInt($this->getRequest()->query, 'parent'), false]
         );
     }
 
@@ -443,7 +444,7 @@ class Add extends BackendBaseActionAdd
         $this->template->assign(
             'prefixURL',
             rtrim(
-                BackendPagesModel::getFullUrl($this->getRequest()->query->getInt('parent', BackendModel::HOME_PAGE_ID)),
+                BackendPagesModel::getFullUrl(RequestParameter::getInt($this->getRequest()->query, 'parent', BackendModel::HOME_PAGE_ID)),
                 '/'
             )
         );
@@ -495,7 +496,7 @@ class Add extends BackendBaseActionAdd
             $this->meta->setUrlCallback(
                 BackendPagesModel::class,
                 'getUrl',
-                [0, $this->getRequest()->query->getInt('parent'), $this->form->getField('is_action')->getChecked()]
+                [0, RequestParameter::getInt($this->getRequest()->query, 'parent'), $this->form->getField('is_action')->getChecked()]
             );
 
             // cleanup the submitted fields, ignore fields that were added by hackers
@@ -512,7 +513,7 @@ class Add extends BackendBaseActionAdd
             // no errors?
             if ($this->form->isCorrect()) {
                 // init var
-                $parentId = $this->getRequest()->query->getInt('parent');
+                $parentId = RequestParameter::getInt($this->getRequest()->query, 'parent');
                 $parentPage = BackendPagesModel::get($parentId);
                 if (!$parentPage || !$parentPage['children_allowed']) {
                     // no children allowed
@@ -745,7 +746,7 @@ class Add extends BackendBaseActionAdd
 
     private function getOriginalPage(): ?array
     {
-        $id = $this->getRequest()->query->getInt('copy');
+        $id = RequestParameter::getInt($this->getRequest()->query, 'copy');
 
         // check if the page exists
         if ($id === 0 || !BackendPagesModel::exists($id)) {
