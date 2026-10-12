@@ -8,6 +8,8 @@ use Common\Core\Model;
 use Common\Uri;
 use Backend\Core\Engine\Base\AjaxAction;
 use Backend\Core\Engine\Exception;
+use ForkCMS\Utility\Svg\SvgSanitizer;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -124,6 +126,15 @@ class UploadFile extends AjaxAction
             throw new Exception('This is not an image.');
         }
         $fileName = $baseName . '.' . $extension;
+
+        // an svg is an active document, so strip the scripts and event handlers before it is stored
+        if (SvgSanitizer::isSvgExtension($extension)) {
+            try {
+                $content = (new SvgSanitizer())->sanitize($content);
+            } catch (RuntimeException $runtimeException) {
+                throw new Exception($runtimeException->getMessage());
+            }
+        }
 
         // generate a non-existing filename
         while ($filesystem->exists($path . '/' . $fileName)) {

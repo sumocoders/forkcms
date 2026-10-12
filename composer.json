@@ -19,6 +19,8 @@
         "ext-gd": "*",
         "ext-intl": "*",
         "ext-simplexml": "*",
+        "ext-dom": "*",
+        "ext-libxml": "*",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/orm": "^2.7",
         "google/recaptcha": "^1.2",
@@ -55,7 +57,8 @@
         "twig/string-extra": "^3.23",
         "twig/inky-extra": "^3.23",
         "symfony/uid": "^5.4",
-        "symfony/cache": "^5.4"
+        "symfony/cache": "^5.4",
+        "rhukster/dom-sanitizer": "^1.0.19"
     },
     "require-dev": {
         "jdorn/sql-formatter": "1.2.17",
