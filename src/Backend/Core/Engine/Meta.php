@@ -85,6 +85,8 @@ class Meta
      * @param bool $showCustomMeta Add/show custom-meta.
      *
      * @throws Exception
+     *
+     * @phpstan-ignore-next-line constructor.unusedParameter
      */
     public function __construct(
         Form $form,
