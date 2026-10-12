@@ -292,7 +292,7 @@ services:
         alias: form.factory
 
     Symfony\Component\Validator\Validator\ValidatorInterface:
-        alias: debug.validator
+        alias: validator
 
     Symfony\Component\HttpFoundation\RequestStack:
         alias: request_stack
