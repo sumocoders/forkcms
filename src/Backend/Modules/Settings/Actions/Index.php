@@ -132,24 +132,6 @@ class Index extends BackendBaseActionIndex
             true
         );
 
-        // ckfinder
-        $this->form->addText(
-            'ckfinder_license_name',
-            $this->get('fork.settings')->get('Core', 'ckfinder_license_name', null)
-        );
-        $this->form->addText(
-            'ckfinder_license_key',
-            $this->get('fork.settings')->get('Core', 'ckfinder_license_key', null)
-        );
-        $this->form->addText(
-            'ckfinder_image_max_width',
-            $this->get('fork.settings')->get('Core', 'ckfinder_image_max_width', 1600)
-        );
-        $this->form->addText(
-            'ckfinder_image_max_height',
-            $this->get('fork.settings')->get('Core', 'ckfinder_image_max_height', 1200)
-        );
-
         // number formats
         $this->form->addDropdown(
             'number_format',
@@ -354,17 +336,6 @@ class Index extends BackendBaseActionIndex
             // number
             $this->form->getField('number_format')->isFilled(BL::err('FieldIsRequired'));
 
-            if ($this->form->getField('ckfinder_image_max_width')->isFilled()) {
-                $this->form->getField(
-                    'ckfinder_image_max_width'
-                )->isInteger(BL::err('InvalidInteger'));
-            }
-            if ($this->form->getField('ckfinder_image_max_height')->isFilled()) {
-                $this->form->getField(
-                    'ckfinder_image_max_height'
-                )->isInteger(BL::err('InvalidInteger'));
-            }
-
             // no errors ?
             if ($this->form->isCorrect()) {
                 // general settings
@@ -427,36 +398,6 @@ class Index extends BackendBaseActionIndex
                     'Core',
                     'google_recaptcha_version',
                     $this->form->getField('google_recaptcha_version')->getValue()
-                );
-
-                // ckfinder settings
-                $this->get('fork.settings')->set(
-                    'Core',
-                    'ckfinder_license_name',
-                    ($this->form->getField('ckfinder_license_name')->isFilled()) ? $this->form->getField(
-                        'ckfinder_license_name'
-                    )->getValue() : null
-                );
-                $this->get('fork.settings')->set(
-                    'Core',
-                    'ckfinder_license_key',
-                    ($this->form->getField('ckfinder_license_key')->isFilled()) ? $this->form->getField(
-                        'ckfinder_license_key'
-                    )->getValue() : null
-                );
-                $this->get('fork.settings')->set(
-                    'Core',
-                    'ckfinder_image_max_width',
-                    ($this->form->getField('ckfinder_image_max_width')->isFilled()) ? $this->form->getField(
-                        'ckfinder_image_max_width'
-                    )->getValue() : 1600
-                );
-                $this->get('fork.settings')->set(
-                    'Core',
-                    'ckfinder_image_max_height',
-                    ($this->form->getField('ckfinder_image_max_height')->isFilled()) ? $this->form->getField(
-                        'ckfinder_image_max_height'
-                    )->getValue() : 1200
                 );
 
                 // api keys

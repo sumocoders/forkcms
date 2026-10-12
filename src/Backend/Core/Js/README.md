@@ -1,5 +1,5 @@
-Readme CKEditor & CKFinder
-===========================
+Readme CKEditor
+===============
 
 # CKEditor
 ## Upgrading CKEditor

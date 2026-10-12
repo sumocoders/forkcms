@@ -254,8 +254,8 @@ class ImportWordpress extends BackendBaseActionEdit
         }
 
         // Set paths
-        $imagesPath = FRONTEND_FILES_PATH . '/Core/CKFinder/images/blog';
-        $imagesUrl = FRONTEND_FILES_URL . '/Core/CKFinder/images/blog';
+        $imagesPath = FRONTEND_FILES_PATH . '/Blog/images/wordpress';
+        $imagesUrl = FRONTEND_FILES_URL . '/Blog/images/wordpress';
 
         // Create directory if needed
         if (!file_exists($imagesPath) || !is_dir($imagesPath)) {
