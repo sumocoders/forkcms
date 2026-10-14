@@ -113,9 +113,8 @@
     {% include "Core/Layout/Templates/PrivacyConsentDialog.html.twig" %}
   {% endblock %}
 
-  {% block searchModal %}
-    {% include "Core/Layout/Templates/SearchModal.html.twig" %}
-  {% endblock %}
+  {# Override this block to include Core/Layout/Templates/SearchModal.html.twig where needed #}
+  {% block searchModal %}{% endblock %}
 
   {# Site wide HTML #}
   {% block htmlFooter %}
