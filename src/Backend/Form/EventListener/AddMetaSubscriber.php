@@ -12,14 +12,22 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * Use this class to add meta url generating to your symfony form.
  *
  * Example: $builder->addEventSubscriber(new AddMetaSubscriber(...));
+ *
+ * The url callback is invoked through MetaRepository::generateUrl, which only accepts the well-known,
+ * side-effect-free module url generators. This limits the callback to:
+ *  - a module model class name: Backend\Modules\<Module>\Engine\Model or the Frontend equivalent,
+ *    container service ids are not resolved;
+ *  - the public static method "getUrl" or "getUrlForCategory" on that class.
+ * Any other class or method is rejected and the meta url can't be generated.
  */
 class AddMetaSubscriber implements EventSubscriberInterface
 {
     /**
      * @param string $moduleForUrl The URL shown in the backend will need this "module" to be generated.
      * @param string $actionForUrl The URL shown in the backend will need this "action" to be generated.
-     * @param string $generateUrlCallbackClass Name of the class or the container service id, f.e.: MediaItemRepository::class,
-     * @param string $generateUrlCallbackMethod Name of the public method which returns you the URL, f.e.: "getUrl"
+     * @param string $generateUrlCallbackClass Name of the module model class, f.e.: Backend\Modules\Blog\Engine\Model::class
+     * @param string $generateUrlCallbackMethod Name of the public static method which returns you the URL,
+     *                                          only "getUrl" and "getUrlForCategory" are supported
      * @param array $generateUrlCallbackParameterMethods Extra parameters you want to include in the AJAX call to get the URL, f.e.: ["getData.getLocale", "getForm.getParent.getParent.getData.getMenuEntityId"]
      * @param string $baseFieldName The field in the form where the URL should be generated for.
      * @param string|null $hreflangRepositoryClass

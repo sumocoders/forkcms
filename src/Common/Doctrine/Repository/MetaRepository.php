@@ -29,7 +29,8 @@ class MetaRepository extends ServiceEntityRepository
      *
      * @param string $url The base-url to start from.
      * @param string $class The Fully Qualified Class Name of a module model, f.e. Backend\Modules\Blog\Engine\Model
-     * @param string $method The method that needs to be called, limited to the meta-url callbacks
+     * @param string $method The public static method that needs to be called, only "getUrl" and
+     *                       "getUrlForCategory" are supported
      * @param array $parameters The parameters for the callback
      *
      * @throws Exception When the callback is not an allowed meta-url callback
