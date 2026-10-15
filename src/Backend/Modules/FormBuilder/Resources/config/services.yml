@@ -2,6 +2,11 @@ imports:
     - { resource: commands.yml }
 
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
     formbuilder.submitted.mailer:
         class: Frontend\Modules\FormBuilder\EventListener\FormBuilderSubmittedMailSubscriber
         arguments:

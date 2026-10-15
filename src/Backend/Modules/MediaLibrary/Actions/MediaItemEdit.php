@@ -10,6 +10,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemType;
+use Common\Core\RequestParameter;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class MediaItemEdit extends BackendBaseActionEdit
@@ -30,7 +31,7 @@ class MediaItemEdit extends BackendBaseActionEdit
         $mediaItem = $this->getMediaItem();
 
         // Define folder id
-        $this->folderId = $this->getRequest()->query->getInt('folder');
+        $this->folderId = RequestParameter::getInt($this->getRequest()->query, 'folder');
 
         $form = $this->createForm(
             MediaItemType::class,
@@ -72,7 +73,7 @@ class MediaItemEdit extends BackendBaseActionEdit
 
         // Handle the MediaItem update
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($updateMediaItem);
 
         $this->redirect(

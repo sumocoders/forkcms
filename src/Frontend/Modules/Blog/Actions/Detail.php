@@ -252,7 +252,7 @@ class Detail extends FrontendBaseBlock
         $author = $cookie->get('comment_author');
         $email = ($cookie->has('comment_email') && filter_var($cookie->get('comment_email'), FILTER_VALIDATE_EMAIL))
             ? $cookie->get('comment_email') : null;
-        $validationErrors = $this->get('validator')->validate(
+        $validationErrors = $this->get(\Symfony\Component\Validator\Validator\ValidatorInterface::class)->validate(
             $cookie->get('comment_website'),
             new Assert\Url()
         );

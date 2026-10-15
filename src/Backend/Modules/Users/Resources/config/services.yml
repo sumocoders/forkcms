@@ -1,3 +1,8 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
     Backend\Modules\Users\Console\ResetPasswordCommand:
         tags: [console.command]

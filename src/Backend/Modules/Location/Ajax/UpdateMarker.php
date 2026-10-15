@@ -5,6 +5,7 @@ namespace Backend\Modules\Location\Ajax;
 use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
 use Backend\Core\Language\Language as BL;
 use Backend\Modules\Location\Engine\Model as BackendLocationModel;
+use Common\Core\RequestParameter;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -17,7 +18,7 @@ class UpdateMarker extends BackendBaseAJAXAction
         parent::execute();
 
         // get parameters
-        $itemId = trim($this->getRequest()->request->getInt('id'));
+        $itemId = RequestParameter::getInt($this->getRequest()->request, 'id');
         $lat = (float) $this->getRequest()->request->get('lat');
         $lng = (float) $this->getRequest()->request->get('lng');
 

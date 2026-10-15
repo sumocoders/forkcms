@@ -9,6 +9,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFoun
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
 use Backend\Modules\Pages\Engine\Model;
+use Common\Core\RequestParameter;
 use Common\Exception\AjaxExitException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -30,7 +31,7 @@ class MediaFolderMove extends BackendBaseAJAXAction
 
         // Handle the MediaFolder update
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($updateMediaFolder);
 
         $this->output(
@@ -42,7 +43,7 @@ class MediaFolderMove extends BackendBaseAJAXAction
 
     private function getMediaFolder(): MediaFolder
     {
-        $id = $this->getRequest()->request->getInt('id', 0);
+        $id = RequestParameter::getInt($this->getRequest()->request, 'id', 0);
 
         if ($id === 0) {
             throw new AjaxExitException('no id provided');
@@ -58,7 +59,7 @@ class MediaFolderMove extends BackendBaseAJAXAction
 
     private function getMediaFolderWhereDroppedOn(string $typeOfDrop): ?MediaFolder
     {
-        $id = $this->getRequest()->request->getInt('dropped_on', -1);
+        $id = RequestParameter::getInt($this->getRequest()->request, 'dropped_on', -1);
 
         if ($id === -1) {
             return null;

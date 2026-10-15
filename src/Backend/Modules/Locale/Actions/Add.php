@@ -2,6 +2,7 @@
 
 namespace Backend\Modules\Locale\Actions;
 
+use Common\Core\RequestParameter;
 use Common\Uri as CommonUri;
 use Backend\Core\Engine\Base\ActionAdd as BackendBaseActionAdd;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
@@ -41,9 +42,9 @@ class Add extends BackendBaseActionAdd
     {
         $originalTranslation = null;
 
-        if ($this->getRequest()->query->getInt('id') !== 0) {
+        if (RequestParameter::getInt($this->getRequest()->query, 'id') !== 0) {
             // get the translation
-            $originalTranslation = BackendLocaleModel::get($this->getRequest()->query->getInt('id'));
+            $originalTranslation = BackendLocaleModel::get(RequestParameter::getInt($this->getRequest()->query, 'id'));
 
             if (empty($originalTranslation)) {
                 $this->redirect(BackendModel::createUrlForAction('Index') . '&error=non-existing' . $this->filterQuery);

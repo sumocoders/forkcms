@@ -4,6 +4,7 @@ namespace Backend\Modules\FormBuilder\Ajax;
 
 use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
 use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
+use Common\Core\RequestParameter;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -16,7 +17,7 @@ class Sequence extends BackendBaseAJAXAction
         parent::execute();
 
         // get parameters
-        $formId = $this->getRequest()->request->getInt('form_id');
+        $formId = RequestParameter::getInt($this->getRequest()->request, 'form_id');
         $newIdSequence = trim($this->getRequest()->request->get('new_id_sequence', ''));
 
         // invalid form id

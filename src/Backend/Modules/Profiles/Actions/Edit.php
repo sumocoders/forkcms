@@ -11,6 +11,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
+use Common\Core\RequestParameter;
 use Symfony\Component\Intl\Countries;
 use function Symfony\Component\String\s;
 
@@ -35,7 +36,7 @@ class Edit extends BackendBaseActionEdit
 
     public function execute(): void
     {
-        $this->id = $this->getRequest()->query->getInt('id');
+        $this->id = RequestParameter::getInt($this->getRequest()->query, 'id');
 
         // does the item exist?
         if ($this->id !== 0 && BackendProfilesModel::exists($this->id)) {

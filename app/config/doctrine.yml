@@ -42,8 +42,12 @@ doctrine:
                         prefix: Common\Doctrine\Entity
 
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
     fork.entity.create_schema:
         class: Common\Doctrine\Entity\CreateSchema
-        public: true
         arguments:
             - "@doctrine.orm.entity_manager"

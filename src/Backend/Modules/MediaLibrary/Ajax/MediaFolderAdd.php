@@ -9,6 +9,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaFolder\Command\CreateMediaFolder;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
+use Common\Core\RequestParameter;
 use Common\Exception\AjaxExitException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -55,7 +56,7 @@ class MediaFolderAdd extends BackendBaseAJAXAction
 
         // Handle the MediaFolder create
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($createMediaFolder);
 
         return $createMediaFolder;
@@ -82,7 +83,7 @@ class MediaFolderAdd extends BackendBaseAJAXAction
     protected function getParent(): ?MediaFolder
     {
         // Get parameters
-        $parentId = $this->getRequest()->request->getInt('parent_id');
+        $parentId = RequestParameter::getInt($this->getRequest()->request, 'parent_id');
 
         if ($parentId === 0) {
             return null;

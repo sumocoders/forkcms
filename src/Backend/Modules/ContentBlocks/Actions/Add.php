@@ -54,7 +54,7 @@ class Add extends BackendBaseActionAdd
 
         // The command bus will handle the saving of the content block in the database.
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($createContentBlock);
 
         return $createContentBlock;

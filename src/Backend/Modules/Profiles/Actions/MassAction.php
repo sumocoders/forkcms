@@ -24,7 +24,7 @@ class MassAction extends BackendBaseAction
         if (!in_array($action, ['addToGroup', 'delete'])) {
             $this->redirect(BackendModel::createUrlForAction('Index') . '&error=no-action-selected');
         }
-        $ids = $this->getRequest()->query->has('id') ? (array) $this->getRequest()->query->get('id') : [];
+        $ids = $this->getRequest()->query->all('id');
         $newGroupId = $this->getRequest()->query->get('newGroup');
 
         // no ids provided

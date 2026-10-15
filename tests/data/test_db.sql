@@ -51,7 +51,7 @@ VALUES
 	(22,2,'ContentBlocks','content_blocks/index','a:2:{i:0;s:18:\"content_blocks/add\";i:1;s:19:\"content_blocks/edit\";}',2),
 	(23,2,'Tags','tags/index','a:1:{i:0;s:9:\"tags/edit\";}',3),
 	(31,2,'Blog','',NULL,4),
-	(32,31,'Articles','blog/index','a:3:{i:0;s:8:\"blog/add\";i:1;s:9:\"blog/edit\";i:2;s:21:\"blog/import_wordpress\";}',1),
+	(32,31,'Articles','blog/index','a:2:{i:0;s:8:\"blog/add\";i:1;s:9:\"blog/edit\";}',1),
 	(33,31,'Comments','blog/comments','a:1:{i:0;s:17:\"blog/edit_comment\";}',2),
 	(34,31,'Categories','blog/categories','a:2:{i:0;s:17:\"blog/add_category\";i:1;s:18:\"blog/edit_category\";}',3),
 	(35,9,'Blog','blog/settings',NULL,5),
@@ -426,7 +426,6 @@ VALUES
 	(81,1,'Blog','EditCategory',7),
 	(82,1,'Blog','EditComment',7),
 	(83,1,'Blog','Edit',7),
-	(84,1,'Blog','ImportWordpress',7),
 	(85,1,'Blog','Index',7),
 	(86,1,'Blog','MassCommentAction',7),
 	(87,1,'Blog','Settings',7),
@@ -1438,11 +1437,8 @@ VALUES
 	(848, 1, 'en', 'Backend', 'Settings', 'lbl', 'Twitter', 'twitter', '2017-08-31 14:28:20'),
 	(849, 1, 'en', 'Backend', 'Settings', 'lbl', 'Tools', 'tools', '2017-08-31 14:28:20'),
 	(850, 1, 'en', 'Backend', 'Settings', 'lbl', 'Facebook', 'facebook', '2017-08-31 14:28:20'),
-	(851, 1, 'en', 'Backend', 'Settings', 'lbl', 'CkFinder', 'ckfinder', '2017-08-31 14:28:20'),
 	(852, 1, 'en', 'Backend', 'Settings', 'msg', 'ConfigurationError', 'Some settings are not yet configured.', '2017-08-31 14:28:20'),
 	(853, 1, 'en', 'Backend', 'Settings', 'msg', 'HelpAPIKeys', 'Access codes for webservices.', '2017-08-31 14:28:20'),
-	(854, 1, 'en', 'Backend', 'Settings', 'msg', 'HelpCkfinderMaximumHeight', 'Configure the maximum height (in pixels) of uploaded images. If an uploaded image is larger, it gets scaled down proportionally. Set to 0 to disable this feature.', '2017-08-31 14:28:20'),
-	(855, 1, 'en', 'Backend', 'Settings', 'msg', 'HelpCkfinderMaximumWidth', 'Configure the maximum width (in pixels) of uploaded images. If an uploaded image is larger, it gets scaled down proportionally. Set to 0 to disable this feature.', '2017-08-31 14:28:20'),
 	(857, 1, 'en', 'Backend', 'Settings', 'msg', 'HelpDateFormatLong', 'Format that\'s used on overview and detail pages.', '2017-08-31 14:28:20'),
 	(858, 1, 'en', 'Backend', 'Settings', 'msg', 'HelpDateFormatShort', 'This format is mostly used in table overviews.', '2017-08-31 14:28:20'),
 	(859, 1, 'en', 'Backend', 'Settings', 'msg', 'HelpDomains', 'Enter the domains on which this website can be reached. (Split domains with linebreaks.)', '2017-08-31 14:28:20'),
@@ -1673,7 +1669,6 @@ VALUES
 	(1085, 1, 'en', 'Backend', 'Tags', 'err', 'TagAlreadyExists', 'This tag already exists.', '2017-08-31 14:28:22'),
 	(1104, 1, 'en', 'Backend', 'Core', 'lbl', 'PageviewsByTrafficSources', 'pageviews per traffic source', '2017-08-31 14:28:22'),
 	(1105, 1, 'en', 'Backend', 'Blog', 'lbl', 'Add', 'add article', '2017-08-31 14:28:23'),
-	(1106, 1, 'en', 'Backend', 'Blog', 'lbl', 'WordpressFilter', 'filter', '2017-08-31 14:28:23'),
 	(1107, 1, 'en', 'Backend', 'Blog', 'msg', 'Added', 'The article \"%1$s\" was added.', '2017-08-31 14:28:23'),
 	(1108, 1, 'en', 'Backend', 'Blog', 'msg', 'ArticlesFor', 'Articles for \"%1$s\"', '2017-08-31 14:28:23'),
 	(1109, 1, 'en', 'Backend', 'Blog', 'msg', 'CommentOnWithURL', 'Comment on: <a href=\"%1$s\">%2$s</a>', '2017-08-31 14:28:23'),
@@ -1689,8 +1684,6 @@ VALUES
 	(1119, 1, 'en', 'Backend', 'Blog', 'msg', 'HelpMeta', 'Show the meta information for this blogpost in the RSS feed (category)', '2017-08-31 14:28:23'),
 	(1120, 1, 'en', 'Backend', 'Blog', 'msg', 'HelpPingServices', 'Let various blogservices know when you\'ve posted a new article.', '2017-08-31 14:28:23'),
 	(1122, 1, 'en', 'Backend', 'Blog', 'msg', 'HelpSummary', 'Write an introduction or summary for long articles. It will be shown on the homepage or the article overview.', '2017-08-31 14:28:23'),
-	(1123, 1, 'en', 'Backend', 'Blog', 'msg', 'HelpWordpress', 'Hier kan je een export bestand vanuit een wordpress site uploaden.', '2017-08-31 14:28:23'),
-	(1124, 1, 'en', 'Backend', 'Blog', 'msg', 'HelpWordpressFilter', 'De zoekterm die in bestaande blogposts in een link voor moet komen, alvorens wij de link kunnen omzetten naar een actieve link op de fork blog module.', '2017-08-31 14:28:23'),
 	(1125, 1, 'en', 'Backend', 'Blog', 'msg', 'NoCategoryItems', 'There are no categories yet. <a href=\"%1$s\">Create the first category</a>.', '2017-08-31 14:28:23'),
 	(1126, 1, 'en', 'Backend', 'Blog', 'err', 'NoFromSelected', 'No origin selected.', '2017-08-31 14:28:23'),
 	(1127, 1, 'en', 'Backend', 'Blog', 'msg', 'NoItems', 'There are no articles yet. <a href=\"%1$s\">Write the first article</a>.', '2017-08-31 14:28:23'),
@@ -1703,7 +1696,6 @@ VALUES
 	(1134, 1, 'en', 'Backend', 'Blog', 'msg', 'NoSpam', 'There is no spam yet.', '2017-08-31 14:28:23'),
 	(1135, 1, 'en', 'Backend', 'Blog', 'err', 'DeleteCategoryNotAllowed', 'It is not allowed to delete the category \"%1$s\".', '2017-08-31 14:28:23'),
 	(1136, 1, 'en', 'Backend', 'Blog', 'err', 'RSSDescription', 'Blog RSS description is not yet provided. <a href=\"%1$s\">Configure</a>', '2017-08-31 14:28:23'),
-	(1137, 1, 'en', 'Backend', 'Blog', 'err', 'XMLFilesOnly', 'Only XML files can be uploaded.', '2017-08-31 14:28:23'),
 	(1138, 1, 'en', 'Backend', 'Faq', 'lbl', 'Add', 'add question', '2017-08-31 14:28:23'),
 	(1139, 1, 'en', 'Backend', 'Faq', 'lbl', 'AllCategories', 'all categories', '2017-08-31 14:28:23'),
 	(1140, 1, 'en', 'Backend', 'Faq', 'lbl', 'AddQuestion', 'add question', '2017-08-31 14:28:23'),
@@ -2188,7 +2180,8 @@ VALUES
 	(25,'Change password',0,'Change password',0,'Change password',0,'change-password',0,NULL,NULL,NULL,NULL),
 	(26,'BlogCategory for tests',0,'BlogCategory for tests',0,'BlogCategory for tests',0,'blogcategory-for-tests',0,NULL,NULL,NULL,NULL),
 	(27,'Blogpost for functional tests',0,'Blogpost for functional tests',0,'Blogpost for functional tests',0,'blogpost-for-functional-tests',0,NULL,NULL,NULL,NULL),
-	(28,'Blog category for functional tests',0,'Blog category for functional tests',0,'Blog category for functional tests',0,'blog-category-for-functional-tests',0,NULL,NULL,NULL,NULL);
+	(28,'Blog category for functional tests',0,'Blog category for functional tests',0,'Blog category for functional tests',0,'blog-category-for-functional-tests',0,NULL,NULL,NULL,NULL),
+	(29,'Detail',0,'Detail',0,'Detail',0,'detail',0,NULL,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `meta` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -2290,7 +2283,8 @@ VALUES
 	(35,'Profiles','block','ResetPassword','ResetPassword',NULL,0,5008),
 	(36,'Profiles','block','ResendActivation','ResendActivation',NULL,0,5009),
 	(37,'Profiles','widget','LoginBox','LoginBox',NULL,0,5010),
-	(38,'Profiles','widget','LoginLink','LoginLink',NULL,0,5011);
+	(38,'Profiles','widget','LoginLink','LoginLink',NULL,0,5011),
+	(39,'Blog','block','Detail','Detail',NULL,0,1006);
 
 /*!40000 ALTER TABLE `modules_extras` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -2335,8 +2329,6 @@ VALUES
 	('Core','smtp_username','s:0:\"\";'),
 	('Core','smtp_password','s:0:\"\";'),
 	('Core','site_title_en','s:10:\"My website\";'),
-	('Core','ckfinder_license_name','s:8:\"Fork CMS\";'),
-    ('Core','ckfinder_license_key','s:34:\"QFKH-MNCN-19A8-32XW-35GK-Q58G-UPMC\";'),
 	('Users','default_group','i:1;'),
 	('Pages','default_template','i:3;'),
 	('Pages','meta_navigation','b:0;'),
@@ -2445,7 +2437,8 @@ VALUES
 	(420,20,1,0,5,22,'en','root','Profile','Profile',0,0,'active','2015-02-23 19:48:54',NULL,'2015-02-23 19:48:54','2015-02-23 19:48:54',1,1,1,1,11),
 	(421,21,1,420,5,23,'en','page','Profile settings','Profile settings',0,0,'active','2015-02-23 19:48:54',NULL,'2015-02-23 19:48:54','2015-02-23 19:48:54',1,1,1,1,0),
 	(422,22,1,420,5,24,'en','page','Change email','Change email',0,0,'active','2015-02-23 19:48:54',NULL,'2015-02-23 19:48:54','2015-02-23 19:48:54',1,1,1,1,1),
-	(423,23,1,420,5,25,'en','page','Change password','Change password',0,0,'active','2015-02-23 19:48:54',NULL,'2015-02-23 19:48:54','2015-02-23 19:48:54',1,1,1,1,2);
+	(423,23,1,420,5,25,'en','page','Change password','Change password',0,0,'active','2015-02-23 19:48:54',NULL,'2015-02-23 19:48:54','2015-02-23 19:48:54',1,1,1,1,2),
+	(424,24,1,407,5,29,'en','page','Detail','Detail',0,0,'active','2015-02-23 19:48:53',NULL,'2015-02-23 19:48:53','2015-02-23 19:48:53',1,1,1,1,0);
 
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -2515,7 +2508,8 @@ VALUES
 	(22,'main',31,'rich_text',NULL,'','2015-02-23 19:48:54','2015-02-23 19:48:54',1,0),
 	(22,'top',1,'rich_text',NULL,'','2015-02-23 19:48:54','2015-02-23 19:48:54',1,0),
 	(23,'main',32,'rich_text',NULL,'','2015-02-23 19:48:54','2015-02-23 19:48:54',1,0),
-	(23,'top',1,'rich_text',NULL,'','2015-02-23 19:48:54','2015-02-23 19:48:54',1,0);
+	(23,'top',1,'rich_text',NULL,'','2015-02-23 19:48:54','2015-02-23 19:48:54',1,0),
+	(24,'main',39,'rich_text',NULL,'','2015-02-23 19:48:53','2015-02-23 19:48:53',1,0);
 
 /*!40000 ALTER TABLE `pages_blocks` ENABLE KEYS */;
 UNLOCK TABLES;

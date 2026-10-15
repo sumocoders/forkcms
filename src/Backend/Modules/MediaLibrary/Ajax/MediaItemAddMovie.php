@@ -11,6 +11,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaItem\Command\CreateMediaItemFromMov
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\StorageType;
+use Common\Core\RequestParameter;
 use Common\Exception\AjaxExitException;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,7 +49,7 @@ class MediaItemAddMovie extends BackendBaseAJAXAction
 
         // Handle the MediaItem create
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($createMediaItemFromMovieUrl);
 
         return $createMediaItemFromMovieUrl;
@@ -90,7 +91,7 @@ class MediaItemAddMovie extends BackendBaseAJAXAction
 
     protected function getMediaFolder(): MediaFolder
     {
-        $id = $this->getRequest()->request->getInt('folder_id');
+        $id = RequestParameter::getInt($this->getRequest()->request, 'folder_id');
 
         if ($id === 0) {
             throw new AjaxExitException(Language::err('MediaFolderIsRequired'));

@@ -7,6 +7,7 @@ use Backend\Core\Language\Language as BL;
 use Backend\Modules\FormBuilder\Engine\Autocomplete;
 use Backend\Modules\FormBuilder\Engine\Helper as FormBuilderHelper;
 use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
+use Common\Core\RequestParameter;
 use Common\Uri as CommonUri;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,8 +21,8 @@ class SaveField extends BackendBaseAJAXAction
         parent::execute();
 
         // get parameters
-        $formId = $this->getRequest()->request->getInt('form_id');
-        $fieldId = $this->getRequest()->request->getInt('field_id');
+        $formId = RequestParameter::getInt($this->getRequest()->request, 'form_id');
+        $fieldId = RequestParameter::getInt($this->getRequest()->request, 'field_id');
         $type = $this->getRequest()->request->get('type');
         if (!in_array(
             $type,
@@ -49,7 +50,7 @@ class SaveField extends BackendBaseAJAXAction
         $defaultValues = trim($this->getRequest()->request->get('default_values', ''));
         $placeholder = trim($this->getRequest()->request->get('placeholder', ''));
         $classname = trim($this->getRequest()->request->get('classname', ''));
-        $required = $this->getRequest()->request->getBoolean('required');
+        $required = RequestParameter::getBoolean($this->getRequest()->request, 'required');
         $requiredErrorMessage = trim($this->getRequest()->request->get('required_error_message', ''));
         $validation = $this->getRequest()->request->get('validation');
         if (!in_array($validation, ['email', 'number', 'time'])) {
@@ -60,8 +61,8 @@ class SaveField extends BackendBaseAJAXAction
         $autocomplete = $this->getRequest()->request->get('autocomplete', '');
 
         // special field for textbox
-        $replyTo = $this->getRequest()->request->getBoolean('reply_to');
-        $sendConfirmationMailTo = $this->getRequest()->request->getBoolean('send_confirmation_mail_to');
+        $replyTo = RequestParameter::getBoolean($this->getRequest()->request, 'reply_to');
+        $sendConfirmationMailTo = RequestParameter::getBoolean($this->getRequest()->request, 'send_confirmation_mail_to');
         $confirmationMailSubject = trim($this->getRequest()->request->get('confirmation_mail_subject'));
         $confirmationMailMessage = trim($this->getRequest()->request->get('confirmation_mail_message'));
 

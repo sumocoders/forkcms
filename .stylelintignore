@@ -5,7 +5,6 @@ Dockerfile
 bin/*
 css/*
 src/Backend/Core/Js/ckeditor/*
-src/Backend/Core/Js/ckfinder/*
 src/Backend/Core/Js/jquery/*
 src/Backend/Core/Layout/Css/*
 src/Backend/Core/Layout/Sass/*

@@ -5,6 +5,7 @@ namespace Backend\Modules\Location\Ajax;
 use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
 use Backend\Core\Language\Language as BL;
 use Backend\Modules\Location\Engine\Model as BackendLocationModel;
+use Common\Core\RequestParameter;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -19,7 +20,7 @@ class SaveLiveLocation extends BackendBaseAJAXAction
         $generalSettings = $this->get('fork.settings')->getForModule('Location');
 
         // get parameters
-        $itemId = $this->getRequest()->request->getInt('id');
+        $itemId = RequestParameter::getInt($this->getRequest()->request, 'id');
         $zoomLevel = trim($this->getRequest()->request->get('zoom', 'auto'));
         $mapType = strtoupper(trim($this->getRequest()->request->get('type')));
         if (in_array($mapType, ['roadmap', 'satellite', 'hybrid', 'terrain', 'street_view'])) {
@@ -31,8 +32,8 @@ class SaveLiveLocation extends BackendBaseAJAXAction
         }
         $centerLat = (float) $this->getRequest()->request->get('centerLat', 1);
         $centerLng = (float) $this->getRequest()->request->get('centerLng', 1);
-        $height = $this->getRequest()->request->getInt('height', $generalSettings['height']);
-        $width = $this->getRequest()->request->getInt('width', $generalSettings['width']);
+        $height = RequestParameter::getInt($this->getRequest()->request, 'height', $generalSettings['height']);
+        $width = RequestParameter::getInt($this->getRequest()->request, 'width', $generalSettings['width']);
         $showLink = $this->getRequest()->request->get('link');
         if (!in_array($showLink, ['true', 'false'])) {
             $showLink = 'false';

@@ -13,6 +13,7 @@ use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupRepository;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\AspectRatio;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
+use Common\Core\RequestParameter;
 use Common\Exception\AjaxExitException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -68,7 +69,7 @@ class MediaItemFindAll extends BackendBaseAJAXAction
     private function getMediaFolder(): ?MediaFolder
     {
         /** @var int $id */
-        $id = $this->getRequest()->request->getInt('folder_id', 0);
+        $id = RequestParameter::getInt($this->getRequest()->request, 'folder_id', 0);
 
         if ($id === 0) {
             return null;

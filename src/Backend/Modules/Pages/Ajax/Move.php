@@ -5,6 +5,7 @@ namespace Backend\Modules\Pages\Ajax;
 use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
 use Backend\Core\Language\Language as BL;
 use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
+use Common\Core\RequestParameter;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -18,8 +19,8 @@ class Move extends BackendBaseAJAXAction
         parent::execute();
 
         // get parameters
-        $id = $this->getRequest()->request->getInt('id');
-        $droppedOn = $this->getRequest()->request->getInt('dropped_on', -1);
+        $id = RequestParameter::getInt($this->getRequest()->request, 'id');
+        $droppedOn = RequestParameter::getInt($this->getRequest()->request, 'dropped_on', -1);
         $typeOfDrop = $this->getRequest()->request->get('type', '');
         $tree = $this->getRequest()->request->get('tree');
         if (!in_array($tree, ['main', 'meta', 'footer', 'root'])) {

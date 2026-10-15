@@ -47,7 +47,7 @@ class MediaGalleryAdd extends ActionAdd
 
         // Handle the MediaGallery create
         /** @var MessageBusInterface $messageBus */
-        $messageBus = $this->get('messenger.default_bus');
+        $messageBus = $this->get(MessageBusInterface::class);
         $messageBus->dispatch($createMediaGallery);
 
         return $createMediaGallery;
