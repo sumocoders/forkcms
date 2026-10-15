@@ -39,7 +39,6 @@ class Installer extends ModuleInstaller
         $this->setActionRights(1, $this->getModule(), 'Add');
         $this->setActionRights(1, $this->getModule(), 'Delete');
         $this->setActionRights(1, $this->getModule(), 'Edit');
-        $this->setActionRights(1, $this->getModule(), 'ImportWordpress');
         $this->setActionRights(1, $this->getModule(), 'Index');
     }
 
@@ -68,7 +67,7 @@ class Installer extends ModuleInstaller
             $navigationBlogId,
             'Articles',
             'blog/index',
-            ['blog/add', 'blog/edit', 'blog/import_wordpress']
+            ['blog/add', 'blog/edit']
         );
         $this->setNavigation($navigationBlogId, 'Comments', 'blog/comments', ['blog/edit_comment']);
         $this->setNavigation(

@@ -19,12 +19,6 @@
         <translation language="pt"><![CDATA[adicionar artigo]]></translation>
         <translation language="pl"><![CDATA[dodaj artykuł]]></translation>
       </item>
-      <item type="label" name="WordpressFilter">
-        <translation language="nl"><![CDATA[filter]]></translation>
-        <translation language="en"><![CDATA[filter]]></translation>
-        <translation language="pt"><![CDATA[filtrar]]></translation>
-        <translation language="pl"><![CDATA[filtr]]></translation>
-      </item>
       <item type="message" name="Added">
         <translation language="nl"><![CDATA[Het artikel "%1$s" werd toegevoegd.]]></translation>
         <translation language="en"><![CDATA[The article "%1$s" was added.]]></translation>
@@ -252,18 +246,6 @@
         <translation language="pt"><![CDATA[Faça um introdução ou sumário para artigos longos. Isto será mostrado na página principal ou no resumo dos artigos.]]></translation>
         <translation language="pl"><![CDATA[Utwórz wstęp lub podsumowanie długich artykułów. Można to wyświetlić na stronie głównej lub w przeglądzie artykułu.]]></translation>
       </item>
-      <item type="message" name="HelpWordpress">
-        <translation language="nl"><![CDATA[You can upload an export file from a wordpress site here.]]></translation>
-        <translation language="en"><![CDATA[Hier kan je een export bestand vanuit een wordpress site uploaden.]]></translation>
-        <translation language="pt"><![CDATA[Aqui pode fazer o upload de um ficheiro exportado do Wordpress.]]></translation>
-        <translation language="pl"><![CDATA[]]></translation>
-      </item>
-      <item type="message" name="HelpWordpressFilter">
-        <translation language="nl"><![CDATA[The searchterm that identifies links in an existing blogpost so that we can transfer them to active links on the fork blog module.]]></translation>
-        <translation language="en"><![CDATA[De zoekterm die in bestaande blogposts in een link voor moet komen, alvorens wij de link kunnen omzetten naar een actieve link op de fork blog module.]]></translation>
-        <translation language="pt"><![CDATA[O termo de pesquisa que identifica links num post já existente para que possamos transferi-los para links activos no módulo Blog do ForkCMS.]]></translation>
-        <translation language="pl"><![CDATA[Wyszukiwane hasło identyfikuje linki w istniejącym wpisie na blogu, abyśmy mogli przenieść je do aktywnych linków w module blogu widłowego.]]></translation>
-      </item>
       <item type="message" name="NoCategoryItems">
         <translation language="nl"><![CDATA[Er zijn nog geen categorieën. <a href="%1$s">Maak een eerste categorie</a>.]]></translation>
         <translation language="en"><![CDATA[There are no categories yet. <a href="%1$s">Create the first category</a>.]]></translation>
@@ -427,12 +409,6 @@
         <translation language="el"><![CDATA[Δεν έχει δοθεί ακόμη η περιγραφή γιά τη ροή RSS του ιστολογίου. <a href="%1$s">Ρυθμίστε την</a>]]></translation>
         <translation language="pt"><![CDATA[A descrição da feed RSS do Blog ainda não fornecida. <a href="%1$s">Configurar</a>]]></translation>
         <translation language="pl"><![CDATA[Opis Blog RSS nie jest jeszcze skonfigurowany. <a href="%1$s"> Konfiguruj </a>]]></translation>
-      </item>
-      <item type="error" name="XMLFilesOnly">
-        <translation language="nl"><![CDATA[Enkel XML bestanden kunnen worden geupload.]]></translation>
-        <translation language="en"><![CDATA[Only XML files can be uploaded.]]></translation>
-        <translation language="pt"><![CDATA[Apenas é permitido o upload de ficheiros XML.]]></translation>
-        <translation language="pl"><![CDATA[Można przesyłać tylko pliki XML.]]></translation>
       </item>
     </Blog>
     <Pages>
