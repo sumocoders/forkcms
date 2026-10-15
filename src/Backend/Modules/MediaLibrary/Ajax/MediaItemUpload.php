@@ -132,7 +132,7 @@ class MediaItemUpload extends BackendBaseAJAXAction
      */
     private function sanitizeSvg(string $path, array $result): void
     {
-        if (!SvgSanitizer::isSvgExtension(pathinfo($path, PATHINFO_EXTENSION))) {
+        if (!SvgSanitizer::isSvgFile($path)) {
             return;
         }
 

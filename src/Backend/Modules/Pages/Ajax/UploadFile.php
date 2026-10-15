@@ -127,8 +127,7 @@ class UploadFile extends AjaxAction
         }
         $fileName = $baseName . '.' . $extension;
 
-        // an svg is an active document, so strip the scripts and event handlers before it is stored
-        if (SvgSanitizer::isSvgExtension($extension)) {
+        if (SvgSanitizer::isSvgExtension($extension) || SvgSanitizer::isSvgContent($content)) {
             try {
                 $content = (new SvgSanitizer())->sanitize($content);
             } catch (RuntimeException $runtimeException) {

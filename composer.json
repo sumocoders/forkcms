@@ -20,6 +20,7 @@
         "ext-intl": "*",
         "ext-simplexml": "*",
         "ext-dom": "*",
+        "ext-fileinfo": "*",
         "ext-libxml": "*",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/orm": "^2.7",

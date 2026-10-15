@@ -2,8 +2,10 @@
 
 namespace ForkCMS\Utility\Svg;
 
+use finfo;
 use Rhukster\DomSanitizer\DOMSanitizer;
 use RuntimeException;
+use Symfony\Component\Mime\MimeTypes;
 
 /**
  * Strips active content out of uploaded SVG files.
@@ -16,9 +18,22 @@ use RuntimeException;
  */
 final class SvgSanitizer
 {
+    private const SVG_MIME_TYPES = ['image/svg', 'image/svg+xml'];
+
     public static function isSvgExtension(string $extension): bool
     {
         return strtolower($extension) === 'svg';
+    }
+
+    public static function isSvgFile(string $path): bool
+    {
+        return self::isSvgExtension(pathinfo($path, PATHINFO_EXTENSION))
+            || in_array((new MimeTypes())->guessMimeType($path), self::SVG_MIME_TYPES, true);
+    }
+
+    public static function isSvgContent(string $content): bool
+    {
+        return in_array((new finfo(FILEINFO_MIME_TYPE))->buffer($content), self::SVG_MIME_TYPES, true);
     }
 
     /**

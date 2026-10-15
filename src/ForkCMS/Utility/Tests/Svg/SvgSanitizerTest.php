@@ -14,9 +14,21 @@ class SvgSanitizerTest extends TestCase
 {
     private SvgSanitizer $svgSanitizer;
 
+    /** @var string[] */
+    private array $temporaryFiles = [];
+
     protected function setUp(): void
     {
         $this->svgSanitizer = new SvgSanitizer();
+    }
+
+    protected function tearDown(): void
+    {
+        foreach ($this->temporaryFiles as $temporaryFile) {
+            @unlink($temporaryFile);
+        }
+
+        $this->temporaryFiles = [];
     }
 
     public function testTheReportedProofOfConceptIsNeutralised(): void
@@ -129,5 +141,42 @@ class SvgSanitizerTest extends TestCase
         $this->expectException(RuntimeException::class);
 
         $this->svgSanitizer->sanitizeFile(sys_get_temp_dir() . '/this-file-does-not-exist.svg');
+    }
+
+    /**
+     * An svg uploaded as "logo.png" passes both upload allowlists: the extension is checked against the list of
+     * allowed extensions and the mime type against the list of allowed mime types, never against each other. The
+     * file name therefore can't decide whether the bytes have to be sanitized.
+     */
+    public function testSvgContentIsRecognisedWhateverTheFileIsCalled(): void
+    {
+        $svg = '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" onload="alert(1)"><text>x</text></svg>';
+
+        self::assertTrue(SvgSanitizer::isSvgContent($svg));
+        self::assertTrue(SvgSanitizer::isSvgFile($this->writeTemporaryFile($svg, 'png')));
+        self::assertTrue(SvgSanitizer::isSvgFile($this->writeTemporaryFile($svg, 'svg')));
+    }
+
+    public function testOtherContentIsNotRecognisedAsAnSvg(): void
+    {
+        // a one pixel png and a pdf header, the kind of upload that must not be handed to the sanitizer: it
+        // parses svg as xml, so it would reject them
+        $png = base64_decode(
+            'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=='
+        );
+
+        self::assertFalse(SvgSanitizer::isSvgContent($png));
+        self::assertFalse(SvgSanitizer::isSvgContent('%PDF-1.4'));
+        self::assertFalse(SvgSanitizer::isSvgFile($this->writeTemporaryFile($png, 'png')));
+    }
+
+    private function writeTemporaryFile(string $content, string $extension): string
+    {
+        $path = tempnam(sys_get_temp_dir(), 'fork_svg_') . '.' . $extension;
+        file_put_contents($path, $content);
+
+        $this->temporaryFiles[] = $path;
+
+        return $path;
     }
 }

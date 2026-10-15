@@ -78,6 +78,33 @@ class UploadFileTest extends BackendWebTestCase
         self::assertStringNotContainsStringIgnoringCase('<script', $this->readStoredFile($payload['data']));
     }
 
+    /**
+     * The extension allowlist and the mime type are never checked against each other, so an svg renamed to ".png"
+     * is an accepted upload. The stored bytes stay an active document, so they still have to be sanitized.
+     */
+    public function testUploadedSvgIsSanitisedWhenItIsNamedAfterAnotherImageType(KernelBrowser $client): void
+    {
+        $this->login($client);
+
+        $response = $this->uploadFile(
+            $client,
+            'up-xss.png',
+            '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="60" onload="alert(1)">'
+            . '<script>alert(2)</script><text x="5" y="30">svg</text></svg>'
+        );
+
+        self::assertSame(200, $response->getStatusCode());
+
+        $payload = json_decode($response->getContent(), true);
+        self::assertSame(200, $payload['code']);
+
+        $storedContents = $this->readStoredFile($payload['data']);
+
+        self::assertStringNotContainsStringIgnoringCase('<script', $storedContents);
+        self::assertStringNotContainsStringIgnoringCase('onload', $storedContents);
+        self::assertStringContainsString('<text', $storedContents);
+    }
+
     public function testNonImageExtensionsAreStillRejected(KernelBrowser $client): void
     {
         $this->login($client);
