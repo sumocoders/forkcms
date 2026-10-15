@@ -29,6 +29,10 @@ class GenerateUrl extends BackendBaseAJAXAction
             Locale::class,
         ]]);
 
+        if (!is_array($parameters)) {
+            $parameters = [];
+        }
+
         // fetch generated meta url
         $url = urldecode((string) $this->get(MetaRepository::class)->generateUrl($url, $className, $methodName, $parameters));
 
