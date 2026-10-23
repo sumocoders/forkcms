@@ -7,12 +7,17 @@ use SpoonDatabase;
 
 final class BlogSitemapUrlProvider implements SitemapUrlProviderInterface
 {
-    public function __construct(private SpoonDatabase $database)
+    /** @param string[] $installedModules */
+    public function __construct(private SpoonDatabase $database, private array $installedModules)
     {
     }
 
     public function getUrls(string $locale): array
     {
+        if (!in_array('Blog', $this->installedModules, true)) {
+            return [];
+        }
+
         $records = (array) $this->database->getRecords(
             'SELECT i.id, i.publish_on, m.url, m.seo_index
              FROM blog_posts AS i

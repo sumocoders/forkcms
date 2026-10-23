@@ -22,11 +22,13 @@ services:
     Common\Sitemap\FaqSitemapUrlProvider:
         arguments:
             $database: '@database'
+            $installedModules: '%installed_modules%'
         tags:
             - { name: sitemap.url_provider }
 
     Common\Sitemap\BlogSitemapUrlProvider:
         arguments:
             $database: '@database'
+            $installedModules: '%installed_modules%'
         tags:
             - { name: sitemap.url_provider }
