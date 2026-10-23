@@ -49,9 +49,6 @@ services:
         autoconfigure: true
         public: true
 
-    templating:
-        alias: templating.engine.twig
-
     fork.settings:
         class: Common\ModulesSettings
         public: true
