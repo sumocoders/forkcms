@@ -51,3 +51,5 @@ services:
         class: Common\Doctrine\Entity\CreateSchema
         arguments:
             - "@doctrine.orm.entity_manager"
+
+    Common\Doctrine\Repository\MetaRepository: ~

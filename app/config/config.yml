@@ -257,11 +257,6 @@ services:
             - "@fork.settings"
             - "@fork.cookie"
 
-    Common\Doctrine\Repository\MetaRepository:
-        public: true
-        autowire: true
-        autoconfigure: true
-
     ForkCMS\App\ForkController:
         public: true
         autowire: true
