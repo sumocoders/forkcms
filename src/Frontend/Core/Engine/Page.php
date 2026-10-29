@@ -241,7 +241,7 @@ class Page extends KernelLoader
 
     private function getPageRecord(int $pageId): array
     {
-        if ($this->url->getParameter('page_revision', 'int') === null) {
+        if ($this->url->getParameter('page_revision', 'int') === null || $pageId === 404) {
             return Model::getPage($pageId);
         }
 
