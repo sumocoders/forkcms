@@ -32,12 +32,6 @@
     "css-loader": "^6.8.1",
     "fine-uploader": "^5.14.1",
     "font-awesome": "^4.7.0",
-    "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^8.0.0",
-    "gulp-livereload": "^4.0.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass-no-nodesass": "^1.1.0",
-    "gulp-sourcemaps": "^1.9.1",
     "jquery": "^3.5.0",
     "jquery-migrate": "~1.4",
     "jquery-ui-dist": "~1.12",
@@ -61,7 +55,8 @@
     "stylelint-config-standard-scss": "^17.0.0",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
-    "webpack-merge": "^5.9.0"
+    "webpack-merge": "^5.9.0",
+    "webpack-remove-empty-scripts": "^1.1.1"
   },
   "scripts": {
     "test": "standard",
@@ -97,7 +92,6 @@
       "src/Frontend/Cache/",
       "src/Frontend/Core/Js/jquery/jquery.js",
       "src/Frontend/Themes/Bootstrap",
-      "gulpfile.js",
       "webpack.*.js",
       "src/Backend/Core/Js/backend.js",
       "src/Backend/Core/Js/jquery/jquery.backend.js",

@@ -38,9 +38,8 @@ php bin/twig-cs-fixer lint templates/   # Twig template lint (Symfony + Twig sta
 ### Frontend assets
 ```bash
 npm ci
-npm run build           # webpack --config webpack.prod.js
+npm run build           # webpack --config webpack.prod.js (Bootstrap theme + backend, see webpack.backend.js)
 npm run watch           # webpack --watch --config webpack.dev.js
-node_modules/.bin/gulp build   # legacy gulp pipeline, still used in CI build stage
 npm test                # runs `standard` (StandardJS linter, see package.json "standard" config for excluded legacy files)
 stylelint .              # SCSS/CSS lint, config in .stylelintrc
 ```
