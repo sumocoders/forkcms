@@ -151,10 +151,10 @@ task(
 
         if (file_exists($nvmPath)) {
             runLocally(
-                '. ' . $nvmPath . ' && nvm use && nvm exec node_modules/.bin/gulp build && nvm exec npm run build'
+                '. ' . $nvmPath . ' && nvm use && nvm exec npm run build'
             );
         } else {
-            runLocally('node_modules/.bin/gulp build && npm run build');
+            runLocally('npm run build');
         }
     }
 )->desc('Run the build script which will build our needed assets.');
