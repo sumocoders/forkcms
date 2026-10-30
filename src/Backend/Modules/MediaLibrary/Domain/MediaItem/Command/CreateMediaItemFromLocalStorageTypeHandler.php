@@ -29,8 +29,6 @@ final readonly class CreateMediaItemFromLocalStorageTypeHandler
 
         $createMediaItemFromLocalStorageType->setMediaItem($mediaItem);
 
-        dump($mediaItem);
         $this->entityManager->flush();
-        dump('flushed');
     }
 }
