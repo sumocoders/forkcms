@@ -5,9 +5,9 @@ const backend = require('./webpack.backend.js')
 module.exports = [
   merge(common, {
     mode: 'development',
-    devtool: 'inline-source-map',
+    devtool: 'inline-source-map'
   }),
   merge(backend, {
-    mode: 'development',
-  }),
+    mode: 'development'
+  })
 ]

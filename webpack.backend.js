@@ -105,7 +105,7 @@ module.exports = {
           info: { minimized: true },
           // the npm package ships its js with a UTF-8 BOM, the committed copies have none
           transform: (content, absoluteFrom) => absoluteFrom.endsWith('.js')
-            ? Buffer.from(content.toString('utf8').replace(/^﻿/, ''))
+            ? Buffer.from(content.toString('utf8').replace(/^\uFEFF/, ''))
             : content
         }))
       ]
