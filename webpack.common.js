@@ -1,5 +1,6 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts')
 const CopyPlugin = require('copy-webpack-plugin')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const PackageJson = require('./package.json')
@@ -34,6 +35,7 @@ module.exports = {
     ignored: /node_modules/
   },
   plugins: [
+    new RemoveEmptyScriptsPlugin(),
     new MiniCssExtractPlugin({
       filename: './Layout/Css/[name].css'
     }),
@@ -54,7 +56,9 @@ module.exports = {
       host: '127.0.0.1',
       port: 3000,
       proxy: 'https://127.0.0.1:8000/',
-      notify: false
+      notify: false,
+      // the backend is a separate compiler, so watch its output to reload on backend Sass changes too
+      files: ['src/Backend/Core/Layout/Css/*.css']
     })
   ],
   module: {
@@ -82,7 +86,12 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true
+              sourceMap: true,
+              api: 'modern',
+              sassOptions: {
+                loadPaths: [path.resolve(__dirname, 'node_modules')],
+                quietDeps: true
+              }
             }
           }
         ]

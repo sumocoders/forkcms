@@ -50,8 +50,7 @@ Install dependencies and build assets:
         - echo 'FORK_ENV=dev' >> .env.local
         - echo 'FORK_DEBUG=true' >> .env.local
         - npm ci --no-progress
-        - node_modules/.bin/gulp build
-    #        - npm run build
+        - npm run build
     cache:
         <<: *global_cache
         policy: pull-push

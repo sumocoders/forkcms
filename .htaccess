@@ -83,10 +83,10 @@ deny from env=stayout
     RewriteRule composer\.lock - [F]
     RewriteRule docker-compose\.override\.yml - [F]
     RewriteRule docker-compose\.yml - [F]
-    RewriteRule gulpfile\.js - [F]
     RewriteRule package\.json - [F]
     RewriteRule phpstan\.neon - [F]
     RewriteRule phpunit\.xml\.dist - [F]
+    RewriteRule webpack\.[a-z]+\.js - [F]
     RewriteRule yarn\.lock - [F]
 
     # forbidden directories
