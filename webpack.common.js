@@ -56,7 +56,9 @@ module.exports = {
       host: '127.0.0.1',
       port: 3000,
       proxy: 'https://127.0.0.1:8000/',
-      notify: false
+      notify: false,
+      // the backend is a separate compiler, so watch its output to reload on backend Sass changes too
+      files: ['src/Backend/Core/Layout/Css/*.css']
     })
   ],
   module: {
