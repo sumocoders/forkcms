@@ -59,6 +59,10 @@ module.exports = {
   },
   mode: 'development',
   devtool: 'source-map',
+  optimization: {
+    // webpack 5.112 minifies CSS and HTML assets in production by default; sass already compresses the committed css
+    minimizeOptions: { css: false, html: false }
+  },
   watchOptions: {
     aggregateTimeout: 600,
     ignored: /node_modules/

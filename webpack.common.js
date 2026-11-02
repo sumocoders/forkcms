@@ -30,6 +30,10 @@ module.exports = {
   },
   mode: 'development',
   externals: ['jquery'],
+  optimization: {
+    // webpack 5.112 minifies CSS and HTML assets in production by default, which strips optional tags from the copied user templates
+    minimizeOptions: { css: false, html: false }
+  },
   watchOptions: {
     aggregateTimeout: 600,
     ignored: /node_modules/
