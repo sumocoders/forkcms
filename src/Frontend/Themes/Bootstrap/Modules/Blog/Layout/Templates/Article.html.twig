@@ -70,7 +70,7 @@
     {% if item.image %}
       <img itemprop="image" class="card-img-top" src="{{ FRONTEND_FILES_URL }}/Blog/images/source/{{ item.image }}" alt="{{ item.title }}" />
     {% else %}
-      <img itemprop="image" class="card-img-top" src="https://placehold.it/400x300" alt="{{ item.title }}" />
+      <img itemprop="image" class="card-img-top" src="{{ THEME_URL }}/Core/Layout/Images/image-placeholder.svg" alt="{{ item.title }}" />
     {% endif %}
 
     <div class="card-body" itemprop="text">
