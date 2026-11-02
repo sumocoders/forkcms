@@ -298,7 +298,7 @@ class DataGrid extends \SpoonDataGrid
         );
 
         // make sure the column with the handler is the first one
-        $this->setColumnsSequence(['dragAndDropHandle', 'sortHandle']);
+        $this->setColumnsSequence('dragAndDropHandle', 'sortHandle');
 
         // add a class on the handler column, so JS knows this is just a handler
         $this->setColumnAttributes('dragAndDropHandle', ['class' => 'dragAndDropHandle fork-data-grid-sortable']);
@@ -525,7 +525,7 @@ class DataGrid extends \SpoonDataGrid
         $this->addColumn($column, $label, $value);
 
         // set as first column
-        $this->setColumnsSequence([$column]);
+        $this->setColumnsSequence($column);
 
         // excluded IDs found
         if (!empty($excludedValues)) {
