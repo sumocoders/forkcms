@@ -91,7 +91,6 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               sourceMap: true,
-              api: 'modern',
               sassOptions: {
                 loadPaths: [path.resolve(__dirname, 'node_modules')],
                 quietDeps: true
