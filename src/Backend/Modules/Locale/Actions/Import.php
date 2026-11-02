@@ -47,13 +47,13 @@ class Import extends BackendBaseActionAdd
     private function setFilter(): void
     {
         // get filter values
-        $this->filter['language'] = $this->getRequest()->query->get('language', []);
+        $this->filter['language'] = $this->getRequest()->query->all()['language'] ?? [];
         if (empty($this->filter['language'])) {
             $this->filter['language'] = BL::getWorkingLanguage();
         }
         $this->filter['application'] = $this->getRequest()->query->get('application');
         $this->filter['module'] = $this->getRequest()->query->get('module');
-        $this->filter['type'] = $this->getRequest()->query->get('type', '');
+        $this->filter['type'] = $this->getRequest()->query->all()['type'] ?? '';
         if ($this->filter['type'] === '') {
             $this->filter['type'] = null;
         }
