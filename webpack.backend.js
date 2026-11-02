@@ -58,7 +58,12 @@ module.exports = {
     clean: false
   },
   mode: 'development',
-  devtool: 'source-map',
+  // the maps are committed; sass-loader always embeds the Sass sources, which grows screen.css.map sevenfold
+  devtool: 'nosources-source-map',
+  optimization: {
+    // webpack 5.112 minifies CSS and HTML assets in production by default; sass already compresses the committed css
+    minimizeOptions: { css: false, html: false }
+  },
   watchOptions: {
     aggregateTimeout: 600,
     ignored: /node_modules/
@@ -130,7 +135,6 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              api: 'modern',
               sassOptions: {
                 loadPaths: [path.resolve(__dirname, 'node_modules')],
                 quietDeps: true
