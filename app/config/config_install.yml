@@ -57,6 +57,11 @@ services:
             - "@cache.pool"
             - "%fork.is_installed%"
 
+    # the MediaLibrary installer fetches the bus from the container (config.yml isn't loaded here)
+    Symfony\Component\Messenger\MessageBusInterface:
+        alias: messenger.bus.default
+        public: true
+
     # dummy service during the installation
     mailer_configurator:
         class: stdClass
