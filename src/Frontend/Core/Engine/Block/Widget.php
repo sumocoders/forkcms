@@ -250,12 +250,13 @@ class Widget extends KernelLoader implements ModuleExtraInterface
             $parameters['data'] = '%s:2:"id";i:' . $id . ';%';
         }
 
-        return new self(
-            $kernel,
-            $module,
-            $action,
-            $kernel->getContainer()->get('database')->getVar($query, $parameters)
-        );
+        // A lookup by id matches on the data column, so no data means the item (and its widget) no longer exists
+        $data = $kernel->getContainer()->get('database')->getVar($query, $parameters);
+        if (is_numeric($id) && ($data === null || $data === false)) {
+            throw new FrontendException('No ' . $module . '::' . $action . ' widget found for id ' . $id . '.');
+        }
+
+        return new self($kernel, $module, $action, $data);
     }
 
     public function getTemplatePath(): string

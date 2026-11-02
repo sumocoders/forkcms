@@ -443,23 +443,17 @@ class TemplateModifiers extends BaseTwigModifiers
      */
     public static function parseWidget(string $module, string $action, ?string $id = null): string
     {
-        // create new widget instance and return parsed content
-        $extra = FrontendBlockWidget::getForId(
-            FrontendModel::get('kernel'),
-            $module,
-            $action,
-            $id
-        );
-
-        // set parseWidget because we will need it to skip setting headers in the display
-        FrontendModel::getContainer()->set('parseWidget', true);
-
         try {
+            // create new widget instance and return parsed content
+            $extra = FrontendBlockWidget::getForId(
+                FrontendModel::get('kernel'),
+                $module,
+                $action,
+                $id
+            );
             $extra->execute();
-            $content = $extra->getContent();
-            FrontendModel::getContainer()->set('parseWidget', null);
 
-            return (string) $content;
+            return (string) $extra->getContent();
         } catch (RedirectException $redirectException) {
             throw new Error('redirect fix from template modifier', -1, null, $redirectException);
         } catch (Exception $e) {
