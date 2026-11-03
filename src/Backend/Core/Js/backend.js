@@ -1187,11 +1187,9 @@ jsBackend.forms = {
   init: function () {
     jsBackend.forms.placeholders() // make sure this is done before focusing the first field
     jsBackend.forms.focusFirstField()
-    jsBackend.forms.datefields()
     jsBackend.forms.submitWithLinks()
     jsBackend.forms.tagsInput()
     jsBackend.forms.meta()
-    jsBackend.forms.datePicker()
     jsBackend.forms.bootstrapTabFormValidation()
     jsBackend.forms.imagePreview()
   },
@@ -1265,126 +1263,6 @@ jsBackend.forms = {
       }
 
       $(this.dataset.baseFieldSelector).doMeta(options)
-    })
-  },
-
-  datefields: function () {
-    // variables
-    var dayNames = [
-      jsBackend.locale.loc('DayLongSun'), jsBackend.locale.loc('DayLongMon'), jsBackend.locale.loc('DayLongTue'),
-      jsBackend.locale.loc('DayLongWed'), jsBackend.locale.loc('DayLongThu'), jsBackend.locale.loc('DayLongFri'),
-      jsBackend.locale.loc('DayLongSat')
-    ]
-    var dayNamesMin = [
-      jsBackend.locale.loc('DayShortSun'), jsBackend.locale.loc('DayShortMon'), jsBackend.locale.loc('DayShortTue'),
-      jsBackend.locale.loc('DayShortWed'), jsBackend.locale.loc('DayShortThu'), jsBackend.locale.loc('DayShortFri'),
-      jsBackend.locale.loc('DayShortSat')
-    ]
-    var dayNamesShort = [
-      jsBackend.locale.loc('DayShortSun'), jsBackend.locale.loc('DayShortMon'), jsBackend.locale.loc('DayShortTue'),
-      jsBackend.locale.loc('DayShortWed'), jsBackend.locale.loc('DayShortThu'), jsBackend.locale.loc('DayShortFri'),
-      jsBackend.locale.loc('DayShortSat')
-    ]
-    var monthNames = [
-      jsBackend.locale.loc('MonthLong1'), jsBackend.locale.loc('MonthLong2'), jsBackend.locale.loc('MonthLong3'),
-      jsBackend.locale.loc('MonthLong4'), jsBackend.locale.loc('MonthLong5'), jsBackend.locale.loc('MonthLong6'),
-      jsBackend.locale.loc('MonthLong7'), jsBackend.locale.loc('MonthLong8'), jsBackend.locale.loc('MonthLong9'),
-      jsBackend.locale.loc('MonthLong10'), jsBackend.locale.loc('MonthLong11'), jsBackend.locale.loc('MonthLong12')
-    ]
-    var monthNamesShort = [
-      jsBackend.locale.loc('MonthShort1'), jsBackend.locale.loc('MonthShort2'), jsBackend.locale.loc('MonthShort3'),
-      jsBackend.locale.loc('MonthShort4'), jsBackend.locale.loc('MonthShort5'), jsBackend.locale.loc('MonthShort6'),
-      jsBackend.locale.loc('MonthShort7'), jsBackend.locale.loc('MonthShort8'), jsBackend.locale.loc('MonthShort9'),
-      jsBackend.locale.loc('MonthShort10'), jsBackend.locale.loc('MonthShort11'), jsBackend.locale.loc('MonthShort12')
-    ]
-    var $inputDatefieldNormal = $('.inputDatefieldNormal')
-    var $inputDatefieldFrom = $('.inputDatefieldFrom')
-    var $inputDatefieldTill = $('.inputDatefieldTill')
-    var $inputDatefieldRange = $('.inputDatefieldRange')
-
-    $('.inputDatefieldNormal, .inputDatefieldFrom, .inputDatefieldTill, .inputDatefieldRange').datepicker(
-      {
-        dayNames: dayNames,
-        dayNamesMin: dayNamesMin,
-        dayNamesShort: dayNamesShort,
-        hideIfNoPrevNext: true,
-        monthNames: monthNames,
-        monthNamesShort: monthNamesShort,
-        nextText: jsBackend.locale.lbl('Next'),
-        prevText: jsBackend.locale.lbl('Previous'),
-        showAnim: 'slideDown'
-      })
-
-    // the default, nothing special
-    $inputDatefieldNormal.each(function () {
-      // variables
-      var $this = $(this)
-
-      // get data
-      var data = $(this).data()
-      var value = $(this).val()
-
-      // set options
-      $this.datepicker('option',
-        {
-          dateFormat: data.mask,
-          firstDate: data.firstday
-        }).datepicker('setDate', value)
-    })
-
-    // date fields that have a certain start date
-    $inputDatefieldFrom.each(function () {
-      // variables
-      var $this = $(this)
-
-      // get data
-      var data = $(this).data()
-      var value = $(this).val()
-
-      // set options
-      $this.datepicker('option',
-        {
-          dateFormat: data.mask,
-          firstDay: data.firstday,
-          minDate: new Date(parseInt(data.startdate.split('-')[0], 10), parseInt(data.startdate.split('-')[1], 10) - 1, parseInt(data.startdate.split('-')[2], 10))
-        }).datepicker('setDate', value)
-    })
-
-    // date fields that have a certain end date
-    $inputDatefieldTill.each(function () {
-      // variables
-      var $this = $(this)
-
-      // get data
-      var data = $(this).data()
-      var value = $(this).val()
-
-      // set options
-      $this.datepicker('option',
-        {
-          dateFormat: data.mask,
-          firstDay: data.firstday,
-          maxDate: new Date(parseInt(data.enddate.split('-')[0], 10), parseInt(data.enddate.split('-')[1], 10) - 1, parseInt(data.enddate.split('-')[2], 10))
-        }).datepicker('setDate', value)
-    })
-
-    // date fields that have a certain range
-    $inputDatefieldRange.each(function () {
-      // variables
-      var $this = $(this)
-
-      // get data
-      var data = $(this).data()
-      var value = $(this).val()
-
-      // set options
-      $this.datepicker('option',
-        {
-          dateFormat: data.mask,
-          firstDay: data.firstday,
-          minDate: new Date(parseInt(data.startdate.split('-')[0], 10), parseInt(data.startdate.split('-')[1], 10) - 1, parseInt(data.startdate.split('-')[2], 10), 0, 0, 0, 0),
-          maxDate: new Date(parseInt(data.enddate.split('-')[0], 10), parseInt(data.enddate.split('-')[1], 10) - 1, parseInt(data.enddate.split('-')[2], 10), 23, 59, 59)
-        }).datepicker('setDate', value)
     })
   },
 
@@ -1591,15 +1469,6 @@ jsBackend.forms = {
 
     // return if needed
     if (changed) return jsBackend.locale.msg('ValuesAreChanged')
-  },
-
-  // Add date pickers to the appropriate input elements
-  datePicker: function () {
-    $('input[data-role="fork-datepicker"]').each(
-      function (index, datePickerElement) {
-        $(datePickerElement).datepicker()
-      }
-    )
   }
 }
 

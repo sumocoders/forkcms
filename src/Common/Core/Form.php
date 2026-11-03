@@ -35,6 +35,11 @@ class Form extends \SpoonForm
     protected $url;
 
     /**
+     * Render date fields as native <input type="date"> with a Y-m-d mask instead of a d/m/Y text field
+     */
+    protected bool $nativeDateInputs = false;
+
+    /**
      * @param string $name Name of the form
      * @param string|null $action The action (URL) whereto the form will be submitted, if not provided it
      *                            will be auto generated.
@@ -145,22 +150,25 @@ class Form extends \SpoonForm
             throw new Exception('A date field with type "range" should have 2 valid date-parameters.');
         }
 
-        // set mask and firstday
-        $mask = 'd/m/Y';
+        // native date inputs always submit Y-m-d
+        $mask = $this->nativeDateInputs ? 'Y-m-d' : 'd/m/Y';
         $firstDay = 1;
 
         // build attributes
         $attributes = [];
-        $attributes['data-mask'] = str_replace(
-            ['d', 'm', 'Y', 'j', 'n'],
-            ['dd', 'mm', 'yy', 'd', 'm'],
-            $mask
-        );
-        $attributes['data-firstday'] = $firstDay;
-        $attributes['data-year'] = date('Y', $value);
-        // -1 because javascript starts at 0
-        $attributes['data-month'] = date('n', $value) - 1;
-        $attributes['data-day'] = date('j', $value);
+        if (!$this->nativeDateInputs) {
+            // settings for the javascript date picker
+            $attributes['data-mask'] = str_replace(
+                ['d', 'm', 'Y', 'j', 'n'],
+                ['dd', 'mm', 'yy', 'd', 'm'],
+                $mask
+            );
+            $attributes['data-firstday'] = $firstDay;
+            $attributes['data-year'] = date('Y', $value);
+            // -1 because javascript starts at 0
+            $attributes['data-month'] = date('n', $value) - 1;
+            $attributes['data-day'] = date('j', $value);
+        }
 
         // add extra classes based on type
         switch ($type) {
@@ -189,7 +197,19 @@ class Form extends \SpoonForm
                 break;
         }
 
-        $this->add(new FormDate($name, $value, $mask, $class, $classError));
+        // the server side validation keeps using data-startdate and data-enddate, the browser gets min and max
+        if ($this->nativeDateInputs && isset($attributes['data-startdate'])) {
+            $attributes['min'] = $attributes['data-startdate'];
+        }
+        if ($this->nativeDateInputs && isset($attributes['data-enddate'])) {
+            $attributes['max'] = $attributes['data-enddate'];
+        }
+
+        $dateField = new FormDate($name, $value, $mask, $class, $classError);
+        if ($this->nativeDateInputs) {
+            $dateField->useNativeDateInput();
+        }
+        $this->add($dateField);
 
         parent::getField($name)->setAttributes($attributes);
 

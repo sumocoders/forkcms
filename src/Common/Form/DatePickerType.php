@@ -26,10 +26,8 @@ class DatePickerType extends DateType
     {
         parent::buildForm($builder, $options);
 
+        // the backend uses the native date input of the browser
         if ($this->header instanceof BackendHeader) {
-            $this->header->addJS('/js/vendors/bootstrap-datepicker.min.js', null, true, true, Priority::core());
-            $this->header->addCSS('/css/vendors/bootstrap-datepicker3.standalone.min.css', null, true, true, Priority::core());
-
             return;
         }
 
@@ -41,6 +39,14 @@ class DatePickerType extends DateType
     {
         parent::configureOptions($resolver);
         $resolver->setDefault('widget', 'single_text');
+
+        // the backend renders a native <input type="date">, which submits Y-m-d
+        if ($this->header instanceof BackendHeader) {
+            $resolver->setDefault('html5', true);
+
+            return;
+        }
+
         $resolver->setDefault('html5', false);
         $resolver->setDefault('format', 'dd/MM/yyyy');
         $resolver->setDefault(
