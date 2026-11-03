@@ -18,7 +18,6 @@ class Installer extends ModuleInstaller
         $this->configureBackendNavigation();
         $this->configureBackendRights();
         $this->configureFrontendExtras();
-        $this->configureFrontendForkTheme();
         $this->configureFrontendCustomTheme(); // @remark custom for sumocoders
     }
 
@@ -96,53 +95,6 @@ class Installer extends ModuleInstaller
     private function configureFrontendExtras(): void
     {
         $this->insertExtra('Search', ModuleExtraType::widget(), 'SearchForm', 'Form');
-    }
-
-    private function configureFrontendForkTheme(): void
-    {
-        // build templates
-        $templates = [
-            'fork' => [
-                'default' => [
-                    'theme' => 'Fork',
-                    'label' => 'Default',
-                    'path' => 'Core/Layout/Templates/Default.html.twig',
-                    'active' => true,
-                    'data' => serialize(
-                        [
-                            'format' => '[/,/,top],[main,main,main]',
-                            'image' => true,
-                            'names' => ['main', 'top'],
-                        ]
-                    ),
-                ],
-                'home' => [
-                    'theme' => 'Fork',
-                    'label' => 'Home',
-                    'path' => 'Core/Layout/Templates/Home.html.twig',
-                    'active' => true,
-                    'data' => serialize(
-                        [
-                            'format' => '[/,/,top],[main,main,main]',
-                            'image' => true,
-                            'names' => ['main', 'top'],
-                        ]
-                    ),
-                ],
-            ]
-        ];
-
-        // insert templates
-        $this->getDatabase()->insert('themes_templates', $templates['fork']['default']);
-        $this->getDatabase()->insert('themes_templates', $templates['fork']['home']);
-        // set the theme
-        $this->setSetting('Core', 'theme', 'Fork', true);
-
-        // set default template
-        $this->setSetting('Pages', 'default_template', $this->getTemplateId('Default'));
-
-        // disable meta navigation
-        $this->setSetting('Pages', 'meta_navigation', false);
     }
 
     /**
