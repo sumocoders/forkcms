@@ -24,8 +24,8 @@
     <div class="row fork-module-content">
       <div class="col-md-12">
         <input type="hidden" name="step" value="2" />
-        <div class="panel panel-default">
-          <div class="panel-body">
+        <div class="card">
+          <div class="card-body">
             <div id="requirementsInformation">
               {% for requirementCategory in checker.requirementCategories %}
                 <h3>{{ requirementCategory.name }}</h3>
@@ -40,10 +40,10 @@
               {% endfor %}
             </div>
           </div>
-          <div class="panel-footer">
+          <div class="card-footer">
             {% if checker.hasWarnings and not checker.hasErrors %}
               <div class="btn-toolbar">
-                <div class="btn-group pull-right" role="group">
+                <div class="btn-group float-end" role="group">
                   <a href="{{ path('install_step2') }}" id="installerButton" class="btn btn-primary">
                     <span class="fa fa-download" aria-hidden="true"></span> Install anyway
                   </a>

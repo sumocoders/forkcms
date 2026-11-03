@@ -127,8 +127,8 @@ class Comments extends BackendBaseActionIndex
             'form-control danger'
         );
         $ddmMassAction->setAttribute('id', 'actionPublished');
-        $ddmMassAction->setOptionAttributes('delete', ['data-target' => '#confirmDeletePublished']);
-        $ddmMassAction->setOptionAttributes('spam', ['data-target' => '#confirmPublishedToSpam']);
+        $ddmMassAction->setOptionAttributes('delete', ['data-bs-target' => '#confirmDeletePublished']);
+        $ddmMassAction->setOptionAttributes('spam', ['data-bs-target' => '#confirmPublishedToSpam']);
         $this->dgPublished->setMassAction($ddmMassAction);
 
         // check if this action is allowed
@@ -223,8 +223,8 @@ class Comments extends BackendBaseActionIndex
             'form-control danger'
         );
         $ddmMassAction->setAttribute('id', 'actionModeration');
-        $ddmMassAction->setOptionAttributes('delete', ['data-target' => '#confirmDeleteModeration']);
-        $ddmMassAction->setOptionAttributes('spam', ['data-target' => '#confirmModerationToSpam']);
+        $ddmMassAction->setOptionAttributes('delete', ['data-bs-target' => '#confirmDeleteModeration']);
+        $ddmMassAction->setOptionAttributes('spam', ['data-bs-target' => '#confirmModerationToSpam']);
         $this->dgModeration->setMassAction($ddmMassAction);
 
         // check if this action is allowed
@@ -317,7 +317,7 @@ class Comments extends BackendBaseActionIndex
             'form-control danger'
         );
         $ddmMassAction->setAttribute('id', 'actionSpam');
-        $ddmMassAction->setOptionAttributes('delete', ['data-target' => '#confirmDeleteSpam']);
+        $ddmMassAction->setOptionAttributes('delete', ['data-bs-target' => '#confirmDeleteSpam']);
         $this->dgSpam->setMassAction($ddmMassAction);
 
         // check if this action is allowed

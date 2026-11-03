@@ -4,10 +4,10 @@
 {% block pagesTree %}
   <div class="sub-navigation">
     <div id="mediaTree" class="pages-tree">
-      <div class="alert alert-warning visible-xs visible-sm">
+      <div class="alert alert-warning d-md-none">
         <p>{{ macro.icon('exclamation-triangle') }}{{ 'msg.MoveMediaFoldersNotPossible'|trans|ucfirst }}</p>
       </div>
-      <button class="btn btn-default btn-sm tree-collapsed" data-role="toggle-js-tree-collapse">
+      <button class="btn btn-secondary btn-sm tree-collapsed" data-role="toggle-js-tree-collapse">
         <span data-role="toggle-js-tree-collapse-text">{{ 'lbl.OpenTreeNavigation'|trans }}</span>
       </button>
       <div id="tree">
@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block actionbar %}
-  <div class="btn-toolbar pull-right">
+  <div class="btn-toolbar float-end">
     <div class="btn-group" role="group">
       {% if isAllowedAction('MediaItemUpload') %}
         {% if mediaFolder %}
@@ -26,7 +26,7 @@
         {% endif %}
         {% if not mediaFolder %}
           {{ macro.buttonIcon( geturl('MediaItemUpload'), 'upload', 'lbl.AddMediaItems'|trans|capitalize) }}
-          <a href="#" id="addFolder" class="btn btn-default" title="{{ 'lbl.MediaAddFolder'|trans|capitalize }}">
+          <a href="#" id="addFolder" class="btn btn-secondary" title="{{ 'lbl.MediaAddFolder'|trans|capitalize }}">
             <span>{{ macro.icon('folder') }}{{ 'lbl.MediaAddFolder'|trans|capitalize }}</span>
           </a>
         {% endif %}
@@ -41,17 +41,15 @@
       <div>
         <ul class="nav nav-tabs" role="tablist">
           {% for dataGrid in dataGrids %}
-          <li role="presentation">
-            <a href="#{{ dataGrid.tabName }}" aria-controls="tabImage" role="tab" data-toggle="tab">{{ dataGrid.label|capitalize }} ({{ dataGrid.numberOfResults }})</a>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" href="#{{ dataGrid.tabName }}" aria-controls="tabImage" role="tab" data-bs-toggle="tab">{{ dataGrid.label|capitalize }} ({{ dataGrid.numberOfResults }})</a>
           </li>
           {% endfor %}
-          <li class="pull-right">
+          <li class="nav-item ms-auto">
             {{ form_start(searchForm, { 'attr' : { 'class': 'form-inline' } }) }}
             <div class="input-group">
               {{ form_widget(searchForm.query) }}
-              <span class="input-group-btn">
                 {{ macro.buttonIcon('', 'search', 'lbl.Search'|trans|capitalize, 'submitSearchForm', {'type':'submit'}) }}
-              </span>
             </div>
             {{ form_end(searchForm) }}
           </li>
@@ -85,14 +83,14 @@
         <div class="col-md-12">
           <div class="btn-toolbar">
             {% if mediaFolder %}
-              <div class="btn-group pull-left" role="group">
+              <div class="btn-group float-start" role="group">
                 {% if isAllowedAction('MediaFolderDelete') and folderHasNoChildren %}
                   {% if not mediaFolder.hasConnectedItems and not mediaFolder.hasChildrenWithConnectedItems %}
-                    {{ macro.buttonIcon('', 'trash-o', 'lbl.MediaFolderDelete'|trans|ucfirst, 'btn-danger', {"data-toggle":"modal", "data-target":"#confirmMediaFolderDelete", "type":"button" } ) }}
+                    {{ macro.buttonIcon('', 'trash-can', 'lbl.MediaFolderDelete'|trans|ucfirst, 'btn-danger', {"data-bs-toggle":"modal", "data-bs-target":"#confirmMediaFolderDelete", "type":"button" } ) }}
                   {% endif %}
                 {% endif %}
                 {% if isAllowedAction('MediaFolderEdit') %}
-                  {{ macro.buttonIcon('', 'pencil', 'lbl.EditMediaFolder'|trans|ucfirst, 'btn-default', {"data-toggle":"modal", "data-target":"#editMediaFolderDialog", "type":"button" } ) }}
+                  {{ macro.buttonIcon('', 'pencil', 'lbl.EditMediaFolder'|trans|ucfirst, 'btn-secondary', {"data-bs-toggle":"modal", "data-bs-target":"#editMediaFolderDialog", "type":"button" } ) }}
                 {% endif %}
               </div>
             {% endif %}
@@ -120,7 +118,7 @@
           </p>
         </div>
         <div class="modal-footer">
-          {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "data-dismiss":"modal", "type":"button" } ) }}
+          {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', { "data-bs-dismiss":"modal", "type":"button" } ) }}
           {{ macro.buttonIcon('', 'check', 'lbl.Move'|trans|ucfirst, 'btn-primary', { "type":"submit" } ) }}
         </div>
       </div>
@@ -140,7 +138,7 @@
           </p>
         </div>
         <div class="modal-footer">
-            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "data-dismiss":"modal", "type":"button" } ) }}
+            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', { "data-bs-dismiss":"modal", "type":"button" } ) }}
             {{ macro.buttonIcon('', 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger', {"type":"submit"}) }}
         </div>
       </div>
@@ -173,7 +171,7 @@
             {% endif %}
           </div>
           <div class="modal-footer">
-            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "data-dismiss":"modal", "type":"button" } ) }}
+            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', { "data-bs-dismiss":"modal", "type":"button" } ) }}
             {{ macro.buttonIcon(geturl('MediaFolderDelete') ~ '&id=' ~ mediaFolder.id, 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger') }}
           </div>
         </div>
@@ -191,7 +189,7 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label for="mediaFolderName" class="control-label">
+              <label for="mediaFolderName" class="form-label">
                 {{ 'lbl.Name'|trans|ucfirst }}
                 {{ macro.required }}
               </label>
@@ -201,7 +199,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "data-dismiss":"modal", "type":"button" } ) }}
+            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', { "data-bs-dismiss":"modal", "type":"button" } ) }}
             {{ macro.buttonIcon('', 'check', 'lbl.Save'|trans|ucfirst, 'btn-primary', { "id":"editMediaFolderSubmit", 'type':"submit", "name":"edit" } ) }}
           </div>
         </div>

@@ -49,19 +49,19 @@ class MetaType extends AbstractType
             ->add(
                 'title',
                 TextType::class,
-                ['label' => 'lbl.PageTitle', 'label_attr' => ['class' => 'sr-only']]
+                ['label' => 'lbl.PageTitle', 'label_attr' => ['class' => 'visually-hidden']]
             )
             ->add('titleOverwrite', CheckboxType::class, ['label' => 'lbl.PageTitle', 'required' => false])
             ->add(
                 'description',
                 TextType::class,
-                ['label' => 'lbl.Description', 'label_attr' => ['class' => 'sr-only']]
+                ['label' => 'lbl.Description', 'label_attr' => ['class' => 'visually-hidden']]
             )
             ->add('descriptionOverwrite', CheckboxType::class, ['label' => 'lbl.Description', 'required' => false])
             ->add(
                 'keywords',
                 TextType::class,
-                ['label' => 'lbl.Keywords', 'label_attr' => ['class' => 'sr-only']]
+                ['label' => 'lbl.Keywords', 'label_attr' => ['class' => 'visually-hidden']]
             )
             ->add('keywordsOverwrite', CheckboxType::class, ['label' => 'lbl.Keywords', 'required' => false])
             ->add(
@@ -70,7 +70,7 @@ class MetaType extends AbstractType
                 [
                     'attr' => ['class' => 'fork-form-text'],
                     'label' => 'lbl.URL',
-                    'label_attr' => ['class' => 'sr-only'],
+                    'label_attr' => ['class' => 'visually-hidden'],
                 ]
             )
             ->add('urlOverwrite', CheckboxType::class, ['label' => 'lbl.URL', 'required' => false])
@@ -80,7 +80,7 @@ class MetaType extends AbstractType
                 [
                     'attr' => ['class' => 'fork-form-text'],
                     'label' => 'lbl.CanonicalURL',
-                    'label_attr' => ['class' => 'sr-only'],
+                    'label_attr' => ['class' => 'visually-hidden'],
                 ]
             )
             ->add(

@@ -9,38 +9,38 @@
   {% form settingsSeo %}
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.SEO'|trans|ucfirst }}
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group last">
             <ul class="list-unstyled">
-              <li class="checkbox">
-                <label for="seoNoodp" class="control-label">{% form_field seo_noodp %} NOODP</label>
-                <p class="help-block">{{ 'msg.HelpSEONoodp'|trans|ucfirst|raw }}</p>
+              <li class="form-check">
+                <label for="seoNoodp" class="form-check-label">{% form_field seo_noodp %} NOODP</label>
+                <p class="form-text">{{ 'msg.HelpSEONoodp'|trans|ucfirst|raw }}</p>
               </li>
-              <li class="checkbox">
-                <label for="seoNoydir" class="control-label">{% form_field seo_noydir %} NOYDIR</label>
-                <p class="help-block">{{ 'msg.HelpSEONoydir'|trans|ucfirst }}</p>
+              <li class="form-check">
+                <label for="seoNoydir" class="form-check-label">{% form_field seo_noydir %} NOYDIR</label>
+                <p class="form-text">{{ 'msg.HelpSEONoydir'|trans|ucfirst }}</p>
               </li>
-              <li class="checkbox">
-                <label for="seoNofollowInComments" class="control-label">{% form_field seo_nofollow_in_comments %} {{ 'msg.SEONoFollowInComments'|trans|ucfirst|raw }}</label>
+              <li class="form-check">
+                <label for="seoNofollowInComments" class="form-check-label">{% form_field seo_nofollow_in_comments %} {{ 'msg.SEONoFollowInComments'|trans|ucfirst|raw }}</label>
               </li>
             </ul>
           </div>
         </div>
       </div>
       {% if langFields %}
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2 class="panel-title">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">
               {{ 'lbl.LinkedPagesPerLanguage'|trans|ucfirst }}
             </h2>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             <div class="form-group last">
               <table class="table table-hover table-striped fork-data-grid jsDataGrid">
                 <thead>
@@ -75,8 +75,8 @@
   <div class="row fork-module-actions">
     <div class="col-md-12">
       <div class="btn-toolbar">
-        <div class="btn-group pull-right" role="group">
-          {{ macro.buttonIcon('', 'floppy-o', 'lbl.Save'|trans|ucfirst, 'btn-primary', { "id":"save", "type":"submit", "name":"save" }) }}
+        <div class="btn-group float-end" role="group">
+          {{ macro.buttonIcon('', 'floppy-disk', 'lbl.Save'|trans|ucfirst, 'btn-primary', { "id":"save", "type":"submit", "name":"save" }) }}
         </div>
       </div>
     </div>

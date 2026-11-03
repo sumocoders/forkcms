@@ -13,14 +13,14 @@
 
   <div class="row fork-module-content media-library-media-group-helper">
     <div class="col-md-12">
-      <div class="panel form-group panel-default{% if not form.vars.valid %} panel-danger{% endif %}">
-        <div class="panel-heading">
+      <div class="card form-group {% if not form.vars.valid %} border-danger{% endif %}">
+        <div class="card-header">
           {{ form_label(form) }}
         </div>
-        <div class="panel-body">
-          {% set attr = attr|merge({'class': attr.class|default('') ~ " " ~ 'panel panel-default mediaGroup' }) %}
+        <div class="card-body">
+          {% set attr = attr|merge({'class': attr.class|default('') ~ " " ~ 'card mediaGroup' }) %}
           <div id="group-{{ mediaGroup.id }}" data-media-group-id="{{ mediaGroup.id }}" {% for attrname,attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-          <div class="panel-body mediaConnectedBox">
+          <div class="card-body mediaConnectedBox">
             <ul class="mediaConnectedItems ui-sortable" data-fork="connectedItems">
               {% for connectedItem in mediaGroup.connectedItems %}
                 <li id="media-{{ connectedItem.item.id }}" class="ui-state-default">
@@ -38,10 +38,10 @@
               </div>
             {% endif %}
           </div>
-          <div class="panel-footer mediaEditBox">
+          <div class="card-footer mediaEditBox">
             <div class="btn-toolbar">
-              <div class="btn-group pull-left" role="group">
-                <button type="button"{% if aspectRatio is defined %} data-aspect-ratio={{ aspectRatio }}{% endif %}{% if maximumItems is defined %} data-maximum-media-count="{{ maximumItems }}"{% endif %}{% if minimumItems is defined %} data-minimum-media-count="{{ minimumItems }}"{% endif %} data-group-id="{{ mediaGroup.id }}" class="addMediaButton btn btn-default" title="{{ 'lbl.MediaConnectNow'|trans|ucfirst }}">
+              <div class="btn-group float-start" role="group">
+                <button type="button"{% if aspectRatio is defined %} data-aspect-ratio={{ aspectRatio }}{% endif %}{% if maximumItems is defined %} data-maximum-media-count="{{ maximumItems }}"{% endif %}{% if minimumItems is defined %} data-minimum-media-count="{{ minimumItems }}"{% endif %} data-group-id="{{ mediaGroup.id }}" class="addMediaButton btn btn-secondary" title="{{ 'lbl.MediaConnectNow'|trans|ucfirst }}">
                   {{ macro.icon('plus-square') }}
                   <span class="btn-text">{{ 'lbl.MediaConnectNow'|trans|ucfirst }}</span>
                 </button>
@@ -56,7 +56,7 @@
         </div>
       </div>
       {% if not form.vars.valid %}
-        <div class="panel-footer">
+        <div class="card-footer">
           {{- form_errors(form) -}}
         </div>
       {% endif %}

@@ -2,7 +2,7 @@
 {% import "Layout/Templates/macros.html.twig" as macro %}
 
 {% block actionbar %}
-  <div class="btn-toolbar pull-right">
+  <div class="btn-toolbar float-end">
     <div class="btn-group" role="group">
       {% if isAllowedAction('Add') %}
         {% if filterCategory %}
@@ -24,7 +24,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <label for="category" class="control-label">{{ 'msg.ShowOnlyItemsInCategory'|trans }}</label>
+            <label for="category" class="form-label">{{ 'msg.ShowOnlyItemsInCategory'|trans }}</label>
             {% form_field category %} {% form_field_error category %}
           </div>
         </div>

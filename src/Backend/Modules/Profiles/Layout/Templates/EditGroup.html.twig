@@ -10,7 +10,7 @@
   <div class="row fork-module-content">
     <div class="col-md-12">
       <div class="form-group">
-        <label for="name" class="control-label">
+        <label for="name" class="form-label">
           {{ 'lbl.Name'|trans|ucfirst }}
           {{ macro.required }}
         </label>
@@ -21,14 +21,14 @@
   <div class="row fork-page-actions">
     <div class="col-md-12">
       <div class="btn-toolbar">
-        <div class="btn-group pull-left" role="group">
+        <div class="btn-group float-start" role="group">
           {% if isAllowedAction('DeleteGroup') %}
-            {{ macro.buttonIcon('', 'trash-o', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"button", "data-toggle":"modal", "data-target":"#confirmDelete" }) }}
+            {{ macro.buttonIcon('', 'trash-can', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"button", "data-bs-toggle":"modal", "data-bs-target":"#confirmDelete" }) }}
           {% endif %}
           {{ macro.buttonIcon(geturl('Groups'), 'times', 'lbl.Cancel'|trans|ucfirst) }}
         </div>
-        <div class="btn-group pull-right" role="group">
-          {{ macro.buttonIcon('', 'floppy-o', 'lbl.Save'|trans|ucfirst, 'btn-primary', { "type":"submit", "name":"edit", "id":"saveButton" }) }}
+        <div class="btn-group float-end" role="group">
+          {{ macro.buttonIcon('', 'floppy-disk', 'lbl.Save'|trans|ucfirst, 'btn-primary', { "type":"submit", "name":"edit", "id":"saveButton" }) }}
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@
             <p>{{ 'msg.ConfirmDeleteGroup'|trans|format(group.name|e)|raw }}</p>
           </div>
           <div class="modal-footer">
-            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "data-dismiss":"modal" }) }}
+            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', { "data-bs-dismiss":"modal" }) }}
             {{ macro.buttonIcon('', 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"submit" }) }}
           </div>
         </div>

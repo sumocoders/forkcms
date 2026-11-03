@@ -12,7 +12,7 @@
   {% include "Layout/Templates/footer.html.twig" %}
 </div>
 
-<div class="hidden">
+<div class="d-none">
   <div class="modal fade jsConfirmation" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="jsConfirmationDeleteDialogTitle">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -23,7 +23,7 @@
           <p class="jsConfirmationMessage">{{ 'msg.Confirmation'|trans }}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'lbl.Cancel'|trans|ucfirst }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'lbl.Cancel'|trans|ucfirst }}</button>
           <a href="#" class="btn btn-primary jsConfirmationSubmit">
             {{ 'lbl.OK'|trans|ucfirst }}
           </a>

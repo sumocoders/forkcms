@@ -10,7 +10,7 @@
   <div class="row fork-module-content">
     <div class="col-md-12">
       <div class="form-group">
-        <label for="term" class="control-label">
+        <label for="term" class="form-label">
           {{ 'lbl.Term'|trans|ucfirst }}
           {{ macro.required }}
         </label>
@@ -18,7 +18,7 @@
       </div>
       <div class="form-group">
         <div class="fakeP">
-          <label for="addValue-synonym" class="control-label">
+          <label for="addValue-synonym" class="form-label">
             {{ 'lbl.Synonyms'|trans|ucfirst }}
             {{ macro.required }}
           </label>
@@ -33,9 +33,9 @@
     <div class="col-md-12">
       <div class="btn-toolbar">
         <div class="btn-group" role="group">
-          {{ macro.buttonIcon(geturl('Synonyms'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default') }}
+          {{ macro.buttonIcon(geturl('Synonyms'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary') }}
         </div>
-        <div class="btn-group pull-right" role="group">
+        <div class="btn-group float-end" role="group">
           {{ macro.buttonIcon('', 'plus-square', 'lbl.AddSynonym'|trans|ucfirst, 'btn-primary', { "id":"addButton", "type":"submit", "name":"add"}) }}
         </div>
       </div>

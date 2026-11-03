@@ -2,13 +2,13 @@
 {* there is more than 1 page *}
 {option:pagination.multiple_pages}
 <nav>
-  <ul class="pagination">
-    <li {option:!pagination.show_previous} class="disabled" {/option:!pagination.show_previous}>
+  <ul class="pagination justify-content-center">
+    <li class="page-item{option:!pagination.show_previous} disabled{/option:!pagination.show_previous}">
     {option:!pagination.show_previous}
-      <span>
+      <span class="page-link">
       {/option:!pagination.show_previous}
       {option:pagination.show_previous}
-      <a href="{$pagination.previous_url}" aria-label="{$previousLabel|ucfirst}">
+      <a class="page-link" href="{$pagination.previous_url}" aria-label="{$previousLabel|ucfirst}">
       {/option:pagination.show_previous}
         <span aria-hidden="true">&laquo;</span>
       {option:pagination.show_previous}
@@ -20,46 +20,46 @@
     </li>
     {option:pagination.first}
     {iteration:pagination.first}
-    <li>
-      <a href="{$pagination.first.url}" rel="nofollow" title="{$goToLabel|ucfirst} {$pagination.first.label}">
+    <li class="page-item">
+      <a class="page-link" href="{$pagination.first.url}" rel="nofollow" title="{$goToLabel|ucfirst} {$pagination.first.label}">
         {$pagination.first.label}
       </a>
     </li>
     {/iteration:pagination.first}
-    <li class="ellipsis">
-      <span>&hellip;</span>
+    <li class="page-item disabled ellipsis">
+      <span class="page-link">&hellip;</span>
     </li>
     {/option:pagination.first}
     {iteration:pagination.pages}
     {option:pagination.pages.current}
-    <li class="active">
-      <span>{$pagination.pages.label}<span class="sr-only">({$lblPaginationCurrent})</span></span>
+    <li class="page-item active">
+      <span class="page-link">{$pagination.pages.label}<span class="visually-hidden">({$lblPaginationCurrent})</span></span>
     </li>
     {/option:pagination.pages.current}
     {option:!pagination.pages.current}
-    <li>
-      <a href="{$pagination.pages.url}" rel="nofollow" title="{$goToLabel|ucfirst} {$pagination.pages.label}">
+    <li class="page-item">
+      <a class="page-link" href="{$pagination.pages.url}" rel="nofollow" title="{$goToLabel|ucfirst} {$pagination.pages.label}">
         {$pagination.pages.label}
       </a>
     </li>
     {/option:!pagination.pages.current}
     {/iteration:pagination.pages}
     {option:pagination.last}
-    <li class="ellipsis"><span>&hellip;</span></li>
+    <li class="page-item disabled ellipsis"><span class="page-link">&hellip;</span></li>
     {iteration:pagination.last}
-    <li>
-      <a href="{$pagination.last.url}" rel="nofollow" title="{$goToLabel|ucfirst} {$pagination.last.label}">
+    <li class="page-item">
+      <a class="page-link" href="{$pagination.last.url}" rel="nofollow" title="{$goToLabel|ucfirst} {$pagination.last.label}">
         {$pagination.last.label}
       </a>
     </li>
     {/iteration:pagination.last}
     {/option:pagination.last}
-    <li {option:!pagination.show_next} class="disabled" {/option:!pagination.show_next}>
+    <li class="page-item{option:!pagination.show_next} disabled{/option:!pagination.show_next}">
     {option:!pagination.show_next}
-      <span>
+      <span class="page-link">
       {/option:!pagination.show_next}
       {option:pagination.show_next}
-      <a href="{$pagination.next_url}" aria-label="{$nextLabel|ucfirst}">
+      <a class="page-link" href="{$pagination.next_url}" aria-label="{$nextLabel|ucfirst}">
       {/option:pagination.show_next}
         <span aria-hidden="true">&raquo;</span>
       {option:pagination.show_next}

@@ -10,7 +10,7 @@
   <div class="row fork-module-content">
     <div class="col-md-12">
       <div class="form-group">
-        <label for="title" class="control-label">{{ 'lbl.Question'|trans|ucfirst }} {{ macro.required }}</label>
+        <label for="title" class="form-label">{{ 'lbl.Question'|trans|ucfirst }} {{ macro.required }}</label>
         {% form_field title %} {% form_field_error title %}
         {% if detailURL %}
           <a class="site-url" href="{{ detailURL }}/{{ item.url }}">{{ detailURL }}/<span id="generatedUrl">{{ item.url }}</span></a>
@@ -26,50 +26,50 @@
     <div class="col-md-12">
       <div>
         <ul class="nav nav-tabs nav-tabs-flex" role="tablist">
-          <li role="presentation" class="active mr-auto">
-            <a href="#tabContent" aria-controls="tabContent" role="tab" data-toggle="tab">{{ 'lbl.Content'|trans|ucfirst }}</a>
+          <li role="presentation" class="nav-item me-auto">
+            <a class="nav-link active" href="#tabContent" aria-controls="tabContent" role="tab" data-bs-toggle="tab">{{ 'lbl.Content'|trans|ucfirst }}</a>
           </li>
-          <li role="presentation">
-            <a href="#tabFeedback" aria-controls="tabFeedback" role="tab" data-toggle="tab">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" href="#tabFeedback" aria-controls="tabFeedback" role="tab" data-bs-toggle="tab">
               {{ 'lbl.Feedback'|trans|ucfirst }}
-              <span class="label label-success">{{ item.num_usefull_yes }}</span>
-              <span class="label label-danger">{{ item.num_usefull_no }}</span>
+              <span class="badge text-bg-success">{{ item.num_usefull_yes }}</span>
+              <span class="badge text-bg-danger">{{ item.num_usefull_no }}</span>
             </a>
           </li>
-          <li role="presentation">
-            <a href="#tabSEO" aria-controls="tabSEO" role="tab" data-toggle="tab">{{ 'lbl.SEO'|trans|ucfirst }}</a>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" href="#tabSEO" aria-controls="tabSEO" role="tab" data-bs-toggle="tab">{{ 'lbl.SEO'|trans|ucfirst }}</a>
           </li>
         </ul>
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="tabContent">
             <div class="row">
               <div class="col-md-8">
-                <div class="panel panel-default panel-editor optionsRTE">
-                  <div class="panel-heading">
-                    <label for="answer" class="control-label">{{ 'lbl.Answer'|trans|ucfirst }}
+                <div class="card card-editor optionsRTE">
+                  <div class="card-header">
+                    <label for="answer" class="form-label">{{ 'lbl.Answer'|trans|ucfirst }}
                       {{ macro.required }}<br>
                     </label>
                   </div>
-                  <div class="panel-body">
+                  <div class="card-body">
                     {% form_field answer %}
                   </div>
                   {% if txtAnswerError %}
-                    <div class="panel-footer">
+                    <div class="card-footer">
                       {% form_field_error answer %}
                     </div>
                   {% endif %}
                 </div>
               </div>
               <div class="col-md-4">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h2 class="panel-title">{{ 'lbl.Status'|trans|ucfirst }}</h2>
+                <div class="card">
+                  <div class="card-header">
+                    <h2 class="card-title">{{ 'lbl.Status'|trans|ucfirst }}</h2>
                   </div>
-                  <div class="panel-body">
+                  <div class="card-body">
                     <div class="form-group last">
                       <ul class="list-unstyled">
                         {% for _itr_10 in hidden %}
-                          <li class="radio">
+                          <li class="form-check">
                             <label for="{{ _itr_10.id }}">{{ _itr_10.rbtHidden | raw }} {{ _itr_10.label }}</label>
                           </li>
                         {% endfor %}
@@ -77,19 +77,19 @@
                     </div>
                   </div>
                 </div>
-                <div class="panel panel-default last">
-                  <div class="panel-heading">
-                    <h2 class="panel-title">{{ 'lbl.MetaData'|trans|ucfirst }}</h2>
+                <div class="card last">
+                  <div class="card-header">
+                    <h2 class="card-title">{{ 'lbl.MetaData'|trans|ucfirst }}</h2>
                   </div>
-                  <div class="panel-body">
+                  <div class="card-body">
                     <div class="form-group">
-                      <label for="categoryId" class="control-label">{{ 'lbl.Category'|trans|ucfirst }}</label>
+                      <label for="categoryId" class="form-label">{{ 'lbl.Category'|trans|ucfirst }}</label>
                       {% form_field category_id %} {% form_field_error category_id %}
                     </div>
                     <div class="form-group last">
-                      <label for="tags" class="control-label">{{ 'lbl.Tags'|trans|ucfirst }}</label>
+                      <label for="tags" class="form-label">{{ 'lbl.Tags'|trans|ucfirst }}</label>
                       {% form_field tags %} {% form_field_error tags %}
-                      <div class="help-block">{{ 'msg.HelpTextTags'|trans }}</div>
+                      <div class="form-text">{{ 'msg.HelpTextTags'|trans }}</div>
                     </div>
                   </div>
                 </div>
@@ -104,32 +104,32 @@
               <div class="col-md-12">
                 <div class="content-title">
                   <h2>{{ 'lbl.Feedback'|trans|ucfirst }}</h2>
-                  <p class="help-block">{{ 'msg.FeedbackInfo'|trans }}</p>
+                  <p class="form-text">{{ 'msg.FeedbackInfo'|trans }}</p>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12">
                 {% if feedback %}
-                <div class="panel-group" id="feedback" role="tablist" aria-multiselectable="false">
+                <div class="fork-collapse-group" id="feedback" role="tablist" aria-multiselectable="false">
                   {% for _itr_11 in feedback %}
-                    <div class="panel panel-default">
-                      <div class="panel-heading" role="tab" id="_itr_11-heading-{{ _itr_11.id }}">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#_itr_11" href="#_itr_11-collapse-{{ _itr_11.id }}" aria-expanded="true" aria-controls="_itr_11-collapse-{{ _itr_11.id }}">
+                    <div class="card">
+                      <div class="card-header" role="tab" id="_itr_11-heading-{{ _itr_11.id }}">
+                        <h4 class="card-title">
+                          <a data-bs-toggle="collapse" data-bs-parent="#_itr_11" href="#_itr_11-collapse-{{ _itr_11.id }}" aria-expanded="true" aria-controls="_itr_11-collapse-{{ _itr_11.id }}">
                             {{ macro.icon('caret-right fa-fw') }}{{ _itr_11.text|truncate(150) }}
                           </a>
                         </h4>
                       </div>
-                      <div id="_itr_11-collapse-{{ _itr_11.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="_itr_11-heading-{{ _itr_11.id }}">
-                        <div class="panel-body">
+                      <div id="_itr_11-collapse-{{ _itr_11.id }}" class="collapse" role="tabpanel" aria-labelledby="_itr_11-heading-{{ _itr_11.id }}">
+                        <div class="card-body">
                           {{ _itr_11.text }}
                         </div>
                         {% if isAllowedAction('DeleteFeedback') %}
-                          <div class="panel-footer">
+                          <div class="card-footer">
                             <div class="btn-toolbar">
-                              <div class="btn-group pull-left" role="group">
-                                {{ macro.buttonIcon('#', 'trash-o', 'lbl.Delete'|trans|ucfirst, 'btn-danger', 'data-id=' ~ _itr_11.id ~ ' data-role=delete-feedback') }}
+                              <div class="btn-group float-start" role="group">
+                                {{ macro.buttonIcon('#', 'trash-can', 'lbl.Delete'|trans|ucfirst, 'btn-danger', 'data-id=' ~ _itr_11.id ~ ' data-role=delete-feedback') }}
                               </div>
                             </div>
                           </div>
@@ -152,13 +152,13 @@
   <div class="row fork-page-actions">
     <div class="col-md-12">
       <div class="btn-toolbar">
-        <div class="btn-group pull-left" role="group">
+        <div class="btn-group float-start" role="group">
           {% if isAllowedAction('Delete') %}
-            {{ macro.buttonIcon('', 'trash-o', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"button", "data-toggle":"modal", "data-target":"#confirmDelete" } ) }}
+            {{ macro.buttonIcon('', 'trash-can', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"button", "data-bs-toggle":"modal", "data-bs-target":"#confirmDelete" } ) }}
           {% endif %}
-          {{ macro.buttonIcon(geturl('Index'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default' ) }}
+          {{ macro.buttonIcon(geturl('Index'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary' ) }}
         </div>
-        <div class="btn-group pull-right" role="group">
+        <div class="btn-group float-end" role="group">
           {{ macro.buttonIcon('', 'check', 'lbl.Publish'|trans|ucfirst, 'btn-primary', { "id":"editButton", "type":"submit", "name":"edit" } ) }}
         </div>
       </div>
@@ -180,7 +180,7 @@
             <p>{{ 'msg.ConfirmDelete'|trans|format(item.question|e)|raw }}</p>
           </div>
           <div class="modal-footer">
-            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "data-dismiss":"modal", "type":"button" } ) }}
+            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', { "data-bs-dismiss":"modal", "type":"button" } ) }}
             {{ macro.buttonIcon('', 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"submit" } ) }}
           </div>
         </div>
@@ -203,7 +203,7 @@
             <p>{{ 'msg.ConfirmDeleteFeedback'|trans|raw }}</p>
           </div>
           <div class="modal-footer">
-            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "data-dismiss":"modal", "type":"button" } ) }}
+            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', { "data-bs-dismiss":"modal", "type":"button" } ) }}
             {{ macro.buttonIcon('', 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"submit" } ) }}
           </div>
         </div>

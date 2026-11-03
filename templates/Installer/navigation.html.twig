@@ -1,6 +1,6 @@
 {% macro navigation(step) %}
   <div class="installer-navigation">
-    <ul class="visible-md-block visible-lg-block">
+    <ul class="d-none d-md-block">
       <li{% if step == 'step-1' %} class="active"{% endif %}>
         Step 1
       </li>
@@ -20,7 +20,7 @@
         Step 6
       </li>
     </ul>
-    <p class="hidden-md hidden-lg">
+    <p class="d-md-none">
       Step {{ step|replace({'step-': ''}) }} of 6
     </p>
   </div>

@@ -10,46 +10,46 @@
   <div class="row fork-module-content">
     <div class="col-md-12">
       <div class="form-group">
-        <label for="title" class="control-label">{{ 'lbl.Title'|trans|ucfirst }}{{ macro.required }}</label>
+        <label for="title" class="form-label">{{ 'lbl.Title'|trans|ucfirst }}{{ macro.required }}</label>
         {% form_field title %} {% form_field_error title %}
       </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.Address'|trans|ucfirst }}
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group">
-            <label for="street" class="control-label">
+            <label for="street" class="form-label">
               {{ 'lbl.Street'|trans|ucfirst }}
               {{ macro.required }}
             </label>
             {% form_field street %} {% form_field_error street %}
           </div>
           <div class="form-group">
-            <label for="number" class="control-label">
+            <label for="number" class="form-label">
               {{ 'lbl.Number'|trans|ucfirst }}
               {{ macro.required }}
             </label>
             {% form_field number %} {% form_field_error number %}
           </div>
           <div class="form-group">
-            <label for="zip" class="control-label">
+            <label for="zip" class="form-label">
               {{ 'lbl.Zip'|trans|ucfirst }}
               {{ macro.required }}
             </label>
             {% form_field zip %} {% form_field_error zip %}
           </div>
           <div class="form-group">
-            <label for="city" class="control-label">
+            <label for="city" class="form-label">
               {{ 'lbl.City'|trans|ucfirst }}
               {{ macro.required }}
             </label>
             {% form_field city %} {% form_field_error city %}
           </div>
           <div class="form-group">
-            <label for="country" class="control-label">
+            <label for="country" class="form-label">
               {{ 'lbl.Country'|trans|ucfirst }}
               {{ macro.required }}
             </label>
@@ -64,8 +64,8 @@
   </div>
   <div class="row fork-module-actions">
     <div class="col-md-12">
-      <div class="btn-group pull-right" role="group">
-        {{ macro.buttonIcon('', 'floppy-o', 'lbl.UpdateMap'|trans|ucfirst, 'btn-primary', { "type":"submit", "id":"editButton", "name":"edit"} ) }}
+      <div class="btn-group float-end" role="group">
+        {{ macro.buttonIcon('', 'floppy-disk', 'lbl.UpdateMap'|trans|ucfirst, 'btn-primary', { "type":"submit", "id":"editButton", "name":"edit"} ) }}
       </div>
     </div>
   </div>
@@ -73,57 +73,57 @@
   {% form settings %}
   <div class="row fork-module-content">
     <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.Map'|trans|ucfirst }}
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div id="map" style="width: 100%; height: {{ settings.height }}px;"></div>
         </div>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.Settings'|trans|ucfirst }}
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group">
-            <label for="zoomLevel" class="control-label">{{ 'lbl.ZoomLevel'|trans|ucfirst }}</label>
+            <label for="zoomLevel" class="form-label">{{ 'lbl.ZoomLevel'|trans|ucfirst }}</label>
             {% form_field zoom_level %} {% form_field_error zoom_level %}
           </div>
           <div class="form-group"{% if not godUser %} style="display:none;"{% endif %}>
-            <label for="width" class="control-label">{{ 'lbl.Width'|trans|ucfirst }}</label>
-            <p class="help-block">{{ 'msg.WidthHelp'|trans|format(300,800)|raw }}</p>
+            <label for="width" class="form-label">{{ 'lbl.Width'|trans|ucfirst }}</label>
+            <p class="form-text">{{ 'msg.WidthHelp'|trans|format(300,800)|raw }}</p>
             {% form_field width %} {% form_field_error width %}
           </div>
           <div class="form-group"{% if not godUser %} style="display:none;"{% endif %}>
-            <label for="height" class="control-label">{{ 'lbl.Height'|trans|ucfirst }}</label>
-            <p class="help-block">{{ 'msg.HeightHelp'|trans|format(150)|raw }}</p>
+            <label for="height" class="form-label">{{ 'lbl.Height'|trans|ucfirst }}</label>
+            <p class="form-text">{{ 'msg.HeightHelp'|trans|format(150)|raw }}</p>
             {% form_field height %} {% form_field_error height %}
           </div>
           <div class="form-group">
-            <label for="mapType" class="control-label">{{ 'lbl.MapType'|trans|ucfirst }}</label>
+            <label for="mapType" class="form-label">{{ 'lbl.MapType'|trans|ucfirst }}</label>
             {% form_field map_type %} {% form_field_error map_type %}
           </div>
           <div class="form-group">
-            <label for="mapStyle" class="control-label">{{ 'lbl.MapStyle'|trans|capitalize }}</label>
+            <label for="mapStyle" class="form-label">{{ 'lbl.MapStyle'|trans|capitalize }}</label>
             {% form_field_error map_style %} {% form_field map_style %}
           </div>
           <div class="form-group">
             <ul class="list-unstyled">
-              <li class="checkbox">
-                <label for="fullUrl" class="control-label">{% form_field full_url %} {{ 'msg.ShowMapUrl'|trans|ucfirst }}</label>
+              <li class="form-check">
+                <label for="fullUrl" class="form-check-label">{% form_field full_url %} {{ 'msg.ShowMapUrl'|trans|ucfirst }}</label>
               </li>
-              <li class="checkbox">
-                <label for="directions" class="control-label">{% form_field directions %} {{ 'msg.ShowDirections'|trans|ucfirst }}</label>
+              <li class="form-check">
+                <label for="directions" class="form-check-label">{% form_field directions %} {{ 'msg.ShowDirections'|trans|ucfirst }}</label>
               </li>
-              <li class="checkbox">
-                <label for="markerOverview" class="control-label">{% form_field marker_overview %} {{ 'msg.ShowMarkerOverview'|trans|ucfirst }}</label>
+              <li class="form-check">
+                <label for="markerOverview" class="form-check-label">{% form_field marker_overview %} {{ 'msg.ShowMarkerOverview'|trans|ucfirst }}</label>
               </li>
             </ul>
           </div>
@@ -134,14 +134,14 @@
   <div class="row fork-page-actions">
     <div class="col-md-12">
       <div class="btn-toolbar">
-        <div class="btn-group pull-left" role="group">
+        <div class="btn-group float-start" role="group">
           {% if isAllowedAction('Delete') %}
-            {{ macro.buttonIcon('', 'trash-o', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"button", "data-toggle":"modal", "data-target":"#confirmDelete"} ) }}
+            {{ macro.buttonIcon('', 'trash-can', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"button", "data-bs-toggle":"modal", "data-bs-target":"#confirmDelete"} ) }}
           {% endif %}
-          {{ macro.buttonIcon(geturl('Index'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default') }}
+          {{ macro.buttonIcon(geturl('Index'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary') }}
         </div>
-        <div class="btn-group pull-right" role="group">
-          {{ macro.buttonIcon('', 'floppy-o', 'lbl.Save'|trans|ucfirst, 'btn-primary', { "type":"submit", "id":"saveLiveData", "name":"edit"} ) }}
+        <div class="btn-group float-end" role="group">
+          {{ macro.buttonIcon('', 'floppy-disk', 'lbl.Save'|trans|ucfirst, 'btn-primary', { "type":"submit", "id":"saveLiveData", "name":"edit"} ) }}
         </div>
       </div>
     </div>
@@ -162,7 +162,7 @@
             <p>{{ 'msg.ConfirmDelete'|trans|format(item.title|e)|raw }}</p>
           </div>
           <div class="modal-footer">
-            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "data-dismiss":"modal", "type":"button" } ) }}
+            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', { "data-bs-dismiss":"modal", "type":"button" } ) }}
             {{ macro.buttonIcon('', 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"submit" } ) }}
           </div>
         </div>

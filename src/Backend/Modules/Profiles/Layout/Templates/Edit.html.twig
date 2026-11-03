@@ -11,22 +11,22 @@
     <div class="col-md-12">
       <div>
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active">
-            <a href="#tabGeneral" aria-controls="tabGeneral" role="tab" data-toggle="tab">{{ 'lbl.General'|trans|ucfirst }}</a>
+          <li role="presentation" class="nav-item">
+            <a class="nav-link active" href="#tabGeneral" aria-controls="tabGeneral" role="tab" data-bs-toggle="tab">{{ 'lbl.General'|trans|ucfirst }}</a>
           </li>
-          <li role="presentation">
-            <a href="#tabGroups" aria-controls="tabGroups" role="tab" data-toggle="tab">{{ 'lbl.Groups'|trans|ucfirst }}</a>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" href="#tabGroups" aria-controls="tabGroups" role="tab" data-bs-toggle="tab">{{ 'lbl.Groups'|trans|ucfirst }}</a>
           </li>
         </ul>
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="tabGeneral">
             <div class="row">
               <div class="col-md-12">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h2 class="panel-title">{{ 'lbl.Profile'|trans|ucfirst }}</h2>
+                <div class="card">
+                  <div class="card-header">
+                    <h2 class="card-title">{{ 'lbl.Profile'|trans|ucfirst }}</h2>
                   </div>
-                  <div class="panel-body">
+                  <div class="card-body">
                     <div class="form-group">
                       <label>
                         {{ 'lbl.Email'|trans|ucfirst }}:
@@ -34,7 +34,7 @@
                       {{ profile.email }}
                     </div>
                     <div class="form-group">
-                      <label for="displayName" class="control-label">
+                      <label for="displayName" class="form-label">
                         {{ 'lbl.DisplayName'|trans|ucfirst }}
                         {{ macro.required }}
                       </label>
@@ -64,25 +64,25 @@
             </div>
             <div class="row">
               <div class="col-md-12">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h2 class="panel-title">{{ 'lbl.Settings'|trans|ucfirst }}</h2>
+                <div class="card">
+                  <div class="card-header">
+                    <h2 class="card-title">{{ 'lbl.Settings'|trans|ucfirst }}</h2>
                   </div>
-                  <div class="panel-body">
+                  <div class="card-body">
                     <div class="form-group">
-                      <label for="firstName" class="control-label">{{ 'lbl.FirstName'|trans|ucfirst }}</label>
+                      <label for="firstName" class="form-label">{{ 'lbl.FirstName'|trans|ucfirst }}</label>
                       {% form_field first_name %} {% form_field_error first_name %}
                     </div>
                     <div class="form-group">
-                      <label for="lastName" class="control-label">{{ 'lbl.LastName'|trans|ucfirst }}</label>
+                      <label for="lastName" class="form-label">{{ 'lbl.LastName'|trans|ucfirst }}</label>
                       {% form_field last_name %} {% form_field_error last_name %}
                     </div>
                     <div class="form-group">
-                      <label for="gender" class="control-label">{{ 'lbl.Gender'|trans|ucfirst }}</label>
+                      <label for="gender" class="form-label">{{ 'lbl.Gender'|trans|ucfirst }}</label>
                       {% form_field gender %} {% form_field_error gender %}
                     </div>
                     <div class="form-group last">
-                      <label for="day" class="control-label">{{ 'lbl.BirthDate'|trans|ucfirst }}</label>
+                      <label for="day" class="form-label">{{ 'lbl.BirthDate'|trans|ucfirst }}</label>
                       <div class="form-inline">
                         <div class="form-group">
                           {% form_field day %}
@@ -93,11 +93,11 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="city" class="control-label">{{ 'lbl.City'|trans|ucfirst }}</label>
+                      <label for="city" class="form-label">{{ 'lbl.City'|trans|ucfirst }}</label>
                       {% form_field city %} {% form_field_error city %}
                     </div>
                     <div class="form-group">
-                      <label for="country" class="control-label">{{ 'lbl.Country'|trans|ucfirst }}</label>
+                      <label for="country" class="form-label">{{ 'lbl.Country'|trans|ucfirst }}</label>
                       {% form_field country %} {% form_field_error country %}
                     </div>
                   </div>
@@ -106,19 +106,19 @@
             </div>
             <div class="row fork-module-content">
               <div class="col-md-12">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
+                <div class="card">
+                  <div class="card-header">
                     <h2>
                       <label for="about">
                         {{ 'lbl.About'|trans|ucfirst }}
                       </label>
                     </h2>
                   </div>
-                  <div class="panel-body">
+                  <div class="card-body">
                     {% form_field about %}
                   </div>
                   {% if txtAboutError %}
-                    <div class="panel-footer">
+                    <div class="card-footer">
                       {% form_field_error about %}
                     </div>
                   {% endif %}
@@ -135,7 +135,7 @@
               </div>
               <div class="col-md-6">
                 {% if isAllowedAction('AddProfileGroup') %}
-                  <div class="btn-toolbar pull-right">
+                  <div class="btn-toolbar float-end">
                     <div class="btn-group" role="group">
                       {{ macro.buttonIcon(geturl('add_profile_group') ~ '&id=' ~  profile.id , 'plus-square', 'lbl.AddToGroup'|trans|ucfirst, 'btn-primary') }}
                     </div>
@@ -163,27 +163,27 @@
   <div class="row fork-page-actions">
     <div class="col-md-12">
       <div class="btn-toolbar">
-        <div class="btn-group pull-left" role="group">
+        <div class="btn-group float-start" role="group">
           {% if isAllowedAction('Delete') %}
             {% if deleted %}
-              {{ macro.buttonIcon('', 'plus-square', 'lbl.Undelete'|trans|ucfirst, 'btn-primary', { "type":"button", "data-toggle":"modal", "data-target":"#confirmUndelete" }) }}
+              {{ macro.buttonIcon('', 'plus-square', 'lbl.Undelete'|trans|ucfirst, 'btn-primary', { "type":"button", "data-bs-toggle":"modal", "data-bs-target":"#confirmUndelete" }) }}
             {% endif %}
             {% if not deleted %}
-              {{ macro.buttonIcon('', 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"button", "data-toggle":"modal", "data-target":"#confirmDelete" }) }}
+              {{ macro.buttonIcon('', 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"button", "data-bs-toggle":"modal", "data-bs-target":"#confirmDelete" }) }}
             {% endif %}
           {% endif %}
           {% if isAllowedAction('Block') %}
             {% if blocked %}
-              {{ macro.buttonIcon('', 'check', 'lbl.Unblock'|trans|ucfirst, 'btn-primary', { "type":"button", "data-toggle":"modal", "data-target":"#confirmUnblock" }) }}
+              {{ macro.buttonIcon('', 'check', 'lbl.Unblock'|trans|ucfirst, 'btn-primary', { "type":"button", "data-bs-toggle":"modal", "data-bs-target":"#confirmUnblock" }) }}
             {% endif %}
             {% if not blocked %}
-              {{ macro.buttonIcon('', 'ban', 'lbl.Block'|trans|ucfirst, 'btn-warning', { "type":"button", "data-toggle":"modal", "data-target":"#confirmBlock" }) }}
+              {{ macro.buttonIcon('', 'ban', 'lbl.Block'|trans|ucfirst, 'btn-warning', { "type":"button", "data-bs-toggle":"modal", "data-bs-target":"#confirmBlock" }) }}
             {% endif %}
           {% endif %}
-          {{ macro.buttonIcon(geturl('Index'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default') }}
+          {{ macro.buttonIcon(geturl('Index'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary') }}
         </div>
-        <div class="btn-group pull-right" role="group">
-          {{ macro.buttonIcon('', 'floppy-o', 'lbl.Save'|trans|ucfirst, 'btn-primary', { "type":"submit", "id":"saveButton", "name":"edit" }) }}
+        <div class="btn-group float-end" role="group">
+          {{ macro.buttonIcon('', 'floppy-disk', 'lbl.Save'|trans|ucfirst, 'btn-primary', { "type":"submit", "id":"saveButton", "name":"edit" }) }}
         </div>
       </div>
       {% if isAllowedAction('Block') %}
@@ -202,7 +202,7 @@
                 {% endif %}
               </div>
               <div class="modal-footer">
-                {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "type":"button", "data-dismiss":"modal" }) }}
+                {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', { "type":"button", "data-bs-dismiss":"modal" }) }}
                 {% if not blocked %}
                   {{ macro.buttonIcon(geturl('block') ~ '&id=' ~ profile.id, 'ban', 'lbl.Block'|trans|ucfirst, 'btn-warning') }}
                 {% endif %}
@@ -237,7 +237,7 @@
             {% endif %}
           </div>
           <div class="modal-footer">
-            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "type":"button", "data-dismiss":"modal" }) }}
+            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', { "type":"button", "data-bs-dismiss":"modal" }) }}
 
             {% set macroText = 'lbl.Delete'|trans|ucfirst %}
             {% set macroIcon = 'trash' %}
