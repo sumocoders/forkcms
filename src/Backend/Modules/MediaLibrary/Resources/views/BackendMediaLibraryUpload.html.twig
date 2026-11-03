@@ -146,14 +146,12 @@
         </div>
         <div id="fine-uploader-gallery"></div>
         <div class="card-footer">
-          <div class="form-group" data-role="cropper-is-mandatory-form-group">
+          <div class="form-group">
             <div class="form-check">
-              <label for="enableCropperCheckbox">
-                <input type="checkbox" data-role="enable-cropper-checkbox" aria-describedby="helpBlockEnableCropper" id="enableCropperCheckbox">
-                {{ 'lbl.EnableCropper'|trans|ucfirst }}
-              </label>
-              <span class="form-text" id="helpBlockEnableCropper">{{ 'msg.IfYouWantToCropAnImageYouShouldCheckThisCheckboxFirst'|trans }}</span>
-              <span class="form-text d-none" data-role="cropper-is-mandatory-message">{{ 'msg.TheCropperIsMandatoryBecauseTheImagesNeedToHaveACertainFormat'|trans }}</span>
+              <input type="checkbox" class="form-check-input" data-role="enable-cropper-checkbox" aria-describedby="helpBlockEnableCropper" id="enableCropperCheckbox">
+              <label class="form-check-label" for="enableCropperCheckbox">{{ 'lbl.EnableCropper'|trans|ucfirst }}</label>
+              <div class="form-text" id="helpBlockEnableCropper">{{ 'msg.IfYouWantToCropAnImageYouShouldCheckThisCheckboxFirst'|trans }}</div>
+              <div class="form-text text-warning-emphasis d-none" data-role="cropper-is-mandatory-message">{{ 'msg.TheCropperIsMandatoryBecauseTheImagesNeedToHaveACertainFormat'|trans }}</div>
             </div>
           </div>
         </div>

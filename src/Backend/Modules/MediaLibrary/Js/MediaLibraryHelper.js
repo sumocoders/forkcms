@@ -1165,19 +1165,16 @@ jsBackend.mediaLibraryHelper.upload = {
   },
 
   toggleCropper: function () {
-    var $formGroup = $('[data-role="cropper-is-mandatory-form-group"]')
     var $warning = $('[data-role="cropper-is-mandatory-message"]')
     var $checkbox = $('[data-role="enable-cropper-checkbox"]')
 
     if (currentAspectRatio === false) {
-      $formGroup.removeClass('has-warning')
       $warning.addClass('d-none')
       $checkbox.removeClass('disabled').attr('disabled', false).attr('checked', false)
 
       return
     }
 
-    $formGroup.addClass('has-warning')
     $warning.removeClass('d-none')
     $checkbox.addClass('disabled').attr('disabled', true).attr('checked', true)
   },
