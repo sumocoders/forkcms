@@ -142,13 +142,6 @@ select[size="1"] {
   color: $alert-warning-background;
 }
 
-.input-group {
-  .bootstrap-tagsinput {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-}
-
 fieldset {
   border-bottom: 1px solid $gray-lighter;
   margin-bottom: 15px;

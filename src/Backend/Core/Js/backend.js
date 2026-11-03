@@ -1,7 +1,7 @@
 /**
  * Backend related objects
  */
-/* global CKEDITOR, FileReader, Bloodhound */
+/* global CKEDITOR, FileReader, TomSelect */
 
 var jsBackend =
   {
@@ -1500,36 +1500,46 @@ jsBackend.forms = {
     }
   },
 
-  // add tagsinput to the correct input fields
+  // turn the comma separated tags fields into a Tom Select tag picker, suggesting the existing tags
   tagsInput: function () {
-    if ($('.js-tags-input').length > 0) {
-      var allTags = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.whitespace,
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: {
-          url: '/backend/ajax',
-          prepare: function (settings) {
-            settings.type = 'POST'
-            settings.data = {fork: {module: 'Tags', action: 'GetAllTags'}}
-            return settings
-          },
-          cache: false,
-          filter: function (list) {
-            list = list.data
-            return list
-          }
-        }
-      })
+    $('.js-tags-input').each(function () {
+      // eslint-disable-next-line no-new
+      new TomSelect(this, {
+        create: true,
+        createOnBlur: true,
+        persist: false,
+        delimiter: ',',
+        plugins: ['remove_button'],
+        valueField: 'value',
+        labelField: 'value',
+        searchField: ['value'],
+        preload: 'focus',
+        // the tags load once, so filter on every keystroke: with the default 300ms throttle a quick Enter picks a stale option
+        refreshThrottle: 0,
+        // Tom Select keeps the typed text after adding a tag, clear it so the next tag starts empty
+        onItemAdd: function () {
+          this.setTextboxValue('')
+          this.refreshOptions(false)
+        },
+        load: function (query, callback) {
+          var tomSelect = this
 
-      allTags.initialize()
-      $('.js-tags-input').tagsinput({
-        tagClass: 'label text-bg-primary',
-        typeaheadjs: {
-          name: 'Tags',
-          source: allTags.ttAdapter()
+          $.ajax({
+            data: {fork: {module: 'Tags', action: 'GetAllTags'}},
+            success: function (json) {
+              // the full list is loaded once, Tom Select filters it while typing
+              tomSelect.settings.load = null
+              callback($.map(json.data, function (tag) {
+                return {value: tag}
+              }))
+            },
+            error: function () {
+              callback()
+            }
+          })
         }
       })
-    }
+    })
   },
 
   // show a warning when people are leaving the
