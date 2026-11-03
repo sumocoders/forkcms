@@ -60,13 +60,41 @@
   }
 }
 
+// solid alert colors of the Bootstrap 3 version
+.alert-success {
+  --#{$prefix}alert-bg: #{$brand-success};
+}
+
+.alert-info {
+  --#{$prefix}alert-bg: #{$brand-primary};
+}
+
+.alert-danger {
+  --#{$prefix}alert-bg: #{$brand-danger};
+}
+
+.alert-success,
+.alert-info,
+.alert-danger {
+  --#{$prefix}alert-color: #{$white};
+  --#{$prefix}alert-link-color: #{$white};
+
+  .btn-close {
+    filter: $btn-close-white-filter;
+  }
+}
+
+.alert-warning {
+  --#{$prefix}alert-bg: #{$alert-warning-background};
+  --#{$prefix}alert-color: #{$gray-base};
+  --#{$prefix}alert-link-color: #{$gray-base};
+}
+
 .alert-dismissible {
-  .close {
-    float: none;
+  .btn-close {
     opacity: 1;
-    position: absolute;
+    padding: 0;
     right: 10px;
-    text-shadow: none;
     top: 10px;
   }
 
@@ -78,8 +106,7 @@
 
 .alert-warning {
   a,
-  .fa,
-  .close {
+  .fa {
     border-color: $gray-base;
     color: $gray-base;
   }

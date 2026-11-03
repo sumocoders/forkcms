@@ -5,7 +5,7 @@
 
   .field {
     border-bottom: 1px solid $gray-lighter;
-    border-radius: $border-radius-small;
+    border-radius: $border-radius-sm;
     background-color: $white;
     padding: 25px;
     margin: 0;
@@ -32,7 +32,7 @@
     margin-top: 0;
   }
 
-  .panel-body {
+  .card-body {
     padding: 0;
   }
 
@@ -41,10 +41,13 @@
     margin: 0;
 
     .list-group-item {
+      background-color: transparent;
       border: 0;
       border-top: 1px solid $gray-lightest;
       padding: 11px 0 12px;
       color: $formbuilder-blue;
+      text-align: left;
+      width: 100%;
 
       &:hover,
       &:focus {
@@ -53,14 +56,21 @@
         background: transparent;
       }
 
-      .fa {
+      // font icons and the svg icons share one fixed-width column
+      .fa,
+      .fa-regular,
+      .icon {
         color: $gray-light;
-        margin-right: 5px;
+        display: inline-block;
+        margin-right: 8px;
+        text-align: center;
+        width: 1.25em;
       }
 
       .icon {
-        margin: 0 6px 0 3px;
-        width: 14px;
+        height: 1em;
+        object-fit: contain;
+        vertical-align: -.125em;
       }
     }
 

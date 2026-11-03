@@ -8,11 +8,12 @@
 }
 
 #mediaTree .tree-fork li[rel="folder"] a:before {
-  content: "\f114";
+  content: "\f07b";
 }
 #mediaTree .tree-fork li[rel="folder"] a:before {
   color: #999;
-  font-family: FontAwesome;
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 400;
   font-size: 12px;
   position: absolute;
   left: 4px
@@ -147,7 +148,7 @@
   .mediaConnectedItems .disconnectMediaItem::before {
     content: "\f057";
     color: #ffffff;
-    font: normal normal normal 2rem/1.7rem FontAwesome;
+    font: normal normal 400 2rem/1.7rem 'Font Awesome 6 Free';
     border-radius: 100%;
     position: absolute;
     top: 4px;
@@ -180,7 +181,7 @@
   .mediaConnectedItems .editMediaItem::before {
     content: "\f044";
     color: #2f77cf;
-    font: normal normal normal 2rem/1.7rem FontAwesome;
+    font: normal normal 400 2rem/1.7rem 'Font Awesome 6 Free';
     position: absolute;
     top: 7px;
     right: 26px;

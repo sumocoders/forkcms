@@ -32,7 +32,7 @@ body {
   }
 }
 
-@media screen and (min-width: $screen-sm) {
+@include media-breakpoint-up(sm) {
 
   .main-wrapper {
     min-height: 100%;
@@ -159,4 +159,11 @@ body {
   .hiddenInModalMode > .main-wrapper {
     padding-left: 0;
   }
+}
+
+// Bootstrap 5 dropped .page-header
+.page-header {
+  border-bottom: 1px solid $gray-lighter;
+  margin: 40px 0 20px;
+  padding-bottom: 9px;
 }

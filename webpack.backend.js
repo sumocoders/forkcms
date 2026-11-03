@@ -89,7 +89,9 @@ module.exports = {
           'fine-uploader/jquery.fine-uploader/placeholders/not_available-generic.png'
         ], 'css/vendors/fine-uploader'),
         ...copyVendorFiles([
-          'font-awesome/fonts/*'
+          'font-awesome/fonts/*',
+          '@fortawesome/fontawesome-free/webfonts/fa-solid-900.{woff2,ttf}',
+          '@fortawesome/fontawesome-free/webfonts/fa-regular-400.{woff2,ttf}'
         ], 'fonts/vendors'),
         ...copyVendorFiles([
           'jquery/dist/jquery.min.js',

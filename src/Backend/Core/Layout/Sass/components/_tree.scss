@@ -155,8 +155,9 @@
     &:before {
       background: $white;
       color: $brand-primary-darker;
-      font-family: FontAwesome;
+      font-family: 'Font Awesome 6 Free';
       font-size: $font-size-small;
+      font-weight: 400;
       left: 6px;
       position: absolute;
       top: 5px;
@@ -171,7 +172,7 @@
     &.closed.last {
 
       &:before {
-        content:'\f196';
+        content: '\f0fe';
       }
     }
 
@@ -180,7 +181,7 @@
       background: url('/src/Backend/Core/Layout/images/separate/leaf.gif') no-repeat 11px 0;
 
       &:before {
-        content: '\f147';
+        content: '\f146';
       }
     }
 
@@ -197,8 +198,9 @@
 
         &:before {
           color: $gray-light;
-          font-family: FontAwesome;
+          font-family: 'Font Awesome 6 Free';
           font-size: $font-size-small;
+          font-weight: 900;
           position: absolute;
           left: 4px;
         }
@@ -211,7 +213,8 @@
     &[rel="direct_action"] {
 
       > a:before {
-        content: "\f016";
+        content: "\f15b";
+        font-weight: 400;
       }
     }
 

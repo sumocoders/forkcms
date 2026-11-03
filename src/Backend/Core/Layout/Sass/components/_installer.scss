@@ -5,7 +5,7 @@
     font-weight: 600;
   }
 
-  .panel-footer {
+  .card-footer {
     border-top: 0;
     background: $white;
   }
@@ -106,6 +106,6 @@
   }
 }
 
-@media screen and (min-width: $screen-md) {
+@include media-breakpoint-up(md) {
   @include sticky-footer(100px);
 }

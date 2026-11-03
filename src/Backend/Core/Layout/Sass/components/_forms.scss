@@ -1,10 +1,14 @@
-// Style formError classes
-.formError {
-  @extend .text-danger;
+// Bootstrap 5 dropped .form-group, the backend keeps it for its vertical rhythm
+.form-group {
+  margin-bottom: 25px;
+
+  &.last {
+    margin-bottom: 0;
+  }
 }
 
 .form-control {
-  border-radius: $border-radius-small;
+  border-radius: $border-radius-sm;
   -webkit-box-shadow: inset 0 1px 3px rgba($gray-base, .075);
   -moz-box-shadow: inset 0 1px 3px rgba($gray-base, .075);
   box-shadow: inset 0 1px 3px rgba($gray-base, .075);
@@ -26,7 +30,7 @@
   }
 
   &.code {
-    font-family: "Source Code Pro";
+    font-family: 'Source Code Pro';
   }
 
   &.disabled {
@@ -34,54 +38,72 @@
   }
 }
 
-.control-label {
+.form-label {
   color: $gray-base;
   font-size: $font-size-base;
   font-weight: 600;
   width: 100%;
 }
 
-.radio {
-  margin-top: 0;
-}
+.form-check {
+  margin-bottom: 5px;
 
-.help-block {
-  font-size: $font-size-small;
-}
-
-.form-inline {
-  .radio {
-    label {
-      padding-left: 20px;
-      padding-right: 8px;
-    }
-
-    input[type="radio"] {
-      margin-left: -20px;
-      position: absolute;
-    }
+  label {
+    font-weight: normal;
   }
+}
 
+// Bootstrap 5 dropped .form-inline, keep the Bootstrap 3 behaviour: inline controls from the sm breakpoint up
+.form-inline {
   .form-group {
     margin-bottom: 20px;
+    width: 100%;
 
     .btn {
       padding: 6px 12px 7px;
 
-      &.btn-xs {
+      &.btn-sm {
         padding: 2px 8px;
       }
+    }
+
+    select.form-control,
+    select.form-select {
+      width: 25%;
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    .form-control,
+    .form-select {
+      display: inline-block;
+      vertical-align: middle;
+      width: auto;
+    }
+
+    .form-label {
+      margin-bottom: 0;
+      vertical-align: middle;
+    }
+
+    .input-group {
+      display: inline-flex;
+      vertical-align: middle;
+      width: auto;
     }
   }
 }
 
 label {
   font-weight: 600;
+  margin-bottom: 5px;
 }
 
 abbr[title],
-abbr[data-original-title] {
+abbr[data-bs-original-title] {
   border-bottom: none;
+  cursor: help;
+  text-decoration: none;
 }
 
 textarea {
@@ -96,13 +118,9 @@ select[size="1"] {
   background-size: 10px;
   display: inline-block;
   font-size: $font-size-base;
-  height: $input-height-base;
+  height: $input-height;
   padding: 5px;
   width: 100%;
-}
-
-.form-group.last {
-  margin-bottom: 0;
 }
 
 .formError,
@@ -111,7 +129,7 @@ select[size="1"] {
   font-weight: normal;
 }
 
-.input-group .input-group-addon {
+.input-group .input-group-text {
   padding: 8px 12px 9px;
 }
 
@@ -121,28 +139,13 @@ select[size="1"] {
 }
 
 .editorWarning {
-  color: $alert-warning-bg;
+  color: $alert-warning-background;
 }
 
 .input-group {
-
   .bootstrap-tagsinput {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-  }
-
-  .input-group-btn .btn {
-    line-height: 2.3em;
-    padding-bottom: 0;
-    padding-top: 0;
-  }
-}
-
-.form-inline .form-group {
-  width: 100%;
-
-  select.form-control {
-    width: 25%;
   }
 }
 
@@ -155,7 +158,7 @@ fieldset {
     font-size: $font-size-large;
     margin-bottom: 15px;
 
-    .help-block {
+    .form-text {
       margin: 0;
     }
   }
@@ -164,4 +167,9 @@ fieldset {
     border-bottom: 0;
     margin-bottom: 0;
   }
+}
+
+// checkboxes and radios rendered inside their label, outside a .form-check wrapper
+label > .form-check-input {
+  margin-right: .4em;
 }
