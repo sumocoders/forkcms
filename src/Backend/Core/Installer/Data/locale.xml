@@ -4372,6 +4372,240 @@
   </Frontend>
   <Backend>
     <Core>
+      <item type="label" name="TimeAgoEmpty">
+        <translation language="en"><![CDATA[just now]]></translation>
+        <translation language="nl"><![CDATA[zojuist]]></translation>
+        <translation language="fr"><![CDATA[à l’instant]]></translation>
+        <translation language="pl"><![CDATA[przed chwilą]]></translation>
+        <translation language="ru"><![CDATA[только что]]></translation>
+        <translation language="pt"><![CDATA[agora mesmo]]></translation>
+        <translation language="de"><![CDATA[gerade eben]]></translation>
+        <translation language="el"><![CDATA[μόλις τώρα]]></translation>
+        <translation language="hu"><![CDATA[épp most]]></translation>
+        <translation language="zh"><![CDATA[刚刚]]></translation>
+        <translation language="sv"><![CDATA[just nu]]></translation>
+        <translation language="es"><![CDATA[justo ahora]]></translation>
+        <translation language="lt"><![CDATA[ką tik]]></translation>
+        <translation language="it"><![CDATA[proprio ora]]></translation>
+        <translation language="uk"><![CDATA[щойно]]></translation>
+        <translation language="tr"><![CDATA[az önce]]></translation>
+      </item>
+      <item type="label" name="TimeAgoSecondSingular">
+        <translation language="en"><![CDATA[1 second ago]]></translation>
+        <translation language="nl"><![CDATA[1 seconde geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a 1 seconde]]></translation>
+        <translation language="pl"><![CDATA[1 sekundę temu]]></translation>
+        <translation language="ru"><![CDATA[1 секунду назад]]></translation>
+        <translation language="pt"><![CDATA[há 1 segundo]]></translation>
+        <translation language="de"><![CDATA[vor 1 Sekunde]]></translation>
+        <translation language="el"><![CDATA[πριν από 1 δευτερόλεπτο]]></translation>
+        <translation language="hu"><![CDATA[1 másodperce]]></translation>
+        <translation language="zh"><![CDATA[1秒前]]></translation>
+        <translation language="sv"><![CDATA[för 1 sekund sedan]]></translation>
+        <translation language="es"><![CDATA[hace 1 segundo]]></translation>
+        <translation language="lt"><![CDATA[prieš 1 sekundę]]></translation>
+        <translation language="it"><![CDATA[1 secondo fa]]></translation>
+        <translation language="uk"><![CDATA[1 секунду тому]]></translation>
+        <translation language="tr"><![CDATA[1 saniye önce]]></translation>
+      </item>
+      <item type="label" name="TimeAgoSecondPlural">
+        <translation language="en"><![CDATA[%1$s seconds ago]]></translation>
+        <translation language="nl"><![CDATA[%1$s seconden geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a %1$s secondes]]></translation>
+        <translation language="pl"><![CDATA[%1$s sek. temu]]></translation>
+        <translation language="ru"><![CDATA[%1$s сек. назад]]></translation>
+        <translation language="pt"><![CDATA[há %1$s segundos]]></translation>
+        <translation language="de"><![CDATA[vor %1$s Sekunden]]></translation>
+        <translation language="el"><![CDATA[πριν από %1$s δευτερόλεπτα]]></translation>
+        <translation language="hu"><![CDATA[%1$s másodperce]]></translation>
+        <translation language="zh"><![CDATA[%1$s秒前]]></translation>
+        <translation language="sv"><![CDATA[för %1$s sekunder sedan]]></translation>
+        <translation language="es"><![CDATA[hace %1$s segundos]]></translation>
+        <translation language="lt"><![CDATA[prieš %1$s sek.]]></translation>
+        <translation language="it"><![CDATA[%1$s secondi fa]]></translation>
+        <translation language="uk"><![CDATA[%1$s с. тому]]></translation>
+        <translation language="tr"><![CDATA[%1$s saniye önce]]></translation>
+      </item>
+      <item type="label" name="TimeAgoMinuteSingular">
+        <translation language="en"><![CDATA[1 minute ago]]></translation>
+        <translation language="nl"><![CDATA[1 minuut geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a 1 minute]]></translation>
+        <translation language="pl"><![CDATA[1 minutę temu]]></translation>
+        <translation language="ru"><![CDATA[1 минуту назад]]></translation>
+        <translation language="pt"><![CDATA[há 1 minuto]]></translation>
+        <translation language="de"><![CDATA[vor 1 Minute]]></translation>
+        <translation language="el"><![CDATA[πριν από 1 λεπτό]]></translation>
+        <translation language="hu"><![CDATA[1 perce]]></translation>
+        <translation language="zh"><![CDATA[1分钟前]]></translation>
+        <translation language="sv"><![CDATA[för 1 minut sedan]]></translation>
+        <translation language="es"><![CDATA[hace 1 minuto]]></translation>
+        <translation language="lt"><![CDATA[prieš 1 minutę]]></translation>
+        <translation language="it"><![CDATA[1 minuto fa]]></translation>
+        <translation language="uk"><![CDATA[1 хвилину тому]]></translation>
+        <translation language="tr"><![CDATA[1 dakika önce]]></translation>
+      </item>
+      <item type="label" name="TimeAgoMinutePlural">
+        <translation language="en"><![CDATA[%1$s minutes ago]]></translation>
+        <translation language="nl"><![CDATA[%1$s minuten geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a %1$s minutes]]></translation>
+        <translation language="pl"><![CDATA[%1$s min. temu]]></translation>
+        <translation language="ru"><![CDATA[%1$s мин. назад]]></translation>
+        <translation language="pt"><![CDATA[há %1$s minutos]]></translation>
+        <translation language="de"><![CDATA[vor %1$s Minuten]]></translation>
+        <translation language="el"><![CDATA[πριν από %1$s λεπτά]]></translation>
+        <translation language="hu"><![CDATA[%1$s perce]]></translation>
+        <translation language="zh"><![CDATA[%1$s分钟前]]></translation>
+        <translation language="sv"><![CDATA[för %1$s minuter sedan]]></translation>
+        <translation language="es"><![CDATA[hace %1$s minutos]]></translation>
+        <translation language="lt"><![CDATA[prieš %1$s min.]]></translation>
+        <translation language="it"><![CDATA[%1$s minuti fa]]></translation>
+        <translation language="uk"><![CDATA[%1$s хв. тому]]></translation>
+        <translation language="tr"><![CDATA[%1$s dakika önce]]></translation>
+      </item>
+      <item type="label" name="TimeAgoHourSingular">
+        <translation language="en"><![CDATA[1 hour ago]]></translation>
+        <translation language="nl"><![CDATA[1 uur geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a 1 heure]]></translation>
+        <translation language="pl"><![CDATA[1 godzinę temu]]></translation>
+        <translation language="ru"><![CDATA[1 час назад]]></translation>
+        <translation language="pt"><![CDATA[há 1 hora]]></translation>
+        <translation language="de"><![CDATA[vor 1 Stunde]]></translation>
+        <translation language="el"><![CDATA[πριν από 1 ώρα]]></translation>
+        <translation language="hu"><![CDATA[1 órája]]></translation>
+        <translation language="zh"><![CDATA[1小时前]]></translation>
+        <translation language="sv"><![CDATA[för 1 timme sedan]]></translation>
+        <translation language="es"><![CDATA[hace 1 hora]]></translation>
+        <translation language="lt"><![CDATA[prieš 1 valandą]]></translation>
+        <translation language="it"><![CDATA[1 ora fa]]></translation>
+        <translation language="uk"><![CDATA[1 годину тому]]></translation>
+        <translation language="tr"><![CDATA[1 saat önce]]></translation>
+      </item>
+      <item type="label" name="TimeAgoHourPlural">
+        <translation language="en"><![CDATA[%1$s hours ago]]></translation>
+        <translation language="nl"><![CDATA[%1$s uur geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a %1$s heures]]></translation>
+        <translation language="pl"><![CDATA[%1$s godz. temu]]></translation>
+        <translation language="ru"><![CDATA[%1$s ч. назад]]></translation>
+        <translation language="pt"><![CDATA[há %1$s horas]]></translation>
+        <translation language="de"><![CDATA[vor %1$s Stunden]]></translation>
+        <translation language="el"><![CDATA[πριν από %1$s ώρες]]></translation>
+        <translation language="hu"><![CDATA[%1$s órája]]></translation>
+        <translation language="zh"><![CDATA[%1$s小时前]]></translation>
+        <translation language="sv"><![CDATA[för %1$s timmar sedan]]></translation>
+        <translation language="es"><![CDATA[hace %1$s horas]]></translation>
+        <translation language="lt"><![CDATA[prieš %1$s val.]]></translation>
+        <translation language="it"><![CDATA[%1$s ore fa]]></translation>
+        <translation language="uk"><![CDATA[%1$s год. тому]]></translation>
+        <translation language="tr"><![CDATA[%1$s saat önce]]></translation>
+      </item>
+      <item type="label" name="TimeAgoDaySingular">
+        <translation language="en"><![CDATA[1 day ago]]></translation>
+        <translation language="nl"><![CDATA[1 dag geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a 1 jour]]></translation>
+        <translation language="pl"><![CDATA[1 dzień temu]]></translation>
+        <translation language="ru"><![CDATA[1 день назад]]></translation>
+        <translation language="pt"><![CDATA[há 1 dia]]></translation>
+        <translation language="de"><![CDATA[vor 1 Tag]]></translation>
+        <translation language="el"><![CDATA[πριν από 1 ημέρα]]></translation>
+        <translation language="hu"><![CDATA[1 napja]]></translation>
+        <translation language="zh"><![CDATA[1天前]]></translation>
+        <translation language="sv"><![CDATA[för 1 dag sedan]]></translation>
+        <translation language="es"><![CDATA[hace 1 día]]></translation>
+        <translation language="lt"><![CDATA[prieš 1 dieną]]></translation>
+        <translation language="it"><![CDATA[1 giorno fa]]></translation>
+        <translation language="uk"><![CDATA[1 день тому]]></translation>
+        <translation language="tr"><![CDATA[1 gün önce]]></translation>
+      </item>
+      <item type="label" name="TimeAgoDayPlural">
+        <translation language="en"><![CDATA[%1$s days ago]]></translation>
+        <translation language="nl"><![CDATA[%1$s dagen geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a %1$s jours]]></translation>
+        <translation language="pl"><![CDATA[%1$s dni temu]]></translation>
+        <translation language="ru"><![CDATA[%1$s дн. назад]]></translation>
+        <translation language="pt"><![CDATA[há %1$s dias]]></translation>
+        <translation language="de"><![CDATA[vor %1$s Tagen]]></translation>
+        <translation language="el"><![CDATA[πριν από %1$s ημέρες]]></translation>
+        <translation language="hu"><![CDATA[%1$s napja]]></translation>
+        <translation language="zh"><![CDATA[%1$s天前]]></translation>
+        <translation language="sv"><![CDATA[för %1$s dagar sedan]]></translation>
+        <translation language="es"><![CDATA[hace %1$s días]]></translation>
+        <translation language="lt"><![CDATA[prieš %1$s d.]]></translation>
+        <translation language="it"><![CDATA[%1$s giorni fa]]></translation>
+        <translation language="uk"><![CDATA[%1$s дн. тому]]></translation>
+        <translation language="tr"><![CDATA[%1$s gün önce]]></translation>
+      </item>
+      <item type="label" name="TimeAgoMonthSingular">
+        <translation language="en"><![CDATA[1 month ago]]></translation>
+        <translation language="nl"><![CDATA[1 maand geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a 1 mois]]></translation>
+        <translation language="pl"><![CDATA[1 miesiąc temu]]></translation>
+        <translation language="ru"><![CDATA[1 месяц назад]]></translation>
+        <translation language="pt"><![CDATA[há 1 mês]]></translation>
+        <translation language="de"><![CDATA[vor 1 Monat]]></translation>
+        <translation language="el"><![CDATA[πριν από 1 μήνα]]></translation>
+        <translation language="hu"><![CDATA[1 hónapja]]></translation>
+        <translation language="zh"><![CDATA[1个月前]]></translation>
+        <translation language="sv"><![CDATA[för 1 månad sedan]]></translation>
+        <translation language="es"><![CDATA[hace 1 mes]]></translation>
+        <translation language="lt"><![CDATA[prieš 1 mėnesį]]></translation>
+        <translation language="it"><![CDATA[1 mese fa]]></translation>
+        <translation language="uk"><![CDATA[1 місяць тому]]></translation>
+        <translation language="tr"><![CDATA[1 ay önce]]></translation>
+      </item>
+      <item type="label" name="TimeAgoMonthPlural">
+        <translation language="en"><![CDATA[%1$s months ago]]></translation>
+        <translation language="nl"><![CDATA[%1$s maanden geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a %1$s mois]]></translation>
+        <translation language="pl"><![CDATA[%1$s mies. temu]]></translation>
+        <translation language="ru"><![CDATA[%1$s мес. назад]]></translation>
+        <translation language="pt"><![CDATA[há %1$s meses]]></translation>
+        <translation language="de"><![CDATA[vor %1$s Monaten]]></translation>
+        <translation language="el"><![CDATA[πριν από %1$s μήνες]]></translation>
+        <translation language="hu"><![CDATA[%1$s hónapja]]></translation>
+        <translation language="zh"><![CDATA[%1$s个月前]]></translation>
+        <translation language="sv"><![CDATA[för %1$s månader sedan]]></translation>
+        <translation language="es"><![CDATA[hace %1$s meses]]></translation>
+        <translation language="lt"><![CDATA[prieš %1$s mėn.]]></translation>
+        <translation language="it"><![CDATA[%1$s mesi fa]]></translation>
+        <translation language="uk"><![CDATA[%1$s міс. тому]]></translation>
+        <translation language="tr"><![CDATA[%1$s ay önce]]></translation>
+      </item>
+      <item type="label" name="TimeAgoYearSingular">
+        <translation language="en"><![CDATA[1 year ago]]></translation>
+        <translation language="nl"><![CDATA[1 jaar geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a 1 an]]></translation>
+        <translation language="pl"><![CDATA[1 rok temu]]></translation>
+        <translation language="ru"><![CDATA[1 год назад]]></translation>
+        <translation language="pt"><![CDATA[há 1 ano]]></translation>
+        <translation language="de"><![CDATA[vor 1 Jahr]]></translation>
+        <translation language="el"><![CDATA[πριν από 1 χρόνο]]></translation>
+        <translation language="hu"><![CDATA[1 éve]]></translation>
+        <translation language="zh"><![CDATA[1年前]]></translation>
+        <translation language="sv"><![CDATA[för 1 år sedan]]></translation>
+        <translation language="es"><![CDATA[hace 1 año]]></translation>
+        <translation language="lt"><![CDATA[prieš 1 metus]]></translation>
+        <translation language="it"><![CDATA[1 anno fa]]></translation>
+        <translation language="uk"><![CDATA[1 рік тому]]></translation>
+        <translation language="tr"><![CDATA[1 yıl önce]]></translation>
+      </item>
+      <item type="label" name="TimeAgoYearPlural">
+        <translation language="en"><![CDATA[%1$s years ago]]></translation>
+        <translation language="nl"><![CDATA[%1$s jaar geleden]]></translation>
+        <translation language="fr"><![CDATA[il y a %1$s ans]]></translation>
+        <translation language="pl"><![CDATA[%1$s lat temu]]></translation>
+        <translation language="ru"><![CDATA[%1$s г. назад]]></translation>
+        <translation language="pt"><![CDATA[há %1$s anos]]></translation>
+        <translation language="de"><![CDATA[vor %1$s Jahren]]></translation>
+        <translation language="el"><![CDATA[πριν από %1$s χρόνια]]></translation>
+        <translation language="hu"><![CDATA[%1$s éve]]></translation>
+        <translation language="zh"><![CDATA[%1$s年前]]></translation>
+        <translation language="sv"><![CDATA[för %1$s år sedan]]></translation>
+        <translation language="es"><![CDATA[hace %1$s años]]></translation>
+        <translation language="lt"><![CDATA[prieš %1$s m.]]></translation>
+        <translation language="it"><![CDATA[%1$s anni fa]]></translation>
+        <translation language="uk"><![CDATA[%1$s р. тому]]></translation>
+        <translation language="tr"><![CDATA[%1$s yıl önce]]></translation>
+      </item>
       <item type="label" name="Close">
         <translation language="nl"><![CDATA[sluiten]]></translation>
         <translation language="en"><![CDATA[close]]></translation>

@@ -308,13 +308,13 @@ class Index extends BackendBaseActionIndex
         // set filter
         $this->filter['application'] = $this->getRequest()->query->get('application');
         $this->filter['module'] = $this->getRequest()->query->get('module');
-        $this->filter['type'] = $this->getRequest()->query->get('type', '');
+        $this->filter['type'] = $this->getRequest()->query->all()['type'] ?? '';
         if ($this->filter['type'] === '') {
             // if no type is selected, set labels as the selected type
             $_GET['type'] = ['lbl'];
             $this->filter['type'] = ['lbl'];
         }
-        $this->filter['language'] = $this->getRequest()->query->get('language', []);
+        $this->filter['language'] = $this->getRequest()->query->all()['language'] ?? [];
         if (empty($this->filter['language'])) {
             // if no language is selected, set the working language as the selected
             $_GET['language'] = [BL::getWorkingLanguage()];

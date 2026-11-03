@@ -95,14 +95,14 @@ class Edit extends BackendBaseActionEdit
      */
     private function setFilter(): void
     {
-        $this->filter['language'] = $this->getRequest()->query->get('language', []);
+        $this->filter['language'] = (array) ($this->getRequest()->query->all()['language'] ?? []);
         if (empty($this->filter['language'])) {
-            $this->filter['language'] = BL::getWorkingLanguage();
+            $this->filter['language'] = [BL::getWorkingLanguage()];
         }
         $this->filter['application'] = $this->getRequest()->query->get('application');
         $this->filter['module'] = $this->getRequest()->query->get('module');
-        $this->filter['type'] = $this->getRequest()->query->get('type', '');
-        if ($this->filter['type'] === '') {
+        $this->filter['type'] = (array) ($this->getRequest()->query->all()['type'] ?? []);
+        if ($this->filter['type'] === []) {
             $this->filter['type'] = null;
         }
         $this->filter['name'] = $this->getRequest()->query->get('name');
