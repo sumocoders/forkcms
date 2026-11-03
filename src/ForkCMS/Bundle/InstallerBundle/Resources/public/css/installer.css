@@ -17,7 +17,6 @@
     color: white;
 }
 
-.help-block.errorMessage,
-.has-error .control-label {
+.has-error .form-label {
     color: #d0021b;
 }

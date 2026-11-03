@@ -26,6 +26,11 @@
   .installer-navigation-wrapper {
     background: $brand-primary-dark;
 
+    // contain the floated steps, the Bootstrap 3 .container used to clear them
+    .installer-navigation {
+      display: flow-root;
+    }
+
     ul {
       list-style-type: none;
       margin: 0;

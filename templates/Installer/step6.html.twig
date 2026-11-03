@@ -27,8 +27,10 @@
               <td>
                 <span id="plainPassword" style="display: none;">{{ data.password }}</span>
                 <span id="fakePassword">••••••••••••</span>
-                <input type="checkbox" id="showPassword" name="showPassword" />
-                <label for="showPassword">show password</label>
+                <div class="form-check form-check-inline ms-2">
+                  <input type="checkbox" id="showPassword" name="showPassword" class="form-check-input" />
+                  <label for="showPassword" class="form-check-label">show password</label>
+                </div>
               </td>
             </tr>
           </table>

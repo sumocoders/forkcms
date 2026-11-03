@@ -34,7 +34,7 @@
             <div>
               <p>What is the default language we should use for the website?</p>
               <p>
-                {{ form_widget(form.default_language, {attr: {class: 'form-control'}}) }}
+                {{ form_widget(form.default_language) }}
               </p>
             </div>
           </div>
@@ -42,7 +42,7 @@
             <h3>CMS interface languages</h3>
             <p>What languages do you plan to use in the CMS interface?</p>
             <ul class="list-unstyled">
-              <li class="form-check">
+              <li>
                 {{ form_widget(form.same_interface_language) }}
                 {{ form_label(form.same_interface_language) }}
                 <p id="interfaceLanguagesExplanation" style="display: none;">Select the language(s) you would like to use use in the CMS interface.</p>
@@ -54,7 +54,7 @@
             <div id="defaultInterfaceLanguageContainer">
               <p>What is the default language we should use for the CMS interface?</p>
               <p>
-                {{ form_widget(form.default_interface_language, {attr: {class: 'form-control'}}) }}
+                {{ form_widget(form.default_interface_language) }}
               </p>
             </div>
           </div>

@@ -2,12 +2,12 @@
 {# Widgets #}
 {% block form_widget_simple -%}
   {% if type is not defined or 'file' != type %}
-    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control' ~ (valid ? '' : ' is-invalid'))|trim}) %}
   {% endif %}
   {{- parent() -}}
 {%- endblock form_widget_simple %}
 {% block textarea_widget -%}
-  {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
+  {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control' ~ (valid ? '' : ' is-invalid'))|trim}) %}
   {{- parent() -}}
 {%- endblock textarea_widget %}
 {% block button_widget -%}
@@ -79,18 +79,16 @@
   {% endif %}
 {%- endblock time_widget %}
 {% block choice_widget_collapsed -%}
-  {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
+  {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-select' ~ (valid ? '' : ' is-invalid'))|trim}) %}
   {{- parent() -}}
 {%- endblock %}
 {% block choice_widget_expanded -%}
   {% if '-inline' in label_attr.class|default('') %}
-    <div class="control-group">
-      {% for child in form %}
-        {{ form_widget(child, {
-          parent_label_class: label_attr.class|default(''),
-        }) }}
-      {% endfor %}
-    </div>
+    {% for child in form %}
+      {{ form_widget(child, {
+        parent_label_class: label_attr.class|default(''),
+      }) }}
+    {% endfor %}
   {% else %}
     <div {{ block('widget_container_attributes') }}>
       {% for child in form %}
@@ -103,23 +101,17 @@
 {%- endblock choice_widget_expanded %}
 {% block checkbox_widget -%}
   {% set parent_label_class = parent_label_class|default('') %}
-  {% if 'checkbox-inline' in parent_label_class %}
+  {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-check-input')|trim}) %}
+  <div class="form-check{% if 'checkbox-inline' in parent_label_class %} form-check-inline{% endif %}">
     {{ form_label(form, null, {widget: parent()}) }}
-  {% else %}
-    <div class="form-check">
-      {{ form_label(form, null, {widget: parent()}) }}
-    </div>
-  {% endif %}
+  </div>
 {%- endblock checkbox_widget %}
 {% block radio_widget -%}
   {% set parent_label_class = parent_label_class|default('') %}
-  {% if 'radio-inline' in parent_label_class %}
+  {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-check-input')|trim}) %}
+  <div class="form-check{% if 'radio-inline' in parent_label_class %} form-check-inline{% endif %}">
     {{ form_label(form, null, {widget: parent()}) }}
-  {% else %}
-    <div class="form-check">
-      {{ form_label(form, null, {widget: parent()}) }}
-    </div>
-  {% endif %}
+  </div>
 {%- endblock radio_widget %}
 {# Labels #}
 {% block form_label -%}
@@ -140,18 +132,16 @@
 {% block checkbox_radio_label %}
   {# Do no display the label if widget is not defined in order to prevent double label rendering #}
   {% if widget is defined %}
-    {% if required %}
-      {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) %}
-    {% endif %}
-    {% if parent_label_class is defined %}
-      {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|trim}) %}
+    {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' form-check-label' ~ (required ? ' required'))|trim}) %}
+    {% if not compound %}
+      {% set label_attr = label_attr|merge({for: id}) %}
     {% endif %}
     {% if label is empty %}
       {% set label = name|humanize %}
     {% endif %}
-    <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
     {{ widget|raw }}
-    {{ label|trans({}, translation_domain) }}
+    <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+      {{- label|trans({}, translation_domain) -}}
     </label>
   {% endif %}
 {% endblock checkbox_radio_label %}
@@ -199,12 +189,12 @@
 {# Errors #}
 {% block form_errors -%}
   {% if errors|length > 0 -%}
-    {% if form.parent %}<span class="form-text errorMessage">{% else %}<div class="alert alert-danger errorMessage">{% endif %}
+    {% if form.parent %}<div class="invalid-feedback d-block errorMessage">{% else %}<div class="alert alert-danger errorMessage">{% endif %}
     <ul class="list-unstyled">
 {%- for error in errors -%}
   <li><span class="fa fa-exclamation-circle" aria-hidden="true"></span> {{ error.message }}</li>
 {%- endfor -%}
 </ul>
-    {% if form.parent %}</span>{% else %}</div>{% endif %}
+    </div>
   {%- endif %}
 {%- endblock form_errors %}
