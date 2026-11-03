@@ -97,7 +97,7 @@ module.exports = {
           'jquery/dist/jquery.min.js',
           'jquery-migrate/dist/jquery-migrate.min.js',
           'jquery-ui-dist/jquery-ui.min.js',
-          'bootstrap-sass/assets/javascripts/bootstrap.min.js',
+          'bootstrap5/dist/js/bootstrap.bundle.min.js',
           'bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js',
           'fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js',
           'simple-ajax-uploader/SimpleAjaxUploader.min.js',

@@ -151,7 +151,7 @@
 
       // append the button
       $(this).closest('.input-group input').after(
-        '        <span class="input-group-btn"><button data-id="' + id + '" class="generatePasswordButton btn btn-default" type="button"><span>' + options.generateLabel + '</span></button></span>'
+        '        <button data-id="' + id + '" class="generatePasswordButton btn btn-secondary" type="button"><span>' + options.generateLabel + '</span></button>'
       )
 
       $('.generatePasswordButton').live('click', generatePassword)
@@ -302,7 +302,7 @@
       var $this = $(this)
 
       // add wrapper and tooltip
-      $this.html('<span>' + utils.string.htmlEncode($this.text()) + '</span><span style="display: none;" class="inlineEditTooltip label label-primary">' + options.tooltip + '</span>')
+      $this.html('<span>' + utils.string.htmlEncode($this.text()) + '</span><span style="display: none;" class="inlineEditTooltip badge text-bg-primary">' + options.tooltip + '</span>')
 
       // grab element
       var $span = $this.find('span')
@@ -513,10 +513,10 @@
         '<div class="form-inline form-group keyValueWrapper">' +
         '    <div class="form-group input-group">' +
         '        <input class="form-control dontSubmit" id="addValue-' + id + '" name="addValue-' + id + '" type="text" />' +
-        '        <span class="input-group-btn"><button type="button" id="addButton-' + id + '" class="btn btn-primary">' +
+        '        <button type="button" id="addButton-' + id + '" class="btn btn-primary">' +
         '           <span class="fa fa-plus-square" aria-hidden="true"></span>' +
-        '<span' + (options.showIconOnly ? ' class="sr-only"' : '') + '>' + options.addLabel + '</span>' +
-        '        </button></span>' +
+        '<span' + (options.showIconOnly ? ' class="visually-hidden"' : '') + '>' + options.addLabel + '</span>' +
+        '        </button>' +
         '   </div>' +
         '</div>' +
         '<div class="form-inline form-group">' +
@@ -683,7 +683,7 @@
           for (var i in elements) {
             var humanValue = elements[i].split(options.secondSplitChar)[1]
 
-            html += '    <li><span><strong>' + humanValue + '</strong>' + '        <button type="button" class="btn btn-danger deleteButton-' + id + '" rel="' + elements[i] + '" title="' + options.removeLabel + '">' + options.removeLabel + '</button></span>' + '    </li>'
+            html += '    <li><span><strong>' + humanValue + '</strong>' + '        <button type="button" class="btn btn-danger deleteButton-' + id + '" rel="' + elements[i] + '" title="' + options.removeLabel + '">' + options.removeLabel + '</button>' + '    </li>'
           }
 
           // end html
@@ -788,10 +788,10 @@
         '    <div class="form-group">' +
         '        <div class="input-group">' +
         '           <input class="form-control dontSubmit" id="addValue-' + id + '" name="addValue-' + id + '" type="text" />' +
-        '           <span class="input-group-btn"><button type="button" id="addButton-' + id + '" class="btn btn-default">' +
+        '           <button type="button" id="addButton-' + id + '" class="btn btn-secondary">' +
         '               <span class="fa fa-plus-square" aria-hidden="true"></span>' +
-        '               <span' + (options.showIconOnly ? ' class="sr-only"' : '') + '>' + options.addLabel + '</span>' +
-        '           </button></span>' +
+        '               <span' + (options.showIconOnly ? ' class="visually-hidden"' : '') + '>' + options.addLabel + '</span>' +
+        '           </button>' +
         '        </div>' +
         '    </div>' +
         '    <div id="elementList-' + id + '" class="form-group tagList">' +
@@ -952,7 +952,7 @@
             var value = utils.string.stripForTag(elements[i])
 
             html += '    <li class="list-group-item">' +
-              '        <button type="button" class="btn btn-danger btn-xs deleteButton-' + id + '" data-id="' + value + '" title="' + utils.string.stripForTag(options.removeLabel) + ' ' + value + '"><span class="fa fa-trash" aria-hidden="true"></span></button></span>' +
+              '        <button type="button" class="btn btn-danger btn-sm deleteButton-' + id + '" data-id="' + value + '" title="' + utils.string.stripForTag(options.removeLabel) + ' ' + value + '"><span class="fa fa-trash" aria-hidden="true"></span></button>' +
               '       <span><strong>' + value + '</strong>' +
               '    </li>'
           }
@@ -1047,12 +1047,10 @@
       }
 
       html += '        </select>' +
-        '        <div class="input-group-btn">' +
         '            <button id="addButton-' + id + '" class="btn btn-success">' +
         '                <span class="fa fa-plus-square" aria-hidden="true"></span>' +
-        '                <span' + (options.showIconOnly ? ' class="sr-only"' : '') + '>' + options.addLabel + '</span>' +
+        '                <span' + (options.showIconOnly ? ' class="visually-hidden"' : '') + '>' + options.addLabel + '</span>' +
         '            </button>' +
-        '        </div>' +
         '    </div>' +
         '</div>'
 
@@ -1140,8 +1138,8 @@
           // loop elements
           for (var i in elements) {
             html += '    <li class="list-group-item">' +
-              '        <button class="btn btn-danger btn-xs deleteButton-' + id + '" data-id="' + elements[i] + '" title="' + options.removeLabel + '">' +
-              '            <span class="fa fa-trash" aria-hidden="true"></span><span class="sr-only">' + options.removeLabel + '</span>' +
+              '        <button class="btn btn-danger btn-sm deleteButton-' + id + '" data-id="' + elements[i] + '" title="' + options.removeLabel + '">' +
+              '            <span class="fa fa-trash" aria-hidden="true"></span><span class="visually-hidden">' + options.removeLabel + '</span>' +
               '        </button>' +
               '        <span><strong>' + $('#' + id + ' option[value="' + elements[i] + '"]').html() + '</strong></span>' +
               '    </li>'
@@ -1276,10 +1274,10 @@
         '<div class="form-group">' +
         '<div class="input-group">' +
         '<input class="form-control dontSubmit" id="addValue-' + id + '" name="addValue-' + id + '" type="text" />' +
-        '<span class="input-group-btn"><button id="addButton-' + id + '" class="btn btn-success">' +
+        '<button id="addButton-' + id + '" class="btn btn-success">' +
         '<span class="fa fa-plus-square" aria-hidden="true"></span>' +
-        '<span' + (options.showIconOnly ? ' class="sr-only"' : '') + '>' + options.addLabel + '</span>' +
-        '</button></span>' +
+        '<span' + (options.showIconOnly ? ' class="visually-hidden"' : '') + '>' + options.addLabel + '</span>' +
+        '</button>' +
         '</div>' +
         '</div>' +
         '</div>'
@@ -1461,10 +1459,10 @@
           for (var i in elements) {
             html += '    <li class="list-group-item"><div class="input-group">' +
               '        <input class="form-control dontSubmit inputField-' + id + '" name="inputField-' + id + '[]" type="text" value="' + elements[i].replace(/"/g, '&quot;') + '" />' +
-              '        <span class="input-group-btn"><button class="btn btn-danger deleteButton-' + id + '" data-id="' + i + '" title="' + options.removeLabel + '">' +
+              '        <button class="btn btn-danger deleteButton-' + id + '" data-id="' + i + '" title="' + options.removeLabel + '">' +
               '           <span class="fa fa-trash" aria-hidden="true"></span>' +
               '            <span>' + options.removeLabel + '</span>' +
-              '        </button></span>' +
+              '        </button>' +
               '    </div></li>'
           }
 

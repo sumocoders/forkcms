@@ -242,12 +242,12 @@ jsBackend.mediaLibraryHelper.group = {
       }
 
       $editMediaDialog.find('.is-invalid').removeClass('is-invalid')
-      $editMediaDialog.find('.help-block').remove()
+      $editMediaDialog.find('.form-text').remove()
 
       if ($mediaItemTitleInput.val() === '') {
         $mediaItemTitleInput.addClass('is-invalid')
 
-        $('<span>').addClass('help-block')
+        $('<span>').addClass('form-text')
           .append(
             $('<ul>').addClass('list-unstyled')
               .append(
@@ -756,7 +756,7 @@ jsBackend.mediaLibraryHelper.group = {
     }
 
     // Enable all because we can switch between different groups on the same page
-    $tabs.children('li').removeClass('disabled, active').children('a').attr('data-toggle', 'tab')
+    $tabs.children('li').removeClass('disabled, active').children('a').attr('data-bs-toggle', 'tab')
 
     var disabled = ''
     var enabled = 'li:eq(0)'
@@ -780,9 +780,9 @@ jsBackend.mediaLibraryHelper.group = {
     }
 
     if (disabled !== '') {
-      $tabs.children(disabled).addClass('disabled').children('a').removeAttr('data-toggle')
+      $tabs.children(disabled).addClass('disabled').children('a').removeAttr('data-bs-toggle')
     }
-    $tabs.children(enabled).children('a').attr('data-toggle', 'tab').first().tab('show')
+    $tabs.children(enabled).children('a').attr('data-bs-toggle', 'tab').first().tab('show')
 
     // get table
     var $tables = $('.mediaTable')
@@ -833,20 +833,20 @@ jsBackend.mediaLibraryHelper.group = {
     var $submitButton = $('#addMediaSubmit')
 
     if (maximumMediaItemsCount !== false && totalMediaCount > maximumMediaItemsCount) {
-      $minimumCountError.html(jsBackend.locale.err('MaximumConnectedItems').replace('{{ limit }}', maximumMediaItemsCount)).removeClass('hidden')
+      $minimumCountError.html(jsBackend.locale.err('MaximumConnectedItems').replace('{{ limit }}', maximumMediaItemsCount)).removeClass('d-none')
       $submitButton.addClass('disabled').attr('disabled', true)
 
       return
     }
 
     if (minimumMediaItemsCount !== false && totalMediaCount < minimumMediaItemsCount) {
-      $minimumCountError.html(jsBackend.locale.err('MinimumConnectedItems').replace('{{ limit }}', minimumMediaItemsCount)).removeClass('hidden')
+      $minimumCountError.html(jsBackend.locale.err('MinimumConnectedItems').replace('{{ limit }}', minimumMediaItemsCount)).removeClass('d-none')
       $submitButton.addClass('disabled').attr('disabled', true)
 
       return
     }
 
-    $minimumCountError.html('').addClass('hidden')
+    $minimumCountError.html('').addClass('d-none')
     $submitButton.removeClass('disabled').attr('disabled', false)
   }
 }
@@ -929,7 +929,7 @@ jsBackend.mediaLibraryHelper.cropper = {
 
   initCropper: function ($dialog, resizeInfo, readyCallback) {
     $(resizeInfo.sourceCanvas)
-    .addClass('img-responsive')
+    .addClass('img-fluid')
     .cropper(jsBackend.mediaLibraryHelper.cropper.getCropperConfig(readyCallback))
   },
 
@@ -973,8 +973,8 @@ jsBackend.mediaLibraryHelper.cropper = {
       return
     }
 
-    $dialog.find('[data-role=media-library-select-modal]').removeClass('hidden')
-    $dialog.find('[data-role=media-library-cropper-modal]').addClass('hidden')
+    $dialog.find('[data-role=media-library-select-modal]').removeClass('d-none')
+    $dialog.find('[data-role=media-library-cropper-modal]').addClass('d-none')
   },
 
   switchToCropperModal: function ($dialog) {
@@ -982,12 +982,12 @@ jsBackend.mediaLibraryHelper.cropper = {
       return
     }
 
-    if (!$dialog.hasClass('in')) {
+    if (!$dialog.hasClass('show')) {
       $dialog.modal('show')
     }
 
-    $dialog.find('[data-role=media-library-select-modal]').addClass('hidden')
-    $dialog.find('[data-role=media-library-cropper-modal]').removeClass('hidden')
+    $dialog.find('[data-role=media-library-select-modal]').addClass('d-none')
+    $dialog.find('[data-role=media-library-cropper-modal]').removeClass('d-none')
   },
 
   getCloseEventFunction: function ($dialog, resizeInfo, reject) {
@@ -1172,14 +1172,14 @@ jsBackend.mediaLibraryHelper.upload = {
 
     if (currentAspectRatio === false) {
       $formGroup.removeClass('has-warning')
-      $warning.addClass('hidden')
+      $warning.addClass('d-none')
       $checkbox.removeClass('disabled').attr('disabled', false).attr('checked', false)
 
       return
     }
 
     $formGroup.addClass('has-warning')
-    $warning.removeClass('hidden')
+    $warning.removeClass('d-none')
     $checkbox.addClass('disabled').attr('disabled', true).attr('checked', true)
   },
 
@@ -1244,7 +1244,7 @@ jsBackend.mediaLibraryHelper.upload = {
 
           // Add select button if tab in selection context
           if ($('#tabUploadMedia').data('context') === 'selection') {
-            var $link = $('<a href="#" class="btn btn-success btn-xs btn-block" data-direct-url="' +
+            var $link = $('<a href="#" class="btn btn-success btn-sm w-100" data-direct-url="' +
               responseJSON.direct_url + '">&nbsp;' + utils.string.ucfirst(jsBackend.locale.lbl('Select')) + '</a>')
 
             $link.on('click', jsBackend.mediaLibraryHelper.modalSelection.sendToParent)
@@ -1384,7 +1384,7 @@ jsBackend.mediaLibraryHelper.upload = {
 
           // Add select button if tab in selection context
           if ($('#tabUploadMedia').data('context') === 'selection') {
-            var $link = $('<a href="#" class="btn btn-success btn-xs btn-block" data-direct-url="' + json.data.direct_url + '">&nbsp;' + utils.string.ucfirst(jsBackend.locale.lbl('Select')) + '</a>')
+            var $link = $('<a href="#" class="btn btn-success btn-sm w-100" data-direct-url="' + json.data.direct_url + '">&nbsp;' + utils.string.ucfirst(jsBackend.locale.lbl('Select')) + '</a>')
             $link.on('click', jsBackend.mediaLibraryHelper.modalSelection.sendToParent)
             $('li[id="media-' + json.data.id + '"]').find('.mediaHolder.mediaHolderMovie')
               .append($link)

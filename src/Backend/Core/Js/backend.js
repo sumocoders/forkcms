@@ -141,9 +141,9 @@ jsBackend.navigation = {
 
   mobile: function () {
     var navbarWidth = this.calculateNavbarWidth()
-    var $navbarNav = $('.navbar-default .navbar-nav')
+    var $navbarNav = $('.navbar-main .navbar-nav')
 
-    $('.navbar-default .navbar-nav').css('width', navbarWidth)
+    $('.navbar-main .navbar-nav').css('width', navbarWidth)
 
     $('.js-nav-prev').on('click', function (e) {
       e.preventDefault()
@@ -159,7 +159,7 @@ jsBackend.navigation = {
   },
 
   resize: function () {
-    var $navbarNav = $('.navbar-default .navbar-nav')
+    var $navbarNav = $('.navbar-main .navbar-nav')
     var navbarWidth = this.calculateNavbarWidth()
     var windowWidth = this.calculateWindowWidth()
 
@@ -198,7 +198,7 @@ jsBackend.navigation = {
   },
 
   tooltip: function () {
-    var $tooltip = $('[data-toggle="tooltip-nav"]')
+    var $tooltip = $('[data-bs-toggle="tooltip-nav"]')
     var $wrapper = $('.main-wrapper')
 
     if ($tooltip.length > 0) {
@@ -219,7 +219,7 @@ jsBackend.navigation = {
   },
 
   setControls: function (offset) {
-    var $navbarNav = $('.navbar-default .navbar-nav')
+    var $navbarNav = $('.navbar-main .navbar-nav')
     var rightOffset = this.calculateOffset(offset)
 
     if ((parseInt($navbarNav.css('left')) + offset) >= 0) {
@@ -240,12 +240,12 @@ jsBackend.navigation = {
   },
 
   calculateNavbarWidth: function () {
-    var $navItem = $('.navbar-default .nav-item')
+    var $navItem = $('.navbar-main .nav-item')
     return $navItem.width() * $navItem.length
   },
 
   calculateOffset: function (offset) {
-    var $navbarNav = $('.navbar-default .navbar-nav')
+    var $navbarNav = $('.navbar-main .navbar-nav')
     return this.calculateWindowWidth() - this.calculateNavbarWidth() - parseInt($navbarNav.css('left')) - offset
   }
 }
@@ -471,7 +471,7 @@ jsBackend.ckeditor = {
     // get the editor
     var editor = evt.editor
 
-    // on initialisation we should force the check, which will be passed in the data-container
+    // on initialisation we should force the check, which will be passed in the data-bs-container
     var forced = (typeof evt.forced === 'boolean') ? evt.forced : false
 
     // was the content changed, or is the check forced?
@@ -551,40 +551,14 @@ jsBackend.ckeditor = {
   },
 
   fallBackBootstrapModals: function () {
-    $.fn.modal.Constructor.prototype.enforceFocus = function () {
-      var modalThis = this
-      $(document).on('focusin.modal', function (e) {
-        // Re-entrancy guard: forcing focus below fires another focusin
-        // synchronously. Without this guard the modal and CKEditor can keep
-        // handing focus back and forth within a single event dispatch until
-        // the call stack overflows (RangeError: Maximum call stack size exceeded).
-        if (modalThis.isEnforcingFocus) {
-          return
-        }
-
-        // Don't enforce focus for a modal that isn't visible. A modal can be
-        // hidden while its focusin handler is still bound (e.g. a second modal
-        // opened from the first, like the user template edit form opened from
-        // the add-block chooser); it would otherwise steal focus from the
-        // inputs in the visible modal.
-        if (!modalThis.$element.is(':visible')) {
-          return
-        }
-
-        // Leave focus alone when it lands anywhere inside a CKEditor instance:
-        // its editing surface and Source view textarea (.cke / .cke_source) and
-        // its dialog popups (.cke_dialog). CKEditor manages focus there itself.
-        var isCkEditorElement = $(e.target).closest('.cke, .cke_source, .cke_dialog').length > 0
-
-        if (modalThis.$element[0] !== e.target &&
-          !modalThis.$element.has(e.target).length &&
-          !isCkEditorElement) {
-          modalThis.isEnforcingFocus = true
-          modalThis.$element.focus()
-          modalThis.isEnforcingFocus = false
-        }
-      })
-    }
+    // Bootstrap 5 traps the focus inside an open modal with a document focusin listener. CKEditor renders its
+    // editing surface, Source view and dialogs outside the modal, so stop that listener for focus inside CKEditor.
+    // This listener is bound before any modal opens, so it runs before the one Bootstrap binds on show.
+    document.addEventListener('focusin', function (e) {
+      if ($(e.target).closest('.cke, .cke_source, .cke_dialog').length > 0) {
+        e.stopImmediatePropagation()
+      }
+    })
   }
 }
 
@@ -1187,17 +1161,17 @@ jsBackend.effects = {
 
   // Adds classes to collapsible panels
   panels: function () {
-    $('.panel .collapse').on({
+    $('.card .collapse').on({
       'show.bs.collapse': function () {
         // Remove open class from other panels
-        $(this).parents('.panel-group').find('.panel').removeClass('open')
+        $(this).parents('.fork-collapse-group').find('.card').removeClass('open')
 
         // Add open class to active panel
-        $(this).parent('.panel').addClass('open')
+        $(this).parent('.card').addClass('open')
       },
       'hide.bs.collapse': function () {
         // Remove open class from closed panel
-        $(this).parent('.panel').removeClass('open')
+        $(this).parent('.card').removeClass('open')
       }
     })
   }
@@ -1248,7 +1222,7 @@ jsBackend.forms = {
       var invalidTabId = $invalidField.closest('.tab-pane').attr('id')
 
       // Find the link that corresponds to the pane and have it show
-      $('a[href=#' + invalidTabId + '], [data-target=#' + invalidTabId + ']').tab('show')
+      $('a[href="#' + invalidTabId + '"], [data-bs-target="#' + invalidTabId + '"]').tab('show')
       $invalidField.focus()
     })
   },
@@ -1549,7 +1523,7 @@ jsBackend.forms = {
 
       allTags.initialize()
       $('.js-tags-input').tagsinput({
-        tagClass: 'label label-primary',
+        tagClass: 'label text-bg-primary',
         typeaheadjs: {
           name: 'Tags',
           source: allTags.ttAdapter()
@@ -1850,9 +1824,7 @@ jsBackend.messages = {
       '<div class="container-fluid">' +
       '<i class="fa fa-' + icon + '" aria-hidden="true"></i>' + ' ' +
       content +
-      '<button type="button" class="close" data-dismiss="alert" aria-label="' + utils.string.ucfirst(jsBackend.locale.lbl('Close')) + '">' +
-      '<span aria-hidden="true" class="fa fa-close"></span>' +
-      '</button>' +
+      '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' + utils.string.ucfirst(jsBackend.locale.lbl('Close')) + '"></button>' +
       '</div>' +
       '</div>'
 
@@ -1884,7 +1856,6 @@ jsBackend.tabs = {
   // init, something like a constructor
   init: function () {
     if ($('.nav-tabs').length > 0) {
-      $('.nav-tabs').tab()
 
       $('.tab-content .tab-pane').each(function () {
         if ($(this).find('.formError').length > 0) {
@@ -1927,7 +1898,7 @@ jsBackend.tooltip = {
   init: function () {
     // variables
 
-    var $tooltip = $('[data-toggle="tooltip"]')
+    var $tooltip = $('[data-bs-toggle="tooltip"]')
 
     if ($tooltip.length > 0) {
       $tooltip.tooltip()
