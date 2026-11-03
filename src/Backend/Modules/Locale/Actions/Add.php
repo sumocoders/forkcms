@@ -68,7 +68,7 @@ class Add extends BackendBaseActionAdd
         $this->form->addDropdown(
             'type',
             BackendLocaleModel::getTypesForDropDown(),
-            $originalTranslation ? $originalTranslation['type'] : $this->filter['type'][0]
+            $originalTranslation ? $originalTranslation['type'] : ($this->filter['type'][0] ?? null)
         );
         $this->form->addText(
             'name',
@@ -116,8 +116,8 @@ class Add extends BackendBaseActionAdd
         }
         $this->filter['application'] = $this->getRequest()->query->get('application');
         $this->filter['module'] = $this->getRequest()->query->get('module');
-        $this->filter['type'] = $this->getRequest()->query->all()['type'] ?? '';
-        if ($this->filter['type'] === '') {
+        $this->filter['type'] = (array) ($this->getRequest()->query->all()['type'] ?? []);
+        if ($this->filter['type'] === []) {
             $this->filter['type'] = null;
         }
         $this->filter['name'] = $this->getRequest()->query->get('name');

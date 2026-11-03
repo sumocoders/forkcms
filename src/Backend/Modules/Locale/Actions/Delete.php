@@ -79,8 +79,8 @@ class Delete extends BackendBaseActionDelete
         }
         $this->filter['application'] = $this->getRequest()->query->get('application');
         $this->filter['module'] = $this->getRequest()->query->get('module');
-        $this->filter['type'] = $this->getRequest()->query->all()['type'] ?? '';
-        if ($this->filter['type'] === '') {
+        $this->filter['type'] = (array) ($this->getRequest()->query->all()['type'] ?? []);
+        if ($this->filter['type'] === []) {
             $this->filter['type'] = null;
         }
         $this->filter['name'] = $this->getRequest()->query->get('name');
