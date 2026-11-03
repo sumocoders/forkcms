@@ -95,7 +95,7 @@ module.exports = {
         ...copyVendorFiles([
           'jquery/dist/jquery.min.js',
           'jquery-migrate/dist/jquery-migrate.min.js',
-          'jquery-ui-dist/jquery-ui.min.js',
+          'jquery-ui/dist/jquery-ui.min.js',
           'bootstrap5/dist/js/bootstrap.bundle.min.js',
           'tom-select/dist/js/tom-select.complete.min.js',
           'fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js',
