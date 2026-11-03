@@ -19,20 +19,19 @@
 {% block content %}
 
   {% if hasMultipleCategories %}
-    <div class="content-block content-block-p">
+    <div class="content-block">
       {% form filter %}
-      <div class="row">
+      <div class="row align-items-end">
         <div class="col-md-4">
           <div class="form-group">
             <label for="category" class="form-label">{{ 'msg.ShowOnlyItemsInCategory'|trans }}</label>
             {% form_field category %} {% form_field_error category %}
           </div>
         </div>
-      </div>
-
-      <div class="btn-toolbar">
-        <div class="btn-group pull-right">
-          {{ macro.buttonIcon('', 'refresh', 'lbl.UpdateFilter'|trans|ucfirst, 'btn-primary', {"type":"submit", "name":"search", "id":"search"}) }}
+        <div class="col-md-auto">
+          <div class="form-group">
+            {{ macro.buttonIcon('', 'refresh', 'lbl.UpdateFilter'|trans|ucfirst, 'btn-primary', {"type":"submit", "name":"search", "id":"search"}) }}
+          </div>
         </div>
       </div>
       {% endform %}
