@@ -853,6 +853,7 @@ jsBackend.mediaLibraryHelper.group = {
 
 jsBackend.mediaLibraryHelper.cropper = {
   cropperQueue: [],
+  instance: null,
   isCropping: false,
   scaleY: 1,
   scaleX: 1,
@@ -928,9 +929,18 @@ jsBackend.mediaLibraryHelper.cropper = {
   },
 
   initCropper: function ($dialog, resizeInfo, readyCallback) {
-    $(resizeInfo.sourceCanvas)
-    .addClass('img-fluid')
-    .cropper(jsBackend.mediaLibraryHelper.cropper.getCropperConfig(readyCallback))
+    resizeInfo.sourceCanvas.classList.add('img-fluid')
+    jsBackend.mediaLibraryHelper.cropper.instance = new Cropper(
+      resizeInfo.sourceCanvas,
+      jsBackend.mediaLibraryHelper.cropper.getCropperConfig(readyCallback)
+    )
+  },
+
+  destroyCropper: function () {
+    if (jsBackend.mediaLibraryHelper.cropper.instance) {
+      jsBackend.mediaLibraryHelper.cropper.instance.destroy()
+      jsBackend.mediaLibraryHelper.cropper.instance = null
+    }
   },
 
   getCropperConfig: function (readyCallback) {
@@ -994,7 +1004,7 @@ jsBackend.mediaLibraryHelper.cropper = {
     return function () {
       $dialog.off('hidden.bs.modal.media-library-cropper.close')
 
-      $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas').cropper('destroy')
+      jsBackend.mediaLibraryHelper.cropper.destroyCropper()
       reject('Cancel')
       jsBackend.mediaLibraryHelper.cropper.finish($dialog)
     }
@@ -1003,75 +1013,64 @@ jsBackend.mediaLibraryHelper.cropper = {
   getCropEventFunction: function ($dialog, resizeInfo, resolve) {
     return function () {
       var context = resizeInfo.targetCanvas.getContext('2d')
-      var $cropper = $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas')
-      var cropBoxData = $cropper.cropper('getCroppedCanvas')
+      var croppedCanvas = jsBackend.mediaLibraryHelper.cropper.instance.getCroppedCanvas()
       var zoomTo = 1
 
       // limit the width and height of the images to 3000 so they are not too big for the LiipImagine bundle
-      if (cropBoxData.height > 3000 || cropBoxData.width > 3000) {
-        zoomTo = 3000 / ((cropBoxData.height >= cropBoxData.width) ? cropBoxData.height : cropBoxData.width)
+      if (croppedCanvas.height > 3000 || croppedCanvas.width > 3000) {
+        zoomTo = 3000 / ((croppedCanvas.height >= croppedCanvas.width) ? croppedCanvas.height : croppedCanvas.width)
       }
 
       // set the correct height and width on the target canvas
-      resizeInfo.targetCanvas.height = Math.round(cropBoxData.height * zoomTo)
-      resizeInfo.targetCanvas.width = Math.round(cropBoxData.width * zoomTo)
+      resizeInfo.targetCanvas.height = Math.round(croppedCanvas.height * zoomTo)
+      resizeInfo.targetCanvas.width = Math.round(croppedCanvas.width * zoomTo)
 
       // make sure we start with a blank slate
       context.clearRect(0, 0, resizeInfo.targetCanvas.width, resizeInfo.targetCanvas.height)
 
       // add the new crop
-      context.drawImage($cropper.cropper('getCroppedCanvas'), 0, 0, resizeInfo.targetCanvas.width, resizeInfo.targetCanvas.height)
+      context.drawImage(croppedCanvas, 0, 0, resizeInfo.targetCanvas.width, resizeInfo.targetCanvas.height)
 
       $dialog.off('hidden.bs.modal.media-library-cropper.close')
       resolve('Confirm')
       $dialog.find('[data-role=media-library-cropper-crop]').off('click.media-library-cropper.crop')
-      $cropper.cropper('destroy')
+      jsBackend.mediaLibraryHelper.cropper.destroyCropper()
       jsBackend.mediaLibraryHelper.cropper.finish($dialog)
     }
   },
 
   getRotateEventFunction: function () {
     return function () {
-      var $cropper = $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas')
-      $cropper.cropper('rotate', $(this).data('degrees'))
-      $cropper.cropper('crop')
+      jsBackend.mediaLibraryHelper.cropper.instance.rotate($(this).data('degrees')).crop()
     }
   },
 
   getZoomEventFunction: function () {
     return function () {
-      var $cropper = $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas')
-      $cropper.cropper('zoom', $(this).data('zoom'))
-      $cropper.cropper('crop')
+      jsBackend.mediaLibraryHelper.cropper.instance.zoom($(this).data('zoom')).crop()
     }
   },
 
   getMoveEventFunction: function () {
     return function () {
-      var $cropper = $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas')
-      $cropper.cropper('move', $(this).data('x'), $(this).data('y'))
-      $cropper.cropper('crop')
+      jsBackend.mediaLibraryHelper.cropper.instance.move($(this).data('x'), $(this).data('y')).crop()
     }
   },
 
   getFlipEventFunction: function () {
     return function () {
-      var $cropper = $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas')
       var isHorizontal = $(this).data('direction') === 'horizontal'
       var method = isHorizontal ? 'scaleX' : 'scaleY'
       jsBackend.mediaLibraryHelper.cropper[method] = jsBackend.mediaLibraryHelper.cropper[method] * -1
 
-      $cropper.cropper(method, jsBackend.mediaLibraryHelper.cropper[method])
-      $cropper.cropper('crop')
+      jsBackend.mediaLibraryHelper.cropper.instance[method](jsBackend.mediaLibraryHelper.cropper[method]).crop()
     }
   },
 
   getResetEventFunction: function () {
     return function () {
       jsBackend.mediaLibraryHelper.cropper.resetScaleSettings()
-      var $cropper = $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas')
-      $cropper.cropper('reset')
-      $cropper.cropper('crop')
+      jsBackend.mediaLibraryHelper.cropper.instance.reset().crop()
     }
   },
 
