@@ -10,7 +10,7 @@
           {% set url = (url ~ '?revision=' ~ item.revision_id) %}
         {% endif %}
 
-        {{ macro.buttonIcon(url, 'eye', 'lbl.View'|trans|ucfirst) }}
+        {{ macro.buttonIcon(url, 'eye', 'lbl.View'|trans|ucfirst, 'btn-secondary', { "target":"_blank", "rel":"noopener noreferrer" }) }}
       {% endif %}
     </div>
   </div>
