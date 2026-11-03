@@ -62,28 +62,33 @@
   > .btn {
     flex: 0 1 auto;
     margin: 1px 0;
+  }
 
-    &:not(:first-child) {
-      margin-left: 2px;
-    }
+  // same selector as the Bootstrap rule that joins the buttons, so these win by source order
+  > :not(.btn-check:first-child) + .btn {
+    margin-left: 2px;
+  }
 
-    + .btn.dropdown-toggle {
-      margin-left: -1px;
-    }
+  > :not(.btn-check:first-child) + .btn.dropdown-toggle {
+    margin-left: -1px;
   }
 
   @include media-breakpoint-up(lg) {
     > .btn {
       margin: 6px 0;
+    }
 
-      &:not(:first-child) {
-        margin-left: 6px;
-      }
+    > :not(.btn-check:first-child) + .btn {
+      margin-left: 6px;
+    }
+
+    > :not(.btn-check:first-child) + .btn.dropdown-toggle {
+      margin-left: -1px;
     }
   }
 
   > .btn:not(:last-child):not(.dropdown-toggle),
-  > .btn:not(:first-child) {
+  > :not(.btn-check:first-child) + .btn:not(.dropdown-toggle) {
     border-radius: 3px;
   }
 }
