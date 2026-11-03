@@ -29,7 +29,7 @@ module.exports = {
     clean: true
   },
   mode: 'development',
-  externals: ['jquery'],
+  externals: { jquery: 'jQuery' },
   optimization: {
     // webpack 5.112 minifies CSS and HTML assets in production by default, which strips optional tags from the copied user templates
     minimizeOptions: { css: false, html: false }
