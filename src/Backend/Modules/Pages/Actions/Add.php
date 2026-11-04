@@ -791,6 +791,12 @@ class Add extends BackendBaseActionAdd
                         continue;
                     }
 
+                    // Only images uploaded through the user template editor live in the upload folder,
+                    // theme assets such as placeholders stay as they are
+                    if (!str_starts_with($imagePath, $url . '/')) {
+                        continue;
+                    }
+
                     $basename = pathinfo($imagePath, PATHINFO_FILENAME);
                     $extension = pathinfo($imagePath, PATHINFO_EXTENSION);
                     $originalFilename = $basename . '.' . $extension;
