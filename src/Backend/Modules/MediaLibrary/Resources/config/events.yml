@@ -9,11 +9,14 @@ services:
         arguments:
             - "@media_library.cache.media_folder"
         tags:
-            - { name: doctrine.event_subscriber }
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: doctrine.event_listener, event: postRemove }
     media_library.listener.media_item:
         class: Backend\Modules\MediaLibrary\EventListener\MediaItemSubscriber
         tags:
-            - { name: doctrine.event_subscriber }
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postRemove }
         arguments:
             - "@media_library.manager.file"
             - "@liip_imagine.cache.manager"
