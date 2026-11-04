@@ -4,29 +4,19 @@ namespace Backend\Modules\MediaLibrary\EventListener;
 
 use Backend\Modules\MediaLibrary\Manager\FileManager;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
-use Doctrine\ORM\Events;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 
 /**
  * MediaItem Subscriber
  */
-final class MediaItemSubscriber implements EventSubscriber
+final class MediaItemSubscriber
 {
     public function __construct(
         protected FileManager $fileManager,
         protected CacheManager $cacheManager,
     ) {
-    }
-
-    public function getSubscribedEvents(): array
-    {
-        return [
-            Events::postPersist,
-            Events::postRemove,
-        ];
     }
 
     private function deleteSource(MediaItem $mediaItem): void
