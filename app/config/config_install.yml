@@ -14,7 +14,7 @@ framework:
     session:
         handler_id: ~
     validation:
-        enable_annotations: true
+        enabled: true
     cache:
         app: cache.adapter.filesystem
         pools:

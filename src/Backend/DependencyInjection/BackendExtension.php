@@ -38,7 +38,7 @@ class BackendExtension extends Extension implements PrependExtensionInterface
                     'orm' => [
                         'mappings' => [
                             $module => [
-                                'type' => 'annotation',
+                                'type' => 'attribute',
                                 'is_bundle' => false,
                                 'dir' => $dir,
                                 'prefix' => 'Backend\\Modules\\' . $module . '\\Entity',

@@ -4,10 +4,10 @@ namespace Backend\Modules\MediaLibrary\EventListener;
 
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\Command\SaveMediaGroup;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
 use Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem;
+use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
@@ -20,7 +20,7 @@ final readonly class MediaItemDeletedReSequenceMediaGroupMediaItemListener
     ) {
     }
 
-    public function postRemove(LifecycleEventArgs $eventArgs): void
+    public function postRemove(PostRemoveEventArgs $eventArgs): void
     {
         $entity = $eventArgs->getObject();
         if (!$entity instanceof MediaItem) {

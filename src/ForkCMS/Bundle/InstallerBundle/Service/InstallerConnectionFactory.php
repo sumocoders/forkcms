@@ -3,7 +3,6 @@
 namespace ForkCMS\Bundle\InstallerBundle\Service;
 
 use Doctrine\Bundle\DoctrineBundle\ConnectionFactory;
-use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
@@ -12,18 +11,17 @@ use ForkCMS\Bundle\InstallerBundle\Controller\InstallerController;
 use ForkCMS\Bundle\InstallerBundle\Entity\InstallationData;
 use Doctrine\DBAL\Exception\ConnectionException;
 
-class InstallerConnectionFactory extends ConnectionFactory
+class InstallerConnectionFactory
 {
     public function createConnection(
         array $params,
-        ?Configuration $config = null,
-        ?EventManager $eventManager = null,
-        array $mappingTypes = []
+        Configuration|null $config = null,
+        array $mappingTypes = [],
     ): Connection {
         try {
             $installationData = $this->getInstallationData();
             if ($installationData->getDatabaseHostname() === null) {
-                return $this->getInstallerConnection($params, $config, $eventManager);
+                return $this->getInstallerConnection($params, $config);
             }
 
             $params['host'] = $installationData->getDatabaseHostname();
@@ -33,9 +31,9 @@ class InstallerConnectionFactory extends ConnectionFactory
             $params['password'] = $installationData->getDatabasePassword();
 
             //continue with regular connection creation using new params
-            return parent::createConnection($params, $config, $eventManager, $mappingTypes);
+            return (new ConnectionFactory)->createConnection($params, $config, $mappingTypes);
         } catch (ConnectionException | Exception) {
-            return $this->getInstallerConnection($params, $config, $eventManager);
+            return $this->getInstallerConnection($params, $config);
         }
     }
 
@@ -49,12 +47,12 @@ class InstallerConnectionFactory extends ConnectionFactory
     }
 
     private function getInstallerConnection(
+        #[\SensitiveParameter]
         array $params,
         ?Configuration $config = null,
-        ?EventManager $eventManager = null
     ): Connection {
-        $normalConnection = DriverManager::getConnection($params, $config, $eventManager);
+        $normalConnection = DriverManager::getConnection($params, $config);
 
-        return new Connection($params, $normalConnection->getDriver(), $config, $eventManager);
+        return new Connection($params, $normalConnection->getDriver(), $config);
     }
 }

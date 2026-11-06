@@ -4,33 +4,31 @@ namespace Common\Doctrine\Entity;
 
 use Backend\Core\Engine\Meta as BackendMeta;
 use Backend\Core\Engine\Model as BackendModel;
+use Common\Doctrine\Repository\MetaRepository;
 use Common\Doctrine\ValueObject\SEOFollow;
 use Common\Doctrine\ValueObject\SEOIndex;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Utility\Thumbnails;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- * @ORM\Table(name="meta", indexes={@ORM\Index(name="idx_url", columns={"url"})})
- * @ORM\Entity(repositoryClass="Common\Doctrine\Repository\MetaRepository")
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Table(name: 'meta')]
+#[ORM\Index(name: 'idx_url', columns: ['url'])]
+#[ORM\Entity(repositoryClass: MetaRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Meta
 {
     /**
      * @var string|null
      *
      * Only can be string during persisting or updating in the database as it then contains the serialised value
-     *
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $data;
 
     /**
      * @var string|null
-     *
-     * @ORM\Column(type="string", length=255, name="og_image", nullable=true)
      */
+    #[ORM\Column(type: 'string', length: 255, name: 'og_image', nullable: true)]
     private $ogImage;
 
     /**
@@ -39,61 +37,36 @@ class Meta
     private $oldOgImage;
 
     public function __construct(
-        /**
-         * @ORM\Column(type="string", length=255)
-         */
+        #[ORM\Column(type: 'string', length: 255)]
         private string $keywords,
-        /**
-         * @ORM\Column(type="boolean", name="keywords_overwrite", options={"default" = false})
-         */
+        #[ORM\Column(type: 'boolean', name: 'keywords_overwrite', options: ['default' => false])]
         private bool $keywordsOverwrite,
-        /**
-         * @ORM\Column(type="string", length=255)
-         */
+        #[ORM\Column(type: 'string', length: 255)]
         private string $description,
-        /**
-         * @ORM\Column(type="boolean", name="description_overwrite", options={"default" = false})
-         */
+        #[ORM\Column(type: 'boolean', name: 'description_overwrite', options: ['default' => false])]
         private bool $descriptionOverwrite,
-        /**
-         * @ORM\Column(type="string", length=255)
-         */
+        #[ORM\Column(type: 'string', length: 255)]
         private string $title,
-        /**
-         * @ORM\Column(type="boolean", name="title_overwrite", options={"default" = false})
-         */
+        #[ORM\Column(type: 'boolean', name: 'title_overwrite', options: ['default' => false])]
         private bool $titleOverwrite,
-        /**
-         * @ORM\Column(type="string", length=255)
-         */
+        #[ORM\Column(type: 'string', length: 255)]
         private string $url,
-        /**
-         * @ORM\Column(type="boolean", name="url_overwrite", options={"default" = false})
-         */
+        #[ORM\Column(type: 'boolean', name: 'url_overwrite', options: ['default' => false])]
         private bool $urlOverwrite,
         ?string $canonicalUrl,
         bool $canonicalUrlOverwrite,
-        /**
-         * @ORM\Column(type="text", nullable=true)
-         */
+        #[ORM\Column(type: 'text', nullable: true)]
         private ?string $custom = null,
-        /**
-         * @ORM\Column(type="seo_follow", name="seo_follow", nullable=true)
-         */
+        #[ORM\Column(type: 'seo_follow', name: 'seo_follow', nullable: true)]
         private ?SEOFollow $seoFollow = null,
-        /**
-         * @ORM\Column(type="seo_index", name="seo_index", nullable=true)
-         */
+        #[ORM\Column(type: 'seo_index', name: 'seo_index', nullable: true)]
         private ?SEOIndex $seoIndex = null,
         private array $unserialisedData = [],
         private ?UploadedFile $uploadedOgImage = null,
         private bool $deleteOgImage = false,
-        /**
-         *
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="AUTO")
-         * @ORM\Column(type="integer")
-         */
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'AUTO')]
+        #[ORM\Column(type: 'integer')]
         private ?int $id = null,
     ) {
         if ($canonicalUrlOverwrite) {
@@ -151,10 +124,8 @@ class Meta
         }
     }
 
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function serialiseData()
     {
         if (!empty($this->unserialisedData)) {
@@ -166,11 +137,9 @@ class Meta
         $this->data = null;
     }
 
-    /**
-     * @ORM\PostPersist
-     * @ORM\PostUpdate
-     * @ORM\PostLoad
-     */
+    #[ORM\PostPersist]
+    #[ORM\PostUpdate]
+    #[ORM\PostLoad]
     public function unSerialiseData()
     {
         if ($this->data === null) {
@@ -348,10 +317,8 @@ class Meta
         return $this->deleteOgImage;
     }
 
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function prepareOgImage(): void
     {
         $this->oldOgImage = $this->ogImage;
@@ -364,10 +331,8 @@ class Meta
         }
     }
 
-    /**
-     * @ORM\PostPersist()
-     * @ORM\PostUpdate()
-     */
+    #[ORM\PostPersist]
+    #[ORM\PostUpdate]
     public function uploadOgImage(): void
     {
         $imagePath = FRONTEND_FILES_PATH . '/Pages/images';
@@ -392,9 +357,7 @@ class Meta
         $thumbnails->generate($imagePath, $imageFullPath);
     }
 
-    /**
-     * @ORM\PostRemove()
-     */
+    #[ORM\PostRemove]
     public function removeOgImage(): void
     {
         $imagePath = FRONTEND_FILES_PATH . '/Pages/images';

@@ -10,87 +10,60 @@ use JsonSerializable;
 
 /**
  * MediaFolder
- *
- * @ORM\Entity(repositoryClass="Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository")
- * @ORM\HasLifecycleCallbacks
  */
+#[ORM\Entity(repositoryClass: MediaFolderRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class MediaFolder implements JsonSerializable, \Stringable
 {
     /**
      * @var int
-     *
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
     /**
      * @var MediaFolder|null
-     *
-     * @ORM\ManyToOne(
-     *     targetEntity="Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder",
-     *     inversedBy="children",
-     *     cascade={"persist"}
-     * )
-     * @ORM\JoinColumn(
-     *     name="parentMediaFolderId",
-     *     referencedColumnName="id",
-     *     onDelete="cascade"
-     * )
      */
+    #[ORM\JoinColumn(name: 'parentMediaFolderId', referencedColumnName: 'id', onDelete: 'cascade')]
+    #[ORM\ManyToOne(targetEntity: MediaFolder::class, cascade: ['persist'], inversedBy: 'children')]
     protected $parent;
 
     /**
      * @var int
-     *
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: 'integer')]
     protected $userId;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     protected $name;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
      */
+    #[ORM\Column(type: 'datetime')]
     protected $createdOn;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
      */
+    #[ORM\Column(type: 'datetime')]
     protected $editedOn;
 
     /**
      * @var Collection<MediaItem>
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem",
-     *     mappedBy="folder",
-     *     cascade={"persist","merge"},
-     *     orphanRemoval=true
-     * )
      */
+    #[ORM\OneToMany(mappedBy: 'folder', targetEntity: MediaItem::class, cascade: ['persist', 'refresh'], orphanRemoval: true)]
     protected $items;
 
     /**
      * @var Collection<MediaFolder>
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder",
-     *     mappedBy="parent",
-     *     cascade={"persist","merge"},
-     *     orphanRemoval=true
-     * )
      */
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: MediaFolder::class, cascade: ['persist', 'refresh'], orphanRemoval: true)]
     protected $children;
 
     /**
@@ -280,17 +253,13 @@ class MediaFolder implements JsonSerializable, \Stringable
         return false;
     }
 
-    /**
-     * @ORM\PrePersist
-     */
+    #[ORM\PrePersist]
     public function onPrePersist()
     {
         $this->createdOn = $this->editedOn = new \DateTime();
     }
 
-    /**
-     * @ORM\PreUpdate
-     */
+    #[ORM\PreUpdate]
     public function onPreUpdate()
     {
         $this->editedOn = new \DateTime();

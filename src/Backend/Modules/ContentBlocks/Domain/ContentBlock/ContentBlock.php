@@ -7,74 +7,51 @@ use Common\Locale;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Table(name="content_blocks")
- * @ORM\Entity(repositoryClass="ContentBlockRepository")
- * @ORM\HasLifecycleCallbacks
- */
+#[ORM\Table(name: 'content_blocks')]
+#[ORM\Entity(repositoryClass: ContentBlockRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class ContentBlock
 {
     const DEFAULT_TEMPLATE = 'Default.html.twig';
 
     /**
      * @var int
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer", name="revision_id")
      */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer', name: 'revision_id')]
     private $revisionId;
 
     /**
      * @var DateTime
-     *
-     * @ORM\Column(type="datetime", name="created_on")
      */
+    #[ORM\Column(type: 'datetime', name: 'created_on')]
     private $createdOn;
 
     /**
      * @var DateTime
-     *
-     * @ORM\Column(type="datetime", name="edited_on")
      */
+    #[ORM\Column(type: 'datetime', name: 'edited_on')]
     private $editedOn;
 
     private function __construct(
-        /**
-         * @ORM\Column(type="integer")
-         */
+        #[ORM\Column(type: 'integer')]
         private int $id,
-        /**
-         * @ORM\Column(type="integer", name="user_id")
-         */
+        #[ORM\Column(type: 'integer', name: 'user_id')]
         private int $userId,
-        /**
-         * @ORM\Column(type="integer", name="extra_id")
-         */
+        #[ORM\Column(type: 'integer', name: 'extra_id')]
         private int $extraId,
-        /**
-         * @ORM\Column(type="string", length=255, options={"default" = "Default.html.twig"})
-         */
+        #[ORM\Column(type: 'string', length: 255, options: ['default' => 'Default.html.twig'])]
         private string $template,
-        /**
-         * @ORM\Column(type="locale", name="language")
-         */
+        #[ORM\Column(type: 'locale', name: 'language')]
         private Locale $locale,
-        /**
-         * @ORM\Column(type="string", length=255)
-         */
+        #[ORM\Column(type: 'string', length: 255)]
         private string $title,
-        /**
-         * @ORM\Column(type="text", nullable=true)
-         */
+        #[ORM\Column(type: 'text', nullable: true)]
         private string $text,
-        /**
-         * @ORM\Column(type="boolean", name="hidden", options={"default" = false})
-         */
+        #[ORM\Column(type: 'boolean', name: 'hidden', options: ['default' => false])]
         private bool $isHidden,
-        /**
-         * @ORM\Column(type="content_blocks_status", options={"default" = "active"})
-         */
+        #[ORM\Column(type: 'content_blocks_status', options: ['default' => 'active'])]
         private Status $status,
     ) {
     }
@@ -163,17 +140,13 @@ class ContentBlock
         return $this->editedOn;
     }
 
-    /**
-     * @ORM\PrePersist
-     */
+    #[ORM\PrePersist]
     public function prePersist()
     {
         $this->createdOn = $this->editedOn = new DateTime();
     }
 
-    /**
-     * @ORM\PostPersist
-     */
+    #[ORM\PostPersist]
     public function postPersist()
     {
         $this->updateWidget();
