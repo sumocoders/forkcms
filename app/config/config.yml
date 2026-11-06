@@ -15,7 +15,7 @@ framework:
         strict_requirements: ~
     form:            ~
     validation:
-        enable_annotations: true
+        enabled: true
     csrf_protection: ~
     session:
         handler_id: ~
