@@ -56,11 +56,12 @@ class UTCTimeType extends TimeType
         $time->setDate(1970, 1, 1);
 
         if (!$time) {
-            throw ConversionException::conversionFailedFormat(
+            throw new ConversionException(sprintf(
+                'value: %s type: %s format: %s',
                 $timeString,
-                $this->getName(),
+                'time',
                 $platform->getTimeFormatString()
-            );
+            ));
         }
 
         // set time zone

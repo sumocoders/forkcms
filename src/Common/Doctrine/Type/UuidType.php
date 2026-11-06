@@ -25,7 +25,7 @@ final class UuidType extends GuidType
         try {
             return Uuid::fromString($value);
         } catch (Throwable) {
-            throw ConversionException::conversionFailed($value, self::NAME);
+            throw new ConversionException($value, self::NAME);
         }
     }
 
@@ -47,7 +47,7 @@ final class UuidType extends GuidType
             }
         }
 
-        throw ConversionException::conversionFailed($value, self::NAME);
+        throw new ConversionException($value, self::NAME);
     }
 
     public function getName(): string

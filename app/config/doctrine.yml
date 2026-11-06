@@ -27,7 +27,6 @@ doctrine:
             uuid: Common\Doctrine\Type\UuidType
 
     orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
         entity_managers:
             default:
                 connection: default
