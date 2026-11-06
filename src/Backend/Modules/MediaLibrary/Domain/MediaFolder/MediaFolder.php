@@ -57,13 +57,13 @@ class MediaFolder implements JsonSerializable, \Stringable
     /**
      * @var Collection<MediaItem>
      */
-    #[ORM\OneToMany(mappedBy: 'folder', targetEntity: MediaItem::class, cascade: ['persist', 'merge'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'folder', targetEntity: MediaItem::class, cascade: ['persist', 'refresh'], orphanRemoval: true)]
     protected $items;
 
     /**
      * @var Collection<MediaFolder>
      */
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: MediaFolder::class, cascade: ['persist', 'merge'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: MediaFolder::class, cascade: ['persist', 'refresh'], orphanRemoval: true)]
     protected $children;
 
     /**

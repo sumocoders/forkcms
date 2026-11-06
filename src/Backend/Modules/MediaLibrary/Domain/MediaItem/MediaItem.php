@@ -119,7 +119,7 @@ class MediaItem implements JsonSerializable
     /**
      * @var Collection<MediaGroupMediaItem>
      */
-    #[ORM\OneToMany(mappedBy: 'item', targetEntity: MediaGroupMediaItem::class, cascade: ['persist', 'merge'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'item', targetEntity: MediaGroupMediaItem::class, cascade: ['persist', 'refresh'], orphanRemoval: true)]
     protected $groups;
 
     private function __construct(

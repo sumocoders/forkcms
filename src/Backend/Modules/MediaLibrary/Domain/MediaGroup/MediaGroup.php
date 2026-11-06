@@ -28,7 +28,7 @@ class MediaGroup implements JsonSerializable, Countable
     /**
      * @var Collection<MediaGroupMediaItem>
      */
-    #[ORM\OneToMany(mappedBy: 'group', targetEntity: MediaGroupMediaItem::class, cascade: ['persist', 'merge', 'remove', 'detach'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'group', targetEntity: MediaGroupMediaItem::class, cascade: ['persist', 'refresh', 'remove', 'detach'], orphanRemoval: true)]
     #[ORM\OrderBy(['sequence' => 'ASC'])]
     protected $connectedItems;
 

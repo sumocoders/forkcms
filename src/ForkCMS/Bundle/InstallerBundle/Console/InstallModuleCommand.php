@@ -126,7 +126,7 @@ class InstallModuleCommand extends Command
     {
         return $this->dbConnection
             ->executeQuery('SELECT name FROM modules')
-            ->fetchAllAssociative(PDO::FETCH_COLUMN);
+            ->fetchFirstColumn();
     }
 
     private function getModulesToInstall(): array
