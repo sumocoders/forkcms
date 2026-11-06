@@ -19,138 +19,107 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * MediaItem
- *
- * @ORM\Entity(repositoryClass="Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository")
- * @ORM\HasLifecycleCallbacks
  */
+#[ORM\Entity(repositoryClass: MediaItemRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class MediaItem implements JsonSerializable
 {
     /**
      * @var Uuid
-     *
-     * @ORM\Id()
-     * @ORM\Column(type="uuid", unique=true)
      */
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
     private $id;
 
     /**
      * @var MediaFolder
-     *
-     * @ORM\ManyToOne(
-     *      targetEntity="Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder",
-     *      inversedBy="items",
-     *      cascade={"persist"}
-     * )
-     * @ORM\JoinColumn(
-     *      name="mediaFolderId",
-     *      referencedColumnName="id",
-     *      onDelete="cascade",
-     *      nullable=false
-     * )
      */
+    #[ORM\JoinColumn(name: 'mediaFolderId', referencedColumnName: 'id', nullable: false, onDelete: 'cascade')]
+    #[ORM\ManyToOne(targetEntity: MediaFolder::class, cascade: ['persist'], inversedBy: 'items')]
     protected $folder;
 
     /**
      * @var int
-     *
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: 'integer')]
     protected $userId;
 
     /**
      * @var StorageType
-     *
-     * @ORM\Column(type="media_item_storage_type", options={"default"="local"})
      */
+    #[ORM\Column(type: 'media_item_storage_type', options: ['default' => 'local'])]
     protected $storageType;
 
     /**
      * @var Type
-     *
-     * @ORM\Column(type="media_item_type")
      */
+    #[ORM\Column(type: 'media_item_type')]
     protected $type;
 
     /**
      * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: 'string', nullable: true)]
     protected $mime;
 
     /**
      * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: 'string', nullable: true)]
     protected $shardingFolderName;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     protected $url;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     protected $title;
 
     /**
      * @var int|null
-     *
-     * @ORM\Column(type="integer", nullable=true)
      */
+    #[ORM\Column(type: 'integer', nullable: true)]
     protected $size;
 
     /**
      * @var int|null
-     *
-     * @ORM\Column(type="integer", nullable=true)
      */
+    #[ORM\Column(type: 'integer', nullable: true)]
     protected $width;
 
     /**
      * @var int|null
-     *
-     * @ORM\Column(type="integer", nullable=true)
      */
+    #[ORM\Column(type: 'integer', nullable: true)]
     protected $height;
 
     /**
      * @var AspectRatio|null
-     *
-     * @ORM\Column(type="media_item_aspect_ratio", nullable=true)
      */
+    #[ORM\Column(type: 'media_item_aspect_ratio', nullable: true)]
     protected $aspectRatio;
 
     /**
      * @var DateTime
-     *
-     * @ORM\Column(type="datetime")
      */
+    #[ORM\Column(type: 'datetime')]
     protected $createdOn;
 
     /**
      * @var DateTime
-     *
-     * @ORM\Column(type="datetime")
      */
+    #[ORM\Column(type: 'datetime')]
     protected $editedOn;
 
     /**
      * @var Collection<MediaGroupMediaItem>
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem",
-     *     mappedBy="item",
-     *     cascade={"persist","merge"},
-     *     orphanRemoval=true
-     * )
      */
+    #[ORM\OneToMany(mappedBy: 'item', targetEntity: MediaGroupMediaItem::class, cascade: ['persist', 'merge'], orphanRemoval: true)]
     protected $groups;
 
     private function __construct(
@@ -537,9 +506,7 @@ class MediaItem implements JsonSerializable
         $this->aspectRatio = AspectRatio::fromWidthAndHeight($this->width, $this->height);
     }
 
-    /**
-     * @ORM\PrePersist
-     */
+    #[ORM\PrePersist]
     public function onPrePersist()
     {
         $this->createdOn = $this->editedOn = new DateTime();
@@ -547,9 +514,7 @@ class MediaItem implements JsonSerializable
         $this->refreshAspectRatio();
     }
 
-    /**
-     * @ORM\PreUpdate
-     */
+    #[ORM\PreUpdate]
     public function onPreUpdate()
     {
         $this->editedOn = new DateTime();

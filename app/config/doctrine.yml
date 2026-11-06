@@ -35,7 +35,7 @@ doctrine:
                 naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
                 mappings:
                     common:
-                        type: annotation
+                        type: attribute
                         is_bundle: false
                         dir: "%kernel.project_dir%/src/Common/Doctrine/Entity"
                         alias: Common

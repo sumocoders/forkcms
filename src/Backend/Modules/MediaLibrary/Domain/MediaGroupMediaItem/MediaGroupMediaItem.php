@@ -11,66 +11,41 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * MediaGroup MediaItem
- *
- * @ORM\Entity(repositoryClass="Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItemRepository")
  */
+#[ORM\Entity(repositoryClass: MediaGroupMediaItemRepository::class)]
 class MediaGroupMediaItem implements JsonSerializable
 {
     /**
      * @var Uuid
-     *
-     * @ORM\Id()
-     * @ORM\Column(type="uuid", unique=true)
      */
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
     private $id;
 
     /**
      * @var MediaGroup
-     *
-     * @ORM\ManyToOne(
-     *     targetEntity="Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup",
-     *     inversedBy="connectedItems",
-     *     cascade={"persist"}
-     * )
-     * @ORM\JoinColumn(
-     *     name="mediaGroupId",
-     *     referencedColumnName="id",
-     *     onDelete="cascade",
-     *     nullable=false
-     * )
      */
+    #[ORM\JoinColumn(name: 'mediaGroupId', referencedColumnName: 'id', nullable: false, onDelete: 'cascade')]
+    #[ORM\ManyToOne(targetEntity: MediaGroup::class, cascade: ['persist'], inversedBy: 'connectedItems')]
     protected $group;
 
     /**
      * @var MediaItem
-     *
-     * @ORM\ManyToOne(
-     *     targetEntity="Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem",
-     *     inversedBy="groups",
-     *     cascade={"persist"},
-     *     fetch="EAGER"
-     * )
-     * @ORM\JoinColumn(
-     *     name="mediaItemId",
-     *     referencedColumnName="id",
-     *     onDelete="cascade",
-     *     nullable=false
-     * )
      */
+    #[ORM\JoinColumn(name: 'mediaItemId', referencedColumnName: 'id', nullable: false, onDelete: 'cascade')]
+    #[ORM\ManyToOne(targetEntity: MediaItem::class, cascade: ['persist'], fetch: 'EAGER', inversedBy: 'groups')]
     protected $item;
 
     /**
      * @var DateTime
-     *
-     * @ORM\Column(type="datetime")
      */
+    #[ORM\Column(type: 'datetime')]
     protected $createdOn;
 
     /**
      * @var int
-     *
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: 'integer')]
     protected $sequence;
 
     private function __construct(
