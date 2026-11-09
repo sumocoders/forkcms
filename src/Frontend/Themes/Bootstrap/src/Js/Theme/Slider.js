@@ -7,10 +7,12 @@ export class Slider {
   }
 
   initSlider () {
-    new Splide( '.splide', {
-      type   : 'loop',
-      perPage: 3,
-      gap: '1rem'
-    }).mount()
+    document.querySelectorAll('.splide').forEach((element) => {
+      new Splide(element, {
+        type   : 'loop',
+        perPage: 3,
+        gap: '1rem'
+      }).mount()
+    })
   }
 }
