@@ -249,7 +249,8 @@ class MediaGallery
             $this->getModuleExtraId(),
             'data',
             [
-                'gallery_id' => $this->id,
+                // a string, the frontend unserializes widget data without allowing objects
+                'gallery_id' => (string) $this->id,
                 'extra_label' => $this->getExtraLabel(),
                 'edit_url' => Model::createUrlForAction(
                     'MediaGalleryEdit',
