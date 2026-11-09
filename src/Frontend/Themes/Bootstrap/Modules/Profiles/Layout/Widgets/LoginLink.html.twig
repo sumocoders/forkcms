@@ -10,7 +10,8 @@
       {% if isLoggedIn %}
         <div class="dropdown">
           <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="profile-logged-in">
-            {{ 'msg.ProfilesLoggedInAs'|trans|format(profile.display_name|e, profile.url.dashboard)|raw }}
+            {# one flex item, so the inline-flex toggle keeps the space before the link #}
+            <span>{{ 'msg.ProfilesLoggedInAs'|trans|format(profile.display_name|e, profile.url.dashboard)|raw }}</span>
           </button>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="profile-logged-in">
             <a href="{{ profile.url.settings }}" class="dropdown-item">{{ 'lbl.Settings'|trans|ucfirst }}</a>
