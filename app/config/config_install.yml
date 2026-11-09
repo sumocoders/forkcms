@@ -39,7 +39,6 @@ monolog:
             level: debug
 
 parameters:
-    doctrine.dbal.connection_factory.class: ForkCMS\Bundle\InstallerBundle\Service\InstallerConnectionFactory
     fork.is_installed: false
     fork.form.theme: "ForkCMSInstallerBundle:Installer:form_theme.html.twig"
 
@@ -48,6 +47,13 @@ services:
         autowire: true
         autoconfigure: true
         public: true
+
+    # doctrine-bundle 3 removed the doctrine.dbal.connection_factory.class parameter,
+    # so the install-time factory has to decorate the service instead
+    ForkCMS\Bundle\InstallerBundle\Service\InstallerConnectionFactory:
+        decorates: doctrine.dbal.connection_factory
+        arguments:
+            - "@.inner"
 
     fork.settings:
         class: Common\ModulesSettings

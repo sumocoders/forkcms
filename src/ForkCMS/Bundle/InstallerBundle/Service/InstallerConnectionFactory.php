@@ -13,6 +13,10 @@ use Doctrine\DBAL\Exception\ConnectionException;
 
 class InstallerConnectionFactory
 {
+    public function __construct(private readonly ConnectionFactory $connectionFactory)
+    {
+    }
+
     public function createConnection(
         array $params,
         Configuration|null $config = null,
@@ -31,7 +35,7 @@ class InstallerConnectionFactory
             $params['password'] = $installationData->getDatabasePassword();
 
             //continue with regular connection creation using new params
-            return (new ConnectionFactory)->createConnection($params, $config, $mappingTypes);
+            return $this->connectionFactory->createConnection($params, $config, $mappingTypes);
         } catch (ConnectionException | Exception) {
             return $this->getInstallerConnection($params, $config);
         }
