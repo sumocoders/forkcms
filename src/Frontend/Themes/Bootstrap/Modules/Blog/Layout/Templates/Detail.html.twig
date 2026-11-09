@@ -30,7 +30,7 @@ variables that are available:
                 <span class="visually-hidden">{{ 'lbl.WithThe'|trans }}</span> {{ 'lbl.Tags'|trans|ucfirst }}:
                 <span itemprop="keywords">
             {% for tag in item.tags %}
-              <a class="badge badge-default" href="{{ tag.full_url }}" rel="tag">{{ tag.name }}</a>{% if not loop.last %}<span class="visually-hidden">,</span> {% endif %}
+              <a class="badge text-bg-secondary" href="{{ tag.full_url }}" rel="tag">{{ tag.name }}</a>{% if not loop.last %}<span class="visually-hidden">,</span> {% endif %}
             {% endfor %}
           </span>
               </p>

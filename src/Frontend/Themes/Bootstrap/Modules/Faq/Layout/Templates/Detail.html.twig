@@ -27,7 +27,7 @@ variables that are available:
               <span class="visually-hidden">{{ 'lbl.With'|trans }} {{ 'lbl.The'|trans }} </span>{{ 'lbl.Tags'|trans|ucfirst }}
               :
               {% for tag in item.tags %}
-                <a class="badge badge-default" href="{{ tag.full_url }}" rel="tag" title="{{ tag.name }}">{{ tag.name }}</a>
+                <a class="badge text-bg-secondary" href="{{ tag.full_url }}" rel="tag" title="{{ tag.name }}">{{ tag.name }}</a>
               {% endfor %}
             </p>
           {% endif %}
