@@ -6,7 +6,7 @@
 
 {% if isLoggedIn %}
   <div class="dropdown">
-    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="profile-logged-in">
+    <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="profile-logged-in">
       {{ 'msg.ProfilesLoggedInAs'|trans|format(profile.display_name|e, profile.url.dashboard)|raw }}
     </button>
     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="profile-logged-in">
