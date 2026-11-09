@@ -78,8 +78,7 @@ module.exports = {
         ...copyVendorFiles([
           'tom-select/dist/css/tom-select.bootstrap5.min.css',
           'bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.min.css',
-          'cropperjs/dist/cropper.min.css',
-          'bootstrap-accessibility-plugin/plugins/css/bootstrap-accessibility.css'
+          'cropperjs/dist/cropper.min.css'
         ], 'css/vendors'),
         ...copyVendorFiles([
           'fine-uploader/jquery.fine-uploader/fine-uploader-new.min.css',
@@ -88,7 +87,6 @@ module.exports = {
           'fine-uploader/jquery.fine-uploader/placeholders/not_available-generic.png'
         ], 'css/vendors/fine-uploader'),
         ...copyVendorFiles([
-          'font-awesome/fonts/*',
           '@fortawesome/fontawesome-free/webfonts/fa-solid-900.{woff2,ttf}',
           '@fortawesome/fontawesome-free/webfonts/fa-regular-400.{woff2,ttf}'
         ], 'fonts/vendors'),
@@ -101,8 +99,7 @@ module.exports = {
           'fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js',
           'simple-ajax-uploader/SimpleAjaxUploader.min.js',
           'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
-          'cropperjs/dist/cropper.min.js',
-          'bootstrap-accessibility-plugin/plugins/js/bootstrap-accessibility.min.js'
+          'cropperjs/dist/cropper.min.js'
         ], 'js/vendors'),
         ...ckeditorFiles.map((file) => ({
           from: file,
