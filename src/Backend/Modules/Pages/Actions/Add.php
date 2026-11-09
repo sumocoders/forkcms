@@ -438,7 +438,8 @@ class Add extends BackendBaseActionAdd
         $this->template->assign('positions', $this->positions);
         $this->template->assign(
             'extrasData',
-            json_encode(BackendModel::recursiveHtmlspecialchars(BackendExtensionsModel::getExtrasData()))
+            // Pages.js escapes the labels, hex the tags so the JSON is safe inside the inline script
+            json_encode(BackendExtensionsModel::getExtrasData(), JSON_HEX_TAG | JSON_HEX_AMP)
         );
         $this->template->assign('extrasById', json_encode(BackendExtensionsModel::getExtras()));
         $this->template->assign(

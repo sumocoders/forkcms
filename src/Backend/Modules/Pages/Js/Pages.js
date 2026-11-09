@@ -391,7 +391,7 @@ jsBackend.pages.extras = {
       // loop modules
       for (var i in extrasData) {
         // add option if needed
-        if (typeof extrasData[i]['items'][selectedType] !== 'undefined') $('#extraModule').append('<option value="' + extrasData[i].value + '">' + extrasData[i].name + '</option>')
+        if (typeof extrasData[i]['items'][selectedType] !== 'undefined') $('#extraModule').append('<option value="' + utils.string.htmlEncode(extrasData[i].value) + '">' + utils.string.htmlEncode(extrasData[i].name) + '</option>')
       }
 
       // show

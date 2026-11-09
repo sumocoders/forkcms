@@ -668,7 +668,11 @@ class Edit extends BackendBaseActionEdit
         $this->template->assign('isGod', $this->isGod);
         $this->template->assign('templates', $this->templates);
         $this->template->assign('positions', $this->positions);
-        $this->template->assign('extrasData', json_encode(BackendModel::recursiveHtmlspecialchars(BackendExtensionsModel::getExtrasData())));
+        // Pages.js escapes the labels, hex the tags so the JSON is safe inside the inline script
+        $this->template->assign(
+            'extrasData',
+            json_encode(BackendExtensionsModel::getExtrasData(), JSON_HEX_TAG | JSON_HEX_AMP)
+        );
         $this->template->assign('extrasById', json_encode($this->extras));
         $this->template->assign('prefixURL', rtrim(BackendPagesModel::getFullUrl($this->record['parent_id']), '/'));
         $this->template->assign('formErrors', (string) $this->form->getErrors());
