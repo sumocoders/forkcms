@@ -846,9 +846,9 @@ jsBackend.controls = {
           var element = $this.closest('.jsMassAction').find('select[name=action] option:selected')
 
           // if the rel-attribute exists we should show the dialog
-          if (typeof element.data('target') !== 'undefined') {
+          if (typeof element.data('bs-target') !== 'undefined') {
             // get id
-            var id = element.data('target')
+            var id = element.data('bs-target')
 
             $(id).modal('show')
           } else {
