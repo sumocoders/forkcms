@@ -1380,6 +1380,9 @@ jsBackend.forms = {
 
   // turn the comma separated tags fields into a Tom Select tag picker, suggesting the existing tags
   tagsInput: function () {
+    // every tag picker on the page shares one request for the existing tags
+    var tagsRequest = null
+
     $('.js-tags-input').each(function () {
       // eslint-disable-next-line no-new
       new TomSelect(this, {
@@ -1402,19 +1405,28 @@ jsBackend.forms = {
         load: function (query, callback) {
           var tomSelect = this
 
-          $.ajax({
-            data: {fork: {module: 'Tags', action: 'GetAllTags'}},
-            success: function (json) {
+          if (tagsRequest === null) {
+            tagsRequest = $.ajax({
+              data: {fork: {module: 'Tags', action: 'GetAllTags'}},
+              // a custom error handler also keeps the global ajax error message away
+              error: function () {
+                // forget the failed request so the next load tries again
+                tagsRequest = null
+              }
+            })
+          }
+
+          tagsRequest
+            .done(function (json) {
               // the full list is loaded once, Tom Select filters it while typing
               tomSelect.settings.load = null
               callback($.map(json.data, function (tag) {
                 return {value: tag}
               }))
-            },
-            error: function () {
+            })
+            .fail(function () {
               callback()
-            }
-          })
+            })
         }
       })
     })
