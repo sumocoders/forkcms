@@ -747,16 +747,13 @@ jsBackend.mediaLibraryHelper.group = {
     // init $tabs
     var $tabs = $('#tabLibrary').find('.nav-tabs')
 
-    // remove selected
-    $tabs.find('.active').removeClass('active')
-
     // not in connect-to-group modus (just uploading)
     if (typeof mediaGroups[currentMediaGroupId] === 'undefined') {
       return false
     }
 
     // Enable all because we can switch between different groups on the same page
-    $tabs.children('li').removeClass('disabled, active').children('a').attr('data-bs-toggle', 'tab')
+    $tabs.children('li').children('a').removeClass('disabled').attr('data-bs-toggle', 'tab')
 
     var disabled = ''
     var enabled = 'li:eq(0)'
@@ -780,7 +777,7 @@ jsBackend.mediaLibraryHelper.group = {
     }
 
     if (disabled !== '') {
-      $tabs.children(disabled).addClass('disabled').children('a').removeAttr('data-bs-toggle')
+      $tabs.children(disabled).children('a').addClass('disabled').removeAttr('data-bs-toggle')
     }
     $tabs.children(enabled).children('a').attr('data-bs-toggle', 'tab').first().tab('show')
 
