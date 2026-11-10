@@ -8,8 +8,9 @@
       {% if iconRight %}{{ macro.icon(icon) }}{% endif %}
     </a>
   {% else %}
-    {% if extra['data-bs-toggle'] is defined and extra['type'] is not defined %}
-      {% set extra = extra|merge({'type' : 'button'}) %}
+    {# Bootstrap 5 no longer prevents the default action of dismiss buttons, so inside a form they would submit it #}
+    {% if (extra['data-bs-toggle'] is defined or extra['data-bs-dismiss'] is defined) and extra['type'] is not defined %}
+      {% set extra = extra|merge({type: 'button'}) %}
     {% endif %}
     <button class="btn {{ buttonType|default('btn-secondary') }}" title="{{ label }}" {% if extra is iterable %}{% for attr, value in extra %} {{ attr }}="{{ value }}"{% endfor %}{% else %}{{ extra }}{% endif %}>
       {% if not iconRight %}{{ macro.icon(icon) }}{% endif %}
