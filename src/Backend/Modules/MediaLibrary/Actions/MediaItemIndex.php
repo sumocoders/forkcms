@@ -94,8 +94,8 @@ class MediaItemIndex extends BackendBaseActionIndex
         $request = $this->getRequest();
         $data = [];
 
-        if (!empty((string) $request->get('query'))) {
-            $data['query'] = (string) $request->get('query');
+        if (!empty((string) $request->query->get('query'))) {
+            $data['query'] = $request->query->getString('query');
         }
 
         $form = $this->createForm(MediaItemSearchType::class, $data);
@@ -123,7 +123,7 @@ class MediaItemIndex extends BackendBaseActionIndex
 
         /** @var MediaFolder|null $mediaFolder */
         $mediaFolder = $this->getMediaFolder();
-        $searchQuery = $this->getRequest()->get('query');
+        $searchQuery = $this->getRequest()->query->get('query');
         $searchForm = $this->getSearchForm();
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {

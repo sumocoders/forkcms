@@ -45,7 +45,7 @@ class UploadFile extends AjaxAction
             $fileName = $this->writeFile(
                 $this->getFileContentFromRequest($request),
                 $this->getFileNameFromRequest($request),
-                $request->get('type')
+                $request->query->get('type') ?? $request->request->get('type')
             );
         } catch (Exception $backendCoreException) {
             $this->output(Response::HTTP_BAD_REQUEST, $backendCoreException->getMessage());
