@@ -162,7 +162,7 @@ class MediaItemMassAction extends BackendBaseAction
 
     private function getSelectedMediaItemIds(): array
     {
-        $ids = $this->getRequest()->request->get('id');
+        $ids = (array) ($this->getRequest()->request->all()['id'] ?? []);
 
         if (empty($ids)) {
             $this->redirect(

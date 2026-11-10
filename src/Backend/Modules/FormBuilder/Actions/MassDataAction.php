@@ -38,7 +38,7 @@ class MassDataAction extends BackendBaseAction
             $this->redirect(BackendModel::createUrlForAction('Index') . '&error=non-existing');
         } else {
             // redefine id's
-            $ids = (array) $this->getRequest()->query->get('id');
+            $ids = (array) ($this->getRequest()->query->all()['id'] ?? []);
 
             // delete comment(s)
             if ($action == 'delete') {
