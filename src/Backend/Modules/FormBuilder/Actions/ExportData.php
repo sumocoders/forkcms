@@ -70,21 +70,21 @@ class ExportData extends BackendBaseAction
         // add start date
         if ($this->filter['start_date'] !== '') {
             // explode date parts
-            $chunks = explode('/', (string) $this->filter['start_date']);
+            $chunks = explode('-', (string) $this->filter['start_date']);
 
             // add condition
             $query .= ' AND i.sent_on >= ?';
-            $parameters[] = BackendModel::getUTCDate(null, gmmktime(23, 59, 59, $chunks[1], $chunks[0], $chunks[2]));
+            $parameters[] = BackendModel::getUTCDate(null, gmmktime(0, 0, 0, $chunks[1], $chunks[2], $chunks[0]));
         }
 
         // add end date
         if ($this->filter['end_date'] !== '') {
             // explode date parts
-            $chunks = explode('/', (string) $this->filter['end_date']);
+            $chunks = explode('-', (string) $this->filter['end_date']);
 
             // add condition
             $query .= ' AND i.sent_on <= ?';
-            $parameters[] = BackendModel::getUTCDate(null, gmmktime(23, 59, 59, $chunks[1], $chunks[0], $chunks[2]));
+            $parameters[] = BackendModel::getUTCDate(null, gmmktime(23, 59, 59, $chunks[1], $chunks[2], $chunks[0]));
         }
 
         return [$query, $parameters];
@@ -132,10 +132,10 @@ class ExportData extends BackendBaseAction
             $startDate = $this->getRequest()->query->get('start_date', '');
 
             // explode date parts
-            $chunks = explode('/', $startDate);
+            $chunks = explode('-', $startDate);
 
             // valid date
-            if (count($chunks) == 3 && checkdate((int) $chunks[1], (int) $chunks[0], (int) $chunks[2])) {
+            if (count($chunks) == 3 && checkdate((int) $chunks[1], (int) $chunks[2], (int) $chunks[0])) {
                 $this->filter['start_date'] = $startDate;
             } else {
                 // invalid date
@@ -152,10 +152,10 @@ class ExportData extends BackendBaseAction
             $endDate = $this->getRequest()->query->get('end_date', '');
 
             // explode date parts
-            $chunks = explode('/', $endDate);
+            $chunks = explode('-', $endDate);
 
             // valid date
-            if (count($chunks) == 3 && checkdate((int) $chunks[1], (int) $chunks[0], (int) $chunks[2])) {
+            if (count($chunks) == 3 && checkdate((int) $chunks[1], (int) $chunks[2], (int) $chunks[0])) {
                 $this->filter['end_date'] = $endDate;
             } else {
                 // invalid date

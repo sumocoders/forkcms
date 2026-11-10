@@ -67,7 +67,7 @@ class Data extends BackendBaseActionIndex
 
             // add condition
             $query .= ' AND i.sent_on >= ?';
-            $parameters[] = BackendModel::getUTCDate(null, gmmktime(23, 59, 59, $chunks[1], $chunks[2], $chunks[0]));
+            $parameters[] = BackendModel::getUTCDate(null, gmmktime(0, 0, 0, $chunks[1], $chunks[2], $chunks[0]));
         }
 
         // add end date
