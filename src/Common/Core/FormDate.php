@@ -5,7 +5,6 @@ namespace Common\Core;
 use DateTimeImmutable;
 use SpoonFilter;
 use SpoonFormDate;
-use SpoonFormException;
 
 /**
  * This is our extended version of \SpoonFormDate
@@ -30,26 +29,12 @@ class FormDate extends SpoonFormDate
             return parent::parse($template);
         }
 
-        if ($this->attributes['name'] == '') {
-            throw new SpoonFormException('A name is required for a date field. Please provide a valid name.');
-        }
+        // reuse the parent markup and only swap the input type
+        $output = preg_replace('/^<input type="text"/', '<input type="date"', parent::parse($template), 1);
 
-        $output = '<input type="date" value="' . SpoonFilter::htmlspecialchars($this->getValue()) . '"';
-        $output .= $this->getAttributesHTML(
-            [
-                '[id]' => $this->attributes['id'],
-                '[name]' => $this->attributes['name'],
-                '[value]' => $this->getValue(),
-            ]
-        ) . ' />';
-
+        // the parent already assigned the text input, overwrite it with the date input
         if ($template !== null) {
-            $fieldName = SpoonFilter::toCamelCase($this->attributes['name']);
-            $template->assign('txt' . $fieldName, $output);
-            $template->assign(
-                'txt' . $fieldName . 'Error',
-                ($this->errors != '') ? '<span class="formError">' . $this->errors . '</span>' : ''
-            );
+            $template->assign('txt' . SpoonFilter::toCamelCase($this->attributes['name']), $output);
         }
 
         return $output;
