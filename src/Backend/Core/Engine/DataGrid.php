@@ -498,7 +498,7 @@ class DataGrid extends \SpoonDataGrid
             '</div>' .
             '<div class="col-auto">' . $actionDropDown->parse() . '</div>' .
             '<div class="col-auto">' .
-            '<button type="button" class="btn btn-secondary jsMassActionSubmit">' .
+            '<button type="button" class="btn btn-secondary btn-input jsMassActionSubmit">' .
             '   <span>' . s(BackendLanguage::lbl('Execute'))->title() . '</span>' .
             '</button>' .
             '</div>';

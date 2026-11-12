@@ -35,6 +35,11 @@
     font-size: $font-size-small;
     padding: 4px 15px 5px;
   }
+
+  // same height as a form control, for a button next to an input or select
+  &.btn-input {
+    padding: 6px 12px;
+  }
 }
 
 // light grey default button of the Bootstrap 3 version
