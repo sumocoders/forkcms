@@ -34,7 +34,7 @@ class SeoFormNode extends Node
             ->write('echo "<h2 class=\"card-title\">' . $this->lbl('Titles') . '</h2>";')
             ->write('echo \'</div>\';')
             ->write('echo \'<div class="card-body">\';')
-            ->write('echo \'<div class="form-group">\';')
+            ->write('echo \'<div class="mb-4">\';')
             ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
             ->write('echo \'<li>\';')
             ->write('echo "<p class=\"form-check\"><label for=\"pageTitleOverwrite\">";')
@@ -51,7 +51,7 @@ class SeoFormNode extends Node
 
         $compiler
             ->write('if (' . $this->hasField('navigation_title_overwrite') . ') {')
-            ->write('echo \'<div class="form-group last">\';')
+            ->write('echo \'<div>\';')
             ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
             ->write('echo \'<li>\';')
             ->write('echo "<p class=\"form-check\"><label for=\"navigationTitleOverwrite\">";')
@@ -79,7 +79,7 @@ class SeoFormNode extends Node
             ->write('echo "<h2 class=\"card-title\">' . $this->lbl('MetaInformation') . '</h2>";')
             ->write('echo \'</div>\';')
             ->write('echo \'<div class="card-body">\';')
-            ->write('echo \'<div class="form-group">\';')
+            ->write('echo \'<div class="mb-4">\';')
             ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
             ->write('echo \'<li>\';')
             ->write('echo "<p class=\"form-check\"><label for=\"metaDescriptionOverwrite\">";')
@@ -93,7 +93,7 @@ class SeoFormNode extends Node
             ->write('echo \'</li>\';')
             ->write('echo \'</ul>\';')
             ->write('echo \'</div>\';')
-            ->write('echo \'<div class="form-group">\';')
+            ->write('echo \'<div class="mb-4">\';')
             ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
             ->write('echo \'<li>\';')
             ->write('echo "<p class=\"form-check\"><label for=\"metaKeywordsOverwrite\">";')
@@ -107,7 +107,7 @@ class SeoFormNode extends Node
             ->write('echo \'</li>\';')
             ->write('echo \'</ul>\';')
             ->write('echo \'</div>\';')
-            ->write('echo \'<div class="form-group last">\';')
+            ->write('echo \'<div>\';')
             ->write('echo "<label for=\"metaDescriptionOverwrite\">' . $this->lbl('ExtraMetaTags') . '</label>";')
             ->write($this->getError('meta_custom'))
             ->write($this->getField('meta_custom'))
@@ -124,13 +124,13 @@ class SeoFormNode extends Node
             ->write('echo "<h2 class=\"card-title\">' . $this->lbl('URL') . '</h2>";')
             ->write('echo \'</div>\';')
             ->write('echo \'<div class="card-body">\';')
-            ->write('echo \'<div class="form-group">\';')
+            ->write('echo \'<div class="mb-4">\';')
             ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
             ->write('echo \'<li>\';')
             ->write('echo "<p class=\"form-check\"><label for=\"urlOverwrite\">";')
             ->write($this->getField('url_overwrite'))
             ->write('echo "' . $this->lbl('URL') . '</label></p>";')
-            ->write('echo \'<div class="form-inline">\';');
+            ->write('echo \'<div class="d-sm-flex align-items-center">\';');
 
         $compiler
             ->write('echo \'<span id="urlFirstPart">\';')
@@ -143,16 +143,16 @@ class SeoFormNode extends Node
             ->write('echo \'</span>\';');
 
         $compiler
-            ->write($this->getError('url'))
             ->write('echo "<label for=\"url\" class=\"visually-hidden\">";')
             ->write('echo "' . $this->lbl('CustomURL') . '</label>";')
             ->write($this->getField('url'))
             ->write('echo \'</div>\';')
+            ->write($this->getError('url'))
             ->write('echo "<p class=\"form-text\">' . $this->msg('HelpMetaURL') . '</p>";')
             ->write('echo \'</li>\';')
             ->write('echo \'</ul>\';')
             ->write('echo \'</div>\';')
-            ->write('echo \'<div class="form-group last">\';')
+            ->write('echo \'<div>\';')
             ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
             ->write('echo \'<li>\';')
             ->write('echo "<p class=\"form-check\"><label for=\"canonicalUrlOverwrite\">";')
@@ -177,8 +177,7 @@ class SeoFormNode extends Node
             ->write('echo \'</div>\';')
             ->write('echo \'<div class="card-body">\';')
             ->write('echo \'<div class="col-md-6">\';')
-            ->write('echo \'<div class="form-inline">\';')
-            ->write('echo \'<div class="form-group last">\';')
+            ->write('echo \'<div class="mb-4">\';')
             ->write('echo "<p><b>' . $this->lbl('Index') . '</b></p>";');
 
         $compiler
@@ -200,10 +199,8 @@ class SeoFormNode extends Node
         $compiler
             ->write('echo \'</div>\';')
             ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
             ->write('echo \'<div class="col-md-6">\';')
-            ->write('echo \'<div class="form-inline">\';')
-            ->write('echo \'<div class="form-group last">\';')
+            ->write('echo \'<div class="mb-4">\';')
             ->write('echo "<p><b>' . $this->lbl('Follow') . '</b></p>";');
 
         $compiler
@@ -227,7 +224,6 @@ class SeoFormNode extends Node
             ->write('echo \'</div>\';')
             ->write('echo \'</div>\';')
             ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
 
             ->write('echo \'<div class="card">\';')
             ->write('echo \'<div class="card-header">\';')
@@ -235,7 +231,7 @@ class SeoFormNode extends Node
             ->write('echo \'</div>\';')
             ->write('echo \'<div class="card-body">\';')
             ->write($this->loopTroughField('spoonHreflangFields', '$hreflangField'))
-            ->write('echo \'<div class="form-group">\';')
+            ->write('echo \'<div class="mb-4">\';')
             ->write('echo "<label for=\"hreflang" . $hreflangField["language"] . "\">" . $hreflangField["label"] . "</label>";')
             ->write('echo $hreflangField["field"];')
             ->write('echo \'</div>\';')
@@ -265,7 +261,7 @@ class SeoFormNode extends Node
 
         $compiler
             ->write('if (' . $this->hasField('og_image_delete') . ') {')
-            ->write('echo \'<div class="form-group">\';')
+            ->write('echo \'<div class="mb-4">\';')
             ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
             ->write('echo \'<li>\';')
             ->write('echo "<p class=\"form-check\"><label for=\"ogImageDelete\">";')
@@ -277,7 +273,7 @@ class SeoFormNode extends Node
             ->write('}');
 
         $compiler
-            ->write('echo \'<div class="form-group last">\';')
+            ->write('echo \'<div>\';')
             ->write('echo "<label for=\"ogImage\">' . $this->lbl('OgImage') . '</label>";')
             ->write($this->getError('og_image'))
             ->write($this->getField('og_image'))

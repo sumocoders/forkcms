@@ -9,7 +9,7 @@
   {% form edit %}
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="mb-4">
         <label for="name" class="form-label">
           {{ 'lbl.ReferenceCode'|trans|ucfirst }}
           {{ macro.required }}
@@ -17,7 +17,7 @@
         <p class="form-text">{{ 'msg.HelpAddName'|trans }}</p>
         {% form_field name %} {% form_field_error name %}
       </div>
-      <div class="form-group">
+      <div class="mb-4">
         <label for="value" class="form-label">
           {{ 'lbl.Translation'|trans|ucfirst }}
           {{ macro.required }}
@@ -27,25 +27,25 @@
       </div>
       <div class="row">
         <div class="col-md-3">
-          <div class="form-group">
+          <div class="mb-4">
             <label for="language" class="form-label">{{ 'lbl.Language'|trans|ucfirst }}</label>
             {% form_field language %} {% form_field_error language %}
           </div>
         </div>
         <div class="col-md-3">
-          <div class="form-group">
+          <div class="mb-4">
             <label for="application" class="form-label">{{ 'lbl.Application'|trans|ucfirst }}</label>
             {% form_field application %} {% form_field_error application %}
           </div>
         </div>
         <div class="col-md-3">
-          <div class="form-group">
+          <div class="mb-4">
             <label for="module" class="form-label">{{ 'lbl.Module'|trans|ucfirst }}</label>
             {% form_field module %} {% form_field_error module %}
           </div>
         </div>
         <div class="col-md-3">
-          <div class="form-group">
+          <div class="mb-4">
             <label for="type" class="form-label">{{ 'lbl.Type'|trans|ucfirst }}</label>
             {% form_field type %} {% form_field_error type %}
           </div>

@@ -16,15 +16,15 @@
           </h2>
         </div>
         <div class="card-body">
-          <div class="form-group">
+          <div class="mb-4">
             <label for="overviewNumItems" class="form-label">{{ 'lbl.ItemsPerPage'|trans|ucfirst }}</label>
             {% form_field overview_num_items %} {% form_field_error overview_num_items %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="autocompleteNumItems" class="form-label">{{ 'lbl.ItemsForAutocomplete'|trans|ucfirst }}</label>
             {% form_field autocomplete_num_items %} {% form_field_error autocomplete_num_items %}
           </div>
-          <div class="form-group last">
+          <div>
             <label for="autosuggestNumItems" class="form-label">{{ 'lbl.ItemsForAutosuggest'|trans|ucfirst }}</label>
             {% form_field autosuggest_num_items %} {% form_field_error autosuggest_num_items %}
           </div>
@@ -41,7 +41,7 @@
           </h2>
         </div>
         <div class="card-body">
-          <div class="form-group last">
+          <div>
             <ul class="list-unstyled">
               <li class="form-check">
                 <label for="useSitelinksSearchBox" class="form-check-label">

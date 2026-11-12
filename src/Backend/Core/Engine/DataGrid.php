@@ -491,13 +491,17 @@ class DataGrid extends \SpoonDataGrid
     {
         // build HTML
         $HTML =
-            '<label for="' . $actionDropDown->getAttribute('id') . '">' .
+            '<div class="col-auto">' .
+            '<label for="' . $actionDropDown->getAttribute('id') . '" class="col-form-label">' .
             s(BackendLanguage::lbl('WithSelected'))->title() .
             '</label>' .
-            $actionDropDown->parse() .
-            '<button type="button" class="btn btn-secondary jsMassActionSubmit">' .
+            '</div>' .
+            '<div class="col-auto">' . $actionDropDown->parse() . '</div>' .
+            '<div class="col-auto">' .
+            '<button type="button" class="btn btn-secondary btn-input jsMassActionSubmit">' .
             '   <span>' . s(BackendLanguage::lbl('Execute'))->title() . '</span>' .
-            '</button>';
+            '</button>' .
+            '</div>';
 
         // assign parsed html
         $this->tpl->assign('massAction', $HTML);

@@ -92,21 +92,4 @@
       border-left: 1px solid $table-border-color;
     }
   }
-
-  .form-group {
-    margin-bottom: 0;
-  }
-}
-
-// "With selected" label, action dropdown and execute button in the data grid footer
-.jsMassAction {
-  label {
-    margin: 0 8px 0 0;
-    vertical-align: middle;
-  }
-
-  .btn {
-    margin-left: 4px;
-    vertical-align: middle;
-  }
 }

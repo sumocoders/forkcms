@@ -20,20 +20,20 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-4">
-              <div class="form-group">
+              <div class="mb-4">
                 <label for="email" class="form-label">{{ 'lbl.Email'|trans|ucfirst }}</label>
                 {% form_field email %} {% form_field_error email %}
               </div>
             </div>
             <div class="col-md-4">
-              <div class="form-group">
+              <div class="mb-4">
                 <label for="status" class="form-label">{{ 'lbl.Status'|trans|ucfirst }}</label>
                 {% form_field status %} {% form_field_error status %}
               </div>
             </div>
             <div class="col-md-4">
               {% if ddmGroup %}
-                <div class="form-group">
+                <div class="mb-4">
                   <label for="group" class="form-label">{{ 'lbl.Group'|trans|ucfirst }}</label>
                   {% form_field group %} {% form_field_error group %}
                 </div>
@@ -92,7 +92,7 @@
               </div>
               <div class="modal-body">
                 <p>{{ 'msg.ConfirmMassAddToGroup'|trans }}</p>
-                <div class="form-group">
+                <div class="mb-4">
                   <div class="jsMassActionAddToGroupSelectGroup"></div>
                 </div>
               </div>

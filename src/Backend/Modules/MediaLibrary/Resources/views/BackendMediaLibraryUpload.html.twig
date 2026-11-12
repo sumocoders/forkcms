@@ -86,7 +86,7 @@
             <h2 class="card-title">{{ 'msg.MediaUploadThisType'|trans }}</h2>
           </div>
           <div class="card-body">
-            <div class="form-group last">
+            <div>
               <ul class="list-unstyled">
                 <li class="radiobutton">
                   <label><input type="radio" name="uploading_type" id="uploadTypeDefault" value="all" {% if mediaType is not defined or mediaType == 'image' %}checked="checked"{% endif %} /> {{ 'msg.MediaUploadTypeFiles'|trans }}</label>
@@ -146,7 +146,7 @@
         </div>
         <div id="fine-uploader-gallery"></div>
         <div class="card-footer">
-          <div class="form-group">
+          <div class="mb-4">
             <div class="form-check">
               <input type="checkbox" class="form-check-input" data-role="enable-cropper-checkbox" aria-describedby="helpBlockEnableCropper" id="enableCropperCheckbox">
               <label class="form-check-label" for="enableCropperCheckbox">{{ 'lbl.EnableCropper'|trans|ucfirst }}</label>

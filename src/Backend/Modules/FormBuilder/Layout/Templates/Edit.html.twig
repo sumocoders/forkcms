@@ -45,7 +45,7 @@
                     </div>
                     <div class="card-body">
                       <fieldset>
-                        <div class="form-group">
+                        <div class="mb-4">
                           <label for="name" class="form-label">
                             {{ 'lbl.Name'|trans|ucfirst }}
                             {{ macro.required }}
@@ -53,7 +53,7 @@
                           {% form_field name %} {% form_field_error name %}
                         </div>
                       </fieldset>
-                      <div class="form-group">
+                      <div class="mb-4">
                         <label for="method" class="form-label">
                           {{ 'lbl.Method'|trans|ucfirst }}
                           {{ macro.required }}
@@ -61,19 +61,19 @@
                         {% form_field method %} {% form_field_error method %}
                       </div>
                       <div id="emailWrapper">
-                        <div class="form-group">
+                        <div class="mb-4">
                           <label for="EmailSubject" class="form-label">
                             {{ 'lbl.EmailSubject'|trans|ucfirst }}
                           </label>
                           {% form_field email_subject %} {% form_field_error email_subject %}
                         </div>
                         {% if ddmTemplate %}
-                          <div class="form-group">
+                          <div class="mb-4">
                             <label for="template" class="form-label">{{ 'lbl.Template'|trans|ucfirst }}</label>
                             {% form_field template %} {% form_field_error template %}
                           </div>
                         {% endif %}
-                        <div class="form-group">
+                        <div class="mb-4">
                           <label for="email" class="form-label">
                             {{ 'lbl.Recipient'|trans|ucfirst }}
                             {{ macro.required }}
@@ -130,14 +130,14 @@
                       {% endif %}
 
                       {# This row always needs to be here. We show/hide it with javascript #}
-                      <div class="form-group field" {% if fields %} style="display: none;"{% endif %}>
+                      <div class="field" {% if fields %} style="display: none;"{% endif %}>
                         <div id="noFields" class="alert alert-info alert-xs">
                           {{ 'msg.NoFields'|trans }}
                         </div>
                       </div>
 
                       {# Submit button is always here. Cannot be deleted or moved. #}
-                      <div class="form-group field field-submit">
+                      <div class="field field-submit">
                         <div class="row">
                           <div class="col-md-5 offset-md-3">
                             <div class="btn-group" role="group">
@@ -261,7 +261,7 @@
               <div role="tabpanel" class="tab-pane jsFieldTab active" id="tabTextboxBasic">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group last">
+                    <div>
                       <label for="textboxLabel" class="form-label">
                         {{ 'lbl.Label'|trans|ucfirst }}
                         {{ macro.required }}
@@ -277,7 +277,7 @@
                   <div class="col-md-12">
                     <fieldset>
                       <div class="jsValidation">
-                        <div class="form-group">
+                        <div class="mb-4">
                           <ul class="list-unstyled">
                             <li class="form-check">
                               <label for="textboxRequired" class="form-check-label">
@@ -286,7 +286,7 @@
                             </li>
                           </ul>
                         </div>
-                        <div class="form-group jsValidationRequiredErrorMessage" style="display: none;">
+                        <div class="mb-4 jsValidationRequiredErrorMessage" style="display: none;">
                           <label for="textboxRequiredErrorMessage" class="form-label">
                             {{ 'lbl.ErrorMessage'|trans|ucfirst }}
                             {{ macro.required }}
@@ -296,20 +296,20 @@
                         </div>
                       </div>
                       <div class="jsValidation">
-                        <div class="form-group">
+                        <div class="mb-4">
                           <label for="textboxValidation" class="form-label">{{ 'lbl.Validation'|trans|ucfirst }}</label>
                           {% form_field textbox_validation %}
                         </div>
                         <p id="textboxReplyToErrorMessageError" class="text-danger jsFieldError" style="display: none;"></p>
                         <p id="textboxSendConfirmationMailToErrorMessageError" class="text-danger jsFieldError" style="display: none;"></p>
-                        <div class="form-group jsValidationParameter" style="display: none;">
+                        <div class="mb-4 jsValidationParameter" style="display: none;">
                           <label for="textboxValidationParameter" class="form-label">
                             {{ 'lbl.Parameter'|trans|ucfirst }}
                             {{ macro.required }}
                           </label>
                           {% form_field textbox_validation_parameter %}
                         </div>
-                        <div class="form-group jsValidationErrorMessage" style="display: none;">
+                        <div class="mb-4 jsValidationErrorMessage" style="display: none;">
                           <label for="textareaErrorMessage" class="form-label">
                             {{ 'lbl.ErrorMessage'|trans|ucfirst }}
                             {{ macro.required }}
@@ -319,7 +319,7 @@
                         </div>
                       </div>
                     </fieldset>
-                    <div class="form-group last">
+                    <div>
                       <label for="textboxAutocomplete" class="form-label">{{ 'lbl.Autocomplete'|trans|ucfirst }}</label>
                       {% form_field textbox_autocomplete %}
                     </div>
@@ -329,15 +329,15 @@
               <div role="tabpanel" class="tab-pane jsFieldTab" id="tabTextboxAdvanced">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group">
+                    <div class="mb-4">
                       <label for="textboxValue" class="form-label">{{ 'lbl.DefaultValue'|trans|ucfirst }}</label>
                       {% form_field textbox_value %}
                     </div>
-                    <div class="form-group">
+                    <div class="mb-4">
                       <label for="textboxPlaceholder" class="form-label">{{ 'lbl.Placeholder'|trans|ucfirst }}</label>
                       {% form_field textbox_placeholder %}
                     </div>
-                    <div class="form-group last">
+                    <div>
                       <label for="textboxClassname" class="form-label">{{ 'lbl.Classname'|trans|ucfirst }}</label>
                       {% form_field textbox_classname %}
                     </div>
@@ -348,7 +348,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <fieldset>
-                      <div class="form-group">
+                      <div class="mb-4">
                         <ul class="list-unstyled">
                           <li class="form-check">
                             <label for="textboxReplyTo" class="form-check-label">
@@ -359,7 +359,7 @@
                         </ul>
                       </div>
                     </fieldset>
-                    <div class="form-group">
+                    <div class="mb-4">
                       <ul class="list-unstyled">
                         <li class="form-check">
                           <label for="textboxSendConfirmationMailTo" class="form-check-label">
@@ -368,14 +368,14 @@
                         </li>
                       </ul>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-4">
                       <label for="textboxConfirmationMailSubject" class="form-label">
                         {{ 'lbl.ConfirmationMailSubject'|trans|ucfirst }}
                       </label>
                       {% form_field textbox_confirmation_mail_subject %}
                       <p id="textboxConfirmationMailSubjectErrorMessageError" class="text-danger jsFieldError" style="display: none;"></p>
                     </div>
-                    <div class="form-group last">
+                    <div>
                       <label for="textboxConfirmationMailMessage" class="form-label">
                         {{ 'lbl.ConfirmationMailMessage'|trans|ucfirst }}
                       </label>
@@ -419,7 +419,7 @@
               <div role="tabpanel" class="tab-pane jsFieldTab active" id="tabTextareaBasic">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group last">
+                    <div>
                       <label for="textareaLabel" class="form-label">
                         {{ 'lbl.Label'|trans|ucfirst }}
                         {{ macro.required }}
@@ -434,14 +434,14 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="jsValidation">
-                      <div class="form-group">
+                      <div class="mb-4">
                         <ul class="list-unstyled">
                           <li class="form-check">
                             <label for="textareaRequired" class="form-check-label">{% form_field textarea_required %} {{ 'lbl.RequiredField'|trans|ucfirst }}</label>
                           </li>
                         </ul>
                       </div>
-                      <div class="form-group jsValidationRequiredErrorMessage" style="display: none;">
+                      <div class="mb-4 jsValidationRequiredErrorMessage" style="display: none;">
                         <label for="textareaRequiredErrorMessage" class="form-label">
                           {{ 'lbl.ErrorMessage'|trans|ucfirst }}
                           {{ macro.required }}
@@ -451,18 +451,18 @@
                       </div>
                     </div>
                     <div class="jsValidation" style="display: none;">
-                      <div class="form-group">
+                      <div class="mb-4">
                         <label for="textareaValidation" class="form-label">{{ 'lbl.Validation'|trans|ucfirst }}</label>
                         {% form_field textarea_validation %}
                       </div>
-                      <div class="form-group jsValidationParameter" style="display: none;">
+                      <div class="mb-4 jsValidationParameter" style="display: none;">
                         <label for="textareaValidationParameter" class="form-label">
                           {{ 'lbl.Parameter'|trans|ucfirst }}
                           {{ macro.required }}
                         </label>
                         {% form_field textarea_validation_parameter %}
                       </div>
-                      <div class="form-group jsValidationErrorMessage" style="display: none;">
+                      <div class="mb-4 jsValidationErrorMessage" style="display: none;">
                         <label for="textareaErrorMessage" class="form-label">
                           {{ 'lbl.ErrorMessage'|trans|ucfirst }}
                           {{ macro.required }}
@@ -477,15 +477,15 @@
               <div role="tabpanel" class="tab-pane jsFieldTab" id="tabTextareaAdvanced">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group">
+                    <div class="mb-4">
                       <label for="textareaValue" class="form-label">{{ 'lbl.DefaultValue'|trans|ucfirst }}</label>
                       {% form_field textarea_value %}
                     </div>
-                    <div class="form-group">
+                    <div class="mb-4">
                       <label for="textareaPlaceholder" class="form-label">{{ 'lbl.Placeholder'|trans|ucfirst }}</label>
                       {% form_field textarea_placeholder %}
                     </div>
-                    <div class="form-group last">
+                    <div>
                       <label for="textareaClassname" class="form-label">{{ 'lbl.Classname'|trans|ucfirst }}</label>
                       {% form_field textarea_classname %}
                     </div>
@@ -526,7 +526,7 @@
               <div role="tabpanel" class="tab-pane jsFieldTab active" id="tabDatetimeBasic">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group last">
+                    <div>
                       <label for="datetimeLabel" class="form-label">
                         {{ 'lbl.Label'|trans|ucfirst }}
                         {{ macro.required }}
@@ -542,14 +542,14 @@
                   <div class="col-md-12">
                     <fieldset>
                       <div class="jsValidation">
-                        <div class="form-group">
+                        <div class="mb-4">
                           <ul class="list-unstyled">
                             <li class="form-check">
                               <label for="datetimeRequired" class="form-check-label">{% form_field datetime_required %} {{ 'lbl.RequiredField'|trans|ucfirst }}</label>
                             </li>
                           </ul>
                         </div>
-                        <div class="form-group jsValidationRequiredErrorMessage" style="display: none;">
+                        <div class="mb-4 jsValidationRequiredErrorMessage" style="display: none;">
                           <label for="datetimeRequiredErrorMessage" class="form-label">
                             {{ 'lbl.ErrorMessage'|trans|ucfirst }}
                             {{ macro.required }}
@@ -559,11 +559,11 @@
                         </div>
                       </div>
                       <div class="jsValidation">
-                        <div class="form-group" style="display: none;">
+                        <div class="mb-4" style="display: none;">
                           <label for="datetimeValidation" class="form-label">{{ 'lbl.Validation'|trans|ucfirst }}</label>
                           {% form_field datetime_validation %}
                         </div>
-                        <div class="form-group jsValidationErrorMessage" style="display: none;">
+                        <div class="mb-4 jsValidationErrorMessage" style="display: none;">
                           <label for="datetimeErrorMessage" class="form-label">
                             {{ 'lbl.ErrorMessage'|trans|ucfirst }}
                             {{ macro.required }}
@@ -575,13 +575,13 @@
                     </fieldset>
                     <fieldset>
                       <div>
-                        <div class="form-group">
+                        <div class="mb-4">
                           <label for="datetimeType" class="form-label">{{ 'lbl.Type'|trans|ucfirst }}</label>
                           {% form_field datetime_type %}
                         </div>
                       </div>
                     </fieldset>
-                    <div class="form-group last">
+                    <div>
                       <label for="datetimeAutocomplete" class="form-label">{{ 'lbl.Autocomplete'|trans|ucfirst }}</label>
                       {% form_field datetime_autocomplete %}
                     </div>
@@ -592,14 +592,19 @@
                 <div class="row">
                   <div class="col-md-12">
                     <fieldset>
-                      <div class="form-group jsDefaultValue">
+                      <div class="mb-4 jsDefaultValue">
                         <label for="datetimeValue" class="form-label">{{ 'lbl.DefaultValue'|trans|ucfirst }}</label>
-                        <div class="form-inline">
-                          {% form_field datetime_value_amount %} {% form_field datetime_value_type %}
+                        <div class="row g-2">
+                          <div class="col-auto">
+                            {% form_field datetime_value_amount %}
+                          </div>
+                          <div class="col-auto">
+                            {% form_field datetime_value_type %}
+                          </div>
                         </div>
                       </div>
                     </fieldset>
-                    <div class="form-group last">
+                    <div>
                       <label for="datetimeClassname" class="form-label">{{ 'lbl.Classname'|trans|ucfirst }}</label>
                       {% form_field datetime_classname %}
                     </div>
@@ -641,7 +646,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <fieldset>
-                      <div class="form-group">
+                      <div class="mb-4">
                         <label for="dropdownLabel" class="form-label">
                           {{ 'lbl.Label'|trans|ucfirst }}
                           {{ macro.required }}
@@ -650,7 +655,7 @@
                         {% form_field dropdown_label %}
                       </div>
                     </fieldset>
-                    <div class="form-group last">
+                    <div>
                       <label for="checkboxValues" class="form-label">{{ 'lbl.Values'|trans|ucfirst }}</label>
                       <p id="dropdownValuesError" class="text-danger jsFieldError" style="display: none;"></p>
                       {% form_field dropdown_values %} {% form_field_error dropdown_values %}
@@ -662,14 +667,14 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="jsValidation">
-                      <div class="form-group">
+                      <div class="mb-4">
                         <ul class="list-unstyled">
                           <li class="form-check">
                             <label for="dropdownRequired" class="form-check-label">{% form_field dropdown_required %} {{ 'lbl.RequiredField'|trans|ucfirst }}</label>
                           </li>
                         </ul>
                       </div>
-                      <div class="form-group last jsValidationRequiredErrorMessage" style="display: none;">
+                      <div class="jsValidationRequiredErrorMessage" style="display: none;">
                         <label for="dropdownRequiredErrorMessage" class="form-label">
                           {{ 'lbl.ErrorMessage'|trans|ucfirst }}
                           {{ macro.required }}
@@ -684,11 +689,11 @@
               <div role="tabpanel" class="tab-pane jsFieldTab" id="tabDropdownAdvanced">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group">
+                    <div class="mb-4">
                       <label for="dropdownDefaultValue" class="form-label">{{ 'lbl.DefaultValue'|trans|ucfirst }}</label>
                       {% form_field dropdown_default_value %}
                     </div>
-                    <div class="form-group last">
+                    <div>
                       <label for="dropdownClassname" class="form-label">{{ 'lbl.Classname'|trans|ucfirst }}</label>
                       {% form_field dropdown_classname %}
                     </div>
@@ -730,7 +735,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <fieldset>
-                      <div class="form-group">
+                      <div class="mb-4">
                         <label for="radiobuttonLabel" class="form-label">
                           {{ 'lbl.Label'|trans|ucfirst }}
                           {{ macro.required }}
@@ -739,7 +744,7 @@
                         {% form_field radiobutton_label %}
                       </div>
                     </fieldset>
-                    <div class="form-group last">
+                    <div>
                       <label for="checkboxValues" class="form-label">{{ 'lbl.Values'|trans|ucfirst }}</label>
                       {% form_field radiobutton_values %} {% form_field_error radiobutton_values %}
                     </div>
@@ -750,14 +755,14 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="jsValidation">
-                      <div class="form-group">
+                      <div class="mb-4">
                         <ul class="list-unstyled">
                           <li class="form-check">
                             <label for="radiobuttonRequired" class="form-check-label">{% form_field radiobutton_required %} {{ 'lbl.RequiredField'|trans|ucfirst }}</label>
                           </li>
                         </ul>
                       </div>
-                      <div class="form-group last jsValidationRequiredErrorMessage" style="display: none;">
+                      <div class="jsValidationRequiredErrorMessage" style="display: none;">
                         <label for="radiobuttonRequiredErrorMessage" class="form-label">
                           {{ 'lbl.ErrorMessage'|trans|ucfirst }}
                           {{ macro.required }}
@@ -772,11 +777,11 @@
               <div role="tabpanel" class="tab-pane jsFieldTab" id="tabRadiobuttonAdvanced">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group">
+                    <div class="mb-4">
                       <label for="radiobuttonDefaultValue" class="form-label">{{ 'lbl.DefaultValue'|trans|ucfirst }}</label>
                       {% form_field radiobutton_default_value %}
                     </div>
-                    <div class="form-group last">
+                    <div>
                       <label for="radiobuttonClassname" class="form-label">{{ 'lbl.Classname'|trans|ucfirst }}</label>
                       {% form_field radiobutton_classname %}
                     </div>
@@ -818,7 +823,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <fieldset>
-                      <div class="form-group">
+                      <div class="mb-4">
                         <label for="checkboxLabel" class="form-label">
                           {{ 'lbl.Label'|trans|ucfirst }}
                           {{ macro.required }}
@@ -827,7 +832,7 @@
                         {% form_field checkbox_label %}
                       </div>
                     </fieldset>
-                    <div class="form-group last">
+                    <div>
                       <label for="checkboxValues" class="form-label">{{ 'lbl.Values'|trans|ucfirst }}</label>
                       {% form_field checkbox_values %} {% form_field_error checkbox_values %}
                     </div>
@@ -838,14 +843,14 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="jsValidation">
-                      <div class="form-group">
+                      <div class="mb-4">
                         <ul class="list-unstyled">
                           <li class="form-check">
                             <label for="checkboxRequired" class="form-check-label">{% form_field checkbox_required %} {{ 'lbl.RequiredField'|trans|ucfirst }}</label>
                           </li>
                         </ul>
                       </div>
-                      <div class="form-group last jsValidationRequiredErrorMessage" style="display: none;">
+                      <div class="jsValidationRequiredErrorMessage" style="display: none;">
                         <label for="checkboxRequiredErrorMessage" class="form-label">
                           {{ 'lbl.ErrorMessage'|trans|ucfirst }}
                           {{ macro.required }}
@@ -860,11 +865,11 @@
               <div role="tabpanel" class="tab-pane jsFieldTab" id="tabCheckboxAdvanced">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group">
+                    <div class="mb-4">
                       <label for="checkboxDefaultValue" class="form-label">{{ 'lbl.DefaultValue'|trans|ucfirst }}</label>
                       {% form_field checkbox_default_value %}
                     </div>
-                    <div class="form-group last">
+                    <div>
                       <label for="checkboxClassname" class="form-label">{{ 'lbl.Classname'|trans|ucfirst }}</label>
                       {% form_field checkbox_classname %}
                     </div>
@@ -890,7 +895,7 @@
           </div>
           <div class="modal-body">
             <input type="hidden" name="submit_id" id="submitId" value="" />
-            <div class="form-group last">
+            <div>
               <label for="submit" class="form-label">
                 {{ 'lbl.Content'|trans|ucfirst }}
                 {{ macro.required }}
@@ -916,7 +921,7 @@
           </div>
           <div class="modal-body">
             <input type="hidden" name="heading_id" id="headingId" value="" />
-            <div class="form-group">
+            <div class="mb-4">
               <label for="heading" class="form-label">
                 {{ 'lbl.Content'|trans|ucfirst }}
                 {{ macro.required }}
@@ -941,7 +946,7 @@
           </div>
           <div class="modal-body">
             <input type="hidden" name="paragraph_id" id="paragraphId" value="" />
-            <div class="form-group">
+            <div class="mb-4">
               <p id="paragraphError" class="text-danger jsFieldError" style="display: none;"></p>
               {% form_field paragraph %}
             </div>
