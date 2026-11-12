@@ -81,16 +81,20 @@
                       <label for="gender" class="form-label">{{ 'lbl.Gender'|trans|ucfirst }}</label>
                       {% form_field gender %} {% form_field_error gender %}
                     </div>
-                    <div class="form-group last">
+                    <div class="form-group">
                       <label for="day" class="form-label">{{ 'lbl.BirthDate'|trans|ucfirst }}</label>
-                      <div class="form-inline">
-                        <div class="form-group">
+                      <div class="row g-2">
+                        <div class="col-auto">
                           {% form_field day %}
+                        </div>
+                        <div class="col-auto">
                           {% form_field month %}
+                        </div>
+                        <div class="col-auto">
                           {% form_field year %}
                         </div>
-                        {% form_field_error year %}
                       </div>
+                      {% form_field_error year %}
                     </div>
                     <div class="form-group">
                       <label for="city" class="form-label">{{ 'lbl.City'|trans|ucfirst }}</label>

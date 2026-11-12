@@ -46,7 +46,7 @@
           </li>
           {% endfor %}
           <li class="nav-item ms-auto">
-            {{ form_start(searchForm, { 'attr' : { 'class': 'form-inline' } }) }}
+            {{ form_start(searchForm) }}
             <div class="input-group">
               {{ form_widget(searchForm.query) }}
                 {{ macro.buttonIcon('', 'search', 'lbl.Search'|trans|capitalize, 'submitSearchForm', {'type':'submit'}) }}

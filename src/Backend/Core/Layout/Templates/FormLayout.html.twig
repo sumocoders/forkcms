@@ -183,7 +183,7 @@
                   {{ form_widget(form.urlOverwrite) }}
                 </p>
                 {{ form_label(form.url) }}
-                <div class="form-inline">
+                <div class="d-sm-flex align-items-center">
                   <span id="urlFirstPart">{{ form.vars.base_url }}{{ form.vars.detail_url }}/ </span>{{ form_widget(form.url) }}
                 </div>
                 {{ form_errors(form.url) }}
@@ -211,20 +211,16 @@
         <div class="card-header"><p class="tab-pane-title">{{ 'lbl.SEO'|trans|ucfirst }}</p></div>
         <div class="card-body">
           <div class="col-md-6">
-            <div class="form-inline">
-              <div class="form-group last"><p><b>{{ 'lbl.Index'|trans|ucfirst }}</b></p>
-                <div class="inputListHorizontal">
-                  {{ form_widget(form.SEOIndex) }}
-                </div>
+            <div class="form-group"><p><b>{{ 'lbl.Index'|trans|ucfirst }}</b></p>
+              <div class="inputListHorizontal">
+                {{ form_widget(form.SEOIndex) }}
               </div>
             </div>
           </div>
           <div class="col-md-6">
-            <div class="form-inline">
-              <div class="form-group last"><p><b>{{ 'lbl.Follow'|trans|ucfirst }}</b></p>
-                <div class="inputListHorizontal">
-                  {{ form_widget(form.SEOFollow) }}
-                </div>
+            <div class="form-group"><p><b>{{ 'lbl.Follow'|trans|ucfirst }}</b></p>
+              <div class="inputListHorizontal">
+                {{ form_widget(form.SEOFollow) }}
               </div>
             </div>
           </div>

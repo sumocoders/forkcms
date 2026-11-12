@@ -130,7 +130,7 @@ class SeoFormNode extends Node
             ->write('echo "<p class=\"form-check\"><label for=\"urlOverwrite\">";')
             ->write($this->getField('url_overwrite'))
             ->write('echo "' . $this->lbl('URL') . '</label></p>";')
-            ->write('echo \'<div class="form-inline">\';');
+            ->write('echo \'<div class="d-sm-flex align-items-center">\';');
 
         $compiler
             ->write('echo \'<span id="urlFirstPart">\';')
@@ -143,11 +143,11 @@ class SeoFormNode extends Node
             ->write('echo \'</span>\';');
 
         $compiler
-            ->write($this->getError('url'))
             ->write('echo "<label for=\"url\" class=\"visually-hidden\">";')
             ->write('echo "' . $this->lbl('CustomURL') . '</label>";')
             ->write($this->getField('url'))
             ->write('echo \'</div>\';')
+            ->write($this->getError('url'))
             ->write('echo "<p class=\"form-text\">' . $this->msg('HelpMetaURL') . '</p>";')
             ->write('echo \'</li>\';')
             ->write('echo \'</ul>\';')
@@ -177,8 +177,7 @@ class SeoFormNode extends Node
             ->write('echo \'</div>\';')
             ->write('echo \'<div class="card-body">\';')
             ->write('echo \'<div class="col-md-6">\';')
-            ->write('echo \'<div class="form-inline">\';')
-            ->write('echo \'<div class="form-group last">\';')
+            ->write('echo \'<div class="form-group">\';')
             ->write('echo "<p><b>' . $this->lbl('Index') . '</b></p>";');
 
         $compiler
@@ -200,10 +199,8 @@ class SeoFormNode extends Node
         $compiler
             ->write('echo \'</div>\';')
             ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
             ->write('echo \'<div class="col-md-6">\';')
-            ->write('echo \'<div class="form-inline">\';')
-            ->write('echo \'<div class="form-group last">\';')
+            ->write('echo \'<div class="form-group">\';')
             ->write('echo "<p><b>' . $this->lbl('Follow') . '</b></p>";');
 
         $compiler
@@ -223,7 +220,6 @@ class SeoFormNode extends Node
             ->write('echo \'</ul>\';');
 
         $compiler
-            ->write('echo \'</div>\';')
             ->write('echo \'</div>\';')
             ->write('echo \'</div>\';')
             ->write('echo \'</div>\';')

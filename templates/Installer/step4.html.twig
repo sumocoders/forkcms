@@ -34,8 +34,10 @@
               <abbr title="Required field">*</abbr>
             </label>
             <p class="form-text">If you are working locally, your hostname is probably <strong>localhost</strong>.</p>
-            <div class="form-group form-inline">
-              {{ form_widget(form.databaseHostname) }} : {{ form_widget(form.databasePort) }}
+            <div class="input-group">
+              {{ form_widget(form.databaseHostname) }}
+              <span class="input-group-text">:</span>
+              {{ form_widget(form.databasePort, {attr: {class: 'flex-grow-0 w-25'}}) }}
             </div>
           </div>
           <div class="form-group">

@@ -14,16 +14,24 @@
           <h2 class="card-title">{{ 'lbl.Template'|trans|ucfirst }}</h2>
         </div>
         <div class="card-body">
-          <div class="form-inline form-group">
+          <div class="form-group">
             <p class="form-text">{{ 'msg.HelpTemplateLocation'|trans|raw }}</p>
             <label for="file" class="form-label">{{ 'msg.PathToTemplate'|trans|ucfirst }}</label>
             <label for="theme" class="visually-hidden">{{ 'lbl.Theme'|trans|ucfirst }}</label>
-            {% form_field theme %}
-            {% form_field_error theme %}
-            <small>
-              <code>/Core/Layout/Templates/</code>
-            </small>
-            {% form_field file %} {% form_field_error file %}
+            <div class="row g-2 align-items-center">
+              <div class="col-sm-auto">
+                {% form_field theme %}
+              </div>
+              <div class="col-sm-auto">
+                <small>
+                  <code>/Core/Layout/Templates/</code>
+                </small>
+              </div>
+              <div class="col-sm-auto">
+                {% form_field file %}
+              </div>
+            </div>
+            {% form_field_error theme %} {% form_field_error file %}
           </div>
           <div class="form-group">
             <label for="label" class="form-label">{{ 'lbl.Label'|trans|ucfirst }}</label>
@@ -74,15 +82,19 @@
                   {% for block in position.blocks %}
                     <div class="col-md-10 offset-md-2 jsBlock">
                       <div class="form-group">
-                        <div class="form-inline">
-                          {{ block.formElements.ddmType.parse()|raw }}
-                          {{ block.formElements.ddmTypeError }}
-                          {# Button to remove block from this position #}
-                          <button class="btn btn-danger btn-icon-only jsDeleteBlock" title="{{ 'lbl.DeleteBlock'|trans|ucfirst }}">
-                            {{ macro.icon('trash-can') }}
-                            <span class="visually-hidden">{{ 'lbl.DeleteBlock'|trans|ucfirst }}</span>
-                          </button>
+                        <div class="row g-2 align-items-center">
+                          <div class="col-auto">
+                            {{ block.formElements.ddmType.parse()|raw }}
+                          </div>
+                          <div class="col-auto">
+                            {# Button to remove block from this position #}
+                            <button class="btn btn-danger btn-icon-only jsDeleteBlock" title="{{ 'lbl.DeleteBlock'|trans|ucfirst }}">
+                              {{ macro.icon('trash-can') }}
+                              <span class="visually-hidden">{{ 'lbl.DeleteBlock'|trans|ucfirst }}</span>
+                            </button>
+                          </div>
                         </div>
+                        {{ block.formElements.ddmTypeError }}
                       </div>
                     </div>
                   {% endfor %}

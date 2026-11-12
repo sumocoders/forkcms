@@ -53,13 +53,11 @@
   <tr
     {$footerAttributes}>
     <td colspan="{$numColumns}">
-      <div class="form-inline">
-        {option:massAction}
-        <div class="form-group jsMassAction">
-          {$massAction}
-        </div>
-        {/option:massAction}
+      {option:massAction}
+      <div class="row g-2 align-items-center jsMassAction">
+        {$massAction}
       </div>
+      {/option:massAction}
       {option:paging}
       <div class="text-center">
         {$paging}

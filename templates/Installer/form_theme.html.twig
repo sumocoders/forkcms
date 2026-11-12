@@ -36,7 +36,7 @@
   {% if widget == 'single_text' %}
     {{- block('form_widget_simple') -}}
   {% else %}
-    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) %}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' d-flex align-items-center gap-1')|trim}) %}
     <div {{ block('widget_container_attributes') }}>
       {{ form_errors(form.date) }}
       {{ form_errors(form.time) }}
@@ -49,7 +49,7 @@
   {% if widget == 'single_text' %}
     {{- block('form_widget_simple') -}}
   {% else %}
-    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) %}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' d-flex align-items-center gap-1')|trim}) %}
     {% if datetime is not defined or not datetime %}
       <div {{ block('widget_container_attributes') -}}>
     {% endif %}
@@ -67,7 +67,7 @@
   {% if widget == 'single_text' %}
     {{- block('form_widget_simple') -}}
   {% else %}
-    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) %}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' d-flex align-items-center gap-1')|trim}) %}
     {% if datetime is not defined or false == datetime %}
       <div {{ block('widget_container_attributes') -}}>
     {% endif %}

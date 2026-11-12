@@ -594,8 +594,13 @@
                     <fieldset>
                       <div class="form-group jsDefaultValue">
                         <label for="datetimeValue" class="form-label">{{ 'lbl.DefaultValue'|trans|ucfirst }}</label>
-                        <div class="form-inline">
-                          {% form_field datetime_value_amount %} {% form_field datetime_value_type %}
+                        <div class="row g-2">
+                          <div class="col-auto">
+                            {% form_field datetime_value_amount %}
+                          </div>
+                          <div class="col-auto">
+                            {% form_field datetime_value_type %}
+                          </div>
                         </div>
                       </div>
                     </fieldset>
