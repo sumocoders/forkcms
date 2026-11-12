@@ -5,7 +5,7 @@ doctrine:
   orm:
     mappings:
       content_block:
-        type: annotation
+        type: attribute
         is_bundle: false
         dir: "%kernel.project_dir%/src/Backend/Modules/ContentBlocks/Domain/ContentBlock"
         alias: ContentBlocksContentBlock

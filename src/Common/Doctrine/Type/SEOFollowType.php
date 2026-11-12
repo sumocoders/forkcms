@@ -10,6 +10,13 @@ final class SEOFollowType extends StringType
 {
     const string SEO_FOLLOW = 'seo_follow';
 
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
+    {
+        $column['length'] ??= 255;
+
+        return parent::getSQLDeclaration($column, $platform);
+    }
+
     /**
      * @param SEOFollow $seoFollow
      * @param AbstractPlatform $platform

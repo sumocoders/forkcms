@@ -10,6 +10,13 @@ final class SEOIndexType extends StringType
 {
     const string SEO_INDEX = 'seo_index';
 
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
+    {
+        $column['length'] ??= 255;
+
+        return parent::getSQLDeclaration($column, $platform);
+    }
+
     /**
      * @param SEOIndex $seoIndex
      * @param AbstractPlatform $platform

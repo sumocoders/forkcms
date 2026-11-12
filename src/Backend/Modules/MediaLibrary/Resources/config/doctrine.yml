@@ -9,25 +9,25 @@ doctrine:
   orm:
     mappings:
       media_folder:
-        type: annotation
+        type: attribute
         is_bundle: false
         dir: "%kernel.project_dir%/src/Backend/Modules/MediaLibrary/Domain/MediaFolder"
         alias: MediaLibraryMediaFolder
         prefix: Backend\Modules\MediaLibrary\Domain\MediaFolder
       media_group:
-        type: annotation
+        type: attribute
         is_bundle: false
         dir: "%kernel.project_dir%/src/Backend/Modules/MediaLibrary/Domain/MediaGroup"
         alias: MediaLibraryMediaGroup
         prefix: Backend\Modules\MediaLibrary\Domain\MediaGroup
       media_group_media_item:
-        type: annotation
+        type: attribute
         is_bundle: false
         dir: "%kernel.project_dir%/src/Backend/Modules/MediaLibrary/Domain/MediaGroupMediaItem"
         alias: MediaLibraryMediaGroupMediaItem
         prefix: Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem
       media_item:
-        type: annotation
+        type: attribute
         is_bundle: false
         dir: "%kernel.project_dir%/src/Backend/Modules/MediaLibrary/Domain/MediaItem"
         alias: MediaLibraryMediaItem

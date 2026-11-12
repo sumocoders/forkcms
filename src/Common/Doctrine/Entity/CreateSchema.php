@@ -34,14 +34,19 @@ class CreateSchema
      */
     public function forEntityClasses(array $entityClasses): void
     {
-        $schemaTool = new SchemaTool($this->entityManager);
+        $classMetadata = array_map($this->entityManager->getClassMetadata(...), $entityClasses);
 
-        $schemaTool->updateSchema(
-            array_map(
-                $this->entityManager->getClassMetadata(...),
-                $entityClasses
-            ),
-            true
-        );
+        // Doctrine ORM 3 dropped updateSchema()'s save mode, so the schema diff would drop every table
+        // that isn't backed by one of the given entities - which is most of Fork's (non entity) tables.
+        // Restricting the assets filter keeps the introspection limited to the tables we are creating.
+        $configuration = $this->entityManager->getConnection()->getConfiguration();
+        $previousFilter = $configuration->getSchemaAssetsFilter();
+        $configuration->setSchemaAssetsFilter(static fn (): bool => false);
+
+        try {
+            (new SchemaTool($this->entityManager))->updateSchema($classMetadata);
+        } finally {
+            $configuration->setSchemaAssetsFilter($previousFilter);
+        }
     }
 }

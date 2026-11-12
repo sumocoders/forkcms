@@ -3,21 +3,21 @@
 namespace Backend\Modules\MediaLibrary\Domain\MediaItem;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\DecimalType;
+use Doctrine\DBAL\Types\Type;
 
-final class AspectRatioDBALType extends DecimalType
+final class AspectRatioDBALType extends Type
 {
     public function getName(): string
     {
         return 'media_item_aspect_ratio';
     }
 
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
-        $fieldDeclaration['precision'] = 13;
-        $fieldDeclaration['scale'] = 2;
+        $column['precision'] ??= 13;
+        $column['scale'] ??= 2;
 
-        return parent::getSQLDeclaration($fieldDeclaration, $platform);
+        return $platform->getDecimalTypeDeclarationSQL($column);
     }
 
     public function convertToPHPValue($aspectRatio, AbstractPlatform $platform): ?AspectRatio

@@ -9,6 +9,13 @@ class StatusDBALType extends StringType
 {
     const CONTENT_BLOCKS_STATUS = 'content_blocks_status';
 
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
+    {
+        $column['length'] ??= 255;
+
+        return parent::getSQLDeclaration($column, $platform);
+    }
+
     public function convertToPHPValue($status, AbstractPlatform $platform): Status
     {
         return Status::fromString($status);

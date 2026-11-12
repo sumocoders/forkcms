@@ -14,49 +14,35 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * MediaGroup
- *
- * @ORM\Entity(repositoryClass="Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupRepository")
- * @ORM\HasLifecycleCallbacks
  */
+#[ORM\Entity(repositoryClass: MediaGroupRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class MediaGroup implements JsonSerializable, Countable
 {
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
      */
+    #[ORM\Column(type: 'datetime')]
     protected $editedOn;
 
     /**
      * @var Collection<MediaGroupMediaItem>
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem",
-     *     mappedBy="group",
-     *     cascade={"persist", "merge", "remove", "detach"},
-     *     orphanRemoval=true
-     * )
-     * @ORM\OrderBy({"sequence": "ASC"})
      */
+    #[ORM\OneToMany(mappedBy: 'group', targetEntity: MediaGroupMediaItem::class, cascade: ['persist', 'refresh', 'remove', 'detach'], orphanRemoval: true)]
+    #[ORM\OrderBy(['sequence' => 'ASC'])]
     protected $connectedItems;
 
     /**
      * @var int
-     *
-     * @ORM\Column(type="integer", nullable=false)
      */
+    #[ORM\Column(type: 'integer', nullable: false)]
     protected $numberOfConnectedItems;
 
     private function __construct(
-        /**
-         *
-         * @ORM\Id
-         * @ORM\Column(type="uuid")
-         */
+        #[ORM\Id]
+        #[ORM\Column(type: 'uuid')]
         private Uuid $id,
-        /**
-         * @ORM\Column(type="media_group_type")
-         */
+        #[ORM\Column(type: 'media_group_type')]
         protected Type $type,
     ) {
         $this->connectedItems = new ArrayCollection();
@@ -211,18 +197,14 @@ class MediaGroup implements JsonSerializable, Countable
         );
     }
 
-    /**
-     * @ORM\PrePersist
-     */
+    #[ORM\PrePersist]
     public function onPrePersist()
     {
         $this->editedOn = new \DateTime();
         $this->setNumberOfConnectedItems();
     }
 
-    /**
-     * @ORM\PreUpdate
-     */
+    #[ORM\PreUpdate]
     public function onPreUpdate()
     {
         $this->editedOn = new \DateTime();

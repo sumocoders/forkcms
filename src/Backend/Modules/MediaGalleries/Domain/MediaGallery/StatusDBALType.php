@@ -9,6 +9,13 @@ final class StatusDBALType extends StringType
 {
     public const string NAME = 'media_gallery_status';
 
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
+    {
+        $column['length'] ??= 255;
+
+        return parent::getSQLDeclaration($column, $platform);
+    }
+
     public function getName(): string
     {
         return self::NAME;
