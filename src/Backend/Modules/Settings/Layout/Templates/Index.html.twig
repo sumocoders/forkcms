@@ -32,7 +32,7 @@
           </h2>
         </div>
         <div class="card-body">
-          <div class="form-group last">
+          <div>
             {% form_field site_title %} {% form_field_error site_title %}
           </div>
         </div>
@@ -49,7 +49,7 @@
         </div>
         <div class="card-body">
           <p><small>{{ 'msg.HelpGoogleTrackingOptions'|trans }}</small></p>
-          <div class="form-group checkboxTextFieldCombo">
+          <div class="mb-4 checkboxTextFieldCombo">
             <label for="googleTrackingGoogleAnalyticsTrackingId" class="form-label">{{ 'lbl.GoogleAnalyticsTrackingId'|trans }}</label>
             <div class="input-group">
               <div class="input-group-text">
@@ -60,7 +60,7 @@
             {% form_field_error google_tracking_google_analytics_tracking_id %}
             <span class="form-text">{{ 'msg.HelpGoogleTrackingGoogleAnalyticsTrackingId'|trans|raw }}</span>
           </div>
-          <div class="form-group checkboxTextFieldCombo">
+          <div class="mb-4 checkboxTextFieldCombo">
             <label for="googleTrackingGoogleTagManagerContainerId" class="form-label">{{ 'lbl.GoogleTagManagerContainerId'|trans }}</label>
             <div class="input-group">
               <div class="input-group-text">
@@ -82,17 +82,17 @@
           <h2 class="card-title">{{ 'lbl.Scripts'|trans|ucfirst }}</h2>
         </div>
         <div class="card-body">
-          <div class="form-group">
+          <div class="mb-4">
             <label for="siteHtmlHead" class="form-label">{{ 'msg.HelpScriptsHeadLabel'|trans|raw }}</label>
             {% form_field site_html_head %} {% form_field_error site_html_head %}
             <span class="form-text">{{ 'msg.HelpScriptsHead'|trans|raw }}</span>
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="siteHtmlStartOfBody" class="form-label">{{ 'msg.HelpScriptsStartOfBodyLabel'|trans|raw }}</label>
             {% form_field site_html_start_of_body %} {% form_field_error site_html_start_of_body %}
             <span class="form-text">{{ 'msg.HelpScriptsStartOfBody'|trans|raw }}</span>
           </div>
-          <div class="form-group last">
+          <div>
             <label for="siteHtmlEndOfBody" class="form-label">{{ 'msg.HelpScriptsEndOfBodyLabel'|trans|raw }}</label>
             {% form_field site_html_end_of_body %} {% form_field_error site_html_end_of_body %}
             <span class="form-text">{{ 'msg.HelpScriptsEndOfBody'|trans|raw }}</span>
@@ -108,7 +108,7 @@
           <h2 class="card-title">{{ 'lbl.Languages'|trans|ucfirst }}</h2>
         </div>
         <div class="card-body">
-          <div class="form-group">
+          <div class="mb-4">
             <p>{{ 'msg.HelpLanguages'|trans|ucfirst }}</p>
             <ul id="activeLanguages" class="list-unstyled">
               {% for activeLanguage in activeLanguages %}
@@ -120,7 +120,7 @@
               {% endfor %}
             </ul>
           </div>
-          <div class="form-group last">
+          <div>
             <p>{{ 'msg.HelpRedirectLanguages'|trans|ucfirst }}</p>
             <ul id="redirectLanguages" class="list-unstyled">
               {% for redirectLanguage in redirectLanguages %}
@@ -143,7 +143,7 @@
           <h2 class="card-title">{{ 'lbl.Numbers'|trans|ucfirst }}</h2>
         </div>
         <div class="card-body">
-          <div class="form-group last">
+          <div>
             <label for="numberFormat" class="form-label">{{ 'lbl.NumberFormat'|trans|ucfirst }}</label>
             {% form_field number_format %} {% form_field_error number_format %}
             <span class="form-text">{{ 'msg.HelpNumberFormat'|trans|ucfirst }}</span>
@@ -225,7 +225,7 @@
             <ul class="list-unstyled radiobuttonFieldCombo">
               {% for googleRecaptchaVersionElement in google_recaptcha_version %}
                 <li class="form-check">
-                  <div class="form-group">
+                  <div class="mb-4">
                     <label for="{{ googleRecaptchaVersionElement.id }}">{{ googleRecaptchaVersionElement.rbtGoogleRecaptchaVersion|raw }} {{ googleRecaptchaVersionElement.label }}</label>
                   </div>
                 </li>
@@ -242,7 +242,7 @@
           <h2 class="card-title">{{ 'lbl.PrivacyConsents'|trans|ucfirst }}</h2>
         </div>
         <div class="card-body">
-          <div class="form-group last">
+          <div>
             <ul class="list-unstyled">
               <li class="form-check">
                 <label for="showConsentDialog" class="form-check-label">{% form_field show_consent_dialog %} {{ 'msg.ShowConsentDialog'|trans|ucfirst }}</label>

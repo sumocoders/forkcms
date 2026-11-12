@@ -16,21 +16,21 @@
           </h2>
         </div>
         <div class="card-body">
-          <div class="form-group">
+          <div class="mb-4">
             <label for="zoomLevelWidget" class="form-label">{{ 'lbl.ZoomLevel'|trans|ucfirst }}</label>
             {% form_field zoom_level_widget %} {% form_field_error zoom_level_widget %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="widthWidget" class="form-label">{{ 'lbl.Width'|trans|ucfirst }}</label>
             <p class="form-text">{{ 'msg.WidthHelp'|trans|format(300,800)|raw }}</p>
             {% form_field width_widget %} {% form_field_error width_widget %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="heightWidget" class="form-label">{{ 'lbl.Height'|trans|ucfirst }}</label>
             <p class="form-text">{{ 'msg.HeightHelp'|trans|format(150)|raw }}</p>
             {% form_field height_widget %} {% form_field_error height_widget %}
           </div>
-          <div class="form-group last">
+          <div>
             <label for="mapTypeWidget" class="form-label">{{ 'lbl.MapType'|trans|ucfirst }}</label>
             {% form_field map_type_widget %} {% form_field_error map_type_widget %}
           </div>

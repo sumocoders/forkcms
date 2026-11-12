@@ -59,7 +59,7 @@
   {{ hidTemplateId|raw }}
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="mb-4">
         <label for="title" class="form-label">{{ 'lbl.Title'|trans|ucfirst }}</label>
         {% form_field title %} {% form_field_error title %}
         <a class="site-url" data-url="{{ SITE_URL }}{{ prefixURL }}/{{ item.url }}{% if appendRevision %}?page_revision={{ item.revision_id }}{% endif %}" href="{{ SITE_URL }}{{ prefixURL }}/{{ item.url }}{% if appendRevision %}?page_revision={{ item.revision_id }}{% endif %}">
@@ -189,7 +189,7 @@
           <div role="tabpanel" class="tab-pane" id="tabSettings">
             <div class="row">
               <div class="col-md-12">
-                <div class="form-group">
+                <div class="mb-4">
                   <ul class="list-unstyled">
                     {% for _itr_22 in hidden %}
                       <li class="form-check">
@@ -198,7 +198,7 @@
                     {% endfor %}
                   </ul>
                 </div>
-                <div class="form-group">
+                <div class="mb-4">
                   <ul class="list-unstyled">
                     <li class="form-check">
                       <label for="isAction" class="form-check-label">{% form_field is_action %} {{ 'msg.IsAction'|trans|ucfirst }}</label>
@@ -206,7 +206,7 @@
                   </ul>
                 </div>
                 {% if isGod %}
-                  <div class="form-group">
+                  <div class="mb-4">
                     <ul class="list-unstyled">
                       {% for _itr_23 in allow %}
                         <li class="form-check">
@@ -220,7 +220,7 @@
                       <h2 class="card-title">{{ 'lbl.LinkCssClass'|trans|ucfirst }}</h2>
                     </div>
                     <div class="card-body">
-                      <div class="form-group last">
+                      <div>
                         {% form_field link_class %}{% form_field_error link_class %}
                       </div>
                     </div>
@@ -235,17 +235,17 @@
                     <label for="movePage">{% form_field move_page %} {{ 'lbl.MoveThisPage'|trans|ucfirst }}</label>
                   </div>
                   <div class="card-body">
-                    <div class="form-group">
+                    <div class="mb-4">
                       <label for="movePageTree" class="form-label">{{ 'lbl.MovePageTree'|trans|ucfirst }}</label>
                       {% form_field move_page_tree %}
                       {% form_field_error move_page_tree %}
                     </div>
-                    <div class="form-group">
+                    <div class="mb-4">
                       <label for="movePageReferencePage" class="form-label">{{ 'lbl.MovePageReferencePage'|trans|ucfirst }}</label>
                       {% form_field move_page_reference_page %}
                       {% form_field_error move_page_reference_page %}
                     </div>
-                    <div class="form-group last">
+                    <div>
                       <label for="movePageType" class="form-label">{{ 'lbl.MovePageType'|trans|ucfirst }}</label>
                       {% form_field move_page_type %}
                       {% form_field_error move_page_type %}
@@ -265,7 +265,7 @@
                 <ul class="list-unstyled radiobuttonFieldCombo">
                   {% for _itr_24 in redirect %}
                     <li class="form-check">
-                      <div class="form-group">
+                      <div class="mb-4">
                         <label for="{{ _itr_24.id }}">{{ _itr_24.rbtRedirect|raw }} {{ _itr_24.label }}</label>
                         {% if _itr_24.isInternal %}
                           <p class="form-text">{{ 'msg.HelpInternalRedirect'|trans|ucfirst }}</p>
@@ -288,7 +288,7 @@
           <div role="tabpanel" class="tab-pane" id="tabAuthentication">
             <div class="row">
               <div class="col-md-12">
-                <div class="form-group last">
+                <div>
                   <li class="form-check">
                     <label for="authRequired" class="form-check-label">{% form_field auth_required %} {{ 'msg.AuthRequired'|trans|ucfirst }}</label>
                   </li>
@@ -315,10 +315,10 @@
           <div role="tabpanel" class="tab-pane" id="tabImage">
             <div class="row js-page-image-tab">
               <div class="col-md-12">
-                <div class="form-group">
+                <div class="mb-4">
                   <label for="image" class="form-label">{{ 'lbl.Image'|trans|ucfirst }}</label>
                 </div>
-                <div class="form-group">
+                <div class="mb-4">
                   <div class="row">
                     <div class="col-lg-3">
                       {% if item.data.image %}
@@ -357,7 +357,7 @@
                     </div>
                     <div class="card-body">
                       {% for language, field in hreflangFields %}
-                        <div class="form-group{% if loop.last %} last{% endif %}">
+                        <div class="{% if not loop.last %}mb-4{% endif %}">
                           <label for="hreflang{{ language|ucfirst }}">{{ language|upper }}</label>
                           {{ field.field_hreflang|raw }}
                         </div>
@@ -442,23 +442,23 @@
           <div id="extraWarningHomeNoBlock" class="alert alert-warning alert-xs">
             {{ macro.icon('exclamation-triangle') }}{{ 'msg.HomeNoBlock'|trans }}</div>
           <br>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="extraType" class="form-label">{{ 'lbl.Type'|trans|ucfirst }}</label>
             {% form_field extra_type %}
           </div>
-          <div id="extraModuleHolder" class="form-group" style="display: none;">
+          <div id="extraModuleHolder" class="mb-4" style="display: none;">
             <label for="extraModule" class="form-label">{{ 'lbl.WhichModule'|trans|ucfirst }}</label>
             <select id="extraModule" class="form-control" size="1">
               <option value="-1">-</option>
             </select>
           </div>
-          <div id="extraExtraIdHolder" class="form-group" style="display: none;">
+          <div id="extraExtraIdHolder" class="mb-4" style="display: none;">
             <label for="extraExtraId" class="form-label">{{ 'lbl.WhichWidget'|trans|ucfirst }}</label>
             <select id="extraExtraId" class="form-control" size="1">
               <option value="-1">-</option>
             </select>
           </div>
-          <div id="userTemplateHolder" class="form-group"  style="display: none;">
+          <div id="userTemplateHolder" class="mb-4"  style="display: none;">
             <label for="userTemplate">{{ 'lbl.WhichTemplate'|trans|capitalize }}</label>
             <select class="form-control" id="userTemplate" size="1">
               <option value="-1">-</option>
@@ -511,7 +511,7 @@
               {% for template in templates %}
                 {{ cycle(['', '', '</div><div class="row">'], loop.index0)|raw }}
                 <div class="col-sm-6">
-                  <div class="form-group">
+                  <div class="mb-4">
                     <div class="form-check">
                       <label for="template{{ template.id }}">
                         <input type="radio" id="template{{ template.id }}" value="{{ template.id }}"
@@ -568,7 +568,7 @@
             {{ macro.icon('exclamation-triangle') }}{{ 'msg.ContentSaveWarning'|trans|raw }}
           </div>
           <br>
-          <div class="form-group">
+          <div class="mb-4">
             {% form_field html %}
             {% form_field_error html %}
           </div>

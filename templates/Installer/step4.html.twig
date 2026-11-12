@@ -28,7 +28,7 @@
         </div>
         <div class="card-body">
           <p class="form-text">Enter your database details. Make sure this database already exists.</p>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="hostname">
               Hostname
               <abbr title="Required field">*</abbr>
@@ -40,7 +40,7 @@
               {{ form_widget(form.databasePort, {attr: {class: 'flex-grow-0 w-25'}}) }}
             </div>
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="database">
               Database
               <abbr title="Required field">*</abbr>
@@ -48,14 +48,14 @@
             <p class="form-text">Make sure this database is empty!</p>
             {{ form_widget(form.databaseName) }}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="username">
               Username
               <abbr title="Required field">*</abbr>
             </label>
             {{ form_widget(form.databaseUsername) }}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="password">
               Password
               <abbr title="Required field">*</abbr>

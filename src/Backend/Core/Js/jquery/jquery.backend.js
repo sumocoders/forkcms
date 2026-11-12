@@ -1246,7 +1246,7 @@
 
         if (blockSubmit && $('#addValue-' + id).val().replace(/^\s+|\s+$/g, '') !== '') {
           // show warning
-          $('#addValue-' + id).parents('.form-group').append('<span style="display: none;" id="errorMessage-' + id + '" class="formError">' + options.errorMessage + '</span>')
+          $('#addValue-' + id).closest('.input-group').after('<span style="display: none;" id="errorMessage-' + id + '" class="formError">' + options.errorMessage + '</span>')
 
           // clear other timers
           clearTimeout(timer)
@@ -1271,7 +1271,7 @@
         '<div class="multipleTextWrapper">' +
         '<div id="elementList-' + id + '" class="multipleTextList">' +
         '</div>' +
-        '<div class="form-group">' +
+        '<div class="mb-4">' +
         '<div class="input-group">' +
         '<input class="form-control dontSubmit" id="addValue-' + id + '" name="addValue-' + id + '" type="text" />' +
         '<button id="addButton-' + id + '" class="btn btn-success">' +

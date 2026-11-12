@@ -113,7 +113,7 @@
       <div class="card">
         <div class="card-header"><p class="tab-pane-title">{{ 'lbl.Titles'|trans|ucfirst }}</p></div>
         <div class="card-body">
-          <div class="form-group last">
+          <div>
             <ul class="list-unstyled checkboxTextFieldCombo">
               <li>
                 <p>
@@ -134,7 +134,7 @@
       <div class="card">
         <div class="card-header"><p class="tab-pane-title">{{ 'lbl.MetaInformation'|trans|ucfirst }}</p></div>
         <div class="card-body">
-          <div class="form-group">
+          <div class="mb-4">
             <ul class="list-unstyled checkboxTextFieldCombo">
               <li>
                 <p>
@@ -147,7 +147,7 @@
               </li>
             </ul>
           </div>
-          <div class="form-group{% if not form.custom_meta_tags %} last{% endif %}">
+          <div class="{% if form.custom_meta_tags %}mb-4{% endif %}">
             <ul class="list-unstyled checkboxTextFieldCombo">
               <li>
                 <p>
@@ -161,7 +161,7 @@
             </ul>
           </div>
           {% if form.custom_meta_tags %}
-          <div class="form-group last">
+          <div>
             {{ form_label(form.custom) }}
             {{ form_widget(form.custom) }}
             {{ form_errors(form.custom) }}
@@ -176,7 +176,7 @@
       <div class="card">
         <div class="card-header"><p class="tab-pane-title">{{ 'lbl.URL'|trans|ucfirst }}</p></div>
         <div class="card-body">
-          <div class="form-group">
+          <div class="mb-4">
             <ul class="list-unstyled checkboxTextFieldCombo">
               <li>
                 <p>
@@ -191,7 +191,7 @@
               </li>
             </ul>
           </div>
-          <div class="form-group last">
+          <div>
             <ul class="list-unstyled checkboxTextFieldCombo">
               <li>
                 <p>
@@ -211,14 +211,14 @@
         <div class="card-header"><p class="tab-pane-title">{{ 'lbl.SEO'|trans|ucfirst }}</p></div>
         <div class="card-body">
           <div class="col-md-6">
-            <div class="form-group"><p><b>{{ 'lbl.Index'|trans|ucfirst }}</b></p>
+            <div class="mb-4"><p><b>{{ 'lbl.Index'|trans|ucfirst }}</b></p>
               <div class="inputListHorizontal">
                 {{ form_widget(form.SEOIndex) }}
               </div>
             </div>
           </div>
           <div class="col-md-6">
-            <div class="form-group"><p><b>{{ 'lbl.Follow'|trans|ucfirst }}</b></p>
+            <div class="mb-4"><p><b>{{ 'lbl.Follow'|trans|ucfirst }}</b></p>
               <div class="inputListHorizontal">
                 {{ form_widget(form.SEOFollow) }}
               </div>
@@ -259,13 +259,13 @@
     <div class="row">
       {% set show_preview = show_preview and data is not null and data.fileName is not empty %}
       {% if show_preview or show_remove_image %}
-        <div class="form-group{% if show_preview and preview_url %} col-md-3 col-lg-2{% endif %}">
+        <div class="mb-4{% if show_preview and preview_url %} col-md-3 col-lg-2{% endif %}">
           {% if show_preview and preview_url %}
             <img class="{% if preview_class is defined and preview_class is not empty %}{{ preview_class }}{% endif %}" src="{{ preview_url }}">
           {% endif %}
         </div>
       {% endif %}
-      <div class="form-group{% if show_preview and preview_url %} col-md-9 col-lg-10{% endif %}">
+      <div class="mb-4{% if show_preview and preview_url %} col-md-9 col-lg-10{% endif %}">
         {{ form_widget(form.file) }}
         {% if help_text_message %}
           <div class="help-text">{{ help_text_message|trans|format(help_text_argument) }}</div>
@@ -282,7 +282,7 @@
 {% block fork_file_widget %}
   {% import "Layout/Templates/macros.html.twig" as macro %}
   {% apply spaceless %}
-    <div class="form-group">
+    <div class="mb-4">
       {{ form_widget(form.file) }}
       {% if help_text_message %}
         <div class="help-text">{{ help_text_message|trans|format(help_text_argument) }}</div>
@@ -291,7 +291,7 @@
     </div>
     {% set show_preview = show_preview and data is not null and data.fileName is not empty %}
     {% if show_preview or show_remove_file %}
-      <div class="form-group">
+      <div class="mb-4">
         {% if show_preview and preview_url %}
           <a href="{{ preview_url }}" class="btn btn-sm btn-secondary" target="_blank" rel="noopener noreferrer">
             {{ macro.icon('eye') }}
@@ -373,7 +373,7 @@
 {% endblock %}
 
 {% block form_row %}
-  <div class="form-group">
+  <div class="mb-4">
     {{- form_label(form) -}}
     {{- form_widget(form) -}}
     {% if (not compound or force_error|default(false)) and not valid %}
@@ -383,7 +383,7 @@
 {% endblock %}
 
 {% block editor_row %}
-  <div class="card form-group card-editor{% if (not compound or force_error|default(false)) and not valid %} border-danger{% endif %}">
+  <div class="card card-editor{% if (not compound or force_error|default(false)) and not valid %} border-danger{% endif %}">
     <div class="card-header">
       {{- form_label(form) -}}
     </div>

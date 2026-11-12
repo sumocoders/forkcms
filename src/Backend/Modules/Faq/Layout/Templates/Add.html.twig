@@ -9,7 +9,7 @@
   {% form add %}
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="mb-4">
         <label for="title" class="form-label">{{ 'lbl.Question'|trans|ucfirst }} {{ macro.required }}</label>
         {% form_field title %} {% form_field_error title %}
         {% if detailURL %}
@@ -57,7 +57,7 @@
                     <h2 class="card-title">{{ 'lbl.Status'|trans|ucfirst }}</h2>
                   </div>
                   <div class="card-body">
-                    <div class="form-group last">
+                    <div>
                       <ul class="list-unstyled">
                         {% for _itr_9 in hidden %}
                           <li class="form-check">
@@ -73,11 +73,11 @@
                     <h2 class="card-title">{{ 'lbl.MetaData'|trans|ucfirst }}</h2>
                   </div>
                   <div class="card-body">
-                    <div class="form-group">
+                    <div class="mb-4">
                       <label for="categoryId" class="form-label">{{ 'lbl.Category'|trans|ucfirst }}</label>
                       {% form_field category_id %} {% form_field_error category_id %}
                     </div>
-                    <div class="form-group last">
+                    <div>
                       <label for="tags" class="form-label">{{ 'lbl.Tags'|trans|ucfirst }}</label>
                       {% form_field tags %} {% form_field_error tags %}
                       <div class="form-text">{{ 'msg.HelpTextTags'|trans }}</div>

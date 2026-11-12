@@ -13,7 +13,7 @@
           <h2>{{ 'lbl.Template'|trans|ucfirst }}</h2>
         </div>
         <div class="card-body">
-          <div class="form-group">
+          <div class="mb-4">
             <p class="form-text">{{ 'msg.HelpTemplateLocation'|trans|raw }}</p>
             <label for="file" class="form-label">{{ 'msg.PathToTemplate'|trans|ucfirst }}</label>
             <label for="theme" class="visually-hidden">{{ 'lbl.Theme'|trans|ucfirst }}</label>
@@ -32,7 +32,7 @@
             </div>
             {% form_field_error theme %} {% form_field_error file %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="label" class="form-label">{{ 'lbl.Label'|trans|ucfirst }}</label>
             {% form_field label %} {% form_field_error label %}
           </div>
@@ -53,11 +53,11 @@
         </div>
         <div id="positions" class="card-body">
           {% for position in positions %}
-            <div class="form-group position jsPosition"{% if not position.i %} style="display: none"{% endif %}>
+            <div class="mb-4 position jsPosition"{% if not position.i %} style="display: none"{% endif %}>
               <div class="row">
                 {# Title & button to delete this position #}
                 <div class="col-md-2">
-                  <div class="form-group">
+                  <div class="mb-4">
                     <label for="position{{ position.i }}">
                       <span>{{ 'lbl.Position'|trans|ucfirst }}</span>
                       <button class="btn btn-danger btn-icon-only jsDeletePosition">
@@ -69,7 +69,7 @@
                 </div>
                 {# Position name #}
                 <div class="col-md-10">
-                  <div class="form-group">
+                  <div class="mb-4">
                     {{ position.formElements.txtPosition.parse()|raw }}
                     {{ position.formElements.txtPositionError }}
                   </div>
@@ -80,7 +80,7 @@
                 {% if position.blocks %}
                   {% for block in position.blocks %}
                     <div class="col-md-10 offset-md-2 jsBlock">
-                      <div class="form-group">
+                      <div class="mb-4">
                         <div class="row g-2 align-items-center">
                           <div class="col-auto">
                             {{ block.formElements.ddmType.parse()|raw }}
@@ -139,7 +139,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-6">
-              <div class="form-group">
+              <div class="mb-4">
                 <p class="form-text">{{ 'msg.HelpTemplateFormat'|trans }}</p>
                 {% form_field format %} {% form_field_error format %}
               </div>
@@ -161,7 +161,7 @@
           <h2 class="card-title">{{ 'lbl.Status'|trans|ucfirst }}</h2>
         </div>
         <div class="card-body">
-          <div class="form-group">
+          <div class="mb-4">
             <ul class="list-unstyled">
               <li class="form-check">
                 <label for="active">{% form_field active %} {% form_field_error active %} {{ 'lbl.Active'|trans|ucfirst }}</label>

@@ -9,7 +9,7 @@
   {% form edit %}
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="mb-4">
         <label for="title" class="form-label">{{ 'lbl.Title'|trans|ucfirst }}{{ macro.required }}</label>
         {% form_field title %} {% form_field_error title %}
       </div>
@@ -20,35 +20,35 @@
           </h2>
         </div>
         <div class="card-body">
-          <div class="form-group">
+          <div class="mb-4">
             <label for="street" class="form-label">
               {{ 'lbl.Street'|trans|ucfirst }}
               {{ macro.required }}
             </label>
             {% form_field street %} {% form_field_error street %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="number" class="form-label">
               {{ 'lbl.Number'|trans|ucfirst }}
               {{ macro.required }}
             </label>
             {% form_field number %} {% form_field_error number %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="zip" class="form-label">
               {{ 'lbl.Zip'|trans|ucfirst }}
               {{ macro.required }}
             </label>
             {% form_field zip %} {% form_field_error zip %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="city" class="form-label">
               {{ 'lbl.City'|trans|ucfirst }}
               {{ macro.required }}
             </label>
             {% form_field city %} {% form_field_error city %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="country" class="form-label">
               {{ 'lbl.Country'|trans|ucfirst }}
               {{ macro.required }}
@@ -92,29 +92,29 @@
           </h2>
         </div>
         <div class="card-body">
-          <div class="form-group">
+          <div class="mb-4">
             <label for="zoomLevel" class="form-label">{{ 'lbl.ZoomLevel'|trans|ucfirst }}</label>
             {% form_field zoom_level %} {% form_field_error zoom_level %}
           </div>
-          <div class="form-group"{% if not godUser %} style="display:none;"{% endif %}>
+          <div class="mb-4"{% if not godUser %} style="display:none;"{% endif %}>
             <label for="width" class="form-label">{{ 'lbl.Width'|trans|ucfirst }}</label>
             <p class="form-text">{{ 'msg.WidthHelp'|trans|format(300,800)|raw }}</p>
             {% form_field width %} {% form_field_error width %}
           </div>
-          <div class="form-group"{% if not godUser %} style="display:none;"{% endif %}>
+          <div class="mb-4"{% if not godUser %} style="display:none;"{% endif %}>
             <label for="height" class="form-label">{{ 'lbl.Height'|trans|ucfirst }}</label>
             <p class="form-text">{{ 'msg.HeightHelp'|trans|format(150)|raw }}</p>
             {% form_field height %} {% form_field_error height %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="mapType" class="form-label">{{ 'lbl.MapType'|trans|ucfirst }}</label>
             {% form_field map_type %} {% form_field_error map_type %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="mapStyle" class="form-label">{{ 'lbl.MapStyle'|trans|capitalize }}</label>
             {% form_field_error map_style %} {% form_field map_style %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <ul class="list-unstyled">
               <li class="form-check">
                 <label for="fullUrl" class="form-check-label">{% form_field full_url %} {{ 'msg.ShowMapUrl'|trans|ucfirst }}</label>

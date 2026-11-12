@@ -42,7 +42,7 @@
         {% endif %}
         {% form authenticationIndex %}
         <div class="login-form">
-          <div class="form-group">
+          <div class="mb-2">
             <div class="input-group">
               <span class="input-group-text">
                 {{ macro.icon('envelope fa-fw') }}
@@ -52,7 +52,7 @@
               {% form_field_error backend_email %}
             </div>
           </div>
-          <div class="form-group">
+          <div class="mb-2">
             <div class="input-group">
               <span class="input-group-text">
                 {{ macro.icon('lock fa-fw') }}
@@ -61,7 +61,7 @@
               {% form_field backend_password %} {% form_field_error backend_password %}
             </div>
           </div>
-          <div class="form-group">
+          <div class="mb-2">
             <div class="btn-toolbar float-end">
               <div class="btn-group">
                 <a href="#" id="forgotPasswordLink" class="btn forgot-password" data-bs-toggle="modal" data-bs-target="#forgotPasswordHolder">{{ 'msg.ForgotPassword'|trans }}</a>
@@ -87,7 +87,7 @@
         <h4 class="modal-title" id="forgotPasswordDialogTitle">{{ 'msg.ForgotPassword'|trans|ucfirst }}</h4>
       </div>
       <div class="modal-body">
-        <div class="form-group">
+        <div class="mb-4">
           <label for="backendEmailForgot" class="form-label">{{ 'lbl.Email'|trans|ucfirst }}</label>
           {% form_field backend_email_forgot %}
           {% form_field_error backend_email_forgot %}
