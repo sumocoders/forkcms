@@ -14,8 +14,9 @@ final class AspectRatioDBALType extends Type
 
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
-        $column['precision'] ??= 13;
-        $column['scale'] ??= 2;
+        // DBAL 4 columns default the scale to 0 (not null), so ??= would never apply and the diff wants NUMERIC(13, 0)
+        $column['precision'] = 13;
+        $column['scale'] = 2;
 
         return $platform->getDecimalTypeDeclarationSQL($column);
     }
