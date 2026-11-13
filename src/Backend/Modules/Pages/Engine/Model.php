@@ -1284,7 +1284,7 @@ class Model
     public static function loadUserTemplates(): array
     {
         $themePath = FRONTEND_PATH . '/Themes/';
-        $themePath .= BackendModel::get('fork.settings')->get('Core', 'theme', 'Fork');
+        $themePath .= BackendModel::get('fork.settings')->get('Core', 'theme', 'Bootstrap');
         $filePath = $themePath . '/Core/Layout/Templates/UserTemplates/Templates.json';
 
         $userTemplates = [];
@@ -1296,7 +1296,7 @@ class Model
             foreach ($userTemplates as &$userTemplate) {
                 $userTemplate['file'] =
                     '/src/Frontend/Themes/' .
-                    BackendModel::get('fork.settings')->get('Core', 'theme', 'Fork') .
+                    BackendModel::get('fork.settings')->get('Core', 'theme', 'Bootstrap') .
                     '/Core/Layout/Templates/UserTemplates/' .
                     $userTemplate['file'];
             }

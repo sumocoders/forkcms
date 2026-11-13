@@ -2,6 +2,8 @@
 
 namespace Common\Core;
 
+use DateTimeImmutable;
+use SpoonFilter;
 use SpoonFormDate;
 
 /**
@@ -9,6 +11,35 @@ use SpoonFormDate;
  */
 class FormDate extends SpoonFormDate
 {
+    private bool $nativeDateInput = false;
+
+    /**
+     * Render as a native <input type="date">, the browser provides the date picker.
+     * The mask should be Y-m-d, the format a date input submits.
+     */
+    public function useNativeDateInput(): void
+    {
+        $this->nativeDateInput = true;
+    }
+
+    #[\Override]
+    public function parse($template = null)
+    {
+        if (!$this->nativeDateInput) {
+            return parent::parse($template);
+        }
+
+        // reuse the parent markup and only swap the input type
+        $output = preg_replace('/^<input type="text"/', '<input type="date"', parent::parse($template), 1);
+
+        // the parent already assigned the text input, overwrite it with the date input
+        if ($template !== null) {
+            $template->assign('txt' . SpoonFilter::toCamelCase($this->attributes['name']), $output);
+        }
+
+        return $output;
+    }
+
     /**
      * Checks if this field is correctly submitted.
      *
@@ -18,7 +49,8 @@ class FormDate extends SpoonFormDate
      */
     public function isValid($error = null): bool
     {
-        $return = parent::isValid($error);
+        // SpoonFormDate only parses masks with the year at the end, so a native Y-m-d value is checked here
+        $return = $this->nativeDateInput ? $this->isValidNativeDate($error) : parent::isValid($error);
 
         if ($return === false) {
             return false;
@@ -82,5 +114,56 @@ class FormDate extends SpoonFormDate
         }
 
         return true;
+    }
+
+    #[\Override]
+    public function getTimestamp(
+        $year = null,
+        $month = null,
+        $day = null,
+        $hour = null,
+        $minute = null,
+        $second = null
+    ) {
+        $submittedDate = $this->nativeDateInput && $this->isFilled() ? $this->getSubmittedNativeDate() : null;
+        if ($submittedDate === null) {
+            return parent::getTimestamp($year, $month, $day, $hour, $minute, $second);
+        }
+
+        return mktime(
+            $hour !== null ? (int) $hour : (int) date('H'),
+            $minute !== null ? (int) $minute : (int) date('i'),
+            $second !== null ? (int) $second : (int) date('s'),
+            $month !== null ? (int) $month : (int) $submittedDate->format('n'),
+            $day !== null ? (int) $day : (int) $submittedDate->format('j'),
+            $year !== null ? (int) $year : (int) $submittedDate->format('Y')
+        );
+    }
+
+    private function isValidNativeDate(?string $error): bool
+    {
+        if ($this->isFilled() && $this->getSubmittedNativeDate() !== null) {
+            return true;
+        }
+
+        if ($error !== null) {
+            $this->setError($error);
+        }
+
+        return false;
+    }
+
+    private function getSubmittedNativeDate(): ?DateTimeImmutable
+    {
+        $data = $this->getMethod(true);
+        $value = $data[$this->getName()] ?? null;
+        if (!is_string($value)) {
+            return null;
+        }
+
+        $date = DateTimeImmutable::createFromFormat('!Y-m-d', $value);
+
+        // reject overflowing dates like 2026-02-31, createFromFormat silently rolls them over
+        return $date !== false && $date->format('Y-m-d') === $value ? $date : null;
     }
 }

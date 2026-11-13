@@ -24,14 +24,14 @@
   {% endif %}
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.WebsiteTitle'|trans|ucfirst }}
             {{ macro.required }}
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group last">
             {% form_field site_title %} {% form_field_error site_title %}
           </div>
@@ -41,35 +41,35 @@
   </div>
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.GoogleTrackingOptions'|trans|ucfirst }}
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <p><small>{{ 'msg.HelpGoogleTrackingOptions'|trans }}</small></p>
           <div class="form-group checkboxTextFieldCombo">
-            <label for="googleTrackingGoogleAnalyticsTrackingId" class="control-label">{{ 'lbl.GoogleAnalyticsTrackingId'|trans }}</label>
+            <label for="googleTrackingGoogleAnalyticsTrackingId" class="form-label">{{ 'lbl.GoogleAnalyticsTrackingId'|trans }}</label>
             <div class="input-group">
-              <div class="input-group-addon">
+              <div class="input-group-text">
                 {% form_field google_tracking_google_analytics_tracking_id_enabled %}
               </div>
               {% form_field google_tracking_google_analytics_tracking_id %}
             </div>
             {% form_field_error google_tracking_google_analytics_tracking_id %}
-            <span class="help-block">{{ 'msg.HelpGoogleTrackingGoogleAnalyticsTrackingId'|trans|raw }}</span>
+            <span class="form-text">{{ 'msg.HelpGoogleTrackingGoogleAnalyticsTrackingId'|trans|raw }}</span>
           </div>
           <div class="form-group checkboxTextFieldCombo">
-            <label for="googleTrackingGoogleTagManagerContainerId" class="control-label">{{ 'lbl.GoogleTagManagerContainerId'|trans }}</label>
+            <label for="googleTrackingGoogleTagManagerContainerId" class="form-label">{{ 'lbl.GoogleTagManagerContainerId'|trans }}</label>
             <div class="input-group">
-              <div class="input-group-addon">
+              <div class="input-group-text">
                 {% form_field google_tracking_google_tag_manager_container_id_enabled %}
               </div>
               {% form_field google_tracking_google_tag_manager_container_id %}
             </div>
             {% form_field_error google_tracking_google_tag_manager_container_id %}
-            <span class="help-block">{{ 'msg.HelpGoogleTrackingGoogleTagManagerContainerId'|trans|raw }}</span>
+            <span class="form-text">{{ 'msg.HelpGoogleTrackingGoogleTagManagerContainerId'|trans|raw }}</span>
           </div>
         </div>
       </div>
@@ -77,25 +77,25 @@
   </div>
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">{{ 'lbl.Scripts'|trans|ucfirst }}</h2>
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">{{ 'lbl.Scripts'|trans|ucfirst }}</h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group">
-            <label for="siteHtmlHead" class="control-label">{{ 'msg.HelpScriptsHeadLabel'|trans|raw }}</label>
+            <label for="siteHtmlHead" class="form-label">{{ 'msg.HelpScriptsHeadLabel'|trans|raw }}</label>
             {% form_field site_html_head %} {% form_field_error site_html_head %}
-            <span class="help-block">{{ 'msg.HelpScriptsHead'|trans|raw }}</span>
+            <span class="form-text">{{ 'msg.HelpScriptsHead'|trans|raw }}</span>
           </div>
           <div class="form-group">
-            <label for="siteHtmlStartOfBody" class="control-label">{{ 'msg.HelpScriptsStartOfBodyLabel'|trans|raw }}</label>
+            <label for="siteHtmlStartOfBody" class="form-label">{{ 'msg.HelpScriptsStartOfBodyLabel'|trans|raw }}</label>
             {% form_field site_html_start_of_body %} {% form_field_error site_html_start_of_body %}
-            <span class="help-block">{{ 'msg.HelpScriptsStartOfBody'|trans|raw }}</span>
+            <span class="form-text">{{ 'msg.HelpScriptsStartOfBody'|trans|raw }}</span>
           </div>
           <div class="form-group last">
-            <label for="siteHtmlEndOfBody" class="control-label">{{ 'msg.HelpScriptsEndOfBodyLabel'|trans|raw }}</label>
+            <label for="siteHtmlEndOfBody" class="form-label">{{ 'msg.HelpScriptsEndOfBodyLabel'|trans|raw }}</label>
             {% form_field site_html_end_of_body %} {% form_field_error site_html_end_of_body %}
-            <span class="help-block">{{ 'msg.HelpScriptsEndOfBody'|trans|raw }}</span>
+            <span class="form-text">{{ 'msg.HelpScriptsEndOfBody'|trans|raw }}</span>
           </div>
         </div>
       </div>
@@ -103,16 +103,16 @@
   </div>
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">{{ 'lbl.Languages'|trans|ucfirst }}</h2>
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">{{ 'lbl.Languages'|trans|ucfirst }}</h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group">
             <p>{{ 'msg.HelpLanguages'|trans|ucfirst }}</p>
             <ul id="activeLanguages" class="list-unstyled">
               {% for activeLanguage in activeLanguages %}
-                <li class="checkbox">
+                <li class="form-check">
                   <label for="{{ activeLanguage.id }}">
                     {{ activeLanguage.chkActiveLanguages|raw }} {{ activeLanguage.label }}{% if activeLanguage.default %} ({{ 'lbl.Default'|trans|ucfirst }}){% endif %}
                   </label>
@@ -124,7 +124,7 @@
             <p>{{ 'msg.HelpRedirectLanguages'|trans|ucfirst }}</p>
             <ul id="redirectLanguages" class="list-unstyled">
               {% for redirectLanguage in redirectLanguages %}
-                <li class="checkbox">
+                <li class="form-check">
                   <label for="{{ redirectLanguage.id }}">
                     {{ redirectLanguage.chkRedirectLanguages|raw }} {{ redirectLanguage.label }}{% if redirectLanguage.default %} ({{ 'lbl.Default'|trans|ucfirst }}){% endif %}
                   </label>
@@ -138,15 +138,15 @@
   </div>
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">{{ 'lbl.Numbers'|trans|ucfirst }}</h2>
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">{{ 'lbl.Numbers'|trans|ucfirst }}</h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group last">
-            <label for="numberFormat" class="control-label">{{ 'lbl.NumberFormat'|trans|ucfirst }}</label>
+            <label for="numberFormat" class="form-label">{{ 'lbl.NumberFormat'|trans|ucfirst }}</label>
             {% form_field number_format %} {% form_field_error number_format %}
-            <span class="help-block">{{ 'msg.HelpNumberFormat'|trans|ucfirst }}</span>
+            <span class="form-text">{{ 'msg.HelpNumberFormat'|trans|ucfirst }}</span>
           </div>
         </div>
       </div>
@@ -154,11 +154,11 @@
   </div>
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div id="settingsApiKeys" class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">{{ 'lbl.APIKeys'|trans|ucfirst }}</h2>
+      <div id="settingsApiKeys" class="card">
+        <div class="card-header">
+          <h2 class="card-title">{{ 'lbl.APIKeys'|trans|ucfirst }}</h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <p>{{ 'msg.HelpAPIKeys'|trans }}</p>
           <table class="table table-striped">
             <thead>
@@ -172,7 +172,7 @@
               {% if needsGoogleMaps %}
                 <tr>
                   <th>
-                    <label for="googleMapsKey" class="control-label">
+                    <label for="googleMapsKey" class="form-label">
                       Google maps key{{ macro.required }}
                     </label>
                   </th>
@@ -185,7 +185,7 @@
               {% if needsGoogleRecaptcha %}
                 <tr>
                   <th>
-                    <label for="googleRecaptchaSiteKey" class="control-label">
+                    <label for="googleRecaptchaSiteKey" class="form-label">
                       reCAPTCHA site key
                     </label>
                   </th>
@@ -196,7 +196,7 @@
                 </tr>
                 <tr>
                   <th>
-                    <label for="googleRecaptchaSiteKey" class="control-label">
+                    <label for="googleRecaptchaSiteKey" class="form-label">
                       reCAPTCHA secret key
                     </label>
                   </th>
@@ -214,17 +214,17 @@
   </div>
     <div class="row fork-module-content">
       <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2 class="panel-title">{{ 'lbl.GoogleRecaptcha'|trans|ucfirst }}</h2>
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">{{ 'lbl.GoogleRecaptcha'|trans|ucfirst }}</h2>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             {% if rbtGoogleRecaptchaVersionError %}
               <div class="alert alert-danger">{{ rbtGoogleRecaptchaVersionError }}</div>
             {% endif %}
             <ul class="list-unstyled radiobuttonFieldCombo">
               {% for googleRecaptchaVersionElement in google_recaptcha_version %}
-                <li class="radio">
+                <li class="form-check">
                   <div class="form-group">
                     <label for="{{ googleRecaptchaVersionElement.id }}">{{ googleRecaptchaVersionElement.rbtGoogleRecaptchaVersion|raw }} {{ googleRecaptchaVersionElement.label }}</label>
                   </div>
@@ -237,26 +237,26 @@
     </div>
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">{{ 'lbl.PrivacyConsents'|trans|ucfirst }}</h2>
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">{{ 'lbl.PrivacyConsents'|trans|ucfirst }}</h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group last">
             <ul class="list-unstyled">
-              <li class="checkbox">
-                <label for="showConsentDialog" class="control-label">{% form_field show_consent_dialog %} {{ 'msg.ShowConsentDialog'|trans|ucfirst }}</label>
+              <li class="form-check">
+                <label for="showConsentDialog" class="form-check-label">{% form_field show_consent_dialog %} {{ 'msg.ShowConsentDialog'|trans|ucfirst }}</label>
               </li>
             </ul>
             <p>{{ 'msg.HelpPrivacyConsents'|trans }}</p>
             <ul class="list-unstyled" style="margin-left: 20px;">
               {% for level in privacy_consent_levels %}
                 {% set camelCasedLevel = level|title|replace({_: ''}) %}
-                <li class="checkbox">
-                  <label for="privacyConsentLevels" class="control-label">
+                <li class="form-check">
+                  <label for="privacyConsentLevels" class="form-check-label">
                     {{ attribute(_context, 'chkPrivacyConsentLevel' ~ camelCasedLevel)|raw }}
                     {{ ('lbl.PrivacyConsentLevelName' ~ camelCasedLevel)|trans }}
-                    <span class="help-block">
+                    <span class="form-text">
                       {{ ('msg.HelpPrivacyConsentLevel' ~ camelCasedLevel)|trans }}
                     </span>
                   </label>
@@ -273,8 +273,8 @@
   <div class="row fork-module-actions">
     <div class="col-md-12">
       <div class="btn-toolbar">
-        <div class="btn-group pull-right" role="group">
-          {{ macro.buttonIcon('', 'floppy-o', 'lbl.Save'|trans|ucfirst, 'btn-primary', {id: 'save', type: 'submit', name: 'save'}) }}
+        <div class="btn-group float-end" role="group">
+          {{ macro.buttonIcon('', 'floppy-disk', 'lbl.Save'|trans|ucfirst, 'btn-primary', {id: 'save', type: 'submit', name: 'save'}) }}
         </div>
       </div>
     </div>

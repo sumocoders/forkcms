@@ -517,7 +517,7 @@ class Model
     {
         $database = BackendModel::getContainer()->get('database');
         if ($theme === null || $theme === '') {
-            $theme = BackendModel::get('fork.settings')->get('Core', 'theme', 'Fork');
+            $theme = BackendModel::get('fork.settings')->get('Core', 'theme', 'Bootstrap');
         }
 
         $templates = (array) $database->getRecords(

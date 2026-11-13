@@ -1,15 +1,15 @@
-.strength-none .label {
+.strength-none .badge {
   background-color: $gray-light;
 }
 
-.strength-weak .label {
+.strength-weak .badge {
   background-color: $brand-danger;
 }
 
-.strength-average .label {
+.strength-average .badge {
   background-color: $brand-warning;
 }
 
-.strength-strong .label {
+.strength-strong .badge {
   background-color: $brand-success;
 }

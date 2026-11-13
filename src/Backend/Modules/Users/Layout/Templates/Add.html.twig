@@ -11,11 +11,11 @@
     <div class="col-md-12">
       <div>
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active">
-            <a href="#tabProfile" aria-controls="tabProfile" role="tab" data-toggle="tab">{{ 'lbl.Profile'|trans|ucfirst }}</a>
+          <li role="presentation" class="nav-item">
+            <a class="nav-link active" href="#tabProfile" aria-controls="tabProfile" role="tab" data-bs-toggle="tab">{{ 'lbl.Profile'|trans|ucfirst }}</a>
           </li>
-          <li role="presentation">
-            <a href="#tabPermissions" aria-controls="tabPermissions" role="tab" data-toggle="tab">{{ 'lbl.Permissions'|trans|ucfirst }}</a>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" href="#tabPermissions" aria-controls="tabPermissions" role="tab" data-bs-toggle="tab">{{ 'lbl.Permissions'|trans|ucfirst }}</a>
           </li>
         </ul>
         <div class="tab-content">
@@ -23,14 +23,14 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="email" class="control-label">
+                  <label for="email" class="form-label">
                     {{ 'lbl.Email'|trans|ucfirst }}
                     {{ macro.required }}
                   </label>
                   {% form_field email %} {% form_field_error email %}
                 </div>
                 <div class="form-group last">
-                  <label for="password" class="control-label">
+                  <label for="password" class="form-label">
                     {{ 'lbl.Password'|trans|ucfirst }}
                     {{ macro.required }}
                   </label>
@@ -38,20 +38,20 @@
                     <tr>
                       <td class="strength" id="passwordStrength">
                         <p class="strength none">
-                          <span class="label label-default">None</span>
+                          <span class="badge text-bg-secondary">None</span>
                         </p>
                         <p class="strength weak">
-                          <span class="label label-danger">Weak</span>
+                          <span class="badge text-bg-danger">Weak</span>
                         </p>
                         <p class="strength average">
-                          <span class="label label-warning">Average</span>
+                          <span class="badge text-bg-warning">Average</span>
                         </p>
                         <p class="strength strong">
-                          <span class="label label-success">Strong</span>
+                          <span class="badge text-bg-success">Strong</span>
                         </p>
                       </td>
                       <td>
-                        <p class="help-block">&nbsp;{{ 'msg.HelpStrongPassword'|trans }}</p>
+                        <p class="form-text">&nbsp;{{ 'msg.HelpStrongPassword'|trans }}</p>
                       </td>
                     </tr>
                   </table>
@@ -67,7 +67,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="confirmPassword" class="control-label">
+                        <label for="confirmPassword" class="form-label">
                           {{ 'lbl.ConfirmPassword'|trans|ucfirst }}
                           {{ macro.required }}
                         </label>
@@ -85,30 +85,30 @@
                     {{ 'lbl.PersonalInformation'|trans|ucfirst }}
                   </legend>
                   <div class="form-group">
-                    <label for="name" class="control-label">
+                    <label for="name" class="form-label">
                       {{ 'lbl.Name'|trans|ucfirst }}
                       {{ macro.required }}
                     </label>
                     {% form_field name %} {% form_field_error name %}
                   </div>
                   <div class="form-group">
-                    <label for="surname" class="control-label">
+                    <label for="surname" class="form-label">
                       {{ 'lbl.Surname'|trans|ucfirst }}
                       {{ macro.required }}
                     </label>
                     {% form_field surname %} {% form_field_error surname %}
                   </div>
                   <div class="form-group">
-                    <label for="nickname" class="control-label">
+                    <label for="nickname" class="form-label">
                       {{ 'lbl.Nickname'|trans|ucfirst }}
                       {{ macro.required }}
                     </label>
-                    <p class="help-block">{{ 'msg.HelpNickname'|trans }}</p>
+                    <p class="form-text">{{ 'msg.HelpNickname'|trans }}</p>
                     {% form_field nickname %} {% form_field_error nickname %}
                   </div>
                   <div class="form-group">
-                    <label for="avatar" class="control-label">{{ 'lbl.Avatar'|trans|ucfirst }}</label>
-                    <p class="help-block">{{ 'msg.HelpAvatar'|trans }}</p>
+                    <label for="avatar" class="form-label">{{ 'lbl.Avatar'|trans|ucfirst }}</label>
+                    <p class="form-text">{{ 'msg.HelpAvatar'|trans }}</p>
                     {% form_field avatar %} {% form_field_error avatar %}
                   </div>
                 </fieldset>
@@ -119,15 +119,15 @@
                 <fieldset>
                   <legend>{{ 'lbl.InterfacePreferences'|trans|ucfirst }}</legend>
                   <div class="form-group">
-                    <label for="interfaceLanguage" class="control-label">{{ 'lbl.Language'|trans|ucfirst }}</label>
+                    <label for="interfaceLanguage" class="form-label">{{ 'lbl.Language'|trans|ucfirst }}</label>
                     {% form_field interface_language %} {% form_field_error interface_language %}
                   </div>
                   <div class="form-group">
-                    <label for="preferredEditor" class="control-label">{{ 'lbl.PreferredEditor'|trans|ucfirst }}</label>
+                    <label for="preferredEditor" class="form-label">{{ 'lbl.PreferredEditor'|trans|ucfirst }}</label>
                     {% form_field preferred_editor %} {% form_field_error preferred_editor %}
                   </div>
                   <div class="form-group">
-                    <label for="numberFormat" class="control-label">{{ 'lbl.NumberFormat'|trans|ucfirst }}</label>
+                    <label for="numberFormat" class="form-label">{{ 'lbl.NumberFormat'|trans|ucfirst }}</label>
                     {% form_field number_format %} {% form_field_error number_format %}
                   </div>
                 </fieldset>
@@ -142,7 +142,7 @@
                     {% form_field csv_split_character %} {% form_field_error csv_split_character %}
                   </div>
                   <div class="form-group last">
-                    <label for="csvLineEnding" class="control-label">{{ 'lbl.LineEnding'|trans|ucfirst }}</label>
+                    <label for="csvLineEnding" class="form-label">{{ 'lbl.LineEnding'|trans|ucfirst }}</label>
                     {% form_field csv_line_ending %} {% form_field_error csv_line_ending %}
                   </div>
                 </fieldset>
@@ -154,8 +154,8 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <ul class="list-unstyled">
-                    <li class="checkbox">
-                      <label for="active" class="control-label">{% form_field active %} {% form_field_error active %} {{ 'msg.HelpActive'|trans }}</label>
+                    <li class="form-check">
+                      <label for="active" class="form-check-label">{% form_field active %} {% form_field_error active %} {{ 'msg.HelpActive'|trans }}</label>
                     </li>
                   </ul>
                 </div>
@@ -163,7 +163,7 @@
                   <p>{{ 'lbl.Groups'|trans|ucfirst }}</p>
                   <ul id="groupList" class="list-unstyled">
                     {% for group in groups %}
-                      <li class="checkbox">
+                      <li class="form-check">
                         <label for="{{ group.id }}">{{ group.chkGroups|raw }} {{ group.label }}</label>
                       </li>
                     {% endfor %}
@@ -180,7 +180,7 @@
   <div class="row fork-page-actions">
     <div class="col-md-12">
       <div class="btn-toolbar">
-        <div class="btn-group pull-right" role="group">
+        <div class="btn-group float-end" role="group">
           {{ macro.buttonIcon('', 'plus-square', 'lbl.Add'|trans|ucfirst, 'btn-primary', {id: 'addButton', type: 'submit', name: 'add'}) }}
         </div>
       </div>

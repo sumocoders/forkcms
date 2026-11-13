@@ -25,9 +25,9 @@ jsBackend.pages = {
     // show / hide the remove from search index checkbox on change
     $('#authRequired').on('change', function (e) {
       if ($(this).is(':checked')) {
-        $('[data-role="remove-from-search-index"]').removeClass('hidden')
+        $('[data-role="remove-from-search-index"]').removeClass('d-none')
       } else {
-        $('[data-role="remove-from-search-index"]').addClass('hidden')
+        $('[data-role="remove-from-search-index"]').addClass('d-none')
       }
     }).trigger('change')
 
@@ -272,9 +272,9 @@ jsBackend.pages.extras = {
       blockHTML += '<span class="templateDescription">' + utils.string.htmlEncode(description) + '</span>'
     }
     blockHTML += '<div class="btn-group buttonHolder">' +
-      '<button class="btn btn-default btn-icon-only btn-xs toggleVisibility"><span class="fa fa-' + (visible ? 'eye' : 'eye-slash') + '" aria-hidden="true"></span><span class="sr-only">' + (visible ? jsBackend.locale.lbl('Hide') : jsBackend.locale.lbl('Show')) + '</span></span></button>' +
-      '<a href="' + (editLink || '#') + '" class="' + linkClass + 'btn btn-primary btn-icon-only btn-xs' + '"' + (showEditLink ? ' target="_blank" rel="noopener noreferrer"' : '') + (showEditLink ? '' : ' onclick="return false;"') + ((showEditLink) || extraId === 0 ? '' : 'style="display: none;" ') + '><span class="fa fa-pencil" aria-hidden="true"></span><span class="sr-only">' + jsBackend.locale.lbl('EditContent') + '</span></a>' +
-      '<button class="deleteBlock btn btn-danger btn-icon-only btn-xs"><span class="fa fa-trash-o" aria-hidden="true"></span><span class="sr-only">' + jsBackend.locale.lbl('DeleteBlock') + '</span></button>' +
+      '<button class="btn btn-secondary btn-icon-only btn-sm toggleVisibility"><span class="fa fa-' + (visible ? 'eye' : 'eye-slash') + '" aria-hidden="true"></span><span class="visually-hidden">' + (visible ? jsBackend.locale.lbl('Hide') : jsBackend.locale.lbl('Show')) + '</span></span></button>' +
+      '<a href="' + (editLink || '#') + '" class="' + linkClass + 'btn btn-primary btn-icon-only btn-sm' + '"' + (showEditLink ? ' target="_blank" rel="noopener noreferrer"' : '') + (showEditLink ? '' : ' onclick="return false;"') + ((showEditLink) || extraId === 0 ? '' : 'style="display: none;" ') + '><span class="fa fa-pencil" aria-hidden="true"></span><span class="visually-hidden">' + jsBackend.locale.lbl('EditContent') + '</span></a>' +
+      '<button class="deleteBlock btn btn-danger btn-icon-only btn-sm"><span class="fa fa-trash-can" aria-hidden="true"></span><span class="visually-hidden">' + jsBackend.locale.lbl('DeleteBlock') + '</span></button>' +
       '</div>' +
       '</div>'
 
@@ -391,7 +391,7 @@ jsBackend.pages.extras = {
       // loop modules
       for (var i in extrasData) {
         // add option if needed
-        if (typeof extrasData[i]['items'][selectedType] !== 'undefined') $('#extraModule').append('<option value="' + extrasData[i].value + '">' + extrasData[i].name + '</option>')
+        if (typeof extrasData[i]['items'][selectedType] !== 'undefined') $('#extraModule').append('<option value="' + utils.string.htmlEncode(extrasData[i].value) + '">' + utils.string.htmlEncode(extrasData[i].name) + '</option>')
       }
 
       // show
@@ -692,13 +692,13 @@ jsBackend.pages.extras = {
    * Creates the html for a normal link
    */
   getLinkFieldHtml: function (text, url, label, key) {
-    var html = '<div class="panel panel-default" id="user-template-link-' + key + '">'
+    var html = '<div class="card" id="user-template-link-' + key + '">'
 
-    html += '<div class="panel-heading">'
-    html += '<h2 class="panel-title">' + label + '</h2>'
+    html += '<div class="card-header">'
+    html += '<h2 class="card-title">' + label + '</h2>'
     html += '</div>'
 
-    html += '<div class="panel-body">'
+    html += '<div class="card-body">'
 
     html += '<div class="form-group">'
     html += '<label>' + label + '</label>'
@@ -721,13 +721,13 @@ jsBackend.pages.extras = {
    * Creates the html for a link without content
    */
   getLinkWithoutContentFieldHtml: function (url, label, key) {
-    var html = '<div class="panel panel-default" id="user-template-link-without-content-' + key + '">'
+    var html = '<div class="card" id="user-template-link-without-content-' + key + '">'
 
-    html += '<div class="panel-heading">'
-    html += '<h2 class="panel-title">' + label + '</h2>'
+    html += '<div class="card-header">'
+    html += '<h2 class="card-title">' + label + '</h2>'
     html += '</div>'
 
-    html += '<div class="panel-body">'
+    html += '<div class="card-body">'
 
     html += '<div class="form-group last">'
     html += '<input data-ft-url="' + label + '" type="url" class="form-control" value="' + url + '"/>'
@@ -744,13 +744,13 @@ jsBackend.pages.extras = {
    * Creates the html for a text field
    */
   getTextFieldHtml: function (text, label, key) {
-    var html = '<div class="panel panel-default" id="user-template-text-' + key + '">'
+    var html = '<div class="card" id="user-template-text-' + key + '">'
 
-    html += '<div class="panel-heading">'
-    html += '<h2 class="panel-title">' + label + '</h2>'
+    html += '<div class="card-header">'
+    html += '<h2 class="card-title">' + label + '</h2>'
     html += '</div>'
 
-    html += '<div class="panel-body">'
+    html += '<div class="card-body">'
 
     html += '<div class="form-group last">'
     html += '<input data-ft-label="' + label + '" type="text" class="form-control" value="' + text.trim() + '" />'
@@ -767,13 +767,13 @@ jsBackend.pages.extras = {
    * Creates the html for a text area
    */
   getTextAreaFieldHtml: function (text, label, key) {
-    var html = '<div class="panel panel-default panel-editor" id="user-template-textarea-' + key + '">'
+    var html = '<div class="card card-editor" id="user-template-textarea-' + key + '">'
 
-    html += '<div class="panel-heading">'
-    html += '<h2 class="panel-title">' + label + '</h2>'
+    html += '<div class="card-header">'
+    html += '<h2 class="card-title">' + label + '</h2>'
     html += '</div>'
 
-    html += '<div class="panel-body">'
+    html += '<div class="card-body">'
 
     html += '<div class="form-group last">'
     html += '<textarea class="form-control" data-ft-label="' + label + '" cols="83" rows="15">' + text.trim() + '</textarea>'
@@ -790,13 +790,13 @@ jsBackend.pages.extras = {
    * Creates the html for an anchor field
    */
   getAnchorFieldHtml: function (text, label, key) {
-    var html = '<div class="panel panel-default" id="user-template-anchor-' + key + '">'
+    var html = '<div class="card" id="user-template-anchor-' + key + '">'
 
-    html += '<div class="panel-heading">'
-    html += '<h2 class="panel-title">' + label + '</h2>'
+    html += '<div class="card-header">'
+    html += '<h2 class="card-title">' + label + '</h2>'
     html += '</div>'
 
-    html += '<div class="panel-body">'
+    html += '<div class="card-body">'
 
     html += '<div class="form-group last">'
     html += '<input data-ft-anchor="' + label + '" type="text" class="form-control" value="' + text + '" />'
@@ -813,13 +813,13 @@ jsBackend.pages.extras = {
    * Creates the html for an editor
    */
   getEditorFieldHtml: function (text, label, key) {
-    var html = '<div class="panel panel-default panel-editor" id="user-template-editor-' + key + '">'
+    var html = '<div class="card card-editor" id="user-template-editor-' + key + '">'
 
-    html += '<div class="panel-heading">'
-    html += '<h2 class="panel-title">' + label + '</h2>'
+    html += '<div class="card-header">'
+    html += '<h2 class="card-title">' + label + '</h2>'
     html += '</div>'
 
-    html += '<div class="panel-body">'
+    html += '<div class="card-body">'
 
     html += '<div class="form-group last">'
     html += '<textarea id="user-template-cke-' + key + '" data-ft-label="' + label + '" cols="83" rows="15" class="inputEditor form-control">' + text.trim() + '</textarea>'
@@ -836,16 +836,16 @@ jsBackend.pages.extras = {
    * Creates the html for an image field
    */
   getImageFieldHtml: function (src, alt, label, isVisible, optionalHide, key) {
-    var html = '<div class="panel panel-default" id="user-template-image-' + key + '">'
+    var html = '<div class="card" id="user-template-image-' + key + '">'
 
-    html += '<div class="panel-heading">'
-    html += '<h2 class="panel-title">' + label + '</h2>'
+    html += '<div class="card-header">'
+    html += '<h2 class="card-title">' + label + '</h2>'
     html += '</div>'
 
-    html += '<div class="panel-body clearfix">'
+    html += '<div class="card-body clearfix">'
 
     html += '<div class="form-group thumbnail">'
-    html += '<img class="img-responsive"' + (isVisible ? '' : ' style="display: none;"') + ' src="' + src + '" />'
+    html += '<img class="img-fluid"' + (isVisible ? '' : ' style="display: none;"') + ' src="' + src + '" />'
     html += '<div class="caption" id="ajax-upload-' + key + '">'
     html += '<label>' + label + '</label>'
     // this will be replaced by the ajax uploader
@@ -858,7 +858,7 @@ jsBackend.pages.extras = {
     html += '<input class="form-control" type="text" id="alt' + key + '" value="' + alt + '" />'
     html += '</div>'
 
-    html += '<div class="checkbox"' + (optionalHide ? '' : ' style="display: none;"') + '>'
+    html += '<div class="form-check"' + (optionalHide ? '' : ' style="display: none;"') + '>'
     html += '<label><input type="checkbox"' + (isVisible ? 'checked' : '') + '/> ' + jsBackend.locale.lbl('ShowImage') + '</label>'
     html += '</div>'
 
@@ -873,16 +873,16 @@ jsBackend.pages.extras = {
    * Creates the html for an image background field
    */
   getImageBackgroundFieldHtml: function (src, label, key) {
-    var html = '<div class="panel panel-default" id="user-template-image-background-' + key + '">'
+    var html = '<div class="card" id="user-template-image-background-' + key + '">'
 
-    html += '<div class="panel-heading">'
-    html += '<h2 class="panel-title">' + label + '</h2>'
+    html += '<div class="card-header">'
+    html += '<h2 class="card-title">' + label + '</h2>'
     html += '</div>'
 
-    html += '<div class="panel-body clearfix">'
+    html += '<div class="card-body clearfix">'
 
     html += '<div class="form-group thumbnail">'
-    html += '<img class="img-responsive"' + ' src="' + src + '" />'
+    html += '<img class="img-fluid"' + ' src="' + src + '" />'
     html += '<div class="caption" id="ajax-upload-' + key + '">'
     html += '<label>' + label + '</label>'
     // this will be replaced by the ajax uploader
@@ -1263,10 +1263,10 @@ jsBackend.pages.extras = {
     // toggle visibility indicators
     if (visible) {
       $(this).find('.fa').addClass('fa-eye')
-      $(this).find('.sr-only').html(jsBackend.locale.lbl('Hide'))
+      $(this).find('.visually-hidden').html(jsBackend.locale.lbl('Hide'))
     } else {
       $(this).find('.fa').addClass('fa-eye-slash')
-      $(this).find('.sr-only').html(jsBackend.locale.lbl('Show'))
+      $(this).find('.visually-hidden').html(jsBackend.locale.lbl('Show'))
       $(this).closest('*[data-block-id]').addClass('templateDisabled')
     }
   },

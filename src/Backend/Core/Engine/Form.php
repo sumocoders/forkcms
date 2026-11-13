@@ -14,6 +14,8 @@ use function Symfony\Component\String\s;
  */
 class Form extends \Common\Core\Form
 {
+    protected bool $nativeDateInputs = true;
+
     /**
      * @param string $name           Name of the form.
      * @param string $action         The action (URL) whereto the form will be submitted, if not provided it

@@ -213,7 +213,7 @@ class DataGridFunctions
             ? Language::lbl($keySingular)
             : Language::lblWithParameters($keyPlural, [$count]);
 
-        return '<time tabindex="0" data-toggle="tooltip" datetime="'
+        return '<time tabindex="0" data-bs-toggle="tooltip" datetime="'
                . $dateTimeFormatter->format($timestamp)
                . '" title="' . $titleFormatter->format($timestamp)
                . '">' . $timeAgo . '</time>';
@@ -247,7 +247,7 @@ class DataGridFunctions
                     'Users'
                 ) . '&amp;id=' . $id . '">' . "\n";
             }
-            $html .= '          <img class="img-circle" src="' . FRONTEND_FILES_URL . '/Users/avatars/32x32/' .
+            $html .= '          <img class="rounded-circle" src="' . FRONTEND_FILES_URL . '/Users/avatars/32x32/' .
                 $avatar . '" width="24" height="24" alt="' . $nickname . '" />' . "\n";
 
             $html .= '<span>' . $nickname . '</span>';

@@ -1,7 +1,7 @@
 /**
  * Backend related objects
  */
-/* global CKEDITOR, FileReader, Bloodhound */
+/* global CKEDITOR, FileReader, TomSelect */
 
 var jsBackend =
   {
@@ -141,9 +141,9 @@ jsBackend.navigation = {
 
   mobile: function () {
     var navbarWidth = this.calculateNavbarWidth()
-    var $navbarNav = $('.navbar-default .navbar-nav')
+    var $navbarNav = $('.navbar-main .navbar-nav')
 
-    $('.navbar-default .navbar-nav').css('width', navbarWidth)
+    $('.navbar-main .navbar-nav').css('width', navbarWidth)
 
     $('.js-nav-prev').on('click', function (e) {
       e.preventDefault()
@@ -159,7 +159,7 @@ jsBackend.navigation = {
   },
 
   resize: function () {
-    var $navbarNav = $('.navbar-default .navbar-nav')
+    var $navbarNav = $('.navbar-main .navbar-nav')
     var navbarWidth = this.calculateNavbarWidth()
     var windowWidth = this.calculateWindowWidth()
 
@@ -198,7 +198,7 @@ jsBackend.navigation = {
   },
 
   tooltip: function () {
-    var $tooltip = $('[data-toggle="tooltip-nav"]')
+    var $tooltip = $('[data-bs-toggle="tooltip-nav"]')
     var $wrapper = $('.main-wrapper')
 
     if ($tooltip.length > 0) {
@@ -219,7 +219,7 @@ jsBackend.navigation = {
   },
 
   setControls: function (offset) {
-    var $navbarNav = $('.navbar-default .navbar-nav')
+    var $navbarNav = $('.navbar-main .navbar-nav')
     var rightOffset = this.calculateOffset(offset)
 
     if ((parseInt($navbarNav.css('left')) + offset) >= 0) {
@@ -240,12 +240,12 @@ jsBackend.navigation = {
   },
 
   calculateNavbarWidth: function () {
-    var $navItem = $('.navbar-default .nav-item')
+    var $navItem = $('.navbar-main .nav-item')
     return $navItem.width() * $navItem.length
   },
 
   calculateOffset: function (offset) {
-    var $navbarNav = $('.navbar-default .navbar-nav')
+    var $navbarNav = $('.navbar-main .navbar-nav')
     return this.calculateWindowWidth() - this.calculateNavbarWidth() - parseInt($navbarNav.css('left')) - offset
   }
 }
@@ -471,7 +471,7 @@ jsBackend.ckeditor = {
     // get the editor
     var editor = evt.editor
 
-    // on initialisation we should force the check, which will be passed in the data-container
+    // on initialisation we should force the check, which will be passed in the data-bs-container
     var forced = (typeof evt.forced === 'boolean') ? evt.forced : false
 
     // was the content changed, or is the check forced?
@@ -551,40 +551,14 @@ jsBackend.ckeditor = {
   },
 
   fallBackBootstrapModals: function () {
-    $.fn.modal.Constructor.prototype.enforceFocus = function () {
-      var modalThis = this
-      $(document).on('focusin.modal', function (e) {
-        // Re-entrancy guard: forcing focus below fires another focusin
-        // synchronously. Without this guard the modal and CKEditor can keep
-        // handing focus back and forth within a single event dispatch until
-        // the call stack overflows (RangeError: Maximum call stack size exceeded).
-        if (modalThis.isEnforcingFocus) {
-          return
-        }
-
-        // Don't enforce focus for a modal that isn't visible. A modal can be
-        // hidden while its focusin handler is still bound (e.g. a second modal
-        // opened from the first, like the user template edit form opened from
-        // the add-block chooser); it would otherwise steal focus from the
-        // inputs in the visible modal.
-        if (!modalThis.$element.is(':visible')) {
-          return
-        }
-
-        // Leave focus alone when it lands anywhere inside a CKEditor instance:
-        // its editing surface and Source view textarea (.cke / .cke_source) and
-        // its dialog popups (.cke_dialog). CKEditor manages focus there itself.
-        var isCkEditorElement = $(e.target).closest('.cke, .cke_source, .cke_dialog').length > 0
-
-        if (modalThis.$element[0] !== e.target &&
-          !modalThis.$element.has(e.target).length &&
-          !isCkEditorElement) {
-          modalThis.isEnforcingFocus = true
-          modalThis.$element.focus()
-          modalThis.isEnforcingFocus = false
-        }
-      })
-    }
+    // Bootstrap 5 traps the focus inside an open modal with a document focusin listener. CKEditor renders its
+    // editing surface, Source view and dialogs outside the modal, so stop that listener for focus inside CKEditor.
+    // This listener is bound before any modal opens, so it runs before the one Bootstrap binds on show.
+    document.addEventListener('focusin', function (e) {
+      if ($(e.target).closest('.cke, .cke_source, .cke_dialog').length > 0) {
+        e.stopImmediatePropagation()
+      }
+    })
   }
 }
 
@@ -872,9 +846,9 @@ jsBackend.controls = {
           var element = $this.closest('.jsMassAction').find('select[name=action] option:selected')
 
           // if the rel-attribute exists we should show the dialog
-          if (typeof element.data('target') !== 'undefined') {
+          if (typeof element.data('bs-target') !== 'undefined') {
             // get id
-            var id = element.data('target')
+            var id = element.data('bs-target')
 
             $(id).modal('show')
           } else {
@@ -1187,17 +1161,17 @@ jsBackend.effects = {
 
   // Adds classes to collapsible panels
   panels: function () {
-    $('.panel .collapse').on({
+    $('.card .collapse').on({
       'show.bs.collapse': function () {
         // Remove open class from other panels
-        $(this).parents('.panel-group').find('.panel').removeClass('open')
+        $(this).parents('.fork-collapse-group').find('.card').removeClass('open')
 
         // Add open class to active panel
-        $(this).parent('.panel').addClass('open')
+        $(this).parent('.card').addClass('open')
       },
       'hide.bs.collapse': function () {
         // Remove open class from closed panel
-        $(this).parent('.panel').removeClass('open')
+        $(this).parent('.card').removeClass('open')
       }
     })
   }
@@ -1213,11 +1187,9 @@ jsBackend.forms = {
   init: function () {
     jsBackend.forms.placeholders() // make sure this is done before focusing the first field
     jsBackend.forms.focusFirstField()
-    jsBackend.forms.datefields()
     jsBackend.forms.submitWithLinks()
     jsBackend.forms.tagsInput()
     jsBackend.forms.meta()
-    jsBackend.forms.datePicker()
     jsBackend.forms.bootstrapTabFormValidation()
     jsBackend.forms.imagePreview()
   },
@@ -1248,7 +1220,7 @@ jsBackend.forms = {
       var invalidTabId = $invalidField.closest('.tab-pane').attr('id')
 
       // Find the link that corresponds to the pane and have it show
-      $('a[href=#' + invalidTabId + '], [data-target=#' + invalidTabId + ']').tab('show')
+      $('a[href="#' + invalidTabId + '"], [data-bs-target="#' + invalidTabId + '"]').tab('show')
       $invalidField.focus()
     })
   },
@@ -1291,126 +1263,6 @@ jsBackend.forms = {
       }
 
       $(this.dataset.baseFieldSelector).doMeta(options)
-    })
-  },
-
-  datefields: function () {
-    // variables
-    var dayNames = [
-      jsBackend.locale.loc('DayLongSun'), jsBackend.locale.loc('DayLongMon'), jsBackend.locale.loc('DayLongTue'),
-      jsBackend.locale.loc('DayLongWed'), jsBackend.locale.loc('DayLongThu'), jsBackend.locale.loc('DayLongFri'),
-      jsBackend.locale.loc('DayLongSat')
-    ]
-    var dayNamesMin = [
-      jsBackend.locale.loc('DayShortSun'), jsBackend.locale.loc('DayShortMon'), jsBackend.locale.loc('DayShortTue'),
-      jsBackend.locale.loc('DayShortWed'), jsBackend.locale.loc('DayShortThu'), jsBackend.locale.loc('DayShortFri'),
-      jsBackend.locale.loc('DayShortSat')
-    ]
-    var dayNamesShort = [
-      jsBackend.locale.loc('DayShortSun'), jsBackend.locale.loc('DayShortMon'), jsBackend.locale.loc('DayShortTue'),
-      jsBackend.locale.loc('DayShortWed'), jsBackend.locale.loc('DayShortThu'), jsBackend.locale.loc('DayShortFri'),
-      jsBackend.locale.loc('DayShortSat')
-    ]
-    var monthNames = [
-      jsBackend.locale.loc('MonthLong1'), jsBackend.locale.loc('MonthLong2'), jsBackend.locale.loc('MonthLong3'),
-      jsBackend.locale.loc('MonthLong4'), jsBackend.locale.loc('MonthLong5'), jsBackend.locale.loc('MonthLong6'),
-      jsBackend.locale.loc('MonthLong7'), jsBackend.locale.loc('MonthLong8'), jsBackend.locale.loc('MonthLong9'),
-      jsBackend.locale.loc('MonthLong10'), jsBackend.locale.loc('MonthLong11'), jsBackend.locale.loc('MonthLong12')
-    ]
-    var monthNamesShort = [
-      jsBackend.locale.loc('MonthShort1'), jsBackend.locale.loc('MonthShort2'), jsBackend.locale.loc('MonthShort3'),
-      jsBackend.locale.loc('MonthShort4'), jsBackend.locale.loc('MonthShort5'), jsBackend.locale.loc('MonthShort6'),
-      jsBackend.locale.loc('MonthShort7'), jsBackend.locale.loc('MonthShort8'), jsBackend.locale.loc('MonthShort9'),
-      jsBackend.locale.loc('MonthShort10'), jsBackend.locale.loc('MonthShort11'), jsBackend.locale.loc('MonthShort12')
-    ]
-    var $inputDatefieldNormal = $('.inputDatefieldNormal')
-    var $inputDatefieldFrom = $('.inputDatefieldFrom')
-    var $inputDatefieldTill = $('.inputDatefieldTill')
-    var $inputDatefieldRange = $('.inputDatefieldRange')
-
-    $('.inputDatefieldNormal, .inputDatefieldFrom, .inputDatefieldTill, .inputDatefieldRange').datepicker(
-      {
-        dayNames: dayNames,
-        dayNamesMin: dayNamesMin,
-        dayNamesShort: dayNamesShort,
-        hideIfNoPrevNext: true,
-        monthNames: monthNames,
-        monthNamesShort: monthNamesShort,
-        nextText: jsBackend.locale.lbl('Next'),
-        prevText: jsBackend.locale.lbl('Previous'),
-        showAnim: 'slideDown'
-      })
-
-    // the default, nothing special
-    $inputDatefieldNormal.each(function () {
-      // variables
-      var $this = $(this)
-
-      // get data
-      var data = $(this).data()
-      var value = $(this).val()
-
-      // set options
-      $this.datepicker('option',
-        {
-          dateFormat: data.mask,
-          firstDate: data.firstday
-        }).datepicker('setDate', value)
-    })
-
-    // date fields that have a certain start date
-    $inputDatefieldFrom.each(function () {
-      // variables
-      var $this = $(this)
-
-      // get data
-      var data = $(this).data()
-      var value = $(this).val()
-
-      // set options
-      $this.datepicker('option',
-        {
-          dateFormat: data.mask,
-          firstDay: data.firstday,
-          minDate: new Date(parseInt(data.startdate.split('-')[0], 10), parseInt(data.startdate.split('-')[1], 10) - 1, parseInt(data.startdate.split('-')[2], 10))
-        }).datepicker('setDate', value)
-    })
-
-    // date fields that have a certain end date
-    $inputDatefieldTill.each(function () {
-      // variables
-      var $this = $(this)
-
-      // get data
-      var data = $(this).data()
-      var value = $(this).val()
-
-      // set options
-      $this.datepicker('option',
-        {
-          dateFormat: data.mask,
-          firstDay: data.firstday,
-          maxDate: new Date(parseInt(data.enddate.split('-')[0], 10), parseInt(data.enddate.split('-')[1], 10) - 1, parseInt(data.enddate.split('-')[2], 10))
-        }).datepicker('setDate', value)
-    })
-
-    // date fields that have a certain range
-    $inputDatefieldRange.each(function () {
-      // variables
-      var $this = $(this)
-
-      // get data
-      var data = $(this).data()
-      var value = $(this).val()
-
-      // set options
-      $this.datepicker('option',
-        {
-          dateFormat: data.mask,
-          firstDay: data.firstday,
-          minDate: new Date(parseInt(data.startdate.split('-')[0], 10), parseInt(data.startdate.split('-')[1], 10) - 1, parseInt(data.startdate.split('-')[2], 10), 0, 0, 0, 0),
-          maxDate: new Date(parseInt(data.enddate.split('-')[0], 10), parseInt(data.enddate.split('-')[1], 10) - 1, parseInt(data.enddate.split('-')[2], 10), 23, 59, 59)
-        }).datepicker('setDate', value)
     })
   },
 
@@ -1526,36 +1378,58 @@ jsBackend.forms = {
     }
   },
 
-  // add tagsinput to the correct input fields
+  // turn the comma separated tags fields into a Tom Select tag picker, suggesting the existing tags
   tagsInput: function () {
-    if ($('.js-tags-input').length > 0) {
-      var allTags = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.whitespace,
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: {
-          url: '/backend/ajax',
-          prepare: function (settings) {
-            settings.type = 'POST'
-            settings.data = {fork: {module: 'Tags', action: 'GetAllTags'}}
-            return settings
-          },
-          cache: false,
-          filter: function (list) {
-            list = list.data
-            return list
-          }
-        }
-      })
+    // every tag picker on the page shares one request for the existing tags
+    var tagsRequest = null
 
-      allTags.initialize()
-      $('.js-tags-input').tagsinput({
-        tagClass: 'label label-primary',
-        typeaheadjs: {
-          name: 'Tags',
-          source: allTags.ttAdapter()
+    $('.js-tags-input').each(function () {
+      // eslint-disable-next-line no-new
+      new TomSelect(this, {
+        create: true,
+        createOnBlur: true,
+        persist: false,
+        delimiter: ',',
+        plugins: ['remove_button'],
+        valueField: 'value',
+        labelField: 'value',
+        searchField: ['value'],
+        preload: 'focus',
+        // the tags load once, so filter on every keystroke: with the default 300ms throttle a quick Enter picks a stale option
+        refreshThrottle: 0,
+        // Tom Select keeps the typed text after adding a tag, clear it so the next tag starts empty
+        onItemAdd: function () {
+          this.setTextboxValue('')
+          this.refreshOptions(false)
+        },
+        load: function (query, callback) {
+          var tomSelect = this
+
+          if (tagsRequest === null) {
+            tagsRequest = $.ajax({
+              data: {fork: {module: 'Tags', action: 'GetAllTags'}},
+              // a custom error handler also keeps the global ajax error message away
+              error: function () {
+                // forget the failed request so the next load tries again
+                tagsRequest = null
+              }
+            })
+          }
+
+          tagsRequest
+            .done(function (json) {
+              // the full list is loaded once, Tom Select filters it while typing
+              tomSelect.settings.load = null
+              callback($.map(json.data, function (tag) {
+                return {value: tag}
+              }))
+            })
+            .fail(function () {
+              callback()
+            })
         }
       })
-    }
+    })
   },
 
   // show a warning when people are leaving the
@@ -1607,15 +1481,6 @@ jsBackend.forms = {
 
     // return if needed
     if (changed) return jsBackend.locale.msg('ValuesAreChanged')
-  },
-
-  // Add date pickers to the appropriate input elements
-  datePicker: function () {
-    $('input[data-role="fork-datepicker"]').each(
-      function (index, datePickerElement) {
-        $(datePickerElement).datepicker()
-      }
-    )
   }
 }
 
@@ -1850,9 +1715,7 @@ jsBackend.messages = {
       '<div class="container-fluid">' +
       '<i class="fa fa-' + icon + '" aria-hidden="true"></i>' + ' ' +
       content +
-      '<button type="button" class="close" data-dismiss="alert" aria-label="' + utils.string.ucfirst(jsBackend.locale.lbl('Close')) + '">' +
-      '<span aria-hidden="true" class="fa fa-close"></span>' +
-      '</button>' +
+      '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' + utils.string.ucfirst(jsBackend.locale.lbl('Close')) + '"></button>' +
       '</div>' +
       '</div>'
 
@@ -1884,7 +1747,6 @@ jsBackend.tabs = {
   // init, something like a constructor
   init: function () {
     if ($('.nav-tabs').length > 0) {
-      $('.nav-tabs').tab()
 
       $('.tab-content .tab-pane').each(function () {
         if ($(this).find('.formError').length > 0) {
@@ -1927,7 +1789,7 @@ jsBackend.tooltip = {
   init: function () {
     // variables
 
-    var $tooltip = $('[data-toggle="tooltip"]')
+    var $tooltip = $('[data-bs-toggle="tooltip"]')
 
     if ($tooltip.length > 0) {
       $tooltip.tooltip()

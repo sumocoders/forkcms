@@ -76,11 +76,9 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         ...copyVendorFiles([
-          'bootstrap-tagsinput/dist/bootstrap-tagsinput.css',
-          'bootstrap-tagsinput/dist/bootstrap-tagsinput-typeahead.css',
+          'tom-select/dist/css/tom-select.bootstrap5.min.css',
           'bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.min.css',
-          'cropper/dist/cropper.css',
-          'bootstrap-accessibility-plugin/plugins/css/bootstrap-accessibility.css'
+          'cropperjs/dist/cropper.min.css'
         ], 'css/vendors'),
         ...copyVendorFiles([
           'fine-uploader/jquery.fine-uploader/fine-uploader-new.min.css',
@@ -89,19 +87,19 @@ module.exports = {
           'fine-uploader/jquery.fine-uploader/placeholders/not_available-generic.png'
         ], 'css/vendors/fine-uploader'),
         ...copyVendorFiles([
-          'font-awesome/fonts/*'
+          '@fortawesome/fontawesome-free/webfonts/fa-solid-900.{woff2,ttf}',
+          '@fortawesome/fontawesome-free/webfonts/fa-regular-400.{woff2,ttf}'
         ], 'fonts/vendors'),
         ...copyVendorFiles([
           'jquery/dist/jquery.min.js',
           'jquery-migrate/dist/jquery-migrate.min.js',
-          'jquery-ui-dist/jquery-ui.min.js',
-          'bootstrap-sass/assets/javascripts/bootstrap.min.js',
-          'bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js',
+          'jquery-ui/dist/jquery-ui.min.js',
+          'bootstrap5/dist/js/bootstrap.bundle.min.js',
+          'tom-select/dist/js/tom-select.complete.min.js',
           'fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js',
           'simple-ajax-uploader/SimpleAjaxUploader.min.js',
           'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
-          'cropper/dist/cropper.js',
-          'bootstrap-accessibility-plugin/plugins/js/bootstrap-accessibility.min.js'
+          'cropperjs/dist/cropper.min.js'
         ], 'js/vendors'),
         ...ckeditorFiles.map((file) => ({
           from: file,

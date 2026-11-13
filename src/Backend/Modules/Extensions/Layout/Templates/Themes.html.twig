@@ -2,7 +2,7 @@
 {% import "Layout/Templates/macros.html.twig" as macro %}
 
 {% block actionbar %}
-  <div class="btn-toolbar pull-right">
+  <div class="btn-toolbar float-end">
     <div class="btn-group" role="group">
       {% if isAllowedAction('UploadTheme') %}
         {{ macro.buttonIcon( geturl('upload_theme'), 'upload', 'lbl.UploadTheme'|trans|ucfirst) }}
@@ -17,36 +17,36 @@
   {% if installableThemes %}
     <div class="row fork-module-content">
       <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2 class="panel-title">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">
               {{ 'lbl.InstallableThemes'|trans|ucfirst }}
             </h2>
           </div>
-          <div class="panel-body">
-            <p class="help-block">{{ 'msg.HelpInstallableThemes'|trans }}</p>
+          <div class="card-body">
+            <p class="form-text">{{ 'msg.HelpInstallableThemes'|trans }}</p>
             <div id="installedThemes" class="selectThumbList row">
               {% for installableTheme in installableThemes %}
                 <div class="col-md-4">
-                  <div class="panel panel-default">
+                  <div class="card">
                     <label for="{{ installedTheme.id }}">
-                      <div class="panel-heading">
-                        <label for="{{ installedThemes.id }}" class="panel-title">
+                      <div class="card-header">
+                        <label for="{{ installedThemes.id }}" class="card-title">
                           {{ installableTheme.label|ucfirst }}
                         </label>
                       </div>
-                      <div class="panel-body">
+                      <div class="card-body">
                         <img src="{{ installableTheme.thumbnail }}" class="img-thumbnail" alt="{{ installableTheme.label|ucfirst }}" />
                       </div>
-                      <div class="panel-footer">
+                      <div class="card-footer">
                         {% if isAllowedAction('DetailTheme') %}
                           <div class="btn-toolbar">
-                            <div class="btn-group pull-right" role="group">
+                            <div class="btn-group float-end" role="group">
                               {% if isAllowedAction('InstallTheme') %}
-                                {{ macro.buttonIcon('', 'file-o', 'lbl.Install'|trans|ucfirst, 'btn-primary', { "data-toggle":"modal", "type":"button", "data-target":"#confirmInstall" ~ installableTheme.value|ucfirst }) }}
+                                {{ macro.buttonIcon('', 'file', 'lbl.Install'|trans|ucfirst, 'btn-primary', { "data-bs-toggle":"modal", "type":"button", "data-bs-target":"#confirmInstall" ~ installableTheme.value|ucfirst }) }}
                               {% endif %}
                               {% if isAllowedAction('DetailTheme') %}
-                                {{ macro.buttonIcon(geturl('detail_theme') ~ '&theme=' ~ installableTheme.value , 'eye', 'lbl.Details'|trans|ucfirst, 'btn-default', { "title": installableTheme.label|ucfirst }) }}
+                                {{ macro.buttonIcon(geturl('detail_theme') ~ '&theme=' ~ installableTheme.value , 'eye', 'lbl.Details'|trans|ucfirst, 'btn-secondary', { "title": installableTheme.label|ucfirst }) }}
                               {% endif %}
                             </div>
                           </div>
@@ -61,7 +61,7 @@
                                     <p>{{ 'msg.ConfirmThemeInstall'|trans }}</p>
                                   </div>
                                   <div class="modal-footer">
-                                    {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "data-dismiss":"modal", "type":"button" }) }}
+                                    {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', { "data-bs-dismiss":"modal", "type":"button" }) }}
                                     {{ macro.buttonIcon(geturl('install_theme') ~ '&theme=' ~ installableTheme.value, 'check', 'lbl.OK'|trans|ucfirst, 'btn-primary') }}
                                   </div>
                                 </div>
@@ -82,15 +82,15 @@
   {% endif %}
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.InstalledThemes'|trans|ucfirst }}
             {{ macro.required }}
           </h2>
         </div>
-        <div class="panel-body">
-          <p class="help-block">{{ 'msg.HelpThemes'|trans }}</p>
+        <div class="card-body">
+          <p class="form-text">{{ 'msg.HelpThemes'|trans }}</p>
           {% if rbtInstalledThemesError %}
             <p class="text-danger">{{ rbtThemesError }}</p>
           {% endif %}
@@ -98,32 +98,32 @@
             <div class="row">
               {% for installedTheme in installedThemes %}
                 <div class="col-md-4">
-                  <div class="panel panel-select {% if installedTheme.selected %}panel-primary{% else %}panel-default{% endif %}">
-                    <span class="hidden">
+                  <div class="card card-select {% if installedTheme.selected %}card-primary{% endif %}">
+                    <span class="d-none">
                       {{ installedTheme.rbtInstalledThemes|raw }}
                       <label for="{{ installedTheme.id }}"></label>
                     </span>
 
-                    <div class="panel-heading">
-                      <h2 class="panel-title">{{ installedTheme.label|ucfirst }}</h2>
+                    <div class="card-header">
+                      <h2 class="card-title">{{ installedTheme.label|ucfirst }}</h2>
                     </div>
-                    <div class="panel-body">
+                    <div class="card-body">
                       <img src="{{ installedTheme.thumbnail }}" class="img-thumbnail" alt="{{ installedTheme.label|ucfirst }}" />
                     </div>
-                    <div class="panel-footer">
+                    <div class="card-footer">
                       {% if isAllowedAction('DetailTheme') %}
                         <div class="btn-toolbar">
-                          <div class="btn-group pull-right" role="group">
-                            <a href="{{ geturl('detail_theme') }}&theme={{ installedTheme.value }}" class="btn btn-default" role="button" title="{{ installedTheme.label|ucfirst }}">
+                          <div class="btn-group float-end" role="group">
+                            <a href="{{ geturl('detail_theme') }}&theme={{ installedTheme.value }}" class="btn btn-secondary" role="button" title="{{ installedTheme.label|ucfirst }}">
                               {{ macro.icon('eye') }}&nbsp;
                               <span>{{ 'lbl.Details'|trans|ucfirst }}</span>
                             </a>
-                            <button class="btn js-theme-selector {% if installedTheme.selected %}btn-primary{% else %}btn-default{% endif %}">
-                              <div class="selected-theme{% if not installedTheme.selected %} hidden{% endif %}">
+                            <button class="btn js-theme-selector {% if installedTheme.selected %}btn-primary{% else %}btn-secondary{% endif %}">
+                              <div class="selected-theme{% if not installedTheme.selected %} d-none{% endif %}">
                                 {{ macro.icon('check') }}
                                 <span>{{ 'lbl.SelectedTheme'|trans|ucfirst }}</span>
                               </div>
-                              <div class="available-theme{% if installedTheme.selected %} hidden{% endif %}">
+                              <div class="available-theme{% if installedTheme.selected %} d-none{% endif %}">
                                 <span>{{ 'lbl.UseThisTheme'|trans|ucfirst }}</span>
                               </div>
                             </button>
@@ -143,7 +143,7 @@
   <div class="row fork-module-actions">
     <div class="col-md-12">
       <div class="btn-toolbar">
-        <div class="btn-group pull-right" role="group">
+        <div class="btn-group float-end" role="group">
           {{ macro.buttonIcon('', 'check', 'lbl.Save'|trans|ucfirst, 'btn-primary', { "id":"editButton", "type":"submit", "name":"edit" }) }}
         </div>
       </div>

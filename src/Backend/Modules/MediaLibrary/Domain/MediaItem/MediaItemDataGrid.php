@@ -105,8 +105,8 @@ class MediaItemDataGrid extends DataGridDatabase
             'form-control danger'
         );
         $ddmMediaItemMassAction->setAttribute('id', 'mass-action-' . (string) $type);
-        $ddmMediaItemMassAction->setOptionAttributes(MediaItemMassAction::MOVE, ['data-target' => '#confirmMassActionMediaItemMove']);
-        $ddmMediaItemMassAction->setOptionAttributes(MediaItemMassAction::DELETE, ['data-target' => '#confirmMassActionMediaItemDelete']);
+        $ddmMediaItemMassAction->setOptionAttributes(MediaItemMassAction::MOVE, ['data-bs-target' => '#confirmMassActionMediaItemMove']);
+        $ddmMediaItemMassAction->setOptionAttributes(MediaItemMassAction::DELETE, ['data-bs-target' => '#confirmMassActionMediaItemDelete']);
 
         return $ddmMediaItemMassAction;
     }
@@ -230,7 +230,7 @@ class MediaItemDataGrid extends DataGridDatabase
             $link = '/src/Frontend/Files/MediaLibrary/' . $shardingFolderName . '/' . $url;
         }
 
-        $html = '<a href="' . $link . '" target="_blank" class="btn btn-default btn-xs pull-right">';
+        $html = '<a href="' . $link . '" target="_blank" class="btn btn-secondary btn-sm float-end">';
         $html .= '<span class="fa fa-eye"></span>' . ucfirst(Language::lbl('View'));
         $html .= '</a>';
 

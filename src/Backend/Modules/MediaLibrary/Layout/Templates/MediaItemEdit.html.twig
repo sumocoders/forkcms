@@ -4,10 +4,10 @@
 {% block pagesTree %}
   <div class="sub-navigation">
     <div id="mediaTree" class="pages-tree">
-      <div class="alert alert-warning visible-xs visible-sm">
+      <div class="alert alert-warning d-md-none">
         <p>{{ macro.icon('exclamation-triangle') }}{{ 'msg.MoveMediaFoldersNotPossible'|trans|ucfirst }}</p>
       </div>
-      <button class="btn btn-default btn-sm tree-collapsed" data-role="toggle-js-tree-collapse">
+      <button class="btn btn-secondary btn-sm tree-collapsed" data-role="toggle-js-tree-collapse">
         <span data-role="toggle-js-tree-collapse-text">{{ 'lbl.OpenTreeNavigation'|trans }}</span>
       </button>
       <div id="tree">
@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block actionbar %}
-  <div class="btn-toolbar pull-right">
+  <div class="btn-toolbar float-end">
     <div class="btn-group" role="group">
       {% if isAllowedAction('MediaItemIndex') %}
         {% if folderId %}
@@ -45,15 +45,15 @@
   <div class="row fork-module-actions">
     <div class="col-md-12">
       <div class="btn-toolbar">
-        <div class="btn-group pull-left" role="group">
+        <div class="btn-group float-start" role="group">
           {% if isAllowedAction('MediaItemDelete') %}
             {% if mediaItem.groups.count == 0 %}
-              {{ macro.buttonIcon('', 'trash-o', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "data-toggle":"modal", "type":"button", "data-target":"#confirmDelete", "id":"blog-delete" } ) }}
+              {{ macro.buttonIcon('', 'trash-can', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "data-bs-toggle":"modal", "type":"button", "data-bs-target":"#confirmDelete", "id":"blog-delete" } ) }}
             {% endif %}
           {% endif %}
         </div>
-        <div class="btn-group pull-right" role="group">
-          {{ macro.buttonIcon('', 'check', 'lbl.Save'|trans|ucfirst, 'btn-default', { "id":"editButton", "type":"submit", "name":"edit" } ) }}
+        <div class="btn-group float-end" role="group">
+          {{ macro.buttonIcon('', 'check', 'lbl.Save'|trans|ucfirst, 'btn-secondary', { "id":"editButton", "type":"submit", "name":"edit" } ) }}
         </div>
       </div>
     </div>
@@ -74,7 +74,7 @@
             <p>{{ 'msg.ConfirmMediaItemDelete'|trans|format(mediaItem.title|e)|raw }}</p>
           </div>
           <div class="modal-footer">
-            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "data-dismiss":"modal", "type":"button" } ) }}
+            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', { "data-bs-dismiss":"modal", "type":"button" } ) }}
             {{ macro.buttonIcon('', 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"submit" } ) }}
           </div>
         </div>

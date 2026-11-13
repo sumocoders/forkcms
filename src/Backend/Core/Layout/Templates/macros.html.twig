@@ -2,16 +2,17 @@
   {% import _self as macro %}
   {# When url is an empty string, use a button, otherwise use a hyperlink/anchor #}
   {% if url %}
-    <a href="{{ url }}" class="btn {{ buttonType|default('btn-default') }}" title="{{ label }}" {% if extra is iterable %}{% for attr, value in extra %} {{ attr }}="{{ value }}"{% endfor %}{% else %}{{ extra }}{% endif %}>
+    <a href="{{ url }}" class="btn {{ buttonType|default('btn-secondary') }}" title="{{ label }}" {% if extra is iterable %}{% for attr, value in extra %} {{ attr }}="{{ value }}"{% endfor %}{% else %}{{ extra }}{% endif %}>
       {% if not iconRight %}{{ macro.icon(icon) }}{% endif %}
       <span class="btn-text">{{ label }}</span>
       {% if iconRight %}{{ macro.icon(icon) }}{% endif %}
     </a>
   {% else %}
-    {% if extra['data-toggle'] is defined and extra['type'] is not defined %}
-      {% set extra = extra|merge({'type' : 'button'}) %}
+    {# Bootstrap 5 no longer prevents the default action of dismiss buttons, so inside a form they would submit it #}
+    {% if (extra['data-bs-toggle'] is defined or extra['data-bs-dismiss'] is defined) and extra['type'] is not defined %}
+      {% set extra = extra|merge({type: 'button'}) %}
     {% endif %}
-    <button class="btn {{ buttonType|default('btn-default') }}" title="{{ label }}" {% if extra is iterable %}{% for attr, value in extra %} {{ attr }}="{{ value }}"{% endfor %}{% else %}{{ extra }}{% endif %}>
+    <button class="btn {{ buttonType|default('btn-secondary') }}" title="{{ label }}" {% if extra is iterable %}{% for attr, value in extra %} {{ attr }}="{{ value }}"{% endfor %}{% else %}{{ extra }}{% endif %}>
       {% if not iconRight %}{{ macro.icon(icon) }}{% endif %}
       <span class="btn-text">{{ label }}</span>
       {% if iconRight %}{{ macro.icon(icon) }}{% endif %}
@@ -20,7 +21,7 @@
 {% endmacro %}
 
 {%- macro required() -%}
-  <abbr data-toggle="tooltip" aria-label="{{ 'lbl.RequiredField'|trans|ucfirst }}" title="{{ 'lbl.RequiredField'|trans|ucfirst }}">*</abbr>
+  <abbr data-bs-toggle="tooltip" aria-label="{{ 'lbl.RequiredField'|trans|ucfirst }}" title="{{ 'lbl.RequiredField'|trans|ucfirst }}">*</abbr>
 {%- endmacro -%}
 
 {% macro icon(icon) %}
@@ -29,7 +30,7 @@
 
 {% macro infoTooltip(title) %}
   {% import _self as macro %}
-  <abbr tabindex="0" data-toggle="tooltip" aria-label="{{ title }}" title="{{ title }}">{{ macro.icon('info-circle') }}</abbr>
+  <abbr tabindex="0" data-bs-toggle="tooltip" aria-label="{{ title }}" title="{{ title }}">{{ macro.icon('circle-info') }}</abbr>
 {% endmacro %}
 
 {% macro dataGrid(dataGrid, noItemsMessage) %}

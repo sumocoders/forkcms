@@ -10,7 +10,7 @@
   <div class="row fork-module-content">
     <div class="col-md-12">
       <div class="form-group">
-        <label for="term" class="control-label">
+        <label for="term" class="form-label">
           {{ 'lbl.Term'|trans|ucfirst }}
           {{ macro.required }}
         </label>
@@ -18,7 +18,7 @@
       </div>
       <div class="form-group">
         <div class="fakeP">
-          <label for="addValue-synonym" class="control-label">
+          <label for="addValue-synonym" class="form-label">
             {{ 'lbl.Synonyms'|trans|ucfirst }}
             {{ macro.required }}
           </label>
@@ -32,13 +32,13 @@
   <div class="row fork-page-actions">
     <div class="col-md-12">
       <div class="btn-toolbar">
-        <div class="btn-group pull-left" role="group">
+        <div class="btn-group float-start" role="group">
           {% if isAllowedAction('DeleteSynonym') %}
-            {{ macro.buttonIcon('', 'trash-o', 'lbl.Delete'|trans|ucfirst, 'btn-danger', {"data-toggle":"modal", "type":"button", "data-target":"#confirmDelete"}) }}
+            {{ macro.buttonIcon('', 'trash-can', 'lbl.Delete'|trans|ucfirst, 'btn-danger', {"data-bs-toggle":"modal", "type":"button", "data-bs-target":"#confirmDelete"}) }}
           {% endif %}
-          {{ macro.buttonIcon(geturl('Synonyms'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default') }}
+          {{ macro.buttonIcon(geturl('Synonyms'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary') }}
         </div>
-        <div class="btn-group pull-right" role="group">
+        <div class="btn-group float-end" role="group">
           {{ macro.buttonIcon('', 'plus-square', 'lbl.AddSynonym'|trans|ucfirst, 'btn-primary', {"id":"addButton", "type":"submit", "name":"add"}) }}
         </div>
       </div>
@@ -60,7 +60,7 @@
             <p>{{ 'msg.ConfirmDeleteSynonym'|trans|format(term|e)|raw }}</p>
           </div>
           <div class="modal-footer">
-            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', {"data-dismiss":"modal"}) }}
+            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', {"data-bs-dismiss":"modal"}) }}
             {{ macro.buttonIcon('', 'plus-trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger') }}
           </div>
         </div>

@@ -15,7 +15,6 @@ src/Frontend/Modules/**/Layout/Css/*
 src/Frontend/Modules/**/Layout/Sass/*
 src/Frontend/Themes/**/Core/Layout/Css/*
 src/Frontend/Themes/Bootstrap/*
-src/Frontend/Themes/Fork/*
 src/Frontend/Themes/Custom/src/Layout/Sass/plugins/*
 var/*
 vendor/*

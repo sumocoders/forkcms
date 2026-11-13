@@ -15,13 +15,13 @@
             <div class="row">
               <div class="col-sm-12">
                 <ul class="nav nav-tabs" role="tablist">
-                  <li role="presentation" class="pull-right">
-                    <a href="#tabUploadMedia" aria-controls="tabUploadMedia" role="tab"
-                       data-toggle="tab">{{ 'lbl.MediaNew'|trans|ucfirst }}</a>
+                  <li role="presentation" class="nav-item ms-auto">
+                    <a class="nav-link" href="#tabUploadMedia" aria-controls="tabUploadMedia" role="tab"
+                       data-bs-toggle="tab">{{ 'lbl.MediaNew'|trans|ucfirst }}</a>
                   </li>
-                  <li role="presentation" class="active">
-                    <a href="#tabLibrary" aria-controls="tabLibrary" role="tab"
-                       data-toggle="tab">{{ 'lbl.MediaLibraryTab'|trans|ucfirst }}</a>
+                  <li role="presentation" class="nav-item">
+                    <a class="nav-link active" href="#tabLibrary" aria-controls="tabLibrary" role="tab"
+                       data-bs-toggle="tab">{{ 'lbl.MediaLibraryTab'|trans|ucfirst }}</a>
                   </li>
                 </ul>
                 <div class="tab-content">
@@ -32,7 +32,7 @@
                     <div class="row">
                       <div class="col-sm-3">
                         <div id="mediaTree">
-                          <button class="btn btn-default btn-sm tree-collapsed" data-role="toggle-js-tree-collapse">
+                          <button class="btn btn-secondary btn-sm tree-collapsed" data-role="toggle-js-tree-collapse">
                             <span data-role="toggle-js-tree-collapse-text">{{ 'lbl.OpenTreeNavigation'|trans }}</span>
                           </button>
                           <div id="tree">
@@ -44,10 +44,9 @@
                         {% set alreadyOneActive = false %}
                         <ul class="nav nav-tabs" role="tablist">
                           {% for dataGrid in dataGrids %}
-                            <li role="presentation"
-                                class="{% if dataGrid.numberOfResults > 0 and not alreadyOneActive %}active{% set alreadyOneActive = true %}{% endif %}">
-                              <a href="#{{ dataGrid.tabName }}" aria-controls="tabImage" role="tab"
-                                 data-toggle="tab">{{ dataGrid.label|capitalize }} ({{ dataGrid.numberOfResults }})</a>
+                            <li class="nav-item" role="presentation">
+                              <a class="nav-link{% if dataGrid.numberOfResults > 0 and not alreadyOneActive %} active{% set alreadyOneActive = true %}{% endif %}" href="#{{ dataGrid.tabName }}" aria-controls="tabImage" role="tab"
+                                 data-bs-toggle="tab">{{ dataGrid.label|capitalize }} ({{ dataGrid.numberOfResults }})</a>
                             </li>
                           {% endfor %}
                         </ul>
@@ -93,7 +92,7 @@
   </div>
 </div>
 
-<div class="hidden">
+<div class="d-none">
   <div class="modal fade jsConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -104,7 +103,7 @@
           <p class="jsConfirmationMessage">{{ 'msg.Confirmation'|trans }}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'lbl.Cancel'|trans|ucfirst }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'lbl.Cancel'|trans|ucfirst }}</button>
           <a href="#" class="btn btn-primary jsConfirmationSubmit">
             {{ 'lbl.OK'|trans|ucfirst }}
           </a>

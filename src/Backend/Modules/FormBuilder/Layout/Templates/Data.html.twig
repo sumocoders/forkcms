@@ -2,7 +2,7 @@
 {% import "Layout/Templates/macros.html.twig" as macro %}
 
 {% block actionbar %}
-  <div class="btn-toolbar pull-right">
+  <div class="btn-toolbar float-end">
     <div class="btn-group" role="group">
       {% if isAllowedAction('Index') %}
         {{ macro.buttonIcon( geturl('index'), 'list', 'lbl.Overview'|trans|ucfirst) }}
@@ -18,27 +18,27 @@
   <div class="row fork-module-content">
     <div class="col-md-12">
       {% form filter %}
-      <div class="panel panel-default">
-        <div class="panel-body">
+      <div class="card">
+        <div class="card-body">
           {% form_field id %}
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <label for="startDate" class="control-label">{{ 'lbl.StartDate'|trans|ucfirst }}</label>
+                <label for="startDate" class="form-label">{{ 'lbl.StartDate'|trans|ucfirst }}</label>
                 {% form_field start_date %} {% form_field_error start_date %}
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="endDate" class="control-label">{{ 'lbl.EndDate'|trans|ucfirst }}</label>
+                <label for="endDate" class="form-label">{{ 'lbl.EndDate'|trans|ucfirst }}</label>
                 {% form_field end_date %} {% form_field_error end_date %}
               </div>
             </div>
           </div>
         </div>
-        <div class="panel-footer">
+        <div class="card-footer">
           <div class="btn-toolbar">
-            <div class="btn-group pull-right">
+            <div class="btn-group float-end">
               {{ macro.buttonIcon('', 'refresh', 'lbl.UpdateFilter'|trans|ucfirst, 'btn-primary', { "id":"search", "type":"submit", "name":"search" }) }}
             </div>
           </div>
@@ -64,7 +64,7 @@
                   <p>{{ 'msg.ConfirmMassDelete'|trans|ucfirst }}</p>
                 </div>
                 <div class="modal-footer">
-                  {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "data-dismiss":"modal", "type":"button" } ) }}
+                  {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', { "data-bs-dismiss":"modal", "type":"button" } ) }}
                   {{ macro.buttonIcon('', 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger', { "type":"submit" } ) }}
                   </button>
                 </div>

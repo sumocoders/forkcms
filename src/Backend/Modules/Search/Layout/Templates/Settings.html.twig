@@ -9,23 +9,23 @@
   {% form settings %}
   <div class="row">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.Pagination'|trans|ucfirst }}
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group">
-            <label for="overviewNumItems" class="control-label">{{ 'lbl.ItemsPerPage'|trans|ucfirst }}</label>
+            <label for="overviewNumItems" class="form-label">{{ 'lbl.ItemsPerPage'|trans|ucfirst }}</label>
             {% form_field overview_num_items %} {% form_field_error overview_num_items %}
           </div>
           <div class="form-group">
-            <label for="autocompleteNumItems" class="control-label">{{ 'lbl.ItemsForAutocomplete'|trans|ucfirst }}</label>
+            <label for="autocompleteNumItems" class="form-label">{{ 'lbl.ItemsForAutocomplete'|trans|ucfirst }}</label>
             {% form_field autocomplete_num_items %} {% form_field_error autocomplete_num_items %}
           </div>
           <div class="form-group last">
-            <label for="autosuggestNumItems" class="control-label">{{ 'lbl.ItemsForAutosuggest'|trans|ucfirst }}</label>
+            <label for="autosuggestNumItems" class="form-label">{{ 'lbl.ItemsForAutosuggest'|trans|ucfirst }}</label>
             {% form_field autosuggest_num_items %} {% form_field_error autosuggest_num_items %}
           </div>
         </div>
@@ -34,21 +34,21 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.UseSitelinksSearchBox'|trans|ucfirst }}
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group last">
             <ul class="list-unstyled">
-              <li class="checkbox">
-                <label for="useSitelinksSearchBox" class="control-label">
+              <li class="form-check">
+                <label for="useSitelinksSearchBox" class="form-check-label">
                   {% form_field use_sitelinks_search_box %} {{ 'lbl.UseSitelinksSearchBox'|trans|ucfirst }}
                 </label>
                 {% form_field_error use_sitelinks_search_box %}
-                <div class="help-block">
+                <div class="form-text">
                   {{ 'msg.HelpSitelinksSearchBox'|trans|raw }}
                 </div>
               </li>
@@ -60,14 +60,14 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.ModuleWeight'|trans|ucfirst }}
           </h2>
         </div>
-        <div id="searchModules" class="panel-body">
-          <p class="help-block">{{ 'msg.HelpWeightGeneral'|trans }}</p>
+        <div id="searchModules" class="card-body">
+          <p class="form-text">{{ 'msg.HelpWeightGeneral'|trans }}</p>
           <table class="table table-hover table-striped jsDataGrid">
             <tr>
               <th>{{ 'msg.IncludeInSearch'|trans }}</th>
@@ -97,8 +97,8 @@
   <div class="row">
     <div class="col-md-12">
       <div class="btn-toolbar">
-        <div class="btn-group pull-right" role="group">
-          {{ macro.buttonIcon('', 'floppy-o', 'lbl.Save'|trans|ucfirst, 'btn-primary', {"id":"save", "type":"submit", "name":"save"}) }}
+        <div class="btn-group float-end" role="group">
+          {{ macro.buttonIcon('', 'floppy-disk', 'lbl.Save'|trans|ucfirst, 'btn-primary', {"id":"save", "type":"submit", "name":"save"}) }}
         </div>
       </div>
     </div>

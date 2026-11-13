@@ -10,7 +10,7 @@
   <div class="row fork-module-content">
     <div class="col-md-12">
       <div class="form-group">
-        <label for="name" class="control-label">
+        <label for="name" class="form-label">
           {{ 'lbl.Name'|trans|ucfirst }}
           {{ macro.required }}
         </label>
@@ -24,7 +24,7 @@
           {{ usage|raw }}
         {% endif %}
         {% if not usage %}
-          <div class="panel-body">
+          <div class="card-body">
             <p>{{ 'msg.NoUsage'|trans }}</p>
           </div>
         {% endif %}
@@ -35,10 +35,10 @@
     <div class="col-md-12">
       <div class="btn-toolbar">
         <div class="btn-group" role="group">
-          {{ macro.buttonIcon(geturl('Index'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default') }}
+          {{ macro.buttonIcon(geturl('Index'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary') }}
         </div>
-        <div class="btn-group pull-right" role="group">
-          {{ macro.buttonIcon('', 'floppy-o', 'lbl.Save'|trans|ucfirst, 'btn-primary', {"id":"editButton", "type":"submit", "name":"edit"}) }}
+        <div class="btn-group float-end" role="group">
+          {{ macro.buttonIcon('', 'floppy-disk', 'lbl.Save'|trans|ucfirst, 'btn-primary', {"id":"editButton", "type":"submit", "name":"edit"}) }}
         </div>
       </div>
     </div>

@@ -35,7 +35,7 @@
     height: 46px;
   }
 
-  .input-group-addon {
+  .input-group-text {
     background: $white;
 
     .fa {
@@ -63,7 +63,7 @@
   }
 }
 
-@media screen and (min-width: $screen-sm) {
+@include media-breakpoint-up(sm) {
 
   .login-block {
     margin-top: -270px;

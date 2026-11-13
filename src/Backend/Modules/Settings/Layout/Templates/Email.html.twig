@@ -9,27 +9,27 @@
   {% form settingsEmail %}
     <div class="row fork-module-content">
       <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2 class="panel-title">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">
               {{ 'lbl.Email'|trans|ucfirst }}
             </h2>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             <fieldset>
               <legend>
                 {{ 'lbl.From'|trans|ucfirst }}
-                <p class="help-block">{{ 'msg.HelpEmailFrom'|trans }}</p>
+                <p class="form-text">{{ 'msg.HelpEmailFrom'|trans }}</p>
               </legend>
               <div class="form-group">
-                <label for="mailerFromName" class="control-label">
+                <label for="mailerFromName" class="form-label">
                   {{ 'lbl.Name'|trans|ucfirst }}
                   {{ macro.required }}
                 </label>
                 {% form_field mailer_from_name %} {% form_field_error mailer_from_name %}
               </div>
               <div class="form-group">
-                <label for="mailerFromEmail" class="control-label">
+                <label for="mailerFromEmail" class="form-label">
                   {{ 'lbl.Email'|trans|ucfirst }}
                   {{ macro.required }}
                 </label>
@@ -39,17 +39,17 @@
             <fieldset>
               <legend>
                 {{ 'lbl.To'|trans|ucfirst }}
-                <p class="help-block">{{ 'msg.HelpEmailTo'|trans }}</p>
+                <p class="form-text">{{ 'msg.HelpEmailTo'|trans }}</p>
               </legend>
               <div class="form-group">
-                <label for="mailerToName" class="control-label">
+                <label for="mailerToName" class="form-label">
                   {{ 'lbl.Name'|trans|ucfirst }}
                   {{ macro.required }}
                 </label>
                 {% form_field mailer_to_name %} {% form_field_error mailer_to_name %}
               </div>
               <div class="form-group">
-                <label for="mailerToEmail" class="control-label">
+                <label for="mailerToEmail" class="form-label">
                   {{ 'lbl.Email'|trans|ucfirst }}
                   {{ macro.required }}
                 </label>
@@ -61,14 +61,14 @@
                 {{ 'lbl.ReplyTo'|trans|ucfirst }}
               </legend>
               <div class="form-group">
-                <label for="mailerReplyToName" class="control-label">
+                <label for="mailerReplyToName" class="form-label">
                   {{ 'lbl.Name'|trans|ucfirst }}
                   {{ macro.required }}
                 </label>
                 {% form_field mailer_reply_to_name %} {% form_field_error mailer_reply_to_name %}
               </div>
               <div class="form-group last">
-                <label for="mailerReplyToEmail" class="control-label">
+                <label for="mailerReplyToEmail" class="form-label">
                   {{ 'lbl.Email'|trans|ucfirst }}
                   {{ macro.required }}
                 </label>
@@ -82,8 +82,8 @@
     <div class="row fork-module-actions">
       <div class="col-md-12">
         <div class="btn-toolbar">
-          <div class="btn-group pull-right" role="group">
-            {{ macro.buttonIcon('', 'floppy-o', 'lbl.Save'|trans|ucfirst, 'btn-primary', { "id":"save", "type":"submit", "name":"save" }) }}
+          <div class="btn-group float-end" role="group">
+            {{ macro.buttonIcon('', 'floppy-disk', 'lbl.Save'|trans|ucfirst, 'btn-primary', { "id":"save", "type":"submit", "name":"save" }) }}
           </div>
         </div>
       </div>

@@ -8,15 +8,15 @@
   {% form add %}
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
+      <div class="card">
+        <div class="card-header">
           <h2>{{ 'lbl.Template'|trans|ucfirst }}</h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-inline form-group">
-            <p class="help-block">{{ 'msg.HelpTemplateLocation'|trans|raw }}</p>
-            <label for="file" class="control-label">{{ 'msg.PathToTemplate'|trans|ucfirst }}</label>
-            <label for="theme" class="hide">{{ 'lbl.Theme'|trans|ucfirst }}</label>
+            <p class="form-text">{{ 'msg.HelpTemplateLocation'|trans|raw }}</p>
+            <label for="file" class="form-label">{{ 'msg.PathToTemplate'|trans|ucfirst }}</label>
+            <label for="theme" class="visually-hidden">{{ 'lbl.Theme'|trans|ucfirst }}</label>
             {% form_field theme %}
             {% form_field_error theme %}
             <small>
@@ -25,11 +25,11 @@
             {% form_field file %} {% form_field_error file %}
           </div>
           <div class="form-group">
-            <label for="label" class="control-label">{{ 'lbl.Label'|trans|ucfirst }}</label>
+            <label for="label" class="form-label">{{ 'lbl.Label'|trans|ucfirst }}</label>
             {% form_field label %} {% form_field_error label %}
           </div>
           <ul class="list-unstyled">
-            <li class="checkbox">
+            <li class="form-check">
               <label for="image">{% form_field image %} {% form_field_error image %} {{ 'msg.ShowImageForm'|trans|ucfirst }}</label>
             </li>
           </ul>
@@ -39,11 +39,11 @@
   </div>
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">{{ 'lbl.Positions'|trans|ucfirst }}</h2>
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">{{ 'lbl.Positions'|trans|ucfirst }}</h2>
         </div>
-        <div id="positions" class="panel-body">
+        <div id="positions" class="card-body">
           {% for position in positions %}
             <div class="form-group position jsPosition"{% if not position.i %} style="display: none"{% endif %}>
               <div class="row">
@@ -53,8 +53,8 @@
                     <label for="position{{ position.i }}">
                       <span>{{ 'lbl.Position'|trans|ucfirst }}</span>
                       <button class="btn btn-danger btn-icon-only jsDeletePosition">
-                        {{ macro.icon('trash-o') }}
-                        <span class="sr-only">{{ 'lbl.DeletePosition'|trans|ucfirst }}</span>
+                        {{ macro.icon('trash-can') }}
+                        <span class="visually-hidden">{{ 'lbl.DeletePosition'|trans|ucfirst }}</span>
                       </button>
                     </label>
                   </div>
@@ -71,26 +71,26 @@
                 {# Default blocks for this position #}
                 {% if position.blocks %}
                   {% for block in position.blocks %}
-                    <div class="col-md-10 col-md-offset-2 jsBlock">
+                    <div class="col-md-10 offset-md-2 jsBlock">
                       <div class="form-group">
                         <div class="form-inline">
                           {{ block.formElements.ddmType.parse()|raw }}
                           {{ block.formElements.ddmTypeError }}
                           {# Button to remove block from this position #}
                           <button class="btn btn-danger btn-icon-only jsDeleteBlock">
-                            {{ macro.icon('trash-o') }}
-                            <span class="sr-only">{{ 'lbl.DeleteBlock'|trans|ucfirst }}</span>
+                            {{ macro.icon('trash-can') }}
+                            <span class="visually-hidden">{{ 'lbl.DeleteBlock'|trans|ucfirst }}</span>
                           </button>
                         </div>
                       </div>
                     </div>
                   {% endfor %}
                 {% endif %}
-                <div class="col-md-10 col-md-offset-2">
+                <div class="col-md-10 offset-md-2">
                   <div class="btn-toolbar">
                     <div class="btn-group" role="group">
                       {# Button to add new default block to this position #}
-                      <a href="#" class="btn btn-default jsAddBlock">
+                      <a href="#" class="btn btn-secondary jsAddBlock">
                         {{ macro.icon('plus-square') }}&nbsp;
                         <span>{{ 'lbl.AddBlock'|trans|ucfirst }}</span>
                       </a>
@@ -118,22 +118,22 @@
   </div>
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
-            <label for="format" class="control-label">{{ 'lbl.Layout'|trans|ucfirst }}</label>
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <label for="format" class="form-label">{{ 'lbl.Layout'|trans|ucfirst }}</label>
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <p class="help-block">{{ 'msg.HelpTemplateFormat'|trans }}</p>
+                <p class="form-text">{{ 'msg.HelpTemplateFormat'|trans }}</p>
                 {% form_field format %} {% form_field_error format %}
               </div>
             </div>
             <div class="col-md-6">
-              <div class="help-block">
+              <div class="form-text">
                 {{ 'msg.HelpPositionsLayoutText'|trans|raw }}
               </div>
             </div>
@@ -144,18 +144,18 @@
   </div>
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">{{ 'lbl.Status'|trans|ucfirst }}</h2>
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">{{ 'lbl.Status'|trans|ucfirst }}</h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group">
             <ul class="list-unstyled">
-              <li class="checkbox">
+              <li class="form-check">
                 <label for="active">{% form_field active %} {% form_field_error active %} {{ 'lbl.Active'|trans|ucfirst }}</label>
               </li>
-              <li class="checkbox">
-                <label for="default" class="control-label">{% form_field default %} {% form_field_error default %} {{ 'lbl.Default'|trans|ucfirst }}</label>
+              <li class="form-check">
+                <label for="default" class="form-check-label">{% form_field default %} {% form_field_error default %} {{ 'lbl.Default'|trans|ucfirst }}</label>
               </li>
             </ul>
           </div>
@@ -166,7 +166,7 @@
   <div class="row fork-module-actions">
     <div class="col-md-12">
       <div class="btn-toolbar">
-        <div class="btn-group pull-right" role="group">
+        <div class="btn-group float-end" role="group">
           {{ macro.buttonIcon('', 'plus-square', 'lbl.Add'|trans|ucfirst, 'btn-primary', {"id":"addButton", "type":"submit", "name":"add"}) }}
         </div>
       </div>

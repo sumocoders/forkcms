@@ -9,23 +9,23 @@
   {% form settings %}
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.Pagination'|trans|ucfirst }}
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group">
-            <label for="overviewNumberOfItems" class="control-label">{{ 'lbl.ItemsPerPage'|trans|ucfirst }}</label>
+            <label for="overviewNumberOfItems" class="form-label">{{ 'lbl.ItemsPerPage'|trans|ucfirst }}</label>
             {% form_field overview_number_of_items %} {% form_field_error overview_number_of_items %}
           </div>
           <div class="form-group">
-            <label for="recentArticlesFullNumberOfItems" class="control-label">{{ 'msg.NumItemsInRecentArticlesFull'|trans|ucfirst }}</label>
+            <label for="recentArticlesFullNumberOfItems" class="form-label">{{ 'msg.NumItemsInRecentArticlesFull'|trans|ucfirst }}</label>
             {% form_field recent_articles_full_number_of_items %} {% form_field_error recent_articles_full_number_of_items %}
           </div>
           <div class="form-group last">
-            <label for="recentArticlesListNumberOfItems" class="control-label">{{ 'msg.NumItemsInRecentArticlesList'|trans|ucfirst }}</label>
+            <label for="recentArticlesListNumberOfItems" class="form-label">{{ 'msg.NumItemsInRecentArticlesList'|trans|ucfirst }}</label>
             {% form_field recent_articles_list_number_of_items %} {% form_field_error recent_articles_list_number_of_items %}
           </div>
         </div>
@@ -34,22 +34,22 @@
   </div>
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.Comments'|trans|ucfirst }}
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group last">
             <ul class="list-unstyled">
-              <li class="checkbox">
-                <label for="allowComments" class="control-label">
+              <li class="form-check">
+                <label for="allowComments" class="form-check-label">
                   {% form_field allow_comments %} {{ 'lbl.AllowComments'|trans|ucfirst }}
                 </label>
               </li>
-              <li class="checkbox">
-                <label for="moderation" class="control-label">
+              <li class="form-check">
+                <label for="moderation" class="form-check-label">
                   {% form_field moderation %} {{ 'lbl.EnableModeration'|trans|ucfirst }}
                 </label>
               </li>
@@ -63,17 +63,17 @@
   {% if isGod %}
     <div class="row fork-module-content">
       <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2 class="panel-title">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">
               {{ 'lbl.Image'|trans|ucfirst }}
             </h2>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             <div class="form-group last">
               <ul class="list-unstyled">
-                <li class="checkbox">
-                  <label for="showImageForm" class="control-label">
+                <li class="form-check">
+                  <label for="showImageForm" class="form-check-label">
                     {% form_field show_image_form %} {{ 'msg.ShowImageForm'|trans|ucfirst }}
                   </label>
                 </li>
@@ -86,22 +86,22 @@
   {% endif %}
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.Notifications'|trans|ucfirst }}
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group last">
             <ul class="list-unstyled">
-              <li class="checkbox">
-                <label for="notifyByEmailOnNewCommentToModerate" class="control-label">
+              <li class="form-check">
+                <label for="notifyByEmailOnNewCommentToModerate" class="form-check-label">
                   {% form_field notify_by_email_on_new_comment_to_moderate %} {{ 'msg.NotifyByEmailOnNewCommentToModerate'|trans|ucfirst }}
                 </label>
               </li>
-              <li class="checkbox">
-                <label for="notifyByEmailOnNewComment" class="control-label">
+              <li class="form-check">
+                <label for="notifyByEmailOnNewComment" class="form-check-label">
                   {% form_field notify_by_email_on_new_comment %} {{ 'msg.NotifyByEmailOnNewComment'|trans|ucfirst }}
                 </label>
               </li>
@@ -113,31 +113,31 @@
   </div>
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             {{ 'lbl.RSSFeed'|trans|ucfirst }}
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="form-group">
-            <label for="rssTitle" class="control-label">
+            <label for="rssTitle" class="form-label">
               {{ 'lbl.Title'|trans|ucfirst }}
               {{ macro.required }}
             </label>
-            <p class="help-block">{{ 'msg.HelpRSSTitle'|trans|ucfirst }}</p>
+            <p class="form-text">{{ 'msg.HelpRSSTitle'|trans|ucfirst }}</p>
             {% form_field rss_title %} {% form_field_error rss_title %}
           </div>
           <div class="form-group">
-            <label for="rssDescription" class="control-label">{{ 'lbl.Description'|trans|ucfirst }}</label>
-            <p class="help-block">{{ 'msg.HelpRSSDescription'|trans|ucfirst }}</p>
+            <label for="rssDescription" class="form-label">{{ 'lbl.Description'|trans|ucfirst }}</label>
+            <p class="form-text">{{ 'msg.HelpRSSDescription'|trans|ucfirst }}</p>
             {% form_field rss_description %} {% form_field_error rss_description %}
           </div>
           <div class="form-group last">
             <p>{{ 'msg.HelpMeta'|trans|ucfirst }}:</p>
             <ul class="list-unstyled">
-              <li class="checkbox">
-                <label for="rssMeta" class="control-label">{% form_field rss_meta %} {{ 'lbl.MetaInformation'|trans|ucfirst }}</label>
+              <li class="form-check">
+                <label for="rssMeta" class="form-check-label">{% form_field rss_meta %} {{ 'lbl.MetaInformation'|trans|ucfirst }}</label>
               </li>
             </ul>
           </div>
@@ -148,8 +148,8 @@
   <div class="row fork-module-actions">
     <div class="col-md-12">
       <div class="btn-toolbar">
-        <div class="btn-group pull-right" role="group">
-          {{ macro.buttonIcon('', 'floppy-o', 'lbl.Save'|trans|ucfirst, 'btn-primary', {"type":"submit", "name":"save", "id":"save"}) }}
+        <div class="btn-group float-end" role="group">
+          {{ macro.buttonIcon('', 'floppy-disk', 'lbl.Save'|trans|ucfirst, 'btn-primary', {"type":"submit", "name":"save", "id":"save"}) }}
         </div>
       </div>
     </div>

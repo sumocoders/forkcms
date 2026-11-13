@@ -106,7 +106,7 @@ class EditThemeTemplate extends BackendBaseActionEdit
         }
 
         // create elements
-        $this->form->addDropdown('theme', $themes, $this->get('fork.settings')->get('Core', 'theme', 'Fork'));
+        $this->form->addDropdown('theme', $themes, $this->get('fork.settings')->get('Core', 'theme', 'Bootstrap'));
         $this->form->addText('label', $this->record['label']);
         $this->form->addText('file', str_replace('Core/Layout/Templates/', '', $this->record['path']));
         $this->form->addTextarea('format', str_replace('],[', "],\n[", $this->record['data']['format']));
@@ -366,7 +366,7 @@ class EditThemeTemplate extends BackendBaseActionEdit
                 BackendExtensionsModel::updateTemplate($item);
 
                 // set default template
-                if ($this->form->getField('default')->getChecked() && $item['theme'] == $this->get('fork.settings')->get('Core', 'theme', 'Fork')) {
+                if ($this->form->getField('default')->getChecked() && $item['theme'] == $this->get('fork.settings')->get('Core', 'theme', 'Bootstrap')) {
                     $this->get('fork.settings')->set('pages', 'default_template', $item['id']);
                 }
 

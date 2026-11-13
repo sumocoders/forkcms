@@ -2,7 +2,9 @@
   border-radius: 3px;
   padding: 9px 9px 10px;
 
-  .fa {
+  .fa,
+  .fa-solid,
+  .fa-regular {
     margin: 0 3px;
   }
 
@@ -12,7 +14,7 @@
     margin: 0 3px;
   }
 
-  @media screen and (min-width: $screen-sm) {
+  @include media-breakpoint-up(sm) {
     .btn-text {
       display: inline-block;
       font-size: $font-size-base;
@@ -24,7 +26,8 @@
     cursor: move;
   }
 
-  &.btn-xs {
+  &.btn-sm {
+    font-size: $font-size-small;
     padding: 2px 8px;
   }
 
@@ -34,8 +37,20 @@
   }
 }
 
+// light grey default button of the Bootstrap 3 version
+.btn-secondary {
+  --#{$prefix}btn-color: #{$text-color};
+  --#{$prefix}btn-hover-color: #{$gray-base};
+  --#{$prefix}btn-active-color: #{$gray-base};
+  --#{$prefix}btn-hover-bg: #{darken($gray-lighter, 10%)};
+  --#{$prefix}btn-hover-border-color: #{darken($gray-lighter, 12%)};
+  --#{$prefix}btn-active-bg: #{darken($gray-lighter, 10%)};
+}
+
 .btn-icon-only {
-  .fa {
+  .fa,
+  .fa-solid,
+  .fa-regular {
     padding-right: 0;
     margin-right: 0;
   }
@@ -44,35 +59,36 @@
 .btn-group {
   text-align: right;
 
-  .btn {
-    float: none;
+  > .btn {
+    flex: 0 1 auto;
     margin: 1px 0;
+  }
 
-    + .btn {
-      margin-left: 2px;
+  // same selector as the Bootstrap rule that joins the buttons, so these win by source order
+  > :not(.btn-check:first-child) + .btn {
+    margin-left: 2px;
+  }
+
+  > :not(.btn-check:first-child) + .btn.dropdown-toggle {
+    margin-left: -1px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    > .btn {
+      margin: 6px 0;
     }
 
-    + .btn.dropdown-toggle {
+    > :not(.btn-check:first-child) + .btn {
+      margin-left: 6px;
+    }
+
+    > :not(.btn-check:first-child) + .btn.dropdown-toggle {
       margin-left: -1px;
     }
   }
 
-  @media screen and (min-width: $screen-lg) {
-
-    .btn {
-      float: none;
-      margin: 6px 0;
-
-      + .btn {
-        margin-left: 6px;
-      }
-    }
-  }
-
-
-  .btn:first-child:not(:last-child):not(.dropdown-toggle),
-  .btn:last-child:not(:first-child),
-  .btn:not(:first-child):not(:last-child):not(.dropdown-toggle){
+  > .btn:not(:last-child):not(.dropdown-toggle),
+  > :not(.btn-check:first-child) + .btn:not(.dropdown-toggle) {
     border-radius: 3px;
   }
 }
@@ -86,7 +102,7 @@
   }
 }
 
-.input-group-addon {
+.input-group-text {
   color: $text-color;
 
   &.btn {
@@ -102,12 +118,20 @@ a.btn {
   text-decoration: none;
 }
 
-.btn-toolbar .btn-group {
-  .btn {
-    margin-bottom: 6px;
-  }
+.btn-toolbar {
+  .btn-group {
+    .btn {
+      margin-bottom: 6px;
+    }
 
-  & + .btn-group {
-    margin-left: 1em;
+    & + .btn-group {
+      margin-left: 1em;
+    }
   }
+}
+
+// .btn-toolbar is a flex container in Bootstrap 5, floats inside it no longer apply
+.btn-toolbar > .float-end,
+.btn-toolbar .btn-group + .btn-group.float-end {
+  margin-left: auto;
 }

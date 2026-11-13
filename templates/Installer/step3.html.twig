@@ -17,13 +17,13 @@
   </div>
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             Settings
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <h3 class="noPadding">Modules</h3>
           <p>Which modules would you like to install?</p>
           <ul id="moduleList" class="list-unstyled">
@@ -32,8 +32,8 @@
           <h3>Example data</h3>
           <p>If you are new to Fork CMS, you might prefer to have an example website with a default theme set up.</p>
           <ul class="list-unstyled">
-            <li class="checkbox">
-              <p class="help-block">(The blog-module is required and will be installed)</p>
+            <li class="form-check">
+              <p class="form-text">(The blog-module is required and will be installed)</p>
               {{ form_row(form.example_data) }}
             </li>
           </ul>
@@ -41,8 +41,8 @@
           <p>Warning: debug mode is only useful when developing on Fork CMS.</p>
           <p>You can enable debug mode by adding "<code>SetEnv FORK_DEBUG 1</code>" in your virtualhosts file.</p>
           <ul class="list-unstyled">
-            <li class="checkbox">
-              <p class="help-block">(Exception emails will be sent to this email address)</p>
+            <li class="form-check">
+              <p class="form-text">(Exception emails will be sent to this email address)</p>
               {{ form_row(form.different_debug_email) }}
             </li>
             <li id="debugEmailHolder">
@@ -50,14 +50,14 @@
             </li>
           </ul>
         </div>
-        <div class="panel-footer">
+        <div class="card-footer">
           <div class="btn-toolbar">
-            <div class="btn-group pull-left" role="group">
-              <a href="{{ path('install_step2') }}" class="btn btn-default">
+            <div class="btn-group float-start" role="group">
+              <a href="{{ path('install_step2') }}" class="btn btn-secondary">
                 <span class="fa fa-chevron-left" aria-hidden="true"></span> Previous
               </a>
             </div>
-            <div class="btn-group pull-right" role="group">
+            <div class="btn-group float-end" role="group">
               <button type="submit" id="installerButton" name="installer" class="btn btn-primary">
                 Next <span class="fa fa-chevron-right" aria-hidden="true"></span>
               </button>

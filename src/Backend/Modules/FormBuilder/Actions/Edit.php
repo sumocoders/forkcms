@@ -254,7 +254,7 @@ class Edit extends BackendBaseActionEdit
                     'submit_field',
                     htmlspecialchars_decode((string) $field['settings']['values']),
                     'button',
-                    'btn btn-default'
+                    'btn btn-secondary'
                 );
                 $btn->setAttribute('disabled', 'disabled');
 

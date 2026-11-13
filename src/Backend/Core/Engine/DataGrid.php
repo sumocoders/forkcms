@@ -31,14 +31,14 @@ class DataGrid extends \SpoonDataGrid
         'clone' => 'fa-clone',
         'import' => 'fa-download',
         'export' => 'fa-upload',
-        'delete' => 'fa-trash-o',
+        'delete' => 'fa-trash-can',
         'detail' => 'fa-eye',
         'details' => 'fa-eye',
-        'approve' => 'fa-thumbs-o-up',
+        'approve' => 'fa-thumbs-up',
         'mark_as_spam' => 'fa-ban',
         'install' => 'fa-download',
-        'use_revision' => 'fa-file-o',
-        'use_draft' => 'fa-file-o',
+        'use_revision' => 'fa-file',
+        'use_draft' => 'fa-file',
         'custom_fields' => 'fa-tasks',
     ];
 
@@ -118,7 +118,7 @@ class DataGrid extends \SpoonDataGrid
         )) {
             // rebuild value, it should have special markup
             $value =
-                '<a href="' . $url . '" class="btn btn-default btn-xs pull-right">' .
+                '<a href="' . $url . '" class="btn btn-secondary btn-sm float-end">' .
                 ($icon ? '<span class="fa ' . $icon . '" aria-hidden="true"></span>&nbsp;' : '') .
                s($value)->title() .
                 '</a>';
@@ -130,7 +130,7 @@ class DataGrid extends \SpoonDataGrid
         if (in_array($lowercasedName, ['use_revision', 'use_draft'], true)) {
             // rebuild value, it should have special markup
             $value =
-                '<a href="' . $url . '" class="btn btn-default btn-xs">' .
+                '<a href="' . $url . '" class="btn btn-secondary btn-sm">' .
                 ($icon ? '<span class="fa ' . $icon . '"></span>&nbsp;' : '') .
                 s($value)->title() .
                 '</a>';
@@ -199,7 +199,7 @@ class DataGrid extends \SpoonDataGrid
 
         // no anchorAttributes set means we set the default class attribute for the anchor
         if (empty($anchorAttributes)) {
-            $anchorAttributes['class'] = 'btn btn-default btn-xs';
+            $anchorAttributes['class'] = 'btn btn-secondary btn-sm';
         }
 
         // loop the attributes, build our attributes string
@@ -289,10 +289,10 @@ class DataGrid extends \SpoonDataGrid
         $this->addColumn(
             'sortHandle',
             null,
-            '<button data-role="order-move" data-direction="up" class="btn btn-default btn-xs" aria-label="' . BackendLanguage::lbl('MoveUpOnePosition') . '">
+            '<button data-role="order-move" data-direction="up" class="btn btn-secondary btn-sm" aria-label="' . BackendLanguage::lbl('MoveUpOnePosition') . '">
                      <span class="fa fa-arrow-up" aria-hidden="true"></span>
                    </button>
-                   <button data-role="order-move" data-direction="down" class="btn btn-default btn-xs" aria-label="' . BackendLanguage::lbl('MoveDownOnePosition') . '">
+                   <button data-role="order-move" data-direction="down" class="btn btn-secondary btn-sm" aria-label="' . BackendLanguage::lbl('MoveDownOnePosition') . '">
                      <span class="fa fa-arrow-down" aria-hidden="true"></span>
                    </button>'
         );
@@ -495,7 +495,7 @@ class DataGrid extends \SpoonDataGrid
             s(BackendLanguage::lbl('WithSelected'))->title() .
             '</label>' .
             $actionDropDown->parse() .
-            '<button type="button" class="btn btn-default jsMassActionSubmit">' .
+            '<button type="button" class="btn btn-secondary jsMassActionSubmit">' .
             '   <span>' . s(BackendLanguage::lbl('Execute'))->title() . '</span>' .
             '</button>';
 
@@ -612,7 +612,7 @@ class DataGrid extends \SpoonDataGrid
         // reset the label
         $instance->setLabel(
             $instance->getLabel()
-            . '<abbr class="help">?</abbr><span class="tooltip hidden" style="display: none;">' . $value . '</span>'
+            . '<abbr class="help">?</abbr><span class="tooltip d-none" style="display: none;">' . $value . '</span>'
         );
     }
 

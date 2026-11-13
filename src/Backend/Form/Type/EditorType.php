@@ -30,9 +30,7 @@ class EditorType extends TextareaType
         if (is_file(FRONTEND_CACHE_PATH . '/Navigation/editor_link_list_' . Language::getWorkingLanguage() . '.js')) {
             $header->addJS(
                 '/src/Frontend/Cache/Navigation/editor_link_list_' . Language::getWorkingLanguage() . '.js',
-                null,
-                false,
-                true,
+                overwritePath: true,
             );
         }
     }

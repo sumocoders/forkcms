@@ -2,7 +2,7 @@
 {% import "Layout/Templates/macros.html.twig" as macro %}
 
 {% block actionbar %}
-  <div class="btn-toolbar pull-right">
+  <div class="btn-toolbar float-end">
     <div class="btn-group" role="group">
       {{ macro.buttonIcon(SITE_URL ~ itemURL, 'eye', 'lbl.View'|trans|ucfirst, '', {"target":"_blank", "rel":"noopener noreferrer"}) }}
     </div>
@@ -14,25 +14,25 @@
   <div class="row fork-module-content">
     <div class="col-md-12">
       <div class="form-group">
-        <label for="author" class="control-label">
+        <label for="author" class="form-label">
           {{ 'lbl.Author'|trans|ucfirst }}
           {{ macro.required }}
         </label>
         {% form_field author %} {% form_field_error author %}
       </div>
       <div class="form-group">
-        <label for="email" class="control-label">
+        <label for="email" class="form-label">
           {{ 'lbl.Email'|trans|ucfirst }}
           {{ macro.required }}
         </label>
         {% form_field email %} {% form_field_error email %}
       </div>
       <div class="form-group">
-        <label for="website" class="control-label">{{ 'lbl.Website'|trans|ucfirst }}</label>
+        <label for="website" class="form-label">{{ 'lbl.Website'|trans|ucfirst }}</label>
         {% form_field website %} {% form_field_error website %}
       </div>
       <div class="form-group">
-        <label for="text" class="control-label">
+        <label for="text" class="form-label">
           {{ 'lbl.Text'|trans|ucfirst }}
           {{ macro.required }}
         </label>
@@ -44,10 +44,10 @@
     <div class="col-md-12">
       <div class="btn-toolbar">
         <div class="btn-group" role="group">
-          {{ macro.buttonIcon(geturl('Comments'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default') }}
+          {{ macro.buttonIcon(geturl('Comments'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary') }}
         </div>
-        <div class="btn-group pull-right" role="group">
-          {{ macro.buttonIcon('', 'floppy-o', 'lbl.Save'|trans|ucfirst, 'btn-primary', {"type":"submit", "name":"edit", "id":"editButton"}) }}
+        <div class="btn-group float-end" role="group">
+          {{ macro.buttonIcon('', 'floppy-disk', 'lbl.Save'|trans|ucfirst, 'btn-primary', {"type":"submit", "name":"edit", "id":"editButton"}) }}
         </div>
       </div>
     </div>

@@ -17,13 +17,13 @@
   </div>
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
             Settings
           </h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <p>Enter the e-mail address and password you'd like to use to log in.</p>
           {{ form_row(form.email) }}
 
@@ -33,20 +33,20 @@
               <tr>
                 <td class="strength" id="passwordStrength">
                   <p class="strength none">
-                    <span class="label label-default">None</span>
+                    <span class="badge text-bg-secondary">None</span>
                   </p>
                   <p class="strength weak">
-                    <span class="label label-danger">Weak</span>
+                    <span class="badge text-bg-danger">Weak</span>
                   </p>
                   <p class="strength average">
-                    <span class="label label-warning">Average</span>
+                    <span class="badge text-bg-warning">Average</span>
                   </p>
                   <p class="strength strong">
-                    <span class="label label-success">Strong</span>
+                    <span class="badge text-bg-success">Strong</span>
                   </p>
                 </td>
                 <td>
-                  <p class="help-block">&nbsp;Strong passwords consist of a combination of capitals, small letters, digits and special characters.</p>
+                  <p class="form-text">&nbsp;Strong passwords consist of a combination of capitals, small letters, digits and special characters.</p>
                 </td>
               </tr>
             </table>
@@ -55,15 +55,15 @@
           </div>
           {{ form_row(form.password.second) }}
         </div>
-        <div class="panel-footer">
+        <div class="card-footer">
           <div class="btn-toolbar">
-            <div class="btn-group pull-left" role="group">
-              <a href="{{ path('install_step4') }}" class="btn btn-default">
+            <div class="btn-group float-start" role="group">
+              <a href="{{ path('install_step4') }}" class="btn btn-secondary">
                 <span class="fa fa-chevron-left" aria-hidden="true"></span>&nbsp;
                 Previous
               </a>
             </div>
-            <div class="btn-group pull-right" role="group">
+            <div class="btn-group float-end" role="group">
               <button type="submit" id="installerButton" name="installer" class="btn btn-primary">
                 Finish installation
                 <div id="ajaxSpinner" style="float: left; margin-top: 4px; display: none;" aria-label="please wait while fork is installing">

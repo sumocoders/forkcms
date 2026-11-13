@@ -9,27 +9,27 @@
   {% form add %}
     <div class="row fork-module-content">
       <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2 class="panel-title">{{ 'lbl.Profile'|trans|ucfirst }}</h2>
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">{{ 'lbl.Profile'|trans|ucfirst }}</h2>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             <div class="form-group">
-              <label for="email" class="control-label">
+              <label for="email" class="form-label">
                 {{ 'lbl.Email'|trans|ucfirst }}
                 {{ macro.required }}
               </label>
               {% form_field email %} {% form_field_error email %}
             </div>
             <div class="form-group">
-              <label for="displayName" class="control-label">
+              <label for="displayName" class="form-label">
                 {{ 'lbl.DisplayName'|trans|ucfirst }}
                 {{ macro.required }}
               </label>
               {% form_field display_name %} {% form_field_error display_name %}
             </div>
             <div class="form-group">
-              <label for="password" class="control-label">
+              <label for="password" class="form-label">
                 {{ 'lbl.Password'|trans|ucfirst }}
                 {% if not notifyProfile %}
                   {{ macro.required }}{% endif %}
@@ -43,25 +43,25 @@
     </div>
     <div class="row fork-module-content">
       <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2 class="panel-title">{{ 'lbl.Settings'|trans|ucfirst }}</h2>
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">{{ 'lbl.Settings'|trans|ucfirst }}</h2>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             <div class="form-group">
-              <label for="firstName" class="control-label">{{ 'lbl.FirstName'|trans|ucfirst }}</label>
+              <label for="firstName" class="form-label">{{ 'lbl.FirstName'|trans|ucfirst }}</label>
               {% form_field first_name %} {% form_field_error first_name %}
             </div>
             <div class="form-group">
-              <label for="lastName" class="control-label">{{ 'lbl.LastName'|trans|ucfirst }}</label>
+              <label for="lastName" class="form-label">{{ 'lbl.LastName'|trans|ucfirst }}</label>
               {% form_field last_name %} {% form_field_error last_name %}
             </div>
             <div class="form-group">
-              <label for="gender" class="control-label">{{ 'lbl.Gender'|trans|ucfirst }}</label>
+              <label for="gender" class="form-label">{{ 'lbl.Gender'|trans|ucfirst }}</label>
               {% form_field gender %} {% form_field_error gender %}
             </div>
             <div class="form-group">
-              <label for="day" class="control-label">{{ 'lbl.BirthDate'|trans|ucfirst }}</label>
+              <label for="day" class="form-label">{{ 'lbl.BirthDate'|trans|ucfirst }}</label>
               <div class="form-inline">
                 <div class="form-group">
                   {% form_field day %}
@@ -72,11 +72,11 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="city" class="control-label">{{ 'lbl.City'|trans|ucfirst }}</label>
+              <label for="city" class="form-label">{{ 'lbl.City'|trans|ucfirst }}</label>
               {% form_field city %} {% form_field_error city %}
             </div>
             <div class="form-group">
-              <label for="country" class="control-label">{{ 'lbl.Country'|trans|ucfirst }}</label>
+              <label for="country" class="form-label">{{ 'lbl.Country'|trans|ucfirst }}</label>
               {% form_field country %} {% form_field_error country %}
             </div>
           </div>
@@ -85,19 +85,19 @@
     </div>
     <div class="row fork-module-content">
       <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
+        <div class="card">
+          <div class="card-header">
             <h2>
               <label for="about">
                 {{ 'lbl.About'|trans|ucfirst }}
               </label>
             </h2>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             {% form_field about %}
           </div>
           {% if txtAboutError %}
-            <div class="panel-footer">
+            <div class="card-footer">
               {% form_field_error about %}
             </div>
           {% endif %}
@@ -110,7 +110,7 @@
           <div class="btn-group" role="group">
             {{ macro.buttonIcon(geturl('Index'), 'times', 'lbl.Cancel'|trans|ucfirst) }}
           </div>
-          <div class="btn-group pull-right" role="group">
+          <div class="btn-group float-end" role="group">
             {{ macro.buttonIcon('', 'plus-square', 'lbl.Add'|trans|ucfirst, 'btn-primary', { "type":"submit", "id":"addButton", "name":"add" }) }}
           </div>
         </div>

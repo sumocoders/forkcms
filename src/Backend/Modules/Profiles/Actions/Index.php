@@ -145,10 +145,10 @@ class Index extends BackendBaseActionIndex
         );
         $ddmMassAction->setAttribute('id', 'massAction');
         $ddmMassAction->setOptionAttributes('addToGroup', [
-            'data-target' => '#confirmAddToGroup',
+            'data-bs-target' => '#confirmAddToGroup',
         ]);
         $ddmMassAction->setOptionAttributes('delete', [
-            'data-target' => '#confirmDelete',
+            'data-bs-target' => '#confirmDelete',
         ]);
         $this->dgProfiles->setMassAction($ddmMassAction);
 

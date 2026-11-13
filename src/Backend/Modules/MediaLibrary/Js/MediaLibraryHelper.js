@@ -242,12 +242,12 @@ jsBackend.mediaLibraryHelper.group = {
       }
 
       $editMediaDialog.find('.is-invalid').removeClass('is-invalid')
-      $editMediaDialog.find('.help-block').remove()
+      $editMediaDialog.find('.form-text').remove()
 
       if ($mediaItemTitleInput.val() === '') {
         $mediaItemTitleInput.addClass('is-invalid')
 
-        $('<span>').addClass('help-block')
+        $('<span>').addClass('form-text')
           .append(
             $('<ul>').addClass('list-unstyled')
               .append(
@@ -747,16 +747,13 @@ jsBackend.mediaLibraryHelper.group = {
     // init $tabs
     var $tabs = $('#tabLibrary').find('.nav-tabs')
 
-    // remove selected
-    $tabs.find('.active').removeClass('active')
-
     // not in connect-to-group modus (just uploading)
     if (typeof mediaGroups[currentMediaGroupId] === 'undefined') {
       return false
     }
 
     // Enable all because we can switch between different groups on the same page
-    $tabs.children('li').removeClass('disabled, active').children('a').attr('data-toggle', 'tab')
+    $tabs.children('li').children('a').removeClass('disabled').attr('data-bs-toggle', 'tab')
 
     var disabled = ''
     var enabled = 'li:eq(0)'
@@ -780,9 +777,9 @@ jsBackend.mediaLibraryHelper.group = {
     }
 
     if (disabled !== '') {
-      $tabs.children(disabled).addClass('disabled').children('a').removeAttr('data-toggle')
+      $tabs.children(disabled).children('a').addClass('disabled').removeAttr('data-bs-toggle')
     }
-    $tabs.children(enabled).children('a').attr('data-toggle', 'tab').first().tab('show')
+    $tabs.children(enabled).children('a').attr('data-bs-toggle', 'tab').first().tab('show')
 
     // get table
     var $tables = $('.mediaTable')
@@ -833,26 +830,27 @@ jsBackend.mediaLibraryHelper.group = {
     var $submitButton = $('#addMediaSubmit')
 
     if (maximumMediaItemsCount !== false && totalMediaCount > maximumMediaItemsCount) {
-      $minimumCountError.html(jsBackend.locale.err('MaximumConnectedItems').replace('{{ limit }}', maximumMediaItemsCount)).removeClass('hidden')
+      $minimumCountError.html(jsBackend.locale.err('MaximumConnectedItems').replace('{{ limit }}', maximumMediaItemsCount)).removeClass('d-none')
       $submitButton.addClass('disabled').attr('disabled', true)
 
       return
     }
 
     if (minimumMediaItemsCount !== false && totalMediaCount < minimumMediaItemsCount) {
-      $minimumCountError.html(jsBackend.locale.err('MinimumConnectedItems').replace('{{ limit }}', minimumMediaItemsCount)).removeClass('hidden')
+      $minimumCountError.html(jsBackend.locale.err('MinimumConnectedItems').replace('{{ limit }}', minimumMediaItemsCount)).removeClass('d-none')
       $submitButton.addClass('disabled').attr('disabled', true)
 
       return
     }
 
-    $minimumCountError.html('').addClass('hidden')
+    $minimumCountError.html('').addClass('d-none')
     $submitButton.removeClass('disabled').attr('disabled', false)
   }
 }
 
 jsBackend.mediaLibraryHelper.cropper = {
   cropperQueue: [],
+  instance: null,
   isCropping: false,
   scaleY: 1,
   scaleX: 1,
@@ -928,9 +926,18 @@ jsBackend.mediaLibraryHelper.cropper = {
   },
 
   initCropper: function ($dialog, resizeInfo, readyCallback) {
-    $(resizeInfo.sourceCanvas)
-    .addClass('img-responsive')
-    .cropper(jsBackend.mediaLibraryHelper.cropper.getCropperConfig(readyCallback))
+    resizeInfo.sourceCanvas.classList.add('img-fluid')
+    jsBackend.mediaLibraryHelper.cropper.instance = new Cropper(
+      resizeInfo.sourceCanvas,
+      jsBackend.mediaLibraryHelper.cropper.getCropperConfig(readyCallback)
+    )
+  },
+
+  destroyCropper: function () {
+    if (jsBackend.mediaLibraryHelper.cropper.instance) {
+      jsBackend.mediaLibraryHelper.cropper.instance.destroy()
+      jsBackend.mediaLibraryHelper.cropper.instance = null
+    }
   },
 
   getCropperConfig: function (readyCallback) {
@@ -973,8 +980,8 @@ jsBackend.mediaLibraryHelper.cropper = {
       return
     }
 
-    $dialog.find('[data-role=media-library-select-modal]').removeClass('hidden')
-    $dialog.find('[data-role=media-library-cropper-modal]').addClass('hidden')
+    $dialog.find('[data-role=media-library-select-modal]').removeClass('d-none')
+    $dialog.find('[data-role=media-library-cropper-modal]').addClass('d-none')
   },
 
   switchToCropperModal: function ($dialog) {
@@ -982,19 +989,19 @@ jsBackend.mediaLibraryHelper.cropper = {
       return
     }
 
-    if (!$dialog.hasClass('in')) {
+    if (!$dialog.hasClass('show')) {
       $dialog.modal('show')
     }
 
-    $dialog.find('[data-role=media-library-select-modal]').addClass('hidden')
-    $dialog.find('[data-role=media-library-cropper-modal]').removeClass('hidden')
+    $dialog.find('[data-role=media-library-select-modal]').addClass('d-none')
+    $dialog.find('[data-role=media-library-cropper-modal]').removeClass('d-none')
   },
 
   getCloseEventFunction: function ($dialog, resizeInfo, reject) {
     return function () {
       $dialog.off('hidden.bs.modal.media-library-cropper.close')
 
-      $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas').cropper('destroy')
+      jsBackend.mediaLibraryHelper.cropper.destroyCropper()
       reject('Cancel')
       jsBackend.mediaLibraryHelper.cropper.finish($dialog)
     }
@@ -1003,75 +1010,64 @@ jsBackend.mediaLibraryHelper.cropper = {
   getCropEventFunction: function ($dialog, resizeInfo, resolve) {
     return function () {
       var context = resizeInfo.targetCanvas.getContext('2d')
-      var $cropper = $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas')
-      var cropBoxData = $cropper.cropper('getCroppedCanvas')
+      var croppedCanvas = jsBackend.mediaLibraryHelper.cropper.instance.getCroppedCanvas()
       var zoomTo = 1
 
       // limit the width and height of the images to 3000 so they are not too big for the LiipImagine bundle
-      if (cropBoxData.height > 3000 || cropBoxData.width > 3000) {
-        zoomTo = 3000 / ((cropBoxData.height >= cropBoxData.width) ? cropBoxData.height : cropBoxData.width)
+      if (croppedCanvas.height > 3000 || croppedCanvas.width > 3000) {
+        zoomTo = 3000 / ((croppedCanvas.height >= croppedCanvas.width) ? croppedCanvas.height : croppedCanvas.width)
       }
 
       // set the correct height and width on the target canvas
-      resizeInfo.targetCanvas.height = Math.round(cropBoxData.height * zoomTo)
-      resizeInfo.targetCanvas.width = Math.round(cropBoxData.width * zoomTo)
+      resizeInfo.targetCanvas.height = Math.round(croppedCanvas.height * zoomTo)
+      resizeInfo.targetCanvas.width = Math.round(croppedCanvas.width * zoomTo)
 
       // make sure we start with a blank slate
       context.clearRect(0, 0, resizeInfo.targetCanvas.width, resizeInfo.targetCanvas.height)
 
       // add the new crop
-      context.drawImage($cropper.cropper('getCroppedCanvas'), 0, 0, resizeInfo.targetCanvas.width, resizeInfo.targetCanvas.height)
+      context.drawImage(croppedCanvas, 0, 0, resizeInfo.targetCanvas.width, resizeInfo.targetCanvas.height)
 
       $dialog.off('hidden.bs.modal.media-library-cropper.close')
       resolve('Confirm')
       $dialog.find('[data-role=media-library-cropper-crop]').off('click.media-library-cropper.crop')
-      $cropper.cropper('destroy')
+      jsBackend.mediaLibraryHelper.cropper.destroyCropper()
       jsBackend.mediaLibraryHelper.cropper.finish($dialog)
     }
   },
 
   getRotateEventFunction: function () {
     return function () {
-      var $cropper = $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas')
-      $cropper.cropper('rotate', $(this).data('degrees'))
-      $cropper.cropper('crop')
+      jsBackend.mediaLibraryHelper.cropper.instance.rotate($(this).data('degrees')).crop()
     }
   },
 
   getZoomEventFunction: function () {
     return function () {
-      var $cropper = $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas')
-      $cropper.cropper('zoom', $(this).data('zoom'))
-      $cropper.cropper('crop')
+      jsBackend.mediaLibraryHelper.cropper.instance.zoom($(this).data('zoom')).crop()
     }
   },
 
   getMoveEventFunction: function () {
     return function () {
-      var $cropper = $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas')
-      $cropper.cropper('move', $(this).data('x'), $(this).data('y'))
-      $cropper.cropper('crop')
+      jsBackend.mediaLibraryHelper.cropper.instance.move($(this).data('x'), $(this).data('y')).crop()
     }
   },
 
   getFlipEventFunction: function () {
     return function () {
-      var $cropper = $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas')
       var isHorizontal = $(this).data('direction') === 'horizontal'
       var method = isHorizontal ? 'scaleX' : 'scaleY'
       jsBackend.mediaLibraryHelper.cropper[method] = jsBackend.mediaLibraryHelper.cropper[method] * -1
 
-      $cropper.cropper(method, jsBackend.mediaLibraryHelper.cropper[method])
-      $cropper.cropper('crop')
+      jsBackend.mediaLibraryHelper.cropper.instance[method](jsBackend.mediaLibraryHelper.cropper[method]).crop()
     }
   },
 
   getResetEventFunction: function () {
     return function () {
       jsBackend.mediaLibraryHelper.cropper.resetScaleSettings()
-      var $cropper = $('[data-role=media-library-cropper-dialog-canvas-wrapper] > canvas')
-      $cropper.cropper('reset')
-      $cropper.cropper('crop')
+      jsBackend.mediaLibraryHelper.cropper.instance.reset().crop()
     }
   },
 
@@ -1166,20 +1162,17 @@ jsBackend.mediaLibraryHelper.upload = {
   },
 
   toggleCropper: function () {
-    var $formGroup = $('[data-role="cropper-is-mandatory-form-group"]')
     var $warning = $('[data-role="cropper-is-mandatory-message"]')
     var $checkbox = $('[data-role="enable-cropper-checkbox"]')
 
     if (currentAspectRatio === false) {
-      $formGroup.removeClass('has-warning')
-      $warning.addClass('hidden')
+      $warning.addClass('d-none')
       $checkbox.removeClass('disabled').attr('disabled', false).attr('checked', false)
 
       return
     }
 
-    $formGroup.addClass('has-warning')
-    $warning.removeClass('hidden')
+    $warning.removeClass('d-none')
     $checkbox.addClass('disabled').attr('disabled', true).attr('checked', true)
   },
 
@@ -1244,7 +1237,7 @@ jsBackend.mediaLibraryHelper.upload = {
 
           // Add select button if tab in selection context
           if ($('#tabUploadMedia').data('context') === 'selection') {
-            var $link = $('<a href="#" class="btn btn-success btn-xs btn-block" data-direct-url="' +
+            var $link = $('<a href="#" class="btn btn-success btn-sm w-100" data-direct-url="' +
               responseJSON.direct_url + '">&nbsp;' + utils.string.ucfirst(jsBackend.locale.lbl('Select')) + '</a>')
 
             $link.on('click', jsBackend.mediaLibraryHelper.modalSelection.sendToParent)
@@ -1384,7 +1377,7 @@ jsBackend.mediaLibraryHelper.upload = {
 
           // Add select button if tab in selection context
           if ($('#tabUploadMedia').data('context') === 'selection') {
-            var $link = $('<a href="#" class="btn btn-success btn-xs btn-block" data-direct-url="' + json.data.direct_url + '">&nbsp;' + utils.string.ucfirst(jsBackend.locale.lbl('Select')) + '</a>')
+            var $link = $('<a href="#" class="btn btn-success btn-sm w-100" data-direct-url="' + json.data.direct_url + '">&nbsp;' + utils.string.ucfirst(jsBackend.locale.lbl('Select')) + '</a>')
             $link.on('click', jsBackend.mediaLibraryHelper.modalSelection.sendToParent)
             $('li[id="media-' + json.data.id + '"]').find('.mediaHolder.mediaHolderMovie')
               .append($link)

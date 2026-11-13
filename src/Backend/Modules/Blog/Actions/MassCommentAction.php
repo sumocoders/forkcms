@@ -36,7 +36,7 @@ class MassCommentAction extends BackendBaseAction
         }
 
         // redefine id's
-        $ids = (array) $this->getRequest()->query->get('id');
+        $ids = (array) ($this->getRequest()->query->all()['id'] ?? []);
 
         // delete comment(s)
         if ($action == 'delete') {

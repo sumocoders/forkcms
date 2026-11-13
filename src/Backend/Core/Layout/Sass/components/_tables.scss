@@ -15,7 +15,7 @@
   > tbody > tr:nth-of-type(even):focus {
     &:hover,
     &:focus {
-      background-color: $table-bg-hover;
+      background-color: $table-hover-bg;
     }
   }
 }
@@ -73,11 +73,11 @@
             position: absolute;
           }
 
-          .fa-sort-desc:before {
+          .fa-sort-down:before {
             top: 0;
           }
 
-          .fa-sort-asc:before {
+          .fa-sort-up:before {
             bottom: 0;
           }
         }
@@ -95,5 +95,18 @@
 
   .form-group {
     margin-bottom: 0;
+  }
+}
+
+// "With selected" label, action dropdown and execute button in the data grid footer
+.jsMassAction {
+  label {
+    margin: 0 8px 0 0;
+    vertical-align: middle;
+  }
+
+  .btn {
+    margin-left: 4px;
+    vertical-align: middle;
   }
 }

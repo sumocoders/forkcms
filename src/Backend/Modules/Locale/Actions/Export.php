@@ -147,8 +147,11 @@ class Export extends BackendBaseActionIndex
         if (empty($this->filter['language'])) {
             $this->filter['language'] = [BL::getWorkingLanguage()];
         }
-        $this->filter['application'] = $this->getRequest()->query->get('application');
-        $this->filter['module'] = $this->getRequest()->query->get('module');
+        // the submitted filter form sends application= and module= when none is chosen, that means no filter
+        $application = (string) $this->getRequest()->query->get('application', '');
+        $this->filter['application'] = $application === '' ? null : $application;
+        $module = (string) $this->getRequest()->query->get('module', '');
+        $this->filter['module'] = $module === '' ? null : $module;
         $this->filter['type'] = (array) ($this->getRequest()->query->all()['type'] ?? []);
         if ($this->filter['type'] === []) {
             $this->filter['type'] = null;

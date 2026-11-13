@@ -85,7 +85,7 @@ jsBackend.mediaLibrary.library = {
           jsBackend.messages.add('success', json.message)
 
           // close dialog
-          $('#editFolderDialog').modal('close')
+          $('#editFolderDialog').modal('hide')
 
           // reload document
           window.location.reload(true)
