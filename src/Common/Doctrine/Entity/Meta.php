@@ -360,6 +360,11 @@ class Meta
     #[ORM\PostRemove]
     public function removeOgImage(): void
     {
+        // ORM 3 cascades the remove to an unloaded lazy Meta; reading a property would load the already deleted row
+        if ((new \ReflectionClass($this))->isUninitializedLazyObject($this)) {
+            return;
+        }
+
         $imagePath = FRONTEND_FILES_PATH . '/Pages/images';
         /** @var Thumbnails $thumbnails */
         $thumbnails = BackendModel::getContainer()->get(Thumbnails::class);
