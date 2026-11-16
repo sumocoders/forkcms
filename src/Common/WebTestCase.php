@@ -23,8 +23,6 @@ abstract class WebTestCase extends BaseWebTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         if (!defined('LANGUAGE')) {
             define('LANGUAGE', 'en');
         }

@@ -14,5 +14,6 @@ class Config extends BaseConfig
      *
      * @var string
      */
+    #[\Override]
     protected $defaultAction = 'Detail';
 }

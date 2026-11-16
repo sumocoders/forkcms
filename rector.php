@@ -11,6 +11,7 @@ return RectorConfig::configure()
         __DIR__ . '/tests',
     ])
     ->withSymfonyContainerPhp(__DIR__ . '/var/cache/dev/ForkCMS_App_AppKernelDevDebugContainer.php')
+    ->withPhpSets()
     ->withAttributesSets()
     ->withComposerBased(doctrine: true)
     ->withImportNames(importShortClasses: false)

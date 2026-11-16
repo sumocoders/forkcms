@@ -18,7 +18,7 @@ use Symfony\Component\Mime\MimeTypes;
  */
 final class SvgSanitizer
 {
-    private const SVG_MIME_TYPES = ['image/svg', 'image/svg+xml'];
+    private const array SVG_MIME_TYPES = ['image/svg', 'image/svg+xml'];
 
     public static function isSvgExtension(string $extension): bool
     {
@@ -28,12 +28,12 @@ final class SvgSanitizer
     public static function isSvgFile(string $path): bool
     {
         return self::isSvgExtension(pathinfo($path, PATHINFO_EXTENSION))
-            || in_array((new MimeTypes())->guessMimeType($path), self::SVG_MIME_TYPES, true);
+            || in_array(new MimeTypes()->guessMimeType($path), self::SVG_MIME_TYPES, true);
     }
 
     public static function isSvgContent(string $content): bool
     {
-        return in_array((new finfo(FILEINFO_MIME_TYPE))->buffer($content), self::SVG_MIME_TYPES, true);
+        return in_array(new finfo(FILEINFO_MIME_TYPE)->buffer($content), self::SVG_MIME_TYPES, true);
     }
 
     /**
@@ -45,7 +45,7 @@ final class SvgSanitizer
             throw new RuntimeException('The SVG file is empty.');
         }
 
-        $sanitized = (new DOMSanitizer(DOMSanitizer::SVG))->sanitize($content);
+        $sanitized = new DOMSanitizer(DOMSanitizer::SVG)->sanitize($content);
 
         if (!is_string($sanitized) || trim($sanitized) === '') {
             throw new RuntimeException('The SVG file could not be sanitized.');

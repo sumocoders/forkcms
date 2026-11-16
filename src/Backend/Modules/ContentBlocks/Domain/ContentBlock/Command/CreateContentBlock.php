@@ -12,9 +12,7 @@ final class CreateContentBlock extends ContentBlockDataTransferObject
     {
         parent::__construct();
 
-        if ($locale === null) {
-            $locale = Locale::workingLocale();
-        }
+        $locale ??= Locale::workingLocale();
 
         $this->locale = $locale;
     }

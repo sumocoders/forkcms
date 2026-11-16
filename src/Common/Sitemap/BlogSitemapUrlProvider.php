@@ -5,7 +5,7 @@ namespace Common\Sitemap;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use SpoonDatabase;
 
-final class BlogSitemapUrlProvider implements SitemapUrlProviderInterface
+final readonly class BlogSitemapUrlProvider implements SitemapUrlProviderInterface
 {
     /** @param string[] $installedModules */
     public function __construct(private SpoonDatabase $database, private array $installedModules)

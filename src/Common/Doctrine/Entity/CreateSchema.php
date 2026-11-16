@@ -44,7 +44,7 @@ class CreateSchema
         $configuration->setSchemaAssetsFilter(static fn (): bool => false);
 
         try {
-            (new SchemaTool($this->entityManager))->updateSchema($classMetadata);
+            new SchemaTool($this->entityManager)->updateSchema($classMetadata);
         } finally {
             $configuration->setSchemaAssetsFilter($previousFilter);
         }

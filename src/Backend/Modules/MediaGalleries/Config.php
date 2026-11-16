@@ -14,5 +14,6 @@ class Config extends BackendBaseConfig
      *
      * @var string
      */
+    #[\Override]
     protected $defaultAction = 'MediaGalleryIndex';
 }

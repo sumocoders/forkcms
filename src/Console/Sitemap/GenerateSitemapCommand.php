@@ -10,7 +10,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class GenerateSitemapCommand extends Command
 {
-    public function __construct(private SitemapGenerator $sitemapGenerator)
+    public function __construct(private readonly SitemapGenerator $sitemapGenerator)
     {
         parent::__construct();
     }

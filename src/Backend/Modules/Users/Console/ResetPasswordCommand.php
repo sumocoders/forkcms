@@ -28,9 +28,7 @@ class ResetPasswordCommand extends Command
         $questionEmailAddress = new Question('Please provide the users email-address: ');
         $questionEmailAddressAnswer = $input->getArgument('email');
 
-        if ($questionEmailAddressAnswer === null) {
-            $questionEmailAddressAnswer = $helper->ask($input, $output, $questionEmailAddress);
-        }
+        $questionEmailAddressAnswer ??= $helper->ask($input, $output, $questionEmailAddress);
 
         $subjectUserId = BackendUsersModel::getIdByEmail(
             $questionEmailAddressAnswer
@@ -48,9 +46,7 @@ class ResetPasswordCommand extends Command
         $questionPassword->setHidden(true);
         $questionPasswordAnswer = $input->getArgument('password');
 
-        if ($questionPasswordAnswer === null) {
-            $questionPasswordAnswer = $helper->ask($input, $output, $questionPassword);
-        }
+        $questionPasswordAnswer ??= $helper->ask($input, $output, $questionPassword);
 
         BackendUsersModel::updatePassword(
             new BackendUser($subjectUserId, $questionEmailAddressAnswer),

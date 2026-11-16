@@ -175,9 +175,7 @@ class FrontendHelper
         ?string $title = null,
         ?string $module = null
     ) {
-        if ($module === null) {
-            $module = 'MediaLibrary';
-        }
+        $module ??= 'MediaLibrary';
 
         // Create new widget instance and return parsed content
         $widget = new FrontendBlockWidget(

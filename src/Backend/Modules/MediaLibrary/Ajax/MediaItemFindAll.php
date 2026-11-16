@@ -38,7 +38,7 @@ class MediaItemFindAll extends BackendBaseAJAXAction
             Response::HTTP_OK,
             [
                 'media' => $this->loadMediaItems($mediaFolder, $aspectRatio, $searchQuery),
-                'folder' => $mediaFolder !== null ? $mediaFolder->getId() : null,
+                'folder' => $mediaFolder?->getId(),
                 'tab' => $this->selectedTab,
             ]
         );

@@ -136,9 +136,7 @@ class Action extends KernelLoader
          * If no template is specified, we have to build the path ourself. The default template is
          * based on the name of the current action
          */
-        if ($template === null) {
-            $template = '/' . $this->getModule() . '/Layout/Templates/' . $this->url->getAction() . '.html.twig';
-        }
+        $template ??= '/' . $this->getModule() . '/Layout/Templates/' . $this->url->getAction() . '.html.twig';
 
         $this->content = $this->template->getContent($template);
     }

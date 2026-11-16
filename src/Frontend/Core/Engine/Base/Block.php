@@ -265,9 +265,7 @@ class Block extends KernelLoader
     protected function loadTemplate(?string $path = null, bool $overwrite = false): void
     {
         // no template given, so we should build the path
-        if ($path === null) {
-            $path = $this->getModule() . '/Layout/Templates/' . $this->getAction() . '.html.twig';
-        }
+        $path ??= $this->getModule() . '/Layout/Templates/' . $this->getAction() . '.html.twig';
 
         // set properties
         $this->setOverwrite($overwrite);
@@ -302,7 +300,7 @@ class Block extends KernelLoader
         }
 
         // should we use a questionmark or an ampersand
-        if (mb_strpos($this->pagination['url'], '?') !== false) {
+        if (str_contains($this->pagination['url'], '?')) {
             $useQuestionMark = false;
         }
 

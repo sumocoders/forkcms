@@ -447,14 +447,12 @@ class Model implements FrontendTagsInterface
             $timestamp = gmmktime(00, 00, 00, $month, 01, $year);
 
             // initialize if needed
-            if (!isset($stats[$year])) {
-                $stats[$year] = [
-                    'url' => $link . '/' . $year,
-                    'label' => $year,
-                    'total' => 0,
-                    'months' => null,
-                ];
-            }
+            $stats[$year] ??= [
+                'url' => $link . '/' . $year,
+                'label' => $year,
+                'total' => 0,
+                'months' => null,
+            ];
 
             // increment the total
             $stats[$year]['total'] += (int) $count;
@@ -468,9 +466,7 @@ class Model implements FrontendTagsInterface
         // loop years
         for ($i = $firstYear; $i <= $lastYear; ++$i) {
             // year missing
-            if (!isset($stats[$i])) {
-                $stats[$i] = ['url' => null, 'label' => $i, 'total' => 0, 'months' => null];
-            }
+            $stats[$i] ??= ['url' => null, 'label' => $i, 'total' => 0, 'months' => null];
         }
 
         // sort

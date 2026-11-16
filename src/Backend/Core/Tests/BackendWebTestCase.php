@@ -48,7 +48,7 @@ abstract class BackendWebTestCase extends WebTestCase
 
         try {
             $request = $client->getRequest();
-        } catch (BadMethodCallException $exception) {
+        } catch (BadMethodCallException) {
             // no request has been made yet, so there is no session and no csrf token
             return $url;
         }

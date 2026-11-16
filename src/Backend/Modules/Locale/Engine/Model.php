@@ -415,18 +415,10 @@ class Model
         // set defaults if necessary
         // we can't simply use these right away, because this function is also calls by the installer,
         // which does not have Backend-functions
-        if ($frontendLanguages === null) {
-            $frontendLanguages = array_keys(BL::getWorkingLanguages());
-        }
-        if ($backendLanguages === null) {
-            $backendLanguages = array_keys(BL::getInterfaceLanguages());
-        }
-        if ($userId === null) {
-            $userId = BackendAuthentication::getUser()->getUserId();
-        }
-        if ($date === null) {
-            $date = BackendModel::getUTCDate();
-        }
+        $frontendLanguages ??= array_keys(BL::getWorkingLanguages());
+        $backendLanguages ??= array_keys(BL::getInterfaceLanguages());
+        $userId ??= BackendAuthentication::getUser()->getUserId();
+        $date ??= BackendModel::getUTCDate();
 
         // get database instance
         $database = BackendModel::getContainer()->get('database');

@@ -35,18 +35,14 @@ class LoadProfilesGroupData
 
     public static function getExpiresOnTimestamp(): int
     {
-        if (self::$expiresOnTimestamp === null) {
-            self::$expiresOnTimestamp = self::getStartsOnTimestamp() + 60 * 60;
-        }
+        self::$expiresOnTimestamp ??= self::getStartsOnTimestamp() + 60 * 60;
 
         return self::$expiresOnTimestamp;
     }
 
     public static function getStartsOnTimestamp(): int
     {
-        if (self::$startsOnTimestamp === null) {
-            self::$startsOnTimestamp = time();
-        }
+        self::$startsOnTimestamp ??= time();
 
         return self::$startsOnTimestamp;
     }

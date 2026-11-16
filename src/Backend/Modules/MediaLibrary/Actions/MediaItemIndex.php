@@ -33,7 +33,7 @@ class MediaItemIndex extends BackendBaseActionIndex
                 /** @var DataGridDatabase $dataGrid */
                 $dataGrid = MediaItemDataGrid::getDataGrid(
                     Type::fromString($type),
-                    ($mediaFolder !== null) ? $mediaFolder->getId() : null,
+                    $mediaFolder?->getId(),
                     $searchQuery
                 );
 
@@ -181,7 +181,7 @@ class MediaItemIndex extends BackendBaseActionIndex
         $this->header->addJsData(
             'MediaLibrary',
             'openedFolderId',
-            ($mediaFolder !== null) ? $mediaFolder->getId() : null
+            $mediaFolder?->getId()
         );
     }
 }

@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
  */
 class GenerateUrlTest extends BackendWebTestCase
 {
-    private const AJAX_URL = '/backend/ajax';
+    private const string AJAX_URL = '/backend/ajax';
 
     public function testLegitimateModuleCallbackStillGeneratesAUrl(KernelBrowser $client): void
     {

@@ -56,9 +56,7 @@ class User
     public static function getBackendUser(int $userId): self
     {
         // create new instance if necessary and cache it
-        if (!isset(self::$cache[$userId])) {
-            self::$cache[$userId] = new self($userId);
-        }
+        self::$cache[$userId] ??= new self($userId);
 
         return self::$cache[$userId];
     }

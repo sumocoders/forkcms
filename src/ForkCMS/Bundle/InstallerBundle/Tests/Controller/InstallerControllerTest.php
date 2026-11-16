@@ -27,8 +27,6 @@ class InstallerControllerTest extends WebTestCase
     {
         // put back our parameters file
         $this->putParametersFileBack(new Filesystem(), $this->kernelDir);
-
-        parent::onNotSuccessfulTest($t);
     }
 
     public function testNoStepActionAction(): void

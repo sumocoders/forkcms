@@ -327,7 +327,7 @@ class Detail extends FrontendBaseBlock
 
     private function getRedirectLink(string $blogPostLink, array $comment)
     {
-        $redirectLink = $blogPostLink . (mb_strpos($blogPostLink, '?') === false ? '?' : '&');
+        $redirectLink = $blogPostLink . (!str_contains($blogPostLink, '?') ? '?' : '&');
 
         return match ($comment['status']) {
             'moderation' => $redirectLink . 'comment=moderation#' . FL::act('Comment'),

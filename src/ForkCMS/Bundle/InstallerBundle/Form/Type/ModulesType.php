@@ -65,9 +65,7 @@ class ModulesType extends AbstractType
                 $data = $event->getData();
 
                 // add the modules array if it doesn't exit
-                if (!isset($data['modules'])) {
-                    $data['modules'] = [];
-                }
+                $data['modules'] ??= [];
 
                 $data['modules'] = array_merge(
                     $data['modules'],

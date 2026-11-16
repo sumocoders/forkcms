@@ -10,7 +10,7 @@ class UtmExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('utm', [$this, 'injectUtmTags'], ['is_safe' => ['html']]),
+            new TwigFilter('utm', $this->injectUtmTags(...), ['is_safe' => ['html']]),
         ];
     }
 

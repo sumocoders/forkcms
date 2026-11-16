@@ -13,8 +13,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class UploadFileTest extends BackendWebTestCase
 {
-    private const AJAX_URL = '/backend/ajax';
-    private const UPLOAD_TYPE = 'UserTemplate';
+    private const string AJAX_URL = '/backend/ajax';
+    private const string UPLOAD_TYPE = 'UserTemplate';
 
     /** @var string[] */
     private array $writtenFiles = [];

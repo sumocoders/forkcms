@@ -56,9 +56,7 @@ class UploadHandler
 
     public function combineChunks(string $uploadDirectory, ?string $name = null): array
     {
-        if ($name === null) {
-            $name = $this->getName();
-        }
+        $name ??= $this->getName();
 
         try {
             $uuid = $this->getUuid();
@@ -312,9 +310,7 @@ class UploadHandler
 
     private function getRedefinedName(?string $name = null): string
     {
-        if ($name === null) {
-            $name = $this->getName();
-        }
+        $name ??= $this->getName();
 
         // Validate name
         if ($name === null || $name === '') {

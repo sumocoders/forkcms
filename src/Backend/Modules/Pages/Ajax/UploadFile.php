@@ -71,7 +71,7 @@ class UploadFile extends AjaxAction
         // ajax uploaders fallback to submitting a form with the file in the fields.
         $uploadedFiles = $request->files->all();
         if (count($uploadedFiles) === 1) {
-            $file = array_values($uploadedFiles)[0];
+            $file = array_first($uploadedFiles);
 
             return file_get_contents($file->getPathname());
         }
@@ -94,7 +94,7 @@ class UploadFile extends AjaxAction
         // ajax uploaders fallback to submitting a form with the file in the fields.
         $uploadedFiles = $request->files->all();
         if (count($uploadedFiles) === 1) {
-            $file = array_values($uploadedFiles)[0];
+            $file = array_first($uploadedFiles);
 
             return $file->getClientOriginalName();
         }
@@ -131,7 +131,7 @@ class UploadFile extends AjaxAction
 
         if (SvgSanitizer::isSvgExtension($extension) || SvgSanitizer::isSvgContent($content)) {
             try {
-                $content = (new SvgSanitizer())->sanitize($content);
+                $content = new SvgSanitizer()->sanitize($content);
             } catch (RuntimeException $runtimeException) {
                 throw new Exception($runtimeException->getMessage());
             }

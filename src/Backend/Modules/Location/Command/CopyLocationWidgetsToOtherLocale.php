@@ -11,8 +11,6 @@ final class CopyLocationWidgetsToOtherLocale
 
     public function __construct(public Locale $toLocale, public ?Locale $fromLocale = null)
     {
-        if ($this->fromLocale === null) {
-            $this->fromLocale = Locale::workingLocale();
-        }
+        $this->fromLocale ??= Locale::workingLocale();
     }
 }
