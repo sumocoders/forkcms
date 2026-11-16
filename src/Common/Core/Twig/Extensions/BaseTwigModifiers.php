@@ -46,9 +46,7 @@ class BaseTwigModifiers
      */
     public static function formatNumber(float $number, ?int $decimals = null): string
     {
-        if ($decimals === null) {
-            $decimals = 2;
-        }
+        $decimals ??= 2;
 
         return number_format($number, $decimals, ',', '&nbsp;');
     }

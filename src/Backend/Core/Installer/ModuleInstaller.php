@@ -277,14 +277,10 @@ class ModuleInstaller
     protected function getTemplateId(string $template, ?string $theme = null): int
     {
         // no theme set = default theme
-        if ($theme === null) {
-            $theme = $this->getSetting('Core', 'theme');
-        }
+        $theme ??= $this->getSetting('Core', 'theme');
 
         // if the theme is still null we should fallback to the core
-        if ($theme === null) {
-            $theme = 'Fork';
-        }
+        $theme ??= 'Fork';
 
         // return best matching template id
         return (int) $this->getDatabase()->getVar(

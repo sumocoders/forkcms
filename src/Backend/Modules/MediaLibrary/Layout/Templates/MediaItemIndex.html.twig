@@ -193,7 +193,7 @@
             <div class="form-group">
               <label for="mediaFolderName" class="control-label">
                 {{ 'lbl.Name'|trans|ucfirst }}
-                {{ macro.required }}
+                {{ macro.required() }}
               </label>
               <input type="hidden" name="mediaFolderId" id="mediaFolderId" maxlength="255" value="{{ mediaFolder.id }}">
               <input type="text" name="mediaFolderName" id="mediaFolderName" class="form-control checkBeforeUnload" maxlength="255" value="{{ mediaFolder.name }}">

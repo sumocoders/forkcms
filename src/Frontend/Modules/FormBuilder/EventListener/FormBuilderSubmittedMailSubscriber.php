@@ -52,9 +52,7 @@ final class FormBuilderSubmittedMailSubscriber
         array $fieldData,
         ?string $subject = null
     ): TemplatedEmail {
-        if ($subject === null) {
-            $subject = Language::getMessage('FormBuilderSubject');
-        }
+        $subject ??= Language::getMessage('FormBuilderSubject');
 
         $message = $this->emailFactory->create()
             ->subject(sprintf($subject, $form['name']))

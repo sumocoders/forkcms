@@ -2,36 +2,17 @@
 
 namespace Common\Core\Twig\Extensions;
 
+use Twig\Attribute\AsTwigFunction;
 use Twig\Environment;
 use Twig\Error\LoaderError;
-use Twig\Extension\AbstractExtension;
 use Twig\Extension\SandboxExtension;
-use Twig\TwigFunction;
 
-final class IncludeOnceExtension extends AbstractExtension
+final class IncludeOnceExtension
 {
     /** @var array */
     private $includedTemplates = [];
 
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction(
-                'include_once',
-                $this->includeOnce(...),
-                ['needs_environment' => true, 'needs_context' => true, 'is_safe' => ['all']]
-            ),
-            new TwigFunction(
-                'is_included',
-                $this->isIncluded(...)
-            ),
-            new TwigFunction(
-                'set_included',
-                $this->setIncluded(...)
-            ),
-        ];
-    }
-
+    #[AsTwigFunction(name: 'include_once', needsEnvironment: true, needsContext: true, isSafe: ['all'])]
     public function includeOnce(
         Environment $env,
         array $context,
@@ -82,11 +63,13 @@ final class IncludeOnceExtension extends AbstractExtension
         return $output;
     }
 
+    #[AsTwigFunction(name: 'is_included')]
     public function isIncluded(string $template): bool
     {
         return $this->includedTemplates[$template] ?? false;
     }
 
+    #[AsTwigFunction(name: 'set_included')]
     public function setIncluded(string $template, bool $isIncluded = true): void
     {
         $this->includedTemplates[$template] = $isIncluded;

@@ -1,4 +1,4 @@
-{% macro alert(type, message, dismissable, id) %}
+{% macro alert(type, message, dismissable = false, id = null) %}
   <div{% if id %} id="{{ id }}"{% endif %} class="alert alert-{{ type }}" role="alert">
     {% if dismissable %}
       <button type="button" class="close" data-dismiss="alert">×</button>

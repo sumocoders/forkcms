@@ -2,6 +2,7 @@
 
 namespace Backend\Core\Engine;
 
+use function Sentry\captureException;
 use ForkCMS\App\ApplicationInterface;
 use ForkCMS\App\KernelLoader;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,7 +57,7 @@ class Ajax extends KernelLoader implements ApplicationInterface
                 'Unhandled exception during Ajax::initialize(): ' . $e->getMessage(),
                 ['exception' => $e]
             );
-            \Sentry\captureException($e);
+            captureException($e);
 
             $this->ajaxAction = new BackendBaseAJAXAction($this->getKernel());
             $this->ajaxAction->output(Response::HTTP_INTERNAL_SERVER_ERROR, null, $e->getMessage());

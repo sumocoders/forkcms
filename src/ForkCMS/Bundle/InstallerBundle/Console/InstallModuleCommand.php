@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Bundle\InstallerBundle\Console;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Extensions\Engine\Model;
 use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
@@ -9,7 +10,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use ForkCMS\App\BaseModel;
-use PDO;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -24,6 +24,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 /**
  * This command allows you to install a module via the CLI
  */
+#[AsCommand(name: 'forkcms:install:module', description: 'Command to install a module in Fork CMS')]
 class InstallModuleCommand extends Command
 {
     /** @var SymfonyStyle */
@@ -41,8 +42,6 @@ class InstallModuleCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('forkcms:install:module')
-            ->setDescription('Command to install a module in Fork CMS')
             ->addArgument('module', InputArgument::OPTIONAL, 'Name of the module to install');
     }
 

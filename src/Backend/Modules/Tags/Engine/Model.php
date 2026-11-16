@@ -297,10 +297,8 @@ class Model
             // loop again and create tags that don't already exist
             foreach ($tags as $tag) {
                 // doesn' exist yet
-                if (!isset($tagsAndIds[$tag])) {
-                    // insert tag
-                    $tagsAndIds[$tag] = self::insert($tag, $language);
-                }
+                // insert tag
+                $tagsAndIds[$tag] ??= self::insert($tag, $language);
             }
 
             // init items to insert

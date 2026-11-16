@@ -76,9 +76,7 @@ class Model
     public static function getCacheBuilder(): CacheBuilder
     {
         static $cacheBuilder = null;
-        if ($cacheBuilder === null) {
-            $cacheBuilder = new CacheBuilder(BackendModel::get('database'), BackendModel::get('cache.pool'));
-        }
+        $cacheBuilder ??= new CacheBuilder(BackendModel::get('database'), BackendModel::get('cache.pool'));
 
         return $cacheBuilder;
     }
@@ -449,9 +447,7 @@ class Model
     public static function get(int $pageId, ?int $revisionId = null, ?string $language = null)
     {
         // fetch revision if not specified
-        if ($revisionId === null) {
-            $revisionId = self::getLatestRevision($pageId, $language);
-        }
+        $revisionId ??= self::getLatestRevision($pageId, $language);
 
         // redefine
         $language ??= BL::getWorkingLanguage();
@@ -522,9 +518,7 @@ class Model
     public static function getBlocks(int $pageId, ?int $revisionId = null, ?string $language = null): array
     {
         // fetch revision if not specified
-        if ($revisionId === null) {
-            $revisionId = self::getLatestRevision($pageId, $language);
-        }
+        $revisionId ??= self::getLatestRevision($pageId, $language);
 
         // redefine
         $language ??= BL::getWorkingLanguage();

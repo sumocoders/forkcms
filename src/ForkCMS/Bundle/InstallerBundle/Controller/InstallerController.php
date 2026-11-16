@@ -38,7 +38,7 @@ final class InstallerController extends AbstractController
 
         // if all our requirements are met, go to the next step
         if ($this->requirementsChecker->passes()) {
-            return $this->redirect($this->generateUrl('install_step2'));
+            return $this->redirectToRoute('install_step2');
         }
 
         return $this->render(
@@ -90,7 +90,7 @@ final class InstallerController extends AbstractController
     {
         $this->checkInstall();
 
-        return $this->redirect($this->generateUrl('install_step1'));
+        return $this->redirectToRoute('install_step1');
     }
 
     protected function getInstallationData(Request $request): InstallationData
@@ -134,12 +134,12 @@ final class InstallerController extends AbstractController
 
         // check if can start the next step
         if ($this->requirementsChecker->hasErrors()) {
-            return $this->redirect($this->generateUrl('install_step1'));
+            return $this->redirectToRoute('install_step1');
         }
 
         $form = $this->createForm($formTypeClass, $this->getInstallationData($request));
         if ($handler->process($form, $request)) {
-            return $this->redirect($this->generateUrl('install_step' . ($step + 1)));
+            return $this->redirectToRoute('install_step' . ($step + 1));
         }
 
         return $this->render(

@@ -4,7 +4,6 @@ namespace ForkCMS\App;
 
 use PDOException;
 use Spoon;
-use SpoonDatabase;
 use SpoonDatabaseException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Filesystem\Filesystem;

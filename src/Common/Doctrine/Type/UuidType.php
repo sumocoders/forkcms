@@ -10,7 +10,7 @@ use Symfony\Component\Uid\Uuid;
 
 final class UuidType extends GuidType
 {
-    public const NAME = 'uuid';
+    public const string NAME = 'uuid';
 
     public function convertToPHPValue($value, AbstractPlatform $platform): ?Uuid
     {

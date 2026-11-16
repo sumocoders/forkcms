@@ -25,7 +25,7 @@ class FormFieldTokenParser extends AbstractTokenParser
             );
         }
 
-        return new FormFieldNode(FormState::$current, $field, $token->getLine(), $this->getTag());
+        return new FormFieldNode(FormState::$current, $field, $token->getLine());
     }
 
     public function getTag(): string

@@ -4,7 +4,6 @@ namespace Backend\Core\Engine;
 
 use Common\Core\RequestParameter;
 use Common\ModuleExtraType;
-use InvalidArgumentException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
@@ -336,9 +335,7 @@ class Model extends \Common\Core\Model
      */
     public static function getKeys(?string $language = null): array
     {
-        if ($language === null) {
-            $language = BackendLanguage::getWorkingLanguage();
-        }
+        $language ??= BackendLanguage::getWorkingLanguage();
 
         return BackendPagesModel::getCacheBuilder()->getKeys($language);
     }
@@ -391,9 +388,7 @@ class Model extends \Common\Core\Model
      */
     public static function getNavigation(?string $language = null): array
     {
-        if ($language === null) {
-            $language = BackendLanguage::getWorkingLanguage();
-        }
+        $language ??= BackendLanguage::getWorkingLanguage();
 
         $cacheBuilder = BackendPagesModel::getCacheBuilder();
 
@@ -437,9 +432,7 @@ class Model extends \Common\Core\Model
      */
     public static function getUrl(int $pageId, ?string $language = null): string
     {
-        if ($language === null) {
-            $language = BackendLanguage::getWorkingLanguage();
-        }
+        $language ??= BackendLanguage::getWorkingLanguage();
 
         // Prepend the language if the site is multi language
         $url = self::getContainer()->getParameter('site.multilanguage') ? '/' . $language . '/' : '/';
@@ -474,9 +467,7 @@ class Model extends \Common\Core\Model
         ?string $language = null,
         ?array $data = null
     ): string {
-        if ($language === null) {
-            $language = BackendLanguage::getWorkingLanguage();
-        }
+        $language ??= BackendLanguage::getWorkingLanguage();
 
         $pageIdForUrl = null;
         $navigation = self::getNavigation($language);

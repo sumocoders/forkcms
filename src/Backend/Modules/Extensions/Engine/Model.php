@@ -290,9 +290,7 @@ class Model
             }
 
             // set URL if needed, we use '' instead of null, because otherwise the module of the current action (modules) is used.
-            if (!isset($row['data']['url'])) {
-                $row['data']['url'] = BackendModel::createUrlForAction('', $row['module']);
-            }
+            $row['data']['url'] ??= BackendModel::createUrlForAction('', $row['module']);
 
             $name = s(BL::lbl($row['label']))->title()->toString();
             if (isset($row['data']['extra_label'])) {
@@ -340,12 +338,10 @@ class Model
             }
 
             // set URL if needed
-            if (!isset($row['data']['url'])) {
-                $row['data']['url'] = BackendModel::createUrlForAction(
-                    'Index',
-                    $row['module']
-                );
-            }
+            $row['data']['url'] ??= BackendModel::createUrlForAction(
+                'Index',
+                $row['module']
+            );
 
             $name = s(BL::lbl($row['label']))->title()->toString();
             if (isset($row['data']['extra_label'])) {
@@ -356,13 +352,11 @@ class Model
             }
             $moduleName = s(BL::lbl(s($row['module'])->camel()->title()->toString()))->title()->toString();
 
-            if (!isset($values[$row['module']])) {
-                $values[$row['module']] = [
-                    'value' => $row['module'],
-                    'name' => $moduleName,
-                    'items' => [],
-                ];
-            }
+            $values[$row['module']] ??= [
+                'value' => $row['module'],
+                'name' => $moduleName,
+                'items' => [],
+            ];
 
             $values[$row['module']]['items'][$row['type']][$name] = ['id' => $row['id'], 'label' => $name];
         }

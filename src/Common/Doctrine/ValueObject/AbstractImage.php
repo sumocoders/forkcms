@@ -4,7 +4,6 @@ namespace Common\Doctrine\ValueObject;
 
 use Backend\Core\Engine\Model;
 use ForkCMS\Utility\Thumbnails;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * The following things are mandatory to use this class.

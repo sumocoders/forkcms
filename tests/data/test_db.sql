@@ -2296,10 +2296,10 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `modules_settings`;
 
 CREATE TABLE `modules_settings` (
-  `module` varchar(255) CHARACTER SET utf8 NOT NULL COMMENT 'name of the module',
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'name of the setting',
+  `module` varchar(25) CHARACTER SET utf8 NOT NULL COMMENT 'name of the module',
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'name of the setting',
   `value` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'serialized value',
-  PRIMARY KEY (`module`(25),`name`(100))
+  PRIMARY KEY (`module`,`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 LOCK TABLES `modules_settings` WRITE;

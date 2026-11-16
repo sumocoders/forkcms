@@ -2,7 +2,6 @@
 
 namespace Backend\Modules\Blog\Installer;
 
-use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Installer\ModuleInstaller;
 use Common\ModuleExtraType;
 

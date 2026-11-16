@@ -138,7 +138,7 @@ class MediaItemUpload extends BackendBaseAJAXAction
         }
 
         try {
-            (new SvgSanitizer())->sanitizeFile($path);
+            new SvgSanitizer()->sanitizeFile($path);
         } catch (\RuntimeException $runtimeException) {
             $this->fileManager->deleteFolder($this->uploadDirectory . '/' . $result['uuid']);
 

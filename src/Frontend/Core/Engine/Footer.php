@@ -40,7 +40,7 @@ class Footer extends KernelLoader
      */
     public function parse(): void
     {
-        $footerLinks = (array) Navigation::getFooterLinks();
+        $footerLinks = (array) FrontendNavigation::getFooterLinks();
         $this->template->assignGlobal('footerLinks', $footerLinks);
 
         $siteHTMLEndOfBody = (string) $this->get('fork.settings')->get('Core', 'site_html_end_of_body');

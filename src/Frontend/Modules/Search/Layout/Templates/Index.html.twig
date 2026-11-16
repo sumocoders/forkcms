@@ -10,7 +10,7 @@
   {% block block_body %}
     {% form search %}
     <label for="q">
-      {{ 'lbl.SearchTerm'|trans|ucfirst }}{{ macro.required }}
+      {{ 'lbl.SearchTerm'|trans|ucfirst }}{{ macro.required() }}
     </label>
     <div class="input-group{% if txtQError %} error{% endif %}">
       {% form_field q %}

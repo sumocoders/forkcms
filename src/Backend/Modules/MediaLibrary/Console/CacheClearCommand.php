@@ -2,6 +2,7 @@
 
 namespace Backend\Modules\MediaLibrary\Console;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Backend\Modules\MediaLibrary\Manager\FileManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,6 +15,7 @@ use Symfony\Component\Finder\Finder;
  * Example: "bin/console media_library:cache:clear", will only clear all frontend MediaLibrary cached-thumbnails
  * Example: "bin/console media_library:cache:clear --all", will clear all MediaLibrary cached-thumbnails
  */
+#[AsCommand(name: 'media_library:cache:clear', description: 'Clear all cached-thumbnails.')]
 class CacheClearCommand extends Command
 {
     /**
@@ -32,8 +34,6 @@ class CacheClearCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('media_library:cache:clear')
-            ->setDescription('Clear all cached-thumbnails.')
             ->addOption(
                 'all',
                 null,

@@ -31,7 +31,7 @@ class Model
             // current string encountered
             $terms[$i] = '>' . $terms[$i];
 
-            if (mb_strpos($terms[$i], ' ') !== false) {
+            if (str_contains($terms[$i], ' ')) {
                 // part of words encountered
                 $terms[$i] .= ' <(' . implode(' ', $split) . ' ' . trim($last) . '*)';
             }

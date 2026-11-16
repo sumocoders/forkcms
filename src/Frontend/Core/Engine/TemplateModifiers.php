@@ -100,9 +100,7 @@ class TemplateModifiers extends BaseTwigModifiers
         $format = FrontendModel::get('fork.settings')->get('Core', 'number_format');
 
         // get amount of decimals
-        if ($decimals === null) {
-            $decimals = (mb_strpos($number, '.') ? mb_strlen(mb_substr($number, mb_strpos($number, '.') + 1)) : 0);
-        }
+        $decimals ??= mb_strpos($number, '.') ? mb_strlen(mb_substr($number, mb_strpos($number, '.') + 1)) : 0;
 
         // get separators
         $separators = explode('_', (string) $format);

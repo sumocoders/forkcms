@@ -2,6 +2,7 @@
 
 namespace Console\Locale;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Backend\Core\Engine\Authentication;
 use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
 use Common\ModulesSettings;
@@ -15,6 +16,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * This is a simple command to enable a locale in fork
  */
+#[AsCommand(name: 'forkcms:locale:enable', description: 'Enable a locale')]
 class EnableLocaleCommand extends Command
 {
     /** @var InputInterface */
@@ -63,12 +65,6 @@ class EnableLocaleCommand extends Command
             $installedModules,
             fn($installedModule) => !in_array($installedModule, ['Error', 'Core', 'Authentication'])
         );
-    }
-
-    protected function configure(): void
-    {
-        $this->setName('forkcms:locale:enable')
-            ->setDescription('Enable a locale');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

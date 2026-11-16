@@ -84,7 +84,7 @@
                           <p class="bigInput{% if txtMessageError %} errorArea{% endif %}">
                             <label for="message">
                               {{ 'msg.HowToImprove'|trans|ucfirst }}
-                              {{ macro.required }}
+                              {{ macro.required() }}
                             </label>
                             {% form_field message %} {% form_field_error message %}
                           </p>

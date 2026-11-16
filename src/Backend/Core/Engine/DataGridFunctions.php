@@ -3,7 +3,6 @@
 namespace Backend\Core\Engine;
 
 use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Language\Language;
 use Backend\Core\Language\Language as BackendLanguage;
 use IntlDateFormatter;
 use function Symfony\Component\String\s;
@@ -206,12 +205,12 @@ class DataGridFunctions
         }
 
         if ($count <= 0) {
-            return Language::lbl('TimeAgoEmpty');
+            return BackendLanguage::lbl('TimeAgoEmpty');
         }
 
         $timeAgo = $count === 1
-            ? Language::lbl($keySingular)
-            : Language::lblWithParameters($keyPlural, [$count]);
+            ? BackendLanguage::lbl($keySingular)
+            : BackendLanguage::lblWithParameters($keyPlural, [$count]);
 
         return '<time tabindex="0" data-toggle="tooltip" datetime="'
                . $dateTimeFormatter->format($timestamp)

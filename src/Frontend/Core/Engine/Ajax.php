@@ -2,6 +2,7 @@
 
 namespace Frontend\Core\Engine;
 
+use function Sentry\captureException;
 use ForkCMS\App\ApplicationInterface;
 use ForkCMS\App\KernelLoader;
 use Frontend\Core\Engine\Base\AjaxAction as FrontendBaseAJAXAction;
@@ -99,7 +100,7 @@ class Ajax extends KernelLoader implements ApplicationInterface
                 'Unhandled exception during Ajax::initialize(): ' . $exception->getMessage(),
                 ['exception' => $exception]
             );
-            \Sentry\captureException($exception);
+            captureException($exception);
 
             $this->ajaxAction = new FrontendBaseAJAXAction($this->getKernel(), '', '');
             $this->ajaxAction->output(

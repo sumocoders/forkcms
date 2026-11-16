@@ -2,6 +2,7 @@
 
 namespace Backend\Core\Engine;
 
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Backend\Core\Language\Language as BL;
 use Common\Core\Twig\BaseTwigTemplate;
 use Common\Core\Twig\Extensions\TwigFilters;
@@ -11,7 +12,6 @@ use Symfony\Bridge\Twig\AppVariable;
 use Symfony\Bridge\Twig\Extension\FormExtension as SymfonyFormExtension;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
-use Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormRenderer;
 use Twig\Environment;
@@ -112,7 +112,7 @@ class TwigTemplate extends BaseTwigTemplate
             ],
             $this->environment
         );
-        $csrfTokenManager = Model::get(\Symfony\Component\Security\Csrf\CsrfTokenManager::class);
+        $csrfTokenManager = Model::get(CsrfTokenManager::class);
         $this->environment->addRuntimeLoader(
             new FactoryRuntimeLoader(
                 [
@@ -343,7 +343,7 @@ class TwigTemplate extends BaseTwigTemplate
 
     private function autoloadMissingTaggedExtensions(ContainerInterface $container): void
     {
-        foreach ($container->get(\Twig\Environment::class)->getExtensions() as $id => $extension) {
+        foreach ($container->get(Environment::class)->getExtensions() as $id => $extension) {
             if (!$this->environment->hasExtension($id)) {
                 $this->environment->addExtension($extension);
             }

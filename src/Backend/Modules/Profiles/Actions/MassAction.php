@@ -5,7 +5,6 @@ namespace Backend\Modules\Profiles\Actions;
 use Backend\Core\Engine\Base\Action as BackendBaseAction;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * Mass action handler to delete profiles or add them to a specific group.

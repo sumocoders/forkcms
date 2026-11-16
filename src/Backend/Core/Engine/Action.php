@@ -6,7 +6,6 @@ use Backend\Core\Engine\Base\Config;
 use ForkCMS\App\KernelLoader;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Backend\Core\Engine\Base\Action as BackendBaseAction;
 use Backend\Core\Language\Language as BackendLanguage;
 
 /**

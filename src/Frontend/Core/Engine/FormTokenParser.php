@@ -32,7 +32,7 @@ class FormTokenParser extends AbstractTokenParser
 
         FormState::$current = $form;
 
-        return new FormNode($form, $token->getLine(), $this->getTag());
+        return new FormNode($form, $token->getLine());
     }
 
     /**

@@ -1,4 +1,4 @@
-{% macro buttonIcon(url, icon, label, buttonType, extra) %}
+{% macro buttonIcon(url, icon, label, buttonType = null, extra = null) %}
   {% import _self as macro %}
   {# When url is an empty string, use a button, otherwise use a hyperlink/anchor #}
   {% if url %}

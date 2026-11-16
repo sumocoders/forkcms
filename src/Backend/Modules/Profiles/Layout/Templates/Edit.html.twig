@@ -36,7 +36,7 @@
                     <div class="form-group">
                       <label for="displayName" class="control-label">
                         {{ 'lbl.DisplayName'|trans|ucfirst }}
-                        {{ macro.required }}
+                        {{ macro.required() }}
                       </label>
                       {% form_field display_name %} {% form_field_error display_name %}
                     </div>

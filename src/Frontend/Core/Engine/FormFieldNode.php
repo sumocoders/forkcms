@@ -2,27 +2,27 @@
 
 namespace Frontend\Core\Engine;
 
+use Twig\Attribute\YieldReady;
 use Twig\Compiler;
 use Twig\Node\Node;
 
 /**
  * Twig node for writing out the compiled version of form field.
  */
+#[YieldReady]
 class FormFieldNode extends Node
 {
     /**
      * @param string $form Name of the template var holding the form this field belongs to.
      * @param string $field Name of the field to render.
      * @param int $lineNumber
-     * @param string $tag
      */
     public function __construct(
         private readonly string $form,
         private readonly string $field,
         int $lineNumber,
-        string $tag,
     ) {
-        parent::__construct([], [], $lineNumber, $tag);
+        parent::__construct([], [], $lineNumber);
     }
 
     public function compile(Compiler $compiler): void
@@ -32,7 +32,7 @@ class FormFieldNode extends Node
 
         $compiler
             ->addDebugInfo($this)
-            ->write("echo $parseField;\n")
+            ->write("yield $parseField;\n")
         ;
     }
 }

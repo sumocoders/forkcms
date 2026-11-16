@@ -2,6 +2,7 @@
 
 namespace Frontend\Modules\Blog\Actions;
 
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Common\Doctrine\Entity\Meta;
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
 use Frontend\Core\Engine\Form as FrontendForm;
@@ -252,9 +253,9 @@ class Detail extends FrontendBaseBlock
         $author = $cookie->get('comment_author');
         $email = ($cookie->has('comment_email') && filter_var($cookie->get('comment_email'), FILTER_VALIDATE_EMAIL))
             ? $cookie->get('comment_email') : null;
-        $validationErrors = $this->get(\Symfony\Component\Validator\Validator\ValidatorInterface::class)->validate(
+        $validationErrors = $this->get(ValidatorInterface::class)->validate(
             $cookie->get('comment_website'),
-            new Assert\Url()
+            new Assert\Url(requireTld: true)
         );
         $isValidUrl = count($validationErrors) === 0;
         $website = ($cookie->has('comment_website') && $isValidUrl) ? $cookie->get('comment_website') : 'http://';
@@ -326,7 +327,7 @@ class Detail extends FrontendBaseBlock
 
     private function getRedirectLink(string $blogPostLink, array $comment)
     {
-        $redirectLink = $blogPostLink . (mb_strpos($blogPostLink, '?') === false ? '?' : '&');
+        $redirectLink = $blogPostLink . (!str_contains($blogPostLink, '?') ? '?' : '&');
 
         return match ($comment['status']) {
             'moderation' => $redirectLink . 'comment=moderation#' . FL::act('Comment'),

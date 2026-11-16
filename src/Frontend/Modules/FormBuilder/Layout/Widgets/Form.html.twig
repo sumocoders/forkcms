@@ -44,7 +44,7 @@
                         <div class="form-group{% if field.error %} has-error{% endif %}">
                           <label class="control-label" for="{{ field.name }}">
                             {{ field.label|raw }}{% if field.required %}
-                            {{ macro.required }}{% endif %}
+                            {{ macro.required() }}{% endif %}
                           </label>
                           {{ field.html|raw }}
                           {% if field.error %}<span class="text-danger help-inline">{{ field.error|raw }}</span>{% endif %}
@@ -56,7 +56,7 @@
                         <div class="form-group{% if field.error %} has-error{% endif %}">
                           <p class="control-label">
                             {{ field.label|raw }}{% if field.required %}
-                            {{ macro.required }}{% endif %}
+                            {{ macro.required() }}{% endif %}
                           </p>
                           {% for checkbox in field.html %}
                             <div class="checkbox">

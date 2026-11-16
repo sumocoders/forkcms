@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UploadHandlerTest extends TestCase
 {
-    private const UUID = '0f8fad5b-d9cb-469f-a165-70867728950e';
+    private const string UUID = '0f8fad5b-d9cb-469f-a165-70867728950e';
 
     /** @var string */
     private $directory;
@@ -25,7 +25,7 @@ class UploadHandlerTest extends TestCase
 
     protected function tearDown(): void
     {
-        (new Filesystem())->remove($this->directory);
+        new Filesystem()->remove($this->directory);
     }
 
     public function testCombineChunksRejectsPathTraversalInUuid(): void

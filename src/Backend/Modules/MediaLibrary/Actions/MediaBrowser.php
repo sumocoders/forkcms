@@ -76,7 +76,7 @@ class MediaBrowser extends BackendBaseAction
             function ($type) use ($mediaFolder) {
                 $dataGrid = MediaItemSelectionDataGrid::getDataGrid(
                     Type::fromString($type),
-                    ($mediaFolder !== null) ? $mediaFolder->getId() : null
+                    $mediaFolder?->getId()
                 );
 
                 return [

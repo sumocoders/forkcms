@@ -28,13 +28,11 @@ final class AuthenticationTest extends FrontendWebTestCase
         $this->loadFixtures($client, [LoadProfilesProfile::class]);
 
         $this->session = FrontendModel::getSession();
-
-        // Create a request stack for cookie stuff
-        $requestStack = new RequestStack();
         $request = new Request();
         $request->setSession($this->session);
         $request->cookies->set('frontend_profile_secret_key', self::SECRET_COOKIE_KEY);
-        $requestStack->push($request);
+        // Create a request stack for cookie stuff
+        $requestStack = new RequestStack([$request]);
         $client->getContainer()->set('request_stack', $requestStack);
     }
 

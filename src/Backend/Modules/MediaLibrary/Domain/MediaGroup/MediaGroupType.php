@@ -2,6 +2,8 @@
 
 namespace Backend\Modules\MediaLibrary\Domain\MediaGroup;
 
+use Symfony\Component\Validator\Constraints\Count;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Backend\Core\Engine\Header;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\Exception\MediaGroupNotFound;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\AspectRatio;
@@ -19,7 +21,6 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints;
 use Backend\Core\Engine\Model;
 use Backend\Core\Language\Language;
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\Command\SaveMediaGroup;
@@ -126,7 +127,7 @@ class MediaGroupType extends AbstractType
                         $countOptions['maxMessage'] = Language::err('MaximumConnectedItems');
                     }
 
-                    $constraints[] = new Constraints\Count($countOptions);
+                    $constraints[] = new Count($countOptions);
                 }
 
                 return $constraints;
@@ -146,10 +147,8 @@ class MediaGroupType extends AbstractType
         }
 
         return [
-            new Constraints\NotBlank(
-                [
-                    'message' => Language::err('YouAreRequiredToConnectMedia', 'MediaLibrary'),
-                ]
+            new NotBlank(
+                message: Language::err('YouAreRequiredToConnectMedia', 'MediaLibrary')
             ),
         ];
     }

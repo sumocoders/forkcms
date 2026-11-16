@@ -41,7 +41,7 @@ class Theme
     private static function getFilePathForCurrentTheme(string $theme, string $filePath): string
     {
         // just return the file if the theme is already in the file path
-        if (mb_strpos($filePath, 'src/Frontend/Themes/' . $theme) !== false) {
+        if (str_contains($filePath, 'src/Frontend/Themes/' . $theme)) {
             return $filePath;
         }
 

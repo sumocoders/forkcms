@@ -185,7 +185,7 @@
             <div class="col-sm-7">
               <div class="control-group {% if txtMessageError %}error{% endif %}">
                 <label class="control-label" for="message">{{ 'lbl.Message'|trans|ucfirst }}
-                  {{ macro.required }}</label>
+                  {{ macro.required() }}</label>
                 <div class="controls">
                   {% form_field message %} {% form_field_error message %}
                 </div>
@@ -194,14 +194,14 @@
             <div class="col-sm-5 authorInfo">
               <div class="control-group {% if txtAuthorError %}error{% endif %}">
                 <label class="control-label" for="author">{{ 'lbl.Name'|trans|ucfirst }}
-                  {{ macro.required }}</label>
+                  {{ macro.required() }}</label>
                 <div class="controls">
                   {% form_field author %} {% form_field_error author %}
                 </div>
               </div>
               <div class="control-group {% if txtEmailError %}error{% endif %}">
                 <label class="control-label" for="email">{{ 'lbl.Email'|trans|ucfirst }}
-                  {{ macro.required }}</label>
+                  {{ macro.required() }}</label>
                 <div class="controls">
                   {% form_field email %} {% form_field_error email %}
                 </div>

@@ -244,7 +244,7 @@ class DataGrid extends \SpoonDataGrid
             if (in_array($column, $allColumns, true)) {
                 $this->setColumnHidden($column);
                 $this->setRowFunction(
-                    [DataGridFunctions::class, 'greyOut'],
+                    DataGridFunctions::greyOut(...),
                     [$column, '[' . $column . ']'],
                     true
                 );
@@ -403,9 +403,7 @@ class DataGrid extends \SpoonDataGrid
         $id = 'confirm-' . (string) $uniqueId;
 
         // set title if there wasn't one provided
-        if ($title === null) {
-            $title = s(BackendLanguage::lbl('Delete') . '?')->title()->toString();
-        }
+        $title ??= s(BackendLanguage::lbl('Delete') . '?')->title()->toString();
 
         // grab current value
         $value = $this->columns[$column]->getValue();

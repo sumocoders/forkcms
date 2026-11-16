@@ -2,6 +2,7 @@
 
 namespace Console\Core;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,14 +12,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * This command will clear all the cache
  */
+#[AsCommand(name: 'forkcms:cache:clear', description: 'Clear the cache')]
 class CacheClearCommand extends Command
 {
-    protected function configure(): void
-    {
-        $this->setName('forkcms:cache:clear')
-            ->setDescription('Clear the cache');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);

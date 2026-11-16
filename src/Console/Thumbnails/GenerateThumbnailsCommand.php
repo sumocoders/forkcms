@@ -2,6 +2,7 @@
 
 namespace Console\Thumbnails;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use ForkCMS\Utility\Thumbnails;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
@@ -17,6 +18,7 @@ use Symfony\Component\Finder\Finder;
 /**
  * This is a simple command to generate thumbnails
  */
+#[AsCommand(name: 'forkcms:thumbnails:generate', description: 'Create thumbnails', aliases: ['thumbnails:generate'])]
 class GenerateThumbnailsCommand extends Command
 {
     /** @var string */
@@ -27,9 +29,7 @@ class GenerateThumbnailsCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('forkcms:thumbnails:generate')
-            ->setAliases(['thumbnails:generate'])
-            ->setDescription('Create thumbnails')
+        $this
             ->addOption(
                 'folder',
                 'f',
