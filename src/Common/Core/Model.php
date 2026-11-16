@@ -2,9 +2,8 @@
 
 namespace Common\Core;
 
+use Symfony\Component\HttpFoundation\RequestStack;
 use ForkCMS\App\BaseModel;
-use ForkCMS\Utility\Thumbnails;
-use InvalidArgumentException;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -215,13 +214,13 @@ class Model extends BaseModel
             throw new RuntimeException('No request available');
         }
 
-        return self::getContainer()->get(\Symfony\Component\HttpFoundation\RequestStack::class)->getCurrentRequest();
+        return self::getContainer()->get(RequestStack::class)->getCurrentRequest();
     }
 
     public static function requestIsAvailable(): bool
     {
-        return self::getContainer()->has(\Symfony\Component\HttpFoundation\RequestStack::class)
-               && self::getContainer()->get(\Symfony\Component\HttpFoundation\RequestStack::class)->getCurrentRequest() !== null;
+        return self::getContainer()->has(RequestStack::class)
+               && self::getContainer()->get(RequestStack::class)->getCurrentRequest() !== null;
     }
 
     public static function getSession(): SessionInterface

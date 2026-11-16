@@ -2,6 +2,7 @@
 
 namespace Frontend\Core\Engine\Base;
 
+use Symfony\Component\Form\FormFactoryInterface;
 use Common\Core\Header\Priority;
 use Common\Doctrine\Entity\Meta;
 use Common\Exception\RedirectException;
@@ -648,7 +649,7 @@ class Block extends KernelLoader
      */
     public function createForm(string $type, $data = null, array $options = []): Form
     {
-        return $this->get(\Symfony\Component\Form\FormFactoryInterface::class)->create($type, $data, $options);
+        return $this->get(FormFactoryInterface::class)->create($type, $data, $options);
     }
 
     /**

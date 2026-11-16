@@ -8,7 +8,6 @@ use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\Status;
 use Common\ModuleExtraType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]

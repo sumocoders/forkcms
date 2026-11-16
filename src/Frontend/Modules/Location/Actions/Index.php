@@ -3,7 +3,6 @@
 namespace Frontend\Modules\Location\Actions;
 
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
-use Frontend\Core\Language\Language;
 use Frontend\Core\Language\Locale;
 use Frontend\Modules\Location\Engine\Model as FrontendLocationModel;
 

@@ -4,7 +4,6 @@ namespace Backend\Modules\Profiles\Installer;
 
 use Backend\Core\Installer\ModuleInstaller;
 use Common\ModuleExtraType;
-use Frontend\Modules\Profiles\Engine\Model;
 use Symfony\Component\Filesystem\Filesystem;
 use Backend\Core\Language\Language;
 use function Symfony\Component\String\s;

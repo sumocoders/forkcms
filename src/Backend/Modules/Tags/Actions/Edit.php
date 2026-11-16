@@ -60,7 +60,7 @@ class Edit extends BackendBaseActionEdit
             // build class name
             $className = 'Backend\\Modules\\' . $module . '\\Engine\\Model';
             if ($module == 'Core') {
-                $className = \Backend\Core\Engine\Model::class;
+                $className = BackendModel::class;
             }
 
             // check if the getByTag-method is available

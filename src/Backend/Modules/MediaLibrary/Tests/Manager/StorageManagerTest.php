@@ -2,6 +2,7 @@
 
 namespace Backend\Modules\MediaLibrary\Manager;
 
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Backend\Modules\MediaLibrary\Component\StorageProvider\LocalStorageProvider;
 use Backend\Modules\MediaLibrary\Component\StorageProvider\VimeoStorageProvider;
 use Backend\Modules\MediaLibrary\Component\StorageProvider\YoutubeStorageProvider;
@@ -20,7 +21,7 @@ class StorageManagerTest extends TestCase
 
     public function testLocalStorageProvider(): void
     {
-        $cacheManager = $this->createMock(\Liip\ImagineBundle\Imagine\Cache\CacheManager::class);
+        $cacheManager = $this->createMock(CacheManager::class);
         $localStorageProvider = new LocalStorageProvider(
             'src/Frontend/Files/MediaLibrary',
             'https://www.website.be',

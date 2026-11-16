@@ -4,7 +4,6 @@ namespace Backend\Core\Engine;
 
 use Common\Core\RequestParameter;
 use Common\ModuleExtraType;
-use InvalidArgumentException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;

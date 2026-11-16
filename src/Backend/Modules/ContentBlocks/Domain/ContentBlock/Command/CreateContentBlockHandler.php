@@ -6,7 +6,6 @@ use Backend\Core\Engine\Model;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
 use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 use Common\ModuleExtraType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]

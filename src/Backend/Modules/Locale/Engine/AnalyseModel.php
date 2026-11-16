@@ -3,7 +3,6 @@
 namespace Backend\Modules\Locale\Engine;
 
 use Frontend\Core\Engine\Theme;
-use Symfony\Component\Finder\Finder;
 use Backend\Core\Engine\Model as BackendModel;
 
 /**

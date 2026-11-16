@@ -2,8 +2,6 @@
 
 namespace Common\Core\Twig\Extensions;
 
-use Twig\Attribute\AsTwigFunction;
-use Twig\Attribute\AsTwigFilter;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 

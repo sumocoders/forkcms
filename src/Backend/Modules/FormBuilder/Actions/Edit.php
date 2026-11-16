@@ -2,6 +2,7 @@
 
 namespace Backend\Modules\FormBuilder\Actions;
 
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\Form as BackendForm;
@@ -310,7 +311,7 @@ class Edit extends BackendBaseActionEdit
             // identifier
             if ($txtIdentifier->isFilled()) {
                 // invalid characters
-                $validationErrors = $this->get(\Symfony\Component\Validator\Validator\ValidatorInterface::class)->validate(
+                $validationErrors = $this->get(ValidatorInterface::class)->validate(
                     $txtIdentifier->getValue(),
                     new Assert\Regex([
                         'pattern' => '/^[a-zA-Z0-9\.\_\-]+$/',

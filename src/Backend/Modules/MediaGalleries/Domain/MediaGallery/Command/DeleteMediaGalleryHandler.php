@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
 use Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem;
 use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]

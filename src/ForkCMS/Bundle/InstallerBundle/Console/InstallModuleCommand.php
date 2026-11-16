@@ -9,7 +9,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use ForkCMS\App\BaseModel;
-use PDO;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;

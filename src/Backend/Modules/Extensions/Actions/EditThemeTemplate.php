@@ -2,6 +2,7 @@
 
 namespace Backend\Modules\Extensions\Actions;
 
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\Form as BackendForm;
@@ -203,7 +204,7 @@ class EditThemeTemplate extends BackendBaseActionEdit
                 }
 
                 // not alphanumeric -> error
-                $validationErrors = $this->get(\Symfony\Component\Validator\Validator\ValidatorInterface::class)->validate(
+                $validationErrors = $this->get(ValidatorInterface::class)->validate(
                     $name,
                     new Assert\Regex([
                         'pattern' => '/^[a-z0-9]+$/i',

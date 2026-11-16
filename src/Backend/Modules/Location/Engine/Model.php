@@ -5,7 +5,6 @@ namespace Backend\Modules\Location\Engine;
 use Backend\Core\Language\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Common\ModuleExtraType;
-use ForkCMS\Utility\Geolocation;
 use function Symfony\Component\String\s;
 
 /**

@@ -5,7 +5,6 @@ namespace Backend\Modules\Dashboard\Actions;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Filesystem\Filesystem;
 use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
-use Backend\Core\Engine\Base\Widget as BackendBaseWidget;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Engine\Exception as BackendException;
 use Backend\Core\Language\Language as BL;

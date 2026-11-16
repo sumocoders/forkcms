@@ -135,7 +135,7 @@ class Meta
      */
     public function generateUrl(string $url): string
     {
-        return Model::get(MetaRepository::class)->generateUrl(
+        return BackendModel::get(MetaRepository::class)->generateUrl(
             $url,
             $this->callback['class'],
             $this->callback['method'],
@@ -690,8 +690,8 @@ class Meta
         $parameters = $this->hreflangCallback['parameters'] ?? [];
 
         // check if the class is a service
-        if (Model::getContainer()->has($class)) {
-            $class = Model::getContainer()->get($class);
+        if (BackendModel::getContainer()->has($class)) {
+            $class = BackendModel::getContainer()->get($class);
         }
 
         // validate (check if the function exists)

@@ -2,6 +2,7 @@
 
 namespace Backend\Core\Tests\Ajax;
 
+use Backend\Modules\Blog\Engine\Model;
 use Backend\Core\Tests\BackendWebTestCase;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
@@ -21,7 +22,7 @@ class GenerateUrlTest extends BackendWebTestCase
         $response = $this->postGenerateUrl(
             $client,
             [
-                'className' => \Backend\Modules\Blog\Engine\Model::class,
+                'className' => Model::class,
                 'methodName' => 'getUrl',
                 'url' => 'Some Example Title',
                 'parameters' => '',
@@ -62,7 +63,7 @@ class GenerateUrlTest extends BackendWebTestCase
         $response = $this->postGenerateUrl(
             $client,
             [
-                'className' => \Backend\Modules\Blog\Engine\Model::class,
+                'className' => Model::class,
                 'methodName' => 'delete',
                 'url' => '1',
                 'parameters' => '',

@@ -7,7 +7,6 @@ use Psr\Cache\CacheItemPoolInterface;
 use Frontend\Core\Engine\Base\AjaxAction as FrontendBaseAJAXAction;
 use Frontend\Core\Engine\Exception as FrontendException;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
-use Frontend\Core\Engine\Theme;
 use Frontend\Core\Engine\TwigTemplate;
 use Frontend\Modules\Search\Engine\Model as FrontendSearchModel;
 use Symfony\Component\HttpFoundation\Response;

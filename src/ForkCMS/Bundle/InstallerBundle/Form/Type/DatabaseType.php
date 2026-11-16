@@ -122,7 +122,7 @@ class DatabaseType extends AbstractType
                         }
                     ),
                 ],
-                'data_class' => \ForkCMS\Bundle\InstallerBundle\Entity\InstallationData::class,
+                'data_class' => InstallationData::class,
             ]
         );
     }

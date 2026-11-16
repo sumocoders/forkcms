@@ -2,7 +2,6 @@
 
 namespace Frontend\Core\Engine;
 
-use InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**

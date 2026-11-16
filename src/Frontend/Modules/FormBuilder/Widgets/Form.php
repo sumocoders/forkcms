@@ -2,6 +2,7 @@
 
 namespace Frontend\Modules\FormBuilder\Widgets;
 
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Common\Exception\RedirectException;
 use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
 use Frontend\Core\Engine\Form as FrontendForm;
@@ -9,7 +10,6 @@ use Frontend\Core\Language\Language as FL;
 use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Core\Language\Locale;
 use Frontend\Modules\FormBuilder\Engine\Model as FrontendFormBuilderModel;
-use Frontend\Modules\FormBuilder\FormBuilderEvents;
 use Frontend\Modules\FormBuilder\Event\FormBuilderSubmittedEvent;
 use ReCaptcha\ReCaptcha;
 use ReCaptcha\RequestMethod\CurlPost;
@@ -495,7 +495,7 @@ class Form extends FrontendBaseWidget
                         }
                     } elseif ($rule === 'time') {
                         $regexTime = '/^(([0-1][0-9]|2[0-3]|[0-9])|([0-1][0-9]|2[0-3]|[0-9])(:|h)[0-5]?[0-9]?)$/';
-                        $validationErrors = $this->get(\Symfony\Component\Validator\Validator\ValidatorInterface::class)->validate(
+                        $validationErrors = $this->get(ValidatorInterface::class)->validate(
                             $this->form->getField($fieldName)->getValue(),
                             new Assert\Regex([
                                 'pattern' => $regexTime,

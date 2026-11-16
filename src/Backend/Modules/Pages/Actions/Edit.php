@@ -2,7 +2,6 @@
 
 namespace Backend\Modules\Pages\Actions;
 
-use Backend\Core\Engine\Authentication;
 use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Engine\DataGridDatabase as BackendDataGridDatabase;
@@ -1022,7 +1021,7 @@ class Edit extends BackendBaseActionEdit
 
     private function userCanSeeAndEditTags(): bool
     {
-        return Authentication::isAllowedAction('Edit', 'Tags') && Authentication::isAllowedAction('GetAllTags', 'Tags');
+        return BackendAuthentication::isAllowedAction('Edit', 'Tags') && BackendAuthentication::isAllowedAction('GetAllTags', 'Tags');
     }
 
     private function loadDeleteForm(): void

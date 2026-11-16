@@ -5,7 +5,6 @@ namespace Frontend\Modules\Tags\Tests\Engine;
 use Backend\Modules\Tags\DataFixtures\LoadTagsModulesTags;
 use Backend\Modules\Tags\DataFixtures\LoadTagsTags;
 use Frontend\Core\Engine\Exception as FrontendException;
-use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Core\Language\Locale;
 use Frontend\Modules\Search\Engine\Model as SearchModel;
 use Frontend\Modules\Pages\Engine\Model as PagesModel;

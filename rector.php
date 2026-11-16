@@ -13,6 +13,7 @@ return RectorConfig::configure()
     ->withSymfonyContainerPhp(__DIR__ . '/var/cache/dev/ForkCMS_App_AppKernelDevDebugContainer.php')
     ->withAttributesSets()
     ->withComposerBased(doctrine: true)
+    ->withImportNames(importShortClasses: false)
     ->withTypeCoverageLevel(0)
     ->withDeadCodeLevel(0)
     ->withCodeQualityLevel(0);
