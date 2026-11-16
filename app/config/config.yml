@@ -73,6 +73,8 @@ monolog:
             max_files: 10
 
 liip_imagine:
+    twig:
+        mode: lazy
     resolvers:
        default:
           web_path:
