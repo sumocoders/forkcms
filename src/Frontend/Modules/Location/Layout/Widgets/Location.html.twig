@@ -36,7 +36,7 @@
             <form method="get" action="#" data-role="fork-directions-form" data-map-id="{{ widgetLocationItem.id }}">
               <div class="form-group">
                 <label class="control-label" for="locationSearchAddress{{ widgetLocationItem.id }}">
-                  {{ 'lbl.Start'|trans|ucfirst }}{{ macro.required }}&nbsp;
+                  {{ 'lbl.Start'|trans|ucfirst }}{{ macro.required() }}&nbsp;
                 </label>
                 <div class="input-group">
                   <input type="text" id="locationSearchAddress{{ widgetLocationItem.id }}" name="locationSearchAddress" class="form-control" data-role="fork-directions-start" data-map-id="{{ widgetLocationItem.id }}" />

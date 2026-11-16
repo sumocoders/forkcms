@@ -28,7 +28,7 @@
         <div class="panel-heading">
           <h2 class="panel-title">
             {{ 'lbl.WebsiteTitle'|trans|ucfirst }}
-            {{ macro.required }}
+            {{ macro.required() }}
           </h2>
         </div>
         <div class="panel-body">
@@ -173,7 +173,7 @@
                 <tr>
                   <th>
                     <label for="googleMapsKey" class="control-label">
-                      Google maps key{{ macro.required }}
+                      Google maps key{{ macro.required() }}
                     </label>
                   </th>
                   <td>{% form_field google_maps_key %} {% form_field_error google_maps_key %}</td>

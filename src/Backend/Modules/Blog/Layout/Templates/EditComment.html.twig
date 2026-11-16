@@ -16,14 +16,14 @@
       <div class="form-group">
         <label for="author" class="control-label">
           {{ 'lbl.Author'|trans|ucfirst }}
-          {{ macro.required }}
+          {{ macro.required() }}
         </label>
         {% form_field author %} {% form_field_error author %}
       </div>
       <div class="form-group">
         <label for="email" class="control-label">
           {{ 'lbl.Email'|trans|ucfirst }}
-          {{ macro.required }}
+          {{ macro.required() }}
         </label>
         {% form_field email %} {% form_field_error email %}
       </div>
@@ -34,7 +34,7 @@
       <div class="form-group">
         <label for="text" class="control-label">
           {{ 'lbl.Text'|trans|ucfirst }}
-          {{ macro.required }}
+          {{ macro.required() }}
         </label>
         {% form_field text %} {% form_field_error text %}
       </div>

@@ -27,7 +27,7 @@
               <div class="col-md-12">
                 <div class="form-group last">
                   <label for="name" class="control-label">{{ 'lbl.Name'|trans|ucfirst }}
-                    {{ macro.required }}</label>
+                    {{ macro.required() }}</label>
                   {% form_field name %} {% form_field_error name %}
                 </div>
               </div>
