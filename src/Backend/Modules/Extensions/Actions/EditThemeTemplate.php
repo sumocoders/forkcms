@@ -206,10 +206,7 @@ class EditThemeTemplate extends BackendBaseActionEdit
                 // not alphanumeric -> error
                 $validationErrors = $this->get(ValidatorInterface::class)->validate(
                     $name,
-                    new Assert\Regex([
-                        'pattern' => '/^[a-z0-9]+$/i',
-                        'message' => sprintf(BL::getError('NoAlphaNumPositionName'), $name),
-                    ])
+                    new Assert\Regex(pattern: '/^[a-z0-9]+$/i', message: sprintf(BL::getError('NoAlphaNumPositionName'), $name))
                 );
                 if (count($validationErrors) > 0) {
                     foreach ($validationErrors as $validationError) {

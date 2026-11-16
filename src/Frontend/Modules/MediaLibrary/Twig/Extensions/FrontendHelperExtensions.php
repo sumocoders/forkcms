@@ -2,25 +2,13 @@
 
 namespace Frontend\Modules\MediaLibrary\Twig\Extensions;
 
+use Twig\Attribute\AsTwigFunction;
 use Frontend\Modules\MediaLibrary\Helper\FrontendHelper;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
 
-class FrontendHelperExtensions extends AbstractExtension
+class FrontendHelperExtensions
 {
     public function __construct(private readonly FrontendHelper $frontendHelper)
     {
-    }
-
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction(
-                'media_library_widget',
-                $this->parseWidget(...),
-                ['is_safe' => ['html']]
-            ),
-        ];
     }
 
     /**
@@ -33,6 +21,7 @@ class FrontendHelperExtensions extends AbstractExtension
      *
      * @return string
      */
+    #[AsTwigFunction(name: 'media_library_widget', isSafe: ['html'])]
     public function parseWidget(
         string $mediaWidgetAction,
         string $mediaGroupId,

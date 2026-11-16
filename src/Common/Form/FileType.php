@@ -58,7 +58,7 @@ class FileType extends AbstractType
                     if ($required) {
                         $fileFieldOptions['constraints'] = [
                             new NotBlank(
-                                ['message' => $options['required_file_error']]
+                                message: $options['required_file_error']
                             ),
                         ];
                     }

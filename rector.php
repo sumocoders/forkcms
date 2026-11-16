@@ -10,10 +10,11 @@ return RectorConfig::configure()
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ])
+    ->withSkipPath(__DIR__ . '/app/AppKernel.php')
     ->withSymfonyContainerPhp(__DIR__ . '/var/cache/dev/ForkCMS_App_AppKernelDevDebugContainer.php')
     ->withPhpSets()
     ->withAttributesSets()
-    ->withComposerBased(doctrine: true)
+    ->withComposerBased()
     ->withImportNames(importShortClasses: false)
     ->withTypeCoverageLevel(0)
     ->withDeadCodeLevel(0)

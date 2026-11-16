@@ -361,7 +361,7 @@ class Meta
     public function removeOgImage(): void
     {
         // ORM 3 cascades the remove to an unloaded lazy Meta; reading a property would load the already deleted row
-        if ((new \ReflectionClass($this))->isUninitializedLazyObject($this)) {
+        if (new \ReflectionClass($this)->isUninitializedLazyObject($this)) {
             return;
         }
 

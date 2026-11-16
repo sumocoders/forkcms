@@ -497,9 +497,7 @@ class Form extends FrontendBaseWidget
                         $regexTime = '/^(([0-1][0-9]|2[0-3]|[0-9])|([0-1][0-9]|2[0-3]|[0-9])(:|h)[0-5]?[0-9]?)$/';
                         $validationErrors = $this->get(ValidatorInterface::class)->validate(
                             $this->form->getField($fieldName)->getValue(),
-                            new Assert\Regex([
-                                'pattern' => $regexTime,
-                            ])
+                            new Assert\Regex(pattern: $regexTime)
                         );
                         if (count($validationErrors) > 0) {
                             $this->form->getField($fieldName)->setError($settings['error_message']);

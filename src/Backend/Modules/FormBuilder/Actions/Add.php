@@ -101,9 +101,7 @@ class Add extends BackendBaseActionAdd
                 // invalid characters
                 $validationErrors = $this->get(ValidatorInterface::class)->validate(
                     $txtIdentifier->getValue(),
-                    new Assert\Regex([
-                        'pattern' => '/^[a-zA-Z0-9\.\_\-]+$/',
-                    ])
+                    new Assert\Regex(pattern: '/^[a-zA-Z0-9\.\_\-]+$/')
                 );
                 if (count($validationErrors) > 0) {
                     $txtIdentifier->setError(BL::getError('InvalidIdentifier'));

@@ -2,18 +2,11 @@
 
 namespace Common\Core\Twig\Extensions;
 
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
+use Twig\Attribute\AsTwigFilter;
 
-class UtmExtension extends AbstractExtension
+class UtmExtension
 {
-    public function getFilters(): array
-    {
-        return [
-            new TwigFilter('utm', $this->injectUtmTags(...), ['is_safe' => ['html']]),
-        ];
-    }
-
+    #[AsTwigFilter(name: 'utm', isSafe: ['html'])]
     public function injectUtmTags(
         string $html,
         string $source,

@@ -148,9 +148,7 @@ class MediaGroupType extends AbstractType
 
         return [
             new NotBlank(
-                [
-                    'message' => Language::err('YouAreRequiredToConnectMedia', 'MediaLibrary'),
-                ]
+                message: Language::err('YouAreRequiredToConnectMedia', 'MediaLibrary')
             ),
         ];
     }

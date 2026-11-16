@@ -11,10 +11,11 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-#[AsCommand(
-    'media_galleries:delete:galleries',
-    'Delete media galleries.'
-)]
+#[AsCommand('media_galleries:delete:galleries', 'Delete media galleries.', help: <<<'TXT'
+Delete media galleries Console Command
+ * Example: "bin/console media_galleries:delete:galleries", will delete all galleries
+ * Example: "bin/console media_galleries:delete:galleries --delete-media-items", will delete all galleries and all MediaItem entities
+TXT)]
 class MediaGalleryDeleteAllCommand extends Command
 {
     /**
@@ -38,12 +39,6 @@ class MediaGalleryDeleteAllCommand extends Command
                 null,
                 InputOption::VALUE_NONE,
                 'If set, all connected MediaItems will be deleted as well from the library.'
-            )
-            ->setHelp(<<<'EOF'
-                Delete media galleries Console Command
-                 * Example: "bin/console media_galleries:delete:galleries", will delete all galleries
-                 * Example: "bin/console media_galleries:delete:galleries --delete-media-items", will delete all galleries and all MediaItem entities
-                EOF
             );
     }
 

@@ -2,6 +2,7 @@
 
 namespace Console\Locale;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,13 +13,12 @@ use Backend\Modules\Locale\Engine\Model as BackendLocaleModel;
 /**
  * This is a simple command to install a locale file
  */
+#[AsCommand(name: 'forkcms:locale:import', description: 'Import locale translations', aliases: ['locale:import'])]
 class ImportLocaleCommand extends Command
 {
     protected function configure(): void
     {
-        $this->setName('forkcms:locale:import')
-            ->setAliases(['locale:import'])
-            ->setDescription('Import locale translations')
+        $this
             ->addOption('overwrite', 'o', InputOption::VALUE_OPTIONAL, 'Overwrite the existing translations', true)
             ->addOption('file', 'f', InputOption::VALUE_OPTIONAL, 'Path to the locale file')
             ->addOption('module', 'm', InputOption::VALUE_OPTIONAL, 'Name of the module that contains the translations')
