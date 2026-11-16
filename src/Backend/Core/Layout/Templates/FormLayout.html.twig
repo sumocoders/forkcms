@@ -65,10 +65,8 @@
 {% endblock checkbox_radio_label %}
 
 {%- block label_asterisk -%}
-  {% apply spaceless %}
-    {% import 'Layout/Templates/macros.html.twig' as macro %}
-    {{ macro.required }}
-  {% endapply %}
+  {%- import 'Layout/Templates/macros.html.twig' as macro -%}
+  {{- macro.required() -}}
 {%- endblock label_asterisk -%}
 
 {% block form_errors -%}
@@ -260,117 +258,111 @@
 {%- endblock meta_widget -%}
 
 {% block fork_image_widget %}
-  {% apply spaceless %}
-    <div class="row">
-      {% set show_preview = show_preview and data is not null and data.fileName is not empty %}
-      {% if show_preview or show_remove_image %}
-        <div class="form-group{% if show_preview and preview_url %} col-md-3 col-lg-2{% endif %}">
-          {% if show_preview and preview_url %}
-            <img class="{% if preview_class is defined and preview_class is not empty %}{{ preview_class }}{% endif %}" src="{{ preview_url }}">
-          {% endif %}
-        </div>
-      {% endif %}
-      <div class="form-group{% if show_preview and preview_url %} col-md-9 col-lg-10{% endif %}">
-        {{ form_widget(form.file) }}
-        {% if help_text_message %}
-          <div class="help-text">{{ help_text_message|trans|format(help_text_argument) }}</div>
-        {% endif %}
-        {{ form_errors(form.file) }}
-        {% if show_remove_image %}
-          {{ form_widget(form.remove) }}
+  <div class="row">
+    {% set show_preview = show_preview and data is not null and data.fileName is not empty %}
+    {% if show_preview or show_remove_image %}
+      <div class="form-group{% if show_preview and preview_url %} col-md-3 col-lg-2{% endif %}">
+        {% if show_preview and preview_url %}
+          <img class="{% if preview_class is defined and preview_class is not empty %}{{ preview_class }}{% endif %}" src="{{ preview_url }}">
         {% endif %}
       </div>
-    </div>
-  {% endapply %}
-{% endblock %}
-
-{% block fork_file_widget %}
-  {% import "Layout/Templates/macros.html.twig" as macro %}
-  {% apply spaceless %}
-    <div class="form-group">
+    {% endif %}
+    <div class="form-group{% if show_preview and preview_url %} col-md-9 col-lg-10{% endif %}">
       {{ form_widget(form.file) }}
       {% if help_text_message %}
         <div class="help-text">{{ help_text_message|trans|format(help_text_argument) }}</div>
       {% endif %}
       {{ form_errors(form.file) }}
+      {% if show_remove_image %}
+        {{ form_widget(form.remove) }}
+      {% endif %}
     </div>
-    {% set show_preview = show_preview and data is not null and data.fileName is not empty %}
-    {% if show_preview or show_remove_file %}
-      <div class="form-group">
-        {% if show_preview and preview_url %}
-          <a href="{{ preview_url }}" class="btn btn-xs btn-default" target="_blank" rel="noopener noreferrer">
-            {{ macro.icon('eye') }}
-            {{ preview_label|trans|ucfirst }}
-          </a>
-        {% endif %}
-        {% if show_remove_file %}
-          {{ form_widget(form.remove) }}
-        {% endif %}
-      </div>
+  </div>
+{% endblock %}
+
+{% block fork_file_widget %}
+  {% import "Layout/Templates/macros.html.twig" as macro %}
+  <div class="form-group">
+    {{ form_widget(form.file) }}
+    {% if help_text_message %}
+      <div class="help-text">{{ help_text_message|trans|format(help_text_argument) }}</div>
     {% endif %}
-  {% endapply %}
+    {{ form_errors(form.file) }}
+  </div>
+  {% set show_preview = show_preview and data is not null and data.fileName is not empty %}
+  {% if show_preview or show_remove_file %}
+    <div class="form-group">
+      {% if show_preview and preview_url %}
+        <a href="{{ preview_url }}" class="btn btn-xs btn-default" target="_blank" rel="noopener noreferrer">
+          {{ macro.icon('eye') }}
+          {{ preview_label|trans|ucfirst }}
+        </a>
+      {% endif %}
+      {% if show_remove_file %}
+        {{ form_widget(form.remove) }}
+      {% endif %}
+    </div>
+  {% endif %}
 {% endblock %}
 
 {% block bootstrap_collection_row %}
-  {% apply spaceless %}
-    {% import "Layout/Templates/macros.html.twig" as macro %}
-    {% if prototype is defined %}
-      {% set prototype_vars = {} %}
-      {% if style is defined %}
-        {% set prototype_vars = prototype_vars|merge({'style': style}) %}
-      {% endif %}
-      {% set prototype_html = form_widget(prototype, prototype_vars) %}
-      {% if form.vars.allow_delete %}
-        {% set prototype_html = prototype_html ~ '<div class="btn-toolbar">' %}
-        {% if form.vars.allow_sequence %}
-          {% set prototype_html = prototype_html ~ '<div class="btn-group pull-left"><span class="btn btn-default fork-data-grid-sortable" data-role="sequence-handle" aria-hidden="true">' ~ macro.icon('reorder') ~ '</span>' ~ macro.buttonIcon('', 'arrow-up', '', 'btn-default', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'up', 'aria-label': 'lbl.MoveUpOnePosition'|trans|ucfirst}) ~ '' ~ macro.buttonIcon('', 'arrow-down', '', 'btn-default', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'down', 'aria-label': 'lbl.MoveDownOnePosition'|trans|ucfirst}) ~ '</div>' %}
-        {% endif %}
-        {% set prototype_html = prototype_html ~ '<div class="btn-group pull-right"><button class="btn btn-danger btn-sm" data-removefield="collection" data-field="__id__">' ~ form.vars.delete_button_text|trans({}, translation_domain)|ucfirst|raw ~ '</button></div></div>' %}
-      {% endif %}
-
-      {% set attr = attr|merge({'data-prototype': prototype_html }) %}
-      {% set attr = attr|merge({'data-prototype-name': prototype_name }) %}
+  {% import "Layout/Templates/macros.html.twig" as macro %}
+  {% if prototype is defined %}
+    {% set prototype_vars = {} %}
+    {% if style is defined %}
+      {% set prototype_vars = prototype_vars|merge({'style': style}) %}
     {% endif %}
-    <div {{ block('widget_container_attributes') }}>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          {{ form_label(form) }}
-        </div>
-        <ul class="list-group js-collection" {% if form.vars.allow_sequence %}data-role="collection-sequence"{% endif %}>
-          {% for field in form %}
-            <li class="list-group-item">
-              {{ form_widget(field) }}
-              {{ form_errors(field) }}
-              {% if form.vars.allow_delete or form.vars.allow_sequence %}
-                <div class="btn-toolbar">
-                  {% if form.vars.allow_sequence %}
-                    <div class="btn-group pull-left">
-                      <span class="btn btn-default fork-data-grid-sortable" data-role="sequence-handle" aria-hidden="true">{{ macro.icon('reorder') }}</span>
-                      {{ macro.buttonIcon('', 'arrow-up', '', 'btn-default', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'up', 'aria-label': 'lbl.MoveUpOnePosition'|trans|ucfirst}) }}
-                      {{ macro.buttonIcon('', 'arrow-down', '', 'btn-default', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'down', 'aria-label': 'lbl.MoveDownOnePosition'|trans|ucfirst}) }}
-                    </div>
-                  {% endif %}
-                  {% if form.vars.allow_delete %}
-                    <div class="btn-group pull-right">
-                      <button class="btn btn-danger btn-sm" data-removefield="collection" data-field="{{ field.vars.id }}">{{ form.vars.delete_button_text|trans({}, translation_domain)|ucfirst|raw }}</button>
-                    </div>
-                  {% endif %}
-                </div>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
-        <div class="panel-footer clearfix">
-          {% if form.vars.allow_add %}
-            <div class="btn-group pull-right">
-              <button class="btn btn-success btn-sm" data-addfield="collection" data-collection="{{ form.vars.id }}" data-prototype-name="{{ prototype_name }}">{{ form.vars.add_button_text|trans({}, translation_domain)|ucfirst|raw }}</button>
-            </div>
-          {% endif %}
-          {{ form_errors(form) }}
-        </div>
+    {% set prototype_html = form_widget(prototype, prototype_vars) %}
+    {% if form.vars.allow_delete %}
+      {% set prototype_html = prototype_html ~ '<div class="btn-toolbar">' %}
+      {% if form.vars.allow_sequence %}
+        {% set prototype_html = prototype_html ~ '<div class="btn-group pull-left"><span class="btn btn-default fork-data-grid-sortable" data-role="sequence-handle" aria-hidden="true">' ~ macro.icon('reorder') ~ '</span>' ~ macro.buttonIcon('', 'arrow-up', '', 'btn-default', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'up', 'aria-label': 'lbl.MoveUpOnePosition'|trans|ucfirst}) ~ '' ~ macro.buttonIcon('', 'arrow-down', '', 'btn-default', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'down', 'aria-label': 'lbl.MoveDownOnePosition'|trans|ucfirst}) ~ '</div>' %}
+      {% endif %}
+      {% set prototype_html = prototype_html ~ '<div class="btn-group pull-right"><button class="btn btn-danger btn-sm" data-removefield="collection" data-field="__id__">' ~ form.vars.delete_button_text|trans({}, translation_domain)|ucfirst|raw ~ '</button></div></div>' %}
+    {% endif %}
+
+    {% set attr = attr|merge({'data-prototype': prototype_html }) %}
+    {% set attr = attr|merge({'data-prototype-name': prototype_name }) %}
+  {% endif %}
+  <div {{ block('widget_container_attributes') }}>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {{ form_label(form) }}
+      </div>
+      <ul class="list-group js-collection" {% if form.vars.allow_sequence %}data-role="collection-sequence"{% endif %}>
+        {% for field in form %}
+          <li class="list-group-item">
+            {{ form_widget(field) }}
+            {{ form_errors(field) }}
+            {% if form.vars.allow_delete or form.vars.allow_sequence %}
+              <div class="btn-toolbar">
+                {% if form.vars.allow_sequence %}
+                  <div class="btn-group pull-left">
+                    <span class="btn btn-default fork-data-grid-sortable" data-role="sequence-handle" aria-hidden="true">{{ macro.icon('reorder') }}</span>
+                    {{ macro.buttonIcon('', 'arrow-up', '', 'btn-default', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'up', 'aria-label': 'lbl.MoveUpOnePosition'|trans|ucfirst}) }}
+                    {{ macro.buttonIcon('', 'arrow-down', '', 'btn-default', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'down', 'aria-label': 'lbl.MoveDownOnePosition'|trans|ucfirst}) }}
+                  </div>
+                {% endif %}
+                {% if form.vars.allow_delete %}
+                  <div class="btn-group pull-right">
+                    <button class="btn btn-danger btn-sm" data-removefield="collection" data-field="{{ field.vars.id }}">{{ form.vars.delete_button_text|trans({}, translation_domain)|ucfirst|raw }}</button>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+      <div class="panel-footer clearfix">
+        {% if form.vars.allow_add %}
+          <div class="btn-group pull-right">
+            <button class="btn btn-success btn-sm" data-addfield="collection" data-collection="{{ form.vars.id }}" data-prototype-name="{{ prototype_name }}">{{ form.vars.add_button_text|trans({}, translation_domain)|ucfirst|raw }}</button>
+          </div>
+        {% endif %}
+        {{ form_errors(form) }}
       </div>
     </div>
-  {% endapply %}
+  </div>
 {% endblock bootstrap_collection_row %}
 
 {% block media_group_row %}
