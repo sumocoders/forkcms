@@ -254,7 +254,7 @@ class Detail extends FrontendBaseBlock
             ? $cookie->get('comment_email') : null;
         $validationErrors = $this->get(\Symfony\Component\Validator\Validator\ValidatorInterface::class)->validate(
             $cookie->get('comment_website'),
-            new Assert\Url()
+            new Assert\Url(requireTld: true)
         );
         $isValidUrl = count($validationErrors) === 0;
         $website = ($cookie->has('comment_website') && $isValidUrl) ? $cookie->get('comment_website') : 'http://';

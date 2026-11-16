@@ -93,35 +93,33 @@ class DatabaseType extends AbstractType
             [
                 'constraints' => [
                     new Callback(
-                        [
-                            'callback' => function (InstallationData $data, ExecutionContextInterface $context) : void {
-                                try {
-                                    // create instance
-                                    $database = new \SpoonDatabase(
-                                        'mysql',
-                                        $data->getDatabaseHostname(),
-                                        $data->getDatabaseUsername(),
-                                        $data->getDatabasePassword(),
-                                        $data->getDatabaseName(),
-                                        $data->getDatabasePort()
-                                    );
+                        callback: function (InstallationData $data, ExecutionContextInterface $context): void {
+                            try {
+                                // create instance
+                                $database = new \SpoonDatabase(
+                                    'mysql',
+                                    $data->getDatabaseHostname(),
+                                    $data->getDatabaseUsername(),
+                                    $data->getDatabasePassword(),
+                                    $data->getDatabaseName(),
+                                    $data->getDatabasePort()
+                                );
 
-                                    // test table
-                                    $table = 'test' . time();
+                                // test table
+                                $table = 'test' . time();
 
-                                    // attempt to create table
-                                    $database->execute('DROP TABLE IF EXISTS ' . $table);
-                                    $database->execute(
-                                        'CREATE TABLE ' . $table . ' (id int(11) NOT NULL) ENGINE=MyISAM'
-                                    );
+                                // attempt to create table
+                                $database->execute('DROP TABLE IF EXISTS ' . $table);
+                                $database->execute(
+                                    'CREATE TABLE ' . $table . ' (id int(11) NOT NULL) ENGINE=MyISAM'
+                                );
 
-                                    // drop table
-                                    $database->drop($table);
-                                } catch (\Exception) {
-                                    $context->addViolation('Problem with database credentials');
-                                }
-                            },
-                        ]
+                                // drop table
+                                $database->drop($table);
+                            } catch (\Exception) {
+                                $context->addViolation('Problem with database credentials');
+                            }
+                        }
                     ),
                 ],
                 'data_class' => \ForkCMS\Bundle\InstallerBundle\Entity\InstallationData::class,
