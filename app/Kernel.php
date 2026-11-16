@@ -46,7 +46,7 @@ abstract class Kernel extends BaseKernel
      *
      * @api
      */
-    public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true): Response
+    public function handle(Request $request, $type = HttpKernelInterface::MAIN_REQUEST, $catch = true): Response
     {
         // boot if it hasn't booted yet
         $this->boot();
