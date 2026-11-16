@@ -15,7 +15,7 @@ class SeoFormTokenParser extends AbstractTokenParser
     public function parse(Token $token): Node
     {
         $stream = $this->parser->getStream();
-        if ($stream->getCurrent()->getType() !== Token::BLOCK_END_TYPE) {
+        if (!$stream->getCurrent()->test(Token::BLOCK_END_TYPE)) {
             $error = sprintf("'%s' does not require any arguments.", $this->getTag());
             throw new SyntaxError(
                 $error,
@@ -33,7 +33,7 @@ class SeoFormTokenParser extends AbstractTokenParser
             );
         }
 
-        return new SeoFormNode(FormState::$current, $token->getLine(), $this->getTag());
+        return new SeoFormNode(FormState::$current, $token->getLine());
     }
 
     public function getTag(): string
