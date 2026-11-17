@@ -225,9 +225,7 @@
             <ul class="list-unstyled radiobuttonFieldCombo">
               {% for googleRecaptchaVersionElement in google_recaptcha_version %}
                 <li class="form-check">
-                  <div class="mb-4">
-                    <label for="{{ googleRecaptchaVersionElement.id }}">{{ googleRecaptchaVersionElement.rbtGoogleRecaptchaVersion|raw }} {{ googleRecaptchaVersionElement.label }}</label>
-                  </div>
+                  <label for="{{ googleRecaptchaVersionElement.id }}">{{ googleRecaptchaVersionElement.rbtGoogleRecaptchaVersion|raw }} {{ googleRecaptchaVersionElement.label }}</label>
                 </li>
               {% endfor %}
             </ul>

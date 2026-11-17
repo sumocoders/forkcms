@@ -264,19 +264,17 @@
 
                 <ul class="list-unstyled radiobuttonFieldCombo">
                   {% for _itr_24 in redirect %}
-                    <li class="form-check">
-                      <div class="mb-4">
-                        <label for="{{ _itr_24.id }}">{{ _itr_24.rbtRedirect|raw }} {{ _itr_24.label }}</label>
-                        {% if _itr_24.isInternal %}
-                          <p class="form-text">{{ 'msg.HelpInternalRedirect'|trans|ucfirst }}</p>
-                          {% form_field internal_redirect %} {% form_field_error internal_redirect %}
-                        {% endif %}
-                        {% if _itr_24.isExternal %}
+                    <li class="form-check mb-3">
+                      <label for="{{ _itr_24.id }}">{{ _itr_24.rbtRedirect|raw }} {{ _itr_24.label }}</label>
+                      {% if _itr_24.isInternal %}
+                        <p class="form-text">{{ 'msg.HelpInternalRedirect'|trans|ucfirst }}</p>
+                        {% form_field internal_redirect %} {% form_field_error internal_redirect %}
+                      {% endif %}
+                      {% if _itr_24.isExternal %}
 
-                          <p class="form-text">{{ 'msg.HelpExternalRedirect'|trans|ucfirst }}</p>
-                          {% form_field external_redirect %} {% form_field_error external_redirect %}
-                        {% endif %}
-                      </div>
+                        <p class="form-text">{{ 'msg.HelpExternalRedirect'|trans|ucfirst }}</p>
+                        {% form_field external_redirect %} {% form_field_error external_redirect %}
+                      {% endif %}
                     </li>
                   {% endfor %}
                 </ul>
