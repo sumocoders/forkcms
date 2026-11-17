@@ -914,15 +914,15 @@
           html = '<p class="helpTxt">' + options.emptyMessage + '</p>'
         } else {
           // start html
-          html = '<ul class="list-group">'
+          html = '<ul class="list-unstyled mb-0">'
 
           // loop elements
           for (var i in elements) {
-            html += '    <li class="list-group-item"><div class="input-group">' +
+            html += '    <li class="mb-2"><div class="input-group">' +
               '        <input class="form-control dontSubmit inputField-' + id + '" name="inputField-' + id + '[]" type="text" value="' + elements[i].replace(/"/g, '&quot;') + '" />' +
               '        <button type="button" class="btn btn-danger deleteButton-' + id + '" data-id="' + i + '" title="' + options.removeLabel + '">' +
               '           <span class="fa fa-trash" aria-hidden="true"></span>' +
-              '            <span>' + options.removeLabel + '</span>' +
+              '            <span' + (options.showIconOnly ? ' class="visually-hidden"' : '') + '>' + options.removeLabel + '</span>' +
               '        </button>' +
               '    </div></li>'
           }
