@@ -40,6 +40,11 @@
   vertical-align: middle;
 }
 
+// set the mass action and paging row apart from the rows above it
+.table > tfoot > tr > td {
+  border-top: 1px solid $table-border-color;
+}
+
 .table {
   margin-bottom: 0;
 
