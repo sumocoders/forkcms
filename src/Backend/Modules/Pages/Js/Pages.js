@@ -363,8 +363,19 @@ jsBackend.pages.extras = {
         return
       }
 
-      // set content in editor
-      CKEDITOR.instances['html'].setData(previousContent)
+      var editor = CKEDITOR.instances['html']
+
+      if (editor.mode === 'wysiwyg') {
+        editor.setData(previousContent)
+
+        return
+      }
+
+      // the editor instance is shared between all blocks and keeps the mode of the previous block,
+      // the Source view does not pick up setData(), so switch back to WYSIWYG before setting the content
+      editor.setMode('wysiwyg', function () {
+        editor.setData(previousContent)
+      })
     }).modal('show')
   },
 
