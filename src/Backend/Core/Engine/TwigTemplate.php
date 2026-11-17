@@ -17,7 +17,9 @@ use Symfony\Component\Form\FormRenderer;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
+use Twig\Error\RuntimeError;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
+use Twig\RuntimeLoader\RuntimeLoaderInterface;
 use function Symfony\Component\String\s;
 
 /**
@@ -343,10 +345,30 @@ class TwigTemplate extends BaseTwigTemplate
 
     private function autoloadMissingTaggedExtensions(ContainerInterface $container): void
     {
-        foreach ($container->get(Environment::class)->getExtensions() as $id => $extension) {
+        $mainEnvironment = $container->get(Environment::class);
+        foreach ($mainEnvironment->getExtensions() as $id => $extension) {
             if (!$this->environment->hasExtension($id)) {
                 $this->environment->addExtension($extension);
             }
         }
+
+        // Extensions declared with #[AsTwigFunction]/#[AsTwigFilter] (IncludeOnceExtension, UtmExtension) and the
+        // lazy liip imagine filter are runtimes of the main environment: load them from there.
+        $this->environment->addRuntimeLoader(
+            new class ($mainEnvironment) implements RuntimeLoaderInterface {
+                public function __construct(private readonly Environment $environment)
+                {
+                }
+
+                public function load(string $class): ?object
+                {
+                    try {
+                        return $this->environment->getRuntime($class);
+                    } catch (RuntimeError) {
+                        return null;
+                    }
+                }
+            }
+        );
     }
 }
