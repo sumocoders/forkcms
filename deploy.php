@@ -99,6 +99,7 @@ set('clear_paths', [
     'phpstan.dist.neon',
     'phpunit.xml.dist',
     'postcss.config.js',
+    'rector.php',
     'webpack.backend.js',
     'webpack.common.js',
     'webpack.dev.js',
