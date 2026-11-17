@@ -176,12 +176,13 @@ class Ajax extends KernelLoader implements ApplicationInterface
     {
         $request = Model::getRequest();
 
+        // fork is posted as an array (fork[module], ...): get() refuses non-scalar values since Symfony 6
         if ($request->request->has('fork')) {
-            return (array) $request->request->get('fork');
+            return $request->request->all('fork');
         }
 
         if ($request->query->has('fork')) {
-            return (array) $request->query->get('fork');
+            return $request->query->all('fork');
         }
 
         return (array) $request->query->all();
