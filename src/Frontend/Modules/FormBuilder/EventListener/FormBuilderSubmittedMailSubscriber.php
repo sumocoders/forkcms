@@ -71,6 +71,12 @@ final class FormBuilderSubmittedMailSubscriber
                 )
             ]);
 
+        // send to the recipients of the form instead of the default mailer_to
+        $recipients = array_filter((array) ($form['email'] ?? []));
+        if (count($recipients) > 0) {
+            $message->to(...array_map(static fn (string $email): Address => new Address($email), $recipients));
+        }
+
         // check if we have a replyTo email set
         foreach ($form['fields'] as $field) {
             if (array_key_exists('reply_to', $field['settings']) &&
