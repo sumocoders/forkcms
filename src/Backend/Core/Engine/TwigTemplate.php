@@ -364,8 +364,13 @@ class TwigTemplate extends BaseTwigTemplate
                 {
                     try {
                         return $this->environment->getRuntime($class);
-                    } catch (RuntimeError) {
-                        return null;
+                    } catch (RuntimeError $error) {
+                        // only "not found" means the main environment has no such runtime; keep other failures
+                        if ($error->getRawMessage() === sprintf('Unable to load the "%s" runtime.', $class)) {
+                            return null;
+                        }
+
+                        throw $error;
                     }
                 }
             }
