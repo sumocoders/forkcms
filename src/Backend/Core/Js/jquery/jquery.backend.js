@@ -728,7 +728,7 @@
         '<div class="mb-4">' +
         '<div class="input-group">' +
         '<input class="form-control dontSubmit" id="addValue-' + id + '" name="addValue-' + id + '" type="text" />' +
-        '<button id="addButton-' + id + '" class="btn btn-success">' +
+        '<button type="button" id="addButton-' + id + '" class="btn btn-success">' +
         '<span class="fa fa-plus-square" aria-hidden="true"></span>' +
         '<span' + (options.showIconOnly ? ' class="visually-hidden"' : '') + '>' + options.addLabel + '</span>' +
         '</button>' +
@@ -781,6 +781,13 @@
             }
           })
       }
+
+      // Enter adds the value on keyup, so keep it from submitting the form on keydown
+      $('#addValue-' + id).on('keydown', function (e) {
+        if (e.which === 13) {
+          e.preventDefault()
+        }
+      })
 
       // bind keypress on value-field
       $('#addValue-' + id).bind('keyup', function (e) {
@@ -913,7 +920,7 @@
           for (var i in elements) {
             html += '    <li class="list-group-item"><div class="input-group">' +
               '        <input class="form-control dontSubmit inputField-' + id + '" name="inputField-' + id + '[]" type="text" value="' + elements[i].replace(/"/g, '&quot;') + '" />' +
-              '        <button class="btn btn-danger deleteButton-' + id + '" data-id="' + i + '" title="' + options.removeLabel + '">' +
+              '        <button type="button" class="btn btn-danger deleteButton-' + id + '" data-id="' + i + '" title="' + options.removeLabel + '">' +
               '           <span class="fa fa-trash" aria-hidden="true"></span>' +
               '            <span>' + options.removeLabel + '</span>' +
               '        </button>' +
