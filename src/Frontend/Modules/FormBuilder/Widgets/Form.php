@@ -552,6 +552,8 @@ class Form extends FrontendBaseWidget
                     if (in_array($field['type'], ['dropdown', 'checkbox', 'radiobutton'])) {
                         $possibleValues = [];
                         foreach ($field['settings']['values'] as $value) {
+                            // radiobutton values are value/label pairs, their submitted value is the label by now
+                            $value = is_array($value) ? $value['label'] : $value;
                             $safeValue = str_replace(["'", '"'], '_', html_entity_decode((string) $value, ENT_QUOTES));
                             $possibleValues[$safeValue] = $value;
                         }
