@@ -5,6 +5,9 @@ stages:
     - outdated packages
     - test
 
+workflow:
+    auto_cancel:
+        on_new_commit: interruptible
 
 # Cache default configuration
 cache: &global_cache
@@ -55,6 +58,7 @@ Install dependencies and build assets:
         <<: *global_cache
         policy: pull-push
     stage: build
+    interruptible: true
     tags:
         - docker
 
@@ -69,6 +73,7 @@ PHP_CodeSniffer - check code styling:
         reports:
             junit: phpcs-report.json
     stage: code quality
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -93,6 +98,7 @@ PHPStan - check for bugs:
         reports:
             junit: phpstan-report.json
     stage: code quality
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -114,6 +120,7 @@ Twig-CS-Fixer - check code styling:
         reports:
             junit: twigcs-report.xml
     stage: code quality
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -133,6 +140,7 @@ Stylelint - check code styling:
         reports:
             codequality: stylelint-report.json
     stage: code quality
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -147,6 +155,7 @@ StandardJS - check code styling:
         reports:
             codequality: standardjs-report.json
     stage: code quality
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -159,6 +168,7 @@ NPM packages - check for vulnerabilities:
     script:
         - npm audit --production
     stage: dependency scanning
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -169,6 +179,7 @@ PHP packages - composer audit:
     script:
         - composer audit --ansi --no-interaction
     stage: dependency scanning
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -181,6 +192,7 @@ NPM packages - check for outdated packages:
     script:
         - npm outdated --production
     stage: outdated packages
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -191,6 +203,7 @@ PHP packages - composer outdated:
     script:
         - composer outdated --ansi --no-interaction
     stage: outdated packages
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -213,6 +226,7 @@ PHPUnit - Run unit tests:
         reports:
             junit: phpunit-unit-report.xml
     stage: test
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
