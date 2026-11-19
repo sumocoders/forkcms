@@ -32,7 +32,7 @@ body {
   }
 }
 
-@media screen and (min-width: $screen-sm) {
+@include media-breakpoint-up(sm) {
 
   .main-wrapper {
     min-height: 100%;

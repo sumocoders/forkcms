@@ -47,7 +47,7 @@ jsBackend.settings = {
 
     // display the status alert
     var $statusAlert = $('[data-role="fork-clear-cache-status"]')
-    $statusAlert.toggleClass('hidden')
+    $statusAlert.toggleClass('d-none')
 
     // start the dot animation
     var dotAnimation = jsBackend.settings.startDotAnimation()
@@ -80,7 +80,7 @@ jsBackend.settings = {
           // stop the dot animation
           jsBackend.settings.stopDotAnimation(dotAnimation)
           // hide the status
-          $statusAlert.toggleClass('hidden')
+          $statusAlert.toggleClass('d-none')
           // reset the button
           $clearCacheButton.on('click', jsBackend.settings.clearCache)
           $clearCacheButton.attr('disabled', false)
@@ -102,7 +102,7 @@ jsBackend.settings = {
 
     // display the status alert
     var $statusAlert = $('[data-role="fork-generate-sitemap-status"]')
-    $statusAlert.toggleClass('hidden')
+    $statusAlert.toggleClass('d-none')
 
     // start the dot animation
     var dotAnimation = jsBackend.settings.startDotAnimation()
@@ -128,7 +128,7 @@ jsBackend.settings = {
           // stop the dot animation
           jsBackend.settings.stopDotAnimation(dotAnimation)
           // hide the status
-          $statusAlert.toggleClass('hidden')
+          $statusAlert.toggleClass('d-none')
           // reset the button
           $generateSitemapButton.on('click', jsBackend.settings.generateSitemap)
           $generateSitemapButton.attr('disabled', false)

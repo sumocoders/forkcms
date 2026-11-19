@@ -1,10 +1,9 @@
-.panel {
-  margin-bottom: 0;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
+// Bootstrap 3 panels became Bootstrap 5 cards
+.card {
+  background-color: $white;
+  margin-bottom: 20px;
 
-  .panel-body {
+  .card-body {
     border-spacing: 0;
   }
 
@@ -12,22 +11,12 @@
     margin-bottom: 0;
   }
 
-  .nav-tabs a {
-    text-decoration: none;
-  }
-}
-
-.panel-default {
-  background-color: $white;
-  margin-bottom: 20px;
-
-  .panel-heading {
-
+  .card-header {
     p,
     h2,
     h3,
-    .control-label,
-    .panel-title {
+    .form-label,
+    .card-title {
       color: $gray-base;
       font-size: $font-size-base;
       font-weight: 600;
@@ -36,17 +25,17 @@
     }
   }
 
-  &.panel-pages-block {
+  &.card-pages-block {
     background-color: $gray-lightest;
     border: 0;
     margin-bottom: 0;
 
-    .panel-heading {
+    .card-header {
       border-color: $gray-border;
       padding: 8px 20px 10px;
     }
 
-    .panel-body {
+    .card-body {
       padding: 0 20px 20px;
     }
   }
@@ -55,22 +44,25 @@
     text-decoration: underline;
   }
 
-  .panel-footer {
-    .btn {
-      text-decoration: none;
-    }
+  .nav-tabs a,
+  .card-footer .btn {
+    text-decoration: none;
   }
 }
 
-.panel-editor {
+.card-header {
+  padding-bottom: 10px;
+}
 
-  .panel-body {
+.card-editor {
+  .card-body {
     padding: 0;
   }
 }
 
-.panel-title a {
+.card-title a {
   border: 0;
+  color: inherit;
   text-decoration: none;
 
   &:hover {
@@ -79,28 +71,32 @@
   }
 }
 
-.panel-transparent {
+.card-transparent {
   border-color: #ddd;
 
-  .panel-heading {
+  .card-header {
     border-bottom: 1px solid #ddd;
     margin-bottom: -1px;
   }
 }
 
-// Panel caret behavior
-.panel.open .fa-caret-right {
+// Card caret behavior in collapsible groups
+.card.open .fa-caret-right {
   @extend .fa-caret-down;
 }
 
-.panel-group {
-  margin-bottom: 0;
+.fork-collapse-group {
+  .card {
+    margin-bottom: 0;
 
-  .panel-heading {
+    + .card {
+      margin-top: 5px;
+    }
+  }
 
+  .card-header {
     a {
-
-      .panel-title {
+      .card-title {
         color: $text-color;
       }
 
@@ -108,54 +104,49 @@
       &:focus {
         text-decoration: none;
 
-        .panel-title {
+        .card-title {
           color: $gray-base;
         }
       }
     }
 
-    .panel-title a {
+    .card-title a {
       color: $text-color;
     }
 
-    .inputCheckbox  + .panel-title {
+    .inputCheckbox + .card-title {
       display: inline-block;
     }
   }
 }
 
-.panel-primary label,
-.panel-default label {
-  width: 100%;
-
-  .panel-body {
-    padding: 20px 15px 13px;
-  }
-
-  .panel-footer {
-    background-color: $white;
-    border-top: 0;
-  }
-}
-
-.panel-primary {
-  background-color: $white;
-
-  .panel-heading {
+.card-primary {
+  .card-header {
     background-color: $brand-primary;
 
-    .panel-title {
+    .card-title {
       color: $white;
     }
   }
 }
 
-.panel-default label .panel-heading {
-  border-bottom: 1px solid $gray-lighter;
+.card label {
+  width: 100%;
+
+  .card-header {
+    border-bottom: 1px solid $gray-lighter;
+  }
+
+  .card-body {
+    padding: 20px 15px 13px;
+  }
+
+  .card-footer {
+    background-color: $white;
+    border-top: 0;
+  }
 }
 
-
-
-.fork-dashboard-column .panel-default .panel-body {
+.fork-dashboard-column .card .card-body {
   padding: 20px 15px 13px;
 }

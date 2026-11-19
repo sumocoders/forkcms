@@ -130,7 +130,7 @@ class ImageType extends AbstractType
                         $this->pendingDeletion = $pendingDeletion;
                     }
                 },
-                'preview_class' => 'img-thumbnail img-responsive',
+                'preview_class' => 'img-thumbnail img-fluid',
                 'show_preview' => true,
                 'show_remove_image' => true,
                 'required_image_error' => 'err.FieldIsRequired',

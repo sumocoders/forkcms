@@ -1,4 +1,4 @@
-{% extends 'bootstrap_3_layout.html.twig' %}
+{% extends 'bootstrap_5_layout.html.twig' %}
 
 {% block form_widget_simple %}
   {% if not valid %}
@@ -29,7 +29,7 @@
       {% endif %}
       {% set label_attr_class = '' %}
       {% if horizontal is defined and horizontal %}
-        {% set label_attr_class = 'control-label ' ~ label_attr_class ~ horizontal_label_class %}
+        {% set label_attr_class = 'form-label ' ~ label_attr_class ~ horizontal_label_class %}
       {% endif %}
       {% set label_attr = label_attr|merge({'class': label_attr.class|default('') ~ " " ~ label_attr_class ~ (required ? ' required' : ' optional') }) %}
       <label{% for attrname,attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
@@ -42,11 +42,9 @@
 
 {% block checkbox_radio_label %}
   {% if widget is defined %}
-    {% if required %}
-      {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) %}
-    {% endif %}
-    {% if parent_label_class is defined %}
-      {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|trim}) %}
+    {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' form-check-label' ~ (required ? ' required'))|trim}) %}
+    {% if not compound %}
+      {% set label_attr = label_attr|merge({'for': id}) %}
     {% endif %}
     {% if label is not same as(false) and label is empty %}
       {%- if label_format is not empty -%}
@@ -58,8 +56,9 @@
         {% set label = name|humanize %}
       {%- endif -%}
     {% endif %}
+    {{- widget|raw }}
     <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-    {{- widget|raw }} {{ label is not same as(false) ? (translation_domain is same as(false) ? label : label|trans({}, translation_domain)|ucfirst) -}}
+    {{- label is not same as(false) ? (translation_domain is same as(false) ? label : label|trans({}, translation_domain)|ucfirst) -}}
     </label>
   {% endif %}
 {% endblock checkbox_radio_label %}
@@ -72,7 +71,7 @@
 {% block form_errors -%}
   {% import "Layout/Templates/macros.html.twig" as macro %}
   {% if errors|length > 0 -%}
-    {% if form.parent %}<div class="help-block">{% else %}<div class="alert alert-danger">{% endif %}
+    {% if form.parent %}<div class="invalid-feedback d-block">{% else %}<div class="alert alert-danger">{% endif %}
     <ul class="list-unstyled">
         {%- for error in errors -%}
           <li {% if form.parent %}class="formError"{% endif %} role="alert" id="{{ error.origin.name ~ '-error' }}">
@@ -109,19 +108,19 @@
     data-parameters-selector="{{ '#' ~ parametersId }}"
   >
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading"><p class="tab-pane-title">{{ 'lbl.Titles'|trans|ucfirst }}</p></div>
-        <div class="panel-body">
-          <div class="form-group last">
+      <div class="card">
+        <div class="card-header"><p class="tab-pane-title">{{ 'lbl.Titles'|trans|ucfirst }}</p></div>
+        <div class="card-body">
+          <div>
             <ul class="list-unstyled checkboxTextFieldCombo">
-              <li class="checkbox">
+              <li>
                 <p>
                   {{ form_widget(form.titleOverwrite) }}
                 </p>
                 {{ form_label(form.title) }}
                 {{ form_widget(form.title) }}
                 {{ form_errors(form.title) }}
-                <p class="help-block">{{ 'msg.HelpPageTitle'|trans|raw }}</p>
+                <p class="form-text">{{ 'msg.HelpPageTitle'|trans|raw }}</p>
               </li>
             </ul>
           </div>
@@ -130,41 +129,41 @@
     </div>
 
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading"><p class="tab-pane-title">{{ 'lbl.MetaInformation'|trans|ucfirst }}</p></div>
-        <div class="panel-body">
-          <div class="form-group">
+      <div class="card">
+        <div class="card-header"><p class="tab-pane-title">{{ 'lbl.MetaInformation'|trans|ucfirst }}</p></div>
+        <div class="card-body">
+          <div class="mb-4">
             <ul class="list-unstyled checkboxTextFieldCombo">
-              <li class="checkbox">
+              <li>
                 <p>
                   {{ form_widget(form.descriptionOverwrite) }}
                 </p>
                 {{ form_label(form.description) }}
                 {{ form_widget(form.description) }}
                 {{ form_errors(form.description) }}
-                <p class="help-block">{{ 'msg.HelpMetaDescription'|trans|raw }}</p>
+                <p class="form-text">{{ 'msg.HelpMetaDescription'|trans|raw }}</p>
               </li>
             </ul>
           </div>
-          <div class="form-group{% if not form.custom_meta_tags %} last{% endif %}">
+          <div class="{% if form.custom_meta_tags %}mb-4{% endif %}">
             <ul class="list-unstyled checkboxTextFieldCombo">
-              <li class="checkbox">
+              <li>
                 <p>
                   {{ form_widget(form.keywordsOverwrite) }}
                 </p>
                 {{ form_label(form.keywords) }}
                 {{ form_widget(form.keywords) }}
                 {{ form_errors(form.keywords) }}
-                <p class="help-block">{{ 'msg.HelpMetaKeywords'|trans|raw }}</p>
+                <p class="form-text">{{ 'msg.HelpMetaKeywords'|trans|raw }}</p>
               </li>
             </ul>
           </div>
           {% if form.custom_meta_tags %}
-          <div class="form-group last">
+          <div>
             {{ form_label(form.custom) }}
             {{ form_widget(form.custom) }}
             {{ form_errors(form.custom) }}
-            <p class="help-block">{{ 'msg.HelpMetaCustom'|trans|raw }}</p>
+            <p class="form-text">{{ 'msg.HelpMetaCustom'|trans|raw }}</p>
           </div>
           {% endif %}
         </div>
@@ -172,27 +171,27 @@
     </div>
 
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading"><p class="tab-pane-title">{{ 'lbl.URL'|trans|ucfirst }}</p></div>
-        <div class="panel-body">
-          <div class="form-group">
+      <div class="card">
+        <div class="card-header"><p class="tab-pane-title">{{ 'lbl.URL'|trans|ucfirst }}</p></div>
+        <div class="card-body">
+          <div class="mb-4">
             <ul class="list-unstyled checkboxTextFieldCombo">
-              <li class="checkbox">
+              <li>
                 <p>
                   {{ form_widget(form.urlOverwrite) }}
                 </p>
                 {{ form_label(form.url) }}
-                <div class="form-inline">
+                <div class="d-sm-flex align-items-center">
                   <span id="urlFirstPart">{{ form.vars.base_url }}{{ form.vars.detail_url }}/ </span>{{ form_widget(form.url) }}
                 </div>
                 {{ form_errors(form.url) }}
-                <p class="help-block">{{ 'msg.HelpMetaURL'|trans|raw }}</p>
+                <p class="form-text">{{ 'msg.HelpMetaURL'|trans|raw }}</p>
               </li>
             </ul>
           </div>
-          <div class="form-group last">
+          <div>
             <ul class="list-unstyled checkboxTextFieldCombo">
-              <li class="checkbox">
+              <li>
                 <p>
                   {{ form_widget(form.canonicalUrlOverwrite) }}
                 </p>
@@ -206,24 +205,20 @@
       </div>
     </div>
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading"><p class="tab-pane-title">{{ 'lbl.SEO'|trans|ucfirst }}</p></div>
-        <div class="panel-body">
+      <div class="card">
+        <div class="card-header"><p class="tab-pane-title">{{ 'lbl.SEO'|trans|ucfirst }}</p></div>
+        <div class="card-body">
           <div class="col-md-6">
-            <div class="form-inline">
-              <div class="form-group last"><p><b>{{ 'lbl.Index'|trans|ucfirst }}</b></p>
-                <div class="inputListHorizontal">
-                  {{ form_widget(form.SEOIndex) }}
-                </div>
+            <div class="mb-4"><p><b>{{ 'lbl.Index'|trans|ucfirst }}</b></p>
+              <div class="inputListHorizontal">
+                {{ form_widget(form.SEOIndex) }}
               </div>
             </div>
           </div>
           <div class="col-md-6">
-            <div class="form-inline">
-              <div class="form-group last"><p><b>{{ 'lbl.Follow'|trans|ucfirst }}</b></p>
-                <div class="inputListHorizontal">
-                  {{ form_widget(form.SEOFollow) }}
-                </div>
+            <div class="mb-4"><p><b>{{ 'lbl.Follow'|trans|ucfirst }}</b></p>
+              <div class="inputListHorizontal">
+                {{ form_widget(form.SEOFollow) }}
               </div>
             </div>
           </div>
@@ -233,13 +228,13 @@
   </div>
   {# og:image #}
   <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading"><p class="tab-pane-title">{{ 'lbl.OgImage'|trans|ucfirst }}</p></div>
-      <div class="panel-body">
+    <div class="card">
+      <div class="card-header"><p class="tab-pane-title">{{ 'lbl.OgImage'|trans|ucfirst }}</p></div>
+      <div class="card-body">
         {% if form.parent.vars.data.meta.ogImage %}
-          <img class="img-responsive img-thumbnail" src="/src/Frontend/Files/Pages/images/source/{{ form.parent.vars.data.meta.ogImage }}">
+          <img class="img-fluid img-thumbnail" src="/src/Frontend/Files/Pages/images/source/{{ form.parent.vars.data.meta.ogImage }}">
         {% endif %}
-        {{ form_row(form.deleteOgImage, {'row_attr': {class: form.parent.vars.data.meta.ogImage ? '' : 'hidden'}}) }}
+        {{ form_row(form.deleteOgImage, {'row_attr': {class: form.parent.vars.data.meta.ogImage ? '' : 'd-none'}}) }}
         {{ form_row(form.ogImage) }}
       </div>
     </div>
@@ -261,13 +256,13 @@
   <div class="row">
     {% set show_preview = show_preview and data is not null and data.fileName is not empty %}
     {% if show_preview or show_remove_image %}
-      <div class="form-group{% if show_preview and preview_url %} col-md-3 col-lg-2{% endif %}">
+      <div class="mb-4{% if show_preview and preview_url %} col-md-3 col-lg-2{% endif %}">
         {% if show_preview and preview_url %}
           <img class="{% if preview_class is defined and preview_class is not empty %}{{ preview_class }}{% endif %}" src="{{ preview_url }}">
         {% endif %}
       </div>
     {% endif %}
-    <div class="form-group{% if show_preview and preview_url %} col-md-9 col-lg-10{% endif %}">
+    <div class="mb-4{% if show_preview and preview_url %} col-md-9 col-lg-10{% endif %}">
       {{ form_widget(form.file) }}
       {% if help_text_message %}
         <div class="help-text">{{ help_text_message|trans|format(help_text_argument) }}</div>
@@ -282,7 +277,7 @@
 
 {% block fork_file_widget %}
   {% import "Layout/Templates/macros.html.twig" as macro %}
-  <div class="form-group">
+  <div class="mb-4">
     {{ form_widget(form.file) }}
     {% if help_text_message %}
       <div class="help-text">{{ help_text_message|trans|format(help_text_argument) }}</div>
@@ -291,9 +286,9 @@
   </div>
   {% set show_preview = show_preview and data is not null and data.fileName is not empty %}
   {% if show_preview or show_remove_file %}
-    <div class="form-group">
+    <div class="mb-4">
       {% if show_preview and preview_url %}
-        <a href="{{ preview_url }}" class="btn btn-xs btn-default" target="_blank" rel="noopener noreferrer">
+        <a href="{{ preview_url }}" class="btn btn-sm btn-secondary" target="_blank" rel="noopener noreferrer">
           {{ macro.icon('eye') }}
           {{ preview_label|trans|ucfirst }}
         </a>
@@ -316,17 +311,17 @@
     {% if form.vars.allow_delete %}
       {% set prototype_html = prototype_html ~ '<div class="btn-toolbar">' %}
       {% if form.vars.allow_sequence %}
-        {% set prototype_html = prototype_html ~ '<div class="btn-group pull-left"><span class="btn btn-default fork-data-grid-sortable" data-role="sequence-handle" aria-hidden="true">' ~ macro.icon('reorder') ~ '</span>' ~ macro.buttonIcon('', 'arrow-up', '', 'btn-default', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'up', 'aria-label': 'lbl.MoveUpOnePosition'|trans|ucfirst}) ~ '' ~ macro.buttonIcon('', 'arrow-down', '', 'btn-default', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'down', 'aria-label': 'lbl.MoveDownOnePosition'|trans|ucfirst}) ~ '</div>' %}
+        {% set prototype_html = prototype_html ~ '<div class="btn-group float-start"><span class="btn btn-secondary fork-data-grid-sortable" data-role="sequence-handle" aria-hidden="true">' ~ macro.icon('reorder') ~ '</span>' ~ macro.buttonIcon('', 'arrow-up', '', 'btn-secondary', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'up', 'aria-label': 'lbl.MoveUpOnePosition'|trans|ucfirst}) ~ '' ~ macro.buttonIcon('', 'arrow-down', '', 'btn-secondary', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'down', 'aria-label': 'lbl.MoveDownOnePosition'|trans|ucfirst}) ~ '</div>' %}
       {% endif %}
-      {% set prototype_html = prototype_html ~ '<div class="btn-group pull-right"><button class="btn btn-danger btn-sm" data-removefield="collection" data-field="__id__">' ~ form.vars.delete_button_text|trans({}, translation_domain)|ucfirst|raw ~ '</button></div></div>' %}
+      {% set prototype_html = prototype_html ~ '<div class="btn-group float-end"><button class="btn btn-danger btn-sm" data-removefield="collection" data-field="__id__">' ~ form.vars.delete_button_text|trans({}, translation_domain)|ucfirst|raw ~ '</button></div></div>' %}
     {% endif %}
 
     {% set attr = attr|merge({'data-prototype': prototype_html }) %}
     {% set attr = attr|merge({'data-prototype-name': prototype_name }) %}
   {% endif %}
   <div {{ block('widget_container_attributes') }}>
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card">
+      <div class="card-header">
         {{ form_label(form) }}
       </div>
       <ul class="list-group js-collection" {% if form.vars.allow_sequence %}data-role="collection-sequence"{% endif %}>
@@ -337,14 +332,14 @@
             {% if form.vars.allow_delete or form.vars.allow_sequence %}
               <div class="btn-toolbar">
                 {% if form.vars.allow_sequence %}
-                  <div class="btn-group pull-left">
-                    <span class="btn btn-default fork-data-grid-sortable" data-role="sequence-handle" aria-hidden="true">{{ macro.icon('reorder') }}</span>
-                    {{ macro.buttonIcon('', 'arrow-up', '', 'btn-default', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'up', 'aria-label': 'lbl.MoveUpOnePosition'|trans|ucfirst}) }}
-                    {{ macro.buttonIcon('', 'arrow-down', '', 'btn-default', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'down', 'aria-label': 'lbl.MoveDownOnePosition'|trans|ucfirst}) }}
+                  <div class="btn-group float-start">
+                    <span class="btn btn-secondary fork-data-grid-sortable" data-role="sequence-handle" aria-hidden="true">{{ macro.icon('reorder') }}</span>
+                    {{ macro.buttonIcon('', 'arrow-up', '', 'btn-secondary', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'up', 'aria-label': 'lbl.MoveUpOnePosition'|trans|ucfirst}) }}
+                    {{ macro.buttonIcon('', 'arrow-down', '', 'btn-secondary', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'down', 'aria-label': 'lbl.MoveDownOnePosition'|trans|ucfirst}) }}
                   </div>
                 {% endif %}
                 {% if form.vars.allow_delete %}
-                  <div class="btn-group pull-right">
+                  <div class="btn-group float-end">
                     <button class="btn btn-danger btn-sm" data-removefield="collection" data-field="{{ field.vars.id }}">{{ form.vars.delete_button_text|trans({}, translation_domain)|ucfirst|raw }}</button>
                   </div>
                 {% endif %}
@@ -353,9 +348,9 @@
           </li>
         {% endfor %}
       </ul>
-      <div class="panel-footer clearfix">
+      <div class="card-footer clearfix">
         {% if form.vars.allow_add %}
-          <div class="btn-group pull-right">
+          <div class="btn-group float-end">
             <button class="btn btn-success btn-sm" data-addfield="collection" data-collection="{{ form.vars.id }}" data-prototype-name="{{ prototype_name }}">{{ form.vars.add_button_text|trans({}, translation_domain)|ucfirst|raw }}</button>
           </div>
         {% endif %}
@@ -370,7 +365,7 @@
 {% endblock %}
 
 {% block form_row %}
-  <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+  <div class="mb-4">
     {{- form_label(form) -}}
     {{- form_widget(form) -}}
     {% if (not compound or force_error|default(false)) and not valid %}
@@ -380,15 +375,15 @@
 {% endblock %}
 
 {% block editor_row %}
-  <div class="panel form-group panel-default panel-editor{% if (not compound or force_error|default(false)) and not valid %} panel-danger{% endif %}">
-    <div class="panel-heading">
+  <div class="card card-editor{% if (not compound or force_error|default(false)) and not valid %} border-danger{% endif %}">
+    <div class="card-header">
       {{- form_label(form) -}}
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       {{- form_widget(form) -}}
     </div>
     {% if (not compound or force_error|default(false)) and not valid %}
-      <div class="panel-footer">
+      <div class="card-footer">
         {{- form_errors(form) -}}
       </div>
     {% endif %}
@@ -397,16 +392,16 @@
 
 {% block help %}
   {% for attributeName, attributeValue in attr %}
-    {% if attributeName == 'help' %}<span class="help-block">{{ attributeValue|trans }}</span>{% endif %}
+    {% if attributeName == 'help' %}<span class="form-text">{{ attributeValue|trans }}</span>{% endif %}
   {% endfor %}
 {% endblock %}
 
 {%- block collection_row -%}
-  <div class="panel panel-default">
-    <div class="panel-heading">
+  <div class="card">
+    <div class="card-header">
       {{- form_label(form) -}}
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       {{- form_widget(form) -}}
     </div>
   </div>

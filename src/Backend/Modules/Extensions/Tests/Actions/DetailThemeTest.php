@@ -9,7 +9,7 @@ class DetailThemeTest extends BackendWebTestCase
 {
     public function testAuthenticationIsNeeded(KernelBrowser $client): void
     {
-        self::assertAuthenticationIsNeeded($client, '/private/en/extensions/detail_theme?theme=Fork');
+        self::assertAuthenticationIsNeeded($client, '/private/en/extensions/detail_theme?theme=Bootstrap');
     }
 
     public function testIndexHasModules(KernelBrowser $client): void
@@ -18,10 +18,10 @@ class DetailThemeTest extends BackendWebTestCase
 
         self::assertPageLoadedCorrectly(
             $client,
-            '/private/en/extensions/detail_theme?theme=Fork',
+            '/private/en/extensions/detail_theme?theme=Bootstrap',
             [
                 'Core/Layout/Templates/Home.html.twig',
-                'class="positions">top, main',
+                'class="positions">main, top',
                 'Version',
                 'Description',
             ]

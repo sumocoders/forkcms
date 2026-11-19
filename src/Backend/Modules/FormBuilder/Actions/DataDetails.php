@@ -101,10 +101,10 @@ class DataDetails extends BackendBaseActionIndex
             $startDate = $this->getRequest()->query->get('start_date', '');
 
             // explode date parts
-            $chunks = explode('/', $startDate);
+            $chunks = explode('-', $startDate);
 
             // valid date
-            if (count($chunks) == 3 && checkdate((int) $chunks[1], (int) $chunks[0], (int) $chunks[2])) {
+            if (count($chunks) == 3 && checkdate((int) $chunks[1], (int) $chunks[2], (int) $chunks[0])) {
                 $this->filter['start_date'] = $startDate;
             } else {
                 // invalid date
@@ -121,10 +121,10 @@ class DataDetails extends BackendBaseActionIndex
             $endDate = $this->getRequest()->query->get('end_date', '');
 
             // explode date parts
-            $chunks = explode('/', $endDate);
+            $chunks = explode('-', $endDate);
 
             // valid date
-            if (count($chunks) == 3 && checkdate((int) $chunks[1], (int) $chunks[0], (int) $chunks[2])) {
+            if (count($chunks) == 3 && checkdate((int) $chunks[1], (int) $chunks[2], (int) $chunks[0])) {
                 $this->filter['end_date'] = $endDate;
             } else {
                 // invalid date

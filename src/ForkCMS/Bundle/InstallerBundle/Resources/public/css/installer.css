@@ -16,8 +16,3 @@
 #step2 .list-group-item-danger a  {
     color: white;
 }
-
-.help-block.errorMessage,
-.has-error .control-label {
-    color: #d0021b;
-}

@@ -30,7 +30,7 @@ class PageContextDataCollector extends DataCollector
         }
 
         $this->page = $container->get('page');
-        $this->theme = $container->get('fork.settings')->get('Core', 'theme', 'Fork');
+        $this->theme = $container->get('fork.settings')->get('Core', 'theme', 'Bootstrap');
         $this->sitePath = $container->getParameter('site.path_www');
     }
 

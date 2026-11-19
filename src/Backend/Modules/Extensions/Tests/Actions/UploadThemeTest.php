@@ -33,7 +33,7 @@ class UploadThemeTest extends BackendWebTestCase
             self::URL_UPLOAD_THEME,
             [
                 'Install',
-                '<label for="file" class="control-label">',
+                '<label for="file" class="form-label">',
             ]
         );
     }

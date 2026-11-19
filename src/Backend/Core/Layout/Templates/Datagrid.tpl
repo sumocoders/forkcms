@@ -11,12 +11,12 @@
       {option:headers.sorted}
       {option:headers.sortedAsc}
       <a href="{$headers.sortingURL}" title="{$headers.sortingLabel}" class="sortable sorted">
-        {$headers.label} <span class="fa fa-sort-asc" aria-hidden="true"></span>
+        {$headers.label} <span class="fa fa-sort-up" aria-hidden="true"></span>
       </a>
       {/option:headers.sortedAsc}
       {option:headers.sortedDesc}
       <a href="{$headers.sortingURL}" title="{$headers.sortingLabel}" class="sortable sorted">
-        {$headers.label} <span class="fa fa-sort-desc" aria-hidden="true"></span>
+        {$headers.label} <span class="fa fa-sort-down" aria-hidden="true"></span>
       </a>
       {/option:headers.sortedDesc}
       {/option:headers.sorted}
@@ -53,13 +53,11 @@
   <tr
     {$footerAttributes}>
     <td colspan="{$numColumns}">
-      <div class="form-inline">
-        {option:massAction}
-        <div class="form-group jsMassAction">
-          {$massAction}
-        </div>
-        {/option:massAction}
+      {option:massAction}
+      <div class="row g-2 align-items-center jsMassAction">
+        {$massAction}
       </div>
+      {/option:massAction}
       {option:paging}
       <div class="text-center">
         {$paging}

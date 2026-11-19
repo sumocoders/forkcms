@@ -280,7 +280,7 @@ class ModuleInstaller
         $theme ??= $this->getSetting('Core', 'theme');
 
         // if the theme is still null we should fallback to the core
-        $theme ??= 'Fork';
+        $theme ??= 'Bootstrap';
 
         // return best matching template id
         return (int) $this->getDatabase()->getVar(

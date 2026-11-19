@@ -1,17 +1,22 @@
 .breadcrumb {
-  margin-bottom: 0;
   padding: 12px 0 8px;
 
-  li + li {
-    &:before {
+  .breadcrumb-item + .breadcrumb-item {
+    padding-left: 0;
+
+    // inline instead of the Bootstrap float, so the separator shares the baseline and sits centered between items
+    &::before {
+      color: $gray-light;
       content: '\f105';
-      font-family: FontAwesome;
+      float: none;
+      font-family: 'Font Awesome 6 Free';
       font-size: $font-size-small;
-      padding: 0 5px 0 2px;
+      font-weight: 900;
+      padding: 0 8px;
     }
   }
 
-  li a {
+  .breadcrumb-item a {
     color: $gray;
     font-size: $font-size-base;
 

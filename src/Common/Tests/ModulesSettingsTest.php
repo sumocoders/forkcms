@@ -19,7 +19,7 @@ class ModulesSettingsTest extends TestCase
             new ArrayAdapter()
         );
 
-        $modulesSettings->get('Core', 'theme', 'Fork');
+        $modulesSettings->get('Core', 'theme', 'Bootstrap');
     }
 
     public function testFetchingSettingWorks(): void

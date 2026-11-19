@@ -24,7 +24,7 @@ variables that are available:
                 <a class="d-flex align-self-start" href="{{ item.url }}">{% endif %}
                   {{ item.label }}
                   {% if item.url %}</a>{% endif %}
-                <span class="badge">{{ item.total }}</span>
+                <span class="badge text-bg-secondary">{{ item.total }}</span>
 
                 {% if item.months %}
                   <ul>
@@ -34,7 +34,7 @@ variables that are available:
                         <a href="{{ month.url }}">{% endif %}
                           {{ month.label|customformatdate('MMMM', LANGUAGE) }}
                           {% if month.url %}</a>{% endif %}
-                        <span class="badge">{{ month.total }}</span>
+                        <span class="badge text-bg-secondary">{{ month.total }}</span>
                       </li>
                     {% endfor %}
                   </ul>

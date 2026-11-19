@@ -55,7 +55,7 @@ class Index extends BackendBaseActionIndex
             'form-control danger'
         );
         $ddmMassAction->setOptionAttributes('delete', [
-            'data-target' => '#confirmDelete',
+            'data-bs-target' => '#confirmDelete',
         ]);
         $this->dataGrid->setMassAction($ddmMassAction);
 

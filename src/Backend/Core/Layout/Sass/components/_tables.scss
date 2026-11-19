@@ -15,7 +15,7 @@
   > tbody > tr:nth-of-type(even):focus {
     &:hover,
     &:focus {
-      background-color: $table-bg-hover;
+      background-color: $table-hover-bg;
     }
   }
 }
@@ -38,6 +38,11 @@
 .table > tfoot > tr > td {
   border: 0;
   vertical-align: middle;
+}
+
+// set the mass action and paging row apart from the rows above it
+.table > tfoot > tr > td {
+  border-top: 1px solid $table-border-color;
 }
 
 .table {
@@ -73,11 +78,11 @@
             position: absolute;
           }
 
-          .fa-sort-desc:before {
+          .fa-sort-down:before {
             top: 0;
           }
 
-          .fa-sort-asc:before {
+          .fa-sort-up:before {
             bottom: 0;
           }
         }
@@ -91,9 +96,5 @@
     th + th {
       border-left: 1px solid $table-border-color;
     }
-  }
-
-  .form-group {
-    margin-bottom: 0;
   }
 }

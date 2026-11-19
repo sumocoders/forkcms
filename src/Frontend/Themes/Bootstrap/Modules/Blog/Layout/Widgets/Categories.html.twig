@@ -21,7 +21,7 @@ variables that are available:
             {% for category in widgetBlogCategories %}
               <a class="list-group-item list-group-item-action" href="{{ category.url }}">
                 {{ category.label }}
-                &nbsp;<span class="badge badge-pill badge-default">{{ category.total }}</span> </a>
+                &nbsp;<span class="badge rounded-pill text-bg-secondary">{{ category.total }}</span> </a>
             {% endfor %}
           </div>
         </div>

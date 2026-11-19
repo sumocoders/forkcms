@@ -63,21 +63,21 @@ class Data extends BackendBaseActionIndex
         // add start date
         if ($this->filter['start_date'] !== '') {
             // explode date parts
-            $chunks = explode('/', (string) $this->filter['start_date']);
+            $chunks = explode('-', (string) $this->filter['start_date']);
 
             // add condition
             $query .= ' AND i.sent_on >= ?';
-            $parameters[] = BackendModel::getUTCDate(null, gmmktime(23, 59, 59, $chunks[1], $chunks[0], $chunks[2]));
+            $parameters[] = BackendModel::getUTCDate(null, gmmktime(0, 0, 0, $chunks[1], $chunks[2], $chunks[0]));
         }
 
         // add end date
         if ($this->filter['end_date'] !== '') {
             // explode date parts
-            $chunks = explode('/', (string) $this->filter['end_date']);
+            $chunks = explode('-', (string) $this->filter['end_date']);
 
             // add condition
             $query .= ' AND i.sent_on <= ?';
-            $parameters[] = BackendModel::getUTCDate(null, gmmktime(23, 59, 59, $chunks[1], $chunks[0], $chunks[2]));
+            $parameters[] = BackendModel::getUTCDate(null, gmmktime(23, 59, 59, $chunks[1], $chunks[2], $chunks[0]));
         }
 
         // new query
@@ -190,7 +190,7 @@ class Data extends BackendBaseActionIndex
 
         // mass action
         $ddmMassAction = new \SpoonFormDropdown('action', ['delete' => BL::getLabel('Delete')], 'delete');
-        $ddmMassAction->setOptionAttributes('delete', ['data-target' => '#confirmDelete']);
+        $ddmMassAction->setOptionAttributes('delete', ['data-bs-target' => '#confirmDelete']);
         $this->dataGrid->setMassAction($ddmMassAction);
     }
 
@@ -200,16 +200,16 @@ class Data extends BackendBaseActionIndex
         $endDate = '';
 
         if (isset($this->filter['start_date']) && $this->filter['start_date'] != '') {
-            $chunks = explode('/', (string) $this->filter['start_date']);
-            $startDate = (int) mktime(0, 0, 0, (int) $chunks[1], (int) $chunks[0], (int) $chunks[2]);
+            $chunks = explode('-', (string) $this->filter['start_date']);
+            $startDate = (int) mktime(0, 0, 0, (int) $chunks[1], (int) $chunks[2], (int) $chunks[0]);
             if ($startDate == 0) {
                 $startDate = '';
             }
         }
 
         if (isset($this->filter['end_date']) && $this->filter['end_date'] != '') {
-            $chunks = explode('/', (string) $this->filter['end_date']);
-            $endDate = (int) mktime(0, 0, 0, (int) $chunks[1], (int) $chunks[0], (int) $chunks[2]);
+            $chunks = explode('-', (string) $this->filter['end_date']);
+            $endDate = (int) mktime(0, 0, 0, (int) $chunks[1], (int) $chunks[2], (int) $chunks[0]);
             if ($endDate == 0) {
                 $endDate = '';
             }
@@ -248,10 +248,10 @@ class Data extends BackendBaseActionIndex
             $startDate = $this->getRequest()->query->get('start_date', '');
 
             // explode date parts
-            $chunks = explode('/', $startDate);
+            $chunks = explode('-', $startDate);
 
             // valid date
-            if (count($chunks) == 3 && checkdate((int) $chunks[1], (int) $chunks[0], (int) $chunks[2])) {
+            if (count($chunks) == 3 && checkdate((int) $chunks[1], (int) $chunks[2], (int) $chunks[0])) {
                 $this->filter['start_date'] = $startDate;
             } else {
                 // invalid date
@@ -268,10 +268,10 @@ class Data extends BackendBaseActionIndex
             $endDate = $this->getRequest()->query->get('end_date');
 
             // explode date parts
-            $chunks = explode('/', $endDate);
+            $chunks = explode('-', $endDate);
 
             // valid date
-            if (count($chunks) == 3 && checkdate((int) $chunks[1], (int) $chunks[0], (int) $chunks[2])) {
+            if (count($chunks) == 3 && checkdate((int) $chunks[1], (int) $chunks[2], (int) $chunks[0])) {
                 $this->filter['end_date'] = $endDate;
             } else {
                 // invalid date

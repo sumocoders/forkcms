@@ -17,7 +17,7 @@ jsBackend.extensions.themeSelection = {
     listItems.on('click', function (e) {
       var $this = $(e.currentTarget)
       // store the object
-      var radiobutton = $(this).parents('.panel-select').find('input:radio:first')
+      var radiobutton = $(this).parents('.card-select').find('input:radio:first')
 
       // set checked
       radiobutton.prop('checked', true)
@@ -25,16 +25,16 @@ jsBackend.extensions.themeSelection = {
       // if the radiobutton is checked
       if (radiobutton.is(':checked')) {
         // remove the selected state from all other templates
-        $installedThemes.find('.panel').removeClass('panel-primary').addClass('panel-default')
-        listItems.removeClass('btn-primary').addClass('btn-default')
-        listItems.find('.available-theme').removeClass('hidden')
-        listItems.find('.selected-theme').addClass('hidden')
+        $installedThemes.find('.card').removeClass('card-primary')
+        listItems.removeClass('btn-primary').addClass('btn-secondary')
+        listItems.find('.available-theme').removeClass('d-none')
+        listItems.find('.selected-theme').addClass('d-none')
 
         // add a selected state to the parent
-        radiobutton.closest('.panel').addClass('panel-primary').removeClass('panel-default')
+        radiobutton.closest('.card').addClass('card-primary')
         $this.addClass('btn-primary')
-        $this.find('.available-theme').addClass('hidden')
-        $this.find('.selected-theme').removeClass('hidden')
+        $this.find('.available-theme').addClass('d-none')
+        $this.find('.selected-theme').removeClass('d-none')
       }
     })
   }

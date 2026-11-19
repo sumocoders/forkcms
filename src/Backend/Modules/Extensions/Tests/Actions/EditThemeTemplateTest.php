@@ -11,7 +11,7 @@ class EditThemeTemplateTest extends BackendWebTestCase
     {
         self::assertAuthenticationIsNeeded(
             $client,
-            '/private/en/extensions/edit_theme_template?token=68ozixmy4j&id=3'
+            '/private/en/extensions/edit_theme_template?token=68ozixmy4j&id=5'
         );
     }
 
@@ -21,7 +21,7 @@ class EditThemeTemplateTest extends BackendWebTestCase
 
         self::assertPageLoadedCorrectly(
             $client,
-            '/private/en/extensions/edit_theme_template?token=68ozixmy4j&id=3',
+            '/private/en/extensions/edit_theme_template?token=68ozixmy4j&id=5',
             [
                 'Allow the user to upload an image.',
                 'Positions',

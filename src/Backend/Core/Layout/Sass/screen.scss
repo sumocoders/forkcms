@@ -2,13 +2,16 @@
 
 // Font Awesome
 $fa-font-path: '/fonts/vendors';
-@import 'font-awesome/scss/font-awesome';
-
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/solid';
+@import '@fortawesome/fontawesome-free/scss/regular';
 
 // Bootstrap
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/_variables';
-@import 'bootstrap-variables';
+@import 'bootstrap5/scss/functions';
 @import 'fork-variables';
+@import 'bootstrap-variables';
+@import 'bootstrap5/scss/variables';
+@import 'bootstrap5/scss/maps';
 @import 'bootstrap-imports';
 
 // Base
@@ -17,7 +20,6 @@ $fa-font-path: '/fonts/vendors';
 
 // Plugins
 @import 'plugins/jquery_ui';
-@import 'plugins/tags-input';
 
 // Components
 // Insert components here. Put all components in the components/ directory

@@ -22,21 +22,21 @@
     <div class="row fork-module-content">
       <div class="col-md-8">
         {% if information.description %}
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2 class="panel-title">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">
                 {{ 'lbl.Description'|trans|ucfirst }}
               </h2>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
               <p>{{ information.description|raw }}</p>
             </div>
           </div>
         {% endif %}
         {% if dataGridTemplates %}
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2 class="panel-title">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">
                 {{ 'lbl.Templates'|trans|ucfirst }}
               </h2>
             </div>
@@ -46,37 +46,37 @@
       </div>
       <div class="col-md-4">
         {% if information.thumbnail %}
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2 class="panel-title">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">
                 {{ 'lbl.Image'|trans|ucfirst }}
               </h2>
             </div>
-            <div class="panel-body text-center">
+            <div class="card-body text-center">
               <img src="/src/Frontend/Themes/{{ name }}/{{ information.thumbnail }}" class="img-thumbnail" alt="{{ name }}" />
             </div>
           </div>
         {% endif %}
         {% if information.version %}
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2 class="panel-title">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">
                 {{ 'lbl.Version'|trans|ucfirst }}
               </h2>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
               <p>{{ information.version }}</p>
             </div>
           </div>
         {% endif %}
         {% if information.authors %}
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2 class="panel-title">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">
                 {{ 'lbl.Authors'|trans|ucfirst }}
               </h2>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
               <ul>
                 {% for author in information.authors %}
                   <li>
@@ -100,9 +100,9 @@
     <div class="row fork-module-actions">
       <div class="col-md-12">
         <div class="btn-toolbar">
-          <div class="btn-group pull-right" role="group">
-            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirmInstall">
-              {{ macro.icon('file-o') }}{{ 'lbl.Install'|trans|ucfirst }}
+          <div class="btn-group float-end" role="group">
+            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#confirmInstall">
+              {{ macro.icon('file') }}{{ 'lbl.Install'|trans|ucfirst }}
             </button>
           </div>
         </div>
@@ -116,7 +116,7 @@
                 <p>{{ 'msg.ConfirmThemeInstall'|trans|format(name|e)|raw }}</p>
               </div>
               <div class="modal-footer">
-                {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', {"data-dismiss":"modal"}) }}
+                {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-secondary', {"data-bs-dismiss":"modal"}) }}
                 {{ macro.buttonIcon(geturl('install_theme') ~ '&theme=' ~ name, 'times', 'lbl.OK'|trans|ucfirst, 'btn-primary') }}
               </div>
             </div>

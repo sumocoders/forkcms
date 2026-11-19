@@ -1,37 +1,37 @@
 <ol class="breadcrumb">
   {% for topLevelItem in navigation|filter(topLevelItem => topLevelItem.active) %}
-    <li>
+    <li class="breadcrumb-item">
       <a href="/private/{{ LANGUAGE }}/{{ topLevelItem.url }}">{{ ('lbl.'~topLevelItem.label)|trans|ucfirst }}</a>
     </li>
     {% if topLevelItem.children is not empty %}
       {% for secondaryItem in topLevelItem.children|filter(secondaryItem => secondaryItem.active) %}
-        <li>
+        <li class="breadcrumb-item">
           <a href="/private/{{ LANGUAGE }}/{{ secondaryItem.url }}">{{ ('lbl.'~secondaryItem.label)|trans|ucfirst }}</a>
         </li>
         {% if secondaryItem.children is not empty %}
           {% for tertiaryItem in secondaryItem.children|filter(tertiaryItem => tertiaryItem.active) %}
-            <li>
+            <li class="breadcrumb-item">
               <a href="/private/{{ LANGUAGE }}/{{ tertiaryItem.url }}">{{ ('lbl.'~tertiaryItem.label)|trans|ucfirst }}</a>
             </li>
             {% if ACTION|lower not in tertiaryItem.url and tertiaryItem.label != ACTION %}
-              <li>
+              <li class="breadcrumb-item">
                 {{ ACTION|tolabel }}
               </li>
             {% endif %}
           {% endfor %}
         {% elseif ACTION|lower not in secondaryItem.url and secondaryItem.label != ACTION %}
-          <li>
+          <li class="breadcrumb-item">
             {{ ACTION|tolabel }}
           </li>
         {% endif %}
       {% endfor %}
     {% elseif ACTION|lower not in topLevelItem.url and topLevelItem.label != ACTION %}
-      <li>
+      <li class="breadcrumb-item">
         {{ ACTION|tolabel }}
       </li>
     {% endif %}
   {% endfor %}
   {% if breadcrumbDetail %}
-    <li>{{ breadcrumbDetail }}</li>
+    <li class="breadcrumb-item">{{ breadcrumbDetail }}</li>
   {% endif %}
 </ol>

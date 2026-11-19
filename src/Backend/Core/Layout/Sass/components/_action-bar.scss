@@ -16,7 +16,7 @@
 }
 
 
-@media screen and (min-width: $screen-md) {
+@include media-breakpoint-up(md) {
   .content-action-bar .btn-toolbar {
     margin-top: 0;
 

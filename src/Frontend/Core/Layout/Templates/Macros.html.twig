@@ -2,15 +2,15 @@
   {% import _self as macro %}
   {# When url is an empty string, use a button, otherwise use a hyperlink/anchor #}
   {% if url %}
-    <a href="{{ url }}" class="btn {{ buttonType|default('btn-default') }}" title="{{ label }}" {% if extra is iterable %}{% for attr, value in extra %} {{ attr }}="{{ value }}"{% endfor %}{% else %}{{ extra }}{% endif %}>
+    <a href="{{ url }}" class="btn {{ buttonType|default('btn-secondary') }}" title="{{ label }}" {% if extra is iterable %}{% for attr, value in extra %} {{ attr }}="{{ value }}"{% endfor %}{% else %}{{ extra }}{% endif %}>
       {{ macro.icon(icon) }}
       <span class="btn-text">{{ label }}</span>
     </a>
   {% else %}
-    {% if extra['data-toggle'] is defined and extra['type'] is not defined %}
-      {% set extra = extra|merge({'type' : 'button'}) %}
+    {% if extra['data-bs-toggle'] is defined and extra['type'] is not defined %}
+      {% set extra = extra|merge({type: 'button'}) %}
     {% endif %}
-    <button class="btn {{ buttonType|default('btn-default') }}" title="{{ label }}" {% if extra is iterable %}{% for attr, value in extra %} {{ attr }}="{{ value }}"{% endfor %}{% else %}{{ extra }}{% endif %}>
+    <button class="btn {{ buttonType|default('btn-secondary') }}" title="{{ label }}" {% if extra is iterable %}{% for attr, value in extra %} {{ attr }}="{{ value }}"{% endfor %}{% else %}{{ extra }}{% endif %}>
       {{ macro.icon(icon) }}
       <span class="btn-text">{{ label }}</span>
     </button>
@@ -18,7 +18,7 @@
 {% endmacro %}
 
 {% macro required() %}
-  <abbr data-toggle="tooltip" aria-label="{{ 'lbl.RequiredField'|trans|ucfirst }}" title="{{ 'lbl.RequiredField'|trans|ucfirst }}">*</abbr>
+  <abbr data-bs-toggle="tooltip" aria-label="{{ 'lbl.RequiredField'|trans|ucfirst }}" title="{{ 'lbl.RequiredField'|trans|ucfirst }}">*</abbr>
 {% endmacro %}
 
 {% macro icon(icon) %}
@@ -26,5 +26,6 @@
 {% endmacro %}
 
 {% macro infoTooltip(title) %}
-  <abbr tabindex="0" data-toggle="tooltip" aria-label="{{ title }}" title="{{ title }}">{{ _self.icon('info-circle') }}</abbr>
+  {% import _self as macro %}
+  <abbr tabindex="0" data-bs-toggle="tooltip" aria-label="{{ title }}" title="{{ title }}">{{ macro.icon('circle-info') }}</abbr>
 {% endmacro %}

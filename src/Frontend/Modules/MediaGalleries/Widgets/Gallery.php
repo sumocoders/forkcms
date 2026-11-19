@@ -37,18 +37,34 @@ class Gallery extends BackendBaseWidget
 
     private function getMediaGallery(): ?MediaGallery
     {
-        if (!array_key_exists('gallery_id', $this->data)) {
+        $galleryId = $this->getGalleryId();
+        if ($galleryId === null) {
             return null;
         }
 
         try {
             /** @var MediaGallery $mediaGallery */
-            $mediaGallery = $this->get(MediaGalleryRepository::class)->findOneById($this->data['gallery_id']);
+            $mediaGallery = $this->get(MediaGalleryRepository::class)->findOneById($galleryId);
         } catch (\Exception) {
             return null;
         }
 
         // Only return MediaGallery if the gallery should be visible
         return $mediaGallery->isVisible() ? $mediaGallery : null;
+    }
+
+    /**
+     * Galleries saved before the id became a string hold a serialized Uuid object. Widget data is unserialized
+     * without allowing objects, so that Uuid arrives as __PHP_Incomplete_Class and we read its protected uid.
+     */
+    private function getGalleryId(): ?string
+    {
+        $galleryId = $this->data['gallery_id'] ?? null;
+
+        if ($galleryId instanceof \__PHP_Incomplete_Class) {
+            $galleryId = ((array) $galleryId)["\0*\0uid"] ?? null;
+        }
+
+        return is_string($galleryId) ? $galleryId : null;
     }
 }

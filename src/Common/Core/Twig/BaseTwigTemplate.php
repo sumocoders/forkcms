@@ -140,8 +140,8 @@ abstract class BaseTwigTemplate
 
         // old theme checker
         if ($this->forkSettings->get('Core', 'theme') !== null) {
-            $twig->addGlobal('THEME', $this->forkSettings->get('Core', 'theme', 'Fork'));
-            $themePath = '/src/Frontend/Themes/'.$this->forkSettings->get('Core', 'theme', 'Fork');
+            $twig->addGlobal('THEME', $this->forkSettings->get('Core', 'theme', 'Bootstrap'));
+            $themePath = '/src/Frontend/Themes/'.$this->forkSettings->get('Core', 'theme', 'Bootstrap');
             $twig->addGlobal(
                 'THEME_URL',
                 $themePath

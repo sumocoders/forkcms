@@ -25,7 +25,7 @@ class IndexTest extends FrontendWebTestCase
             [
                 'href="/en/tags/detail/most-used" rel="tag">',
                 LoadTagsTags::TAGS_TAG_2_NAME,
-                '<span class="badge badge-pill badge-default">6</span>',
+                '<span class="badge rounded-pill text-bg-secondary">6</span>',
             ]
         );
     }

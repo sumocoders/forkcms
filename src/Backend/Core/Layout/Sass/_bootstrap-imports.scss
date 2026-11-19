@@ -1,50 +1,38 @@
-// Core variables and mixins
-//@import 'bootstrap-sass/assets/stylesheets/bootstrap/variables';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/mixins';
+// Configuration
+@import 'bootstrap5/scss/mixins';
+@import 'bootstrap5/scss/utilities';
 
-// Reset and dependencies
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/normalize';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/print';
-//@import 'bootstrap-sass/assets/stylesheets/bootstrap/glyphicons';
+// Layout & components
+@import 'bootstrap5/scss/root';
+@import 'bootstrap5/scss/reboot';
+@import 'bootstrap5/scss/type';
+@import 'bootstrap5/scss/images';
+@import 'bootstrap5/scss/containers';
+@import 'bootstrap5/scss/grid';
+@import 'bootstrap5/scss/tables';
+@import 'bootstrap5/scss/forms';
+@import 'bootstrap5/scss/buttons';
+@import 'bootstrap5/scss/transitions';
+@import 'bootstrap5/scss/dropdown';
+@import 'bootstrap5/scss/button-group';
+@import 'bootstrap5/scss/nav';
+@import 'bootstrap5/scss/navbar';
+@import 'bootstrap5/scss/card';
+@import 'bootstrap5/scss/accordion';
+@import 'bootstrap5/scss/breadcrumb';
+@import 'bootstrap5/scss/pagination';
+@import 'bootstrap5/scss/badge';
+@import 'bootstrap5/scss/alert';
+@import 'bootstrap5/scss/progress';
+@import 'bootstrap5/scss/list-group';
+@import 'bootstrap5/scss/close';
+@import 'bootstrap5/scss/modal';
+@import 'bootstrap5/scss/tooltip';
+@import 'bootstrap5/scss/popover';
+@import 'bootstrap5/scss/spinners';
 
-// Core CSS
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/scaffolding';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/type';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/code';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/grid';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/tables';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/forms';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/buttons';
+// Helpers
+@import 'bootstrap5/scss/helpers';
 
-// Components
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/component-animations';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/dropdowns';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/button-groups';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/input-groups';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/navs';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/navbar';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/breadcrumbs';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/pagination';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/pager';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/labels';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/badges';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/jumbotron';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/thumbnails';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/alerts';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/progress-bars';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/media';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/list-group';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/panels';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/responsive-embed';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/wells';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/close';
-
-// Components w/ JavaScript
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/modals';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/tooltip';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/popovers';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/carousel';
-
-// Utility classes
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/utilities';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities';
+// Utilities
+@import 'bootstrap5/scss/utilities/api';

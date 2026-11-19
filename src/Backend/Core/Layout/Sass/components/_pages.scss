@@ -35,12 +35,7 @@
       color: $gray-base;
     }
   }
-
-  .form-group {
-    margin-bottom: 0;
-  }
 }
-
 
 .disabled .templateVisual td {
   background-color: $gray-lightest;
@@ -80,7 +75,7 @@
 
   td {
     background: $gray-lightest;
-    border-radius: $border-radius-small;
+    border-radius: $border-radius-sm;
     border: 1px solid $gray-border;
     vertical-align: top;
 
@@ -123,7 +118,7 @@
     padding: 2px 6px 3px;
   }
 
-  @media screen and (min-width: $screen-sm) {
+  @include media-breakpoint-up(sm) {
 
     .btn-group .btn {
       padding: 4px 15px 5px;
@@ -193,7 +188,7 @@
       }
     }
 
-    @media screen and (min-width: $screen-md) {
+    @include media-breakpoint-up(md) {
 
       .buttonHolder {
 
@@ -254,7 +249,7 @@
     margin-top: 0;
   }
 
-  .panel-body {
+  .card-body {
     padding: 0 20px;
   }
 }
@@ -289,7 +284,7 @@
   margin: 5px 0;
 }
 
-@media screen and (min-width: $screen-md) {
+@include media-breakpoint-up(md) {
   #templateVisualLarge table {
     border-spacing: 15px;
   }
