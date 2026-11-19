@@ -13,7 +13,7 @@
 
   <div class="row fork-module-content media-library-media-group-helper">
     <div class="col-md-12">
-      <div class="card form-group {% if not form.vars.valid %} border-danger{% endif %}">
+      <div class="card{% if not form.vars.valid %} border-danger{% endif %}">
         <div class="card-header">
           {{ form_label(form) }}
         </div>

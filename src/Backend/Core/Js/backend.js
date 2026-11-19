@@ -1750,7 +1750,7 @@ jsBackend.tabs = {
 
       $('.tab-content .tab-pane').each(function () {
         if ($(this).find('.formError').length > 0) {
-          $($('.nav-tabs a[href="#' + $(this).attr('id') + '"]').parent()).addClass('has-error')
+          $('.nav-tabs a[href="#' + $(this).attr('id') + '"]').addClass('text-bg-danger')
         }
       })
     }

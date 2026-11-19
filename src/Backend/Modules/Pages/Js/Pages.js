@@ -363,8 +363,19 @@ jsBackend.pages.extras = {
         return
       }
 
-      // set content in editor
-      CKEDITOR.instances['html'].setData(previousContent)
+      var editor = CKEDITOR.instances['html']
+
+      if (editor.mode === 'wysiwyg') {
+        editor.setData(previousContent)
+
+        return
+      }
+
+      // the editor instance is shared between all blocks and keeps the mode of the previous block,
+      // the Source view does not pick up setData(), so switch back to WYSIWYG before setting the content
+      editor.setMode('wysiwyg', function () {
+        editor.setData(previousContent)
+      })
     }).modal('show')
   },
 
@@ -700,12 +711,12 @@ jsBackend.pages.extras = {
 
     html += '<div class="card-body">'
 
-    html += '<div class="form-group">'
+    html += '<div class="mb-4">'
     html += '<label>' + label + '</label>'
     html += '<input data-ft-label="' + label + '" type="text" class="form-control" value="' + text + '"/>'
     html += '</div>'
 
-    html += '<div class="form-group last">'
+    html += '<div>'
     html += '<label>URL</label>'
     html += '<input data-ft-url="' + label + '" type="url" class="form-control" value="' + url + '"/>'
     html += '</div>'
@@ -729,7 +740,7 @@ jsBackend.pages.extras = {
 
     html += '<div class="card-body">'
 
-    html += '<div class="form-group last">'
+    html += '<div>'
     html += '<input data-ft-url="' + label + '" type="url" class="form-control" value="' + url + '"/>'
     html += '</div>'
 
@@ -752,7 +763,7 @@ jsBackend.pages.extras = {
 
     html += '<div class="card-body">'
 
-    html += '<div class="form-group last">'
+    html += '<div>'
     html += '<input data-ft-label="' + label + '" type="text" class="form-control" value="' + text.trim() + '" />'
     html += '</div>'
 
@@ -775,7 +786,7 @@ jsBackend.pages.extras = {
 
     html += '<div class="card-body">'
 
-    html += '<div class="form-group last">'
+    html += '<div>'
     html += '<textarea class="form-control" data-ft-label="' + label + '" cols="83" rows="15">' + text.trim() + '</textarea>'
     html += '</div>'
 
@@ -798,7 +809,7 @@ jsBackend.pages.extras = {
 
     html += '<div class="card-body">'
 
-    html += '<div class="form-group last">'
+    html += '<div>'
     html += '<input data-ft-anchor="' + label + '" type="text" class="form-control" value="' + text + '" />'
     html += '</div>'
 
@@ -821,7 +832,7 @@ jsBackend.pages.extras = {
 
     html += '<div class="card-body">'
 
-    html += '<div class="form-group last">'
+    html += '<div>'
     html += '<textarea id="user-template-cke-' + key + '" data-ft-label="' + label + '" cols="83" rows="15" class="inputEditor form-control">' + text.trim() + '</textarea>'
     html += '</div>'
 
@@ -844,7 +855,7 @@ jsBackend.pages.extras = {
 
     html += '<div class="card-body clearfix">'
 
-    html += '<div class="form-group thumbnail">'
+    html += '<div class="mb-4 thumbnail">'
     html += '<img class="img-fluid"' + (isVisible ? '' : ' style="display: none;"') + ' src="' + src + '" />'
     html += '<div class="caption" id="ajax-upload-' + key + '">'
     html += '<label>' + label + '</label>'
@@ -853,7 +864,7 @@ jsBackend.pages.extras = {
     html += '</div>'
     html += '</div>'
 
-    html += '<div class="form-group">'
+    html += '<div class="mb-4">'
     html += '<label for="alt' + key + '">Alt attribute</label>'
     html += '<input class="form-control" type="text" id="alt' + key + '" value="' + alt + '" />'
     html += '</div>'
@@ -881,7 +892,7 @@ jsBackend.pages.extras = {
 
     html += '<div class="card-body clearfix">'
 
-    html += '<div class="form-group thumbnail">'
+    html += '<div class="mb-4 thumbnail">'
     html += '<img class="img-fluid"' + ' src="' + src + '" />'
     html += '<div class="caption" id="ajax-upload-' + key + '">'
     html += '<label>' + label + '</label>'

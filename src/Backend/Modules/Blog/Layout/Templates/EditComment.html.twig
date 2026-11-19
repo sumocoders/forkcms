@@ -13,25 +13,25 @@
   {% form editComment %}
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="mb-4">
         <label for="author" class="form-label">
           {{ 'lbl.Author'|trans|ucfirst }}
           {{ macro.required }}
         </label>
         {% form_field author %} {% form_field_error author %}
       </div>
-      <div class="form-group">
+      <div class="mb-4">
         <label for="email" class="form-label">
           {{ 'lbl.Email'|trans|ucfirst }}
           {{ macro.required }}
         </label>
         {% form_field email %} {% form_field_error email %}
       </div>
-      <div class="form-group">
+      <div class="mb-4">
         <label for="website" class="form-label">{{ 'lbl.Website'|trans|ucfirst }}</label>
         {% form_field website %} {% form_field_error website %}
       </div>
-      <div class="form-group">
+      <div class="mb-4">
         <label for="text" class="form-label">
           {{ 'lbl.Text'|trans|ucfirst }}
           {{ macro.required }}

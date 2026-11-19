@@ -42,14 +42,6 @@ div.active.tab-pane:focus {
     }
   }
 
-  .has-error .nav-link,
-  .has-error .nav-link:hover,
-  .has-error .nav-link:focus {
-    -webkit-font-smoothing: antialiased;
-    background-color: $brand-danger;
-    color: $white;
-  }
-
   .danger .nav-link {
     background-color: $brand-danger;
     color: $white;

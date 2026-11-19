@@ -9,7 +9,7 @@
   {% form add %}
   <div class="row fork-module-content">
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="mb-4">
         <label for="title" class="form-label">{{ 'lbl.Title'|trans|ucfirst }}{{ macro.required }}</label>
         {% form_field title %} {% form_field_error title %}
       </div>
@@ -20,35 +20,35 @@
           </h2>
         </div>
         <div class="card-body">
-          <div class="form-group">
+          <div class="mb-4">
             <label for="street" class="form-label">
               {{ 'lbl.Street'|trans|ucfirst }}
               {{ macro.required }}
             </label>
             {% form_field street %} {% form_field_error street %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="number" class="form-label">
               {{ 'lbl.Number'|trans|ucfirst }}
               {{ macro.required }}
             </label>
             {% form_field number %} {% form_field_error number %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="zip" class="form-label">
               {{ 'lbl.Zip'|trans|ucfirst }}
               {{ macro.required }}
             </label>
             {% form_field zip %} {% form_field_error zip %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="city" class="form-label">
               {{ 'lbl.City'|trans|ucfirst }}
               {{ macro.required }}
             </label>
             {% form_field city %} {% form_field_error city %}
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label for="country" class="form-label">
               {{ 'lbl.Country'|trans|ucfirst }}
               {{ macro.required }}
