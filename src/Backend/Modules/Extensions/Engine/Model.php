@@ -330,7 +330,7 @@ class Model
         $values = [];
 
         foreach ($extras as $row) {
-            $row['data'] = @unserialize($row['data'], ['allowed_classes' => false]);
+            $row['data'] = @unserialize((string) $row['data'], ['allowed_classes' => false]) ?: [];
 
             // remove items that are not for the current language
             if (isset($row['data']['language']) && $row['data']['language'] != BL::getWorkingLanguage()) {
