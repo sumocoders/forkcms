@@ -255,21 +255,15 @@ class Language
         $lbl = (array) ($translations['lbl'] ?? []);
         $msg = (array) ($translations['msg'] ?? []);
         foreach ($err as $module => $translations) {
-            if (!isset(self::$err[$module])) {
-                self::$err[$module] = [];
-            }
+            self::$err[$module] ??= [];
             self::$err[$module] = array_merge(self::$err[$module], $translations);
         }
         foreach ($lbl as $module => $translations) {
-            if (!isset(self::$lbl[$module])) {
-                self::$lbl[$module] = [];
-            }
+            self::$lbl[$module] ??= [];
             self::$lbl[$module] = array_merge(self::$lbl[$module], $translations);
         }
         foreach ($msg as $module => $translations) {
-            if (!isset(self::$msg[$module])) {
-                self::$msg[$module] = [];
-            }
+            self::$msg[$module] ??= [];
             self::$msg[$module] = array_merge(self::$msg[$module], $translations);
         }
     }

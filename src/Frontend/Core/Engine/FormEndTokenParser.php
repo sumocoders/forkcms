@@ -15,7 +15,7 @@ class FormEndTokenParser extends AbstractTokenParser
     public function parse(Token $token): Node
     {
         $stream = $this->parser->getStream();
-        if ($stream->getCurrent()->getType() !== Token::BLOCK_END_TYPE) {
+        if (!$stream->getCurrent()->test(Token::BLOCK_END_TYPE)) {
             $error = sprintf("'%s' does not require any arguments.", $this->getTag());
             throw new SyntaxError(
                 $error,
@@ -35,7 +35,7 @@ class FormEndTokenParser extends AbstractTokenParser
 
         FormState::$current = null;
 
-        return new FormEndNode($token->getLine(), $this->getTag());
+        return new FormEndNode($token->getLine());
     }
 
     public function getTag(): string

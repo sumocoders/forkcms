@@ -20,6 +20,9 @@ use SpoonFormTime;
  */
 class Form extends \SpoonForm
 {
+    // SpoonForm leaves this null and passes it to trim() in validate(), deprecated since PHP 8.1
+    protected $errors = '';
+
     /**
      * The header instance
      *

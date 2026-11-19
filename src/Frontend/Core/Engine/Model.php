@@ -2,7 +2,6 @@
 
 namespace Frontend\Core\Engine;
 
-use InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -40,8 +39,8 @@ class Model extends \Common\Core\Model
         }
 
         // build query string
-        $queryString = http_build_query($parameters, null, $separator, PHP_QUERY_RFC3986);
-        if (mb_strpos($url, '?') !== false) {
+        $queryString = http_build_query($parameters, '', $separator, PHP_QUERY_RFC3986);
+        if (str_contains($url, '?')) {
             return $url . $separator . $queryString . $hash;
         }
 

@@ -109,7 +109,7 @@
         </div>
         <div class="card-body">
           <p>
-            <label for="folder">{{ 'lbl.MediaFolder'|trans|capitalize }}{{ macro.required }}</label>
+            <label for="folder">{{ 'lbl.MediaFolder'|trans|capitalize }}{{ macro.required() }}</label>
             <select id="uploadMediaFolderId" name="uploadMediaFolderId">
               <option>{{ 'lbl.Loading'|trans|ucfirst }}</option>
             </select>&nbsp;&nbsp;
@@ -168,17 +168,17 @@
         </div>
         <div class="card-body">
           <p>
-            <label>{{ 'lbl.MediaMovieSource'|trans|capitalize }}{{ macro.required }}</label>
+            <label>{{ 'lbl.MediaMovieSource'|trans|capitalize }}{{ macro.required() }}</label>
             {# The following dropdown is filled by javascript from the MediaLibraryHelper.js file #}
             <select id="mediaMovieStorageType" name="media_movie_source"></select>
           </p>
           <p>
-            <label>{{ 'lbl.MediaMovieId'|trans|capitalize }}{{ macro.required }}</label>
+            <label>{{ 'lbl.MediaMovieId'|trans|capitalize }}{{ macro.required() }}</label>
             <input id="mediaMovieId" name="media_movie_id" type="text" class="inputText" />
             <span class="helpTxt">{{ 'msg.MediaMovieIdHelp'|trans }}</span>
           </p>
           <p>
-            <label>{{ 'lbl.MediaMovieTitle'|trans|capitalize }}{{ macro.required }}</label>
+            <label>{{ 'lbl.MediaMovieTitle'|trans|capitalize }}{{ macro.required() }}</label>
             <input id="mediaMovieTitle" name="media_movie_title" type="text" class="inputText" />
           </p>
         </div>

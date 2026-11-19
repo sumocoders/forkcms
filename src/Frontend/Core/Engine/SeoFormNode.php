@@ -3,6 +3,7 @@
 namespace Frontend\Core\Engine;
 
 use Backend\Core\Language\Language as BackendLanguage;
+use Twig\Attribute\YieldReady;
 use Twig\Compiler;
 use Twig\Node\Node;
 use function Symfony\Component\String\s;
@@ -10,281 +11,281 @@ use function Symfony\Component\String\s;
 /**
  * Twig node for writing the SEO form
  */
+#[YieldReady]
 class SeoFormNode extends Node
 {
     /**
      * @param string $form Name of the template var holding the form this field
      *                     belongs to.
      * @param int $lineNumber Line number in the template source file.
-     * @param string $tag
      */
-    public function __construct(private readonly string $form, int $lineNumber, string $tag)
+    public function __construct(private readonly string $form, int $lineNumber)
     {
-        parent::__construct([], [], $lineNumber, $tag);
+        parent::__construct([], [], $lineNumber);
     }
 
     public function compile(Compiler $compiler): void
     {
         $compiler
             ->addDebugInfo($this)
-            ->write('echo \'<div class="row">\';')
-            ->write('echo \'<div class="col-md-12">\';')
-            ->write('echo \'<div class="card">\';')
-            ->write('echo \'<div class="card-header">\';')
-            ->write('echo "<h2 class=\"card-title\">' . $this->lbl('Titles') . '</h2>";')
-            ->write('echo \'</div>\';')
-            ->write('echo \'<div class="card-body">\';')
-            ->write('echo \'<div class="mb-4">\';')
-            ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
-            ->write('echo \'<li>\';')
-            ->write('echo "<p class=\"form-check\"><label for=\"pageTitleOverwrite\">";')
+            ->write('yield \'<div class="row">\';')
+            ->write('yield \'<div class="col-md-12">\';')
+            ->write('yield \'<div class="card">\';')
+            ->write('yield \'<div class="card-header">\';')
+            ->write('yield "<h2 class=\"card-title\">' . $this->lbl('Titles') . '</h2>";')
+            ->write('yield \'</div>\';')
+            ->write('yield \'<div class="card-body">\';')
+            ->write('yield \'<div class="mb-4">\';')
+            ->write('yield \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
+            ->write('yield \'<li>\';')
+            ->write('yield "<p class=\"form-check\"><label for=\"pageTitleOverwrite\">";')
             ->write($this->getField('page_title_overwrite'))
-            ->write('echo "' . $this->lbl('PageTitle') . '</label></p>";')
+            ->write('yield "' . $this->lbl('PageTitle') . '</label></p>";')
             ->write($this->getError('page_title'))
-            ->write('echo "<label for=\"pageTitle\" class=\"visually-hidden\">";')
-            ->write('echo "' . $this->lbl('PageTitle') . '</label>";')
+            ->write('yield "<label for=\"pageTitle\" class=\"visually-hidden\">";')
+            ->write('yield "' . $this->lbl('PageTitle') . '</label>";')
             ->write($this->getField('page_title'))
-            ->write('echo "<p class=\"form-text\">' . $this->msg('HelpPageTitle') . '</p>";')
-            ->write('echo \'</li>\';')
-            ->write('echo \'</ul>\';')
-            ->write('echo \'</div>\';');
+            ->write('yield "<p class=\"form-text\">' . $this->msg('HelpPageTitle') . '</p>";')
+            ->write('yield \'</li>\';')
+            ->write('yield \'</ul>\';')
+            ->write('yield \'</div>\';');
 
         $compiler
             ->write('if (' . $this->hasField('navigation_title_overwrite') . ') {')
-            ->write('echo \'<div>\';')
-            ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
-            ->write('echo \'<li>\';')
-            ->write('echo "<p class=\"form-check\"><label for=\"navigationTitleOverwrite\">";')
+            ->write('yield \'<div>\';')
+            ->write('yield \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
+            ->write('yield \'<li>\';')
+            ->write('yield "<p class=\"form-check\"><label for=\"navigationTitleOverwrite\">";')
             ->write($this->getField('navigation_title_overwrite'))
-            ->write('echo "' . $this->lbl('NavigationTitle') . '</label></p>";')
+            ->write('yield "' . $this->lbl('NavigationTitle') . '</label></p>";')
             ->write($this->getError('navigation_title'))
-            ->write('echo "<label for=\"navigationTitle\" class=\"visually-hidden\">";')
-            ->write('echo "' . $this->lbl('NavigationTitle') . '</label>";')
+            ->write('yield "<label for=\"navigationTitle\" class=\"visually-hidden\">";')
+            ->write('yield "' . $this->lbl('NavigationTitle') . '</label>";')
             ->write($this->getField('navigation_title'))
-            ->write('echo "<p class=\"form-text\">' . $this->msg('HelpNavigationTitle') . '</p>";')
-            ->write('echo \'</li>\';')
-            ->write('echo \'</ul>\';')
-            ->write('echo \'</div>\';')
+            ->write('yield "<p class=\"form-text\">' . $this->msg('HelpNavigationTitle') . '</p>";')
+            ->write('yield \'</li>\';')
+            ->write('yield \'</ul>\';')
+            ->write('yield \'</div>\';')
             ->write('}');
 
         $compiler
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'<div class="row">\';')
-            ->write('echo \'<div class="col-md-12">\';')
-            ->write('echo \'<div class="card">\';')
-            ->write('echo \'<div class="card-header">\';')
-            ->write('echo "<h2 class=\"card-title\">' . $this->lbl('MetaInformation') . '</h2>";')
-            ->write('echo \'</div>\';')
-            ->write('echo \'<div class="card-body">\';')
-            ->write('echo \'<div class="mb-4">\';')
-            ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
-            ->write('echo \'<li>\';')
-            ->write('echo "<p class=\"form-check\"><label for=\"metaDescriptionOverwrite\">";')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'<div class="row">\';')
+            ->write('yield \'<div class="col-md-12">\';')
+            ->write('yield \'<div class="card">\';')
+            ->write('yield \'<div class="card-header">\';')
+            ->write('yield "<h2 class=\"card-title\">' . $this->lbl('MetaInformation') . '</h2>";')
+            ->write('yield \'</div>\';')
+            ->write('yield \'<div class="card-body">\';')
+            ->write('yield \'<div class="mb-4">\';')
+            ->write('yield \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
+            ->write('yield \'<li>\';')
+            ->write('yield "<p class=\"form-check\"><label for=\"metaDescriptionOverwrite\">";')
             ->write($this->getField('meta_description_overwrite'))
-            ->write('echo "' . $this->lbl('Description') . '</label></p>";')
+            ->write('yield "' . $this->lbl('Description') . '</label></p>";')
             ->write($this->getError('meta_description'))
-            ->write('echo "<label for=\"metaDescription\" class=\"visually-hidden\">";')
-            ->write('echo "' . $this->lbl('Description') . '</label>";')
+            ->write('yield "<label for=\"metaDescription\" class=\"visually-hidden\">";')
+            ->write('yield "' . $this->lbl('Description') . '</label>";')
             ->write($this->getField('meta_description'))
-            ->write('echo "<p class=\"form-text\">' . $this->msg('HelpMetaDescription') . '</p>";')
-            ->write('echo \'</li>\';')
-            ->write('echo \'</ul>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'<div class="mb-4">\';')
-            ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
-            ->write('echo \'<li>\';')
-            ->write('echo "<p class=\"form-check\"><label for=\"metaKeywordsOverwrite\">";')
+            ->write('yield "<p class=\"form-text\">' . $this->msg('HelpMetaDescription') . '</p>";')
+            ->write('yield \'</li>\';')
+            ->write('yield \'</ul>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'<div class="mb-4">\';')
+            ->write('yield \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
+            ->write('yield \'<li>\';')
+            ->write('yield "<p class=\"form-check\"><label for=\"metaKeywordsOverwrite\">";')
             ->write($this->getField('meta_keywords_overwrite'))
-            ->write('echo "' . $this->lbl('Keywords') . '</label></p>";')
+            ->write('yield "' . $this->lbl('Keywords') . '</label></p>";')
             ->write($this->getError('meta_keywords'))
-            ->write('echo "<label for=\"metaKeywords\" class=\"visually-hidden\">";')
-            ->write('echo "' . $this->lbl('Keywords') . '</label>";')
+            ->write('yield "<label for=\"metaKeywords\" class=\"visually-hidden\">";')
+            ->write('yield "' . $this->lbl('Keywords') . '</label>";')
             ->write($this->getField('meta_keywords'))
-            ->write('echo "<p class=\"form-text\">' . $this->msg('HelpMetaKeywords') . '</p>";')
-            ->write('echo \'</li>\';')
-            ->write('echo \'</ul>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'<div>\';')
-            ->write('echo "<label for=\"metaDescriptionOverwrite\">' . $this->lbl('ExtraMetaTags') . '</label>";')
+            ->write('yield "<p class=\"form-text\">' . $this->msg('HelpMetaKeywords') . '</p>";')
+            ->write('yield \'</li>\';')
+            ->write('yield \'</ul>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'<div>\';')
+            ->write('yield "<label for=\"metaDescriptionOverwrite\">' . $this->lbl('ExtraMetaTags') . '</label>";')
             ->write($this->getError('meta_custom'))
             ->write($this->getField('meta_custom'))
-            ->write('echo "<p class=\"form-text\">' . $this->msg('HelpMetaCustom') . '</p>";')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'<div class="row">\';')
-            ->write('echo \'<div class="col-md-12">\';')
-            ->write('echo \'<div class="card">\';')
-            ->write('echo \'<div class="card-header">\';')
-            ->write('echo "<h2 class=\"card-title\">' . $this->lbl('URL') . '</h2>";')
-            ->write('echo \'</div>\';')
-            ->write('echo \'<div class="card-body">\';')
-            ->write('echo \'<div class="mb-4">\';')
-            ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
-            ->write('echo \'<li>\';')
-            ->write('echo "<p class=\"form-check\"><label for=\"urlOverwrite\">";')
+            ->write('yield "<p class=\"form-text\">' . $this->msg('HelpMetaCustom') . '</p>";')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'<div class="row">\';')
+            ->write('yield \'<div class="col-md-12">\';')
+            ->write('yield \'<div class="card">\';')
+            ->write('yield \'<div class="card-header">\';')
+            ->write('yield "<h2 class=\"card-title\">' . $this->lbl('URL') . '</h2>";')
+            ->write('yield \'</div>\';')
+            ->write('yield \'<div class="card-body">\';')
+            ->write('yield \'<div class="mb-4">\';')
+            ->write('yield \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
+            ->write('yield \'<li>\';')
+            ->write('yield "<p class=\"form-check\"><label for=\"urlOverwrite\">";')
             ->write($this->getField('url_overwrite'))
-            ->write('echo "' . $this->lbl('URL') . '</label></p>";')
-            ->write('echo \'<div class="d-sm-flex align-items-center">\';');
+            ->write('yield "' . $this->lbl('URL') . '</label></p>";')
+            ->write('yield \'<div class="d-sm-flex align-items-center">\';');
 
         $compiler
-            ->write('echo \'<span id="urlFirstPart">\';')
+            ->write('yield \'<span id="urlFirstPart">\';')
             ->write('if (' . $this->hasVariable('detailURL') . ') {')
             ->write($this->getVariable('detailURL'))
-            ->write('echo "/";')
+            ->write('yield "/";')
             ->write('} else {')
-            ->write('echo "' . SITE_URL . '/' . ' ' . '";')
+            ->write('yield "' . SITE_URL . '/' . ' ' . '";')
             ->write('}')
-            ->write('echo \'</span>\';');
+            ->write('yield \'</span>\';');
 
         $compiler
-            ->write('echo "<label for=\"url\" class=\"visually-hidden\">";')
-            ->write('echo "' . $this->lbl('CustomURL') . '</label>";')
+            ->write('yield "<label for=\"url\" class=\"visually-hidden\">";')
+            ->write('yield "' . $this->lbl('CustomURL') . '</label>";')
             ->write($this->getField('url'))
-            ->write('echo \'</div>\';')
+            ->write('yield \'</div>\';')
             ->write($this->getError('url'))
-            ->write('echo "<p class=\"form-text\">' . $this->msg('HelpMetaURL') . '</p>";')
-            ->write('echo \'</li>\';')
-            ->write('echo \'</ul>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'<div>\';')
-            ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
-            ->write('echo \'<li>\';')
-            ->write('echo "<p class=\"form-check\"><label for=\"canonicalUrlOverwrite\">";')
+            ->write('yield "<p class=\"form-text\">' . $this->msg('HelpMetaURL') . '</p>";')
+            ->write('yield \'</li>\';')
+            ->write('yield \'</ul>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'<div>\';')
+            ->write('yield \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
+            ->write('yield \'<li>\';')
+            ->write('yield "<p class=\"form-check\"><label for=\"canonicalUrlOverwrite\">";')
             ->write($this->getField('canonical_url_overwrite'))
-            ->write('echo "' . $this->lbl('CanonicalURL') . '</label></p>";')
+            ->write('yield "' . $this->lbl('CanonicalURL') . '</label></p>";')
             ->write($this->getError('canonical_url'))
-            ->write('echo "<label for=\"canonicalUrl\" class=\"visually-hidden\">";')
-            ->write('echo "' . $this->lbl('URL') . '</label>";')
+            ->write('yield "<label for=\"canonicalUrl\" class=\"visually-hidden\">";')
+            ->write('yield "' . $this->lbl('URL') . '</label>";')
             ->write($this->getField('canonical_url'))
-            ->write('echo \'</li>\';')
-            ->write('echo \'</ul>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'<div class="row">\';')
-            ->write('echo \'<div class="col-md-12">\';')
-            ->write('echo \'<div class="card">\';')
-            ->write('echo \'<div class="card-header">\';')
-            ->write('echo "<h2 class=\"card-title\">' . $this->lbl('SEO') . '</h2>";')
-            ->write('echo \'</div>\';')
-            ->write('echo \'<div class="card-body">\';')
-            ->write('echo \'<div class="col-md-6">\';')
-            ->write('echo \'<div class="mb-4">\';')
-            ->write('echo "<p><b>' . $this->lbl('Index') . '</b></p>";');
+            ->write('yield \'</li>\';')
+            ->write('yield \'</ul>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'<div class="row">\';')
+            ->write('yield \'<div class="col-md-12">\';')
+            ->write('yield \'<div class="card">\';')
+            ->write('yield \'<div class="card-header">\';')
+            ->write('yield "<h2 class=\"card-title\">' . $this->lbl('SEO') . '</h2>";')
+            ->write('yield \'</div>\';')
+            ->write('yield \'<div class="card-body">\';')
+            ->write('yield \'<div class="col-md-6">\';')
+            ->write('yield \'<div class="mb-4">\';')
+            ->write('yield "<p><b>' . $this->lbl('Index') . '</b></p>";');
 
         $compiler
             ->write('if (' . $this->hasError('seo_index') . ') {')
-            ->write('echo \'<div class="alert alert-danger">\';')
+            ->write('yield \'<div class="alert alert-danger">\';')
             ->write($this->getError('seo_index'))
-            ->write('echo \'</div>\';')
+            ->write('yield \'</div>\';')
             ->write('}');
 
         $compiler
-            ->write('echo \'<ul class="list-unstyled inputListHorizontal">\';')
+            ->write('yield \'<ul class="list-unstyled inputListHorizontal">\';')
             ->write($this->loopTroughField('seo_index', '$index'))
-            ->write('echo \'<li class="form-check">\';')
-            ->write('echo "<label for=\"" . $index["id"] . "\">" . $index["rbtSeoIndex"] . $index["label"] . "</label>";')
-            ->write('echo \'</li>\';')
+            ->write('yield \'<li class="form-check">\';')
+            ->write('yield "<label for=\"" . $index["id"] . "\">" . $index["rbtSeoIndex"] . $index["label"] . "</label>";')
+            ->write('yield \'</li>\';')
             ->write('}')
-            ->write('echo \'</ul>\';');
+            ->write('yield \'</ul>\';');
 
         $compiler
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'<div class="col-md-6">\';')
-            ->write('echo \'<div class="mb-4">\';')
-            ->write('echo "<p><b>' . $this->lbl('Follow') . '</b></p>";');
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'<div class="col-md-6">\';')
+            ->write('yield \'<div class="mb-4">\';')
+            ->write('yield "<p><b>' . $this->lbl('Follow') . '</b></p>";');
 
         $compiler
             ->write('if (' . $this->hasError('seo_follow') . ') {')
-            ->write('echo \'<div class="alert alert-danger">\';')
+            ->write('yield \'<div class="alert alert-danger">\';')
             ->write($this->getError('seo_follow'))
-            ->write('echo \'</div>\';')
+            ->write('yield \'</div>\';')
             ->write('}');
 
         $compiler
-            ->write('echo \'<ul class="list-unstyled inputListHorizontal">\';')
+            ->write('yield \'<ul class="list-unstyled inputListHorizontal">\';')
             ->write($this->loopTroughField('seo_follow', '$follow'))
-            ->write('echo \'<li class="form-check">\';')
-            ->write('echo "<label for=\"" . $follow["id"] . "\">" . $follow["rbtSeoFollow"] . $follow["label"] . "</label>";')
-            ->write('echo \'</li>\';')
+            ->write('yield \'<li class="form-check">\';')
+            ->write('yield "<label for=\"" . $follow["id"] . "\">" . $follow["rbtSeoFollow"] . $follow["label"] . "</label>";')
+            ->write('yield \'</li>\';')
             ->write('}')
-            ->write('echo \'</ul>\';');
+            ->write('yield \'</ul>\';');
 
         $compiler
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
 
-            ->write('echo \'<div class="card">\';')
-            ->write('echo \'<div class="card-header">\';')
-            ->write('echo "<h2 class=\"card-title\">' . $this->lbl('Languages') . '</h2>";')
-            ->write('echo \'</div>\';')
-            ->write('echo \'<div class="card-body">\';')
+            ->write('yield \'<div class="card">\';')
+            ->write('yield \'<div class="card-header">\';')
+            ->write('yield "<h2 class=\"card-title\">' . $this->lbl('Languages') . '</h2>";')
+            ->write('yield \'</div>\';')
+            ->write('yield \'<div class="card-body">\';')
             ->write($this->loopTroughField('spoonHreflangFields', '$hreflangField'))
-            ->write('echo \'<div class="mb-4">\';')
-            ->write('echo "<label for=\"hreflang" . $hreflangField["language"] . "\">" . $hreflangField["label"] . "</label>";')
-            ->write('echo $hreflangField["field"];')
-            ->write('echo \'</div>\';')
+            ->write('yield \'<div class="mb-4">\';')
+            ->write('yield "<label for=\"hreflang" . $hreflangField["language"] . "\">" . $hreflangField["label"] . "</label>";')
+            ->write('yield $hreflangField["field"];')
+            ->write('yield \'</div>\';')
             ->write('}')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
 
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';');
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';');
 
         // Og:image
         $compiler
-            ->write('echo \'<div class="row">\';')
-            ->write('echo \'<div class="col-md-12">\';')
-            ->write('echo \'<div class="card">\';')
-            ->write('echo \'<div class="card-header">\';')
-            ->write('echo "<h2 class=\"card-title\">' . $this->lbl('OgImage') . '</h2>";')
-            ->write('echo \'</div>\';')
-            ->write('echo \'<div class="card-body">\';');
+            ->write('yield \'<div class="row">\';')
+            ->write('yield \'<div class="col-md-12">\';')
+            ->write('yield \'<div class="card">\';')
+            ->write('yield \'<div class="card-header">\';')
+            ->write('yield "<h2 class=\"card-title\">' . $this->lbl('OgImage') . '</h2>";')
+            ->write('yield \'</div>\';')
+            ->write('yield \'<div class="card-body">\';');
 
         $compiler
             ->write('if (' . $this->hasVariable('og_image') . ') {')
-            ->write('echo \'<img class="img-fluid img-thumbnail" src="/src/Frontend/Files/Pages/images/source/\';')
+            ->write('yield \'<img class="img-fluid img-thumbnail" src="/src/Frontend/Files/Pages/images/source/\';')
             ->write($this->getVariable('og_image'))
-            ->write('echo \'">\';')
+            ->write('yield \'">\';')
             ->write('}');
 
         $compiler
             ->write('if (' . $this->hasField('og_image_delete') . ') {')
-            ->write('echo \'<div class="mb-4">\';')
-            ->write('echo \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
-            ->write('echo \'<li>\';')
-            ->write('echo "<p class=\"form-check\"><label for=\"ogImageDelete\">";')
+            ->write('yield \'<div class="mb-4">\';')
+            ->write('yield \'<ul class="list-unstyled checkboxTextFieldCombo">\';')
+            ->write('yield \'<li>\';')
+            ->write('yield "<p class=\"form-check\"><label for=\"ogImageDelete\">";')
             ->write($this->getField('og_image_delete'))
-            ->write('echo "' . $this->lbl('Delete') . '</label></p>";')
-            ->write('echo \'</li>\';')
-            ->write('echo \'</ul>\';')
-            ->write('echo \'</div>\';')
+            ->write('yield "' . $this->lbl('Delete') . '</label></p>";')
+            ->write('yield \'</li>\';')
+            ->write('yield \'</ul>\';')
+            ->write('yield \'</div>\';')
             ->write('}');
 
         $compiler
-            ->write('echo \'<div>\';')
-            ->write('echo "<label for=\"ogImage\">' . $this->lbl('OgImage') . '</label>";')
+            ->write('yield \'<div>\';')
+            ->write('yield "<label for=\"ogImage\">' . $this->lbl('OgImage') . '</label>";')
             ->write($this->getError('og_image'))
             ->write($this->getField('og_image'))
-            ->write('echo "<p class=\"form-text\">' . $this->msg('HelpOgImage') . '</p>";')
-            ->write('echo \'</div>\';');
+            ->write('yield "<p class=\"form-text\">' . $this->msg('HelpOgImage') . '</p>";')
+            ->write('yield \'</div>\';');
 
         $compiler
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';')
-            ->write('echo \'</div>\';');
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';')
+            ->write('yield \'</div>\';');
         // End og:image
 
         $compiler
@@ -318,14 +319,14 @@ class SeoFormNode extends Node
 
     private function getVariable(string $variable): string
     {
-        return "echo \$context['{$variable}'];";
+        return "yield \$context['{$variable}'];";
     }
 
     private function getField(string $fieldName): string
     {
         $form = "\$context['form_{$this->form}']";
 
-        return 'echo ' . $form . "->getField('" . $fieldName . "')->parse();";
+        return 'yield ' . $form . "->getField('" . $fieldName . "')->parse();";
     }
 
     private function hasField(string $fieldName): string
@@ -342,7 +343,7 @@ class SeoFormNode extends Node
 
     private function getError(string $fieldName): string
     {
-        return "echo \$context['form_{$this->form}']->getField('" . $fieldName . "')->getErrors() "
+        return "yield \$context['form_{$this->form}']->getField('" . $fieldName . "')->getErrors() "
             . "? '<span class=\"formError\">' "
             . ". \$context['form_{$this->form}']->getField('" . $fieldName . "')->getErrors() "
             . ". '</span>' : '';";

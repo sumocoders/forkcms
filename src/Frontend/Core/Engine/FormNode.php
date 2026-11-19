@@ -2,25 +2,25 @@
 
 namespace Frontend\Core\Engine;
 
+use Twig\Attribute\YieldReady;
 use Twig\Compiler;
 use Twig\Node\Node;
 
 /**
  * Twig node for writing out the compiled representation of an opeing form tag.
  */
+#[YieldReady]
 class FormNode extends Node
 {
     /**
      * @param string $form Template variable holding the form.
      * @param int $lineNumber
-     * @param string $tag
      */
     public function __construct(
         private readonly string $form,
         int $lineNumber,
-        string $tag,
     ) {
-        parent::__construct([], [], $lineNumber, $tag);
+        parent::__construct([], [], $lineNumber);
     }
 
     public function compile(Compiler $compiler): void
@@ -34,25 +34,29 @@ class FormNode extends Node
         $formToken = $form . '->getToken()';
         $formUseToken = $form . '->getUseToken()';
         $formParamsHtml = $form . '->getParametersHTML()';
-        $formAttrAction = ' action="\', ' . $formAction . ', \'"';
-        $formAttrMethod = ' method="\', ' . $formMethod . ', \'"';
-        $hiddenFormName = '<input type="hidden" name="form" value="\', ' . $formName . ', \'" id="form\', ucfirst(' . $formName . '), \'" />';
-        $hiddenFormToken = '<input type="hidden" name="form_token" value="\', ' . $formToken . ', \'" id="formToken\', ucfirst(' . $formName . '), \'" />';
+
+        // "yield" only takes a single expression, so everything is concatenated instead of
+        // being passed as the comma separated arguments "echo" used to accept.
+        $openingTag = '\'<form method="\' . ' . $formMethod
+            . ' . \'" action="\' . ' . $formAction
+            . ' . \'"\' . ' . $formParamsHtml
+            . ' . \'>\'';
+        $hiddenFormName = '\'<input type="hidden" name="form" value="\' . ' . $formName
+            . ' . \'" id="form\' . ucfirst(' . $formName . ')'
+            . ' . \'" />\'';
+        $hiddenFormToken = '\'<input type="hidden" name="form_token" value="\' . ' . $formToken
+            . ' . \'" id="formToken\' . ucfirst(' . $formName . ')'
+            . ' . \'" />\'';
 
         $compiler
             ->addDebugInfo($this)
-
-            ->write('echo \'<form')
-            ->raw($formAttrMethod)
-            ->raw($formAttrAction)
-            ->raw("', ")
-            ->raw(' ' . $formParamsHtml)
-            ->raw(', \'')
-            ->raw('>\'')
-            ->raw(";\n")
-
-            ->write("echo '$hiddenFormName';\n")
-            ->write("if($formUseToken) echo '$hiddenFormToken';")
+            ->write('yield ' . $openingTag . ";\n")
+            ->write('yield ' . $hiddenFormName . ";\n")
+            ->write('if (' . $formUseToken . ") {\n")
+            ->indent()
+            ->write('yield ' . $hiddenFormToken . ";\n")
+            ->outdent()
+            ->write("}\n")
         ;
     }
 }

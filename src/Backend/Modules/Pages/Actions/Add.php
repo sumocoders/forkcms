@@ -2,7 +2,6 @@
 
 namespace Backend\Modules\Pages\Actions;
 
-use Backend\Core\Engine\Authentication;
 use Backend\Core\Engine\Base\ActionAdd as BackendBaseActionAdd;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Engine\Form as BackendForm;
@@ -732,7 +731,7 @@ class Add extends BackendBaseActionAdd
      */
     private function showTags(): bool
     {
-        return Authentication::isAllowedAction('Edit', 'Tags') && Authentication::isAllowedAction('GetAllTags', 'Tags');
+        return BackendAuthentication::isAllowedAction('Edit', 'Tags') && BackendAuthentication::isAllowedAction('GetAllTags', 'Tags');
     }
 
     private function getHiddenJsonField(string $name, ?string $json): SpoonFormHidden

@@ -312,9 +312,7 @@ class Language
      */
     public static function setLocale(?string $language = null, bool $force = false): void
     {
-        if ($language === null) {
-            $language = LANGUAGE;
-        }
+        $language ??= LANGUAGE;
 
         // validate language
         if (!$force && !in_array($language, self::getActiveLanguages())) {

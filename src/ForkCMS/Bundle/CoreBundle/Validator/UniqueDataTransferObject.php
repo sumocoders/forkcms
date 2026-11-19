@@ -2,15 +2,14 @@
 
 namespace ForkCMS\Bundle\CoreBundle\Validator;
 
+use Attribute;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 
 /**
  * Constraint for the Unique Entity validator.
- *
- * @Annotation
- * @Target({"CLASS", "ANNOTATION"})
  */
+#[Attribute(Attribute::TARGET_CLASS)]
 final class UniqueDataTransferObject extends Constraint
 {
     const string NOT_UNIQUE_ERROR = '23bd9dbf-6b9b-41cd-a99e-4844bcf3077f';
@@ -54,7 +53,7 @@ final class UniqueDataTransferObject extends Constraint
         return $this->service;
     }
 
-    public function getTargets()
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }

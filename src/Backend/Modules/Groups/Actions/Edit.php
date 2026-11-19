@@ -532,9 +532,7 @@ class Edit extends BackendBaseActionEdit
                 }
 
                 if (!$preset->getChecked()) {
-                    if (!isset($this->hiddenOnDashboard[$widget['module']])) {
-                        $this->hiddenOnDashboard[$widget['module']] = [];
-                    }
+                    $this->hiddenOnDashboard[$widget['module']] ??= [];
                     $this->hiddenOnDashboard[$widget['module']][] = $widget['widget'];
                 }
             }

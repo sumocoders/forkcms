@@ -29,23 +29,20 @@ class ContentBlockDataTransferObject
 
     /**
      * @var string
-     *
-     * @Assert\NotBlank(message="err.FieldIsRequired")
      */
+    #[Assert\NotBlank(message: 'err.FieldIsRequired')]
     public $title;
 
     /**
      * @var string
-     *
-     * @Assert\NotBlank(message="err.FieldIsRequired")
      */
+    #[Assert\NotBlank(message: 'err.FieldIsRequired')]
     public $template = ContentBlock::DEFAULT_TEMPLATE;
 
     /**
      * @var string
-     *
-     * @Assert\NotBlank(message="err.FieldIsRequired")
      */
+    #[Assert\NotBlank(message: 'err.FieldIsRequired')]
     public $text;
 
     /**

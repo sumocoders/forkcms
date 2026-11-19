@@ -33,5 +33,3 @@ services:
         public: false
         arguments:
             - "@media_library.helper.frontend"
-        tags:
-            - { name: twig.extension }

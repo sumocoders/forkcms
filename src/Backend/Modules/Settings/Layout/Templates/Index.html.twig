@@ -28,7 +28,7 @@
         <div class="card-header">
           <h2 class="card-title">
             {{ 'lbl.WebsiteTitle'|trans|ucfirst }}
-            {{ macro.required }}
+            {{ macro.required() }}
           </h2>
         </div>
         <div class="card-body">
@@ -173,7 +173,7 @@
                 <tr>
                   <th>
                     <label for="googleMapsKey" class="form-label">
-                      Google maps key{{ macro.required }}
+                      Google maps key{{ macro.required() }}
                     </label>
                   </th>
                   <td>{% form_field google_maps_key %} {% form_field_error google_maps_key %}</td>

@@ -21,7 +21,7 @@ class MediaItemType extends AbstractType
                 [
                     'label' => 'lbl.MediaMovieId',
                     'constraints' => [
-                        new Regex(['pattern' => '/^[a-zA-Z]+[a-zA-Z0-9._]+$/', 'message' => 'err.InvalidValue']),
+                        new Regex(pattern: '/^[a-zA-Z]+[a-zA-Z0-9._]+$/', message: 'err.InvalidValue'),
                     ],
                 ]
             );

@@ -101,13 +101,7 @@ class MetaType extends AbstractType
                     'required' => false,
                     'attr' => ['accept' => 'image/jpeg, image/gif, image/png'],
                     'constraints' => [
-                        new File(
-                            [
-                                'maxSize' => '5M',
-                                'mimeTypes' => ['image/jpeg', 'image/gif', 'image/png'],
-                                'mimeTypesMessage' => 'err.JPGGIFAndPNGOnly',
-                            ]
-                        ),
+                        new File(maxSize: '5M', mimeTypes: ['image/jpeg', 'image/gif', 'image/png'], mimeTypesMessage: 'err.JPGGIFAndPNGOnly'),
                     ],
                 ]
             )

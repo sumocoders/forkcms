@@ -17,6 +17,10 @@ doctrine:
                 mapping_types:
                     # Remove when we don't have legacy tables anymore
                     enum: string
+                # ORM 3 always compares the complete schema, so doctrine:schema:update would drop the tables that
+                # Fork manages without Doctrine (SpoonDatabase, install.sql). Keep them out of the schema tools.
+                # Add the non-Doctrine tables of your own modules here.
+                schema_filter: ~^(?!(backend_navigation|blog_.+|faq_.+|forms(_.+)?|groups(_.+)?|locale|location(_.+)?|modules(_.+)?|pages(_.+)?|profiles(_.+)?|search_.+|tags|themes_templates|users(_.+)?)$)~
         types:
             seo_follow: Common\Doctrine\Type\SEOFollowType
             seo_index: Common\Doctrine\Type\SEOIndexType
@@ -27,7 +31,6 @@ doctrine:
             uuid: Common\Doctrine\Type\UuidType
 
     orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
         entity_managers:
             default:
                 connection: default
@@ -35,7 +38,7 @@ doctrine:
                 naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
                 mappings:
                     common:
-                        type: annotation
+                        type: attribute
                         is_bundle: false
                         dir: "%kernel.project_dir%/src/Common/Doctrine/Entity"
                         alias: Common

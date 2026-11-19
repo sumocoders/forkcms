@@ -4,7 +4,7 @@ namespace Common\Sitemap;
 
 use Backend\Core\Language\Language;
 
-final class SitemapGenerator
+final readonly class SitemapGenerator
 {
     /** @param iterable<SitemapUrlProviderInterface> $providers */
     public function __construct(private iterable $providers, private string $projectDir)

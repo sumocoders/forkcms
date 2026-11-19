@@ -2,7 +2,6 @@
 
 namespace Backend\Modules\Pages\Actions;
 
-use Backend\Core\Engine\Authentication;
 use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Engine\DataGridDatabase as BackendDataGridDatabase;
@@ -260,7 +259,7 @@ class Edit extends BackendBaseActionEdit
         $chkMovePage = $this->form->addCheckbox('move_page');
         $chkMovePage->setAttribute('data-role', 'move-page-toggle');
         if (!(bool) $this->record['allow_move']) {
-            $chkMovePage->setAttribute('disabled');
+            $chkMovePage->setAttribute('disabled', 'disabled');
             $chkMovePage->setAttribute('class', 'fork-form-checkbox disabled');
         }
 
@@ -1026,7 +1025,7 @@ class Edit extends BackendBaseActionEdit
 
     private function userCanSeeAndEditTags(): bool
     {
-        return Authentication::isAllowedAction('Edit', 'Tags') && Authentication::isAllowedAction('GetAllTags', 'Tags');
+        return BackendAuthentication::isAllowedAction('Edit', 'Tags') && BackendAuthentication::isAllowedAction('GetAllTags', 'Tags');
     }
 
     private function loadDeleteForm(): void

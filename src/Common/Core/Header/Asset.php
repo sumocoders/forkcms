@@ -54,7 +54,7 @@ final class Asset implements \Stringable
         }
 
         // check if we need to use a ? or &
-        $separator = mb_strpos($this->file, '?') === false ? '?' : '&';
+        $separator = !str_contains($this->file, '?') ? '?' : '&';
 
         return $this->file . $separator . 'm=' . @filemtime(__DIR__ . '/../../../../' . $this->file);
     }

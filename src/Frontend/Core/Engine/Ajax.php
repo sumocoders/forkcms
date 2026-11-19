@@ -2,6 +2,7 @@
 
 namespace Frontend\Core\Engine;
 
+use function Sentry\captureException;
 use ForkCMS\App\ApplicationInterface;
 use ForkCMS\App\KernelLoader;
 use Frontend\Core\Engine\Base\AjaxAction as FrontendBaseAJAXAction;
@@ -99,7 +100,7 @@ class Ajax extends KernelLoader implements ApplicationInterface
                 'Unhandled exception during Ajax::initialize(): ' . $exception->getMessage(),
                 ['exception' => $exception]
             );
-            \Sentry\captureException($exception);
+            captureException($exception);
 
             $this->ajaxAction = new FrontendBaseAJAXAction($this->getKernel(), '', '');
             $this->ajaxAction->output(
@@ -175,12 +176,13 @@ class Ajax extends KernelLoader implements ApplicationInterface
     {
         $request = Model::getRequest();
 
+        // fork is posted as an array (fork[module], ...): get() refuses non-scalar values since Symfony 6
         if ($request->request->has('fork')) {
-            return (array) $request->request->get('fork');
+            return $request->request->all('fork');
         }
 
         if ($request->query->has('fork')) {
-            return (array) $request->query->get('fork');
+            return $request->query->all('fork');
         }
 
         return (array) $request->query->all();

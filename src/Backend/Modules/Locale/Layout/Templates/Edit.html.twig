@@ -12,7 +12,7 @@
       <div class="mb-4">
         <label for="name" class="form-label">
           {{ 'lbl.ReferenceCode'|trans|ucfirst }}
-          {{ macro.required }}
+          {{ macro.required() }}
         </label>
         <p class="form-text">{{ 'msg.HelpAddName'|trans }}</p>
         {% form_field name %} {% form_field_error name %}
@@ -20,7 +20,7 @@
       <div class="mb-4">
         <label for="value" class="form-label">
           {{ 'lbl.Translation'|trans|ucfirst }}
-          {{ macro.required }}
+          {{ macro.required() }}
         </label>
         <p class="form-text">{{ 'msg.HelpAddValue'|trans }}</p>
         {% form_field value %} {% form_field_error value %}

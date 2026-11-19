@@ -17,7 +17,7 @@ class MetaRepository extends ServiceEntityRepository
      * The only methods that may be invoked as a meta-url callback. Every module registers its URL
      * generator through one of these (see Meta::setUrlCallback / AddMetaSubscriber).
      */
-    private const ALLOWED_CALLBACK_METHODS = ['getUrl', 'getUrlForCategory'];
+    private const array ALLOWED_CALLBACK_METHODS = ['getUrl', 'getUrlForCategory'];
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -86,7 +86,7 @@ class MetaRepository extends ServiceEntityRepository
         }
 
         // the callback is always a public static method; reject instance-only or non-existing methods
-        if (!method_exists($class, $method) || !(new \ReflectionMethod($class, $method))->isStatic()) {
+        if (!method_exists($class, $method) || !new \ReflectionMethod($class, $method)->isStatic()) {
             throw new Exception('The callback-method doesn\'t exist.');
         }
     }

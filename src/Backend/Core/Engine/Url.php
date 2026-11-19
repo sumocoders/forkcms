@@ -278,7 +278,7 @@ class Url extends KernelLoader
     {
         $queryString = 'querystring=' . rawurlencode('/' . $this->getQueryString());
 
-        if (mb_strpos($url, '?') !== false) {
+        if (str_contains($url, '?')) {
             return $url . '&' . $queryString;
         }
 

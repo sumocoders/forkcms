@@ -24,14 +24,14 @@
               <div class="mb-4">
                 <label for="mailerFromName" class="form-label">
                   {{ 'lbl.Name'|trans|ucfirst }}
-                  {{ macro.required }}
+                  {{ macro.required() }}
                 </label>
                 {% form_field mailer_from_name %} {% form_field_error mailer_from_name %}
               </div>
               <div class="mb-4">
                 <label for="mailerFromEmail" class="form-label">
                   {{ 'lbl.Email'|trans|ucfirst }}
-                  {{ macro.required }}
+                  {{ macro.required() }}
                 </label>
                 {% form_field mailer_from_email %} {% form_field_error mailer_from_email %}
               </div>
@@ -44,14 +44,14 @@
               <div class="mb-4">
                 <label for="mailerToName" class="form-label">
                   {{ 'lbl.Name'|trans|ucfirst }}
-                  {{ macro.required }}
+                  {{ macro.required() }}
                 </label>
                 {% form_field mailer_to_name %} {% form_field_error mailer_to_name %}
               </div>
               <div class="mb-4">
                 <label for="mailerToEmail" class="form-label">
                   {{ 'lbl.Email'|trans|ucfirst }}
-                  {{ macro.required }}
+                  {{ macro.required() }}
                 </label>
                 {% form_field mailer_to_email %} {% form_field_error mailer_to_email %}
               </div>
@@ -63,14 +63,14 @@
               <div class="mb-4">
                 <label for="mailerReplyToName" class="form-label">
                   {{ 'lbl.Name'|trans|ucfirst }}
-                  {{ macro.required }}
+                  {{ macro.required() }}
                 </label>
                 {% form_field mailer_reply_to_name %} {% form_field_error mailer_reply_to_name %}
               </div>
               <div>
                 <label for="mailerReplyToEmail" class="form-label">
                   {{ 'lbl.Email'|trans|ucfirst }}
-                  {{ macro.required }}
+                  {{ macro.required() }}
                 </label>
                 {% form_field mailer_reply_to_email %} {% form_field_error mailer_reply_to_email %}
               </div>

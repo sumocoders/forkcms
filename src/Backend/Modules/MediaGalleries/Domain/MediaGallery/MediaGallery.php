@@ -8,93 +8,72 @@ use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
 use Common\ModuleExtraType;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass="Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository")
- * @ORM\HasLifecycleCallbacks
- */
+#[ORM\Entity(repositoryClass: MediaGalleryRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class MediaGallery
 {
     /**
      * @var Uuid
-     *
-     * @ORM\Id()
-     * @ORM\Column(type="uuid", unique=true)
      */
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
     private $id;
 
     /**
      * @var int
-     *
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: 'integer')]
     protected $userId;
 
     /**
      * @var int
      *
      * ToDo: when Fork CMS has ModuleExtra entity in core, use its Entity as type
-     *
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: 'integer')]
     protected $moduleExtraId;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     protected $action;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     protected $title;
 
     /**
      * @var string|null
-     *
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     protected $text;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
      */
+    #[ORM\Column(type: 'datetime')]
     protected $createdOn;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
      */
+    #[ORM\Column(type: 'datetime')]
     protected $editedOn;
 
     /**
      * @var Status
-     *
-     * @ORM\Column(type="media_gallery_status")
      */
+    #[ORM\Column(type: 'media_gallery_status')]
     protected $status;
 
     /**
      * @var MediaGroup
-     *
-     * @ORM\OneToOne(
-     *      targetEntity="Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup",
-     *      cascade={"persist"},
-     *      orphanRemoval=true
-     * )
-     * @ORM\JoinColumn(
-     *      name="mediaGroupId",
-     *      referencedColumnName="id",
-     *      onDelete="cascade",
-     *      nullable=false
-     * )
      */
+    #[ORM\JoinColumn(name: 'mediaGroupId', referencedColumnName: 'id', nullable: false, onDelete: 'cascade')]
+    #[ORM\OneToOne(targetEntity: MediaGroup::class, cascade: ['persist'], orphanRemoval: true)]
     protected $mediaGroup;
 
     private function __construct(
@@ -200,9 +179,7 @@ class MediaGallery
         return $this->mediaGroup;
     }
 
-    /**
-     * @ORM\PrePersist
-     */
+    #[ORM\PrePersist]
     public function onPrePersist()
     {
         $this->createdOn = $this->editedOn = new \DateTime();
@@ -217,17 +194,13 @@ class MediaGallery
         );
     }
 
-    /**
-     * @ORM\PreUpdate
-     */
+    #[ORM\PreUpdate]
     public function onPreUpdate()
     {
         $this->editedOn = new \DateTime();
     }
 
-    /**
-     * @ORM\PostRemove
-     */
+    #[ORM\PostRemove]
     public function onPostRemove()
     {
         Model::deleteExtraById(
@@ -238,10 +211,9 @@ class MediaGallery
 
     /**
      * Update module extra data
-     *
-     * @ORM\PostPersist
-     * @ORM\PostUpdate
      */
+    #[ORM\PostPersist]
+    #[ORM\PostUpdate]
     public function updateModuleExtraData()
     {
         // Update ModuleExtra data

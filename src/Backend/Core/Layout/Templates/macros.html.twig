@@ -1,4 +1,4 @@
-{% macro buttonIcon(url, icon, label, buttonType, extra, iconRight = false) %}
+{% macro buttonIcon(url, icon, label, buttonType = null, extra = null, iconRight = false) %}
   {% import _self as macro %}
   {# When url is an empty string, use a button, otherwise use a hyperlink/anchor #}
   {% if url %}
@@ -33,7 +33,7 @@
   <abbr tabindex="0" data-bs-toggle="tooltip" aria-label="{{ title }}" title="{{ title }}">{{ macro.icon('circle-info') }}</abbr>
 {% endmacro %}
 
-{% macro dataGrid(dataGrid, noItemsMessage) %}
+{% macro dataGrid(dataGrid, noItemsMessage = null) %}
   <div class="row">
     <div class="col-md-12">
       {% if dataGrid %}

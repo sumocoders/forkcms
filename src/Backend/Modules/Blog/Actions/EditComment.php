@@ -6,7 +6,6 @@ use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
-use Backend\Core\Language\Language;
 use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
 use Common\Core\RequestParameter;
 use function Symfony\Component\String\s;
@@ -68,7 +67,7 @@ class EditComment extends BackendBaseActionEdit
         );
         $this->template->assign('itemTitle', $this->record['post_title']);
 
-        $this->header->appendDetailToBreadcrumbs(ucfirst(Language::lbl('Author')) . ': ' . $this->record['author']);
+        $this->header->appendDetailToBreadcrumbs(ucfirst(BL::lbl('Author')) . ': ' . $this->record['author']);
     }
 
     private function validateForm(): void

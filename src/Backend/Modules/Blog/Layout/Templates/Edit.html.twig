@@ -21,7 +21,7 @@
   <div class="row fork-module-content">
     <div class="col-md-12">
       <div class="mb-4">
-        <label for="title" class="form-label">{{ 'lbl.Title'|trans|ucfirst }} {{ macro.required }}</label>
+        <label for="title" class="form-label">{{ 'lbl.Title'|trans|ucfirst }} {{ macro.required() }}</label>
         {% form_field title %} {% form_field_error title %}
         {% if detailURL %}
           <a class="site-url" href="{{ detailURL }}/{{ item.url }}">{{ detailURL }}/<span id="generatedUrl">{{ item.url }}</span></a>
@@ -104,7 +104,7 @@
                     <h2>
                       <label for="text">
                         {{ 'lbl.MainContent'|trans|ucfirst }}
-                        {{ macro.required }}
+                        {{ macro.required() }}
                       </label>
                     </h2>
                   </div>
@@ -242,7 +242,7 @@
           <div class="mb-4">
             <label for="categoryTitle" class="form-label">
               {{ 'lbl.Title'|trans|ucfirst }}
-              {{ macro.required }}
+              {{ macro.required() }}
             </label>
             <input type="text" name="categoryTitle" id="categoryTitle" class="form-control" maxlength="255" />
             <p class="text-danger" id="categoryTitleError" style="display: none;">{{ 'err.FieldIsRequired'|trans|ucfirst }}</p>

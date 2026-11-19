@@ -11,7 +11,7 @@
         <label for="field{{ id }}">
           <span id="field{{ id }}-label">{{ label|raw }}</span>
           {% if required %}
-            {{ macro.required }}
+            {{ macro.required() }}
           {% endif %}
         </label>
       </div>
@@ -24,7 +24,7 @@
         <label for="field{{ id }}">
           {{ label|raw }}
           {% if required %}
-            {{ macro.required }}
+            {{ macro.required() }}
           {% endif %}
         </label>
       </div>

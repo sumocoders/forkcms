@@ -48,7 +48,7 @@
                         <div class="mb-4">
                           <label for="name" class="form-label">
                             {{ 'lbl.Name'|trans|ucfirst }}
-                            {{ macro.required }}
+                            {{ macro.required() }}
                           </label>
                           {% form_field name %} {% form_field_error name %}
                         </div>
@@ -56,7 +56,7 @@
                       <div class="mb-4">
                         <label for="method" class="form-label">
                           {{ 'lbl.Method'|trans|ucfirst }}
-                          {{ macro.required }}
+                          {{ macro.required() }}
                         </label>
                         {% form_field method %} {% form_field_error method %}
                       </div>
@@ -76,7 +76,7 @@
                         <div class="mb-4">
                           <label for="email" class="form-label">
                             {{ 'lbl.Recipient'|trans|ucfirst }}
-                            {{ macro.required }}
+                            {{ macro.required() }}
                           </label>
                           {% form_field email %} {% form_field_error email %}
                         </div>
@@ -89,7 +89,7 @@
                     <div class="card-header">
                       <label for="successMessage" class="form-label">
                         {{ 'lbl.SuccessMessage'|trans|ucfirst }}
-                        {{ macro.required }}<br>
+                        {{ macro.required() }}<br>
                       </label>
                     </div>
                     <div class="card-body">
@@ -264,7 +264,7 @@
                     <div>
                       <label for="textboxLabel" class="form-label">
                         {{ 'lbl.Label'|trans|ucfirst }}
-                        {{ macro.required }}
+                        {{ macro.required() }}
                       </label>
                       <p id="textboxLabelError" class="text-danger jsFieldError" style="display: none;"></p>
                       {% form_field textbox_label %}
@@ -289,7 +289,7 @@
                         <div class="mb-4 jsValidationRequiredErrorMessage" style="display: none;">
                           <label for="textboxRequiredErrorMessage" class="form-label">
                             {{ 'lbl.ErrorMessage'|trans|ucfirst }}
-                            {{ macro.required }}
+                            {{ macro.required() }}
                           </label>
                           <p id="textboxRequiredErrorMessageError" class="text-danger jsFieldError" style="display: none;"></p>
                           {% form_field textbox_required_error_message %}
@@ -305,14 +305,14 @@
                         <div class="mb-4 jsValidationParameter" style="display: none;">
                           <label for="textboxValidationParameter" class="form-label">
                             {{ 'lbl.Parameter'|trans|ucfirst }}
-                            {{ macro.required }}
+                            {{ macro.required() }}
                           </label>
                           {% form_field textbox_validation_parameter %}
                         </div>
                         <div class="mb-4 jsValidationErrorMessage" style="display: none;">
                           <label for="textareaErrorMessage" class="form-label">
                             {{ 'lbl.ErrorMessage'|trans|ucfirst }}
-                            {{ macro.required }}
+                            {{ macro.required() }}
                           </label>
                           <p id="textboxErrorMessageError" class="text-danger jsFieldError" style="display: none;"></p>
                           {% form_field textbox_error_message %}
@@ -422,7 +422,7 @@
                     <div>
                       <label for="textareaLabel" class="form-label">
                         {{ 'lbl.Label'|trans|ucfirst }}
-                        {{ macro.required }}
+                        {{ macro.required() }}
                       </label>
                       <p id="textareaLabelError" class="text-danger jsFieldError" style="display: none;"></p>
                       {% form_field textarea_label %}
@@ -444,7 +444,7 @@
                       <div class="mb-4 jsValidationRequiredErrorMessage" style="display: none;">
                         <label for="textareaRequiredErrorMessage" class="form-label">
                           {{ 'lbl.ErrorMessage'|trans|ucfirst }}
-                          {{ macro.required }}
+                          {{ macro.required() }}
                         </label>
                         <p id="textareaRequiredErrorMessageError" class="text-danger jsFieldError" style="display: none;"></p>
                         {% form_field textarea_required_error_message %}
@@ -458,14 +458,14 @@
                       <div class="mb-4 jsValidationParameter" style="display: none;">
                         <label for="textareaValidationParameter" class="form-label">
                           {{ 'lbl.Parameter'|trans|ucfirst }}
-                          {{ macro.required }}
+                          {{ macro.required() }}
                         </label>
                         {% form_field textarea_validation_parameter %}
                       </div>
                       <div class="mb-4 jsValidationErrorMessage" style="display: none;">
                         <label for="textareaErrorMessage" class="form-label">
                           {{ 'lbl.ErrorMessage'|trans|ucfirst }}
-                          {{ macro.required }}
+                          {{ macro.required() }}
                         </label>
                         <p id="textareaErrorMessageError" class="text-danger jsFieldError" style="display: none;"></p>
                         {% form_field_error textarea_error_message %}
@@ -529,7 +529,7 @@
                     <div>
                       <label for="datetimeLabel" class="form-label">
                         {{ 'lbl.Label'|trans|ucfirst }}
-                        {{ macro.required }}
+                        {{ macro.required() }}
                       </label>
                       <p id="datetimeLabelError" class="text-danger jsFieldError" style="display: none;"></p>
                       {% form_field datetime_label %}
@@ -552,7 +552,7 @@
                         <div class="mb-4 jsValidationRequiredErrorMessage" style="display: none;">
                           <label for="datetimeRequiredErrorMessage" class="form-label">
                             {{ 'lbl.ErrorMessage'|trans|ucfirst }}
-                            {{ macro.required }}
+                            {{ macro.required() }}
                           </label>
                           <p id="datetimeRequiredErrorMessageError" class="text-danger jsFieldError" style="display: none;"></p>
                           {% form_field datetime_required_error_message %}
@@ -566,7 +566,7 @@
                         <div class="mb-4 jsValidationErrorMessage" style="display: none;">
                           <label for="datetimeErrorMessage" class="form-label">
                             {{ 'lbl.ErrorMessage'|trans|ucfirst }}
-                            {{ macro.required }}
+                            {{ macro.required() }}
                           </label>
                           <p id="datetimeErrorMessageError" class="text-danger jsFieldError" style="display: none;"></p>
                           {% form_field datetime_error_message %}
@@ -649,7 +649,7 @@
                       <div class="mb-4">
                         <label for="dropdownLabel" class="form-label">
                           {{ 'lbl.Label'|trans|ucfirst }}
-                          {{ macro.required }}
+                          {{ macro.required() }}
                         </label>
                         <p id="dropdownLabelError" class="text-danger jsFieldError" style="display: none;"></p>
                         {% form_field dropdown_label %}
@@ -677,7 +677,7 @@
                       <div class="jsValidationRequiredErrorMessage" style="display: none;">
                         <label for="dropdownRequiredErrorMessage" class="form-label">
                           {{ 'lbl.ErrorMessage'|trans|ucfirst }}
-                          {{ macro.required }}
+                          {{ macro.required() }}
                         </label>
                         <p id="dropdownRequiredErrorMessageError" class="text-danger jsFieldError" style="display: none;"></p>
                         {% form_field dropdown_required_error_message %}
@@ -738,7 +738,7 @@
                       <div class="mb-4">
                         <label for="radiobuttonLabel" class="form-label">
                           {{ 'lbl.Label'|trans|ucfirst }}
-                          {{ macro.required }}
+                          {{ macro.required() }}
                         </label>
                         <p id="radiobuttonLabelError" class="text-danger jsFieldError" style="display: none;"></p>
                         {% form_field radiobutton_label %}
@@ -765,7 +765,7 @@
                       <div class="jsValidationRequiredErrorMessage" style="display: none;">
                         <label for="radiobuttonRequiredErrorMessage" class="form-label">
                           {{ 'lbl.ErrorMessage'|trans|ucfirst }}
-                          {{ macro.required }}
+                          {{ macro.required() }}
                         </label>
                         <p id="radiobuttonRequiredErrorMessageError" class="text-danger jsFieldError" style="display: none;"></p>
                         {% form_field radiobutton_required_error_message %}
@@ -826,7 +826,7 @@
                       <div class="mb-4">
                         <label for="checkboxLabel" class="form-label">
                           {{ 'lbl.Label'|trans|ucfirst }}
-                          {{ macro.required }}
+                          {{ macro.required() }}
                         </label>
                         <p id="checkboxLabelError" class="text-danger jsFieldError" style="display: none;"></p>
                         {% form_field checkbox_label %}
@@ -853,7 +853,7 @@
                       <div class="jsValidationRequiredErrorMessage" style="display: none;">
                         <label for="checkboxRequiredErrorMessage" class="form-label">
                           {{ 'lbl.ErrorMessage'|trans|ucfirst }}
-                          {{ macro.required }}
+                          {{ macro.required() }}
                         </label>
                         <p id="checkboxRequiredErrorMessageError" class="text-danger jsFieldError" style="display: none;"></p>
                         {% form_field checkbox_required_error_message %}
@@ -898,7 +898,7 @@
             <div>
               <label for="submit" class="form-label">
                 {{ 'lbl.Content'|trans|ucfirst }}
-                {{ macro.required }}
+                {{ macro.required() }}
               </label>
               <p id="submitError" class="text-danger jsFieldError" style="display: none;"></p>
               {% form_field submit %}
@@ -924,7 +924,7 @@
             <div class="mb-4">
               <label for="heading" class="form-label">
                 {{ 'lbl.Content'|trans|ucfirst }}
-                {{ macro.required }}
+                {{ macro.required() }}
               </label>
               <p id="headingError" class="text-danger jsFieldError" style="display: none;"></p>
               {% form_field heading %}

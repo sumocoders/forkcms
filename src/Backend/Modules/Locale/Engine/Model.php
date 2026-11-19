@@ -415,18 +415,10 @@ class Model
         // set defaults if necessary
         // we can't simply use these right away, because this function is also calls by the installer,
         // which does not have Backend-functions
-        if ($frontendLanguages === null) {
-            $frontendLanguages = array_keys(BL::getWorkingLanguages());
-        }
-        if ($backendLanguages === null) {
-            $backendLanguages = array_keys(BL::getInterfaceLanguages());
-        }
-        if ($userId === null) {
-            $userId = BackendAuthentication::getUser()->getUserId();
-        }
-        if ($date === null) {
-            $date = BackendModel::getUTCDate();
-        }
+        $frontendLanguages ??= array_keys(BL::getWorkingLanguages());
+        $backendLanguages ??= array_keys(BL::getInterfaceLanguages());
+        $userId ??= BackendAuthentication::getUser()->getUserId();
+        $date ??= BackendModel::getUTCDate();
 
         // get database instance
         $database = BackendModel::getContainer()->get('database');
@@ -470,7 +462,7 @@ class Model
                 // items
                 foreach ($items as $item) {
                     // attributes
-                    $attributes = current($item->attributes());
+                    $attributes = ((array) $item->attributes())['@attributes'] ?? [];
                     $type = in_array($attributes['type'], $possibleTypes, true) ? $attributes['type'] : '';
                     $name = s($attributes['name'] ?? '')->title()->toString();
 
@@ -488,7 +480,7 @@ class Model
                         ++$statistics['total'];
 
                         // attributes
-                        $attributes = current($translation->attributes());
+                        $attributes = ((array) $translation->attributes())['@attributes'] ?? [];
                         $language = in_array($attributes['language'], $possibleLanguages[$application], true) ? $attributes['language'] : '';
 
                         // language does not exist

@@ -9,6 +9,13 @@ final class TypeDBALType extends StringType
 {
     const string NAME = 'media_group_type';
 
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
+    {
+        $column['length'] ??= 255;
+
+        return parent::getSQLDeclaration($column, $platform);
+    }
+
     public function getName(): string
     {
         return self::NAME;

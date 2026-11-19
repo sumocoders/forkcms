@@ -10,7 +10,7 @@
   <div class="row fork-module-content">
     <div class="col-md-12">
       <div class="mb-4">
-        <label for="title" class="form-label">{{ 'lbl.Question'|trans|ucfirst }} {{ macro.required }}</label>
+        <label for="title" class="form-label">{{ 'lbl.Question'|trans|ucfirst }} {{ macro.required() }}</label>
         {% form_field title %} {% form_field_error title %}
         {% if detailURL %}
           <a class="site-url" href="{{ detailURL }}">{{ detailURL }}/<span id="generatedUrl"></span></a>{% endif %}
@@ -38,7 +38,7 @@
                 <div class="card card-editor optionsRTE">
                   <div class="card-header">
                     <label for="answer" class="form-label">{{ 'lbl.Answer'|trans|ucfirst }}
-                      {{ macro.required }}<br>
+                      {{ macro.required() }}<br>
                     </label>
                   </div>
                   <div class="card-body">

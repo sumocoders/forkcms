@@ -2,6 +2,7 @@
 
 namespace Frontend\Core\Engine\Base;
 
+use Symfony\Component\Form\FormFactoryInterface;
 use Common\Core\Header\Priority;
 use Common\Exception\RedirectException;
 use ForkCMS\App\KernelLoader;
@@ -277,7 +278,7 @@ class Widget extends KernelLoader
      */
     public function createForm(string $type, $data = null, array $options = []): Form
     {
-        return $this->get(\Symfony\Component\Form\FormFactoryInterface::class)->create($type, $data, $options);
+        return $this->get(FormFactoryInterface::class)->create($type, $data, $options);
     }
 
     /**

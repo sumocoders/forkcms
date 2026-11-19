@@ -7,5 +7,6 @@ namespace Frontend;
  */
 class Init extends \Common\Core\Init
 {
+    #[\Override]
     protected $allowedTypes = ['Frontend', 'FrontendAjax'];
 }

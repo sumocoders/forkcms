@@ -2,6 +2,7 @@
 
 namespace Frontend\Core\Engine\Base;
 
+use Symfony\Component\Form\FormFactoryInterface;
 use Common\Core\Header\Priority;
 use Common\Doctrine\Entity\Meta;
 use Common\Exception\RedirectException;
@@ -264,9 +265,7 @@ class Block extends KernelLoader
     protected function loadTemplate(?string $path = null, bool $overwrite = false): void
     {
         // no template given, so we should build the path
-        if ($path === null) {
-            $path = $this->getModule() . '/Layout/Templates/' . $this->getAction() . '.html.twig';
-        }
+        $path ??= $this->getModule() . '/Layout/Templates/' . $this->getAction() . '.html.twig';
 
         // set properties
         $this->setOverwrite($overwrite);
@@ -301,7 +300,7 @@ class Block extends KernelLoader
         }
 
         // should we use a questionmark or an ampersand
-        if (mb_strpos($this->pagination['url'], '?') !== false) {
+        if (str_contains($this->pagination['url'], '?')) {
             $useQuestionMark = false;
         }
 
@@ -648,7 +647,7 @@ class Block extends KernelLoader
      */
     public function createForm(string $type, $data = null, array $options = []): Form
     {
-        return $this->get(\Symfony\Component\Form\FormFactoryInterface::class)->create($type, $data, $options);
+        return $this->get(FormFactoryInterface::class)->create($type, $data, $options);
     }
 
     /**

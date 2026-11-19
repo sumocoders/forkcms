@@ -23,7 +23,7 @@
       <div class="mb-4">
         <label for="file" class="form-label">
           {{ 'lbl.File'|trans|ucfirst }}
-          {{ macro.required }}
+          {{ macro.required() }}
         </label>
         {% form_field file %} {% form_field_error file %}
       </div>

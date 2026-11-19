@@ -135,7 +135,7 @@ class Meta
      */
     public function generateUrl(string $url): string
     {
-        return Model::get(MetaRepository::class)->generateUrl(
+        return BackendModel::get(MetaRepository::class)->generateUrl(
             $url,
             $this->callback['class'],
             $this->callback['method'],
@@ -284,30 +284,16 @@ class Meta
      */
     private function loadValuesOfDisabledFields(): void
     {
-        if (!isset($_POST['page_title'])) {
-            $_POST['page_title'] = $this->data['title'] ?? null;
-        }
-        if (!isset($_POST['meta_description'])) {
-            $_POST['meta_description'] = $this->data['description'] ?? null;
-        }
-        if (!isset($_POST['meta_keywords'])) {
-            $_POST['meta_keywords'] = $this->data['keywords'] ?? null;
-        }
-        if (!isset($_POST['url'])) {
-            $_POST['url'] = $this->data['url'] ?? null;
-        }
-        if (!isset($_POST['canonical_url'])) {
-            $_POST['canonical_url'] = $this->data['canonical_url'] ?? null;
-        }
+        $_POST['page_title'] ??= $this->data['title'] ?? null;
+        $_POST['meta_description'] ??= $this->data['description'] ?? null;
+        $_POST['meta_keywords'] ??= $this->data['keywords'] ?? null;
+        $_POST['url'] ??= $this->data['url'] ?? null;
+        $_POST['canonical_url'] ??= $this->data['canonical_url'] ?? null;
         if ($this->custom && !isset($_POST['meta_custom'])) {
             $_POST['meta_custom'] = $this->data['custom'] ?? null;
         }
-        if (!isset($_POST['seo_index'])) {
-            $_POST['seo_index'] = $this->data['seo_index'] ?? 'none';
-        }
-        if (!isset($_POST['seo_follow'])) {
-            $_POST['seo_follow'] = $this->data['seo_follow'] ?? 'none';
-        }
+        $_POST['seo_index'] ??= $this->data['seo_index'] ?? 'none';
+        $_POST['seo_follow'] ??= $this->data['seo_follow'] ?? 'none';
     }
 
     /**
@@ -690,8 +676,8 @@ class Meta
         $parameters = $this->hreflangCallback['parameters'] ?? [];
 
         // check if the class is a service
-        if (Model::getContainer()->has($class)) {
-            $class = Model::getContainer()->get($class);
+        if (BackendModel::getContainer()->has($class)) {
+            $class = BackendModel::getContainer()->get($class);
         }
 
         // validate (check if the function exists)

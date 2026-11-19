@@ -2,6 +2,7 @@
 
 namespace Backend\Core\Engine\Base;
 
+use Symfony\Component\Form\FormFactoryInterface;
 use Backend\Core\Engine\Header;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\Url;
@@ -135,9 +136,7 @@ class Action extends KernelLoader
          * If no template is specified, we have to build the path ourself. The default template is
          * based on the name of the current action
          */
-        if ($template === null) {
-            $template = '/' . $this->getModule() . '/Layout/Templates/' . $this->url->getAction() . '.html.twig';
-        }
+        $template ??= '/' . $this->getModule() . '/Layout/Templates/' . $this->url->getAction() . '.html.twig';
 
         $this->content = $this->template->getContent($template);
     }
@@ -246,7 +245,7 @@ class Action extends KernelLoader
      */
     public function createForm(string $type, $data = null, array $options = []): Form
     {
-        return $this->get(\Symfony\Component\Form\FormFactoryInterface::class)->create($type, $data, $options);
+        return $this->get(FormFactoryInterface::class)->create($type, $data, $options);
     }
 
     /**

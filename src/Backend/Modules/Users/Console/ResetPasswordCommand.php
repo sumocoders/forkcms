@@ -2,6 +2,7 @@
 
 namespace Backend\Modules\Users\Console;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Backend\Modules\Users\Engine\Model as BackendUsersModel;
 use Backend\Core\Engine\User as BackendUser;
 use Symfony\Component\Console\Command\Command;
@@ -10,13 +11,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
+#[AsCommand(name: 'forkcms:users:reset-password', description: 'Reset a users password')]
 class ResetPasswordCommand extends Command
 {
     protected function configure(): void
     {
         $this
-            ->setName('forkcms:users:reset-password')
-            ->setDescription('Reset a users password')
             ->addArgument('email', InputArgument::OPTIONAL, '(Optional) The users email-address')
             ->addArgument('password', InputArgument::OPTIONAL, '(Optional) The desired new password');
     }
@@ -28,9 +28,7 @@ class ResetPasswordCommand extends Command
         $questionEmailAddress = new Question('Please provide the users email-address: ');
         $questionEmailAddressAnswer = $input->getArgument('email');
 
-        if ($questionEmailAddressAnswer === null) {
-            $questionEmailAddressAnswer = $helper->ask($input, $output, $questionEmailAddress);
-        }
+        $questionEmailAddressAnswer ??= $helper->ask($input, $output, $questionEmailAddress);
 
         $subjectUserId = BackendUsersModel::getIdByEmail(
             $questionEmailAddressAnswer
@@ -48,9 +46,7 @@ class ResetPasswordCommand extends Command
         $questionPassword->setHidden(true);
         $questionPasswordAnswer = $input->getArgument('password');
 
-        if ($questionPasswordAnswer === null) {
-            $questionPasswordAnswer = $helper->ask($input, $output, $questionPassword);
-        }
+        $questionPasswordAnswer ??= $helper->ask($input, $output, $questionPassword);
 
         BackendUsersModel::updatePassword(
             new BackendUser($subjectUserId, $questionEmailAddressAnswer),

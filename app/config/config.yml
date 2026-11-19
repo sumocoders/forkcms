@@ -15,7 +15,7 @@ framework:
         strict_requirements: ~
     form:            ~
     validation:
-        enable_annotations: true
+        enabled: true
     csrf_protection: ~
     session:
         handler_id: ~
@@ -73,6 +73,8 @@ monolog:
             max_files: 10
 
 liip_imagine:
+    twig:
+        mode: lazy
     resolvers:
        default:
           web_path:
@@ -233,13 +235,9 @@ services:
 
     Common\Core\Twig\Extensions\IncludeOnceExtension:
         public: false
-        tags:
-            - { name: twig.extension }
 
     Common\Core\Twig\Extensions\UtmExtension:
         public: false
-        tags:
-            - { name: twig.extension }
 
     ForkCMS\Google\TagManager\DataLayer:
         public: true

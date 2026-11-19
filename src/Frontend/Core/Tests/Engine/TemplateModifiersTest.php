@@ -2,6 +2,7 @@
 
 namespace Frontend\Core\Tests\Engine;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Core\Engine\TemplateModifiers;
 use PHPUnit\Framework\TestCase;
@@ -47,7 +48,7 @@ class TemplateModifiersTest extends TestCase
     public function testTruncate(): void
     {
         $containerMock = $this
-            ->getMockBuilder(\Symfony\Component\DependencyInjection\ContainerInterface::class)
+            ->getMockBuilder(ContainerInterface::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;

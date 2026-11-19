@@ -28,7 +28,7 @@ class MediaItemDataGrid extends DataGridDatabase
 
         $this->addColumn('detail');
         $this->setColumnFunction(
-            [__CLASS__, 'getDetailUrl'],
+            [self::class, 'getDetailUrl'],
             ['[sharding_folder_name]', '[url]', '[storage_type]'],
             'detail'
         );
@@ -181,7 +181,7 @@ class MediaItemDataGrid extends DataGridDatabase
         if ($type->isImage()) {
             // Add image url
             $this->setColumnFunction(
-                [BackendDataGridFunctions::class, 'showImage'],
+                BackendDataGridFunctions::showImage(...),
                 [
                     Model::get('media_library.storage.local')->getWebDir() . '/[sharding_folder_name]',
                     '[url]',

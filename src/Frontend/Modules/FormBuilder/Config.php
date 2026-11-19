@@ -14,5 +14,6 @@ class Config extends FrontendBaseConfig
      *
      * @var string
      */
+    #[\Override]
     protected $defaultAction = 'Form';
 }

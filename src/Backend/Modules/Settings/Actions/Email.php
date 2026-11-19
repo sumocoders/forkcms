@@ -3,10 +3,8 @@
 namespace Backend\Modules\Settings\Actions;
 
 use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
-use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Language\Language as BL;
-use function Symfony\Component\String\s;
 
 /**
  * This is the email-action, it will display a form to set email settings

@@ -5,7 +5,7 @@ namespace Backend\DependencyInjection;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 
 class BackendExtension extends Extension implements PrependExtensionInterface
 {
@@ -38,7 +38,7 @@ class BackendExtension extends Extension implements PrependExtensionInterface
                     'orm' => [
                         'mappings' => [
                             $module => [
-                                'type' => 'annotation',
+                                'type' => 'attribute',
                                 'is_bundle' => false,
                                 'dir' => $dir,
                                 'prefix' => 'Backend\\Modules\\' . $module . '\\Entity',

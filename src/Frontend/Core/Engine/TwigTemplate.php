@@ -2,6 +2,7 @@
 
 namespace Frontend\Core\Engine;
 
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Frontend\Core\Language\Locale;
 use Common\Core\Twig\BaseTwigTemplate;
 use Common\Core\Twig\Extensions\TwigFilters;
@@ -65,7 +66,7 @@ class TwigTemplate extends BaseTwigTemplate
     private function connectSymfonyForms(): void
     {
         $rendererEngine = new TwigRendererEngine($this->getFormTemplates('FormLayout.html.twig'), $this->environment);
-        $csrfTokenManager = Model::get(\Symfony\Component\Security\Csrf\CsrfTokenManager::class);
+        $csrfTokenManager = Model::get(CsrfTokenManager::class);
         $this->environment->addRuntimeLoader(
             new FactoryRuntimeLoader(
                 [

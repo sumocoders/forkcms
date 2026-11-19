@@ -2,7 +2,6 @@
 
 namespace Backend\Core\Engine\Base;
 
-use Backend\Core\Engine\Model;
 use Backend\Core\Engine\Model as BackendModel;
 use Common\Exception\RedirectException;
 use ForkCMS\App\KernelLoader;
@@ -162,7 +161,7 @@ class Widget extends KernelLoader
      */
     public function getRequest(): Request
     {
-        return Model::getRequest();
+        return BackendModel::getRequest();
     }
 
     /**

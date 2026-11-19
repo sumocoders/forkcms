@@ -24,7 +24,7 @@
               <div>
                 <label for="title" class="form-label">
                   {{ 'lbl.Title'|trans|ucfirst }}
-                  {{ macro.required }}
+                  {{ macro.required() }}
                 </label>
                 {% form_field title %} {% form_field_error title %}
                 {% if detailURL %}

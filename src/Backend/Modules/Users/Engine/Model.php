@@ -5,8 +5,6 @@ namespace Backend\Modules\Users\Engine;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\User as BackendUser;
-use Backend\Core\Language\Language as BackendLanguage;
-use IntlDateFormatter;
 
 /**
  * In this file we store all generic functions that we will be using in the users module.

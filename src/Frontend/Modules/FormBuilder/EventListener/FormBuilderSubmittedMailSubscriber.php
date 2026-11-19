@@ -52,9 +52,7 @@ final class FormBuilderSubmittedMailSubscriber
         array $fieldData,
         ?string $subject = null
     ): TemplatedEmail {
-        if ($subject === null) {
-            $subject = Language::getMessage('FormBuilderSubject');
-        }
+        $subject ??= Language::getMessage('FormBuilderSubject');
 
         $message = $this->emailFactory->create()
             ->subject(sprintf($subject, $form['name']))
@@ -72,6 +70,12 @@ final class FormBuilderSubmittedMailSubscriber
                     $fieldData
                 )
             ]);
+
+        // send to the recipients of the form instead of the default mailer_to
+        $recipients = array_filter((array) ($form['email'] ?? []));
+        if (count($recipients) > 0) {
+            $message->to(...array_map(static fn (string $email): Address => new Address($email), $recipients));
+        }
 
         // check if we have a replyTo email set
         foreach ($form['fields'] as $field) {

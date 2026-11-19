@@ -30,14 +30,14 @@
                     <div class="mb-4">
                       <label for="name" class="form-label">
                         {{ 'lbl.Name'|trans|ucfirst }}
-                        {{ macro.required }}
+                        {{ macro.required() }}
                       </label>
                       {% form_field name %} {% form_field_error name %}
                     </div>
                     <div class="mb-4">
                       <label for="method" class="form-label">
                         {{ 'lbl.Method'|trans|ucfirst }}
-                        {{ macro.required }}
+                        {{ macro.required() }}
                       </label>
                       {% form_field method %} {% form_field_error method %}
                     </div>
@@ -56,7 +56,7 @@
                     <div class="mb-4">
                       <label for="email" class="form-label">
                         {{ 'lbl.Recipient'|trans|ucfirst }}
-                        {{ macro.required }}
+                        {{ macro.required() }}
                       </label>
                       {% form_field email %} {% form_field_error email %}
                     </div>
@@ -68,7 +68,7 @@
                   <div class="card-header">
                     <label for="successMessage" class="form-label">
                       {{ 'lbl.SuccessMessage'|trans|ucfirst }}
-                      {{ macro.required }}<br>
+                      {{ macro.required() }}<br>
                     </label>
                   </div>
                   <div class="card-body">

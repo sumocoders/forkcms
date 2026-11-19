@@ -2,7 +2,6 @@
 
 namespace Backend\Modules\MediaLibrary\Domain\MediaGroup;
 
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class SingleMediaGroupType extends MediaGroupType

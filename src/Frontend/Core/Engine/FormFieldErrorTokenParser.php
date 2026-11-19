@@ -28,8 +28,7 @@ class FormFieldErrorTokenParser extends AbstractTokenParser
         return new FormFieldErrorNode(
             FormState::$current,
             $field,
-            $token->getLine(),
-            $this->getTag()
+            $token->getLine()
         );
     }
 

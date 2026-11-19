@@ -4,8 +4,6 @@ namespace Frontend\Modules\Blog\Actions;
 
 use DateTimeImmutable;
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
-use Frontend\Core\Engine\Model;
-use Frontend\Core\Engine\Navigation;
 use Frontend\Core\Language\Language as FL;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
 use Frontend\Modules\Blog\Engine\Model as FrontendBlogModel;
@@ -116,7 +114,7 @@ class Archive extends FrontendBaseBlock
 
         if ($slug !== $this->startDate->format($this->format)) {
             // redirect /2010/6 to /2010/06 to avoid duplicate content
-            $redirectUrl = Navigation::getUrlForBlock($this->getModule(), $this->getAction())
+            $redirectUrl = FrontendNavigation::getUrlForBlock($this->getModule(), $this->getAction())
                            . '/' . $this->startDate->format($this->format);
             if ($this->getRequest()->getQueryString() !== null) {
                 $redirectUrl .= '?' . $this->getRequest()->getQueryString();

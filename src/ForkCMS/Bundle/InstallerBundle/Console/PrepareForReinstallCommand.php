@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Bundle\InstallerBundle\Console;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 /**
  * This command will prepare everything for a full reinstall
  */
+#[AsCommand(name: 'forkcms:install:prepare-for-reinstall', description: 'Revert Fork CMS to an uninstalled state, prompting the install wizard.')]
 class PrepareForReinstallCommand extends Command
 {
     const RETURN_SUCCESS = 0;
@@ -24,12 +26,6 @@ class PrepareForReinstallCommand extends Command
         private readonly KernelInterface $kernel,
     ) {
         parent::__construct();
-    }
-
-    protected function configure(): void
-    {
-        $this->setName('forkcms:install:prepare-for-reinstall')
-            ->setDescription('Revert Fork CMS to an uninstalled state, prompting the install wizard.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

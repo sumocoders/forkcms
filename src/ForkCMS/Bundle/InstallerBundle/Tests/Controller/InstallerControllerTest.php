@@ -33,11 +33,6 @@ class InstallerControllerTest extends WebTestCase
 
     public function testNoStepActionAction(): void
     {
-        $this->markTestSkipped(
-            '(Sometimes) fails on weird PHP warning in PHPUnit itself: PHP preg_match(): Compilation failed: ' .
-            'length of lookbehind assertion is not limited'
-        );
-
         self::$booted = false;
         $client = static::createClient(['environment' => 'test_install']);
 
@@ -51,11 +46,6 @@ class InstallerControllerTest extends WebTestCase
 
     public function testInstallationProcess(KernelBrowser $client): void
     {
-        $this->markTestSkipped(
-            'Fails on weird PHP warning in PHPUnit itself: PHP preg_match(): Compilation failed: ' .
-            'length of lookbehind assertion is not limited'
-        );
-
         $container = $client->getContainer();
         $filesystem = new Filesystem();
         $installDatabaseConfig = [

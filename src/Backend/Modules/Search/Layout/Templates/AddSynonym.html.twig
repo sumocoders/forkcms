@@ -12,7 +12,7 @@
       <div class="mb-4">
         <label for="term" class="form-label">
           {{ 'lbl.Term'|trans|ucfirst }}
-          {{ macro.required }}
+          {{ macro.required() }}
         </label>
         {% form_field term %} {% form_field_error term %}
       </div>
@@ -20,7 +20,7 @@
         <div class="fakeP">
           <label for="addValue-synonym" class="form-label">
             {{ 'lbl.Synonyms'|trans|ucfirst }}
-            {{ macro.required }}
+            {{ macro.required() }}
           </label>
           <div class="itemAdder">
             {% form_field synonym %} {% form_field_error synonym %}

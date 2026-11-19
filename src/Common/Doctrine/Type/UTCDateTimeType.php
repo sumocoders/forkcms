@@ -48,11 +48,12 @@ class UTCDateTimeType extends DateTimeType
         $dateTime = DateTime::createFromFormat($platform->getDateTimeFormatString(), $dateTimeString, self::getUtc());
 
         if (!$dateTime) {
-            throw ConversionException::conversionFailedFormat(
+            throw new ConversionException(sprintf(
+                'value: %s type: %s format: %s',
                 $dateTimeString,
-                $this->getName(),
+                'datetime',
                 $platform->getDateTimeFormatString()
-            );
+            ));
         }
 
         // set time zone

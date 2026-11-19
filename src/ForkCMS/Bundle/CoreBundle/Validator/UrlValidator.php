@@ -12,7 +12,7 @@ final class UrlValidator
         $violations = Validation::createValidator()->validate(
             $url,
             [
-                new Assert\Url(),
+                new Assert\Url(requireTld: true),
             ]
         );
 

@@ -54,16 +54,12 @@ class ThumbnailsTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        parent::setUpBeforeClass();
-
         self::createFolders();
         self::createImages();
     }
 
     public static function tearDownAfterClass(): void
     {
-        parent::tearDownAfterClass();
-
         self::deleteFolders();
     }
 
@@ -107,13 +103,9 @@ class ThumbnailsTest extends TestCase
                 [$width, $height] = getimagesize($this->realBaseFolder . '/' . $imageFolder . '/' . $filename);
                 $folderWidth = $this->getWidthFromFolder($imageFolder);
                 $folderHeight = $this->getHeightFromFolder($imageFolder);
-                if ($folderWidth === null) {
-                    $folderWidth = (int) ($folderHeight * ($width/$height));
-                }
+                $folderWidth ??= (int) ($folderHeight * ($width/$height));
                 self::assertSame($width, $folderWidth);
-                if ($folderHeight === null) {
-                    $folderHeight = (int) ($folderWidth * ($height/$width));
-                }
+                $folderHeight ??= (int) ($folderWidth * ($height/$width));
                 self::assertSame($height, $folderHeight);
             }
         }
@@ -171,8 +163,6 @@ class ThumbnailsTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->realBaseFolder = realpath(self::BASE_FOLDER);
         $this->thumbnails = new Thumbnails($this->realBaseFolder);
     }

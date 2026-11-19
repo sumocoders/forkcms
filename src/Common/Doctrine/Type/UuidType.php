@@ -10,7 +10,7 @@ use Symfony\Component\Uid\Uuid;
 
 final class UuidType extends GuidType
 {
-    public const NAME = 'uuid';
+    public const string NAME = 'uuid';
 
     public function convertToPHPValue($value, AbstractPlatform $platform): ?Uuid
     {
@@ -25,7 +25,7 @@ final class UuidType extends GuidType
         try {
             return Uuid::fromString($value);
         } catch (Throwable) {
-            throw ConversionException::conversionFailed($value, self::NAME);
+            throw new ConversionException($value, self::NAME);
         }
     }
 
@@ -47,7 +47,7 @@ final class UuidType extends GuidType
             }
         }
 
-        throw ConversionException::conversionFailed($value, self::NAME);
+        throw new ConversionException($value, self::NAME);
     }
 
     public function getName(): string

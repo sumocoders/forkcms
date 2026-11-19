@@ -162,6 +162,10 @@ class Widget extends KernelLoader implements ModuleExtraInterface
 
     public function getCustomTemplate(): ?string
     {
+        if (!is_string($this->data) || $this->data === '') {
+            return null;
+        }
+
         $data = @unserialize($this->data, ['allowed_classes' => false]);
         if (is_array($data) && array_key_exists('custom_template', $data)) {
             return $this->module . '/Layout/Widgets/' . $data['custom_template'];

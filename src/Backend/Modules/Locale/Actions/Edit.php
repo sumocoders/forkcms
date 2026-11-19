@@ -72,7 +72,7 @@ class Edit extends BackendBaseActionEdit
         $filter = $this->filter;
         array_walk_recursive(
             $filter,
-            static function (&$value) {
+            static function (&$value): void {
                 if (is_string($value)) {
                     $value = htmlspecialchars($value);
                 }

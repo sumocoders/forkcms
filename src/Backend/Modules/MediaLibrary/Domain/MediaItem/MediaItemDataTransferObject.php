@@ -15,9 +15,8 @@ class MediaItemDataTransferObject
 
     /**
      * @var string
-     *
-     * @Assert\NotBlank(message="err.FieldIsRequired")
      */
+    #[Assert\NotBlank(message: 'err.FieldIsRequired')]
     public $title;
 
     /** @var string */

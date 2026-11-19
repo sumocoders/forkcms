@@ -118,19 +118,17 @@ class InstallationData
      * The backend login email for the GOD user
      *
      * @var string
-     *
-     * @Assert\NotBlank(groups={"login"})
-     * @Assert\Email(groups={"login"})
      */
+    #[Assert\NotBlank(groups: ['login'])]
+    #[Assert\Email(groups: ['login'])]
     protected $email;
 
     /**
      * The backend password for the GOD user
      *
      * @var string
-     *
-     * @Assert\NotBlank(groups={"login"})
      */
+    #[Assert\NotBlank(groups: ['login'])]
     protected $password;
 
     /**

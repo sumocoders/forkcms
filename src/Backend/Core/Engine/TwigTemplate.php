@@ -2,6 +2,7 @@
 
 namespace Backend\Core\Engine;
 
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Backend\Core\Language\Language as BL;
 use Common\Core\Twig\BaseTwigTemplate;
 use Common\Core\Twig\Extensions\TwigFilters;
@@ -11,13 +12,14 @@ use Symfony\Bridge\Twig\AppVariable;
 use Symfony\Bridge\Twig\Extension\FormExtension as SymfonyFormExtension;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
-use Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormRenderer;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
+use Twig\Error\RuntimeError;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
+use Twig\RuntimeLoader\RuntimeLoaderInterface;
 use function Symfony\Component\String\s;
 
 /**
@@ -112,7 +114,7 @@ class TwigTemplate extends BaseTwigTemplate
             ],
             $this->environment
         );
-        $csrfTokenManager = Model::get(\Symfony\Component\Security\Csrf\CsrfTokenManager::class);
+        $csrfTokenManager = Model::get(CsrfTokenManager::class);
         $this->environment->addRuntimeLoader(
             new FactoryRuntimeLoader(
                 [
@@ -343,10 +345,35 @@ class TwigTemplate extends BaseTwigTemplate
 
     private function autoloadMissingTaggedExtensions(ContainerInterface $container): void
     {
-        foreach ($container->get(\Twig\Environment::class)->getExtensions() as $id => $extension) {
+        $mainEnvironment = $container->get(Environment::class);
+        foreach ($mainEnvironment->getExtensions() as $id => $extension) {
             if (!$this->environment->hasExtension($id)) {
                 $this->environment->addExtension($extension);
             }
         }
+
+        // Extensions declared with #[AsTwigFunction]/#[AsTwigFilter] (IncludeOnceExtension, UtmExtension) and the
+        // lazy liip imagine filter are runtimes of the main environment: load them from there.
+        $this->environment->addRuntimeLoader(
+            new class ($mainEnvironment) implements RuntimeLoaderInterface {
+                public function __construct(private readonly Environment $environment)
+                {
+                }
+
+                public function load(string $class): ?object
+                {
+                    try {
+                        return $this->environment->getRuntime($class);
+                    } catch (RuntimeError $error) {
+                        // only "not found" means the main environment has no such runtime; keep other failures
+                        if ($error->getRawMessage() === sprintf('Unable to load the "%s" runtime.', $class)) {
+                            return null;
+                        }
+
+                        throw $error;
+                    }
+                }
+            }
+        );
     }
 }
