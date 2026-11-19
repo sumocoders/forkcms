@@ -87,6 +87,7 @@
     {% for child in form %}
       {{ form_widget(child, {
         parent_label_class: label_attr.class|default(''),
+        valid: valid,
       }) }}
     {% endfor %}
   {% else %}
@@ -94,6 +95,7 @@
       {% for child in form %}
         {{ form_widget(child, {
           parent_label_class: label_attr.class|default(''),
+          valid: valid,
         }) }}
       {% endfor %}
     </div>
@@ -101,14 +103,14 @@
 {%- endblock choice_widget_expanded %}
 {% block checkbox_widget -%}
   {% set parent_label_class = parent_label_class|default('') %}
-  {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-check-input')|trim}) %}
+  {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-check-input' ~ (valid ? '' : ' is-invalid'))|trim}) %}
   <div class="form-check{% if 'checkbox-inline' in parent_label_class %} form-check-inline{% endif %}">
     {{ form_label(form, null, {widget: parent()}) }}
   </div>
 {%- endblock checkbox_widget %}
 {% block radio_widget -%}
   {% set parent_label_class = parent_label_class|default('') %}
-  {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-check-input')|trim}) %}
+  {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-check-input' ~ (valid ? '' : ' is-invalid'))|trim}) %}
   <div class="form-check{% if 'radio-inline' in parent_label_class %} form-check-inline{% endif %}">
     {{ form_label(form, null, {widget: parent()}) }}
   </div>
