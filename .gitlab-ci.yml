@@ -5,6 +5,7 @@ stages:
     - dependency scanning
     - outdated packages
     - test
+    - deploy
 
 workflow:
     auto_cancel:
@@ -257,3 +258,69 @@ Task - Update dependencies:
         - docker
     variables:
         <<: *mysql_configuration
+
+
+# Deploy section
+Deploy - to staging:
+    image: sumocoders/fork-php85:latest
+    services:
+        - mysql:8.0
+    before_script:
+        - *before_script_test_configuration
+        - php bin/console --no-interaction cache:warmup --env=dev
+        # Add the private SSH key to the CI environment
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        - mkdir -p ~/.ssh
+        - chmod 700 ~/.ssh
+        - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+    script:
+        - php bin/dep deploy stage=staging
+    environment:
+        name: staging
+        url: https://$project.$client.php85.sumocoders.eu
+    stage: deploy
+    interruptible: false
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "schedule"'
+          when: never
+        - if: '$CI_COMMIT_BRANCH == "staging"'
+    tags:
+        - docker
+    variables:
+        <<: *mysql_configuration
+        USER: "CI/CD gitlab-runner"
+
+Deploy - to production:
+    image: sumocoders/fork-php85:latest
+    services:
+        - mysql:8.0
+    before_script:
+        - *before_script_test_configuration
+        - php bin/console --no-interaction cache:warmup --env=dev
+        # Add the private SSH key to the CI environment
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        - mkdir -p ~/.ssh
+        - chmod 700 ~/.ssh
+        - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+    script:
+        - php bin/dep deploy stage=production
+    environment:
+        name: production
+        url: https://$productionUrl
+    stage: deploy
+    interruptible: false
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "schedule"'
+          when: never
+        - if: '$CI_COMMIT_BRANCH == "master" || $CI_COMMIT_BRANCH == "main"'
+    tags:
+        - docker
+    variables:
+        <<: *mysql_configuration
+        USER: "CI/CD gitlab-runner"
