@@ -1,4 +1,3 @@
-import requestAnimationFrame from 'requestanimationframe'
 import { DistributeHeight } from './DistributeHeight'
 
 export class Resize {
@@ -27,7 +26,7 @@ export class Resize {
 
   tick () {
     if (!this.ticking) {
-      requestAnimationFrame(this.calculate)
+      window.requestAnimationFrame(this.calculate)
       this.ticking = true
     }
   }

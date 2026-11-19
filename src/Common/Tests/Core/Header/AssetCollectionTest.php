@@ -14,7 +14,7 @@ class AssetCollectionTest extends TestCase
         $assetCollection = new AssetCollection();
 
         $asset1 = new Asset(__DIR__ . '/../../../../../js/vendors/jquery-ui.min.js', false, Priority::standard());
-        $asset2 = new Asset(__DIR__ . '/../../../../../js/vendors/slick.min.js', false, Priority::module());
+        $asset2 = new Asset(__DIR__ . '/../../../../../js/vendors/cropper.min.js', false, Priority::module());
         $asset3 = new Asset(__DIR__ . '/../../../../../js/vendors/photoswipe.min.js', false, Priority::module());
         $asset4 = new Asset(__DIR__ . '/../../../../../js/vendors/bootstrap.bundle.min.js', false, Priority::core());
         $asset5 = new Asset(__DIR__ . '/../../../../../js/vendors/jquery.min.js', false, Priority::core());
