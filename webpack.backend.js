@@ -87,6 +87,10 @@ module.exports = {
           'fine-uploader/jquery.fine-uploader/placeholders/not_available-generic.png'
         ], 'css/vendors/fine-uploader'),
         ...copyVendorFiles([
+          'photoswipe/dist/photoswipe.css',
+          'photoswipe/dist/default-skin/*.{css,png,svg,gif}'
+        ], 'css/vendors/photoswipe'),
+        ...copyVendorFiles([
           '@fortawesome/fontawesome-free/webfonts/fa-solid-900.{woff2,ttf}',
           '@fortawesome/fontawesome-free/webfonts/fa-regular-400.{woff2,ttf}'
         ], 'fonts/vendors'),
@@ -99,7 +103,9 @@ module.exports = {
           'fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js',
           'simple-ajax-uploader/SimpleAjaxUploader.min.js',
           'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
-          'cropperjs/dist/cropper.min.js'
+          'cropperjs/dist/cropper.min.js',
+          'photoswipe/dist/photoswipe.min.js',
+          'photoswipe/dist/photoswipe-ui-default.min.js'
         ], 'js/vendors'),
         ...ckeditorFiles.map((file) => ({
           from: file,
