@@ -9,3 +9,7 @@ services:
       - "@ForkCMS\\Utility\\Thumbnails"
     tags:
       - { name: console.command }
+  forkcms.console.maintenance.create-pr-for-outdated-dependencies:
+    class: Console\Core\CreatePrForOutdatedDependenciesCommand
+    tags:
+      - { name: console.command }

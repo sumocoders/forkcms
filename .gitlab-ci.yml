@@ -1,5 +1,6 @@
 stages:
     - build
+    - scheduled tasks
     - code quality
     - dependency scanning
     - outdated packages
@@ -228,6 +229,30 @@ PHPUnit - Run unit tests:
     stage: test
     interruptible: true
     needs: [ "Install dependencies and build assets" ]
+    tags:
+        - docker
+    variables:
+        <<: *mysql_configuration
+
+
+# Scheduled tasks section
+Task - Update dependencies:
+    image: sumocoders/fork-php85:latest
+    services:
+        - mysql:8.0
+    before_script:
+        - *before_script_test_configuration
+        - php bin/console --no-interaction cache:warmup --env=dev
+    script:
+        - git config --global user.email "bot@sumocoders.be"
+        - git config --global user.name "Sumo Bot"
+        - git config --global push.autoSetupRemote true
+        - git remote set-url origin "https://bot:${GITLAB_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
+        - php bin/console forkcms:maintenance:create-pr-for-outdated-dependencies --no-interaction --ansi
+    stage: scheduled tasks
+    needs: [ "Install dependencies and build assets" ]
+    rules:
+        - if: '$CI_PIPELINE_SOURCE =~ /schedule|web/'
     tags:
         - docker
     variables:
