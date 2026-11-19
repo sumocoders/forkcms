@@ -53,7 +53,76 @@ class CreatePrForOutdatedDependenciesCommand
             return;
         }
 
-        // TODO
+        $output = (string) $this->runCommand(
+            ['npm', 'outdated', '--json'],
+            true,
+            false,
+            true,
+            true,
+        );
+
+        if ($output === '') {
+            return;
+        }
+
+        $outdatedPackages = json_decode($output, true, 512, JSON_THROW_ON_ERROR);
+        $semverSafeUpdatePackages = array_filter(
+            $outdatedPackages,
+            static fn (array $package): bool => version_compare($package['current'], $package['wanted'], '<'),
+        );
+
+        if (count($semverSafeUpdatePackages) === 0) {
+            return;
+        }
+
+        $this->createPullRequest(
+            date('YmdHi') . '-update-npm-dependencies',
+            date('d/m/Y') . ' Update npm dependencies',
+            [$this, 'runNpmUpdateCommands'],
+            [$semverSafeUpdatePackages],
+        );
+
+        $this->io->success('Created a merge request for updating npm dependencies.');
+    }
+
+    /**
+     * @param array<int,array{
+     *   name: string,
+     *   current: string,
+     *   latest: string,
+     *   }> $packages
+     */
+    private function runNpmUpdateCommands(array $packages): void
+    {
+        $this->runCommand(
+            ['npm', 'update', '--ignore-scripts', '--no-audit'],
+            true,
+            true,
+        );
+
+        $this->runCommand(['git', 'add', 'package.json', 'package-lock.json']);
+
+        $versionMessages = [];
+        foreach ($packages as $name => $package) {
+            $versionMessages[] = sprintf(
+                '  * %1$s (%2$s → %3$s)',
+                $name,
+                $package['current'],
+                $package['wanted'],
+            );
+        }
+
+        $commitMessage = 'chore(npm): Update npm dependencies' . "\n\n" . implode("\n", $versionMessages);
+        $this->runCommand(
+            [
+                'git',
+                'commit',
+                '--allow-empty',
+                '--no-verify',
+                '--message',
+                $commitMessage,
+            ],
+        );
     }
 
     private function checkComposer(): void
@@ -211,6 +280,7 @@ class CreatePrForOutdatedDependenciesCommand
         bool $showInput = true,
         bool $showOutput = false,
         bool $returnOutput = false,
+        bool $ignoreErrors = false,
     ): mixed {
         $io = $this->io;
         if ($showInput) {
@@ -231,7 +301,7 @@ class CreatePrForOutdatedDependenciesCommand
             $process->run();
         }
 
-        if (!$process->isSuccessful()) {
+        if (!$process->isSuccessful() && !$ignoreErrors) {
             throw new ProcessFailedException($process);
         }
 
