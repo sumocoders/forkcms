@@ -42,7 +42,7 @@ jsBackend.faq.edit = {
 
     var $modal = $('#confirmDeleteFeedback')
     $modal.siblings('#delete_id').val($(this).data('id'))
-    $modal.modal('show')
+    jsBackend.modal.show($modal)
   }
 }
 

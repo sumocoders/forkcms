@@ -32,7 +32,7 @@ jsBackend.extensions.modalInstall = {
         $confirmation.find('.jsConfirmationSubmit').attr('href', $(this).attr('href'))
 
         // open dialog
-        $confirmation.modal('show')
+        jsBackend.modal.show($confirmation)
       }
     })
   }
