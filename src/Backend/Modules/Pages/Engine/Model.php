@@ -954,7 +954,7 @@ class Model
         $html = '<h4>' . s(BL::lbl('MainNavigation'))->title() . '</h4>' . "\n";
         $html .= '<div class="clearfix" data-tree="main">' . "\n";
         $html .= '    <ul>' . "\n";
-        $html .= '        <li id="page-"' . BackendModel::HOME_PAGE_ID . ' rel="home">';
+        $html .= '        <li id="page-' . BackendModel::HOME_PAGE_ID . '" rel="home">';
 
         // create homepage anchor from title
         $homePage = self::get(BackendModel::HOME_PAGE_ID);
