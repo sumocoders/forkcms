@@ -85,7 +85,7 @@ jsBackend.mediaLibrary.library = {
           jsBackend.messages.add('success', json.message)
 
           // close dialog
-          $('#editFolderDialog').modal('hide')
+          jsBackend.modal.hide($('#editFolderDialog'))
 
           // reload document
           window.location.reload(true)
@@ -100,7 +100,7 @@ jsBackend.mediaLibrary.library = {
   dataGrids: function () {
     if (window.location.hash === '') {
       // select first tab
-      $('#library .nav-tabs a:first').tab('show')
+      jsBackend.tabs.show($('#library .nav-tabs a:first'))
     }
 
     // When mass action button is clicked
