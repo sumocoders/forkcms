@@ -202,18 +202,19 @@ jsBackend.navigation = {
     var $wrapper = $('.main-wrapper')
 
     if ($tooltip.length > 0) {
-      $tooltip.tooltip({
-        trigger: 'manual'
+      $tooltip.each(function () {
+        bootstrap.Tooltip.getOrCreateInstance(this, {
+          trigger: 'manual'
+        })
       })
 
       $tooltip.on('mouseover', function (e) {
         if ($wrapper.hasClass('navigation-collapsed') && $(window).width() > 787) {
-          var $target = $(e.target)
-          $target.tooltip('show')
+          bootstrap.Tooltip.getOrCreateInstance(e.target).show()
         }
       })
       $tooltip.on('mouseout', function (e) {
-        $(e.target).tooltip('hide')
+        bootstrap.Tooltip.getOrCreateInstance(e.target).hide()
       })
     }
   },
@@ -1880,7 +1881,9 @@ jsBackend.tooltip = {
     var $tooltip = $('[data-bs-toggle="tooltip"]')
 
     if ($tooltip.length > 0) {
-      $tooltip.tooltip()
+      $tooltip.each(function () {
+        bootstrap.Tooltip.getOrCreateInstance(this)
+      })
     }
   }
 }
