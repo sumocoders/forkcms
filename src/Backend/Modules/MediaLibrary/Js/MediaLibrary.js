@@ -106,7 +106,7 @@ jsBackend.mediaLibrary.library = {
     // When mass action button is clicked
     $('.jsMassActionSubmit').on('click', function () {
       // We remember the current type (image, file, movie, audio, ...)
-      jsBackend.mediaLibrary.library.currentType = $(this).parent().find('select[name=action]').attr('id').replace('mass-action-', '')
+      jsBackend.mediaLibrary.library.currentType = $(this).closest('.jsMassAction').find('select[name=action]').attr('id').replace('mass-action-', '')
     })
 
     // Submit form
