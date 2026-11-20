@@ -1254,7 +1254,7 @@ jsBackend.forms = {
       var invalidTabId = $invalidField.closest('.tab-pane').attr('id')
 
       // Find the link that corresponds to the pane and have it show
-      $('a[href="#' + invalidTabId + '"], [data-bs-target="#' + invalidTabId + '"]').tab('show')
+      jsBackend.tabs.show($('a[href="#' + invalidTabId + '"], [data-bs-target="#' + invalidTabId + '"]'))
       $invalidField.focus()
     })
   },
@@ -1786,8 +1786,15 @@ jsBackend.tabs = {
     // Show tab if the hash is in the url
     var hash = window.location.hash
     if ($(hash).length > 0 && $(hash).hasClass('tab-pane')) {
-      $('a[href="' + hash + '"]').tab('show')
+      jsBackend.tabs.show($('a[href="' + hash + '"]'))
     }
+  },
+
+  // target: a selector, an element or a jQuery object, does nothing when it matches nothing (like the jQuery bridge did)
+  show: function (target) {
+    $(target).each(function () {
+      bootstrap.Tab.getOrCreateInstance(this).show()
+    })
   }
 }
 
