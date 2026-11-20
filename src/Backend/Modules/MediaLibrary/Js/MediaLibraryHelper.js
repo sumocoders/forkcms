@@ -163,7 +163,7 @@ jsBackend.mediaLibraryHelper.group = {
 
       // get current media for group
       currentMediaItemIds = ($('#group-' + currentMediaGroupId + ' .mediaIds').first().val() !== '')
-        ? $.trim($('#group-' + currentMediaGroupId + ' .mediaIds').first().val()).split(',') : []
+        ? ($('#group-' + currentMediaGroupId + ' .mediaIds').first().val() || '').trim().split(',') : []
 
       // set the group media
       mediaGroups[currentMediaGroupId].media = currentMediaItemIds
@@ -326,7 +326,7 @@ jsBackend.mediaLibraryHelper.group = {
     currentMediaGroupId = groupId
 
     // current ids
-    var currentIds = $.trim($('#group-' + currentMediaGroupId + ' .mediaIds').first().val()).split(',')
+    var currentIds = ($('#group-' + currentMediaGroupId + ' .mediaIds').first().val() || '').trim().split(',')
 
     // remove from array
     currentIds = jQuery.grep(currentIds, function (value) {
@@ -480,7 +480,7 @@ jsBackend.mediaLibraryHelper.group = {
       var type = $('#group-' + mediaGroupId + ' .type').first().val()
       // get current media for group
       var mediaIds = ($('#group-' + mediaGroupId + ' .mediaIds').length > 0 && $('#group-' + mediaGroupId + ' .mediaIds').first().val() !== '')
-        ? $.trim($('#group-' + mediaGroupId + ' .mediaIds').first().val()).split(',') : []
+        ? ($('#group-' + mediaGroupId + ' .mediaIds').first().val() || '').trim().split(',') : []
 
       // Push ids to array
       mediaGroups[mediaGroupId] = {
@@ -652,7 +652,7 @@ jsBackend.mediaLibraryHelper.group = {
 
     // current ids
     var currentIds = ($('#group-' + currentMediaGroupId + ' .mediaIds').first().val() !== '')
-      ? $.trim($('#group-' + currentMediaGroupId + ' .mediaIds').first().val()).split(',') : []
+      ? ($('#group-' + currentMediaGroupId + ' .mediaIds').first().val() || '').trim().split(',') : []
 
     // define empty
     var empty = (currentMediaItemIds.length === 0)

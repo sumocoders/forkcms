@@ -359,7 +359,7 @@ jsFrontend.forms = {
         jsFrontend.locale.loc('MonthShort11'), jsFrontend.locale.loc('MonthShort12')
       ]
 
-      if ($.isFunction($.fn.datepicker)) {
+      if (typeof $.fn.datepicker === 'function') {
         $inputDatefieldNormal.each(function () {
           // Create a hidden clone (before datepicker init!), which will contain the actual value
           const clone = $(this).clone()

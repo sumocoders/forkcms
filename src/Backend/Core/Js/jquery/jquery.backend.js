@@ -150,11 +150,10 @@
       var id = $(this).attr('id')
 
       // append the button
-      $(this).closest('.input-group input').after(
-        '        <button data-id="' + id + '" class="generatePasswordButton btn btn-secondary" type="button"><span>' + options.generateLabel + '</span></button>'
-      )
+      var $button = $('<button data-id="' + id + '" class="generatePasswordButton btn btn-secondary" type="button"><span>' + options.generateLabel + '</span></button>')
+      $(this).closest('.input-group input').after($button)
 
-      $('.generatePasswordButton').live('click', generatePassword)
+      $button.on('click', generatePassword)
 
       function generatePassword (e) {
         // prevent default
@@ -441,7 +440,7 @@
                 destroyElement()
 
                 // show message
-                jsBackend.messages.add('danger', $.parseJSON(XMLHttpRequest.responseText).message)
+                jsBackend.messages.add('danger', JSON.parse(XMLHttpRequest.responseText).message)
               }
             })
         } else {
@@ -530,7 +529,7 @@
       })
 
       // bind click on delete-button
-      $('.deleteButton-' + id).live('click', function (e) {
+      $(document).on('click', '.deleteButton-' + id, function (e) {
         // dont submit
         e.preventDefault()
         e.stopPropagation()

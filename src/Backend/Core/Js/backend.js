@@ -111,7 +111,7 @@ var jsBackend =
           var textStatus = jsBackend.locale.err('SomethingWentWrong')
 
           // get real message
-          if (typeof XMLHttpRequest.responseText !== 'undefined') textStatus = $.parseJSON(XMLHttpRequest.responseText).message
+          if (typeof XMLHttpRequest.responseText !== 'undefined') textStatus = JSON.parse(XMLHttpRequest.responseText).message
 
           // show message
           jsBackend.messages.add('danger', textStatus)
@@ -1872,7 +1872,7 @@ jsBackend.tableSequenceByDragAndDrop = {
       extraParams = extraParams.replace(/'/g, '"')
 
       // we parse it as an object
-      extraParams = $.parseJSON(extraParams)
+      extraParams = JSON.parse(extraParams)
     }
 
     $rows.each(function () {
@@ -1907,7 +1907,7 @@ jsBackend.tableSequenceByDragAndDrop = {
 
         // get real message
         if (typeof XMLHttpRequest.responseText !== 'undefined') {
-          textStatus = $.parseJSON(XMLHttpRequest.responseText).message
+          textStatus = JSON.parse(XMLHttpRequest.responseText).message
         }
 
         jsBackend.messages.add('danger', textStatus)
