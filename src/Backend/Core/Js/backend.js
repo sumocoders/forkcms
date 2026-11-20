@@ -1,7 +1,7 @@
 /**
  * Backend related objects
  */
-/* global CKEDITOR, FileReader, TomSelect */
+/* global CKEDITOR, FileReader, TomSelect, bootstrap */
 
 var jsBackend =
   {
@@ -202,18 +202,19 @@ jsBackend.navigation = {
     var $wrapper = $('.main-wrapper')
 
     if ($tooltip.length > 0) {
-      $tooltip.tooltip({
-        trigger: 'manual'
+      $tooltip.each(function () {
+        bootstrap.Tooltip.getOrCreateInstance(this, {
+          trigger: 'manual'
+        })
       })
 
-      $tooltip.on('mouseover', function (e) {
+      $tooltip.on('mouseenter', function () {
         if ($wrapper.hasClass('navigation-collapsed') && $(window).width() > 787) {
-          var $target = $(e.target)
-          $target.tooltip('show')
+          bootstrap.Tooltip.getOrCreateInstance(this).show()
         }
       })
-      $tooltip.on('mouseout', function (e) {
-        $(e.target).tooltip('hide')
+      $tooltip.on('mouseleave', function () {
+        bootstrap.Tooltip.getOrCreateInstance(this).hide()
       })
     }
   },
@@ -755,7 +756,7 @@ jsBackend.controls = {
         $confirmation.find('.jsConfirmationSubmit').attr('href', $(this).attr('href'))
 
         // open dialog
-        $confirmation.modal('show')
+        jsBackend.modal.show($confirmation)
       }
     })
   },
@@ -884,7 +885,7 @@ jsBackend.controls = {
             // get id
             var id = element.data('bs-target')
 
-            $(id).modal('show')
+            jsBackend.modal.show($(id))
           } else {
             // no confirm
             $closestForm.submit()
@@ -1254,7 +1255,7 @@ jsBackend.forms = {
       var invalidTabId = $invalidField.closest('.tab-pane').attr('id')
 
       // Find the link that corresponds to the pane and have it show
-      $('a[href="#' + invalidTabId + '"], [data-bs-target="#' + invalidTabId + '"]').tab('show')
+      jsBackend.tabs.show($('a[href="#' + invalidTabId + '"], [data-bs-target="#' + invalidTabId + '"]'))
       $invalidField.focus()
     })
   },
@@ -1733,6 +1734,24 @@ jsBackend.messages = {
 }
 
 /**
+ * Open and close Bootstrap modals through the native API
+ */
+jsBackend.modal = {
+  // target: a selector, an element or a jQuery object, does nothing when it matches nothing (like the jQuery bridge did)
+  show: function (target) {
+    $(target).each(function () {
+      bootstrap.Modal.getOrCreateInstance(this).show()
+    })
+  },
+
+  hide: function (target) {
+    $(target).each(function () {
+      bootstrap.Modal.getOrCreateInstance(this).hide()
+    })
+  }
+}
+
+/**
  * Apply tabs
  */
 jsBackend.tabs = {
@@ -1768,8 +1787,15 @@ jsBackend.tabs = {
     // Show tab if the hash is in the url
     var hash = window.location.hash
     if ($(hash).length > 0 && $(hash).hasClass('tab-pane')) {
-      $('a[href="' + hash + '"]').tab('show')
+      jsBackend.tabs.show($('a[href="' + hash + '"]'))
     }
+  },
+
+  // target: a selector, an element or a jQuery object, does nothing when it matches nothing (like the jQuery bridge did)
+  show: function (target) {
+    $(target).each(function () {
+      bootstrap.Tab.getOrCreateInstance(this).show()
+    })
   }
 }
 
@@ -1855,7 +1881,9 @@ jsBackend.tooltip = {
     var $tooltip = $('[data-bs-toggle="tooltip"]')
 
     if ($tooltip.length > 0) {
-      $tooltip.tooltip()
+      $tooltip.each(function () {
+        bootstrap.Tooltip.getOrCreateInstance(this)
+      })
     }
   }
 }

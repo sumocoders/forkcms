@@ -60,7 +60,7 @@ jsBackend.mediaLibraryFolders = {
           // update folders
           jsBackend.mediaLibraryFolders.updateFolders(json.data.id)
 
-          $addFolderDialog.modal('hide')
+          jsBackend.modal.hide($addFolderDialog)
         }
       })
     })
@@ -71,7 +71,7 @@ jsBackend.mediaLibraryFolders = {
       e.preventDefault()
 
       // open dialog
-      $addFolderDialog.modal('show')
+      jsBackend.modal.show($addFolderDialog)
 
       // Focus the text field
       $('#addFolderTitle').focus()

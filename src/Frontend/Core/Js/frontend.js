@@ -269,11 +269,15 @@ jsFrontend.forms = {
       const id = $(event.currentTarget).attr('id')
 
       // show tooltip
-      $('label[for="' + id + '"]').find('abbr').tooltip('show')
+      $('label[for="' + id + '"]').find('abbr').each(function () {
+        bootstrap.Tooltip.getOrCreateInstance(this).show()
+      })
 
       // hide tooltip after 1 second
       setTimeout(function () {
-        $('label[for="' + id + '"]').find('abbr').tooltip('hide')
+        $('label[for="' + id + '"]').find('abbr').each(function () {
+          bootstrap.Tooltip.getOrCreateInstance(this).hide()
+        })
       }, 1000)
     })
   },

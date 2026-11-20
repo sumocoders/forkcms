@@ -50,7 +50,7 @@ jsBackend.Blog.controls = {
               jsBackend.Blog.controls.currentCategory = json.data.id
 
               // close dialog
-              $addCategoryDialog.modal('hide')
+              jsBackend.modal.hide($addCategoryDialog)
             }
           }
         })
@@ -68,7 +68,7 @@ jsBackend.Blog.controls = {
           e.preventDefault()
 
           // open dialog
-          $addCategoryDialog.modal('show')
+          jsBackend.modal.show($addCategoryDialog)
         } else {
           // reset current category
           jsBackend.Blog.controls.currentCategory = $categoryId.val()

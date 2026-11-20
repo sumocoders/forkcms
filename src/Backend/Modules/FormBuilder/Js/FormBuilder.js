@@ -301,7 +301,7 @@ jsBackend.FormBuilder.Fields = {
 
       // bind
       if (id !== '') {
-        $('#' + id).modal('show')
+        jsBackend.modal.show($('#' + id))
       }
     })
 
@@ -459,7 +459,7 @@ jsBackend.FormBuilder.Fields = {
                 )
 
                 // show dialog
-                $('#textboxDialog').modal('show')
+                jsBackend.modal.show($('#textboxDialog'))
               } else if (data.data.field.type === 'textarea') {
                 // textarea edit
                 // fill in form
@@ -486,7 +486,7 @@ jsBackend.FormBuilder.Fields = {
                 )
 
                 // show dialog
-                $('#textareaDialog').modal('show')
+                jsBackend.modal.show($('#textareaDialog'))
               } else if (data.data.field.type === 'datetime') {
                 // datetime edit
                 // fill in form
@@ -515,7 +515,7 @@ jsBackend.FormBuilder.Fields = {
                 )
 
                 // show dialog
-                $('#datetimeDialog').modal('show')
+                jsBackend.modal.show($('#datetimeDialog'))
               } else if (data.data.field.type === 'dropdown') {
                 // dropdown edit
                 // fill in form
@@ -550,7 +550,7 @@ jsBackend.FormBuilder.Fields = {
                 }
 
                 // show dialog
-                $('#dropdownDialog').modal('show')
+                jsBackend.modal.show($('#dropdownDialog'))
               } else if (data.data.field.type === 'radiobutton') {
                 // radiobutton edit
                 // fill in form
@@ -585,7 +585,7 @@ jsBackend.FormBuilder.Fields = {
                 }
 
                 // show dialog
-                $('#radiobuttonDialog').modal('show')
+                jsBackend.modal.show($('#radiobuttonDialog'))
               } else if (data.data.field.type === 'checkbox') {
                 // checkbox edit
                 // fill in form
@@ -620,7 +620,7 @@ jsBackend.FormBuilder.Fields = {
                 }
 
                 // show dialog
-                $('#checkboxDialog').modal('show')
+                jsBackend.modal.show($('#checkboxDialog'))
               } else if (data.data.field.type === 'heading') {
                 // heading edit
                 // fill in form
@@ -628,7 +628,7 @@ jsBackend.FormBuilder.Fields = {
                 $('#heading').val(utils.string.htmlDecode(data.data.field.settings.values))
 
                 // show dialog
-                $('#headingDialog').modal('show')
+                jsBackend.modal.show($('#headingDialog'))
               } else if (data.data.field.type === 'paragraph') {
                 // paragraph edit
                 // fill in form
@@ -636,7 +636,7 @@ jsBackend.FormBuilder.Fields = {
                 jsBackend.ckeditor.setData($('#paragraph'), data.data.field.settings.values)
 
                 // show dialog
-                $('#paragraphDialog').modal('show')
+                jsBackend.modal.show($('#paragraphDialog'))
               } else if (data.data.field.type === 'submit') {
                 // submit edit
                 // fill in form
@@ -644,7 +644,7 @@ jsBackend.FormBuilder.Fields = {
                 $('#submit').val(utils.string.htmlDecode(data.data.field.settings.values))
 
                 // show dialog
-                $('#submitDialog').modal('show')
+                jsBackend.modal.show($('#submitDialog'))
               }
 
               // validation form
@@ -772,7 +772,7 @@ jsBackend.FormBuilder.Fields = {
     $('#datetimeDialog').find('.defaultValue').show()
 
     // select first tab
-    $('#' + id + ' .nav-tabs a:first').tab('show')
+    jsBackend.tabs.show($('#' + id + ' .nav-tabs a:first'))
   },
 
   /**
@@ -832,7 +832,7 @@ jsBackend.FormBuilder.Fields = {
             jsBackend.FormBuilder.Fields.setField(data.data.field_id, data.data.field_html)
 
             // close console box
-            $('#checkboxDialog').modal('hide')
+            jsBackend.modal.hide($('#checkboxDialog'))
           }
         } else {
           // show error message
@@ -913,7 +913,7 @@ jsBackend.FormBuilder.Fields = {
               jsBackend.FormBuilder.Fields.setField(data.data.field_id, data.data.field_html)
 
               // close console box
-              $('#datetimeDialog').modal('hide')
+              jsBackend.modal.hide($('#datetimeDialog'))
             }
           } else {
             // show error message
@@ -985,7 +985,7 @@ jsBackend.FormBuilder.Fields = {
             jsBackend.FormBuilder.Fields.setField(data.data.field_id, data.data.field_html)
 
             // close console box
-            $('#dropdownDialog').modal('hide')
+            jsBackend.modal.hide($('#dropdownDialog'))
           }
         } else {
           // show error message
@@ -1038,7 +1038,7 @@ jsBackend.FormBuilder.Fields = {
             jsBackend.FormBuilder.Fields.setField(data.data.field_id, data.data.field_html)
 
             // close console box
-            $('#headingDialog').modal('hide')
+            jsBackend.modal.hide($('#headingDialog'))
           }
         } else {
           // show error message
@@ -1091,7 +1091,7 @@ jsBackend.FormBuilder.Fields = {
             jsBackend.FormBuilder.Fields.setField(data.data.field_id, data.data.field_html)
 
             // close console box
-            $('#paragraphDialog').modal('hide')
+            jsBackend.modal.hide($('#paragraphDialog'))
           }
         } else {
           // show error message
@@ -1164,7 +1164,7 @@ jsBackend.FormBuilder.Fields = {
             jsBackend.FormBuilder.Fields.setField(data.data.field_id, data.data.field_html)
 
             // close console box
-            $('#radiobuttonDialog').modal('hide')
+            jsBackend.modal.hide($('#radiobuttonDialog'))
           }
         } else {
           // show error message
@@ -1214,7 +1214,7 @@ jsBackend.FormBuilder.Fields = {
             $('#submitField').val(value)
 
             // close console box
-            $('#submitDialog').modal('hide')
+            jsBackend.modal.hide($('#submitDialog'))
           }
 
           // toggle error messages
@@ -1326,7 +1326,7 @@ jsBackend.FormBuilder.Fields = {
             jsBackend.FormBuilder.Fields.setField(data.data.field_id, data.data.field_html)
 
             // close console box
-            $('#textareaDialog').modal('hide')
+            jsBackend.modal.hide($('#textareaDialog'))
           }
         } else {
           // show error message
@@ -1426,7 +1426,7 @@ jsBackend.FormBuilder.Fields = {
             jsBackend.FormBuilder.Fields.setField(data.data.field_id, data.data.field_html)
 
             // close console box
-            $('#textboxDialog').modal('hide')
+            jsBackend.modal.hide($('#textboxDialog'))
           }
         } else {
           // show error message

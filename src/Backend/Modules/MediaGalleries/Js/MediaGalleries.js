@@ -32,13 +32,13 @@ jsBackend.mediaGalleries.dialogs = {
         // Bind click to open the dialog
     $('#addMediaGroupType').on('click', function (e) {
       e.preventDefault()
-      $dialog.modal('show')
+      jsBackend.modal.show($dialog)
     })
 
         // When clicked in dialog, close it
     $('#addMediaGroupTypeSubmit').on('click', function () {
       $dialog.find('form').submit()
-      $dialog.modal('hide')
+      jsBackend.modal.hide($dialog)
     })
   }
 }

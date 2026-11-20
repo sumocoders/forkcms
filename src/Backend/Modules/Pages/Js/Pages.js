@@ -335,7 +335,7 @@ jsBackend.pages.extras = {
       jsBackend.pages.template.original = false
 
       // close dialog
-      $('#blockHtml').modal('hide')
+      jsBackend.modal.hide($('#blockHtml'))
 
       // set focus on position add block button after the modal is closed
       $('#blockHtml').on('hidden.bs.modal', function (e) {
@@ -350,7 +350,7 @@ jsBackend.pages.extras = {
       jsBackend.pages.extras.setContent(index, previousContent)
 
       // close the dialog
-      $('#blockHtml').modal('hide')
+      jsBackend.modal.hide($('#blockHtml'))
 
       // set focus on position add block button after the modal is closed
       $('#blockHtml').on('hidden.bs.modal', function (e) {
@@ -378,7 +378,8 @@ jsBackend.pages.extras = {
       editor.setMode('wysiwyg', function () {
         editor.setData(previousContent)
       })
-    }).modal('show')
+    })
+    jsBackend.modal.show($('#blockHtml'))
   },
 
   // hide fallback
@@ -594,7 +595,8 @@ jsBackend.pages.extras = {
           if (isUserTemplate && index) {
             $('.templatePositionCurrentType[data-block-id=' + index + '] .editUserTemplate').click()
           }
-        }).modal('hide')
+        })
+        jsBackend.modal.hide($('#addBlock'))
 
         // set focus on position add block button after the modal is closed
         $('#addBlock').on('hidden.bs.modal', function (e) {
@@ -607,7 +609,7 @@ jsBackend.pages.extras = {
         }
       })
 
-      $('#addBlock').modal('show')
+      jsBackend.modal.show($('#addBlock'))
     }
   },
   editUserTemplate: function (e) {
@@ -674,7 +676,7 @@ jsBackend.pages.extras = {
       // edit content = template is no longer original
       jsBackend.pages.template.original = false
 
-      $('#addUserTemplate').modal('hide')
+      jsBackend.modal.hide($('#addUserTemplate'))
 
       // set focus on position add block button after the modal is closed
       $('#addUserTemplate').on('hidden.bs.modal', function (e) {
@@ -686,7 +688,7 @@ jsBackend.pages.extras = {
       $('body > div > input[name="file"]').parent().remove()
       $('#userTemplatePlaceholder').html('')
     })
-    $modal.modal('show')
+    jsBackend.modal.show($modal)
   },
 
   /**
@@ -1188,7 +1190,7 @@ jsBackend.pages.extras = {
         jsBackend.pages.template.original = false
 
         // close dialog
-        $('#confirmDeleteBlock').modal('hide')
+        jsBackend.modal.hide($('#confirmDeleteBlock'))
 
         // set focus to add block button after modal is closed
         $('#confirmDeleteBlock').on('hidden.bs.modal', function (e) {
@@ -1196,7 +1198,7 @@ jsBackend.pages.extras = {
         })
       })
 
-      $('#confirmDeleteBlock').modal('show')
+      jsBackend.modal.show($('#confirmDeleteBlock'))
     }
   },
 
@@ -1448,7 +1450,7 @@ jsBackend.pages.template = {
       }
 
       // close modal
-      $('#changeTemplate').modal('hide')
+      jsBackend.modal.hide($('#changeTemplate'))
     })
   }
 }

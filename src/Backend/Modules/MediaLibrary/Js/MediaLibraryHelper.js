@@ -132,7 +132,7 @@ jsBackend.mediaLibraryHelper.group = {
       jsBackend.messages.add('success', jsBackend.locale.msg('MediaGroupEdited'))
 
       // close the dialog
-      $addMediaDialog.modal('hide')
+      jsBackend.modal.hide($addMediaDialog)
     })
 
     // bind click when opening "add media dialog"
@@ -181,7 +181,7 @@ jsBackend.mediaLibraryHelper.group = {
       jsBackend.mediaLibraryHelper.upload.toggleUploadBoxes()
 
       // open dialog
-      $addMediaDialog.modal('show')
+      jsBackend.modal.show($addMediaDialog)
     })
 
     // bind change when selecting other folder
@@ -227,7 +227,7 @@ jsBackend.mediaLibraryHelper.group = {
 
       $mediaItemTitleInput.val($mediaItem.data('mediaTitle'))
 
-      $editMediaDialog.modal('show')
+      jsBackend.modal.show($editMediaDialog)
     })
 
     $mediaItemTitleInput.keyup(function (e) {
@@ -289,7 +289,7 @@ jsBackend.mediaLibraryHelper.group = {
             alt: $mediaItemTitleInput.val()
           })
 
-          $editMediaDialog.modal('hide')
+          jsBackend.modal.hide($editMediaDialog)
         }
       })
     })
@@ -779,7 +779,7 @@ jsBackend.mediaLibraryHelper.group = {
     if (disabled !== '') {
       $tabs.children(disabled).children('a').addClass('disabled').removeAttr('data-bs-toggle')
     }
-    $tabs.children(enabled).children('a').attr('data-bs-toggle', 'tab').first().tab('show')
+    jsBackend.tabs.show($tabs.children(enabled).children('a').attr('data-bs-toggle', 'tab').first())
 
     // get table
     var $tables = $('.mediaTable')
@@ -975,7 +975,7 @@ jsBackend.mediaLibraryHelper.cropper = {
     jsBackend.mediaLibraryHelper.cropper.isCropping = false
     // check if it is a standalone dialog for the cropper
     if ($dialog.attr('data-role') === 'media-library-cropper-dialog') {
-      $dialog.modal('hide')
+      jsBackend.modal.hide($dialog)
 
       return
     }
@@ -990,7 +990,7 @@ jsBackend.mediaLibraryHelper.cropper = {
     }
 
     if (!$dialog.hasClass('show')) {
-      $dialog.modal('show')
+      jsBackend.modal.show($dialog)
     }
 
     $dialog.find('[data-role=media-library-select-modal]').addClass('d-none')
