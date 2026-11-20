@@ -208,13 +208,13 @@ jsBackend.navigation = {
         })
       })
 
-      $tooltip.on('mouseover', function (e) {
+      $tooltip.on('mouseenter', function () {
         if ($wrapper.hasClass('navigation-collapsed') && $(window).width() > 787) {
-          bootstrap.Tooltip.getOrCreateInstance(e.target).show()
+          bootstrap.Tooltip.getOrCreateInstance(this).show()
         }
       })
-      $tooltip.on('mouseout', function (e) {
-        bootstrap.Tooltip.getOrCreateInstance(e.target).hide()
+      $tooltip.on('mouseleave', function () {
+        bootstrap.Tooltip.getOrCreateInstance(this).hide()
       })
     }
   },
