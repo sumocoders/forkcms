@@ -1191,11 +1191,6 @@ jsBackend.mediaLibraryHelper.upload = {
     new qq.FineUploader({
       element: $fineUploaderGallery[0],
       template: 'qq-template-gallery',
-      options: {
-        request: {
-          omitDefaultParams: true
-        }
-      },
       chunking: {
         enabled: true,
         success: {
