@@ -64,8 +64,9 @@ jsBackend.pages.move = {
         $typeSelect.find('[value=after]').addClass('disabled').prop('disabled', true)
       }
 
-      if ($typeSelect.find('option[value="' + selectedValue + '"]').is(':disabled')) {
-        selectedValue = $typeSelectOptions.not(':disabled').first().val()
+      // check the option itself: jQuery 4 uses the native :disabled, which also matches every option of a disabled select
+      if ($typeSelect.find('option[value="' + selectedValue + '"]').prop('disabled')) {
+        selectedValue = $typeSelectOptions.filter(function () { return !this.disabled }).first().val()
       }
 
       $typeSelect.val(selectedValue)
@@ -89,7 +90,8 @@ jsBackend.pages.move = {
         $pagesSelect.find('optgroup[label="' + $visiblePages.first().attr('data-tree-label') + '"]').show()
       }
 
-      if ($pagesSelect.find('option[value="' + selectedValue + '"]').is(':disabled')) {
+      // check the option itself: jQuery 4 uses the native :disabled, which also matches every option of a disabled select
+      if ($pagesSelect.find('option[value="' + selectedValue + '"]').prop('disabled')) {
         selectedValue = 0
       }
 

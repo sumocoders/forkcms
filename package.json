@@ -26,7 +26,7 @@
     "cropperjs": "^1.7.0",
     "css-loader": "^7.1.5",
     "fine-uploader": "^5.14.1",
-    "jquery": "^3.5.0",
+    "jquery": "~4.0.0",
     "jquery-ui": "~1.14.2",
     "mini-css-extract-plugin": "^2.7.6",
     "photoswipe": "^4.1.3",
