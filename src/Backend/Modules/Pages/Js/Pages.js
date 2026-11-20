@@ -1467,7 +1467,8 @@ jsBackend.pages.tree = {
         .on('state_ready.jstree', function (e, data) {
           if (typeof pageID !== 'undefined') data.instance.select_node('page-' + pageID, true)
         })
-        .on('select_node.jstree', jsBackend.pages.tree.onSelect)
+        // activate_node fires on every click, select_node not when the page that is already selected is clicked
+        .on('activate_node.jstree', jsBackend.pages.tree.onSelect)
         .on('move_node.jstree copy_node.jstree', jsBackend.pages.tree.onMove)
         .jstree({
           core: {

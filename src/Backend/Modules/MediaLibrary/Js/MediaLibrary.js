@@ -142,7 +142,8 @@ jsBackend.mediaLibrary.tree = {
           data.instance.select_node('folder-' + openedFolderId, true)
         }
       })
-      .on('select_node.jstree', jsBackend.mediaLibrary.tree.onSelect)
+      // activate_node fires on every click, select_node not when the folder of the current page is clicked
+      .on('activate_node.jstree', jsBackend.mediaLibrary.tree.onSelect)
       .on('move_node.jstree', jsBackend.mediaLibrary.tree.onMove)
       .jstree({
         core: {
