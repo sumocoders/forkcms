@@ -18,7 +18,10 @@ jsFrontend.search =
     if ($('input[data-role=fork-search-field][data-live-suggest=enabled]').length > 0 && $('[data-role="search-results-container"]').length > 0) {
       // Tom Select hides the original input, so listen to the text typed in its control instead
       if (autocomplete !== null) {
-        autocomplete.on('type', jsFrontend.search.livesuggest)
+        autocomplete.on('type', function (term) {
+          // when the field loses focus Tom Select empties the text and keeps the term as the selected item
+          jsFrontend.search.livesuggest(term === '' ? autocomplete.getValue() : term)
+        })
       } else {
         $('input[data-role=fork-search-field][data-live-suggest=enabled]').on('keyup', function () {
           jsFrontend.search.livesuggest($(this).val())
@@ -52,9 +55,21 @@ jsFrontend.search =
   livesuggest: function (term) {
     var $searchContainer = $('*[data-role=search-results-container]')
 
+    // nothing changed since the last term
+    if (term === jsFrontend.search.livesuggestTerm) return
+
+    // remember the latest term, a call that is still running asks for it when it is done
+    jsFrontend.search.livesuggestTerm = term
+
     // make sure we're allowed to do the call (= previous call is no longer processing)
-    // an empty term only gets a 400, and Tom Select reports one when the field loses focus right after typing
-    if (!jsFrontend.search.allowLivesuggestCall || term === '') return
+    if (!jsFrontend.search.allowLivesuggestCall) return
+
+    // an empty term has no results, the server answers it with a 400
+    if (term === '') {
+      $searchContainer.html('')
+
+      return
+    }
 
     // temporarily allow no more calls
     jsFrontend.search.allowLivesuggestCall = false
@@ -69,9 +84,6 @@ jsFrontend.search =
         term: term
       },
       success: function (data, textStatus) {
-        // allow for new calls
-        jsFrontend.search.allowLivesuggestCall = true
-
         // alert the user
         if (data.code !== 200 && jsFrontend.debug) { window.alert(data.message) }
 
@@ -84,19 +96,28 @@ jsFrontend.search =
         }
       },
       error: function () {
-        // allow for new calls
-        jsFrontend.search.allowLivesuggestCall = true
-
         // replace search results
         $searchContainer.html('')
 
         // fade in
         $searchContainer.fadeTo(0, 1)
+      },
+      complete: function () {
+        // allow for new calls
+        jsFrontend.search.allowLivesuggestCall = true
+
+        // the term changed while this call was running
+        var latestTerm = jsFrontend.search.livesuggestTerm
+        if (latestTerm !== term) {
+          jsFrontend.search.livesuggestTerm = null
+          jsFrontend.search.livesuggest(latestTerm)
+        }
       }
     })
   },
 
   allowLivesuggestCall: true,
+  livesuggestTerm: null,
 
   // turn a search field into a Tom Select that suggests the results of the given ajax action
   tomSelect: function (input, action, length, mapResult) {
@@ -130,6 +151,15 @@ jsFrontend.search =
             length: length
           },
           success: function (json) {
+            // a slower response for an earlier term would replace the suggestions of the current one,
+            // drop it and let that term load again when it is typed again
+            if (term !== tomSelect.inputValue()) {
+              delete tomSelect.loadedSearches[term]
+              callback()
+
+              return
+            }
+
             tomSelect.clearOptions()
             callback($.map(json.data, function (result) {
               return $.extend(mapResult(result), {isSuggestion: true})
