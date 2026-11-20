@@ -34,7 +34,6 @@ const ckeditorPlugins = [
 ]
 
 const ckeditorFiles = [
-  'adapters/*.js',
   'lang/*.js',
   // a glob keeps the plugins/ folder, a plain file path would be copied flat
   'plugins/icons{,_hidpi}.png',

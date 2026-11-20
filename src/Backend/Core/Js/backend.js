@@ -418,10 +418,9 @@ jsBackend.ckeditor = {
   loadEditorsInCollections: function () {
     $('[data-addfield=collection]').on('collection-field-added', function (event, formCollectionItem) {
       jsBackend.ckeditor.prepare()
-      $(formCollectionItem).find('textarea.inputEditor, textarea.inputEditorError').ckeditor(
-        jsBackend.ckeditor.callback,
-        $.extend({}, jsBackend.ckeditor.defaultConfig)
-      )
+      $(formCollectionItem).find('textarea.inputEditor, textarea.inputEditorError').each(function () {
+        jsBackend.ckeditor.replace(this)
+      })
     })
   },
 
@@ -457,11 +456,46 @@ jsBackend.ckeditor = {
   },
 
   load: function () {
-    // extend the editor config
-    var editorConfig = $.extend({}, jsBackend.ckeditor.defaultConfig)
-
     // bind on inputEditor and inputEditorError
-    $('textarea.inputEditor, textarea.inputEditorError').ckeditor(jsBackend.ckeditor.callback, editorConfig)
+    $('textarea.inputEditor, textarea.inputEditorError').each(function () {
+      jsBackend.ckeditor.replace(this)
+    })
+  },
+
+  // replace a textarea with an editor, unless it already has one
+  replace: function (element) {
+    if (jsBackend.ckeditor.getEditor(element)) return
+
+    CKEDITOR.replace(element, $.extend({}, jsBackend.ckeditor.defaultConfig))
+  },
+
+  // the editor that replaced this textarea, or null
+  getEditor: function (element) {
+    var $element = $(element)
+
+    if (typeof CKEDITOR === 'undefined' || $element.length === 0) return null
+
+    return CKEDITOR.dom.element.get($element[0]).getEditor()
+  },
+
+  // read the content of a textarea, from its editor when it has one
+  getData: function (element) {
+    var editor = jsBackend.ckeditor.getEditor(element)
+
+    return editor ? editor.getData() : $(element).val()
+  },
+
+  // set the content of a textarea, through its editor when it has one
+  setData: function (element, data) {
+    var editor = jsBackend.ckeditor.getEditor(element)
+
+    if (editor) {
+      editor.setData(data)
+
+      return
+    }
+
+    $(element).val(data)
   },
 
   callback: function () {
@@ -1465,6 +1499,15 @@ jsBackend.forms = {
     $('.checkBeforeUnload').each(function () {
       // initialize
       var $this = $(this)
+
+      // the textarea behind an editor only gets the content on submit, ask the editor instead
+      var editor = jsBackend.ckeditor.getEditor(this)
+      if (editor) {
+        changed = editor.checkDirty()
+
+        // stop looking when it changed
+        return !changed
+      }
 
       // compare values
       if ($this.data('initial-value') !== $this.val()) {

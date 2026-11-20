@@ -324,7 +324,7 @@ jsBackend.pages.extras = {
       e.preventDefault()
 
       // grab the content
-      var content = $('#html').val()
+      var content = jsBackend.ckeditor.getData($('#html'))
 
       // save content
       jsBackend.pages.extras.setContent(index, content)
@@ -1153,7 +1153,7 @@ jsBackend.pages.extras = {
     if ($element.is('[data-ft-type="editor"]')) {
       $textarea = $placeholder.find('#user-template-editor-' + key + ' textarea[data-ft-label]')
 
-      $element.html($textarea.val())
+      $element.html(jsBackend.ckeditor.getData($textarea))
 
       if (jsData.Core.preferred_editor === 'ck-editor') {
         // destroy the editor
