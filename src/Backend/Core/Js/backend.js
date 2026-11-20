@@ -1,7 +1,7 @@
 /**
  * Backend related objects
  */
-/* global CKEDITOR, FileReader, TomSelect */
+/* global CKEDITOR, FileReader, TomSelect, bootstrap */
 
 var jsBackend =
   {
@@ -755,7 +755,7 @@ jsBackend.controls = {
         $confirmation.find('.jsConfirmationSubmit').attr('href', $(this).attr('href'))
 
         // open dialog
-        $confirmation.modal('show')
+        jsBackend.modal.show($confirmation)
       }
     })
   },
@@ -884,7 +884,7 @@ jsBackend.controls = {
             // get id
             var id = element.data('bs-target')
 
-            $(id).modal('show')
+            jsBackend.modal.show($(id))
           } else {
             // no confirm
             $closestForm.submit()
@@ -1729,6 +1729,24 @@ jsBackend.messages = {
         }, 5000)
       }
     }
+  }
+}
+
+/**
+ * Open and close Bootstrap modals through the native API
+ */
+jsBackend.modal = {
+  // target: a selector, an element or a jQuery object, does nothing when it matches nothing (like the jQuery bridge did)
+  show: function (target) {
+    $(target).each(function () {
+      bootstrap.Modal.getOrCreateInstance(this).show()
+    })
+  },
+
+  hide: function (target) {
+    $(target).each(function () {
+      bootstrap.Modal.getOrCreateInstance(this).hide()
+    })
   }
 }
 
