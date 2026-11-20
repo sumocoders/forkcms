@@ -27,7 +27,6 @@
     "css-loader": "^7.1.5",
     "fine-uploader": "^5.14.1",
     "jquery": "^3.5.0",
-    "jquery-migrate": "~1.4",
     "jquery-ui": "~1.14.2",
     "mini-css-extract-plugin": "^2.7.6",
     "photoswipe": "^4.1.3",

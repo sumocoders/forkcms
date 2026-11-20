@@ -78,7 +78,6 @@ final class Header extends KernelLoader
     private function addCoreJs(): void
     {
         $this->addJS('/js/vendors/jquery.min.js', 'Core', true, true, Priority::core());
-        $this->addJS('/js/vendors/jquery-migrate.min.js', 'Core', true, true, Priority::core());
         $this->addJS('/js/vendors/jquery-ui.min.js', 'Core', true, true, Priority::core());
         $this->addJS('/js/vendors/bootstrap.bundle.min.js', 'Core', true, true, Priority::core());
         $this->addJS('/js/vendors/tom-select.complete.min.js', 'Core', true, true, Priority::core());

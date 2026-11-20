@@ -98,7 +98,6 @@ module.exports = {
         ], 'fonts/vendors'),
         ...copyVendorFiles([
           'jquery/dist/jquery.min.js',
-          'jquery-migrate/dist/jquery-migrate.min.js',
           'jquery-ui/dist/jquery-ui.min.js',
           'jstree/dist/jstree.min.js',
           'bootstrap5/dist/js/bootstrap.bundle.min.js',
