@@ -756,7 +756,8 @@ jsBackend.FormBuilder.Fields = {
    */
   resetDialog: function (id) {
     // clear all form fields
-    $('#' + id).find(':input').removeAttr('checked').removeAttr('selected').val('')
+    // removeAttr('checked') only drops the attribute, a box the user ticked would stay ticked
+    $('#' + id).find(':input').prop('checked', false).val('')
     $('#' + id).find('textarea').each(function () {
       jsBackend.ckeditor.setData(this, '')
     })
