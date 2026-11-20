@@ -80,10 +80,10 @@ module.exports = {
           'cropperjs/dist/cropper.min.css'
         ], 'css/vendors'),
         ...copyVendorFiles([
-          'fine-uploader/jquery.fine-uploader/fine-uploader-new.min.css',
-          'fine-uploader/jquery.fine-uploader/*.gif',
-          'fine-uploader/jquery.fine-uploader/placeholders/waiting-generic.png',
-          'fine-uploader/jquery.fine-uploader/placeholders/not_available-generic.png'
+          'fine-uploader/fine-uploader/fine-uploader-new.min.css',
+          'fine-uploader/fine-uploader/*.gif',
+          'fine-uploader/fine-uploader/placeholders/waiting-generic.png',
+          'fine-uploader/fine-uploader/placeholders/not_available-generic.png'
         ], 'css/vendors/fine-uploader'),
         ...copyVendorFiles([
           'photoswipe/dist/photoswipe.css',
@@ -103,7 +103,7 @@ module.exports = {
           'jstree/dist/jstree.min.js',
           'bootstrap5/dist/js/bootstrap.bundle.min.js',
           'tom-select/dist/js/tom-select.complete.min.js',
-          'fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js',
+          'fine-uploader/fine-uploader/fine-uploader.min.js',
           'simple-ajax-uploader/SimpleAjaxUploader.min.js',
           'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
           'cropperjs/dist/cropper.min.js',

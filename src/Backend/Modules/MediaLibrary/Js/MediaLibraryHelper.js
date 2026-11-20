@@ -1187,7 +1187,9 @@ jsBackend.mediaLibraryHelper.upload = {
     jsBackend.mediaLibraryHelper.upload.toggleCropper()
 
     var $fineUploaderGallery = $('#fine-uploader-gallery')
-    $fineUploaderGallery.fineUploader({
+    // eslint-disable-next-line no-new
+    new qq.FineUploader({
+      element: $fineUploaderGallery[0],
       template: 'qq-template-gallery',
       options: {
         request: {
