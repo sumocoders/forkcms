@@ -1,25 +1,4 @@
 /**
- * Media tree
- */
-
-#mediaTree .tree-fork li[rel="folder"] a {
-  width : auto!important;
-  position: relative
-}
-
-#mediaTree .tree-fork li[rel="folder"] a:before {
-  content: "\f07b";
-}
-#mediaTree .tree-fork li[rel="folder"] a:before {
-  color: #999;
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 400;
-  font-size: 12px;
-  position: absolute;
-  left: 4px
-}
-
-/**
  * Media library Helper
  *
  * Structure:

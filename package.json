@@ -75,7 +75,6 @@
       "src/Backend/Cache/",
       "src/Backend/Core/Js/ckeditor/",
       "src/Backend/Core/Layout/EditorTemplates/templates.js",
-      "src/Backend/Modules/Pages/Js/jstree/",
       "src/Frontend/Cache/",
       "src/Frontend/Core/Js/jquery/jquery.js",
       "src/Frontend/Themes/Bootstrap",
@@ -129,6 +128,7 @@
   },
   "dependencies": {
     "@splidejs/splide": "^4.1.4",
-    "fslightbox": "^3.4.1"
+    "fslightbox": "^3.4.1",
+    "jstree": "~3.3.17"
   }
 }

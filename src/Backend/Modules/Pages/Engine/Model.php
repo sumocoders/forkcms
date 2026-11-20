@@ -858,7 +858,7 @@ class Model
             // loop pages
             foreach ($navigation['page'][$parentId] as $page) {
                 // start
-                $html .= '<li id="page-' . $page['page_id'] . '" rel="' . $page['tree_type'] . '">' . "\n";
+                $html .= self::getTreeItemOpeningTag($page) . "\n";
 
                 // insert link
                 $html .= '    <a href="' . BackendModel::createUrlForAction(
@@ -866,7 +866,7 @@ class Model
                     null,
                     null,
                     ['id' => $page['page_id']]
-                ) . '"><ins>&#160;</ins>' . htmlspecialchars((string) $page['navigation_title']) . '</a>' . "\n";
+                ) . '">' . htmlspecialchars((string) $page['navigation_title']) . '</a>' . "\n";
 
                 // get childs
                 $html .= self::getSubtree($navigation, $page['page_id']);
@@ -901,7 +901,7 @@ class Model
         $data[$level] = (array) BackendModel::getContainer()->get('database')->getRecords(
             'SELECT
                  i.id, i.title, i.parent_id, i.navigation_title, i.type, i.hidden, i.data,
-                m.url, m.data AS meta_data, m.seo_follow, m.seo_index, i.allow_children,
+                m.url, m.data AS meta_data, m.seo_follow, m.seo_index, i.allow_move, i.allow_children,
                 IF(COUNT(e.id) > 0, 1, 0) AS has_extra,
                 GROUP_CONCAT(b.extra_id) AS extra_ids,
                 IF(COUNT(p.id), 1, 0) AS has_children
@@ -954,16 +954,24 @@ class Model
         $html = '<h4>' . s(BL::lbl('MainNavigation'))->title() . '</h4>' . "\n";
         $html .= '<div class="clearfix" data-tree="main">' . "\n";
         $html .= '    <ul>' . "\n";
-        $html .= '        <li id="page-' . BackendModel::HOME_PAGE_ID . '" rel="home">';
 
         // create homepage anchor from title
         $homePage = self::get(BackendModel::HOME_PAGE_ID);
+        $html .= '        ' . self::getTreeItemOpeningTag(
+            [
+                'page_id' => BackendModel::HOME_PAGE_ID,
+                'tree_type' => 'home',
+                'allow_move' => false,
+                'allow_children' => (bool) $homePage['allow_children'],
+            ],
+            true
+        ) . "\n";
         $html .= '            <a href="' . BackendModel::createUrlForAction(
             'Edit',
             null,
             null,
             ['id' => BackendModel::HOME_PAGE_ID]
-        ) . '"><ins>&#160;</ins>' . htmlentities((string) $homePage['title']) . '</a>' . "\n";
+        ) . '">' . htmlentities((string) $homePage['title']) . '</a>' . "\n";
 
         // add subpages
         $html .= self::getSubtree($navigation, BackendModel::HOME_PAGE_ID);
@@ -985,7 +993,7 @@ class Model
                 // loop the items
                 foreach ($navigation['meta'][0] as $page) {
                     // start
-                    $html .= '        <li id="page-' . $page['page_id'] . '" rel="' . $page['tree_type'] . '">' . "\n";
+                    $html .= '        ' . self::getTreeItemOpeningTag($page) . "\n";
 
                     // insert link
                     $html .= '            <a href="' . BackendModel::createUrlForAction(
@@ -993,7 +1001,7 @@ class Model
                         null,
                         null,
                         ['id' => $page['page_id']]
-                    ) . '"><ins>&#160;</ins>' . htmlspecialchars((string) $page['navigation_title']) . '</a>' . "\n";
+                    ) . '">' . htmlspecialchars((string) $page['navigation_title']) . '</a>' . "\n";
 
                     // insert subtree
                     $html .= self::getSubtree($navigation, $page['page_id']);
@@ -1020,7 +1028,7 @@ class Model
             // loop the items
             foreach ($navigation['footer'][0] as $page) {
                 // start
-                $html .= '        <li id="page-' . $page['page_id'] . '" rel="' . $page['tree_type'] . '">' . "\n";
+                $html .= '        ' . self::getTreeItemOpeningTag($page) . "\n";
 
                 // insert link
                 $html .= '            <a href="' . BackendModel::createUrlForAction(
@@ -1028,7 +1036,7 @@ class Model
                     null,
                     null,
                     ['id' => $page['page_id']]
-                ) . '"><ins>&#160;</ins>' . htmlspecialchars((string) $page['navigation_title']) . '</a>' . "\n";
+                ) . '">' . htmlspecialchars((string) $page['navigation_title']) . '</a>' . "\n";
 
                 // insert subtree
                 $html .= self::getSubtree($navigation, $page['page_id']);
@@ -1054,7 +1062,7 @@ class Model
             // loop the items
             foreach ($navigation['root'][0] as $page) {
                 // start
-                $html .= '        <li id="page-' . $page['page_id'] . '" rel="' . $page['tree_type'] . '">' . "\n";
+                $html .= '        ' . self::getTreeItemOpeningTag($page) . "\n";
 
                 // insert link
                 $html .= '            <a href="' . BackendModel::createUrlForAction(
@@ -1062,7 +1070,7 @@ class Model
                     null,
                     null,
                     ['id' => $page['page_id']]
-                ) . '"><ins>&#160;</ins>' . htmlspecialchars((string) $page['navigation_title']) . '</a>' . "\n";
+                ) . '">' . htmlspecialchars((string) $page['navigation_title']) . '</a>' . "\n";
 
                 // insert subtree
                 $html .= self::getSubtree($navigation, $page['page_id']);
@@ -1078,6 +1086,26 @@ class Model
 
         // return
         return $html;
+    }
+
+    /**
+     * The jstree 3 list item for a page, the data-allow-* attributes drive the drag and drop checks in Pages.js
+     */
+    private static function getTreeItemOpeningTag(array $page, bool $opened = false): string
+    {
+        $pageId = (int) $page['page_id'];
+        // navigation caches built before allow_move was added to them lack the key
+        $allowMove = $page['allow_move'] ?? !self::isForbiddenToMove($pageId);
+        $allowChildren = $page['allow_children'] && !self::isForbiddenToHaveChildren($pageId);
+        $jstreeData = ['type' => $page['tree_type']];
+        if ($opened) {
+            $jstreeData['opened'] = true;
+        }
+
+        return '<li id="page-' . $pageId . '" data-id="' . $pageId . '" rel="' . $page['tree_type'] . '"'
+            . " data-jstree='" . json_encode($jstreeData, JSON_HEX_APOS | JSON_THROW_ON_ERROR) . "'"
+            . ' data-allow-move="' . ($allowMove ? 'true' : 'false') . '"'
+            . ' data-allow-children="' . ($allowChildren ? 'true' : 'false') . '">';
     }
 
     private static function pageIsChildOfParent(array $navigation, int $childId, int $parentId): bool

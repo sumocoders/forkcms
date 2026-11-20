@@ -91,6 +91,9 @@ module.exports = {
           'photoswipe/dist/default-skin/*.{css,png,svg,gif}'
         ], 'css/vendors/photoswipe'),
         ...copyVendorFiles([
+          'jstree/dist/themes/default/{style.min.css,32px.png,40px.png,throbber.gif}'
+        ], 'css/vendors/jstree'),
+        ...copyVendorFiles([
           '@fortawesome/fontawesome-free/webfonts/fa-solid-900.{woff2,ttf}',
           '@fortawesome/fontawesome-free/webfonts/fa-regular-400.{woff2,ttf}'
         ], 'fonts/vendors'),
@@ -98,6 +101,7 @@ module.exports = {
           'jquery/dist/jquery.min.js',
           'jquery-migrate/dist/jquery-migrate.min.js',
           'jquery-ui/dist/jquery-ui.min.js',
+          'jstree/dist/jstree.min.js',
           'bootstrap5/dist/js/bootstrap.bundle.min.js',
           'tom-select/dist/js/tom-select.complete.min.js',
           'fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js',

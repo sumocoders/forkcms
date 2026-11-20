@@ -1782,6 +1782,77 @@ jsBackend.tabs = {
 }
 
 /**
+ * Shared helpers for the jstree 3 trees of the Pages and MediaLibrary modules
+ */
+jsBackend.tree = {
+  // true while a failed move is undone, so the undo doesn't trigger another move call
+  isRollingBack: false,
+
+  // dnd: an item can be dragged unless the markup forbids it
+  isDraggable: function (nodes) {
+    return nodes.every(function (node) {
+      return node.li_attr['data-allow-move'] !== 'false'
+    })
+  },
+
+  // state: remember the opened items, the selected item comes from the current page
+  filterState: function (state) {
+    delete state.core.selected
+
+    return state
+  },
+
+  // translate a move_node or copy_node event into the dropped_on and type of Fork's move actions
+  getDrop: function (data) {
+    var instance = data.instance
+    var siblings = instance.get_node(data.parent).children
+    var index = siblings.indexOf(data.node.id)
+    var getId = function (nodeId) {
+      return instance.get_node(nodeId).li_attr['data-id']
+    }
+
+    if (index > 0) return {droppedOn: getId(siblings[index - 1]), type: 'after'}
+
+    // a drop inside a parent lands on the first position
+    if (siblings.length > 1) return {droppedOn: getId(siblings[1]), type: 'before'}
+
+    return {droppedOn: data.parent === $.jstree.root ? 0 : getId(data.parent), type: 'inside'}
+  },
+
+  // move a node back after a failed move_node within the same tree
+  rollback: function (data) {
+    // jstree counts the position of a move within the same parent as if the node were still in place
+    var position = data.old_position
+    if (data.old_parent === data.parent && data.old_position > data.position) position++
+
+    jsBackend.tree.isRollingBack = true
+    data.instance.move_node(data.node, data.old_parent, position)
+    jsBackend.tree.isRollingBack = false
+  },
+
+  toggleCollapse: function ($trees) {
+    $('[data-role="toggle-js-tree-collapse"]').on('click', function () {
+      var $this = $(this)
+      $this.toggleClass('tree-collapsed')
+      var collapsed = $this.hasClass('tree-collapsed')
+      var $buttonText = $('[data-role="toggle-js-tree-collapse-text"]')
+
+      $buttonText.text(jsBackend.locale.lbl(collapsed ? 'OpenTreeNavigation' : 'CloseTreeNavigation'))
+      $trees.each(function () {
+        var instance = $.jstree.reference(this)
+        if (collapsed) {
+          instance.close_all()
+
+          return
+        }
+
+        instance.open_all()
+      })
+    })
+  }
+}
+
+/**
  * Apply tooltip
  */
 jsBackend.tooltip = {

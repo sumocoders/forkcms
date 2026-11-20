@@ -1,7 +1,7 @@
 /**
  * Interaction for the pages module
  */
-/* global pageID, CKEDITOR, extrasById, extrasData, ss, templates, initDefaults, selectedId */
+/* global pageID, CKEDITOR, extrasById, extrasData, ss, templates, initDefaults */
 
 jsBackend.pages = {
   // init, something like a constructor
@@ -1457,179 +1457,107 @@ jsBackend.pages.template = {
 jsBackend.pages.tree = {
   // init, something like a constructor
   init: function () {
-    if ($('#tree div').length === 0) return false
+    var $trees = $('#tree [data-tree]')
+    if ($trees.length === 0) return false
 
-    // add "treeHidden"-class on leafs that are hidden, only for browsers that don't support opacity
-    if (!jQuery.support.opacity) $('#tree ul li[rel="hidden"]').addClass('treeHidden')
+    $trees.each(function () {
+      var $tree = $(this)
 
-    var openedIds = []
-    if (typeof pageID !== 'undefined') {
-      // get parents
-      var parents = $('#page-' + pageID).parents('li')
-
-      // init var
-      openedIds = ['page-' + pageID]
-
-      // add parents
-      for (var i = 0; i < parents.length; i++) {
-        openedIds.push($(parents[i]).prop('id'))
-      }
-    }
-
-    // add home if needed
-    if (!utils.array.inArray('page-1', openedIds)) openedIds.push('page-1')
-
-    var options = {
-      ui: {theme_name: 'fork'},
-      opened: openedIds,
-      rules: {
-        multiple: false,
-        multitree: 'all',
-        drag_copy: false
-      },
-      lang: {loading: utils.string.ucfirst(jsBackend.locale.lbl('Loading'))},
-      callback: {
-        beforemove: jsBackend.pages.tree.beforeMove,
-        onselect: jsBackend.pages.tree.onSelect,
-        onmove: jsBackend.pages.tree.onMove
-      },
-      plugins: {
-        cookie: {prefix: 'jstree_', types: {selected: false}, options: {path: '/', secure: window.location.protocol === 'https:'}}
-      }
-    }
-
-    // create tree
-    $('#tree div').tree(options)
-
-    // layout fix for the tree
-    $('.tree li.open').each(function () {
-      // if the so-called open-element doesn't have any childs we should replace the open-class.
-      if ($(this).find('ul').length === 0) $(this).removeClass('open').addClass('leaf')
+      $tree
+        .on('state_ready.jstree', function (e, data) {
+          if (typeof pageID !== 'undefined') data.instance.select_node('page-' + pageID, true)
+        })
+        .on('select_node.jstree', jsBackend.pages.tree.onSelect)
+        .on('move_node.jstree copy_node.jstree', jsBackend.pages.tree.onMove)
+        .jstree({
+          core: {
+            multiple: false,
+            check_callback: jsBackend.pages.tree.checkCallback,
+            themes: {dots: true}
+          },
+          plugins: ['dnd', 'state', 'types'],
+          dnd: {
+            copy: false,
+            is_draggable: jsBackend.tree.isDraggable
+          },
+          state: {
+            key: 'fork_pages_' + $tree.data('tree'),
+            filter: jsBackend.tree.filterState
+          },
+          types: {
+            default: {icon: 'fa-regular fa-file'},
+            page: {icon: 'fa-regular fa-file'},
+            home: {icon: 'fa-regular fa-file'},
+            hidden: {icon: 'fa-regular fa-file'},
+            direct_action: {icon: 'fa-regular fa-file'},
+            error: {icon: 'fa-solid fa-triangle-exclamation'},
+            sitemap: {icon: 'fa-solid fa-sitemap'},
+            redirect: {icon: 'fa-solid fa-arrow-up-right-from-square'}
+          }
+        })
     })
 
-    // set the item selected
-    if (typeof selectedId !== 'undefined') $('#' + selectedId).addClass('selected')
-
-    jsBackend.pages.tree.toggleJsTreeCollapse()
+    jsBackend.tree.toggleCollapse($trees)
   },
 
-  // before an item will be moved we have to do some checks
-  beforeMove: function (node, refNode, type, tree) {
-    // get pageID that has to be moved
-    var parentPageID
-    var currentPageID = $(node).prop('id').replace('page-', '')
-    if (typeof refNode === 'undefined') {
-      parentPageID = 0
-    } else {
-      parentPageID = $(refNode).prop('id').replace('page-', '')
-    }
+  // runs synchronously on every drag hover and before every move, so it only reads the rendered attributes
+  checkCallback: function (operation, node, parent, position, more) {
+    // a move to another tree copies the node and then deletes the original
+    if (operation === 'delete_node') return true
+    if (operation !== 'move_node' && !(operation === 'copy_node' && more && more.is_multi)) return false
+    if (node.li_attr['data-allow-move'] === 'false') return false
 
-    // home is a special item
-    if (parentPageID === '1') {
-      if (type === 'before') return false
-      if (type === 'after') return false
-    }
+    // the main navigation has the home page as its only root
+    if (parent.id === $.jstree.root) return this.element.data('tree') !== 'main'
 
-    // init var
-    var result = false
-
-    // make the call
-    $.ajax({
-      async: false, // important that this isn't asynchronous
-      data: {
-        fork: {action: 'GetInfo'},
-        id: currentPageID
-      },
-      error: function (XMLHttpRequest, textStatus, errorThrown) {
-        if (jsBackend.debug) window.alert(textStatus)
-        result = false
-      },
-      success: function (json, textStatus) {
-        if (json.code !== 200) {
-          if (jsBackend.debug) window.alert(textStatus)
-          result = false
-        } else {
-          if (json.data.allow_move) result = true
-        }
-      }
-    })
-
-    // return
-    return result
+    return parent.li_attr['data-allow-children'] !== 'false'
   },
 
   // when an item is selected
-  onSelect: function (node, tree) {
+  onSelect: function (e, data) {
+    // only a click redirects, not the selection on page load
+    if (!data.event) return
+
     // get current and new URL
     var currentPageURL = window.location.pathname + window.location.search
-    var newPageURL = $(node).find('a').prop('href')
+    var newPageURL = data.node.a_attr.href
 
     // only redirect if destination isn't the current one.
     if (typeof newPageURL !== 'undefined' && newPageURL !== currentPageURL) window.location = newPageURL
   },
 
-  // when an item is moved
-  onMove: function (node, refNode, type, tree, rollback) {
-    // get the tree
-    tree = tree.container.data('tree')
+  // when an item is moved, within a tree (move_node) or to another tree (copy_node)
+  onMove: function (e, data) {
+    if (jsBackend.tree.isRollingBack) return
 
-    // get pageID that has to be moved
-    var currentPageID = $(node).prop('id').replace('page-', '')
-
-    // get pageID wheron the page has been dropped
-    var droppedOnPageID
-    if (typeof refNode === 'undefined') {
-      droppedOnPageID = 0
-    } else {
-      droppedOnPageID = $(refNode).prop('id').replace('page-', '')
-    }
+    var drop = jsBackend.tree.getDrop(data)
 
     // make the call
     $.ajax({
       data: {
         fork: {action: 'Move'},
-        id: currentPageID,
-        dropped_on: droppedOnPageID,
-        type: type,
-        tree: tree
+        id: data.node.li_attr['data-id'],
+        dropped_on: drop.droppedOn,
+        type: drop.type,
+        tree: data.instance.element.data('tree')
       },
-      success: function (json, textStatus) {
-        if (json.code !== 200) {
-          if (jsBackend.debug) window.alert(textStatus)
+      success: function (json) {
+        // show message
+        jsBackend.messages.add('success', jsBackend.locale.msg('PageIsMoved').replace('%1$s', json.data.title))
+      },
+      error: function () {
+        // show message
+        jsBackend.messages.add('danger', jsBackend.locale.err('CantBeMoved'))
 
-          // show message
-          jsBackend.messages.add('danger', jsBackend.locale.err('CantBeMoved'))
+        // the copied node and the deleted original can't be moved back, reload the trees instead
+        if (data.is_multi) {
+          window.location.reload()
 
-          // rollback
-          $.tree.rollback(rollback)
-        } else {
-          // show message
-          jsBackend.messages.add('success', jsBackend.locale.msg('PageIsMoved').replace('%1$s', json.data.title))
+          return
         }
+
+        jsBackend.tree.rollback(data)
       }
-    })
-  },
-
-  toggleJsTreeCollapse: function () {
-    $('[data-role="toggle-js-tree-collapse"]').on('click', function () {
-      var $this = $(this)
-      $this.toggleClass('tree-collapsed')
-      var collapsed = $this.hasClass('tree-collapsed')
-      var $buttonText = $('[data-role="toggle-js-tree-collapse-text"]')
-
-      if (collapsed) {
-        $buttonText.text(jsBackend.locale.lbl('OpenTreeNavigation'))
-        $.each($('#tree div'), function (index, element) {
-          $.tree.reference($(element).attr('id')).close_all()
-        })
-
-        return
-      }
-
-      $buttonText.text(jsBackend.locale.lbl('CloseTreeNavigation'))
-      $.each($('#tree div'), function (index, element) {
-        $.tree.reference($(element).attr('id')).open_all()
-      })
     })
   }
 }
