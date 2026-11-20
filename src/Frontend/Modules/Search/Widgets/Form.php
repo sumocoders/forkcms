@@ -16,7 +16,8 @@ class Form extends FrontendBaseWidget
         parent::execute();
         $this->loadTemplate();
 
-        $this->addJS('/js/vendors/typeahead.bundle.min.js', true);
+        $this->addJS('/js/vendors/tom-select.complete.min.js', true);
+        $this->addCSS('/css/vendors/tom-select.bootstrap5.min.css', true);
         $this->addCSS('Search.css');
 
         $form = new FrontendForm('search', FrontendNavigation::getUrlForBlock('Search'), 'get', null, false);

@@ -167,7 +167,8 @@ class Index extends FrontendBaseBlock
 
     private function parse(): void
     {
-        $this->addJS('/js/vendors/typeahead.bundle.min.js', true);
+        $this->addJS('/js/vendors/tom-select.complete.min.js', true);
+        $this->addCSS('/css/vendors/tom-select.bootstrap5.min.css', true);
         $this->addCSS('Search.css');
 
         $this->form->parse($this->template);
