@@ -22,14 +22,14 @@ jsBackend.settings = {
     var $this = $(this)
 
     // only go on if the item isn't disabled by default
-    if (!$this.attr('disabled')) {
+    if (!$this.prop('disabled')) {
       // grab other element
       var $other = $('#' + $this.attr('id').replace('active_', 'redirect_'))
 
       if ($this.is(':checked')) {
-        $other.attr('disabled', false)
+        $other.prop('disabled', false)
       } else {
-        $other.attr('checked', false).attr('disabled', true)
+        $other.prop('checked', false).prop('disabled', true)
       }
     }
   },
@@ -43,7 +43,7 @@ jsBackend.settings = {
 
     // disable the handler to prevent sending too many requests
     $clearCacheButton.off('click', jsBackend.settings.clearCache)
-    $clearCacheButton.attr('disabled', 'disabled')
+    $clearCacheButton.prop('disabled', true)
 
     // display the status alert
     var $statusAlert = $('[data-role="fork-clear-cache-status"]')
@@ -83,7 +83,7 @@ jsBackend.settings = {
           $statusAlert.toggleClass('d-none')
           // reset the button
           $clearCacheButton.on('click', jsBackend.settings.clearCache)
-          $clearCacheButton.attr('disabled', false)
+          $clearCacheButton.prop('disabled', false)
         }
       }
     )
@@ -98,7 +98,7 @@ jsBackend.settings = {
 
     // disable the handler to prevent sending too many requests
     $generateSitemapButton.off('click', jsBackend.settings.generateSitemap)
-    $generateSitemapButton.attr('disabled', 'disabled')
+    $generateSitemapButton.prop('disabled', true)
 
     // display the status alert
     var $statusAlert = $('[data-role="fork-generate-sitemap-status"]')
@@ -131,7 +131,7 @@ jsBackend.settings = {
           $statusAlert.toggleClass('d-none')
           // reset the button
           $generateSitemapButton.on('click', jsBackend.settings.generateSitemap)
-          $generateSitemapButton.attr('disabled', false)
+          $generateSitemapButton.prop('disabled', false)
         }
       }
     )

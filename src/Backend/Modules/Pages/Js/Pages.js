@@ -203,7 +203,7 @@ jsBackend.pages.extras = {
     block.appendTo($('#editContent'))
 
     // get block visibility
-    var visible = blockVisibility.attr('checked')
+    var visible = blockVisibility.is(':checked')
 
     // add visual representation of block to template visualisation
     var addedVisual = jsBackend.pages.extras.addBlockVisual(selectedPosition, index, selectedExtraId, visible, selectedExtraType, selectedExtraData)
@@ -551,7 +551,7 @@ jsBackend.pages.extras = {
     }
 
     // enable/disable blocks
-    $('#extraType option[value=block]').attr('disabled', !enabled)
+    $('#extraType option[value=block]').prop('disabled', !enabled)
 
     // set type
     $('#extraType').val($('#extraType').val())
@@ -1265,7 +1265,7 @@ jsBackend.pages.extras = {
     visible = !visible
 
     // change visibility state
-    checkbox.attr('checked', visible)
+    checkbox.prop('checked', visible)
 
     // remove current visibility indicators
     $(this).find('.fa').removeClass('fa-eye fa-eye-slash')
@@ -1402,7 +1402,7 @@ jsBackend.pages.template = {
       var extraType = $('input[id^=blockExtraType]', this).val()
       var extraData = $('input[id^=blockExtraData]', this).val()
       var position = $('input[id^=blockPosition]', this).val()
-      var visible = $('input[id^=blockVisible]', this).attr('checked')
+      var visible = $('input[id^=blockVisible]', this).is(':checked')
 
       // skip default (base) block (= continue)
       if (index === 0) return true

@@ -831,20 +831,20 @@ jsBackend.mediaLibraryHelper.group = {
 
     if (maximumMediaItemsCount !== false && totalMediaCount > maximumMediaItemsCount) {
       $minimumCountError.html(jsBackend.locale.err('MaximumConnectedItems').replace('{{ limit }}', maximumMediaItemsCount)).removeClass('d-none')
-      $submitButton.addClass('disabled').attr('disabled', true)
+      $submitButton.addClass('disabled').prop('disabled', true)
 
       return
     }
 
     if (minimumMediaItemsCount !== false && totalMediaCount < minimumMediaItemsCount) {
       $minimumCountError.html(jsBackend.locale.err('MinimumConnectedItems').replace('{{ limit }}', minimumMediaItemsCount)).removeClass('d-none')
-      $submitButton.addClass('disabled').attr('disabled', true)
+      $submitButton.addClass('disabled').prop('disabled', true)
 
       return
     }
 
     $minimumCountError.html('').addClass('d-none')
-    $submitButton.removeClass('disabled').attr('disabled', false)
+    $submitButton.removeClass('disabled').prop('disabled', false)
   }
 }
 
@@ -1167,13 +1167,16 @@ jsBackend.mediaLibraryHelper.upload = {
 
     if (currentAspectRatio === false) {
       $warning.addClass('d-none')
-      $checkbox.removeClass('disabled').attr('disabled', false).attr('checked', false)
+
+      // only undo the check this function forced on, init() also runs when the user toggles the checkbox
+      if ($checkbox.prop('disabled')) $checkbox.prop('checked', false)
+      $checkbox.removeClass('disabled').prop('disabled', false)
 
       return
     }
 
     $warning.removeClass('d-none')
-    $checkbox.addClass('disabled').attr('disabled', true).attr('checked', true)
+    $checkbox.addClass('disabled').prop('disabled', true).prop('checked', true)
   },
 
   init: function () {
@@ -1409,11 +1412,11 @@ jsBackend.mediaLibraryHelper.upload = {
     // movies not allowed
     if (!moviesAllowed) {
       // select first item (which is all, so we can upload regular media)
-      $uploadingType.find(':first-child').attr('checked', 'checked')
+      $uploadingType.find(':first-child').prop('checked', true)
     } else {
       if (groupType === 'movie') {
         // select first item (which is all, so we can upload regular media)
-        $uploadingType.eq(1).attr('checked', 'checked')
+        $uploadingType.eq(1).prop('checked', true)
       } else {
         showMediaTypeBox = true
       }
