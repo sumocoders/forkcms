@@ -106,7 +106,7 @@ jsBackend.mediaLibrary.library = {
     // When mass action button is clicked
     $('.jsMassActionSubmit').on('click', function () {
       // We remember the current type (image, file, movie, audio, ...)
-      jsBackend.mediaLibrary.library.currentType = $(this).parent().find('select[name=action]').attr('id').replace('mass-action-', '')
+      jsBackend.mediaLibrary.library.currentType = $(this).closest('.jsMassAction').find('select[name=action]').attr('id').replace('mass-action-', '')
     })
 
     // Submit form
@@ -124,127 +124,64 @@ jsBackend.mediaLibrary.library = {
 /**
  * All methods related to the tree
  * global jsBackend
- * global utils
  */
 jsBackend.mediaLibrary.tree = {
-  pageID: null,
   // init, something like a constructor
   init: function () {
-    var $treeHolder = $('#tree div')
+    var $tree = $('#tree > div')
 
-    if ($treeHolder.length === 0) {
+    if ($tree.length === 0) {
       return false
     }
 
-    // add "treeHidden"-class on leafs that are hidden, only for browsers that don't support opacity
-    if (!jQuery.support.opacity) {
-      $('#tree ul li[rel="hidden"]').addClass('treeHidden')
-    }
+    $tree
+      .on('state_ready.jstree', function (e, data) {
+        var openedFolderId = jsBackend.data.get('MediaLibrary.openedFolderId')
 
-    // set the item selected
-    if (jsBackend.data.get('MediaLibrary.openedFolderId')) {
-      $('#folder-' + jsBackend.data.get('MediaLibrary.openedFolderId')).addClass('selected')
-      jsBackend.mediaLibrary.tree.pageID = jsBackend.data.get('MediaLibrary.openedFolderId')
-    }
-
-    var openedIds = []
-    if (typeof jsBackend.mediaLibrary.tree.pageID !== 'undefined') {
-      // get parents
-      var parents = $('#folder-' + jsBackend.mediaLibrary.tree.pageID).parents('li')
-
-      // init var
-      openedIds = ['folder-' + jsBackend.mediaLibrary.tree.pageID]
-
-      // add parents
-      for (var i = 0; i < parents.length; i++) {
-        openedIds.push($(parents[i]).prop('id'))
-      }
-    }
-
-    // add home if needed
-    if (!utils.array.inArray('folder-1', openedIds)) {
-      openedIds.push('folder-1')
-    }
-
-    var options = {
-      ui: {theme_name: 'fork'},
-      opened: openedIds,
-      rules: {
-        multiple: false,
-        multitree: 'all',
-        drag_copy: false
-      },
-      lang: {loading: utils.string.ucfirst(jsBackend.locale.lbl('Loading'))},
-      callback: {
-        beforemove: jsBackend.mediaLibrary.tree.beforeMove,
-        onselect: jsBackend.mediaLibrary.tree.onSelect,
-        onmove: jsBackend.mediaLibrary.tree.onMove
-      },
-      plugins: {
-        cookie: {prefix: 'jstree_', types: {selected: false}, options: {path: '/', secure: window.location.protocol === 'https:'}}
-      }
-    }
-
-    // create tree
-    $treeHolder.tree(options)
-
-    // layout fix for the tree
-    $('.tree li.open').each(function () {
-      // if the so-called open-element doesn't have any childs we should replace the open-class.
-      if ($(this).find('ul').length === 0) {
-        $(this).removeClass('open').addClass('leaf')
-      }
-    })
-
-    jsBackend.mediaLibrary.tree.toggleJsTreeCollapse()
-  },
-
-  // before an item will be moved we have to do some checks
-  beforeMove: function (node, refNode, type, tree) {
-    // get pageID that has to be moved
-    var currentPageID = $(node).prop('id').replace('folder-', '')
-
-    // init var
-    var result = false
-
-    // make the call
-    $.ajax({
-      async: false, // important that this isn't asynchronous
-      data: {
-        fork: {action: 'MediaFolderInfo'},
-        id: currentPageID
-      },
-      error: function (XMLHttpRequest, textStatus, errorThrown) {
-        if (jsBackend.debug) {
-          window.alert(textStatus)
+        if (openedFolderId) {
+          data.instance.select_node('folder-' + openedFolderId, true)
         }
-        result = false
-      },
-      success: function (json, textStatus) {
-        if (json.code !== 200) {
-          if (jsBackend.debug) {
-            window.alert(textStatus)
-          }
-          result = false
-
-          return
+      })
+      // activate_node fires on every click, select_node not when the folder of the current page is clicked
+      .on('activate_node.jstree', jsBackend.mediaLibrary.tree.onSelect)
+      .on('move_node.jstree', jsBackend.mediaLibrary.tree.onMove)
+      .jstree({
+        core: {
+          multiple: false,
+          // folders have no move restrictions, only allow moving them by drag and drop
+          check_callback: function (operation) {
+            return operation === 'move_node'
+          },
+          themes: {dots: true}
+        },
+        plugins: ['dnd', 'state', 'types'],
+        dnd: {
+          copy: false,
+          is_draggable: jsBackend.tree.isDraggable
+        },
+        state: {
+          key: 'fork_media_folders',
+          filter: jsBackend.tree.filterState
+        },
+        types: {
+          default: {icon: 'fa-regular fa-folder'},
+          folder: {icon: 'fa-regular fa-folder'}
         }
+      })
 
-        if (json.data.allow_move) {
-          result = true
-        }
-      }
-    })
-
-    // return
-    return result
+    jsBackend.tree.toggleCollapse($tree)
   },
 
   // when an item is selected
-  onSelect: function (node, tree) {
+  onSelect: function (e, data) {
+    // only a click redirects, not the selection on page load
+    if (!data.event) {
+      return
+    }
+
     // get current and new URL
     var currentPageURL = window.location.pathname + window.location.search
-    var newPageURL = $(node).find('a').prop('href')
+    var newPageURL = data.node.a_attr.href
 
     // only redirect if destination isn't the current one.
     if (typeof newPageURL !== 'undefined' && newPageURL !== currentPageURL) {
@@ -253,70 +190,32 @@ jsBackend.mediaLibrary.tree = {
   },
 
   // when an item is moved
-  onMove: function (node, refNode, type, tree, rollback) {
-    // get the tree
-    tree = tree.container.data('tree')
+  onMove: function (e, data) {
+    if (jsBackend.tree.isRollingBack) {
+      return
+    }
 
-    // get pageID that has to be moved
-    var currentPageID = $(node).prop('id').replace('folder-', '')
-
-    // get pageID wheron the page has been dropped
-    var droppedOnPageID = jsBackend.mediaLibrary.tree.getDroppedOnPageID(refNode)
+    // folders have no sequence, MediaFolderMove only uses the new parent
+    var drop = jsBackend.tree.getDrop(data)
 
     // make the call
     $.ajax({
       data: {
         fork: {action: 'MediaFolderMove'},
-        id: currentPageID,
-        dropped_on: droppedOnPageID,
-        type: type,
-        tree: tree
+        id: data.node.li_attr['data-id'],
+        dropped_on: drop.droppedOn,
+        type: drop.type
       },
-      success: function (json, textStatus) {
-        if (json.code === 200) {
-          // show message
-          jsBackend.messages.add('success', json.message)
-
-          return
-        }
-
-        if (jsBackend.debug) {
-          window.alert(textStatus)
-        }
-
+      success: function (json) {
+        // show message
+        jsBackend.messages.add('success', json.message)
+      },
+      error: function () {
         // show message
         jsBackend.messages.add('danger', jsBackend.locale.err('CantBeMoved'))
 
-        // rollback
-        $.tree.rollback(rollback)
+        jsBackend.tree.rollback(data)
       }
-    })
-  },
-
-  getDroppedOnPageID: function (refNode) {
-    if (typeof refNode === 'undefined') {
-      return 0
-    }
-
-    return $(refNode).prop('id').replace('folder-', '')
-  },
-
-  toggleJsTreeCollapse: function () {
-    $('[data-role="toggle-js-tree-collapse"]').on('click', function () {
-      var $this = $(this)
-      $this.toggleClass('tree-collapsed')
-      var collapsed = $this.hasClass('tree-collapsed')
-      var $buttonText = $('[data-role="toggle-js-tree-collapse-text"]')
-
-      if (collapsed) {
-        $buttonText.text(jsBackend.locale.lbl('OpenTreeNavigation'))
-        $.tree.reference('#tree div').close_all()
-
-        return
-      }
-
-      $buttonText.text(jsBackend.locale.lbl('CloseTreeNavigation'))
-      $.tree.reference('#tree div').open_all()
     })
   }
 }

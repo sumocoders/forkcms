@@ -5,14 +5,46 @@
     form {
       width: 100%;
     }
-
-    .twitter-typeahead {
-      flex-grow: 1;
-    }
   }
 
   .dropdown-menu.dropdown-search {
     width: 80vw;
     right: -100%;
   }
+}
+
+// the navbar field is narrow, give its suggestions room and align them with the right edge of the search button:
+// position them against the input-group instead of the field
+.search-widget .input-group > .ts-wrapper {
+  position: static;
+}
+
+.search-widget .ts-dropdown {
+  right: 0;
+  left: auto;
+  width: auto;
+  min-width: 20rem;
+  max-width: calc(100vw - 2rem);
+}
+
+// on mobile the widget sits in the search dropdown menu: show the suggestions under that menu, just as wide
+.dropdown-search .search-widget {
+  .input-group {
+    position: static;
+  }
+
+  .ts-dropdown {
+    right: 0;
+    left: 0;
+    min-width: 0;
+    max-width: none;
+  }
+}
+
+// keep the results page field next to its button, as wide as the plain text input
+#searchIndex .ts-wrapper {
+  display: inline-flex;
+  min-width: 12.5rem;
+  vertical-align: middle;
+  width: auto;
 }

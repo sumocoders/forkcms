@@ -124,7 +124,7 @@ jsBackend.mediaLibraryFolders = {
           if (selectFolderId) {
             $('#uploadMediaFolderId').val(selectFolderId)
           } else {
-            $('#uploadMediaFolderId option:eq(0)').attr('selected', 'selected')
+            $('#uploadMediaFolderId option:eq(0)').prop('selected', true)
           }
 
           // update boxes

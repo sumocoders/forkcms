@@ -32,6 +32,8 @@ class Autocomplete extends FrontendBaseAJAXAction
             array_map(
                 function (array $match) use ($url) {
                     $match['url'] = $url . '?form=search&q=' . $match['term'];
+                    // the terms are saved with htmlspecialchars, the suggestion shows them as plain text
+                    $match['term'] = htmlspecialchars_decode($match['term']);
 
                     return $match;
                 },

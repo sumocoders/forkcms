@@ -440,7 +440,7 @@ jsBackend.FormBuilder.Fields = {
                   $('#textboxSendConfirmationMailTo').prop('checked', true)
                 }
                 $('#textboxConfirmationMailSubject').val(utils.string.htmlDecode(data.data.field.settings.confirmation_mail_subject))
-                $('#textboxConfirmationMailMessage').val(data.data.field.settings.confirmation_mail_message)
+                jsBackend.ckeditor.setData($('#textboxConfirmationMailMessage'), data.data.field.settings.confirmation_mail_message)
                 $.each(
                   data.data.field.validations,
                   function (k, v) {
@@ -633,7 +633,7 @@ jsBackend.FormBuilder.Fields = {
                 // paragraph edit
                 // fill in form
                 $('#paragraphId').val(data.data.field.id)
-                $('#paragraph').val(data.data.field.settings.values)
+                jsBackend.ckeditor.setData($('#paragraph'), data.data.field.settings.values)
 
                 // show dialog
                 $('#paragraphDialog').modal('show')
@@ -756,7 +756,11 @@ jsBackend.FormBuilder.Fields = {
    */
   resetDialog: function (id) {
     // clear all form fields
-    $('#' + id).find(':input').removeAttr('checked').removeAttr('selected').val('')
+    // removeAttr('checked') only drops the attribute, a box the user ticked would stay ticked
+    $('#' + id).find(':input').prop('checked', false).val('')
+    $('#' + id).find('textarea').each(function () {
+      jsBackend.ckeditor.setData(this, '')
+    })
 
     // bind validation
     jsBackend.FormBuilder.Fields.handleValidation('#' + id + ' .jsValidation')
@@ -1056,7 +1060,7 @@ jsBackend.FormBuilder.Fields = {
     // init vars
     var fieldId = $('#paragraphId').val()
     var type = 'paragraph'
-    var value = $('#paragraph').val()
+    var value = jsBackend.ckeditor.getData($('#paragraph'))
 
     // make the call
     $.ajax({
@@ -1350,7 +1354,7 @@ jsBackend.FormBuilder.Fields = {
     var replyTo = $('#textboxReplyTo').is(':checked')
     var sendConfirmationMailTo = $('#textboxSendConfirmationMailTo').is(':checked')
     var confirmationMailSubject = $('#textboxConfirmationMailSubject').val()
-    var confirmationMailMessage = $('#textboxConfirmationMailMessage').val()
+    var confirmationMailMessage = jsBackend.ckeditor.getData($('#textboxConfirmationMailMessage'))
     var required = $('#textboxRequired').is(':checked')
     var requiredErrorMessage = $('#textboxRequiredErrorMessage').val()
     var validation = $('#textboxValidation').val()

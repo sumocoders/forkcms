@@ -100,9 +100,9 @@ jsBackend.location = {
     jsBackend.location.height = parseInt($('#height').val())
     jsBackend.location.width = parseInt($('#width').val())
 
-    jsBackend.location.showDirections = ($('#directions').attr('checked') === 'checked')
-    jsBackend.location.showLink = ($('#fullUrl').attr('checked') === 'checked')
-    jsBackend.location.showOverview = ($('#markerOverview').attr('checked') === 'checked')
+    jsBackend.location.showDirections = $('#directions').is(':checked')
+    jsBackend.location.showLink = $('#fullUrl').is(':checked')
+    jsBackend.location.showOverview = $('#markerOverview').is(':checked')
   },
 
   /**
@@ -112,7 +112,7 @@ jsBackend.location = {
     // panorama is now invisible
     if (!jsBackend.location.panorama.getVisible()) {
       // select default map type
-      $('#mapType option:first-child').attr('selected', 'selected')
+      $('#mapType option:first-child').prop('selected', true)
 
       // set map terrain
       jsBackend.location.setMapTerrain()

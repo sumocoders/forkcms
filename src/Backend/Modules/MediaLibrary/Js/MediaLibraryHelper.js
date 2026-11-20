@@ -163,7 +163,7 @@ jsBackend.mediaLibraryHelper.group = {
 
       // get current media for group
       currentMediaItemIds = ($('#group-' + currentMediaGroupId + ' .mediaIds').first().val() !== '')
-        ? $.trim($('#group-' + currentMediaGroupId + ' .mediaIds').first().val()).split(',') : []
+        ? ($('#group-' + currentMediaGroupId + ' .mediaIds').first().val() || '').trim().split(',') : []
 
       // set the group media
       mediaGroups[currentMediaGroupId].media = currentMediaItemIds
@@ -326,7 +326,7 @@ jsBackend.mediaLibraryHelper.group = {
     currentMediaGroupId = groupId
 
     // current ids
-    var currentIds = $.trim($('#group-' + currentMediaGroupId + ' .mediaIds').first().val()).split(',')
+    var currentIds = ($('#group-' + currentMediaGroupId + ' .mediaIds').first().val() || '').trim().split(',')
 
     // remove from array
     currentIds = jQuery.grep(currentIds, function (value) {
@@ -480,7 +480,7 @@ jsBackend.mediaLibraryHelper.group = {
       var type = $('#group-' + mediaGroupId + ' .type').first().val()
       // get current media for group
       var mediaIds = ($('#group-' + mediaGroupId + ' .mediaIds').length > 0 && $('#group-' + mediaGroupId + ' .mediaIds').first().val() !== '')
-        ? $.trim($('#group-' + mediaGroupId + ' .mediaIds').first().val()).split(',') : []
+        ? ($('#group-' + mediaGroupId + ' .mediaIds').first().val() || '').trim().split(',') : []
 
       // Push ids to array
       mediaGroups[mediaGroupId] = {
@@ -652,7 +652,7 @@ jsBackend.mediaLibraryHelper.group = {
 
     // current ids
     var currentIds = ($('#group-' + currentMediaGroupId + ' .mediaIds').first().val() !== '')
-      ? $.trim($('#group-' + currentMediaGroupId + ' .mediaIds').first().val()).split(',') : []
+      ? ($('#group-' + currentMediaGroupId + ' .mediaIds').first().val() || '').trim().split(',') : []
 
     // define empty
     var empty = (currentMediaItemIds.length === 0)
@@ -831,20 +831,20 @@ jsBackend.mediaLibraryHelper.group = {
 
     if (maximumMediaItemsCount !== false && totalMediaCount > maximumMediaItemsCount) {
       $minimumCountError.html(jsBackend.locale.err('MaximumConnectedItems').replace('{{ limit }}', maximumMediaItemsCount)).removeClass('d-none')
-      $submitButton.addClass('disabled').attr('disabled', true)
+      $submitButton.addClass('disabled').prop('disabled', true)
 
       return
     }
 
     if (minimumMediaItemsCount !== false && totalMediaCount < minimumMediaItemsCount) {
       $minimumCountError.html(jsBackend.locale.err('MinimumConnectedItems').replace('{{ limit }}', minimumMediaItemsCount)).removeClass('d-none')
-      $submitButton.addClass('disabled').attr('disabled', true)
+      $submitButton.addClass('disabled').prop('disabled', true)
 
       return
     }
 
     $minimumCountError.html('').addClass('d-none')
-    $submitButton.removeClass('disabled').attr('disabled', false)
+    $submitButton.removeClass('disabled').prop('disabled', false)
   }
 }
 
@@ -1167,13 +1167,16 @@ jsBackend.mediaLibraryHelper.upload = {
 
     if (currentAspectRatio === false) {
       $warning.addClass('d-none')
-      $checkbox.removeClass('disabled').attr('disabled', false).attr('checked', false)
+
+      // only undo the check this function forced on, init() also runs when the user toggles the checkbox
+      if ($checkbox.prop('disabled')) $checkbox.prop('checked', false)
+      $checkbox.removeClass('disabled').prop('disabled', false)
 
       return
     }
 
     $warning.removeClass('d-none')
-    $checkbox.addClass('disabled').attr('disabled', true).attr('checked', true)
+    $checkbox.addClass('disabled').prop('disabled', true).prop('checked', true)
   },
 
   init: function () {
@@ -1184,13 +1187,10 @@ jsBackend.mediaLibraryHelper.upload = {
     jsBackend.mediaLibraryHelper.upload.toggleCropper()
 
     var $fineUploaderGallery = $('#fine-uploader-gallery')
-    $fineUploaderGallery.fineUploader({
+    // eslint-disable-next-line no-new
+    new qq.FineUploader({
+      element: $fineUploaderGallery[0],
       template: 'qq-template-gallery',
-      options: {
-        request: {
-          omitDefaultParams: true
-        }
-      },
       chunking: {
         enabled: true,
         success: {
@@ -1409,11 +1409,11 @@ jsBackend.mediaLibraryHelper.upload = {
     // movies not allowed
     if (!moviesAllowed) {
       // select first item (which is all, so we can upload regular media)
-      $uploadingType.find(':first-child').attr('checked', 'checked')
+      $uploadingType.eq(0).prop('checked', true)
     } else {
       if (groupType === 'movie') {
         // select first item (which is all, so we can upload regular media)
-        $uploadingType.eq(1).attr('checked', 'checked')
+        $uploadingType.eq(1).prop('checked', true)
       } else {
         showMediaTypeBox = true
       }

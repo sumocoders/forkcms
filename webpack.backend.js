@@ -34,7 +34,6 @@ const ckeditorPlugins = [
 ]
 
 const ckeditorFiles = [
-  'adapters/*.js',
   'lang/*.js',
   // a glob keeps the plugins/ folder, a plain file path would be copied flat
   'plugins/icons{,_hidpi}.png',
@@ -81,26 +80,29 @@ module.exports = {
           'cropperjs/dist/cropper.min.css'
         ], 'css/vendors'),
         ...copyVendorFiles([
-          'fine-uploader/jquery.fine-uploader/fine-uploader-new.min.css',
-          'fine-uploader/jquery.fine-uploader/*.gif',
-          'fine-uploader/jquery.fine-uploader/placeholders/waiting-generic.png',
-          'fine-uploader/jquery.fine-uploader/placeholders/not_available-generic.png'
+          'fine-uploader/fine-uploader/fine-uploader-new.min.css',
+          'fine-uploader/fine-uploader/*.gif',
+          'fine-uploader/fine-uploader/placeholders/waiting-generic.png',
+          'fine-uploader/fine-uploader/placeholders/not_available-generic.png'
         ], 'css/vendors/fine-uploader'),
         ...copyVendorFiles([
           'photoswipe/dist/photoswipe.css',
           'photoswipe/dist/default-skin/*.{css,png,svg,gif}'
         ], 'css/vendors/photoswipe'),
         ...copyVendorFiles([
+          'jstree/dist/themes/default/{style.min.css,32px.png,40px.png,throbber.gif}'
+        ], 'css/vendors/jstree'),
+        ...copyVendorFiles([
           '@fortawesome/fontawesome-free/webfonts/fa-solid-900.{woff2,ttf}',
           '@fortawesome/fontawesome-free/webfonts/fa-regular-400.{woff2,ttf}'
         ], 'fonts/vendors'),
         ...copyVendorFiles([
           'jquery/dist/jquery.min.js',
-          'jquery-migrate/dist/jquery-migrate.min.js',
           'jquery-ui/dist/jquery-ui.min.js',
+          'jstree/dist/jstree.min.js',
           'bootstrap5/dist/js/bootstrap.bundle.min.js',
           'tom-select/dist/js/tom-select.complete.min.js',
-          'fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js',
+          'fine-uploader/fine-uploader/fine-uploader.min.js',
           'simple-ajax-uploader/SimpleAjaxUploader.min.js',
           'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
           'cropperjs/dist/cropper.min.js',

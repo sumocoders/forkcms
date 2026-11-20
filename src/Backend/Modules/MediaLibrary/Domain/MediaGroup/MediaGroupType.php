@@ -204,7 +204,7 @@ class MediaGroupType extends AbstractType
         // Add "fine-uploader" css/js
         $header->addCSS('/css/vendors/fine-uploader/fine-uploader-new.min.css', null, true);
         $header->addCSS('/css/vendors/cropper.min.css', null, true);
-        $header->addJS('/js/vendors/jquery.fine-uploader.min.js', null, true);
+        $header->addJS('/js/vendors/fine-uploader.min.js', null, true);
         $header->addJS('/js/vendors/cropper.min.js', null, true);
 
         $header->addCSS('MediaLibrary.css', 'MediaLibrary');

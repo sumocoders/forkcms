@@ -51,6 +51,12 @@ class Move extends BackendBaseAJAXAction
             return;
         }
 
+        if (!(BackendPagesModel::get($id)['allow_move'] ?? false)) {
+            $this->output(Response::HTTP_BAD_REQUEST, null, 'page is not allowed to move');
+
+            return;
+        }
+
         // get page
         $success = BackendPagesModel::move($id, $droppedOn, $typeOfDrop, $tree);
 

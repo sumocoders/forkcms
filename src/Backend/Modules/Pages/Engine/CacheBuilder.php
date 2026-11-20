@@ -148,7 +148,9 @@ class CacheBuilder
             'hidden' => (bool) $page['hidden'],
             'extra_blocks' => null,
             'has_children' => (bool) $page['has_children'],
-            'allow_children' => (bool) $page['allow_children'],
+            'allow_move' => (bool) $page['allow_move'] && !Model::isForbiddenToMove((int) $page['id']),
+            'allow_children' => (bool) $page['allow_children']
+                && !Model::isForbiddenToHaveChildren((int) $page['id']),
             'data' => $page['data'],
         ];
 

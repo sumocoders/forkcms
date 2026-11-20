@@ -111,7 +111,7 @@ var jsBackend =
           var textStatus = jsBackend.locale.err('SomethingWentWrong')
 
           // get real message
-          if (typeof XMLHttpRequest.responseText !== 'undefined') textStatus = $.parseJSON(XMLHttpRequest.responseText).message
+          if (typeof XMLHttpRequest.responseText !== 'undefined') textStatus = JSON.parse(XMLHttpRequest.responseText).message
 
           // show message
           jsBackend.messages.add('danger', textStatus)
@@ -418,10 +418,9 @@ jsBackend.ckeditor = {
   loadEditorsInCollections: function () {
     $('[data-addfield=collection]').on('collection-field-added', function (event, formCollectionItem) {
       jsBackend.ckeditor.prepare()
-      $(formCollectionItem).find('textarea.inputEditor, textarea.inputEditorError').ckeditor(
-        jsBackend.ckeditor.callback,
-        $.extend({}, jsBackend.ckeditor.defaultConfig)
-      )
+      $(formCollectionItem).find('textarea.inputEditor, textarea.inputEditorError').each(function () {
+        jsBackend.ckeditor.replace(this)
+      })
     })
   },
 
@@ -457,11 +456,46 @@ jsBackend.ckeditor = {
   },
 
   load: function () {
-    // extend the editor config
-    var editorConfig = $.extend({}, jsBackend.ckeditor.defaultConfig)
-
     // bind on inputEditor and inputEditorError
-    $('textarea.inputEditor, textarea.inputEditorError').ckeditor(jsBackend.ckeditor.callback, editorConfig)
+    $('textarea.inputEditor, textarea.inputEditorError').each(function () {
+      jsBackend.ckeditor.replace(this)
+    })
+  },
+
+  // replace a textarea with an editor, unless it already has one
+  replace: function (element) {
+    if (jsBackend.ckeditor.getEditor(element)) return
+
+    CKEDITOR.replace(element, $.extend({}, jsBackend.ckeditor.defaultConfig))
+  },
+
+  // the editor that replaced this textarea, or null
+  getEditor: function (element) {
+    var $element = $(element)
+
+    if (typeof CKEDITOR === 'undefined' || $element.length === 0) return null
+
+    return CKEDITOR.dom.element.get($element[0]).getEditor()
+  },
+
+  // read the content of a textarea, from its editor when it has one
+  getData: function (element) {
+    var editor = jsBackend.ckeditor.getEditor(element)
+
+    return editor ? editor.getData() : $(element).val()
+  },
+
+  // set the content of a textarea, through its editor when it has one
+  setData: function (element, data) {
+    var editor = jsBackend.ckeditor.getEditor(element)
+
+    if (editor) {
+      editor.setData(data)
+
+      return
+    }
+
+    $(element).val(data)
   },
 
   callback: function () {
@@ -1466,6 +1500,15 @@ jsBackend.forms = {
       // initialize
       var $this = $(this)
 
+      // the textarea behind an editor only gets the content on submit, ask the editor instead
+      var editor = jsBackend.ckeditor.getEditor(this)
+      if (editor) {
+        changed = editor.checkDirty()
+
+        // stop looking when it changed
+        return !changed
+      }
+
       // compare values
       if ($this.data('initial-value') !== $this.val()) {
         if (typeof $this.data('initial-value') === 'undefined' && $this.val() === '') {
@@ -1502,7 +1545,6 @@ jsBackend.layout = {
       $(this).parent().removeClass('hover')
     })
 
-    jsBackend.layout.showBrowserWarning()
     jsBackend.layout.dataGrid()
 
     if ($('.dataFilter').length > 0) jsBackend.layout.dataFilter()
@@ -1532,59 +1574,9 @@ jsBackend.layout = {
 
   // data grid layout
   dataGrid: function () {
-    if (jQuery.browser.msie) {
-      $('.jsDataGrid tr td:last-child').addClass('lastChild')
-      $('.jsDataGrid tr td:first-child').addClass('firstChild')
-    }
-
     // dynamic striping
     $('.dynamicStriping.jsDataGrid tr:nth-child(2n)').addClass('even')
     $('.dynamicStriping.jsDataGrid tr:nth-child(2n+1)').addClass('odd')
-  },
-
-  // if the browser isn't supported, show a warning
-  showBrowserWarning: function () {
-    var showWarning = false
-    var version = ''
-
-    // check firefox
-    if (jQuery.browser.mozilla) {
-      // get version
-      version = parseInt(jQuery.browser.version.substr(0, 3).replace(/\./g, ''))
-
-      // lower than 19?
-      if (version < 19) showWarning = true
-    }
-
-    // check opera
-    if (jQuery.browser.opera) {
-      // get version
-      version = parseInt(jQuery.browser.version.substr(0, 1))
-
-      // lower than 9?
-      if (version < 9) showWarning = true
-    }
-
-    // check safari, should be webkit when using 1.4
-    if (jQuery.browser.safari) {
-      // get version
-      version = parseInt(jQuery.browser.version.substr(0, 3))
-
-      // lower than 1.4?
-      if (version < 400) showWarning = true
-    }
-
-    // check IE
-    if (jQuery.browser.msie) {
-      // get version
-      version = parseInt(jQuery.browser.version.substr(0, 1))
-
-      // lower or equal than 6
-      if (version <= 6) showWarning = true
-    }
-
-    // show warning if needed
-    if (showWarning) $('#showBrowserWarning').show()
   }
 }
 
@@ -1782,6 +1774,77 @@ jsBackend.tabs = {
 }
 
 /**
+ * Shared helpers for the jstree 3 trees of the Pages and MediaLibrary modules
+ */
+jsBackend.tree = {
+  // true while a failed move is undone, so the undo doesn't trigger another move call
+  isRollingBack: false,
+
+  // dnd: an item can be dragged unless the markup forbids it
+  isDraggable: function (nodes) {
+    return nodes.every(function (node) {
+      return node.li_attr['data-allow-move'] !== 'false'
+    })
+  },
+
+  // state: remember the opened items, the selected item comes from the current page
+  filterState: function (state) {
+    delete state.core.selected
+
+    return state
+  },
+
+  // translate a move_node or copy_node event into the dropped_on and type of Fork's move actions
+  getDrop: function (data) {
+    var instance = data.instance
+    var siblings = instance.get_node(data.parent).children
+    var index = siblings.indexOf(data.node.id)
+    var getId = function (nodeId) {
+      return instance.get_node(nodeId).li_attr['data-id']
+    }
+
+    if (index > 0) return {droppedOn: getId(siblings[index - 1]), type: 'after'}
+
+    // a drop inside a parent lands on the first position
+    if (siblings.length > 1) return {droppedOn: getId(siblings[1]), type: 'before'}
+
+    return {droppedOn: data.parent === $.jstree.root ? 0 : getId(data.parent), type: 'inside'}
+  },
+
+  // move a node back after a failed move_node within the same tree
+  rollback: function (data) {
+    // jstree counts the position of a move within the same parent as if the node were still in place
+    var position = data.old_position
+    if (data.old_parent === data.parent && data.old_position > data.position) position++
+
+    jsBackend.tree.isRollingBack = true
+    data.instance.move_node(data.node, data.old_parent, position)
+    jsBackend.tree.isRollingBack = false
+  },
+
+  toggleCollapse: function ($trees) {
+    $('[data-role="toggle-js-tree-collapse"]').on('click', function () {
+      var $this = $(this)
+      $this.toggleClass('tree-collapsed')
+      var collapsed = $this.hasClass('tree-collapsed')
+      var $buttonText = $('[data-role="toggle-js-tree-collapse-text"]')
+
+      $buttonText.text(jsBackend.locale.lbl(collapsed ? 'OpenTreeNavigation' : 'CloseTreeNavigation'))
+      $trees.each(function () {
+        var instance = $.jstree.reference(this)
+        if (collapsed) {
+          instance.close_all()
+
+          return
+        }
+
+        instance.open_all()
+      })
+    })
+  }
+}
+
+/**
  * Apply tooltip
  */
 jsBackend.tooltip = {
@@ -1852,7 +1915,7 @@ jsBackend.tableSequenceByDragAndDrop = {
       extraParams = extraParams.replace(/'/g, '"')
 
       // we parse it as an object
-      extraParams = $.parseJSON(extraParams)
+      extraParams = JSON.parse(extraParams)
     }
 
     $rows.each(function () {
@@ -1887,7 +1950,7 @@ jsBackend.tableSequenceByDragAndDrop = {
 
         // get real message
         if (typeof XMLHttpRequest.responseText !== 'undefined') {
-          textStatus = $.parseJSON(XMLHttpRequest.responseText).message
+          textStatus = JSON.parse(XMLHttpRequest.responseText).message
         }
 
         jsBackend.messages.add('danger', textStatus)
