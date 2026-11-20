@@ -1699,13 +1699,14 @@ class Model
             [$droppedOnPageId, $language, 'active']
         );
 
-        $newSequence = $droppedOnPageSequence + ($typeOfDrop === self::TYPE_OF_DROP_BEFORE ? -1 : 1);
+        // before takes the place of the dropped on page, after takes the place right behind it
+        $newSequence = $droppedOnPageSequence + ($typeOfDrop === self::TYPE_OF_DROP_BEFORE ? 0 : 1);
 
-        // increment all pages with a sequence that is higher than the new sequence;
+        // make room by incrementing all pages from the new sequence on, so no sibling shares it
         $database->execute(
             'UPDATE pages
                  SET sequence = sequence + 1
-                 WHERE parent_id = ? AND language = ? AND sequence > ?',
+                 WHERE parent_id = ? AND language = ? AND sequence >= ?',
             [$newParent, $language, $newSequence]
         );
 
