@@ -62,7 +62,7 @@
       <div class="mb-4">
         <label for="title" class="form-label">{{ 'lbl.Title'|trans|ucfirst }}</label>
         {% form_field title %} {% form_field_error title %}
-        <a class="site-url" data-url="{{ SITE_URL }}{{ prefixURL }}/{{ item.url }}{% if appendRevision %}?page_revision={{ item.revision_id }}{% endif %}" href="{{ SITE_URL }}{{ prefixURL }}/{{ item.url }}{% if appendRevision %}?page_revision={{ item.revision_id }}{% endif %}">
+        <a class="site-url" target="_blank" rel="noopener" data-url="{{ SITE_URL }}{{ prefixURL }}/{{ item.url }}{% if appendRevision %}?page_revision={{ item.revision_id }}{% endif %}" href="{{ SITE_URL }}{{ prefixURL }}/{{ item.url }}{% if appendRevision %}?page_revision={{ item.revision_id }}{% endif %}">
           {{ SITE_URL }}{{ prefixURL }}/<span id="generatedUrl">{{ item.url }}</span>
         </a>
       </div>
