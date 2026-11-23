@@ -94,16 +94,16 @@ class CreatePrForOutdatedDependenciesCommand
      */
     private function runNpmUpdateCommands(array $packages): void
     {
-        $this->runCommand(
-            ['npm', 'update', '--ignore-scripts', '--no-audit'],
-            true,
-            true,
-        );
-
-        $this->runCommand(['git', 'add', 'package.json', 'package-lock.json']);
-
         $versionMessages = [];
         foreach ($packages as $name => $package) {
+            $this->runCommand(
+                ['npm', 'update', '--ignore-scripts', '--no-audit', explode(':', $name)[0]],
+                true,
+                true,
+            );
+
+            $this->runCommand(['git', 'add', 'package.json', 'package-lock.json']);
+
             $versionMessages[] = sprintf(
                 '  * %1$s (%2$s → %3$s)',
                 $name,
