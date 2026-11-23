@@ -1,10 +1,15 @@
 stages:
     - build
+    - scheduled tasks
     - code quality
     - dependency scanning
     - outdated packages
     - test
+    - deploy
 
+workflow:
+    auto_cancel:
+        on_new_commit: interruptible
 
 # Cache default configuration
 cache: &global_cache
@@ -55,6 +60,7 @@ Install dependencies and build assets:
         <<: *global_cache
         policy: pull-push
     stage: build
+    interruptible: true
     tags:
         - docker
 
@@ -69,6 +75,7 @@ PHP_CodeSniffer - check code styling:
         reports:
             junit: phpcs-report.json
     stage: code quality
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -93,6 +100,7 @@ PHPStan - check for bugs:
         reports:
             junit: phpstan-report.json
     stage: code quality
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -114,6 +122,7 @@ Twig-CS-Fixer - check code styling:
         reports:
             junit: twigcs-report.xml
     stage: code quality
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -133,6 +142,7 @@ Stylelint - check code styling:
         reports:
             codequality: stylelint-report.json
     stage: code quality
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -147,6 +157,7 @@ StandardJS - check code styling:
         reports:
             codequality: standardjs-report.json
     stage: code quality
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -159,6 +170,7 @@ NPM packages - check for vulnerabilities:
     script:
         - npm audit --production
     stage: dependency scanning
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -169,6 +181,7 @@ PHP packages - composer audit:
     script:
         - composer audit --ansi --no-interaction
     stage: dependency scanning
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -181,6 +194,7 @@ NPM packages - check for outdated packages:
     script:
         - npm outdated --production
     stage: outdated packages
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -191,6 +205,7 @@ PHP packages - composer outdated:
     script:
         - composer outdated --ansi --no-interaction
     stage: outdated packages
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
@@ -213,8 +228,99 @@ PHPUnit - Run unit tests:
         reports:
             junit: phpunit-unit-report.xml
     stage: test
+    interruptible: true
     needs: [ "Install dependencies and build assets" ]
     tags:
         - docker
     variables:
         <<: *mysql_configuration
+
+
+# Scheduled tasks section
+Task - Update dependencies:
+    image: sumocoders/fork-php85:latest
+    services:
+        - mysql:8.0
+    before_script:
+        - *before_script_test_configuration
+        - php bin/console --no-interaction cache:warmup --env=dev
+    script:
+        - git config --global user.email "bot@sumocoders.be"
+        - git config --global user.name "Sumo Bot"
+        - git config --global push.autoSetupRemote true
+        - git remote set-url origin "https://bot:${GITLAB_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
+        - php bin/console forkcms:maintenance:create-pr-for-outdated-dependencies --no-interaction --ansi
+    stage: scheduled tasks
+    needs: [ "Install dependencies and build assets" ]
+    rules:
+        - if: '$CI_PIPELINE_SOURCE =~ /schedule|web/'
+    tags:
+        - docker
+    variables:
+        <<: *mysql_configuration
+
+
+# Deploy section
+Deploy - to staging:
+    image: sumocoders/fork-php85:latest
+    services:
+        - mysql:8.0
+    before_script:
+        - *before_script_test_configuration
+        - php bin/console --no-interaction cache:warmup --env=dev
+        # Add the private SSH key to the CI environment
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        - mkdir -p ~/.ssh
+        - chmod 700 ~/.ssh
+        - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+    script:
+        - php bin/dep deploy stage=staging
+    environment:
+        name: staging
+        url: https://$project.$client.php85.sumocoders.eu
+    stage: deploy
+    interruptible: false
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "schedule"'
+          when: never
+        - if: '$CI_COMMIT_BRANCH == "staging"'
+    tags:
+        - docker
+    variables:
+        <<: *mysql_configuration
+        USER: "CI/CD gitlab-runner"
+
+Deploy - to production:
+    image: sumocoders/fork-php85:latest
+    services:
+        - mysql:8.0
+    before_script:
+        - *before_script_test_configuration
+        - php bin/console --no-interaction cache:warmup --env=dev
+        # Add the private SSH key to the CI environment
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        - mkdir -p ~/.ssh
+        - chmod 700 ~/.ssh
+        - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+    script:
+        - php bin/dep deploy stage=production
+    environment:
+        name: production
+        url: https://$productionUrl
+    stage: deploy
+    interruptible: false
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "schedule"'
+          when: never
+        - if: '$CI_COMMIT_BRANCH == "master" || $CI_COMMIT_BRANCH == "main"'
+    tags:
+        - docker
+    variables:
+        <<: *mysql_configuration
+        USER: "CI/CD gitlab-runner"
